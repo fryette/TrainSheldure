@@ -10,26 +10,25 @@ namespace TrainScheduleBelarus.Infrastructure
 {
     class TrainGrabber
     {
-        private static IEnumerable<Match> ParseTrainData(string data)
+        private IEnumerable<Match> ParseTrainData(string data)
         {
-            const string Pattern = "(?<city>&nbsp;&mdash; (.+?)</\\/?)|" +
-                                   "(?<trainDescription>train_description\">(.+?)<\\/?)|"+
+            string pattern = "(?<city>&nbsp;&mdash; (.+?)</\\/?)|" +
+                                   "(?<trainDescription>train_description\">(.+?)<\\/?)|" +
                                    "(?<startTime>start-time\">([^<]*)<\\/?)|" +
                                    "(?<endTime>end-time\">(.+?)<\\/?)|" +
                                    "(?<totalTime>time-total\">(.+?)<\\/?)|" +
                                    "(?<trainNote><li class=\"train_note\">(.+?)<\\/?)|" +
                                    "(?<place>car_type=.?\">([^<]*)<\\/?)|" +
                                    "(?<trainPrice>\'price\':(.+?) /?)";
-            Regex rgx = new Regex(Pattern, RegexOptions.Singleline);
-            var match=rgx.Matches(data).Cast<Match>();
-            return match as Match[] ?? match.ToArray();
+            Regex rgx = new Regex(pattern, RegexOptions.Singleline);
+            var match = rgx.Matches(data).Cast<Match>();
+            return match;
         }
-
-        private static string GetUrl(string fromName, string toName,string date)
+        private string GetUrl(string fromName, string toName, string date)
         {
             return "http://rasp.rw.by/ru/route/?from=" + fromName + "&to=" + toName + "&date=" + date;
         }
-        private static string GetHtmlCode(string url)
+        private string GetHtmlCode(string url)
         {
             var httpClient = new HttpClient();
             var httpResponseMessage = httpClient.GetAsync(url).Result;
@@ -37,25 +36,28 @@ namespace TrainScheduleBelarus.Infrastructure
             StreamReader reader = new StreamReader(res, Encoding.UTF8);
             return reader.ReadToEnd();
         }
-
-        public static List<Train> GetTrainSchedure(string from, string to, string date)
+        private List<Train> GetAllTrains(string from, string to, IEnumerable<Match> match)
         {
-            var match = ParseTrainData(GetHtmlCode(GetUrl(from, to, date)));
-            int i = 1;
             String[] train = new String[10];
             train[9] = from;
             train[8] = to;
+            int i = 1;
             List<Train> trainList = new List<Train>();
-            foreach (var m in match.Skip(2)){
+            foreach (var m in match.Skip(2))
+            {
                 if (i == 9)
                 {
                     trainList.Add(new Train(train));
                     i = 1;
                 }
-                    train[i - 1] = m.Groups[i].Value;
-                    i++;
+                train[i - 1] = m.Groups[i].Value;
+                i++;
             }
             return trainList;
+        }
+        public List<Train> GetTrainSchedure(string from, string to, string date)
+        {
+            return GetAllTrains(from, to, ParseTrainData(GetHtmlCode(GetUrl(from, to, date))));
         }
     }
 }

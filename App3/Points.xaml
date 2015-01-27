@@ -25,16 +25,16 @@
                 <TextBlock Margin="51.167,29.167,244.167,0" TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top"/>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Margin="10,0">
-                <AutoSuggestBox x:Name="Suggestions" HorizontalAlignment="Left" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Top" Width="296" TextChanged="SuggestionsTextChanged" IsSuggestionListOpen="True" Text="Брест-Центральный"/>
+                <AutoSuggestBox x:Name="From" HorizontalAlignment="Left" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Top" Width="296" TextChanged="FromTextChanged" IsSuggestionListOpen="True" Text="Брест-Центральный"/>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Margin="10,0">
                 <TextBlock HorizontalAlignment="Left" Margin="50.167,0,0,0" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
             </Border>
             <Border BorderBrush="Black" BorderThickness="1" Margin="10,0">
-                <AutoSuggestBox x:Name="Suggestions1" HorizontalAlignment="Left" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Top" Width="296" TextChanged="SuggestionsTextChanged1" IsSuggestionListOpen="True" Text="Брест-Восточный"/>
+                <AutoSuggestBox x:Name="To" HorizontalAlignment="Left" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Top" Width="296" TextChanged="ToTextChanged" IsSuggestionListOpen="True" Text="Брест-Восточный"/>
             </Border>
             <Border  BorderBrush="Black" BorderThickness="1" Margin="10,0,230,0" Height="54">
-                <Button x:Name="Search" Content="Искать" HorizontalAlignment="Left" Margin="48.167,0,0,0" VerticalAlignment="Top" Click="Button_Click"/>
+                <Button x:Name="Search" Content="Искать" HorizontalAlignment="Left" Margin="48.167,0,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
             </Border>
         </StackPanel>
     </Grid>

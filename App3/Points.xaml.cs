@@ -9,8 +9,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
-
 namespace TrainScheduleBelarus
 {
     /// <summary>
@@ -1093,41 +1091,36 @@ namespace TrainScheduleBelarus
             return autoCompletions.GetEnumerator();
         }
 
-        private void SuggestionsTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void FromTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
                 return;
-            Suggestions.ItemsSource = null;
-            if (sender.Text.Length < 2)
-                return;
-            Suggestions.ItemsSource = SetSuggestions(sender.Text);
+            From.ItemsSource = AutoSuggestCity(sender.Text);
         }
 
-        private void SuggestionsTextChanged1(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        private void ToTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
             if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
                 return;
-            Suggestions1.ItemsSource = null;
-            if (sender.Text.Length < 2)
-                return;
-            Suggestions1.ItemsSource = SetSuggestions(sender.Text);
+            To.ItemsSource = AutoSuggestCity(sender.Text);
         }
 
-        private List<string> SetSuggestions(string input)
+        private List<string> AutoSuggestCity(string input)
         {
+            if (input.Length < 2) return null;
             return autoCompletions.Where(city => city.Contains(input)).ToList();
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!autoCompletions.Contains(Suggestions.Text) || !autoCompletions.Contains(Suggestions1.Text))
+            if (!autoCompletions.Contains(From.Text) || !autoCompletions.Contains(To.Text))
             {
                 MessageDialog messageDialog = new MessageDialog("Один или оба пункта не существует");
                 await messageDialog.ShowAsync();
                 return;
             }
             string date = GetDate();
-            var schedule = await GetTrainSchedure(Suggestions.Text, Suggestions1.Text, date);
+            var schedule = await GetTrainSchedure(From.Text, To.Text, date);
             try
             {
                 this.Frame.Navigate(typeof(Schedule), schedule);
@@ -1145,7 +1138,7 @@ namespace TrainScheduleBelarus
         private Task<List<Train>> GetTrainSchedure(string from, string to, string date)
         {
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date));
+            return Task.Run(() => new TrainGrabber().GetTrainSchedure(from, to, date));
         }
         private string GetDate()
         {
