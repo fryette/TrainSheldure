@@ -1,6 +1,6 @@
 using System;
 
-namespace App3
+namespace TrainScheduleBelarus.Infrastructure
 {
     public class Train
     {

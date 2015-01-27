@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using App3.Infrastructure;
+using TrainScheduleBelarus.Infrastructure;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
-namespace App3
+namespace TrainScheduleBelarus
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

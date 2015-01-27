@@ -5,10 +5,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Windows.Networking.NetworkOperators;
 
-namespace App3.Infrastructure
+namespace TrainScheduleBelarus.Infrastructure
 {
     class TrainGrabber
     {
@@ -43,7 +41,6 @@ namespace App3.Infrastructure
         public static List<Train> GetTrainSchedure(string from, string to, string date)
         {
             var match = ParseTrainData(GetHtmlCode(GetUrl(from, to, date)));
-            var matches = match as IList<Match> ?? match.ToList();
             int i = 1;
             String[] train = new String[10];
             train[9] = from;
