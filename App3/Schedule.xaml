@@ -8,26 +8,36 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid Background="#FFB07979">
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="Ближайший транспорт" FontSize="24" FontWeight="Bold"/>
         </StackPanel>
-        <Grid Margin="0,48,0,0">
-            <ListBox Name="TrainList" Margin="0,0,0,0">
+        <Grid Margin="0,48,0,0" Background="#FFA4A4A4">
+            <ListBox Name="TrainList" Margin="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Button Width="460" Height="120">
+                        <Button Width="Auto" Height="120">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Height="80" Width="400">
-                                    <Image Source="{Binding Type}" Width="80" Height="80"/>
+                                    <!--<Image Source="{Binding Type}" Width="80" Height="80"/>-->
                                     <StackPanel Orientation="Vertical" Height="80">
-                                        <StackPanel Orientation="Horizontal" Height="40">
-                                            <TextBlock Width="200" FontSize="22" Text="{Binding City}" Height="40"/>
+                                        <StackPanel Orientation="Horizontal" Height="20">
+                                            <TextBlock FontSize="12" Text="{Binding From}" Height="20" Foreground="#FF0068FF"/>
+                                            <TextBlock Text=" - " FontSize="12" Foreground="#FF0068FF"/>
+                                            <TextBlock FontSize="12" Text="{Binding City}" Height="20" Foreground="#FF0068FF"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Height="40">
-                                            <TextBlock Width="115" FontSize="22" Text="Стоимость:" Height="40"/>
-                                            <TextBlock Width="200" FontSize="22" Text="{Binding Price}" Height="407"/>
-                                            <TextBlock FontSize="22" Text=" руб."/>
+                                        <StackPanel Orientation="Horizontal" Height="20">
+                                            <TextBlock FontSize="12" Text="Отправление в:"/>
+                                            <TextBlock FontSize="12" Text="{Binding StartTime}" Foreground="#FFF90101"/>
+                                            <TextBlock FontSize="12" Text="Прибытия в:"/>
+                                            <TextBlock FontSize="12" Text="{Binding EndTime}" Foreground="#FFF90101"/>
+                                            <TextBlock FontSize="12" Text="В пути:"/>
+                                            <TextBlock FontSize="12" Text="{Binding TotalTime}" Foreground="#FFF90101"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="20">
+                                            <TextBlock Width="115" FontSize="12" Text="Стоимость:" Height="40"/>
+                                            <TextBlock Width="50" FontSize="12" Text="{Binding Price}" Height="407"/>
+                                            <TextBlock FontSize="12" Text=" руб."/>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>

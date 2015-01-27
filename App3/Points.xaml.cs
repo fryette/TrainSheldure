@@ -1138,7 +1138,7 @@ namespace TrainScheduleBelarus
         private Task<List<Train>> GetTrainSchedure(string from, string to, string date)
         {
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            return Task.Run(() => new TrainGrabber().GetTrainSchedure(from, to, date));
+            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date));
         }
         private string GetDate()
         {
