@@ -14,18 +14,20 @@ namespace TrainScheduleBelarus.Infrastructure
         public string Description { get; set; }
         public string TrainNote { get; set; }
         public string Place { get; set; }
+        public string Type { get; set; }
         public Train(String[] train)
         {
-            this.City = train[0];
-            this.TotalTime = train[4];
-            this.StartTime = train[2];
-            this.EndTime = train[3];
-            this.TrainNote = train[5];
-            this.Place = train[6];
-            this.Price = train[7];
-            this.Description = train[1];
-            this.To = train[8];
-            this.From = train[9];    
+            this.City = train[2];
+            this.Description = train[3];
+            //this.TotalTime = train[4];
+            this.StartTime = train[0];
+            this.EndTime = train[1];
+            this.Type = train[4];
+            //this.TrainNote = train[5];
+            //this.Place = train[6];
+            //this.Price = train[7];
+            //this.To = train[8];
+            //this.From = train[9];    
         }
     }
 }

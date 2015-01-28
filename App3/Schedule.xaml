@@ -13,31 +13,31 @@
             <TextBlock x:Name="ApplicationTitle" Text="Ближайший транспорт" FontSize="24" FontWeight="Bold"/>
         </StackPanel>
         <Grid Margin="0,48,0,0" Background="#FFA4A4A4">
-            <ListBox Name="TrainList" Margin="0,0,0,0" Background="{x:Null}" BorderBrush="{x:Null}">
+            <ListBox Name="TrainList" Background="{x:Null}" BorderBrush="{x:Null}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Button Width="Auto" Height="120">
+                        <Button Width="Auto" Height="80">
                             <Button.Content>
-                                <StackPanel Orientation="Horizontal" Height="80" Width="400">
-                                    <!--<Image Source="{Binding Type}" Width="80" Height="80"/>-->
-                                    <StackPanel Orientation="Vertical" Height="80">
-                                        <StackPanel Orientation="Horizontal" Height="20">
-                                            <TextBlock FontSize="12" Text="{Binding From}" Height="20" Foreground="#FF0068FF"/>
-                                            <TextBlock Text=" - " FontSize="12" Foreground="#FF0068FF"/>
-                                            <TextBlock FontSize="12" Text="{Binding City}" Height="20" Foreground="#FF0068FF"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Height="20">
-                                            <TextBlock FontSize="12" Text="Отправление в:"/>
-                                            <TextBlock FontSize="12" Text="{Binding StartTime}" Foreground="#FFF90101"/>
-                                            <TextBlock FontSize="12" Text="Прибытия в:"/>
-                                            <TextBlock FontSize="12" Text="{Binding EndTime}" Foreground="#FFF90101"/>
-                                            <TextBlock FontSize="12" Text="В пути:"/>
-                                            <TextBlock FontSize="12" Text="{Binding TotalTime}" Foreground="#FFF90101"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Height="20">
-                                            <TextBlock Width="115" FontSize="12" Text="Стоимость:" Height="40"/>
-                                            <TextBlock Width="50" FontSize="12" Text="{Binding Price}" Height="407"/>
-                                            <TextBlock FontSize="12" Text=" руб."/>
+                                <StackPanel Orientation="Horizontal" Width="400">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal" Height="80">
+                                                <TextBlock FontSize="12" Foreground="#FFF90101" Margin="0,0,5,0">
+                                                <Run Text="{Binding StartTime}" FontSize="16" FontWeight="Bold">
+                                                	<Run.Foreground>
+                                                		<SolidColorBrush Color="{ThemeResource PhoneForegroundColor}"/>
+                                                	</Run.Foreground>
+                                                </Run>
+                                                <LineBreak/>
+                                                <Run FontSize="12" Text="{Binding EndTime}" Foreground="#FFF95B01"/>
+                                                </TextBlock>
+                                                <Image Source="{Binding Type}" Width="12" Height="12" VerticalAlignment="Top"  Margin="0,4,0,0"/>
+                                                <TextBlock Margin="0,0,0,0">
+                                                <Run FontSize="12" Text="{Binding City}" Foreground="#FF2301F9"/>
+                                                <LineBreak/>
+                                                <Run FontSize="12" Text="{Binding Description}" Foreground="#FFF90101"/>
+                                                </TextBlock>
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
