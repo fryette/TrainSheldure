@@ -7,35 +7,70 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <Thickness x:Key="TextControlMarginThemeThickness">0,9.5,0,9.5</Thickness>
+        <Thickness x:Key="AutoSuggestListViewItemMargin">6.5,9.5,0,0</Thickness>
+        <x:Double x:Key="ContentControlFontSize">20.26</x:Double>
+        <Thickness x:Key="TextControlBorderThemeThickness">2.5</Thickness>
+        <Style x:Key="AutoSuggestBoxStyle1" TargetType="AutoSuggestBox">
+            <Setter Property="Margin" Value="{ThemeResource TextControlMarginThemeThickness}"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="IsTabStop" Value="False"/>
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Margin" Value="{ThemeResource AutoSuggestListViewItemMargin}"/>
+                        <Setter Property="FontSize" Value="{ThemeResource ContentControlFontSize}"/>
+                        <Setter Property="Foreground" Value="{ThemeResource TextBoxForegroundThemeBrush}"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="AutoSuggestBox">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="Orientation">
+                                    <VisualState x:Name="Landscape"/>
+                                    <VisualState x:Name="Portrait"/>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <TextBox x:Name="TextBox" ScrollViewer.BringIntoViewOnFocusChange="False" Header="{Binding Header, RelativeSource={RelativeSource Mode=TemplatedParent}}" Margin="0" PlaceholderText="{Binding PlaceholderText, RelativeSource={RelativeSource Mode=TemplatedParent}}" Width="{TemplateBinding Width}" Canvas.ZIndex="0" IsTextPredictionEnabled="False"/>
+                            <Popup x:Name="SuggestionsPopup">
+                                <Border x:Name="SuggestionsContainer" BorderBrush="{ThemeResource PhoneAccentBrush}" BorderThickness="{ThemeResource TextControlBorderThemeThickness}" Background="{ThemeResource AutoSuggestBackgroundThemeBrush}">
+                                    <Border.RenderTransform>
+                                        <TranslateTransform x:Name="UpwardTransform"/>
+                                    </Border.RenderTransform>
+                                    <ListView x:Name="SuggestionsList" ItemTemplate="{Binding ItemTemplate, RelativeSource={RelativeSource Mode=TemplatedParent}}" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource Mode=TemplatedParent}}" ItemContainerStyle="{Binding ItemContainerStyle, RelativeSource={RelativeSource Mode=TemplatedParent}}" ItemTemplateSelector="{Binding ItemTemplateSelector, RelativeSource={RelativeSource Mode=TemplatedParent}}" RenderTransformOrigin=".5,.5">
+                                        <ListView.RenderTransform>
+                                            <ScaleTransform x:Name="ListItemOrderTransform"/>
+                                        </ListView.RenderTransform>
+                                    </ListView>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
     <Grid>
+
         <ProgressBar x:Name="MyIndeterminateProbar" IsIndeterminate="True" Margin="0,0,21,637" Width="379" Visibility="Collapsed"/>
         <StackPanel>
-            <Border BorderBrush="AliceBlue"  BorderThickness="1" Height="68">
-                <TextBlock x:Name="textblock" TextWrapping="Wrap" LineHeight="11" FontSize="24" HorizontalAlignment="Center">
+        <TextBlock x:Name="textblock" TextWrapping="Wrap" LineHeight="11" FontSize="24" HorizontalAlignment="Center">
             		<Run Text="Выбор станций"/>
             		<LineBreak/>
             		<Run FontSize="13" Text="выберите станцию отправления и прибытия,а так же укажите дату отправления"/>
-                </TextBlock>
-            </Border>
-            <Border BorderThickness="1" Height="80" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="64,0,63,0">
-                <DatePicker Header="Time" x:Name="DatePicker" Margin="9.167,9.167,9.167,-0.833" VerticalAlignment="Center" HorizontalAlignment="Center" Width="253" Height="70"/>
-            </Border>
-            <Border BorderThickness="1" Height="68" Margin="10,0">
-                <TextBlock Margin="51.167,29.167,244.167,0" TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top"/>
-            </Border>
-            <Border BorderThickness="1" Margin="10,0">
-                <AutoSuggestBox x:Name="From" HorizontalAlignment="Left" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Top" Width="296" TextChanged="FromTextChanged" IsSuggestionListOpen="True" Text="Брест-Центральный" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}"/>
-            </Border>
-            <Border BorderThickness="1" Margin="10,0">
-                <TextBlock HorizontalAlignment="Left" Margin="50.167,0,0,0" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
-            </Border>
-            <Border BorderThickness="1" Margin="10,0">
-                <AutoSuggestBox x:Name="To" HorizontalAlignment="Left" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Top" Width="296" TextChanged="ToTextChanged" IsSuggestionListOpen="True" Text="Берёза-Город"/>
-            </Border>
-            <Border BorderThickness="1" Margin="10,0,230,0" Height="54">
-                <Button x:Name="Search" Content="Искать" HorizontalAlignment="Left" Margin="48.167,0,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
-            </Border>
+        </TextBlock>
+        </StackPanel>
+        <StackPanel Margin="0,61.167,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" ScrollViewer.VerticalScrollBarVisibility="Auto" UseLayoutRounding="False" Height="460.667">
+            <DatePicker Header="Time" x:Name="DatePicker" Margin="9.167,9.167,9.167,-0.833" VerticalAlignment="Center" HorizontalAlignment="Center" Width="253" Height="70"/>
+            <TextBlock Margin="51.167,29.167,244.167,0" TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top"/>
+            <AutoSuggestBox x:Name="From" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Stretch" Width="296" TextChanged="FromTextChanged" IsSuggestionListOpen="True" Text="Брест-Центральный" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Style="{StaticResource AutoSuggestBoxStyle1}" />
+            <TextBlock HorizontalAlignment="Left" Margin="50.167,0,0,0" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
+            <AutoSuggestBox x:Name="To" HorizontalAlignment="Center" Margin="50.167,0,0,0" ItemsSource="{Binding }" VerticalAlignment="Center" Width="296" TextChanged="ToTextChanged" IsSuggestionListOpen="True" Text="Берёза-Город" Style="{StaticResource AutoSuggestBoxStyle1}"/>
+            <Button x:Name="Search" Content="Искать" HorizontalAlignment="Left" Margin="48.167,0,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
         </StackPanel>
     </Grid>
 </Page>
