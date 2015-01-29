@@ -1,0 +1,57 @@
+﻿<Page
+    x:Class="TrainShedule_HubVersion.Schedule"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TrainShedule_HubVersion"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush Stretch="Fill" ImageSource="Assets/HubBackground.png"/>
+        </Grid.Background>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="Ближайший транспорт" FontSize="24" FontWeight="Bold"/>
+        </StackPanel>
+        <Grid Margin="0,48,0,0">
+            <ListView 
+                        AutomationProperties.AutomationId="ItemListViewSection4"
+                        AutomationProperties.Name="Items In Group"
+                        SelectionMode="None"
+                        IsItemClickEnabled="True"
+                        ItemsSource="{Binding Items}"
+                        ContinuumNavigationTransitionInfo.ExitElementContainer="True"
+                        Name="TrainList" Margin="5,0,0,0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Width="400">
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal" Height="80">
+                                        <TextBlock FontSize="12" Foreground="#FFF90101" Margin="0,0,5,0">
+                                                <Run Text="{Binding StartTime}" FontSize="16" FontWeight="Bold">
+                                                	<Run.Foreground>
+                                                		<SolidColorBrush Color="{ThemeResource PhoneForegroundColor}"/>
+                                                	</Run.Foreground>
+                                                </Run>
+                                                <LineBreak/>
+                                                <Run FontSize="14" Text="{Binding EndTime}" Foreground="#FFF95B01"  FontWeight="Bold"/>
+                                        </TextBlock>
+                                        <Image Source="{Binding Type}" Width="12" Height="12" VerticalAlignment="Top"  Margin="0,4,0,0"  />
+                                        <TextBlock Margin="0,0,0,0">
+                                                <Run FontSize="14" Text="{Binding City}" Foreground="White"  FontWeight="Bold"/>
+                                                <LineBreak/>
+                                                <Run FontSize="14" Text="{Binding Description}" Foreground="#FFFF5D00"  FontWeight="Bold"/>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>
