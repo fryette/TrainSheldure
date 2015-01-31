@@ -1,11 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using TrainShedule_HubVersion.Data;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
 namespace TrainShedule_HubVersion
 {
@@ -33,7 +29,7 @@ namespace TrainShedule_HubVersion
 
         void SetTrainSheldure(object sender, RoutedEventArgs e)
         {
-            TrainList.ItemsSource = _trainList.Where(x=>x.Status=="True");
+            TrainList.ItemsSource = _trainList;
         }
     }
 }

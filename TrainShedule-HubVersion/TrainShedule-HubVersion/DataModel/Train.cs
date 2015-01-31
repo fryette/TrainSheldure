@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace TrainShedule_HubVersion.Data
 {
@@ -17,20 +18,20 @@ namespace TrainShedule_HubVersion.Data
         public string Type { get; set; }
         public string Status { get; set; }
 
-        public Train(String[] train)
+        public Train(IList<string> train)
         {
-            this.City = train[2];
-            this.Description = train[3];
-            //this.TotalTime = train[4];
-            this.StartTime = train[0];
-            this.EndTime = train[1];
-            this.Type = train[4];
-            this.Status = train[5];
-            //this.TrainNote = train[5];
-            //this.Place = train[6];
-            //this.Price = train[7];
-            //this.To = train[8];
-            //this.From = train[9];    
+            City = train[2];
+            Description = train[3];
+            //TotalTime = train[4];
+            StartTime = train[0];
+            EndTime = train[1];
+            Type = train[4];
+            Status = train[5];
+            //TrainNote = train[5];
+            //Place = train[6];
+            //Price = train[7];
+            //To = train[8];
+            //From = train[9];    
         }
     }
 }

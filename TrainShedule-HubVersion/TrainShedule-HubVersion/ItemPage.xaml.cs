@@ -3,24 +3,11 @@ using TrainShedule_HubVersion.Common;
 using TrainShedule_HubVersion.Data;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Windows.Input;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Graphics.Display;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using System.Collections;
 using Windows.UI.Popups;
-
-// The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
 using TrainShedule_HubVersion.DataModel;
 
 namespace TrainShedule_HubVersion
@@ -28,26 +15,26 @@ namespace TrainShedule_HubVersion
     /// <summary>
     /// A page that displays details for a single item within a group.
     /// </summary>
-    public sealed partial class ItemPage : Page
+    public sealed partial class ItemPage
     {
-        private readonly NavigationHelper navigationHelper;
-        private readonly ObservableDictionary defaultViewModel = new ObservableDictionary();
+        private readonly NavigationHelper _navigationHelper;
+        private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
 
         public ItemPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.navigationHelper = new NavigationHelper(this);
-            this.navigationHelper.LoadState += this.NavigationHelper_LoadState;
-            this.navigationHelper.SaveState += this.NavigationHelper_SaveState;
-        } 
+            _navigationHelper = new NavigationHelper(this);
+            _navigationHelper.LoadState += NavigationHelper_LoadState;
+            _navigationHelper.SaveState += NavigationHelper_SaveState;
+        }
 
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
         public NavigationHelper NavigationHelper
         {
-            get { return this.navigationHelper; }
+            get { return _navigationHelper; }
         }
 
         /// <summary>
@@ -56,7 +43,7 @@ namespace TrainShedule_HubVersion
         /// </summary>
         public ObservableDictionary DefaultViewModel
         {
-            get { return this.defaultViewModel; }
+            get { return _defaultViewModel; }
         }
 
         /// <summary>
@@ -74,7 +61,7 @@ namespace TrainShedule_HubVersion
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var item = await SampleDataSource.GetItemAsync((string)e.NavigationParameter);
-            this.DefaultViewModel["Item"] = item;
+            DefaultViewModel["Item"] = item;
         }
 
         /// <summary>
@@ -91,32 +78,18 @@ namespace TrainShedule_HubVersion
         }
 
         #region NavigationHelper registration
-
-        /// <summary>
-        /// The methods provided in this section are simply used to allow
-        /// NavigationHelper to respond to the page's navigation methods.
-        /// <para>
-        /// Page specific logic should be placed in event handlers for the
-        /// <see cref="NavigationHelper.LoadState"/>
-        /// and <see cref="NavigationHelper.SaveState"/>.
-        /// The navigation parameter is available in the LoadState method
-        /// in addition to page state preserved during an earlier session.
-        /// </para>
-        /// </summary>
-        /// <param name="e">Provides data for navigation methods and event
-        /// handlers that cannot cancel the navigation request.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedTo(e);
+            _navigationHelper.OnNavigatedTo(e);
         }
 
         protected override void OnNavigatedFrom(NavigationEventArgs e)
         {
-            this.navigationHelper.OnNavigatedFrom(e);
+            _navigationHelper.OnNavigatedFrom(e);
         }
         #endregion
         #region cityes
-        private List<string> autoCompletions = new List<string>()
+        private readonly List<string> _autoCompletions = new List<string>
         {  
             "11 км",
             "143 км",
@@ -1167,16 +1140,11 @@ namespace TrainShedule_HubVersion
             "Яцуки",
             "Ящицы"
         };
-            #endregion
-        private IEnumerator GetEnumerator()
-        {
-            return autoCompletions.GetEnumerator();
-        }
+        #endregion
 
         private void FromTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
-                return;
+            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput) return;
             From.ItemsSource = AutoSuggestCity(sender.Text);
         }
 
@@ -1190,26 +1158,25 @@ namespace TrainShedule_HubVersion
         private List<string> AutoSuggestCity(string input)
         {
             if (input.Length < 2) return null;
-            return autoCompletions.Where(city => city.Contains(input)).ToList();
+            return _autoCompletions.Where(city => city.Contains(input)).ToList();
         }
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!autoCompletions.Contains(From.Text) || !autoCompletions.Contains(To.Text))
+            if (!_autoCompletions.Contains(From.Text) || !_autoCompletions.Contains(To.Text))
             {
-                MessageDialog messageDialog = new MessageDialog("Один или оба пункта не существует");
+                var messageDialog = new MessageDialog("Один или оба пункта не существует");
                 await messageDialog.ShowAsync();
                 return;
             }
-            string date = GetDate();
-            var schedule = await GetTrainSchedure(From.Text, To.Text, date);
+            var schedule = await GetTrainSchedure(From.Text, To.Text, GetDate());
             try
             {
-                this.Frame.Navigate(typeof(Schedule), schedule);
+                Frame.Navigate(typeof(Schedule), schedule);
             }
             catch (Exception)
             {
-                //handle the exception here
+                // TODO: Writy implementation
             }
             finally
             {

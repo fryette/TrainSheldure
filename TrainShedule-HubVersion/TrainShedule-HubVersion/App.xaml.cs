@@ -1,33 +1,22 @@
-﻿using TrainShedule_HubVersion.Common;
+﻿using System.Diagnostics;
+using TrainShedule_HubVersion.Common;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Windows.Phone.UI.Input;
-
-// The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
 namespace TrainShedule_HubVersion
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App
     {
-        private TransitionCollection transitions;
+        private TransitionCollection _transitions;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -35,8 +24,8 @@ namespace TrainShedule_HubVersion
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
@@ -51,11 +40,11 @@ namespace TrainShedule_HubVersion
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
-            Frame rootFrame = Window.Current.Content as Frame;
+            var rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active.
@@ -93,15 +82,15 @@ namespace TrainShedule_HubVersion
                 // Removes the turnstile navigation for startup.
                 if (rootFrame.ContentTransitions != null)
                 {
-                    this.transitions = new TransitionCollection();
+                    _transitions = new TransitionCollection();
                     foreach (var c in rootFrame.ContentTransitions)
                     {
-                        this.transitions.Add(c);
+                        _transitions.Add(c);
                     }
                 }
 
                 rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
+                rootFrame.Navigated += RootFrame_FirstNavigated;
 
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
@@ -122,8 +111,9 @@ namespace TrainShedule_HubVersion
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+            // ReSharper disable once PossibleNullReferenceException
+            rootFrame.ContentTransitions = _transitions ?? new TransitionCollection { new NavigationThemeTransition() };
+            rootFrame.Navigated -= RootFrame_FirstNavigated;
         }
 
         /// <summary>
@@ -139,14 +129,10 @@ namespace TrainShedule_HubVersion
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
-        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        private static void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
-            Frame frame = Window.Current.Content as Frame;
-            if (frame == null)
-            {
-                return;
-            }
-
+            var frame = Window.Current.Content as Frame;
+            if (frame == null) return;
             if (!frame.CanGoBack) return;
             frame.GoBack();
             e.Handled = true;

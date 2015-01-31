@@ -18,7 +18,7 @@ namespace TrainShedule_HubVersion.DataModel
                                    "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
                                    "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
                                    "<div class=\"train_type\">.+?>[s]*(?<type>[^<>]+?)[s]*<\\/div>";
-            Regex rgx = new Regex(pattern, RegexOptions.Singleline);
+            var rgx = new Regex(pattern, RegexOptions.Singleline);
             var match = rgx.Matches(data).Cast<Match>();
             return match;
         }
@@ -31,28 +31,28 @@ namespace TrainShedule_HubVersion.DataModel
         {
             var httpClient = new HttpClient();
             var httpResponseMessage = httpClient.GetAsync(url).Result;
-            Stream res = httpResponseMessage.Content.ReadAsStreamAsync().Result;
-            StreamReader reader = new StreamReader(res, Encoding.UTF8);
-            string a = reader.ReadToEnd();
-            return a;
+            var res = httpResponseMessage.Content.ReadAsStreamAsync().Result;
+            var reader = new StreamReader(res, Encoding.UTF8);
+            return reader.ReadToEnd();
         }
 
         private static List<Train> GetAllTrains(IEnumerable<Match> match)
         {
-            String[] train = new String[6];
-            int i = 1, k = 0;
-            IEnumerable<Match> enumerable = match as IList<Match> ?? match.ToList();
+            var train = new String[6];
+            var i = 1;
+            var k = 0;
+            var enumerable = match as IList<Match> ?? match.ToList();
             var typeOftrain = GetTypeOfTrain(enumerable);
             var length = typeOftrain.Count();
-            List<Train> trainList = new List<Train>();
+            var trainList = new List<Train>();
             foreach (var m in enumerable)
             {
                 if (i == 5)
                 {
                     train[4] = typeOftrain[k];
                     trainList.Add(new Train(train));
-                    i = 1;
                     if (++k == length) break;
+                    i = 1;
                 }
                 switch (i)
                 {
@@ -72,7 +72,7 @@ namespace TrainShedule_HubVersion.DataModel
                 }
                 i++;
             }
-            return trainList;
+            return (List<Train>) trainList.Where(x => x.Status == "True");
         }
 
         public static List<Train> GetTrainSchedure(string from, string to, string date)
@@ -84,7 +84,7 @@ namespace TrainShedule_HubVersion.DataModel
         {
             var typesText = match.Select(x => x.Groups["type"]).Where(x => x.Value != "").Select(x => x.Value.Replace("\n\t\t", "").Replace("\t\t", ""));
             var enumerable = typesText as string[] ?? typesText.ToArray();
-            List<string> imageList = new List<string>(enumerable.Count());
+            var imageList = new List<string>(enumerable.Count());
             foreach (var type in enumerable)
             {
                 if (type.Contains("Международные"))

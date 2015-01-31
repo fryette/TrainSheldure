@@ -5,8 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 // The data model defined by this file serves as a representative example of a strongly-typed
 // model.  The property names chosen coincide with data bindings in the standard item templates.
@@ -16,7 +14,7 @@ using Windows.UI.Xaml.Media.Imaging;
 // responsiveness by initiating the data loading task in the code behind for App.xaml when the app 
 // is first launched.
 
-namespace TrainShedule_HubVersion.Data
+namespace TrainShedule_HubVersion.DataModel
 {
     /// <summary>
     /// Generic item data model.
@@ -25,12 +23,12 @@ namespace TrainShedule_HubVersion.Data
     {
         public SampleDataItem(String uniqueId, String title, String subtitle, String imagePath, String description, String content)
         {
-            this.UniqueId = uniqueId;
-            this.Title = title;
-            this.Subtitle = subtitle;
-            this.Description = description;
-            this.ImagePath = imagePath;
-            this.Content = content;
+            UniqueId = uniqueId;
+            Title = title;
+            Subtitle = subtitle;
+            Description = description;
+            ImagePath = imagePath;
+            Content = content;
         }
 
         public string UniqueId { get; private set; }
@@ -42,7 +40,7 @@ namespace TrainShedule_HubVersion.Data
 
         public override string ToString()
         {
-            return this.Title;
+            return Title;
         }
     }
 
@@ -53,12 +51,12 @@ namespace TrainShedule_HubVersion.Data
     {
         public SampleDataGroup(String uniqueId, String title, String subtitle, String imagePath, String description)
         {
-            this.UniqueId = uniqueId;
-            this.Title = title;
-            this.Subtitle = subtitle;
-            this.Description = description;
-            this.ImagePath = imagePath;
-            this.Items = new ObservableCollection<SampleDataItem>();
+            UniqueId = uniqueId;
+            Title = title;
+            Subtitle = subtitle;
+            Description = description;
+            ImagePath = imagePath;
+            Items = new ObservableCollection<SampleDataItem>();
         }
 
         public string UniqueId { get; private set; }
@@ -70,7 +68,7 @@ namespace TrainShedule_HubVersion.Data
 
         public override string ToString()
         {
-            return this.Title;
+            return Title;
         }
     }
 
@@ -87,7 +85,7 @@ namespace TrainShedule_HubVersion.Data
         private ObservableCollection<SampleDataGroup> _groups = new ObservableCollection<SampleDataGroup>();
         public ObservableCollection<SampleDataGroup> Groups
         {
-            get { return this._groups; }
+            get { return _groups; }
         }
 
         public static async Task<IEnumerable<SampleDataGroup>> GetGroupsAsync()
@@ -101,52 +99,51 @@ namespace TrainShedule_HubVersion.Data
         {
             await _sampleDataSource.GetSampleDataAsync();
             // Simple linear search is acceptable for small data sets
-            var matches = _sampleDataSource.Groups.Where((group) => group.UniqueId.Equals(uniqueId));
-            if (matches.Count() == 1) return matches.First();
-            return null;
+            var matches = _sampleDataSource.Groups.Where(group => group.UniqueId.Equals(uniqueId));
+            var sampleDataGroups = matches as IList<SampleDataGroup> ?? matches.ToList();
+            return sampleDataGroups.Count() == 1 ? sampleDataGroups.First() : null;
         }
 
         public static async Task<SampleDataItem> GetItemAsync(string uniqueId)
         {
             await _sampleDataSource.GetSampleDataAsync();
             // Simple linear search is acceptable for small data sets
-            var matches = _sampleDataSource.Groups.SelectMany(group => group.Items).Where((item) => item.UniqueId.Equals(uniqueId));
-            if (matches.Count() == 1) return matches.First();
-            return null;
+            var matches = _sampleDataSource.Groups.SelectMany(group => group.Items).Where(item => item.UniqueId.Equals(uniqueId));
+            var sampleDataItems = matches as IList<SampleDataItem> ?? matches.ToList();
+            return sampleDataItems.Count() == 1 ? sampleDataItems.First() : null;
         }
 
         private async Task GetSampleDataAsync()
         {
-            if (this._groups.Count != 0)
+            if (_groups.Count != 0)
                 return;
 
-            Uri dataUri = new Uri("ms-appx:///DataModel/SampleData.json");
+            var dataUri = new Uri("ms-appx:///DataModel/SampleData.json");
 
-            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
-            string jsonText = await FileIO.ReadTextAsync(file);
-            JsonObject jsonObject = JsonObject.Parse(jsonText);
-            JsonArray jsonArray = jsonObject["Groups"].GetArray();
+            var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+            var jsonText = await FileIO.ReadTextAsync(file);
+            var jsonObject = JsonObject.Parse(jsonText);
+            var jsonArray = jsonObject["Groups"].GetArray();
 
-            foreach (JsonValue groupValue in jsonArray)
+            foreach (var groupValue in jsonArray)
             {
-                JsonObject groupObject = groupValue.GetObject();
-                SampleDataGroup group = new SampleDataGroup(groupObject["UniqueId"].GetString(),
+                var groupObject = groupValue.GetObject();
+                var group = new SampleDataGroup(groupObject["UniqueId"].GetString(),
                                                             groupObject["Title"].GetString(),
                                                             groupObject["Subtitle"].GetString(),
                                                             groupObject["ImagePath"].GetString(),
                                                             groupObject["Description"].GetString());
 
-                foreach (JsonValue itemValue in groupObject["Items"].GetArray())
+                foreach (var itemObject in groupObject["Items"].GetArray().Select(itemValue => itemValue.GetObject()))
                 {
-                    JsonObject itemObject = itemValue.GetObject();
-                    group.Items.Add(new SampleDataItem(itemObject["UniqueId"].GetString(),
-                                                       itemObject["Title"].GetString(),
-                                                       itemObject["Subtitle"].GetString(),
-                                                       itemObject["ImagePath"].GetString(),
-                                                       itemObject["Description"].GetString(),
-                                                       itemObject["Content"].GetString()));
+                    @group.Items.Add(new SampleDataItem(itemObject["UniqueId"].GetString(),
+                        itemObject["Title"].GetString(),
+                        itemObject["Subtitle"].GetString(),
+                        itemObject["ImagePath"].GetString(),
+                        itemObject["Description"].GetString(),
+                        itemObject["Content"].GetString()));
                 }
-                this.Groups.Add(group);
+                Groups.Add(group);
             }
         }
     }
