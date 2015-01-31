@@ -1184,7 +1184,7 @@ namespace TrainShedule_HubVersion
             }
         }
 
-        private Task<List<Train>> GetTrainSchedure(string from, string to, string date)
+        private Task<IEnumerable<Train>> GetTrainSchedure(string from, string to, string date)
         {
             MyIndeterminateProbar.Visibility = Visibility.Visible;
             return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date));

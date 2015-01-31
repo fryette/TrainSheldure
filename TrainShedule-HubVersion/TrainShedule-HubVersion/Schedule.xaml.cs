@@ -10,7 +10,7 @@ namespace TrainShedule_HubVersion
     /// </summary>
     public sealed partial class Schedule
     {
-        List<Train> _trainList;
+        IEnumerable<Train> _trainList;
         public Schedule()
         {
             InitializeComponent();
@@ -24,7 +24,7 @@ namespace TrainShedule_HubVersion
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _trainList = e.Parameter as List<Train>;
+            _trainList = e.Parameter as IEnumerable<Train>;
         }
 
         void SetTrainSheldure(object sender, RoutedEventArgs e)

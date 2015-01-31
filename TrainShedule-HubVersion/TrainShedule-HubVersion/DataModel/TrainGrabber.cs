@@ -36,7 +36,7 @@ namespace TrainShedule_HubVersion.DataModel
             return reader.ReadToEnd();
         }
 
-        private static List<Train> GetAllTrains(IEnumerable<Match> match)
+        private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match)
         {
             var train = new String[6];
             var i = 1;
@@ -72,10 +72,10 @@ namespace TrainShedule_HubVersion.DataModel
                 }
                 i++;
             }
-            return (List<Train>) trainList.Where(x => x.Status == "True");
+            return trainList.Where(x => x.Status == "True");
         }
 
-        public static List<Train> GetTrainSchedure(string from, string to, string date)
+        public static IEnumerable<Train> GetTrainSchedure(string from, string to, string date)
         {
             return GetAllTrains(ParseTrainData(GetHtmlCode(GetUrl(from, to, date))));
         }
