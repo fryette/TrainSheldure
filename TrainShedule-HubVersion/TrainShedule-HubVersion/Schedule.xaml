@@ -29,8 +29,12 @@
                         <StackPanel Orientation="Horizontal" Width="400">
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel Orientation="Horizontal" Height="80">
-                                        <TextBlock FontSize="12" Foreground="#FFF90101" Margin="0,0,5,0">
+                                    <StackPanel>
+                                        <StackPanel>
+                                            <TextBlock TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="12" VerticalAlignment="Center"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Height="80">
+                                            <TextBlock FontSize="12" Foreground="#FFF90101" Margin="0,0,5,0">
                                                 <Run Text="{Binding StartTime}" FontSize="16" FontWeight="Bold">
                                                 	<Run.Foreground>
                                                 		<SolidColorBrush Color="{ThemeResource PhoneForegroundColor}"/>
@@ -38,13 +42,14 @@
                                                 </Run>
                                                 <LineBreak/>
                                                 <Run FontSize="14" Text="{Binding EndTime}" Foreground="#FFF95B01"  FontWeight="Bold"/>
-                                        </TextBlock>
-                                        <Image Source="{Binding Type}" Width="25" Height="25" VerticalAlignment="Top"  Margin="0,4,0,0"  />
-                                        <TextBlock Margin="0,0,0,0">
+                                            </TextBlock>
+                                            <Image Source="{Binding Type}" Width="25" Height="25" VerticalAlignment="Top"  Margin="0,4,0,0"  />
+                                            <TextBlock Margin="0,0,0,0">
                                                 <Run FontSize="14" Text="{Binding City}" Foreground="White"  FontWeight="Bold"/>
                                                 <LineBreak/>
                                                 <Run FontSize="14" Text="{Binding Description}" Foreground="#FFFF5D00"  FontWeight="Bold"/>
-                                        </TextBlock>
+                                            </TextBlock>
+                                        </StackPanel>
                                     </StackPanel>
                                 </StackPanel>
                             </StackPanel>
