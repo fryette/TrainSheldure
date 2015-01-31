@@ -17,7 +17,7 @@
       },
       {
         "UniqueId": "Group-1-Item-2",
-        "Title": "Electric trains",
+        "Title": "Electricity train",
         "Subtitle": "Item Subtitle: 2",
         "ImagePath": "Assets/DarkGray.png",
         "Description" : "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",
@@ -25,7 +25,7 @@
       },
       {
         "UniqueId": "Group-1-Item-3",
-        "Title": "All",
+        "Title": "Fast shedule",
         "Subtitle": "Item Subtitle: 3",
         "ImagePath": "Assets/MediumGray.png",
         "Description" : "Item Description: Pellentesque porta, mauris quis interdum vehicula, urna sapien ultrices velit, nec venenatis dui odio in augue. Cras posuere, enim a cursus convallis, neque turpis malesuada erat, ut adipiscing neque tortor ac erat.",

@@ -22,8 +22,6 @@
                 <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Margin="9.5,0,0,6.5" Style="{ThemeResource BaseTextBlockStyle}"/>
             </Grid>
         </DataTemplate>
-
-    
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">

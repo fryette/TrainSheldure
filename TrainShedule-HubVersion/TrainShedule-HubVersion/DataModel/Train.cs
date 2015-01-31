@@ -15,6 +15,8 @@ namespace TrainShedule_HubVersion.Data
         public string TrainNote { get; set; }
         public string Place { get; set; }
         public string Type { get; set; }
+        public string Status { get; set; }
+
         public Train(String[] train)
         {
             this.City = train[2];
@@ -23,6 +25,7 @@ namespace TrainShedule_HubVersion.Data
             this.StartTime = train[0];
             this.EndTime = train[1];
             this.Type = train[4];
+            this.Status = train[5];
             //this.TrainNote = train[5];
             //this.Place = train[6];
             //this.Price = train[7];

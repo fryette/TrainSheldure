@@ -21,6 +21,7 @@ using System.Collections;
 using Windows.UI.Popups;
 
 // The Hub Application template is documented at http://go.microsoft.com/fwlink/?LinkID=391641
+using TrainShedule_HubVersion.DataModel;
 
 namespace TrainShedule_HubVersion
 {

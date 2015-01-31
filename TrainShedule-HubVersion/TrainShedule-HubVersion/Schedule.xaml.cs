@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TrainShedule_HubVersion.Data;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
@@ -21,13 +12,13 @@ namespace TrainShedule_HubVersion
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Schedule : Page
+    public sealed partial class Schedule
     {
-        List<Train> trainList;
+        List<Train> _trainList;
         public Schedule()
         {
-            this.InitializeComponent();
-            Loaded += new RoutedEventHandler(SetTrainSheldure);
+            InitializeComponent();
+            Loaded += SetTrainSheldure;
         }
 
         /// <summary>
@@ -37,12 +28,12 @@ namespace TrainShedule_HubVersion
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            trainList = e.Parameter as List<Train>;
+            _trainList = e.Parameter as List<Train>;
         }
 
         void SetTrainSheldure(object sender, RoutedEventArgs e)
         {
-            TrainList.ItemsSource = trainList;
+            TrainList.ItemsSource = _trainList.Where(x=>x.Status=="True");
         }
     }
 }
