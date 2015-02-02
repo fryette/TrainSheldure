@@ -25,7 +25,7 @@ namespace TrainShedule_HubVersion.DataModel
 
         private static string GetUrl(string fromName, string toName, string date)
         {
-            return "http://rasp.rw.by/m/ru/route/?from=" + fromName + "&to=" + toName + "&date=" + date;
+            return "http://rasp.rw.by/m/ru/route/?from=" + CorrectCity(fromName) + "&to=" + CorrectCity(toName) + "&date=" + date;
         }
         private static string GetHtmlCode(string url)
         {
@@ -106,6 +106,16 @@ namespace TrainShedule_HubVersion.DataModel
         {
             var myDateTime = DateTime.Parse(time);
             return myDateTime.TimeOfDay > DateTime.Now.TimeOfDay;
+        }
+
+        private static string CorrectCity(string city)
+        {
+            if (city.Contains("Картузская"))
+                return "Берёза-Картузская";
+            if (!city.Contains("(")) return city;
+            if (city.Contains("Институт Культуры"))
+                return "Институт Культуры";
+            return city.Remove(city.IndexOf("("));
         }
     }
 }

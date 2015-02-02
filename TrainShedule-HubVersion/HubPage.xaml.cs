@@ -1,11 +1,12 @@
-﻿using TrainShedule_HubVersion.Common;
-using TrainShedule_HubVersion.Data;
-using System;
+﻿using System;
+using TrainShedule_HubVersion.Common;
+using TrainShedule_HubVersion.DataModel;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Display;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using TrainShedule_HubVersion.DataModel;
 
 namespace TrainShedule_HubVersion
 {
@@ -14,10 +15,11 @@ namespace TrainShedule_HubVersion
     /// </summary>
     public sealed partial class HubPage
     {
+        Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
         private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView(@"Resources");
-
+        private static bool isStart = false;
         public HubPage()
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace TrainShedule_HubVersion
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             _navigationHelper.SaveState += NavigationHelper_SaveState;
-        }
+            }
 
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
@@ -65,6 +67,22 @@ namespace TrainShedule_HubVersion
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
             DefaultViewModel["Groups"] = sampleDataGroups;
+            //if (!localSettings.Values.ContainsKey("FirstStart"))
+            //{
+            //    localSettings.Values.Add("FirstStart", true);
+            //}
+            //else
+            //{
+            //    ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
+            //    listview.ItemsSource = LastSchedule.LastShedule;
+            //    localSettings.Values.Clear("FirstStart",t);
+            //}
+            if (isStart)
+            {
+                ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
+                listview.ItemsSource = LastSchedule.LastShedule;
+            }
+            isStart = true;
         }
 
         /// <summary>
@@ -87,13 +105,37 @@ namespace TrainShedule_HubVersion
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
+            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;          
             if (!Frame.Navigate(typeof(ItemPage), itemId))
             {
                 throw new Exception(_resourceLoader.GetString(@"NavigationFailedExceptionMessage"));
             }
         }
+        private DependencyObject FindChildControl<T>(DependencyObject control, string ctrlName)
+        {
+            int childNumber = VisualTreeHelper.GetChildrenCount(control);
+            for (int i = 0; i < childNumber; i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(control, i);
+                FrameworkElement fe = child as FrameworkElement;
+                // Not a framework element or is null
+                if (fe == null) return null;
 
+                if (child is T && fe.Name == ctrlName)
+                {
+                    // Found the control so return
+                    return child;
+                }
+                else
+                {
+                    // Not found it - search children
+                    DependencyObject nextLevel = FindChildControl<T>(child, ctrlName);
+                    if (nextLevel != null)
+                        return nextLevel;
+                }
+            }
+            return null;
+        }
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

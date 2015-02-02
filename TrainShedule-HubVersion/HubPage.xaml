@@ -26,7 +26,6 @@
 
     <Grid x:Name="LayoutRoot">
         <Hub x:Name="Hub" x:Uid="Hub" Header="application name" Background="{ThemeResource HubBackgroundImageBrush}">
-
             <HubSection x:Uid="HubSection1" Header="Варианты поиска транспорта" Width="Auto"
                          DataContext="{Binding Groups[0]}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
@@ -48,8 +47,8 @@
                     </GridView>
                 </DataTemplate>
             </HubSection>
-            <HubSection x:Uid="HubSection2" Header="Последний запрос"
-                        DataContext="{Binding Groups[1]}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
+            <HubSection x:Uid="HubSection2" Header="Последний запрос" Name="dataContext"
+                        DataContext="{Binding}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
                     <ListView 
                         AutomationProperties.AutomationId="ItemListViewSection4"
@@ -57,13 +56,37 @@
                         SelectionMode="None"
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding Items}"
-                        ItemClick="ItemView_ItemClick"
-                        ContinuumNavigationTransitionInfo.ExitElementContainer="True">
+                        ContinuumNavigationTransitionInfo.ExitElementContainer="True"
+                        Name="TrainList" Margin="5,0,0,0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,19">
-                                    <TextBlock Text="{Binding Title}" Style="{ThemeResource ListViewItemTextBlockStyle}"/>
-                                    <TextBlock Text="{Binding Subtitle}" Style="{ThemeResource ListViewItemSubheaderTextBlockStyle}"/>
+                                <StackPanel Orientation="Horizontal" Width="400">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel>
+                                                <StackPanel>
+                                                    <TextBlock TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="12" VerticalAlignment="Center"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Height="80">
+                                                    <TextBlock FontSize="12" Foreground="#FFF90101" Margin="0,0,5,0">
+                                                <Run Text="{Binding StartTime}" FontSize="16" FontWeight="Bold">
+                                                	<Run.Foreground>
+                                                		<SolidColorBrush Color="{ThemeResource PhoneForegroundColor}"/>
+                                                	</Run.Foreground>
+                                                </Run>
+                                                <LineBreak/>
+                                                <Run FontSize="14" Text="{Binding EndTime}" Foreground="#FFF95B01"  FontWeight="Bold"/>
+                                                    </TextBlock>
+                                                    <Image Source="{Binding Type}" Width="25" Height="25" VerticalAlignment="Top"  Margin="0,4,0,0"  />
+                                                    <TextBlock Margin="0,0,0,0">
+                                                <Run FontSize="14" Text="{Binding City}" Foreground="White"  FontWeight="Bold"/>
+                                                <LineBreak/>
+                                                <Run FontSize="14" Text="{Binding Description}" Foreground="#FFFF5D00"  FontWeight="Bold"/>
+                                                    </TextBlock>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>

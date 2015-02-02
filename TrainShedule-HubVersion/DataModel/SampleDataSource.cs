@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using TrainShedule_HubVersion.Data;
 using Windows.Data.Json;
 using Windows.Storage;
 
@@ -91,7 +92,6 @@ namespace TrainShedule_HubVersion.DataModel
         public static async Task<IEnumerable<SampleDataGroup>> GetGroupsAsync()
         {
             await _sampleDataSource.GetSampleDataAsync();
-
             return _sampleDataSource.Groups;
         }
 

@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using TrainShedule_HubVersion.Data;
+using TrainShedule_HubVersion.DataModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
@@ -27,9 +29,15 @@ namespace TrainShedule_HubVersion
             _trainList = e.Parameter as IEnumerable<Train>;
         }
 
-        void SetTrainSheldure(object sender, RoutedEventArgs e)
+        async void SetTrainSheldure(object sender, RoutedEventArgs e)
         {
             TrainList.ItemsSource = _trainList;
+            LastSchedule.LastShedule = _trainList;
+            await new Task(SerializeLastSheldule);
+        }
+        async void SerializeLastSheldule()
+        {
+            await Serialize.SaveObjectToXml((List<Train>)_trainList, "LastTrainList");
         }
     }
 }

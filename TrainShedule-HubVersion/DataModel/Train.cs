@@ -5,16 +5,16 @@ namespace TrainShedule_HubVersion.Data
 {
     public class Train
     {
-        public string To { get; set; }
-        public string From { get; set; }
+        //public string To { get; set; }
+        //public string From { get; set; }
         public string City { get; set; }
-        public string TotalTime { get; set; }
-        public string Price { get; set; }
+        //public string TotalTime { get; set; }
+        //public string Price { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public string Description { get; set; }
         public string TrainNote { get; set; }
-        public string Place { get; set; }
+        //public string Place { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
 

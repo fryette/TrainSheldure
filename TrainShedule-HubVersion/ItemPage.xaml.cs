@@ -154,7 +154,7 @@ namespace TrainShedule_HubVersion
             if (_autoCompletions != null) return;
             try
             {
-                _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync("autocompletetions");
+                _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<List<string>>("autocompletetions");
             }
             catch (Exception e)
             {

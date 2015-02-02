@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+
 
 namespace TrainShedule_HubVersion.DataModel
 {
@@ -15,7 +17,7 @@ namespace TrainShedule_HubVersion.DataModel
             var rgx = new Regex(pattern,RegexOptions.Singleline);
             return rgx.Matches(data).Cast<Match>();
         }
-        private static string GetHtmlCode(string url="http://www.rw.by/")
+        private static string GetHtmlCode(string url = "http://rw.by/")
         {
             var httpClient = new HttpClient();
             var httpResponseMessage = httpClient.GetAsync(url).Result;
