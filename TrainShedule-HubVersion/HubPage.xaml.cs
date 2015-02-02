@@ -19,7 +19,7 @@ namespace TrainShedule_HubVersion
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
         private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView(@"Resources");
-        private static bool isStart = false;
+        private static bool _isStart;
         public HubPage()
         {
             InitializeComponent();
@@ -77,12 +77,12 @@ namespace TrainShedule_HubVersion
             //    listview.ItemsSource = LastSchedule.LastShedule;
             //    localSettings.Values.Clear("FirstStart",t);
             //}
-            if (isStart)
+            if (_isStart)
             {
-                ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
-                listview.ItemsSource = LastSchedule.LastShedule;
+                var listview = FindChildControl<ListView>(this, "TrainList") as ListView;
+                if (listview != null) listview.ItemsSource = LastSchedule.LastShedule;
             }
-            isStart = true;
+            _isStart = true;
         }
 
         /// <summary>
@@ -111,13 +111,13 @@ namespace TrainShedule_HubVersion
                 throw new Exception(_resourceLoader.GetString(@"NavigationFailedExceptionMessage"));
             }
         }
-        private DependencyObject FindChildControl<T>(DependencyObject control, string ctrlName)
+        private static DependencyObject FindChildControl<T>(DependencyObject control, string ctrlName)
         {
-            int childNumber = VisualTreeHelper.GetChildrenCount(control);
-            for (int i = 0; i < childNumber; i++)
+            var childNumber = VisualTreeHelper.GetChildrenCount(control);
+            for (var i = 0; i < childNumber; i++)
             {
-                DependencyObject child = VisualTreeHelper.GetChild(control, i);
-                FrameworkElement fe = child as FrameworkElement;
+                var child = VisualTreeHelper.GetChild(control, i);
+                var fe = child as FrameworkElement;
                 // Not a framework element or is null
                 if (fe == null) return null;
 
@@ -126,13 +126,10 @@ namespace TrainShedule_HubVersion
                     // Found the control so return
                     return child;
                 }
-                else
-                {
-                    // Not found it - search children
-                    DependencyObject nextLevel = FindChildControl<T>(child, ctrlName);
-                    if (nextLevel != null)
-                        return nextLevel;
-                }
+                // Not found it - search children
+                var nextLevel = FindChildControl<T>(child, ctrlName);
+                if (nextLevel != null)
+                    return nextLevel;
             }
             return null;
         }
