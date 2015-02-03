@@ -31,7 +31,10 @@
                                 <StackPanel Orientation="Vertical">
                                     <StackPanel>
                                         <StackPanel>
-                                            <TextBlock TextWrapping="Wrap" Text="TextBlock" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="12" VerticalAlignment="Center"/>
+                                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="12" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFB60000">
+                                                <Run Text="через " FontSize="16" FontWeight="Bold"/>
+                                                <Run Text="{Binding BeforeDepartureTime}"/>
+                                            </TextBlock>
                                         </StackPanel>
                                         <StackPanel Orientation="Horizontal" Height="80">
                                             <TextBlock FontSize="12" Foreground="#FFF90101" Margin="0,0,5,0">

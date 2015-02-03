@@ -38,7 +38,8 @@ namespace TrainShedule_HubVersion.DataModel
 
         private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match)
         {
-            var train = new String[6];
+
+            var train = new String[7];
             var i = 1;
             var k = 0;
             var enumerable = match as IList<Match> ?? match.ToList();
@@ -59,6 +60,7 @@ namespace TrainShedule_HubVersion.DataModel
                     case 1:
                         train[0] = m.Groups[i].Value;
                         train[5] = CheckTime(m.Groups[i].Value).ToString();
+                        train[6] = GetBeforeDepartureTime(m.Groups[i].Value);
                         break;
                     case 3:
                         train[i - 1] = m.Groups[i].Value.Replace("&nbsp;&mdash; ", "-");
@@ -108,13 +110,18 @@ namespace TrainShedule_HubVersion.DataModel
             return myDateTime.TimeOfDay > DateTime.Now.TimeOfDay;
         }
 
+        private static string GetBeforeDepartureTime(string time)
+        {
+            var myDateTime = DateTime.Parse(time);
+            TimeSpan timeSpan = (myDateTime.TimeOfDay - DateTime.Now.TimeOfDay);
+            return timeSpan.Hours + ":" + timeSpan.Minutes;
+        }
+
         private static string CorrectCity(string city)
         {
-            if (city.Contains("Картузская"))
-                return "Берёза-Картузская";
+            if (city.Contains("Картузская")) return "Берёза-Картузская";
             if (!city.Contains("(")) return city;
-            if (city.Contains("Институт Культуры"))
-                return "Институт Культуры";
+            if (city.Contains("Институт Культуры")) return "Институт Культуры";
             return city.Remove(city.IndexOf("("));
         }
     }

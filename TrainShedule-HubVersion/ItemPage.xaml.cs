@@ -146,21 +146,16 @@ namespace TrainShedule_HubVersion
         private async void addBtn_Click(object sender, RoutedEventArgs e)
         {
             _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
-            await Serialize.SaveObjectToXml((List<string>)_autoCompletions, "autocompletetions");
+            await Serialize.SaveObjectToXml(new List<string>(_autoCompletions), "autocompletetions");
         }
 
         private async void InitializeAutoSuggestions()
         {
-            if (_autoCompletions != null) return;
-            try
-            {
-                _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletetions");
-            }
-            catch (Exception e)
-            {
-                _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
-            }
-            await Serialize.SaveObjectToXml((List<string>)_autoCompletions, "autocompletetions");
+            if (!(_autoCompletions == null)) return;
+            _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletetions");
+            if (_autoCompletions.Any()) return;
+            _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
+            await Serialize.SaveObjectToXml(_autoCompletions.ToList(), "autocompletetions");
         }
     }
 }

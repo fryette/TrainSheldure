@@ -33,7 +33,7 @@ namespace TrainShedule_HubVersion.DataModel
         private static IEnumerable<string> GetTrainPoints(IEnumerable<Match> match)
         {
             var points = match as IList<Match> ?? match.ToList();
-            return !points.Any() ? null : points.Select(point => point.Groups[1].Value).ToList();
+            return !points.Any() ? null : points.Select(point => point.Groups[1].Value);
         }
     }
 }

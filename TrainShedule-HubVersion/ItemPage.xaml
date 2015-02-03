@@ -84,9 +84,9 @@
         <StackPanel Margin="-35,90,35,250" Grid.RowSpan="2">
             <DatePicker Header="Time" x:Name="DatePicker" Margin="9.167,9.167,9.167,-0.833" VerticalAlignment="Center" HorizontalAlignment="Center" Width="253" Height="70"/>
             <TextBlock Margin="51.167,29.167,244.167,0" TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top"/>
-            <AutoSuggestBox x:Name="From" Margin="50.167,0,0,0" ItemsSource="{Binding a}" VerticalAlignment="Stretch" Width="296" TextChanged="FromTextChanged" IsSuggestionListOpen="True" Text="Брест-Центральный" Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Style="{StaticResource AutoSuggestBoxStyle1}" />
+            <AutoSuggestBox x:Name="From" Margin="50.167,0,0,0" ItemsSource="{Binding a}" VerticalAlignment="Stretch" Width="296" TextChanged="FromTextChanged" IsSuggestionListOpen="True"  Background="{ThemeResource AppBarItemPointerOverBackgroundThemeBrush}" Style="{StaticResource AutoSuggestBoxStyle1}" />
             <TextBlock HorizontalAlignment="Left" Margin="50.167,0,0,0" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
-            <AutoSuggestBox x:Name="To" HorizontalAlignment="Center" Margin="50.167,0,0,0" ItemsSource="{Binding a}" VerticalAlignment="Center" Width="296" TextChanged="ToTextChanged" IsSuggestionListOpen="True" Text="Берёза-Город" Style="{StaticResource AutoSuggestBoxStyle1}"/>
+            <AutoSuggestBox x:Name="To" HorizontalAlignment="Center" Margin="50.167,0,0,0" ItemsSource="{Binding a}" VerticalAlignment="Center" Width="296" TextChanged="ToTextChanged" IsSuggestionListOpen="True" Style="{StaticResource AutoSuggestBoxStyle1}"/>
             <Button x:Name="Search" Content="Искать" HorizontalAlignment="Left" Margin="48.167,0,0,0" VerticalAlignment="Top" Click="SearchButton_Click"/>
         </StackPanel>
     </Grid>

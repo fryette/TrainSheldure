@@ -24,7 +24,6 @@ namespace TrainShedule_HubVersion
         public HubPage()
         {
             InitializeComponent();
-
             // Hub is only supported in Portrait orientation
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
 
@@ -33,8 +32,7 @@ namespace TrainShedule_HubVersion
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             _navigationHelper.SaveState += NavigationHelper_SaveState;
-            }
-
+        }
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
         /// </summary>
@@ -68,9 +66,15 @@ namespace TrainShedule_HubVersion
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
             DefaultViewModel["Groups"] = sampleDataGroups;
+            SetLastTrainSchedule();
         }
 
-        private async void Hub_SectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
+        private void Hub_SectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
+        {
+            SetLastTrainSchedule();
+        }
+
+        private async void SetLastTrainSchedule()
         {
             ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
             if (listview == null) return;
@@ -98,7 +102,7 @@ namespace TrainShedule_HubVersion
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;          
+            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
             if (!Frame.Navigate(typeof(ItemPage), itemId))
             {
                 throw new Exception(_resourceLoader.GetString(@"NavigationFailedExceptionMessage"));
