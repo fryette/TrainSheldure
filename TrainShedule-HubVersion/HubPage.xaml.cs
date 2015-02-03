@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using TrainShedule_HubVersion.Common;
+using TrainShedule_HubVersion.Data;
 using TrainShedule_HubVersion.DataModel;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Display;
@@ -19,7 +21,6 @@ namespace TrainShedule_HubVersion
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
         private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView(@"Resources");
-        private static bool _isStart;
         public HubPage()
         {
             InitializeComponent();
@@ -67,22 +68,10 @@ namespace TrainShedule_HubVersion
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
             DefaultViewModel["Groups"] = sampleDataGroups;
-            //if (!localSettings.Values.ContainsKey("FirstStart"))
-            //{
-            //    localSettings.Values.Add("FirstStart", true);
-            //}
-            //else
-            //{
-            //    ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
-            //    listview.ItemsSource = LastSchedule.LastShedule;
-            //    localSettings.Values.Clear("FirstStart",t);
-            //}
-            if (_isStart)
-            {
-                var listview = FindChildControl<ListView>(this, "TrainList") as ListView;
-                if (listview != null) listview.ItemsSource = LastSchedule.LastShedule;
-            }
-            _isStart = true;
+                ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
+                if (listview == null) return;
+                var lastTrainSchedule = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
+                listview.ItemsSource = lastTrainSchedule;
         }
 
         /// <summary>

@@ -17,7 +17,10 @@ namespace TrainShedule_HubVersion.Data
         //public string Place { get; set; }
         public string Type { get; set; }
         public string Status { get; set; }
+        public Train()
+        {
 
+        }
         public Train(IList<string> train)
         {
             City = train[2];
