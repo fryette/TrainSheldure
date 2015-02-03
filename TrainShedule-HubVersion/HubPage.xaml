@@ -25,7 +25,7 @@
     </Page.Resources>
 
     <Grid x:Name="LayoutRoot">
-        <Hub x:Name="Hub" x:Uid="Hub" Header="application name" Background="{ThemeResource HubBackgroundImageBrush}">
+        <Hub x:Name="Hub" x:Uid="Hub" Header="application name" Background="{ThemeResource HubBackgroundImageBrush}" SectionsInViewChanged="Hub_SectionsInViewChanged">
             <HubSection x:Uid="HubSection1" Header="Варианты поиска транспорта" Width="Auto"
                          DataContext="{Binding Groups[0]}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
@@ -48,7 +48,7 @@
                 </DataTemplate>
             </HubSection>
             <HubSection x:Uid="HubSection2" Header="Последний запрос" Name="dataContext"
-                        DataContext="{Binding}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
+                         HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
                     <ListView 
                         AutomationProperties.AutomationId="ItemListViewSection4"

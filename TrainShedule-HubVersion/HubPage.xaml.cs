@@ -68,10 +68,14 @@ namespace TrainShedule_HubVersion
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
             DefaultViewModel["Groups"] = sampleDataGroups;
-                ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
-                if (listview == null) return;
-                var lastTrainSchedule = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
-                listview.ItemsSource = lastTrainSchedule;
+        }
+
+        private async void Hub_SectionsInViewChanged(object sender, SectionsInViewChangedEventArgs e)
+        {
+            ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
+            if (listview == null) return;
+            var lastTrainSchedule = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
+            listview.ItemsSource = lastTrainSchedule;
         }
 
         /// <summary>
