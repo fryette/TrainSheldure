@@ -17,9 +17,9 @@
 
         <!-- Grid-appropriate item template as seen in section 2 -->
         <DataTemplate x:Key="Standard200x180TileItemTemplate">
-            <Grid Margin="0,0,9.5,9.5" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Height="138.5" Width="138.5"/>
-                <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Margin="9.5,0,0,6.5" Style="{ThemeResource BaseTextBlockStyle}"/>
+            <Grid Margin="0,5,9.5,9.5" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Center">
+                <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Height="155" Width="155"/>
+                <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Margin="9.5,0,0,6.5" Style="{ThemeResource BaseTextBlockStyle}" FontWeight="Bold" FontStyle="Normal"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>
@@ -57,7 +57,7 @@
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding Items}"
                         ContinuumNavigationTransitionInfo.ExitElementContainer="True"
-                        Name="TrainList" Margin="5,0,0,0">
+                        Name="TrainList" Margin="0,0,0,0">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Width="400">
