@@ -116,6 +116,8 @@
   <ItemGroup>
     <Content Include="Assets\Brisa_ de_verano.jpg" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\IRLB.png" />
+    <Content Include="Assets\IRLE.png" />
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\HubBackground.theme-dark.png" />
@@ -131,6 +133,8 @@
     <Content Include="Assets\MenuIcon\IRLB_IRLE.png" />
     <Content Include="Assets\MenuIcon\NatsA.png" />
     <Content Include="Assets\MenuIcon\RLB_RLE.png" />
+    <Content Include="Assets\RLB.png" />
+    <Content Include="Assets\RLE.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />

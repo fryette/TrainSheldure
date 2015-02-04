@@ -1,4 +1,7 @@
-﻿using TrainShedule_HubVersion.Common;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using TrainShedule_HubVersion.Common;
 using System;
 using Windows.ApplicationModel.Resources;
 using Windows.UI.Xaml.Controls;
@@ -13,7 +16,7 @@ namespace TrainShedule_HubVersion
     {
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
-
+        private SampleDataItem _item;
         public SectionPage()
         {
             InitializeComponent();
@@ -51,13 +54,25 @@ namespace TrainShedule_HubVersion
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
-        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data.
-            var group = await SampleDataSource.GetGroupAsync((string)e.NavigationParameter);
-            DefaultViewModel["Group"] = group;
+            _item = e.NavigationParameter as SampleDataItem;
+            SetParameterForButton(_item.Title);
         }
 
+        private void SetParameterForButton(string param)
+        {
+            if (param != "Региональные") return;
+            BusinessButton.Background = new ImageBrush()
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/RLB.png"))
+            };
+            EconomButton.Background = new ImageBrush()
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/RLE.png"))
+            };
+        }
         /// <summary>
         /// Preserves state associated with this page in case the application is suspended or the
         /// page is discarded from the navigation cache.  Values must conform to the serialization
@@ -96,5 +111,16 @@ namespace TrainShedule_HubVersion
         }
 
         #endregion
+
+        private void OnClickBusiness(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (ItemPage), _item);
+        }
+
+        private void OnClickEconom(object sender, RoutedEventArgs e)
+        {
+            _item.IsEconom = true;
+            Frame.Navigate(typeof(ItemPage), _item);
+        }
     }
 }

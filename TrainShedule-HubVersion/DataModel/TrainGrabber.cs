@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -21,10 +23,8 @@ namespace TrainShedule_HubVersion.DataModel
         {
             return "http://rasp.rw.by/m/ru/route/?from=" + CorrectCity(fromName) + "&to=" + CorrectCity(toName) + "&date=" + date;
         }
-
-        private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match, string searchParameter)
+        private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match, string searchParameter, bool isEconom, string date)
         {
-
             var train = new String[7];
             var i = 1;
             var k = 0;
@@ -45,8 +45,8 @@ namespace TrainShedule_HubVersion.DataModel
                 {
                     case 1:
                         train[0] = m.Groups[i].Value;
-                        train[5] = CheckTime(m.Groups[i].Value).ToString();
-                        train[6] = GetBeforeDepartureTime(m.Groups[i].Value);
+                        train[5] = CheckTime(m.Groups[i].Value, DateTime.Parse(date)).ToString();
+                        train[6] = GetBeforeDepartureTime(m.Groups[i].Value, DateTime.Parse(date));
                         break;
                     case 3:
                         train[i - 1] = m.Groups[i].Value.Replace("&nbsp;&mdash; ", "-");
@@ -60,14 +60,15 @@ namespace TrainShedule_HubVersion.DataModel
                 }
                 i++;
             }
-            var schedule = trainList.Where(x => x.Status == "True");
+            var schedule = isEconom ? trainList.Where(x => x.Status == "True" && x.Type.Contains("эконом")) : trainList.Where(x => x.Status == "True");
             return searchParameter == "Национальный аэропорт «Минск»" || searchParameter == "Ближайшие"
-                ? schedule : schedule.Where(x => x.Type.Contains(searchParameter));
+                ? schedule :
+                schedule.Where(x => x.Type.Contains(searchParameter));
         }
 
-        public static IEnumerable<Train> GetTrainSchedure(string from, string to, string date, string searchParameter)
+        public static IEnumerable<Train> GetTrainSchedure(string from, string to, string date, string searchParameter, bool isEconom = false)
         {
-            return GetAllTrains(Parser.GetData(GetUrl(from, to, date), Pattern), searchParameter);
+            return GetAllTrains(Parser.GetData(GetUrl(from, to, date), Pattern), searchParameter, isEconom, date);
         }
 
         private static List<string> GetTypeOfTrain(IEnumerable<Match> match)
@@ -75,17 +76,19 @@ namespace TrainShedule_HubVersion.DataModel
             return new List<string>(match.Select(x => x.Groups["type"]).Where(x => x.Value != "").Select(x => x.Value.Replace("\n\t\t", "").Replace("\t\t", "")));
         }
 
-        private static bool CheckTime(string time)
+        private static bool CheckTime(string time,DateTime dateTime)
         {
             var myDateTime = DateTime.Parse(time);
+            if (dateTime >= DateTime.Now) return true;
             return myDateTime.TimeOfDay > DateTime.Now.TimeOfDay;
         }
 
-        private static string GetBeforeDepartureTime(string time)
+        private static string GetBeforeDepartureTime(string time, DateTime dateToDeparture)
         {
             var myDateTime = DateTime.Parse(time);
+            if (dateToDeparture >= DateTime.Now) return "Отправление: " + dateToDeparture.ToString("D", new CultureInfo("ru-ru")); 
             var timeSpan = (myDateTime.TimeOfDay - DateTime.Now.TimeOfDay);
-            return timeSpan.Hours + "ч. " + timeSpan.Minutes+"мин.";
+            return "через " + timeSpan.Hours + "ч. " + timeSpan.Minutes + "мин.";
         }
 
         private static string CorrectCity(string city)

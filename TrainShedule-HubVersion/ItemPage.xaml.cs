@@ -19,7 +19,7 @@ namespace TrainShedule_HubVersion
     {
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
-        private SampleDataItem item;
+        private SampleDataItem _item;
 
         public ItemPage()
         {
@@ -59,11 +59,11 @@ namespace TrainShedule_HubVersion
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
-        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            item = await SampleDataSource.GetItemAsync((string)e.NavigationParameter);
-            DefaultViewModel["Item"] = item;
+            _item = e.NavigationParameter as SampleDataItem;
+            DefaultViewModel["Item"] = _item;
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace TrainShedule_HubVersion
         private Task<IEnumerable<Train>> GetTrainSchedure(string from, string to, string date)
         {
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date,item.Title));
+            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date,_item.Title));
         }
         private string GetDate()
         {
@@ -152,7 +152,7 @@ namespace TrainShedule_HubVersion
 
         private async void InitializeAutoSuggestions()
         {
-            if (!(_autoCompletions == null)) return;
+            if (_autoCompletions != null) return;
             _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletetions");
             if (_autoCompletions!=null) return;
             _autoCompletions = TrainPointsGrabber.GetTrainsPoints();

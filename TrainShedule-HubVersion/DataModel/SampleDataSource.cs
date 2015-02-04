@@ -38,6 +38,7 @@ namespace TrainShedule_HubVersion.DataModel
         public string Description { get; private set; }
         public string ImagePath { get; private set; }
         public string Content { get; private set; }
+        public bool IsEconom { get; set; }
 
         public override string ToString()
         {

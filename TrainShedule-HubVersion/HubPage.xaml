@@ -101,7 +101,7 @@
                                             <StackPanel>
                                                 <StackPanel>
                                                     <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="12" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFB60000">
-                                                <Run Text="через " FontSize="16" FontWeight="Bold"/>
+                                                <Run FontSize="16" FontWeight="Bold"/>
                                                 <Run Text="{Binding BeforeDepartureTime}"/>
                                                     </TextBlock>
                                                 </StackPanel>

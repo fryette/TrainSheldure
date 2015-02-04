@@ -21,6 +21,7 @@ namespace TrainShedule_HubVersion
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
         private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView(@"Resources");
+        private SampleDataItem _item;
         public HubPage()
         {
             InitializeComponent();
@@ -75,7 +76,7 @@ namespace TrainShedule_HubVersion
 
         private async void SetLastTrainSchedule()
         {
-            ListView listview = FindChildControl<ListView>(this, "TrainList") as ListView;
+            var listview = FindChildControl<ListView>(this, "TrainList") as ListView;
             if (listview == null) return;
             var lastTrainSchedule = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
             listview.ItemsSource = lastTrainSchedule;
@@ -99,8 +100,10 @@ namespace TrainShedule_HubVersion
         /// </summary>
         private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
-            if (!Frame.Navigate(typeof(ItemPage), itemId))
+            _item = e.ClickedItem as SampleDataItem;
+            if (_item.UniqueId == "Group-1-Item-5" || _item.UniqueId == "Group-1-Item-6")
+                Frame.Navigate(typeof(SectionPage), _item);
+            else if (!Frame.Navigate(typeof(ItemPage), _item))
             {
                 throw new Exception(_resourceLoader.GetString(@"NavigationFailedExceptionMessage"));
             }
