@@ -19,10 +19,12 @@ namespace TrainShedule_HubVersion
     {
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
+        private SampleDataItem item;
 
         public ItemPage()
         {
             InitializeComponent();
+            NavigationCacheMode = NavigationCacheMode.Enabled;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
             _navigationHelper.SaveState += NavigationHelper_SaveState;
@@ -60,7 +62,7 @@ namespace TrainShedule_HubVersion
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var item = await SampleDataSource.GetItemAsync((string)e.NavigationParameter);
+            item = await SampleDataSource.GetItemAsync((string)e.NavigationParameter);
             DefaultViewModel["Item"] = item;
         }
 
@@ -106,8 +108,7 @@ namespace TrainShedule_HubVersion
 
         private List<string> AutoSuggestCity(string input)
         {
-            if (input.Length < 2) return null;
-            return _autoCompletions.Where(city => city.Contains(input)).ToList();
+            return input.Length < 2 ? null : _autoCompletions.Where(city => city.Contains(input)).ToList();
         }
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -136,7 +137,7 @@ namespace TrainShedule_HubVersion
         private Task<IEnumerable<Train>> GetTrainSchedure(string from, string to, string date)
         {
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date));
+            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date,item.Title));
         }
         private string GetDate()
         {

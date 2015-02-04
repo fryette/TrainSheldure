@@ -11,7 +11,7 @@ namespace TrainShedule_HubVersion.DataModel
 {
     class TrainGrabber
     {
-        const string pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
+        const string Pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
                                    "(?<endTime><div class=\"list_end\">(.+?)<\\/?)|" +
                                    "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
                                    "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
@@ -22,7 +22,7 @@ namespace TrainShedule_HubVersion.DataModel
             return "http://rasp.rw.by/m/ru/route/?from=" + CorrectCity(fromName) + "&to=" + CorrectCity(toName) + "&date=" + date;
         }
 
-        private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match)
+        private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match, string searchParameter)
         {
 
             var train = new String[7];
@@ -30,7 +30,7 @@ namespace TrainShedule_HubVersion.DataModel
             var k = 0;
             var enumerable = match as IList<Match> ?? match.ToList();
             var typeOftrain = GetTypeOfTrain(enumerable);
-            var length = typeOftrain.Count();
+            var length = enumerable.Count / 5;//5 parameter for search
             var trainList = new List<Train>();
             foreach (var m in enumerable)
             {
@@ -60,34 +60,19 @@ namespace TrainShedule_HubVersion.DataModel
                 }
                 i++;
             }
-            return trainList.Where(x => x.Status == "True");
+            var schedule = trainList.Where(x => x.Status == "True");
+            return searchParameter == "Национальный аэропорт «Минск»" || searchParameter == "Ближайшие"
+                ? schedule : schedule.Where(x => x.Type.Contains(searchParameter));
         }
 
-        public static IEnumerable<Train> GetTrainSchedure(string from, string to, string date)
+        public static IEnumerable<Train> GetTrainSchedure(string from, string to, string date, string searchParameter)
         {
-            return GetAllTrains(Parser.GetData(GetUrl(from, to, date), pattern));
+            return GetAllTrains(Parser.GetData(GetUrl(from, to, date), Pattern), searchParameter);
         }
 
         private static List<string> GetTypeOfTrain(IEnumerable<Match> match)
         {
-            var typesText = match.Select(x => x.Groups["type"]).Where(x => x.Value != "").Select(x => x.Value.Replace("\n\t\t", "").Replace("\t\t", ""));
-            var enumerable = typesText as string[] ?? typesText.ToArray();
-            var imageList = new List<string>(enumerable.Count());
-            foreach (var type in enumerable)
-            {
-                if (type.Contains("Международные"))
-                    imageList.Add(@"Assets/TypeOfTrain/international-railway_80x80.jpg");
-                else if (type.Contains("Межрегиональные"))
-                    imageList.Add(@"/Assets/TypeOfTrain/interregional-railway_80x80.jpg");
-                else if (type.Contains("Региональные"))
-                    imageList.Add(@"/Assets/TypeOfTrain/regional-railway_80x80.jpg");
-                else if (type.Contains("Коммерческие"))
-                    imageList.Add(@"/Assets/TypeOfTrain/commercial-railway_80x80.jpg");
-                else if (type.Contains("Городские"))
-                    imageList.Add(@"/Assets/TypeOfTrain/cityes-railway_80x80.jpg");
-                else imageList.Add("");
-            }
-            return imageList;
+            return new List<string>(match.Select(x => x.Groups["type"]).Where(x => x.Value != "").Select(x => x.Value.Replace("\n\t\t", "").Replace("\t\t", "")));
         }
 
         private static bool CheckTime(string time)
@@ -100,7 +85,7 @@ namespace TrainShedule_HubVersion.DataModel
         {
             var myDateTime = DateTime.Parse(time);
             var timeSpan = (myDateTime.TimeOfDay - DateTime.Now.TimeOfDay);
-            return timeSpan.Hours + ":" + timeSpan.Minutes;
+            return timeSpan.Hours + "ч. " + timeSpan.Minutes+"мин.";
         }
 
         private static string CorrectCity(string city)

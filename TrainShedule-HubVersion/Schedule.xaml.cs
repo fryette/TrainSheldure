@@ -29,10 +29,10 @@ namespace TrainShedule_HubVersion
             _trainList = e.Parameter as IEnumerable<Train>;
         }
 
-        async void SetTrainSheldure(object sender, RoutedEventArgs e)
+        void SetTrainSheldure(object sender, RoutedEventArgs e)
         {
             TrainList.ItemsSource = _trainList;
-            Task task= new Task(SerializeLastSheldule);
+            Task task = new Task(SerializeLastSheldule);
             task.Start();
         }
         async void SerializeLastSheldule()
