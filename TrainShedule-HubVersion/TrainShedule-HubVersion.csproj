@@ -125,6 +125,12 @@
     <Content Include="Assets\MenuIcon\2.png" />
     <Content Include="Assets\MenuIcon\3.png" />
     <Content Include="Assets\MenuIcon\4.png" />
+    <Content Include="Assets\MenuIcon\GE.png" />
+    <Content Include="Assets\MenuIcon\IL.png" />
+    <Content Include="Assets\MenuIcon\Immidiate.png" />
+    <Content Include="Assets\MenuIcon\IRLB_IRLE.png" />
+    <Content Include="Assets\MenuIcon\NatsA.png" />
+    <Content Include="Assets\MenuIcon\RLB_RLE.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />

@@ -153,7 +153,7 @@ namespace TrainShedule_HubVersion
         {
             if (!(_autoCompletions == null)) return;
             _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletetions");
-            if (_autoCompletions.Any()) return;
+            if (_autoCompletions!=null) return;
             _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
             await Serialize.SaveObjectToXml(_autoCompletions.ToList(), "autocompletetions");
         }

@@ -11,29 +11,15 @@ namespace TrainShedule_HubVersion.DataModel
 {
     class TrainGrabber
     {
-        private static IEnumerable<Match> ParseTrainData(string data)
-        {
-            const string pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
+        const string pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
                                    "(?<endTime><div class=\"list_end\">(.+?)<\\/?)|" +
                                    "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
                                    "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
                                    "<div class=\"train_type\">.+?>[s]*(?<type>[^<>]+?)[s]*<\\/div>";
-            var rgx = new Regex(pattern, RegexOptions.Singleline);
-            var match = rgx.Matches(data).Cast<Match>();
-            return match;
-        }
 
         private static string GetUrl(string fromName, string toName, string date)
         {
             return "http://rasp.rw.by/m/ru/route/?from=" + CorrectCity(fromName) + "&to=" + CorrectCity(toName) + "&date=" + date;
-        }
-        private static string GetHtmlCode(string url)
-        {
-            var httpClient = new HttpClient();
-            var httpResponseMessage = httpClient.GetAsync(url).Result;
-            var res = httpResponseMessage.Content.ReadAsStreamAsync().Result;
-            var reader = new StreamReader(res, Encoding.UTF8);
-            return reader.ReadToEnd();
         }
 
         private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match)
@@ -79,7 +65,7 @@ namespace TrainShedule_HubVersion.DataModel
 
         public static IEnumerable<Train> GetTrainSchedure(string from, string to, string date)
         {
-            return GetAllTrains(ParseTrainData(GetHtmlCode(GetUrl(from, to, date))));
+            return GetAllTrains(Parser.GetData(GetUrl(from, to, date), pattern));
         }
 
         private static List<string> GetTypeOfTrain(IEnumerable<Match> match)
@@ -113,7 +99,7 @@ namespace TrainShedule_HubVersion.DataModel
         private static string GetBeforeDepartureTime(string time)
         {
             var myDateTime = DateTime.Parse(time);
-            TimeSpan timeSpan = (myDateTime.TimeOfDay - DateTime.Now.TimeOfDay);
+            var timeSpan = (myDateTime.TimeOfDay - DateTime.Now.TimeOfDay);
             return timeSpan.Hours + ":" + timeSpan.Minutes;
         }
 
@@ -121,8 +107,7 @@ namespace TrainShedule_HubVersion.DataModel
         {
             if (city.Contains("Картузская")) return "Берёза-Картузская";
             if (!city.Contains("(")) return city;
-            if (city.Contains("Институт Культуры")) return "Институт Культуры";
-            return city.Remove(city.IndexOf("("));
+            return city.Contains("Институт Культуры") ? "Институт Культуры" : city.Remove(city.IndexOf("(", StringComparison.Ordinal));
         }
     }
 }

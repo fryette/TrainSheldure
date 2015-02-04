@@ -11,29 +11,17 @@ namespace TrainShedule_HubVersion.DataModel
 {
     class TrainPointsGrabber
     {
-        private static IEnumerable<Match> ParseTrainData(string data)
-        {
-            const string pattern = @"arrStations.push\(\""(.+?)""\)";
-            var rgx = new Regex(pattern,RegexOptions.Singleline);
-            return rgx.Matches(data).Cast<Match>();
-        }
-        private static string GetHtmlCode(string url = "http://rw.by/")
-        {
-            var httpClient = new HttpClient();
-            var httpResponseMessage = httpClient.GetAsync(url).Result;
-            var res = httpResponseMessage.Content.ReadAsStreamAsync().Result;
-            var reader = new StreamReader(res, Encoding.UTF8);
-            return reader.ReadToEnd();
-        }
+        private const string Url = "http://rw.by/";
+        const string Pattern = @"arrStations.push\(\""(.+?)""\)";
+       
         public static IEnumerable<string> GetTrainsPoints()
         {
-            return GetTrainPoints(ParseTrainData(GetHtmlCode()));
+            return GetTrainPoints(Parser.GetData(Url,Pattern));
         }
-
         private static IEnumerable<string> GetTrainPoints(IEnumerable<Match> match)
         {
-            var points = match as IList<Match> ?? match.ToList();
-            return !points.Any() ? null : points.Select(point => point.Groups[1].Value);
+            var enumerable = match as IList<Match> ?? match.ToList();
+            return !enumerable.Any() ? null : enumerable.Select(point => point.Groups[1].Value);
         }
     }
 }
