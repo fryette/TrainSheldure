@@ -156,6 +156,7 @@ namespace TrainShedule_HubVersion
             _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletetions");
             if (_autoCompletions!=null) return;
             _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
+            //TODO message box if no internet or bad request
             await Serialize.SaveObjectToXml(_autoCompletions.ToList(), "autocompletetions");
         }
     }

@@ -9,9 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="Assets/HubBackground.png"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock x:Name="ApplicationTitle" Text="Ближайший транспорт" FontSize="24" FontWeight="Bold"/>
         </StackPanel>
@@ -26,33 +26,19 @@
                         Name="TrainList" Margin="5,0,0,0">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Width="400">
-                            <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom">
+                            <StackPanel Orientation="Horizontal">
                                 <StackPanel Orientation="Vertical">
-                                    <StackPanel>
-                                        <StackPanel>
-                                            <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="12" VerticalAlignment="Center" FontWeight="Bold" Foreground="#FFB60000">
-                                                <Run FontSize="16" FontWeight="Bold"/>
-                                                <Run Text="{Binding BeforeDepartureTime}"/>
-                                            </TextBlock>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Height="80">
-                                            <TextBlock FontSize="12" Foreground="#FFF90101" Margin="0,0,5,0">
-                                                <Run Text="{Binding StartTime}" FontSize="16" FontWeight="Bold">
-                                                	<Run.Foreground>
-                                                		<SolidColorBrush Color="{ThemeResource PhoneForegroundColor}"/>
-                                                	</Run.Foreground>
-                                                </Run>
-                                                <LineBreak/>
-                                                <Run FontSize="14" Text="{Binding EndTime}" Foreground="#FFF95B01"  FontWeight="Bold"/>
-                                            </TextBlock>
-                                            <TextBlock Margin="0,0,0,0">
-                                                <Run FontSize="14" Text="{Binding City}" Foreground="White"  FontWeight="Bold"/>
-                                                <LineBreak/>
-                                                <Run FontSize="14" Text="{Binding Description}" Foreground="#FFFF5D00"  FontWeight="Bold"/>
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </StackPanel>
+                                    <Image Source="Assets/12.png" Height="90" Width="50"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Width="201">
+                                    <TextBlock Margin="0,10,0,0" FontSize="16" Text="{Binding City}" Foreground="WhiteSmoke"  FontWeight="Bold"/>
+                                    <TextBlock Margin="0,0,0,0" FontSize="16" Text="{Binding BeforeDepartureTime}" Foreground="DarkRed"  FontWeight="Bold" HorizontalAlignment="Right"/>
+                                    <TextBlock Margin="0,0,0,0" FontSize="16" Text="цена" Foreground="WhiteSmoke"  FontWeight="Bold" HorizontalAlignment="Right"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="40,10,5,0" >
+                                    <TextBlock Foreground="White" Text="{Binding StartTime}" FontSize="40" FontWeight="Bold" HorizontalAlignment="Right"/>
+                                    <TextBlock FontSize="24" Text="{Binding EndTime}" Foreground="DimGray"  FontWeight="Bold" HorizontalAlignment="Right"/>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

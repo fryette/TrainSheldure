@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="225307CA4C4AC.599754DA37687" Publisher="CN=C05B06FA-9BCA-40F6-A3D1-65B92DB0FF0E" Version="1.1.0.7" />
+  <Identity Name="225307CA4C4AC.599754DA37687" Publisher="CN=C05B06FA-9BCA-40F6-A3D1-65B92DB0FF0E" Version="1.1.0.8" />
   <mp:PhoneIdentity PhoneProductId="ceaa6c35-de60-48d0-bef5-8e42bc10140d" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Чыгунка-Beta</DisplayName>
