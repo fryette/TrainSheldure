@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace TrainShedule_HubVersion.DataModel
 {
@@ -18,15 +19,15 @@ namespace TrainShedule_HubVersion.DataModel
             return reader.ReadToEnd();
         }
 
-        public static IEnumerable<Match> GetData(string url,string pattern)
+        public static IEnumerable<Match> GetData(string url, string pattern)
         {
             return ParseTrainData(GetHtmlCode(url), pattern);
         }
 
-        private static IEnumerable<Match> ParseTrainData(string data,string pattern)
+        private static IEnumerable<Match> ParseTrainData(string data, string pattern)
         {
             var rgx = new Regex(pattern, RegexOptions.Singleline);
-            return rgx.Matches(data).Cast<Match>();
+            return rgx.Matches(data).Cast<Match>().Where(x => !string.IsNullOrEmpty(x.Value));
         }
     }
 }

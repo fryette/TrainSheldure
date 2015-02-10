@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using TrainShedule_HubVersion.Common;
+﻿using TrainShedule_HubVersion.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +17,8 @@ namespace TrainShedule_HubVersion
     {
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
-        private SampleDataItem _item;
+        private MenuDataItem _item;
+        private IEnumerable<string> _autoCompletion;
 
         public ItemPage()
         {
@@ -26,16 +26,6 @@ namespace TrainShedule_HubVersion
             NavigationCacheMode = NavigationCacheMode.Enabled;
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
-            _navigationHelper.SaveState += NavigationHelper_SaveState;
-            InitializeAutoSuggestions();
-        }
-
-        /// <summary>
-        /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
-        /// </summary>
-        public NavigationHelper NavigationHelper
-        {
-            get { return _navigationHelper; }
         }
 
         /// <summary>
@@ -58,34 +48,63 @@ namespace TrainShedule_HubVersion
         /// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested and
         /// a dictionary of state preserved by this page during an earlier
         /// session.  The state will be null the first time a page is visited.</param>
-        private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
+        private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            _item = e.NavigationParameter as SampleDataItem;
+            _item = e.NavigationParameter as MenuDataItem;
             DefaultViewModel["Item"] = _item;
-            CheckItemForAirport(_item.UniqueId);
+            if (_item != null) CheckItemForAirport(_item.UniqueId);
+            if (_autoCompletion == null)
+                _autoCompletion = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletion");
         }
 
         private void CheckItemForAirport(string uniqueId)
         {
-            if (uniqueId == "Group-1-Item-3")
+            if (uniqueId == "Menu-Airport")
                 From.Text = "Национальный аэропорт «Минск»";
         }
 
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache.  Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/>.</param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
+        private void AutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
         {
-            // TODO: Save the unique state of the page here.
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+                sender.ItemsSource = sender.Text.Length < 2
+                    ? null
+                    : _autoCompletion.Where(city => city.Contains(sender.Text)).ToList();
+        }
+
+        private async void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_autoCompletion == null && (!_autoCompletion.Contains(From.Text) || !_autoCompletion.Contains(To.Text)))
+            {
+                var messageDialog = new MessageDialog("Один или оба пункта не существует, проверьте или обновите пункты");
+                await messageDialog.ShowAsync();
+                return;
+            }
+            MyIndeterminateProbar.Visibility = Visibility.Visible;
+            var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title);
+            Frame.Navigate(typeof(Schedule), schedule);
+            MyIndeterminateProbar.Visibility = Visibility.Collapsed;
+        }
+
+        private async void UpdateTrainStop_Click(object sender, RoutedEventArgs e)
+        {
+            _autoCompletion = TrainPointsGrabber.GetTrainPoints();
+            await Serialize.SaveObjectToXml(new List<string>(_autoCompletion), "autocompletion");
+        }
+
+        private void Swap(object sender, RoutedEventArgs e)
+        {
+            var temp = From.Text;
+            From.Text = To.Text;
+            To.Text = temp;
+        }
+
+        private string GetDate()
+        {
+            return DatePicker.Date.Year + "-" + DatePicker.Date.Month + "-" + DatePicker.Date.Day;
         }
 
         #region NavigationHelper registration
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _navigationHelper.OnNavigatedTo(e);
@@ -95,82 +114,7 @@ namespace TrainShedule_HubVersion
         {
             _navigationHelper.OnNavigatedFrom(e);
         }
+
         #endregion
-
-        private IEnumerable<string> _autoCompletions = null;
-
-        private void FromTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput) return;
-            From.ItemsSource = AutoSuggestCity(sender.Text);
-        }
-
-        private void ToTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-        {
-            if (args.Reason != AutoSuggestionBoxTextChangeReason.UserInput)
-                return;
-            To.ItemsSource = AutoSuggestCity(sender.Text);
-        }
-
-        private List<string> AutoSuggestCity(string input)
-        {
-            return input.Length < 2 ? null : _autoCompletions.Where(city => city.Contains(input)).ToList();
-        }
-
-        private async void SearchButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (!_autoCompletions.Contains(From.Text) || !_autoCompletions.Contains(To.Text))
-            {
-                var messageDialog = new MessageDialog("Один или оба пункта не существует");
-                await messageDialog.ShowAsync();
-                return;
-            }
-            var schedule = await GetTrainSchedure(From.Text, To.Text, GetDate());
-            try
-            {
-                Frame.Navigate(typeof(Schedule), schedule);
-            }
-            catch (Exception)
-            {
-                // TODO: Writе implementation
-            }
-            finally
-            {
-                MyIndeterminateProbar.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private Task<IEnumerable<Train>> GetTrainSchedure(string from, string to, string date)
-        {
-            MyIndeterminateProbar.Visibility = Visibility.Visible;
-            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date, _item.Title));
-        }
-        private string GetDate()
-        {
-            return DatePicker.Date.Year + "-" + DatePicker.Date.Month + "-" + DatePicker.Date.Day;
-        }
-
-        private async void addBtn_Click(object sender, RoutedEventArgs e)
-        {
-            _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
-            await Serialize.SaveObjectToXml(new List<string>(_autoCompletions), "autocompletetions");
-        }
-
-        private async void InitializeAutoSuggestions()
-        {
-            if (_autoCompletions != null) return;
-            _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletetions");
-            if (_autoCompletions != null) return;
-            _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
-            //TODO message box if no internet or bad request
-            await Serialize.SaveObjectToXml(_autoCompletions.ToList(), "autocompletetions");
-        }
-
-        private void Swap(object sender, RoutedEventArgs e)
-        {
-            var temp = From.Text;
-            From.Text = To.Text;
-            To.Text = temp;
-        }
     }
 }

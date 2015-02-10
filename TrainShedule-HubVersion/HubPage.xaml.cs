@@ -1,11 +1,8 @@
 ﻿using System;
 using TrainShedule_HubVersion.Common;
 using TrainShedule_HubVersion.DataModel;
-using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Display;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace TrainShedule_HubVersion
@@ -15,22 +12,16 @@ namespace TrainShedule_HubVersion
     /// </summary>
     public sealed partial class HubPage
     {
-        Windows.Storage.ApplicationDataContainer localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
         private readonly NavigationHelper _navigationHelper;
         private readonly ObservableDictionary _defaultViewModel = new ObservableDictionary();
-        private readonly ResourceLoader _resourceLoader = ResourceLoader.GetForCurrentView(@"Resources");
-        private SampleDataItem _item;
+        private MenuDataItem _item;
         public HubPage()
         {
             InitializeComponent();
-            // Hub is only supported in Portrait orientation
             DisplayInformation.AutoRotationPreferences = DisplayOrientations.Portrait;
-
             NavigationCacheMode = NavigationCacheMode.Required;
-
             _navigationHelper = new NavigationHelper(this);
             _navigationHelper.LoadState += NavigationHelper_LoadState;
-            _navigationHelper.SaveState += NavigationHelper_SaveState;
         }
         /// <summary>
         /// Gets the <see cref="NavigationHelper"/> associated with this <see cref="Page"/>.
@@ -62,7 +53,7 @@ namespace TrainShedule_HubVersion
         /// session.  The state will be null the first time a page is visited.</param>
         private async void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
-            var sampleDataGroups = await SampleDataSource.GetGroupsAsync();
+            var sampleDataGroups = await MenuDataSource.GetGroupsAsync();
             DefaultViewModel["Groups"] = sampleDataGroups;
             SetLastTrainSchedule();
         }
@@ -74,23 +65,10 @@ namespace TrainShedule_HubVersion
 
         private async void SetLastTrainSchedule()
         {
-            var listview = FindChildControl<ListView>(this, "TrainList") as ListView;
+            var listview = Helper.FindChildControl<ListView>(this, "TrainList") as ListView;
             if (listview == null) return;
             var lastTrainSchedule = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
             listview.ItemsSource = lastTrainSchedule;
-        }
-
-        /// <summary>
-        /// Preserves state associated with this page in case the application is suspended or the
-        /// page is discarded from the navigation cache.  Values must conform to the serialization
-        /// requirements of <see cref="SuspensionManager.SessionState"/>.
-        /// </summary>
-        /// <param name="sender">The source of the event; typically <see cref="NavigationHelper"/></param>
-        /// <param name="e">Event data that provides an empty dictionary to be populated with
-        /// serializable state.</param>
-        private void NavigationHelper_SaveState(object sender, SaveStateEventArgs e)
-        {
-            // TODO: Save the unique state of the page here.
         }
 
         /// <summary>
@@ -98,36 +76,12 @@ namespace TrainShedule_HubVersion
         /// </summary>
         private void ItemView_ItemClick(object sender, ItemClickEventArgs e)
         {
-            _item = e.ClickedItem as SampleDataItem;
-            if (_item.UniqueId == "Group-1-Item-5" || _item.UniqueId == "Group-1-Item-6")
+            _item = e.ClickedItem as MenuDataItem;
+            if (_item != null && (_item.UniqueId == "Menu-Interregional" || _item.UniqueId == "Menu-Regional"))
                 Frame.Navigate(typeof(SectionPage), _item);
-            else if (!Frame.Navigate(typeof(ItemPage), _item))
-            {
-                throw new Exception(_resourceLoader.GetString(@"NavigationFailedExceptionMessage"));
-            }
+            else Frame.Navigate(typeof (ItemPage), _item);
         }
-        private static DependencyObject FindChildControl<T>(DependencyObject control, string ctrlName)
-        {
-            var childNumber = VisualTreeHelper.GetChildrenCount(control);
-            for (var i = 0; i < childNumber; i++)
-            {
-                var child = VisualTreeHelper.GetChild(control, i);
-                var fe = child as FrameworkElement;
-                // Not a framework element or is null
-                if (fe == null) return null;
 
-                if (child is T && fe.Name == ctrlName)
-                {
-                    // Found the control so return
-                    return child;
-                }
-                // Not found it - search children
-                var nextLevel = FindChildControl<T>(child, ctrlName);
-                if (nextLevel != null)
-                    return nextLevel;
-            }
-            return null;
-        }
         #region NavigationHelper registration
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

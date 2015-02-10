@@ -32,12 +32,7 @@ namespace TrainShedule_HubVersion
         void SetTrainSheldure(object sender, RoutedEventArgs e)
         {
             TrainList.ItemsSource = _trainList;
-            var task = new Task(SerializeLastSheldule);
-            task.Start();
-        }
-        async void SerializeLastSheldule()
-        {
-            await Serialize.SaveObjectToXml(new List<Train>(_trainList), "LastTrainList");
+            Task.Run(() => Serialize.SaveObjectToXml(new List<Train>(_trainList), "LastTrainList"));
         }
     }
 }

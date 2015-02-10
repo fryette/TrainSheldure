@@ -2,19 +2,13 @@
     x:Class="TrainShedule_HubVersion.ItemPage"    
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:TrainShedule_HubVersion"
-    xmlns:data="using:TrainShedule_HubVersion.Data"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     DataContext="{Binding DefaultViewModel.Item, RelativeSource={RelativeSource Self}}"
     
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
-        <Thickness x:Key="TextControlMarginThemeThickness">0,9.5,0,9.5</Thickness>
-        <Thickness x:Key="AutoSuggestListViewItemMargin">6.5,9.5,0,0</Thickness>
-        <x:Double x:Key="ContentControlFontSize">20.26</x:Double>
-        <Thickness x:Key="TextControlBorderThemeThickness">2.5</Thickness>
     </Page.Resources>
     <Page.Transitions>
         <TransitionCollection>
@@ -46,14 +40,14 @@
         <StackPanel Margin="0,95,0,0" Grid.RowSpan="2" HorizontalAlignment="Center">
             <DatePicker Header="Time" x:Name="DatePicker" Width="253" Height="70"/>
             <TextBlock TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top"/>
-            <AutoSuggestBox x:Name="From" Width="296" TextChanged="FromTextChanged" IsSuggestionListOpen="True"/>
+            <AutoSuggestBox x:Name="From" Text="Минск" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
             </StackPanel>
-            <AutoSuggestBox x:Name="To" Width="296" TextChanged="ToTextChanged" IsSuggestionListOpen="True"/>
+            <AutoSuggestBox x:Name="To" Text="Брест" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
             <StackPanel Orientation="Horizontal" >
-                <Button x:Name="Search" Content="Искать" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SearchButton_Click"/>
-                <Button x:Name="update" Content="Обновить станции" Click="addBtn_Click" Margin="5,0,0,0"/>
+                <Button Content="Искать" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SearchButton_Click"/>
+                <Button Content="Обновить станции" Click="UpdateTrainStop_Click" Margin="5,0,0,0"/>
             </StackPanel>
         </StackPanel>
     </Grid>

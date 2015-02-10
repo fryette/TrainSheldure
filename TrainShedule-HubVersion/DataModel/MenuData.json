@@ -1,0 +1,40 @@
+﻿{
+    "Groups": [
+        {
+            "UniqueId": "Menu",
+            "Title": "Варианты поиска",
+            "Items": [
+                {
+                    "UniqueId": "Menu-Nearest",
+                    "Title": "Ближайшие",
+                    "ImagePath": "Assets/MenuIcon/Immidiate.png"
+                   },
+                {
+                    "UniqueId": "Menu-International",
+                    "Title": "Международные",
+                    "ImagePath": "Assets/MenuIcon/IL.png"
+                },
+                {
+                    "UniqueId": "Menu-Airport",
+                    "Title": "Национальный аэропорт «Минск»",
+                    "ImagePath": "Assets/MenuIcon/NatsA.png"
+                },
+                {
+                    "UniqueId": "Menu-Cityes",
+                    "Title": "Городские",
+                    "ImagePath": "Assets/MenuIcon/GE.png"
+                },
+                {
+                    "UniqueId": "Menu-Interregional",
+                    "Title": "Межрегиональные",
+                    "ImagePath": "Assets/MenuIcon/IRLB_IRLE.png"
+                },
+                {
+                    "UniqueId": "Menu-Regional",
+                    "Title": "Региональные",
+                    "ImagePath": "Assets/MenuIcon/RLB_RLE.png"
+                }
+            ]
+        }
+    ]
+}
