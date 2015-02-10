@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using TrainShedule_HubVersion.Common;
-using TrainShedule_HubVersion.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,6 +63,13 @@ namespace TrainShedule_HubVersion
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             _item = e.NavigationParameter as SampleDataItem;
             DefaultViewModel["Item"] = _item;
+            CheckItemForAirport(_item.UniqueId);
+        }
+
+        private void CheckItemForAirport(string uniqueId)
+        {
+            if (uniqueId == "Group-1-Item-3")
+                From.Text = "Национальный аэропорт «Минск»";
         }
 
         /// <summary>
@@ -126,7 +132,7 @@ namespace TrainShedule_HubVersion
             }
             catch (Exception)
             {
-                // TODO: Writy implementation
+                // TODO: Writе implementation
             }
             finally
             {
@@ -137,7 +143,7 @@ namespace TrainShedule_HubVersion
         private Task<IEnumerable<Train>> GetTrainSchedure(string from, string to, string date)
         {
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date,_item.Title));
+            return Task.Run(() => TrainGrabber.GetTrainSchedure(from, to, date, _item.Title));
         }
         private string GetDate()
         {
@@ -154,10 +160,17 @@ namespace TrainShedule_HubVersion
         {
             if (_autoCompletions != null) return;
             _autoCompletions = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletetions");
-            if (_autoCompletions!=null) return;
+            if (_autoCompletions != null) return;
             _autoCompletions = TrainPointsGrabber.GetTrainsPoints();
             //TODO message box if no internet or bad request
             await Serialize.SaveObjectToXml(_autoCompletions.ToList(), "autocompletetions");
+        }
+
+        private void Swap(object sender, RoutedEventArgs e)
+        {
+            var temp = From.Text;
+            From.Text = To.Text;
+            To.Text = temp;
         }
     }
 }

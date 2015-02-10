@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using TrainShedule_HubVersion.Common;
-using TrainShedule_HubVersion.Data;
 using TrainShedule_HubVersion.DataModel;
 using Windows.ApplicationModel.Resources;
 using Windows.Graphics.Display;

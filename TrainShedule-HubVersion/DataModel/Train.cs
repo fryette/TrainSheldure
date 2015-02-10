@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
 
-namespace TrainShedule_HubVersion.Data
+namespace TrainShedule_HubVersion.DataModel
 {
     public class Train
     {
@@ -15,8 +14,8 @@ namespace TrainShedule_HubVersion.Data
         public string Description { get; set; }
         public string TrainNote { get; set; }
         //public string Place { get; set; }
+        public string ImagePath { get; set; }
         public string Type { get; set; }
-        public string Status { get; set; }
         public Train()
         {
 
@@ -27,9 +26,7 @@ namespace TrainShedule_HubVersion.Data
             Description = train[3];
             StartTime = train[0];
             EndTime = train[1];
-            Type = train[4];
-            Status = train[5];
-            BeforeDepartureTime = train[6];
+            BeforeDepartureTime = train[4];
             //TrainNote = train[5];
             //Place = train[6];
             //Price = train[7];

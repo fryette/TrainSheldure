@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
-using TrainShedule_HubVersion.Data;
 using TrainShedule_HubVersion.DataModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -26,7 +26,7 @@ namespace TrainShedule_HubVersion
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _trainList = e.Parameter as IEnumerable<Train>;
+            _trainList = (e.Parameter as IEnumerable<Train>).Where(x => !x.BeforeDepartureTime.Contains('-'));
         }
 
         void SetTrainSheldure(object sender, RoutedEventArgs e)

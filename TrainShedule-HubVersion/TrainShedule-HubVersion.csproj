@@ -114,9 +114,11 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\12.png" />
+    <Content Include="Assets\Cityes.png" />
+    <Content Include="Assets\appbar.refresh.png" />
     <Content Include="Assets\Brisa_ de_verano.jpg" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\Inteneshnl.png" />
     <Content Include="Assets\IRLB.png" />
     <Content Include="Assets\IRLE.png" />
     <Content Include="Assets\LightGray.png" />
@@ -134,6 +136,10 @@
     <Content Include="Assets\MenuIcon\IRLB_IRLE.png" />
     <Content Include="Assets\MenuIcon\NatsA.png" />
     <Content Include="Assets\MenuIcon\RLB_RLE.png" />
+    <Content Include="Assets\Interregional_biznes.png" />
+    <Content Include="Assets\Interregional_econom.png" />
+    <Content Include="Assets\Regional_biznes.png" />
+    <Content Include="Assets\Regional_econom.png" />
     <Content Include="Assets\RLB.png" />
     <Content Include="Assets\RLE.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />

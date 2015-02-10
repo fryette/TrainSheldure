@@ -1,15 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using System.Xml;
 using System.Xml.Serialization;
 using Windows.Storage;
-using TrainShedule_HubVersion.Data;
-
 
 namespace TrainShedule_HubVersion.DataModel
 {
