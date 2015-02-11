@@ -25,8 +25,8 @@ namespace TrainShedule_HubVersion.DataModel
 
         private static string GetUrl(string fromName, string toName, string date)
         {
-            return "http://rasp.rw.by/m/ru/route/?from=" + CorrectCityForRequest(fromName) + "&to=" +
-                   CorrectCityForRequest(toName) + "&date=" + date;
+            return "http://rasp.rw.by/m/ru/route/?from=" +
+                   fromName + "&to=" + toName + "&date=" + date;
         }
 
         private static IEnumerable<Train> GetAllTrains(IEnumerable<Match> match, string searchParameter, bool isEconom,
@@ -36,10 +36,9 @@ namespace TrainShedule_HubVersion.DataModel
             var parameters = match as IList<Match> ?? match.ToList();
             var imagePath = new List<string>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / 5);
-
             var step = parameters.Count - parameters.Count / 5;
 
-            for (int i = 0; i < step; i += 4)
+            for (var i = 0; i < step; i += 4)
             {
                 trainList.Add(new Train
                 {
@@ -62,24 +61,19 @@ namespace TrainShedule_HubVersion.DataModel
 
         private static IEnumerable<string> GetImagePath(IEnumerable<Match> match)
         {
-            var types = match.Select(x => x.Groups["type"].Value)
-                .Where(x => !string.IsNullOrEmpty(x));
-
-            return types.Select(type =>
-            {
-                if (type.Contains("Международ"))
-                    return "Assets/Inteneshnl.png";
-
-                if (type.Contains("Регион"))
-                    return type.Contains("бизнес") ? "Assets/Regional_biznes.png" : "Assets/Regional_econom.png";
-
-                if (type.Contains("Межрегион"))
-                    return type.Contains("бизнес")
-                        ? "Assets/Interregional_biznes.png"
-                        : "Assets/Interregional_econom.png";
-
-                return "Assets/Cityes.png";
-            });
+            return match.Select(x => x.Groups["type"].Value)
+                .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
+                {
+                    if (type.Contains("Международ"))
+                        return "Assets/Inteneshnl.png";
+                    if (type.Contains("Регион"))
+                        return type.Contains("бизнес") ? "Assets/Regional_biznes.png" : "Assets/Regional_econom.png";
+                    if (type.Contains("Межрегион"))
+                        return type.Contains("бизнес")
+                            ? "Assets/Interregional_biznes.png"
+                            : "Assets/Interregional_econom.png";
+                    return "Assets/Cityes.png";
+                });
         }
 
         private static string GetBeforeDepartureTime(DateTime time, DateTime dateToDeparture)
@@ -97,17 +91,7 @@ namespace TrainShedule_HubVersion.DataModel
                 .Aggregate("",
                     (current, cityPoint) =>
                         current + (cityPoint.Length <= 9 ? cityPoint + "-" : cityPoint.Remove(9) + ".-"));
-
             return shortTrainName.Remove(shortTrainName.Length - 1);
-        }
-
-        private static string CorrectCityForRequest(string city)
-        {
-            //TODO remove this method
-            if (city.Contains("Картузская")) return "Берёза-Картузская";
-            if (city.Contains("Институт Культуры")) return "Институт Культуры";
-            var index = city.IndexOf("(", StringComparison.Ordinal);
-            return index == -1 ? city : city.Remove(index);
         }
     }
 }

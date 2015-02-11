@@ -55,6 +55,8 @@ namespace TrainShedule_HubVersion
             if (_item != null) CheckItemForAirport(_item.UniqueId);
             if (_autoCompletion == null)
                 _autoCompletion = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletion");
+            if (_autoCompletion == null)
+                ShowMessageBox("Обновите станции,это делается всего один раз.");
         }
 
         private void CheckItemForAirport(string uniqueId)
@@ -67,18 +69,13 @@ namespace TrainShedule_HubVersion
         {
             if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
                 sender.ItemsSource = sender.Text.Length < 2
-                    ? null
-                    : _autoCompletion.Where(city => city.Contains(sender.Text)).ToList();
+                    ? null : _autoCompletion.Where(city => city.Contains(sender.Text)).ToList();
         }
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
             if (_autoCompletion == null && (!_autoCompletion.Contains(From.Text) || !_autoCompletion.Contains(To.Text)))
-            {
-                var messageDialog = new MessageDialog("Один или оба пункта не существует, проверьте или обновите пункты");
-                await messageDialog.ShowAsync();
-                return;
-            }
+                ShowMessageBox("Один или оба пункта не существует, проверьте еще раз или обновите станции");
             MyIndeterminateProbar.Visibility = Visibility.Visible;
             var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title);
             Frame.Navigate(typeof(Schedule), schedule);
@@ -88,7 +85,9 @@ namespace TrainShedule_HubVersion
         private async void UpdateTrainStop_Click(object sender, RoutedEventArgs e)
         {
             _autoCompletion = TrainPointsGrabber.GetTrainPoints();
-            await Serialize.SaveObjectToXml(new List<string>(_autoCompletion), "autocompletion");
+            if (_autoCompletion != null)
+                await Serialize.SaveObjectToXml(new List<string>(_autoCompletion), "autocompletion");
+
         }
 
         private void Swap(object sender, RoutedEventArgs e)
@@ -103,6 +102,11 @@ namespace TrainShedule_HubVersion
             return DatePicker.Date.Year + "-" + DatePicker.Date.Month + "-" + DatePicker.Date.Day;
         }
 
+        private async void ShowMessageBox(string message)
+        {
+            var messageDialog = new MessageDialog(message);
+            await messageDialog.ShowAsync();
+        }
         #region NavigationHelper registration
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
