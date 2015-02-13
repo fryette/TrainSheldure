@@ -91,10 +91,10 @@
     <Compile Include="DataModel\Helper.cs" />
     <Compile Include="DataModel\Parser.cs" />
     <Compile Include="DataModel\MenuDataSource.cs" />
-    <Compile Include="DataModel\Serialize.cs" />
+    <Compile Include="Infrastructure\Serialize.cs" />
     <Compile Include="DataModel\Train.cs" />
-    <Compile Include="DataModel\TrainGrabber.cs" />
-    <Compile Include="DataModel\TrainPointsGrabber.cs" />
+    <Compile Include="Infrastructure\TrainGrabber.cs" />
+    <Compile Include="Infrastructure\TrainPointsGrabber.cs" />
     <Compile Include="HubPage.xaml.cs">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
