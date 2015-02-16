@@ -29,7 +29,7 @@
                         >
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Background="#FFEA3C00" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600">
+                    <StackPanel Orientation="Horizontal" Background="#FFFF8000" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600">
                         <StackPanel Orientation="Vertical" Margin="5,5,0,0">
                             <TextBlock Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="200" MaxWidth="200" FontSize="18"/>
                         </StackPanel>

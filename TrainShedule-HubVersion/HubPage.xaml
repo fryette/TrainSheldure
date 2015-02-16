@@ -59,19 +59,23 @@
                         ItemClick="ClickItem">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="350">
-                                    <StackPanel Orientation="Horizontal">
-                                        <StackPanel Orientation="Vertical">
-                                            <Image Source= "{Binding ImagePath}" Height="80" Width="40"/>
+                                <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600">
+                                    <StackPanel Orientation="Vertical">
+                                        <Image Source="{Binding ImagePath}" Height="99" Width="50"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="5,0,0,0" FontSize="12" Text="{Binding City}" Foreground="WhiteSmoke"  FontWeight="Bold" MaxWidth="400" HorizontalAlignment="Right"/>
                                         </StackPanel>
-                                        <StackPanel Orientation="Vertical" Width="200">
-                                            <TextBlock Margin="5,10,0,0" FontSize="12" Text="{Binding City}" Foreground="WhiteSmoke"  FontWeight="Bold" HorizontalAlignment="Right"/>
-                                            <TextBlock Margin="40,0,0,0" FontSize="16" Text="{Binding BeforeDepartureTime}" Foreground="DarkRed"  FontWeight="Bold" HorizontalAlignment="Right"/>
-                                            <TextBlock Margin="40,0,0,0" FontSize="16" Text="цена" Foreground="WhiteSmoke"  FontWeight="Bold" HorizontalAlignment="Right"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Vertical" Margin="20,10,8,0" >
-                                            <TextBlock Foreground="White" Text="{Binding StartTime}" FontSize="27" FontWeight="Bold" HorizontalAlignment="Right"/>
-                                            <TextBlock FontSize="18" Text="{Binding EndTime}" Foreground="DimGray"  FontWeight="Bold" HorizontalAlignment="Right"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Vertical" Width="Auto" MaxWidth="400" HorizontalAlignment="Left" MinWidth="100" Margin="5,0,0,0">
+                                                <TextBlock Margin="0,0,0,0" FontSize="16" Text="{Binding BeforeDepartureTime}" Foreground="DarkRed"  FontWeight="Bold"/>
+                                                <TextBlock Margin="0,0,0,0" FontSize="16" Text="Доп.Информация" Foreground="WhiteSmoke"  FontWeight="Bold"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" Margin="0" HorizontalAlignment="Right" MinWidth="100">
+                                                <TextBlock Foreground="White" Text="{Binding StartTime}" FontSize="32" FontWeight="Bold" HorizontalAlignment="Right"/>
+                                                <TextBlock FontSize="24" Text="{Binding EndTime}" Foreground="DimGray"  FontWeight="Bold" HorizontalAlignment="Right" Margin="0,-5,0,0"/>
+                                            </StackPanel>
                                         </StackPanel>
                                     </StackPanel>
                                 </StackPanel>

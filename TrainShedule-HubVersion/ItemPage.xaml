@@ -21,31 +21,27 @@
         </TransitionCollection>
     </Page.Transitions>
     <Grid d:DataContext="{d:DesignInstance dataModel:MenuDataItem}">
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="Assets/HubBackground.theme-dark.png" Stretch="UniformToFill"/>
-        </Grid.Background>-->
-
-        <!-- Title Panel -->
         <StackPanel>
             <ProgressBar x:Name="MyIndeterminateProbar" IsIndeterminate="True" Margin="0,0,21,637" Width="379" Visibility="Collapsed"/>
         </StackPanel>
-        <StackPanel>
+        <StackPanel HorizontalAlignment="Center">
             <TextBlock Text="Выбор станций" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
             <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,26.5" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
         </StackPanel>
-        <Button Height="40" Width="40" Style="{StaticResource RoundByttonStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Margin="348,0,12,358" Click="Swap">
-            <Button.Background>
-                <ImageBrush Stretch="UniformToFill" ImageSource="Assets/appbar.refresh.png"/>
-            </Button.Background>
-        </Button>
+
         <StackPanel Margin="0,95,0,0" Grid.RowSpan="2" HorizontalAlignment="Center">
             <DatePicker Header="Time" x:Name="DatePicker" Width="253" Height="70"/>
-            <TextBlock TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top"/>
-            <AutoSuggestBox x:Name="From" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
-            <StackPanel Orientation="Horizontal">
+            <TextBlock TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top" Margin="0,5"/>
+            <AutoSuggestBox Text="Брест" x:Name="From" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
+            <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
+                <Button Height="40" Width="40" Style="{StaticResource RoundByttonStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="Swap" Margin="150,0,0,0">
+                    <Button.Background>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="Assets/appbar.refresh.png"/>
+                    </Button.Background>
+                </Button>
             </StackPanel>
-            <AutoSuggestBox x:Name="To" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
+            <AutoSuggestBox Text="Минск" x:Name="To" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
             <StackPanel Orientation="Horizontal" >
                 <Button Content="Искать" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SearchButton_Click"/>
                 <Button Content="Обновить станции" Click="UpdateTrainStop_Click" Margin="5,0,0,0"/>

@@ -16,12 +16,19 @@ namespace TrainShedule_HubVersion.Infrastructure
                                        "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
                                        "<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>";
 
+        private const string AddiditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
+
+        private const string ParsePlacesAndPrices =
+            "(?<Name><td class=\"places_name\">([^<]+)</td>)|" +
+            "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
+            "(?<Price><td class=\"places_price\">([^<]*))";
+
         private const int SearchCountParameter = 5;
         public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date, string searchParameter, bool isEconom = false)
         {
             string data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
             var addiditionalInformation = GetPlaces(data).ToList();
-            var trains = await Task.Run(() => GetSomeTrainsInformation(Parser.ParseTrainData(data, Pattern), addiditionalInformation, searchParameter, isEconom,
+            var trains = await Task.Run(() => GetSomeTrainsInformation(Parser.ParseTrainData(data, Pattern), addiditionalInformation,
                 date));
             var schedule = isEconom ? trains.Where(x => x.Type.Contains("эконом")).Select(x => x) : trains;
             var someTrainsInformation = schedule as IList<Train> ?? schedule.ToList();
@@ -36,7 +43,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                    fromName + "&to=" + toName + "&date=" + date;
         }
 
-        private static IEnumerable<Train> GetSomeTrainsInformation(IEnumerable<Match> match, IEnumerable<AdditionalInformation[]> placesAndPrices, string searchParameter, bool isEconom, string date)
+        private static IEnumerable<Train> GetSomeTrainsInformation(IEnumerable<Match> match, IEnumerable<AdditionalInformation[]> placesAndPrices, string date)
         {
             var dateOfDeparture = DateTime.Parse(date);
             var parameters = match as IList<Match> ?? match.ToList();
@@ -50,7 +57,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                 {
                     StartTime = parameters[i].Groups[1].Value,
                     EndTime = parameters[i + 1].Groups[2].Value,
-                    City = ReduceTrainName(parameters[i + 2].Groups[3].Value),
+                    City = parameters[i + 2].Groups[3].Value.Replace("&nbsp;&mdash;", "-"),
                     Description = parameters[i + 3].Groups[4].Value.Replace("&nbsp;", " "),
                     BeforeDepartureTime =
                         GetBeforeDepartureTime(DateTime.Parse(parameters[i].Groups[1].Value), dateOfDeparture),
@@ -85,24 +92,6 @@ namespace TrainShedule_HubVersion.Infrastructure
             return "через " + timeSpan.Hours + "ч. " + timeSpan.Minutes + "мин.";
         }
 
-        private static string ReduceTrainName(string trainName)
-        {
-            var shortTrainName = trainName
-                .Remove(0, trainName.IndexOf(' '))
-                .Split(new[] { "&nbsp;&mdash;" }, StringSplitOptions.None)
-                .Aggregate("",
-                    (current, cityPoint) =>
-                        current + (cityPoint.Length <= 9 ? cityPoint + "-" : cityPoint.Remove(9) + ".-"));
-            return shortTrainName.Remove(shortTrainName.Length - 1);
-        }
-
-        private const string AddiditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
-
-        private const string ParsePlacesAndPrices =
-            "(?<Name><td class=\"places_name\">([^<]+)</td>)|" +
-            "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
-            "(?<Price><td class=\"places_price\">([^<]*))";
-
         private static IEnumerable<AdditionalInformation[]> GetPlaces(string data)
         {
             var addiditionalParameter = Parser.ParseTrainData(data, AddiditionParameterPattern).ToList();
@@ -113,7 +102,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                 if (i + 1 >= addiditionalParameter.Count || addiditionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     addiditionInformationses.Add(new[]
                     {
-                        new AdditionalInformation {Name = "Нет мест"} 
+                        new AdditionalInformation {Name = "Нет данных, проверяйте в кассах."} 
                     });
                 else
                 {
@@ -125,13 +114,12 @@ namespace TrainShedule_HubVersion.Infrastructure
                         {
                             Name =
                                 temp[j].Groups[1].Value.Length > 18
-                                    ? temp[j].Groups[1].Value.Substring(0, 18)
+                                    ? "Сидячие"
                                     : temp[j].Groups[1].Value,
-                            Place =
-                                temp[j + 1].Groups[2].Value == "&nbsp;"
-                                    ? "Мест:неограничено"
-                                    : temp[j + 1].Groups[2].Value.Replace("&nbsp;", ""),
-                            Price = "цена:" + temp[j + 2].Groups[3].Value.Replace("&nbsp;", " ")
+                            Place = "мест: " + (temp[j + 1].Groups[2].Value == "&nbsp;"
+                                                ? "неограничено"
+                                                : temp[j + 1].Groups[2].Value.Replace("&nbsp;", "")),
+                            Price = "цена: " + temp[j + 2].Groups[3].Value.Replace("&nbsp;", " ")
                         };
                     }
                     addiditionInformationses.Add(additionalInformations);
