@@ -79,7 +79,12 @@ namespace TrainShedule_HubVersion
             _item = e.ClickedItem as MenuDataItem;
             if (_item != null && (_item.UniqueId == "Menu-Interregional" || _item.UniqueId == "Menu-Regional"))
                 Frame.Navigate(typeof(SectionPage), _item);
-            else Frame.Navigate(typeof (ItemPage), _item);
+            else Frame.Navigate(typeof(ItemPage), _item);
+        }
+
+        private void ClickItem(object sender, ItemClickEventArgs e)
+        {
+            Frame.Navigate(typeof(InformationPage), e.ClickedItem);
         }
 
         #region NavigationHelper registration

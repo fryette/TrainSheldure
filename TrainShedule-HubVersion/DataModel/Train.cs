@@ -16,5 +16,13 @@ namespace TrainShedule_HubVersion.DataModel
         //public string Place { get; set; }
         public string ImagePath { get; set; }
         public string Type { get; set; }
+        public AdditionalInformation[] AdditionalInformation { get; set; }
     }
+}
+
+public class AdditionalInformation
+{
+    public string Name { get; set; }
+    public string Price { get; set; }
+    public string Place { get; set; }
 }

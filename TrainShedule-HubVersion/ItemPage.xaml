@@ -21,9 +21,9 @@
         </TransitionCollection>
     </Page.Transitions>
     <Grid d:DataContext="{d:DesignInstance dataModel:MenuDataItem}">
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush ImageSource="Assets/HubBackground.theme-dark.png" Stretch="UniformToFill"/>
-        </Grid.Background>
+        </Grid.Background>-->
 
         <!-- Title Panel -->
         <StackPanel>
@@ -41,11 +41,11 @@
         <StackPanel Margin="0,95,0,0" Grid.RowSpan="2" HorizontalAlignment="Center">
             <DatePicker Header="Time" x:Name="DatePicker" Width="253" Height="70"/>
             <TextBlock TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top"/>
-            <AutoSuggestBox x:Name="From" Text="Минск" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
+            <AutoSuggestBox x:Name="From" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
             <StackPanel Orientation="Horizontal">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
             </StackPanel>
-            <AutoSuggestBox x:Name="To" Text="Брест" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
+            <AutoSuggestBox x:Name="To" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
             <StackPanel Orientation="Horizontal" >
                 <Button Content="Искать" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SearchButton_Click"/>
                 <Button Content="Обновить станции" Click="UpdateTrainStop_Click" Margin="5,0,0,0"/>

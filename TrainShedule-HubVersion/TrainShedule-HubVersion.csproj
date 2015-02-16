@@ -91,6 +91,9 @@
     <Compile Include="DataModel\Helper.cs" />
     <Compile Include="DataModel\Parser.cs" />
     <Compile Include="DataModel\MenuDataSource.cs" />
+    <Compile Include="InformationPage.xaml.cs">
+      <DependentUpon>InformationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Infrastructure\Serialize.cs" />
     <Compile Include="DataModel\Train.cs" />
     <Compile Include="Infrastructure\TrainGrabber.cs" />
@@ -168,6 +171,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="HubPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

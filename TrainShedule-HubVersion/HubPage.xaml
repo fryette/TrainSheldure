@@ -23,7 +23,7 @@
     </Page.Resources>
 
     <Grid>
-        <Hub x:Uid="Hub" Header="application name" Background="{ThemeResource HubBackgroundImageBrush}" SectionsInViewChanged="Hub_SectionsInViewChanged">
+        <Hub x:Uid="Hub" Header="application name" SectionsInViewChanged="Hub_SectionsInViewChanged">
             <HubSection x:Uid="HubSection1" Header="Варианты поиска транспорта"
                          DataContext="{Binding Groups[0]}" HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
@@ -55,13 +55,14 @@
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding Items}"
                         ContinuumNavigationTransitionInfo.ExitElementContainer="True"
-                        Name="TrainList" Margin="0,0,0,0">
+                        Name="TrainList" Margin="0,0,0,0"
+                        ItemClick="ClickItem">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Right" VerticalAlignment="Bottom" MinWidth="350">
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel Orientation="Vertical">
-                                            <Image Source= "{Binding ImagePath}" Height="90" Width="40"/>
+                                            <Image Source= "{Binding ImagePath}" Height="80" Width="40"/>
                                         </StackPanel>
                                         <StackPanel Orientation="Vertical" Width="200">
                                             <TextBlock Margin="5,10,0,0" FontSize="12" Text="{Binding City}" Foreground="WhiteSmoke"  FontWeight="Bold" HorizontalAlignment="Right"/>

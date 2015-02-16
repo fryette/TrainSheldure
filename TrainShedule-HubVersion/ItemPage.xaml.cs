@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Popups;
 using TrainShedule_HubVersion.DataModel;
+using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion
 {
@@ -74,10 +75,14 @@ namespace TrainShedule_HubVersion
 
         private async void SearchButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_autoCompletion == null && (!_autoCompletion.Contains(From.Text) || !_autoCompletion.Contains(To.Text)))
+            if (_autoCompletion == null || From.Text == String.Empty || To.Text == String.Empty ||
+                (!_autoCompletion.Contains(From.Text) || !_autoCompletion.Contains(To.Text)))
+            {
                 ShowMessageBox("Один или оба пункта не существует, проверьте еще раз или обновите станции");
+                return;
+            }
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title);
+            var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title, _item.IsEconom);
             Frame.Navigate(typeof(Schedule), schedule);
             MyIndeterminateProbar.Visibility = Visibility.Collapsed;
         }
@@ -102,7 +107,7 @@ namespace TrainShedule_HubVersion
             return DatePicker.Date.Year + "-" + DatePicker.Date.Month + "-" + DatePicker.Date.Day;
         }
 
-        private async void ShowMessageBox(string message)
+        private static async void ShowMessageBox(string message)
         {
             var messageDialog = new MessageDialog(message);
             await messageDialog.ShowAsync();

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using TrainShedule_HubVersion.DataModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -34,5 +35,11 @@ namespace TrainShedule_HubVersion
             TrainList.ItemsSource = _trainList;
             Task.Run(() => Serialize.SaveObjectToXml(new List<Train>(_trainList), "LastTrainList"));
         }
+
+        private void ClickItem(object sender, ItemClickEventArgs e)
+        {
+            Frame.Navigate(typeof(InformationPage),e.ClickedItem);
+        }
     }
+
 }

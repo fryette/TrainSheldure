@@ -17,9 +17,9 @@
         </TransitionCollection>
     </Page.Transitions>
     <Grid>
-        <Grid.Background>
+        <!--<Grid.Background>
             <ImageBrush Stretch="Fill" ImageSource="Assets/HubBackground.png"/>
-        </Grid.Background>
+        </Grid.Background>-->
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <EntranceThemeTransition/>
@@ -31,11 +31,11 @@
         </Grid.RowDefinitions>
 
         <!-- Title Panel -->
-        <StackPanel Grid.Row="0" Margin="19,0,0,0">
-            <TextBlock x:Uid="Header" Text="Чыгунка-Beta" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
+        <StackPanel Margin="19,0,0,0">
+            <TextBlock x:Uid="ApplicationName" Text="Чыгунка-Beta" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
             <TextBlock Text="Выбор класса" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" TextWrapping="NoWrap" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
         </StackPanel>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,100,0,0">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
             <Button x:Name="BusinessButton" Height="155" Width="155" Margin="10,0,50,0" Click="OnClickBusiness">
                 <Button.Background>
                     <ImageBrush ImageSource="/Assets/IRLB.png"/>
