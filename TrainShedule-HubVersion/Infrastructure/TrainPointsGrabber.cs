@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using TrainShedule_HubVersion.DataModel;
 
-
-namespace TrainShedule_HubVersion.DataModel
+namespace TrainShedule_HubVersion.Infrastructure
 {
     class TrainPointsGrabber
     {

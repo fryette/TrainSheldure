@@ -1,4 +1,5 @@
-﻿using TrainShedule_HubVersion.Common;
+﻿using System.Threading.Tasks;
+using TrainShedule_HubVersion.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,17 +83,25 @@ namespace TrainShedule_HubVersion
                 return;
             }
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title, _item.IsEconom,_item.SpecialSearch);
+            var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title, _item.IsEconom, _item.SpecialSearch);
             Frame.Navigate(typeof(Schedule), schedule);
             MyIndeterminateProbar.Visibility = Visibility.Collapsed;
         }
 
         private async void UpdateTrainStop_Click(object sender, RoutedEventArgs e)
         {
-            _autoCompletion = TrainPointsGrabber.GetTrainPoints();
+            MyIndeterminateProbar.Visibility = Visibility.Visible;
+            _autoCompletion = await Task.Run(() => TrainPointsGrabber.GetTrainPoints());
             if (_autoCompletion != null)
+            {
                 await Serialize.SaveObjectToXml(new List<string>(_autoCompletion), "autocompletion");
-
+                ShowMessageBox("Обновление прошло успешно");                
+            }
+            else
+            {
+                ShowMessageBox("Сбой,попробуйте позже или проверьте связь интернет");
+            }
+            MyIndeterminateProbar.Visibility = Visibility.Collapsed;
         }
 
         private void Swap(object sender, RoutedEventArgs e)

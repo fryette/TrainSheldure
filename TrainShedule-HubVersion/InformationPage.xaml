@@ -16,9 +16,6 @@
         </TransitionCollection>
     </Page.Transitions>
     <Grid>
-        <StackPanel>
-            <ProgressBar x:Name="MyIndeterminateProbar" IsIndeterminate="True" Margin="0,0,21,637" Width="379" Visibility="Collapsed"/>
-        </StackPanel>
         <ListView
             AutomationProperties.AutomationId="ItemListViewSection4"
                         AutomationProperties.Name="Items In Group"
@@ -42,5 +39,12 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Height="70" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFFF8000" Content="Список остановок" Click="SearchStopPoint"/>
+        <StackPanel>
+            <ProgressBar x:Name="MyIndeterminateProbar" IsIndeterminate="True" Margin="0,0,21,637" Width="379" Visibility="Collapsed">
+                <ProgressBar.Background>
+                    <SolidColorBrush Color="#FF002861" Opacity="0.15999999642372131"/>
+                </ProgressBar.Background>
+            </ProgressBar>
+        </StackPanel>
     </Grid>
 </Page>
