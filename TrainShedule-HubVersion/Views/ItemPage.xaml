@@ -31,16 +31,16 @@
         <StackPanel Margin="0,95,0,0" Grid.RowSpan="2" HorizontalAlignment="Center">
             <DatePicker Header="Time" x:Name="DatePicker" Width="253" Height="70"/>
             <TextBlock TextWrapping="Wrap" Text="Откуда" Height="28" FontSize="24" VerticalAlignment="Top" Margin="0,5"/>
-            <AutoSuggestBox Text="Брест" x:Name="From" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
+            <AutoSuggestBox x:Name="From" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
             <StackPanel Orientation="Horizontal" Margin="0,5">
                 <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Куда" VerticalAlignment="Top" Height="28" Width="84" FontSize="24"/>
                 <Button Height="40" Width="40" Style="{StaticResource RoundByttonStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch" Click="Swap" Margin="150,0,0,0">
                     <Button.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="Assets/appbar.refresh.png"/>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png"/>
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <AutoSuggestBox Text="Минск" x:Name="To" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
+            <AutoSuggestBox x:Name="To" Width="296" TextChanged="AutoSuggestBoxTextChanged" IsSuggestionListOpen="True"/>
             <StackPanel Orientation="Horizontal" >
                 <Button Content="Искать" HorizontalAlignment="Left" VerticalAlignment="Top" Click="SearchButton_Click"/>
                 <Button Content="Обновить станции" Click="UpdateTrainStop_Click" Margin="5,0,0,0"/>

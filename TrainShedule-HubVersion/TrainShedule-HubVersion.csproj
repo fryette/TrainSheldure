@@ -92,7 +92,7 @@
     <Compile Include="DataModel\Parser.cs" />
     <Compile Include="DataModel\MenuDataSource.cs" />
     <Compile Include="DataModel\TrainStop.cs" />
-    <Compile Include="InformationPage.xaml.cs">
+    <Compile Include="Views\InformationPage.xaml.cs">
       <DependentUpon>InformationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\AllTrainStop.cs" />
@@ -103,17 +103,17 @@
     <Compile Include="HubPage.xaml.cs">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ItemPage.xaml.cs">
+    <Compile Include="Views\ItemPage.xaml.cs">
       <DependentUpon>ItemPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Schedule.xaml.cs">
+    <Compile Include="Views\Schedule.xaml.cs">
       <DependentUpon>Schedule.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SectionPage.xaml.cs">
+    <Compile Include="Views\SectionPage.xaml.cs">
       <DependentUpon>SectionPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="StopPointSchedule.xaml.cs">
+    <Compile Include="Views\StopPointSchedule.xaml.cs">
       <DependentUpon>StopPointSchedule.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -179,23 +179,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="InformationPage.xaml">
+    <Page Include="Views\InformationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ItemPage.xaml">
+    <Page Include="Views\ItemPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Schedule.xaml">
+    <Page Include="Views\Schedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SectionPage.xaml">
+    <Page Include="Views\SectionPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StopPointSchedule.xaml">
+    <Page Include="Views\StopPointSchedule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
