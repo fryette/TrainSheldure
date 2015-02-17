@@ -82,7 +82,7 @@ namespace TrainShedule_HubVersion
                 return;
             }
             MyIndeterminateProbar.Visibility = Visibility.Visible;
-            var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title, _item.IsEconom);
+            var schedule = await TrainGrabber.GetTrainSchedule(From.Text, To.Text, GetDate(), _item.Title, _item.IsEconom,_item.SpecialSearch);
             Frame.Navigate(typeof(Schedule), schedule);
             MyIndeterminateProbar.Visibility = Visibility.Collapsed;
         }

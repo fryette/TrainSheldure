@@ -10,6 +10,7 @@ namespace TrainShedule_HubVersion.Infrastructure
 {
     internal class TrainGrabber
     {
+        #region constant
         private const string Pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
                                        "(?<endTime><div class=\"list_end\">(.+?)<\\/?)|" +
                                        "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
@@ -23,18 +24,20 @@ namespace TrainShedule_HubVersion.Infrastructure
             "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
             "(?<Price><td class=\"places_price\">([^<]*))";
 
+        private const string UnknownStr = "&nbsp;";
         private const int SearchCountParameter = 5;
-        public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date, string searchParameter, bool isEconom = false)
+
+        #endregion
+
+        public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date, string searchParameter, bool isEconom, bool specialSearch)
         {
-            string data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
+            var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
             var addiditionalInformation = GetPlaces(data).ToList();
-            var trains = await Task.Run(() => GetSomeTrainsInformation(Parser.ParseTrainData(data, Pattern), addiditionalInformation,
-                date));
-            var schedule = isEconom ? trains.Where(x => x.Type.Contains("эконом")).Select(x => x) : trains;
-            var someTrainsInformation = schedule as IList<Train> ?? schedule.ToList();
+            var trains = await Task.Run(() => GetSomeTrainsInformation(Parser.ParseTrainData(data, Pattern), addiditionalInformation, date));
+            var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
             return searchParameter == "Национальный аэропорт «Минск»" || searchParameter == "Ближайшие"
-                ? someTrainsInformation
-                : someTrainsInformation.Where(x => x.Type.Contains(searchParameter));
+                ? schedule
+                : schedule.Where(x => x.Type.Contains(searchParameter));
         }
 
         private static string GetUrl(string fromName, string toName, string date)
@@ -53,16 +56,20 @@ namespace TrainShedule_HubVersion.Infrastructure
 
             for (var i = 0; i < step; i += 4)
             {
+                var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
+                var endTime = DateTime.Parse(parameters[i + 1].Groups[2].Value);
                 trainList.Add(new Train
                 {
                     StartTime = parameters[i].Groups[1].Value,
                     EndTime = parameters[i + 1].Groups[2].Value,
                     City = parameters[i + 2].Groups[3].Value.Replace("&nbsp;&mdash;", "-"),
-                    Description = parameters[i + 3].Groups[4].Value.Replace("&nbsp;", " "),
+                    Description = parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
                     BeforeDepartureTime =
-                        GetBeforeDepartureTime(DateTime.Parse(parameters[i].Groups[1].Value), dateOfDeparture),
+                        GetBeforeDepartureTime(endTime, dateOfDeparture),
                     Type = parameters[i / 4 + step].Value,
-                    ImagePath = imagePath[i / 4]
+                    ImagePath = imagePath[i / 4],
+                    OnTheWay = OnTheWay(starTime, endTime),
+                    DepartureDate = date
                 });
             }
             return GetFinallyResult(placesAndPrices, trainList);
@@ -84,12 +91,17 @@ namespace TrainShedule_HubVersion.Infrastructure
                     return "Assets/Cityes.png";
                 });
         }
-
         private static string GetBeforeDepartureTime(DateTime time, DateTime dateToDeparture)
         {
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D", new CultureInfo("ru-ru"));
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
             return "через " + timeSpan.Hours + "ч. " + timeSpan.Minutes + "мин.";
+        }
+
+        private static string OnTheWay(DateTime startTime, DateTime endTime)
+        {
+            var time = endTime - startTime;
+            return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
         }
 
         private static IEnumerable<AdditionalInformation[]> GetPlaces(string data)
@@ -102,7 +114,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                 if (i + 1 >= addiditionalParameter.Count || addiditionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     addiditionInformationses.Add(new[]
                     {
-                        new AdditionalInformation {Name = "Нет данных, проверяйте в кассах."} 
+                        new AdditionalInformation {Name = "Нет данных, уточняйте в кассах."} 
                     });
                 else
                 {
@@ -110,16 +122,15 @@ namespace TrainShedule_HubVersion.Infrastructure
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
                     for (var j = 0; j < temp.Count; j += 3)
                     {
-                        additionalInformations[j / 3] = new AdditionalInformation()
+                        additionalInformations[j / 3] = new AdditionalInformation
                         {
-                            Name =
-                                temp[j].Groups[1].Value.Length > 18
+                            Name = temp[j].Groups[1].Value.Length > 18
                                     ? "Сидячие"
                                     : temp[j].Groups[1].Value,
-                            Place = "мест: " + (temp[j + 1].Groups[2].Value == "&nbsp;"
+                            Place = "мест: " + (temp[j + 1].Groups[2].Value == UnknownStr
                                                 ? "неограничено"
-                                                : temp[j + 1].Groups[2].Value.Replace("&nbsp;", "")),
-                            Price = "цена: " + temp[j + 2].Groups[3].Value.Replace("&nbsp;", " ")
+                                                : temp[j + 1].Groups[2].Value.Replace(UnknownStr, "")),
+                            Price = "цена: " + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
                     addiditionInformationses.Add(additionalInformations);
@@ -136,6 +147,11 @@ namespace TrainShedule_HubVersion.Infrastructure
             for (var i = 0; i < addInf.Count; i++)
                 trainsList[i].AdditionalInformation = addInf[i];
             return trainsList;
+        }
+
+        private static IEnumerable<Train> SearchBusinessOrEconomTrains(IEnumerable<Train> trains, bool isEconom)
+        {
+            return isEconom ? trains.Where(x => x.Type.Contains("эконом")) : trains.Where(x => x.Type.Contains("бизнес"));
         }
     }
 }

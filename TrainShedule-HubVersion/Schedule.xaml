@@ -37,6 +37,7 @@
                                 <StackPanel Orientation="Horizontal">
                                     <StackPanel Orientation="Vertical" Width="Auto" MaxWidth="400" HorizontalAlignment="Right" MinWidth="200">
                                         <TextBlock Margin="0,0,0,0" FontSize="16" Text="{Binding BeforeDepartureTime}" Foreground="DarkRed"  FontWeight="Bold" HorizontalAlignment="Right"/>
+                                        <TextBlock Margin="0,0,0,0" FontSize="16" Text="{Binding OnTheWay}" Foreground="DarkRed"  FontWeight="Bold" HorizontalAlignment="Right"/>
                                         <TextBlock Margin="0,0,0,0" FontSize="16" Text="Доп.Информация" Foreground="WhiteSmoke"  FontWeight="Bold" HorizontalAlignment="Right"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Margin="0" HorizontalAlignment="Right" MinWidth="120">

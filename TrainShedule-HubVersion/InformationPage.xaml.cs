@@ -1,21 +1,22 @@
-﻿using System.Linq;
-using Windows.UI.Xaml.Controls;
+﻿using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 using TrainShedule_HubVersion.DataModel;
+using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class InformationPage : Page
+    public sealed partial class InformationPage
     {
         private Train _train;
         public InformationPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -26,9 +27,16 @@ namespace TrainShedule_HubVersion
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _train = e.Parameter as Train;
-            if (_train != null) 
+            if (_train != null)
                 TrainList.ItemsSource = _train.AdditionalInformation;
         }
 
+        private async void SearchStopPoint(object sender, RoutedEventArgs e)
+        {
+            MyIndeterminateProbar.Visibility = Visibility.Visible;
+            var stopPointList =await Task.Run(() => AllTrainStop.GetTrainStop(_train.City.Substring(0, _train.City.IndexOf(" ", System.StringComparison.Ordinal)), _train.DepartureDate));
+            MyIndeterminateProbar.Visibility = Visibility.Collapsed;
+            Frame.Navigate(typeof(StopPointSchedule), stopPointList);
+        }
     }
 }

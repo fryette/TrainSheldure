@@ -32,6 +32,7 @@ namespace TrainShedule_HubVersion.DataModel
         public string Title { get; private set; }
         public string ImagePath { get; private set; }
         public bool IsEconom { get; set; }
+        public bool SpecialSearch { get; set; }
 
         public override string ToString()
         {

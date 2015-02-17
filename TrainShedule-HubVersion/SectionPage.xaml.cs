@@ -52,7 +52,9 @@ namespace TrainShedule_HubVersion
         private void NavigationHelper_LoadState(object sender, LoadStateEventArgs e)
         {
             _item = e.NavigationParameter as MenuDataItem;
-            if (_item != null) SetParameterForButton(_item.UniqueId);
+            if (_item == null) return;
+            SetParameterForButton(_item.UniqueId);
+            _item.SpecialSearch = true;
         }
 
         private void SetParameterForButton(string param)
