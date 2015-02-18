@@ -65,7 +65,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                     City = parameters[i + 2].Groups[3].Value.Replace("&nbsp;&mdash;", "-"),
                     Description = parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
                     BeforeDepartureTime =
-                        GetBeforeDepartureTime(endTime, dateOfDeparture),
+                        GetBeforeDepartureTime(starTime, dateOfDeparture),
                     Type = parameters[i / 4 + step].Value,
                     ImagePath = imagePath[i / 4],
                     OnTheWay = OnTheWay(starTime, endTime),
@@ -81,14 +81,14 @@ namespace TrainShedule_HubVersion.Infrastructure
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
                 {
                     if (type.Contains("Международ"))
-                        return "Assets/Inteneshnl.png";
+                        return "/Assets/Inteneshnl.png";
                     if (type.Contains("Межрегион"))
                         return type.Contains("бизнес")
-                            ? "Assets/Interregional_biznes.png"
-                            : "Assets/Interregional_econom.png";
+                            ? "/Assets/Interregional_biznes.png"
+                            : "/Assets/Interregional_econom.png";
                     if (type.Contains("Регион"))
-                        return type.Contains("бизнес") ? "Assets/Regional_biznes.png" : "Assets/Regional_econom.png";
-                    return "Assets/Cityes.png";
+                        return type.Contains("бизнес") ? "/Assets/Regional_biznes.png" : "/Assets/Regional_econom.png";
+                    return "/Assets/Cityes.png";
                 });
         }
         private static string GetBeforeDepartureTime(DateTime time, DateTime dateToDeparture)

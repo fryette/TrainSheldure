@@ -13,6 +13,7 @@ using Windows.Storage;
 // replace it with something appropriate to their needs. If using this model, you might improve app 
 // responsiveness by initiating the data loading task in the code behind for App.xaml when the app 
 // is first launched.
+using Windows.UI.Xaml.Controls;
 
 namespace TrainShedule_HubVersion.DataModel
 {
@@ -82,6 +83,7 @@ namespace TrainShedule_HubVersion.DataModel
         public static async Task<IEnumerable<MenuDataGroup>> GetGroupsAsync()
         {
             await _menuDataSource.GetMenuDataAsync();
+            
             return _menuDataSource.Groups;
         }
 
@@ -90,8 +92,18 @@ namespace TrainShedule_HubVersion.DataModel
             await _menuDataSource.GetMenuDataAsync();
             // Simple linear search is acceptable for small data sets
             var matches = _menuDataSource.Groups.Where(group => group.UniqueId.Equals(uniqueId));
-            var menuDataGroups = matches as IList<MenuDataGroup> ?? matches.ToList();
+            var menuDataGroups = matches as IList<MenuDataGroup> ?? matches.ToList();          
             return menuDataGroups.Count() == 1 ? menuDataGroups.First() : null;
+        }
+
+        public static async Task<IEnumerable<MenuDataItem>> GetItemsAsync()
+        {
+            await _menuDataSource.GetMenuDataAsync();
+            var matches =
+                _menuDataSource.Groups.SelectMany(group => group.Items);
+            var menuDataItems = matches as IList<MenuDataItem> ?? matches.ToList();
+            return menuDataItems;
+            
         }
 
         public static async Task<MenuDataItem> GetItemAsync(string uniqueId)
@@ -124,7 +136,7 @@ namespace TrainShedule_HubVersion.DataModel
 
                 foreach (var itemObject in groupObject["Items"].GetArray().Select(itemValue => itemValue.GetObject()))
                 {
-                    @group.Items.Add(new MenuDataItem(itemObject["UniqueId"].GetString(),
+                    group.Items.Add(new MenuDataItem(itemObject["UniqueId"].GetString(),
                         itemObject["Title"].GetString(),
                         itemObject["ImagePath"].GetString()));
                 }
