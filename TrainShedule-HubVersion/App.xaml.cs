@@ -4,7 +4,6 @@ using System;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.Phone.UI.Input;
 using TrainShedule_HubVersion.ViewModels;
 using TrainShedule_HubVersion.Views;
@@ -16,8 +15,6 @@ namespace TrainShedule_HubVersion
     /// </summary>
     public sealed partial class App
     {
-        private TransitionCollection _transitions;
-
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().

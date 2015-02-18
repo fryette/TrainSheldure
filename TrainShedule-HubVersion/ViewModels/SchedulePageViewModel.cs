@@ -11,11 +11,10 @@ namespace TrainShedule_HubVersion.ViewModels
     {
         public IEnumerable<Train> Parameter { get; set; }
         private readonly INavigationService _navigationService;
-        private readonly ILog _log;
-        public SchedulePageViewModel(INavigationService navigationService, ILog log)
+
+      public SchedulePageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _log = log;
         }
 
         private IEnumerable<Train> _trains;

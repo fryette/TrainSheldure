@@ -9,12 +9,10 @@ namespace TrainShedule_HubVersion.ViewModels
     public class InformationPageViewModel : Screen
     {
         private readonly INavigationService _navigationService;
-        private readonly ILog _log;
         public Train Parameter { get; set; }
-        public InformationPageViewModel(INavigationService navigationService, ILog log)
+        public InformationPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _log = log;
         }
 
         private AdditionalInformation[] _additionalInformation;

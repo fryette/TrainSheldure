@@ -9,12 +9,10 @@ namespace TrainShedule_HubVersion.ViewModels
     public class SectionPageViewModel : Screen
     {
         private readonly INavigationService _navigationService;
-        private readonly ILog _log;
         public MenuDataItem Parameter { get; set; }
-        public SectionPageViewModel(INavigationService navigationService, ILog log)
+        public SectionPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _log = log;
         }
 
         private ImageSource _businessBackground = new BitmapImage(new Uri("ms-appx:///Assets/IRLB.png"));

@@ -13,6 +13,15 @@
                     <ImageBrush x:Key="HubBackgroundImageBrush" ImageSource="{x:Null}"/>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
+            <DataTemplate x:Key="HubSectionHeaderTemplate">
+                <TextBlock Margin="0,0,0,-9.5" Text="{Binding}"/>
+            </DataTemplate>
+            <DataTemplate x:Key="Standard200X180TileItemTemplate">
+                <Grid Margin="0,0,9.5,9.5" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch">
+                    <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Height="138.5" Width="138.5"/>
+                    <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Margin="9.5,0,0,6.5" Style="{ThemeResource BaseTextBlockStyle}" Visibility="Collapsed"/>
+                </Grid>
+            </DataTemplate>
             <Thickness x:Key="PhoneBorderThickness">2.5</Thickness>
             <FontFamily x:Key="PhoneFontFamilyNormal">Segoe WP</FontFamily>
             <FontWeight x:Key="PhoneButtonFontWeight">Semibold</FontWeight>

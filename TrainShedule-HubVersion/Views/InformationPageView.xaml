@@ -5,17 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:micro="using:Caliburn.Micro"
+    xmlns:viewModels="using:TrainShedule_HubVersion.ViewModels"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <Page.Transitions>
-        <TransitionCollection>
-            <NavigationThemeTransition>
-                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
-                    <ContinuumNavigationTransitionInfo/>
-                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
-            </NavigationThemeTransition>
-        </TransitionCollection>
-    </Page.Transitions>
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignInstance viewModels:InformationPageViewModel}">
     <Grid>
         <ListView
             AutomationProperties.AutomationId="ItemListViewSection4"

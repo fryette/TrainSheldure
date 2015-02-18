@@ -5,8 +5,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:micro="using:Caliburn.Micro"
+    xmlns:viewModels="using:TrainShedule_HubVersion.ViewModels"
     mc:Ignorable="d"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignInstance viewModels:SchedulePageViewModel }">
 
     <Grid>
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
@@ -20,7 +21,7 @@
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding Trains}"
                         ContinuumNavigationTransitionInfo.ExitElementContainer="True"
-                        Name="TrainList" Margin="5,0,0,0"
+                Margin="5,0,0,0"
                         micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
                 <ListView.ItemTemplate>
                     <DataTemplate>

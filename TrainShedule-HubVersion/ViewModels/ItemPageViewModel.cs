@@ -15,12 +15,10 @@ namespace TrainShedule_HubVersion.ViewModels
         public MenuDataItem Parameter { get; set; }
 
         private readonly INavigationService _navigationService;
-        private readonly ILog _log;
 
-        public ItemPageViewModel(INavigationService navigationService, ILog log)
+        public ItemPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            _log = log;
         }
         private string _title;
         public string Title

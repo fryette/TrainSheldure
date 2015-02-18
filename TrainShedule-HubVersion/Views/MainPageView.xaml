@@ -8,20 +8,6 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Page.Resources>
-        <DataTemplate x:Key="HubSectionHeaderTemplate">
-            <TextBlock Margin="0,0,0,-9.5" Text="{Binding}"/>
-        </DataTemplate>
-        <!-- Grid-appropriate item template as seen in section 2 -->
-        <DataTemplate x:Key="Standard200X180TileItemTemplate">
-            <Grid Margin="0,0,9.5,9.5" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" HorizontalAlignment="Stretch">
-                <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}" Height="138.5" Width="138.5"/>
-                <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Margin="9.5,0,0,6.5" Style="{ThemeResource BaseTextBlockStyle}" Visibility="Collapsed"/>
-            </Grid>
-        </DataTemplate>
-
-    </Page.Resources>
-
     <Grid>
         <Hub x:Uid="Hub" Header="application name">
             <HubSection x:Uid="HubSection1" Header="Варианты поиска транспорта"
