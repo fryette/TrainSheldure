@@ -9,15 +9,14 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <Hub x:Uid="Hub" Header="application name">
-            <HubSection x:Uid="HubSection1" Header="Варианты поиска транспорта"
+        <Hub x:Uid="Hub">
+            <HubSection x:Uid="HubSection1"
                          HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
                     <GridView
                         Margin="0,9.5,0,0"
                         ItemsSource="{Binding Menu}"
                         AutomationProperties.AutomationId="ItemGridView"
-                        AutomationProperties.Name="Items In Group"
                         ItemTemplate="{StaticResource Standard200X180TileItemTemplate}"
                         SelectionMode="None"
                         IsItemClickEnabled="True"
@@ -31,12 +30,11 @@
                     </GridView>
                 </DataTemplate>
             </HubSection>
-            <HubSection x:Uid="HubSection2" Header="Последний запрос"
+            <HubSection x:Uid="HubSection2"
                         HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
                 <DataTemplate>
                     <ListView 
                         AutomationProperties.AutomationId="ItemListViewSection4"
-                        AutomationProperties.Name="Items In Group"
                         SelectionMode="None"
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding Trains}"

@@ -126,11 +126,11 @@
   <data name="Hub.Header" xml:space="preserve">
     <value>Быстрое расписание</value>
   </data>
-  <data name="HubSection1" xml:space="preserve">
-    <value>SECTION 1</value>
+  <data name="HubSection1.Header" xml:space="preserve">
+    <value>Варианты поиска транспорта</value>
   </data>
-  <data name="HubSection2" xml:space="preserve">
-    <value>SECTION 2</value>
+  <data name="HubSection2.Header" xml:space="preserve">
+    <value>Последний запрос</value>
   </data>
   <data name="HubSection3" xml:space="preserve">
     <value>SECTION 3</value>
