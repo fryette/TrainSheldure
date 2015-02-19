@@ -10,33 +10,11 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignInstance viewModels:InformationPageViewModel}">
     <Grid>
         <ListView
-            AutomationProperties.AutomationId="ItemListViewSection4"
-                        AutomationProperties.Name="Items In Group"
-                        SelectionMode="None"
                         ItemsSource="{Binding AdditionalInformation}"
-                        ContinuumNavigationTransitionInfo.ExitElementContainer="True"
-            Margin="5,0,0,0" Padding="0,70,0,0" >
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Background="#FFFF8000" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600">
-                        <StackPanel Orientation="Vertical" Margin="5,5,0,0">
-                            <TextBlock Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="200" MaxWidth="300" FontSize="18"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" MinWidth="100">
-                            <TextBlock Text="{Binding Place}" HorizontalAlignment="Right" FontSize="18"/>
-                            <TextBlock Text="{Binding Price}" HorizontalAlignment="Right" FontSize="18"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+                        Margin="5,0,0,0" Padding="0,70,0,0" 
+                        ItemTemplate="{StaticResource InformationTemplate}">
         </ListView>
-        <Button Height="70" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFFF8000" Content="Список остановок" micro:Message.Attach="[Event Click] = [Action SearchStopPoint]"/>
-        <StackPanel>
-            <ProgressBar IsIndeterminate="True" Margin="0,0,21,637" Width="379" Visibility="{Binding VisibilityProgressBar}">
-                <ProgressBar.Background>
-                    <SolidColorBrush Color="#FF002861" Opacity="0.15999999642372131"/>
-                </ProgressBar.Background>
-            </ProgressBar>
-        </StackPanel>
+        <Button x:Uid="ListOfPoint" Height="70" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFFF8000" micro:Message.Attach="[Event Click] = [Action SearchStopPoint]"/>
+        <ProgressBar IsIndeterminate="True" Visibility="{Binding VisibilityProgressBar}" VerticalAlignment="Top"/>
     </Grid>
 </Page>

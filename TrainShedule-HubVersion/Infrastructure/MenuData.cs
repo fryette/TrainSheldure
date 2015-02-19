@@ -18,60 +18,14 @@ using Windows.UI.Xaml.Controls;
 namespace TrainShedule_HubVersion.DataModel
 {
     /// <summary>
-    /// Generic item data model.
-    /// </summary>
-    public class MenuDataItem
-    {
-        public MenuDataItem(String uniqueId, String title, String imagePath)
-        {
-            UniqueId = uniqueId;
-            Title = title;
-            ImagePath = imagePath;
-        }
-
-        public string UniqueId { get; private set; }
-        public string Title { get; private set; }
-        public string ImagePath { get; private set; }
-        public bool IsEconom { get; set; }
-        public bool SpecialSearch { get; set; }
-
-        public override string ToString()
-        {
-            return Title;
-        }
-    }
-
-    /// <summary>
-    /// Generic group data model.
-    /// </summary>
-    public class MenuDataGroup
-    {
-        public MenuDataGroup(String uniqueId, String title)
-        {
-            UniqueId = uniqueId;
-            Title = title;
-            Items = new ObservableCollection<MenuDataItem>();
-        }
-
-        public string UniqueId { get; private set; }
-        public string Title { get; private set; }
-        public ObservableCollection<MenuDataItem> Items { get; private set; }
-
-        public override string ToString()
-        {
-            return Title;
-        }
-    }
-
-    /// <summary>
     /// Creates a collection of groups and items with content read from a static json file.
     /// 
     /// MenuDataSource initializes with data read from a static json file included in the 
     /// project.  This provides menu data at both design-time and run-time.
     /// </summary>
-    public sealed class MenuDataSource
+    public sealed class MenuData
     {
-        private static readonly MenuDataSource _menuDataSource = new MenuDataSource();
+        private static readonly MenuData _menuDataSource = new MenuData();
 
         private readonly ObservableCollection<MenuDataGroup> _groups = new ObservableCollection<MenuDataGroup>();
 

@@ -11,62 +11,12 @@
     <Grid>
         <Hub x:Uid="Hub">
             <HubSection x:Uid="HubSection1"
-                         HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
-                <DataTemplate>
-                    <GridView
-                        Margin="0,9.5,0,0"
-                        ItemsSource="{Binding Menu}"
-                        AutomationProperties.AutomationId="ItemGridView"
-                        ItemTemplate="{StaticResource Standard200X180TileItemTemplate}"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True"
-                        micro:Message.Attach="[Event ItemClick] = [Action GoToSearch($clickeditem)]"
-                        ContinuumNavigationTransitionInfo.ExitElementContainer="True">
-                        <GridView.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <ItemsWrapGrid />
-                            </ItemsPanelTemplate>
-                        </GridView.ItemsPanel>
-                    </GridView>
-                </DataTemplate>
+                         HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}"
+                        ContentTemplate="{StaticResource MainPageTemplate}">
             </HubSection>
             <HubSection x:Uid="HubSection2"
-                        HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}">
-                <DataTemplate>
-                    <ListView 
-                        AutomationProperties.AutomationId="ItemListViewSection4"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True"
-                        ItemsSource="{Binding Trains}"
-                        ContinuumNavigationTransitionInfo.ExitElementContainer="True"
-                        Name="TrainList"
-                        micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600">
-                                    <StackPanel Orientation="Vertical">
-                                        <Image Source="{Binding ImagePath}" Height="99" Width="50"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical">
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Margin="5,0,0,0" FontSize="12" Text="{Binding City}" Foreground="WhiteSmoke"  FontWeight="Bold" MaxWidth="400" HorizontalAlignment="Right"/>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal">
-                                            <StackPanel Orientation="Vertical" Width="Auto" MaxWidth="400" HorizontalAlignment="Left" MinWidth="100" Margin="5,0,0,0">
-                                                <TextBlock Margin="0,0,0,0" FontSize="16" Text="{Binding BeforeDepartureTime}" Foreground="DarkRed"  FontWeight="Bold"/>
-                                                <TextBlock Margin="0,0,0,0" FontSize="16" Text="Доп.Информация" Foreground="WhiteSmoke"  FontWeight="Bold"/>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Vertical" Margin="0" HorizontalAlignment="Right" MinWidth="100">
-                                                <TextBlock Foreground="White" Text="{Binding StartTime}" FontSize="32" FontWeight="Bold" HorizontalAlignment="Right"/>
-                                                <TextBlock FontSize="24" Text="{Binding EndTime}" Foreground="DimGray"  FontWeight="Bold" HorizontalAlignment="Right" Margin="0,-5,0,0"/>
-                                            </StackPanel>
-                                        </StackPanel>
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </DataTemplate>
+                        HeaderTemplate="{ThemeResource HubSectionHeaderTemplate}"
+                        ContentTemplate="{StaticResource LastScheduleTemplate}">
             </HubSection>
         </Hub>
     </Grid>

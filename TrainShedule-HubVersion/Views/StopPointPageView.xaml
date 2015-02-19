@@ -10,27 +10,10 @@
 
     <Grid>
         <ListView
-            AutomationProperties.AutomationId="ItemListViewSection4"
-                        AutomationProperties.Name="Items In Group"
-                        SelectionMode="None"
-                        IsItemClickEnabled="True"
-                        ItemsSource="{Binding Parameter}"
-                        ContinuumNavigationTransitionInfo.ExitElementContainer="True"
-            Margin="5,0,0,0" Padding="0,70,0,0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Background="#FFFF3A00" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600" Margin="0,2,0,0">
-                        <StackPanel Orientation="Vertical" MinWidth="220" MaxWidth="220" Margin="5,0,0,0">
-                            <TextBlock Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MaxWidth="300" FontSize="14" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" MinWidth="150">
-                            <TextBlock Text="{Binding Arrivals}" HorizontalAlignment="Right" FontSize="14"/>
-                            <TextBlock Text="{Binding Stay}" HorizontalAlignment="Right" FontSize="14"/>
-                            <TextBlock Text="{Binding Departures}" HorizontalAlignment="Right" FontSize="14"/>
-                        </StackPanel>
-                    </StackPanel>
-                </DataTemplate>
-            </ListView.ItemTemplate>
+               IsItemClickEnabled="True"
+               ItemsSource="{Binding Parameter}"
+               Margin="5,0,0,0" Padding="0,70,0,0"
+               ItemTemplate="{StaticResource StoPointTemplate}">
         </ListView>
     </Grid>
 </Page>

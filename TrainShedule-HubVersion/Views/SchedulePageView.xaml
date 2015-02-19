@@ -10,44 +10,16 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignInstance viewModels:SchedulePageViewModel }">
 
     <Grid>
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="Ближайший транспорт" FontSize="24" FontWeight="Bold"/>
+        <StackPanel Margin="12,17,0,28">
+            <TextBlock x:Uid="NearestTransport" FontSize="24" FontWeight="Bold"/>
         </StackPanel>
         <Grid Margin="0,48,0,0">
             <ListView 
-                        AutomationProperties.AutomationId="ItemListViewSection4"
-                        AutomationProperties.Name="Items In Group"
-                        SelectionMode="None"
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding Trains}"
-                        ContinuumNavigationTransitionInfo.ExitElementContainer="True"
-                Margin="5,0,0,0"
-                        micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600">
-                            <StackPanel Orientation="Vertical">
-                                <Image Source="{Binding ImagePath}" Height="99" Width="50"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock Margin="5,0,0,0" FontSize="14" Text="{Binding City}" Foreground="WhiteSmoke"  FontWeight="Bold" MaxWidth="400" HorizontalAlignment="Right"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal">
-                                    <StackPanel Orientation="Vertical" Width="Auto" MaxWidth="400" HorizontalAlignment="Right" MinWidth="200">
-                                        <TextBlock Margin="0,0,0,0" FontSize="16" Text="{Binding BeforeDepartureTime}" Foreground="DarkRed"  FontWeight="Bold" HorizontalAlignment="Right"/>
-                                        <TextBlock Margin="0,0,0,0" FontSize="16" Text="{Binding OnTheWay}" Foreground="DarkRed"  FontWeight="Bold" HorizontalAlignment="Right"/>
-                                        <TextBlock Margin="0,0,0,0" FontSize="16" Text="Доп.Информация" Foreground="WhiteSmoke"  FontWeight="Bold" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="0" HorizontalAlignment="Right" MinWidth="120">
-                                        <TextBlock Foreground="White" Text="{Binding StartTime}" FontSize="32" FontWeight="Bold" HorizontalAlignment="Right"/>
-                                        <TextBlock FontSize="24" Text="{Binding EndTime}" Foreground="DimGray"  FontWeight="Bold" HorizontalAlignment="Right" Margin="0,-5,0,0"/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
+                        Margin="5,0,0,0"
+                        micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]"
+                ItemTemplate="{StaticResource ScheduleTemplate}">
             </ListView>
         </Grid>
     </Grid>

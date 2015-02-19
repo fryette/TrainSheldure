@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ApplicationName" xml:space="preserve">
+  <data name="AddInformation.Text" xml:space="preserve">
+    <value>Доп.Информация</value>
+  </data>
+  <data name="ApplicationName.Text" xml:space="preserve">
     <value>Чыгунка-Beta</value>
+  </data>
+  <data name="From.PlaceholderText" xml:space="preserve">
+    <value>Откуда</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
     <value>Быстрое расписание</value>
@@ -132,16 +138,25 @@
   <data name="HubSection2.Header" xml:space="preserve">
     <value>Последний запрос</value>
   </data>
-  <data name="HubSection3" xml:space="preserve">
-    <value>SECTION 3</value>
+  <data name="ListOfPoint.Content" xml:space="preserve">
+    <value>Список остановок</value>
   </data>
-  <data name="HubSection4" xml:space="preserve">
-    <value>SECTION 4</value>
+  <data name="NearestTransport.Text" xml:space="preserve">
+    <value>Ближайший транспорт</value>
   </data>
-  <data name="HubSection5" xml:space="preserve">
-    <value>SECTION 5</value>
+  <data name="Search.Content" xml:space="preserve">
+    <value>Поиск</value>
   </data>
-  <data name="NavigationFailedExceptionMessage" xml:space="preserve">
-    <value>Navigation failed.</value>
+  <data name="SelectClass.Text" xml:space="preserve">
+    <value>Выбор класса</value>
+  </data>
+  <data name="SelectStantion.Text" xml:space="preserve">
+    <value>Выбор станции</value>
+  </data>
+  <data name="To.PlaceholderText" xml:space="preserve">
+    <value>Куда</value>
+  </data>
+  <data name="UpdateStopPoint.Content" xml:space="preserve">
+    <value>Обновить станции</value>
   </data>
 </root>

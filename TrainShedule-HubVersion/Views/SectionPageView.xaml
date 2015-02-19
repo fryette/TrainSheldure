@@ -15,16 +15,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="19,0,0,0">
-            <TextBlock x:Uid="ApplicationName" Text="Чыгунка-Beta" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0"/>
-            <TextBlock Text="Выбор класса" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" TextWrapping="NoWrap" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}" />
+            <TextBlock x:Uid="ApplicationName" Margin="0,12,0,0" Style="{ThemeResource TitleTextBlockStyle}"/>
+            <TextBlock x:Uid="SelectClass" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" />
         </StackPanel>
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-            <Button Height="155" Width="155" Margin="10,0,50,0" micro:Message.Attach="[Event Click] = [Action ClickBusiness]">
+            <Button Style="{StaticResource SelectButtonStyle}" micro:Message.Attach="[Event Click] = [Action ClickBusiness]">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding BusinessBackground}"/>
                 </Button.Background>
             </Button>
-            <Button Height="155" Width="155" micro:Message.Attach="[Event Click] = [Action ClickEconom]">
+            <Button Style="{StaticResource SelectButtonStyle}" micro:Message.Attach="[Event Click] = [Action ClickEconom]">
                 <Button.Background>
                     <ImageBrush ImageSource="{Binding EсonomBackground}"/>
                 </Button.Background>

@@ -50,7 +50,7 @@ namespace TrainShedule_HubVersion.ViewModels
 
         protected override async void OnActivate()
         {
-            Menu = await MenuDataSource.GetItemsAsync();
+            Menu = await MenuData.GetItemsAsync();
             Trains = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
         }
     }

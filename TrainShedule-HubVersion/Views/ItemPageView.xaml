@@ -10,28 +10,25 @@
 
     <Grid>
         <StackPanel>
-            <ProgressBar IsIndeterminate="True" Margin="0,0,21,637" Width="379" Visibility="{Binding VisibilityProgressBar}"/>
+            <ProgressBar IsIndeterminate="True" Visibility="{Binding VisibilityProgressBar}"/>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center">
-            <TextBlock Text="Выбор станций" Style="{ThemeResource TitleTextBlockStyle}" Margin="0,12,0,0" />
-            <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}" Margin="0,-6.5,0,26.5" CharacterSpacing="{ThemeResource PivotHeaderItemCharacterSpacing}"/>
+            <TextBlock x:Uid="SelectStantion" Style="{ThemeResource TitleTextBlockStyle}"/>
+            <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}"/>
         </StackPanel>
-        <StackPanel Margin="0,95,0,0" Grid.RowSpan="2" HorizontalAlignment="Center">
-            <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MonthFormat="{}{month.abbreviated}" YearFormat="{}{year.abbreviated}" DayFormat="{}{day.integer} {dayofweek.abbreviated}" />
-            <AutoSuggestBox PlaceholderText="Откуда" Width="296"  IsSuggestionListOpen="True" ItemsSource="{Binding AutoSuggestions}" 
-                            Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-            <StackPanel Orientation="Horizontal" Margin="0,5">
-                <Button Height="40" Width="40" Style="{StaticResource RoundByttonStyle}" HorizontalAlignment="Right" VerticalAlignment="Stretch"  Margin="150,0,0,0" 
-                       micro:Message.Attach="[Event Click] = [Action Swap]">
-                    <Button.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png"/>
-                    </Button.Background>
-                </Button>
-            </StackPanel>
-            <AutoSuggestBox PlaceholderText="Куда" Width="296"  IsSuggestionListOpen="True" Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AutoSuggestions}"/>
-            <StackPanel Orientation="Horizontal" >
-                <Button Content="Искать" HorizontalAlignment="Left" VerticalAlignment="Top" micro:Message.Attach="[Event Click] = [Action Search]"/>
-                <Button Content="Обновить станции"  Margin="5,0,0,0" micro:Message.Attach="[Event Click] = [Action UpdateTrainStop]"/>
+        <StackPanel Margin="0,95,0,0" Grid.RowSpan="2" MaxWidth="400">
+            <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DatePickerStyle}"/>
+            <AutoSuggestBox x:Uid="From" Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource AutoSuggestBoxStyle}" ItemsSource="{Binding AutoSuggestions}"/>
+            <Button Style="{StaticResource RoundByttonStyle}">
+                <Button.Background>
+                    <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png"/>
+                </Button.Background>
+            </Button>
+            <AutoSuggestBox x:Uid="To" Style="{StaticResource AutoSuggestBoxStyle}"
+                            Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AutoSuggestions}"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top" micro:Message.Attach="[Event Click] = [Action Search]"/>
+                <Button x:Uid="UpdateStopPoint"  Margin="5,0,0,0" micro:Message.Attach="[Event Click] = [Action UpdateTrainStop]"/>
             </StackPanel>
         </StackPanel>
     </Grid>
