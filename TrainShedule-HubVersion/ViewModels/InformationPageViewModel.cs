@@ -43,7 +43,7 @@ namespace TrainShedule_HubVersion.ViewModels
         private async void SearchStopPoint()
         {
             VisibilityProgressBar = Visibility.Visible;
-            var stopPointList = await Task.Run(() => AllTrainStop.GetTrainStop(Parameter.City.Substring(0, Parameter.City.IndexOf(" ", System.StringComparison.Ordinal)), Parameter.DepartureDate));
+            var stopPointList = await Task.Run(() => TrainStopGrabber.GetTrainStop(Parameter.Link));
             VisibilityProgressBar = Visibility.Collapsed;
             _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
         }

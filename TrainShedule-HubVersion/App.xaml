@@ -44,10 +44,9 @@
                 <Setter Property="Padding" Value="{ThemeResource PhoneButtonContentPadding}"/>
                 <Setter Property="MinHeight" Value="{ThemeResource PhoneButtonMinHeight}"/>
                 <Setter Property="MinWidth" Value="{ThemeResource PhoneButtonMinWidth}"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="micro:Message.Attach" Value="[Event Click] = [Action Swap]"/>
-                <Setter Property="HorizontalAlignment" Value="Right"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">

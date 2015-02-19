@@ -33,7 +33,9 @@ namespace TrainShedule_HubVersion.Infrastructure
         {
             var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
             var addiditionalInformation = GetPlaces(data).ToList();
-            var trains = await Task.Run(() => GetSomeTrainsInformation(Parser.ParseTrainData(data, Pattern), addiditionalInformation, date));
+            var links = GetLink(data);
+            var trains = await Task.Run(() => GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
+            trains = GetFinallyResult(addiditionalInformation, links, trains);
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
             return searchParameter == "Национальный аэропорт «Минск»" || searchParameter == "Ближайшие"
                 ? schedule
@@ -46,7 +48,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                    fromName + "&to=" + toName + "&date=" + date;
         }
 
-        private static IEnumerable<Train> GetSomeTrainsInformation(IEnumerable<Match> match, IEnumerable<AdditionalInformation[]> placesAndPrices, string date)
+        private static IEnumerable<Train> GetTrainsInformation(IEnumerable<Match> match, string date)
         {
             var dateOfDeparture = DateTime.Parse(date);
             var parameters = match as IList<Match> ?? match.ToList();
@@ -72,7 +74,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                     DepartureDate = date
                 });
             }
-            return GetFinallyResult(placesAndPrices, trainList);
+            return trainList;
         }
 
         private static IEnumerable<string> GetImagePath(IEnumerable<Match> match)
@@ -100,6 +102,8 @@ namespace TrainShedule_HubVersion.Infrastructure
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
         {
+            //only on bellarusian railways
+            if (endTime < startTime) endTime = endTime.AddDays(1);
             var time = endTime - startTime;
             return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
         }
@@ -139,13 +143,21 @@ namespace TrainShedule_HubVersion.Infrastructure
             }
             return addiditionInformationses;
         }
+        private static List<string> GetLink(string data)
+        {
+            var links = Parser.ParseTrainData(data, "<a href=\"/m/ru/train/(.+?)\"").ToList();
+            return links.Select(x => x.Groups[1].Value).ToList();
+        }
 
-        private static IEnumerable<Train> GetFinallyResult(IEnumerable<AdditionalInformation[]> addInformations, IEnumerable<Train> trains)
+        private static IEnumerable<Train> GetFinallyResult(IEnumerable<AdditionalInformation[]> addInformations,List<string> linksList, IEnumerable<Train> trains)
         {
             var addInf = addInformations.ToList();
             var trainsList = trains.ToList();
             for (var i = 0; i < addInf.Count; i++)
+            {
                 trainsList[i].AdditionalInformation = addInf[i];
+                trainsList[i].Link = linksList[i];
+            }
             return trainsList;
         }
 

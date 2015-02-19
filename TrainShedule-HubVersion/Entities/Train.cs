@@ -13,6 +13,7 @@ namespace TrainShedule_HubVersion.DataModel
         public AdditionalInformation[] AdditionalInformation { get; set; }
         public string OnTheWay { get; set; }
         public string DepartureDate { get; set; }
+        public string Link { get; set; }
     }
 }
 
