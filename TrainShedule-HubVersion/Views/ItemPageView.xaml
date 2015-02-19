@@ -30,6 +30,13 @@
                 <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top" micro:Message.Attach="[Event Click] = [Action Search]"/>
                 <Button x:Uid="UpdateStopPoint"  Margin="5,0,0,0" micro:Message.Attach="[Event Click] = [Action UpdateTrainStop]"/>
             </StackPanel>
+            <ListView 
+                        IsItemClickEnabled="True"
+                        ItemsSource="{Binding LastRequests}"
+                        Margin="5,0,0,0"
+                        micro:Message.Attach="[Event ItemClick] = [Action SetRequest($clickeditem)]"
+                        ItemTemplate="{StaticResource LastRequestTemplate}">
+            </ListView>
         </StackPanel>
     </Grid>
 </Page>

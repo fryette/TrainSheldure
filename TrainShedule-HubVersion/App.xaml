@@ -212,7 +212,7 @@
                     </StackPanel>
                 </StackPanel>
             </DataTemplate>
-            <DataTemplate x:Key="StoPointTemplate">
+            <DataTemplate x:Key="StopPointTemplate">
                 <StackPanel Orientation="Horizontal" Background="#FFFF3A00" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="600" Margin="0,2,0,0">
                     <StackPanel Orientation="Vertical" MinWidth="220" MaxWidth="220" Margin="5,0,0,0">
                         <TextBlock Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MaxWidth="300" FontSize="14" FontWeight="Bold"/>
@@ -222,6 +222,13 @@
                         <TextBlock Text="{Binding Stay}" Style="{StaticResource StopPointTextBlockStyle}"/>
                         <TextBlock Text="{Binding Departures}" Style="{StaticResource StopPointTextBlockStyle}"/>
                     </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="LastRequestTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding From}" Style="{StaticResource BodyTextBlockStyle}" />
+                    <TextBlock Text=" - " Style="{StaticResource BodyTextBlockStyle}" />
+                    <TextBlock Text="{Binding To}" Style="{StaticResource BodyTextBlockStyle}" />
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>

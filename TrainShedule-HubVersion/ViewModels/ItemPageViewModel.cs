@@ -6,6 +6,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
 using TrainShedule_HubVersion.DataModel;
+using TrainShedule_HubVersion.Entities;
 using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
@@ -53,7 +54,17 @@ namespace TrainShedule_HubVersion.ViewModels
             }
         }
 
-        private DateTimeOffset _datum= new DateTimeOffset(DateTime.Now);
+        private List<LastRequest> _lastRequests;
+        public List<LastRequest> LastRequests
+        {
+            get { return _lastRequests; }
+            set
+            {
+                _lastRequests = value;
+                NotifyOfPropertyChange(() => LastRequests);
+            }
+        }
+        private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
         public DateTimeOffset Datum
         {
             get { return _datum; }
@@ -93,6 +104,7 @@ namespace TrainShedule_HubVersion.ViewModels
                 AutoCompletion = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletion");
             if (AutoCompletion == null)
                 ShowMessageBox("Обновите станции,это делается всего один раз.");
+            LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
         }
         private static async void ShowMessageBox(string message)
         {
@@ -114,6 +126,7 @@ namespace TrainShedule_HubVersion.ViewModels
                 return;
             }
             VisibilityProgressBar = Visibility.Visible;
+            SerializeLastReques();
             var schedule = await TrainGrabber.GetTrainSchedule(From, To, GetDate(), Parameter.Title, Parameter.IsEconom, Parameter.SpecialSearch);
             _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
             VisibilityProgressBar = Visibility.Collapsed;
@@ -137,5 +150,31 @@ namespace TrainShedule_HubVersion.ViewModels
             }
             VisibilityProgressBar = Visibility.Collapsed;
         }
+
+        private async void SerializeLastReques()
+        {
+            if (LastRequests == null) LastRequests = new List<LastRequest>();
+            if (LastRequests.Count < 3)
+                LastRequests.Add(new LastRequest
+                {
+                    From = From,
+                    To = To
+                });
+            else
+                LastRequests[2] = new LastRequest
+                    {
+                        From = From,
+                        To = To
+                    };
+            LastRequests.Reverse();
+            await Serialize.SaveObjectToXml(LastRequests, "lastRequests");
+        }
+
+        private void SetRequest(LastRequest lastRequest)
+        {
+            From = lastRequest.From;
+            To = lastRequest.To;
+        }
+
     }
 }

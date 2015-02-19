@@ -13,7 +13,7 @@
                IsItemClickEnabled="True"
                ItemsSource="{Binding Parameter}"
                Margin="5,0,0,0" Padding="0,70,0,0"
-               ItemTemplate="{StaticResource StoPointTemplate}">
+               ItemTemplate="{StaticResource StopPointTemplate}">
         </ListView>
     </Grid>
 </Page>
