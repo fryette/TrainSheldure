@@ -38,8 +38,8 @@ namespace TrainShedule_HubVersion.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = "Отпр: " + (arrivals == "" ? "конечная" : arrivals.Substring(0, 5)),
-                    Departures = "Приб: " + (departure == "" ? "начальная" : departure),
+                    Arrivals = "Приб: " + (arrivals == "" ? departure : arrivals.Substring(0, 5)),
+                    Departures = "Отпр: " + (departure == "" ? arrivals : departure),
                     Stay = "Стоянка: " + (stay == "" ? "нет" : stay)
                 });
             }

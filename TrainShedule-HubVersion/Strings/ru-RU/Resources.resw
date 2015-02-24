@@ -138,6 +138,9 @@
   <data name="HubSection2.Header" xml:space="preserve">
     <value>Последний запрос</value>
   </data>
+  <data name="LastRequest.Text" xml:space="preserve">
+    <value>Последний запросы</value>
+  </data>
   <data name="ListOfPoint.Content" xml:space="preserve">
     <value>Список остановок</value>
   </data>

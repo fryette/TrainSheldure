@@ -134,7 +134,7 @@
                 <Setter Property="Width" Value="300"/>
             </Style>
             <DataTemplate x:Key="ScheduleTemplate">
-                <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MaxWidth="600" MinWidth="600">
+                <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" MaxWidth="600" MinWidth="600">
                     <StackPanel Orientation="Vertical">
                         <Image Source="{Binding ImagePath}" Height="99" Width="50"/>
                     </StackPanel>
@@ -204,7 +204,7 @@
             <DataTemplate x:Key="InformationTemplate">
                 <StackPanel Orientation="Horizontal" Background="#FFFF8000" Margin="0,5,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" MinWidth="600">
                     <StackPanel Orientation="Vertical" Margin="5,5,0,0">
-                        <TextBlock Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="200" FontSize="18"/>
+                        <TextBlock Text="{Binding Name}" VerticalAlignment="Bottom" HorizontalAlignment="Left" MinWidth="150" FontSize="18"/>
                     </StackPanel>
                     <StackPanel Orientation="Vertical" MinWidth="100">
                         <TextBlock Text="{Binding Place}" HorizontalAlignment="Right" FontSize="18"/>
@@ -223,11 +223,11 @@
                         <TextBlock Text="{Binding Departures}" Style="{StaticResource StopPointTextBlockStyle}"/>
                     </StackPanel>
                 </StackPanel>
-            </DataTemplate>
+                </DataTemplate>
             <DataTemplate x:Key="LastRequestTemplate">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="{Binding From}" Style="{StaticResource BodyTextBlockStyle}" />
-                    <TextBlock Text=" - " Style="{StaticResource BodyTextBlockStyle}" />
+                    <TextBlock Text="-" Style="{StaticResource BodyTextBlockStyle}" />
                     <TextBlock Text="{Binding To}" Style="{StaticResource BodyTextBlockStyle}" />
                 </StackPanel>
             </DataTemplate>

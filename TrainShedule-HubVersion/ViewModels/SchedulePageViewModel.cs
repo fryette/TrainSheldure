@@ -31,7 +31,7 @@ namespace TrainShedule_HubVersion.ViewModels
         protected override void OnActivate()
         {
             Trains = Parameter.Where(x => !x.BeforeDepartureTime.Contains('-'));
-            Task.Run(() => Serialize.SaveObjectToXml(new List<Train>(Parameter), "LastTrainList"));
+            Task.Run(() => Serialize.SaveObjectToXml(new List<Train>(Trains), "LastTrainList"));
         }
 
         private void ClickItem(Train train)

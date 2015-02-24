@@ -37,7 +37,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             var trains = await Task.Run(() => GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
             trains = GetFinallyResult(addiditionalInformation, links, trains);
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
-            return searchParameter == "Национальный аэропорт «Минск»" || searchParameter == "Ближайшие"
+            return searchParameter == "Аэропорт" || searchParameter == "Ближайшие"
                 ? schedule
                 : schedule.Where(x => x.Type.Contains(searchParameter));
         }
@@ -118,7 +118,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                 if (i + 1 >= addiditionalParameter.Count || addiditionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     addiditionInformationses.Add(new[]
                     {
-                        new AdditionalInformation {Name = "Нет данных, уточняйте в кассах."} 
+                        new AdditionalInformation {Name = "Мест нет. Уточняйте в кассах"} 
                     });
                 else
                 {

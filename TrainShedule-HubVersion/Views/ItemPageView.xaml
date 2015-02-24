@@ -25,17 +25,17 @@
                 </Button.Background>
             </Button>
             <AutoSuggestBox x:Uid="To" Style="{StaticResource AutoSuggestBoxStyle}"
-                            Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AutoSuggestions}"/>
+                            Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AutoSuggestions}" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                 <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top" micro:Message.Attach="[Event Click] = [Action Search]"/>
                 <Button x:Uid="UpdateStopPoint"  Margin="5,0,0,0" micro:Message.Attach="[Event Click] = [Action UpdateTrainStop]"/>
             </StackPanel>
-            <ListView 
+            <TextBlock x:Uid="LastRequest" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
+                <ListView 
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding LastRequests}"
-                        Margin="5,0,0,0"
                         micro:Message.Attach="[Event ItemClick] = [Action SetRequest($clickeditem)]"
-                        ItemTemplate="{StaticResource LastRequestTemplate}">
+                        ItemTemplate="{StaticResource LastRequestTemplate}" HorizontalAlignment="Center">
             </ListView>
         </StackPanel>
     </Grid>

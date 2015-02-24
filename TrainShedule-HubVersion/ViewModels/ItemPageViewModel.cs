@@ -39,7 +39,7 @@ namespace TrainShedule_HubVersion.ViewModels
             {
                 _from = value;
                 NotifyOfPropertyChange(() => From);
-                AutoSuggestions = AutoCompletion.Where(x => x.Contains(From));
+                UpdateAutoSuggestions(From);
             }
         }
         private string _to;
@@ -50,7 +50,7 @@ namespace TrainShedule_HubVersion.ViewModels
             {
                 _to = value;
                 NotifyOfPropertyChange(() => To);
-                AutoSuggestions = AutoCompletion.Where(x => x.Contains(To));
+                UpdateAutoSuggestions(To);
             }
         }
 
@@ -141,7 +141,8 @@ namespace TrainShedule_HubVersion.ViewModels
             AutoCompletion = await Task.Run(() => TrainPointsGrabber.GetTrainPoints());
             if (AutoCompletion != null)
             {
-                await Serialize.SaveObjectToXml(new List<string>(AutoCompletion), "autocompletion");
+                AutoCompletion = AutoCompletion.Distinct();
+                await Serialize.SaveObjectToXml(new List<string>(AutoCompletion.Distinct()), "autocompletion");
                 ShowMessageBox("Обновление прошло успешно");
             }
             else
@@ -154,18 +155,21 @@ namespace TrainShedule_HubVersion.ViewModels
         private async void SerializeLastReques()
         {
             if (LastRequests == null) LastRequests = new List<LastRequest>();
+            if (LastRequests.Any(x => x.From == From && x.To == To)) return;
             if (LastRequests.Count < 3)
+            {
                 LastRequests.Add(new LastRequest
                 {
                     From = From,
                     To = To
                 });
+            }
             else
                 LastRequests[2] = new LastRequest
-                    {
-                        From = From,
-                        To = To
-                    };
+                {
+                    From = From,
+                    To = To
+                };
             LastRequests.Reverse();
             await Serialize.SaveObjectToXml(LastRequests, "lastRequests");
         }
@@ -174,6 +178,12 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             From = lastRequest.From;
             To = lastRequest.To;
+        }
+
+        private void UpdateAutoSuggestions(string str)
+        {
+            var temp = AutoCompletion.Where(x => x.Contains(str)).ToList();
+            AutoSuggestions = temp.Count() == 1 ? temp[0] == str ? null : temp : temp;
         }
 
     }
