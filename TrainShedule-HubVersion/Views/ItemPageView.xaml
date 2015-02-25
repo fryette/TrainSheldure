@@ -15,9 +15,9 @@
         <ProgressBar IsIndeterminate="True" Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top"/>
         <StackPanel HorizontalAlignment="Center">
             <TextBlock x:Uid="SelectStantion" Style="{ThemeResource TitleTextBlockStyle}"/>
-            <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}"/>
+            <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}" FontSize="40"/>
         </StackPanel>
-        <StackPanel Margin="0,95,0,0" Grid.RowSpan="2" MaxWidth="400">
+        <StackPanel Margin="0,100,0,0" Grid.RowSpan="2" MaxWidth="400">
             <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DatePickerStyle}"/>
             <AutoSuggestBox x:Uid="From" Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource AutoSuggestBoxStyle}" ItemsSource="{Binding AutoSuggestions}"/>
             <Button Style="{StaticResource RoundByttonStyle}">

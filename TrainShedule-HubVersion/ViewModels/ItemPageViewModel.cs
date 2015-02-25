@@ -74,7 +74,7 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => Datum);
             }
         }
-        public IEnumerable<string> AutoCompletion { get; set; }
+        public static IEnumerable<string> AutoCompletion { get; set; }
         private IEnumerable<string> _autoSuggestions;
         public IEnumerable<string> AutoSuggestions
         {
@@ -102,7 +102,10 @@ namespace TrainShedule_HubVersion.ViewModels
             if (AutoCompletion == null)
                 AutoCompletion = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletion");
             if (AutoCompletion == null)
+            {
                 ShowMessageBox("Обновите станции,это делается всего один раз.");
+                return;
+            }
             LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
             if (Parameter.Title == "Аэропорт")
                 From = "Национальный аэропорт «Минск»";
@@ -185,6 +188,11 @@ namespace TrainShedule_HubVersion.ViewModels
 
         private void UpdateAutoSuggestions(string str)
         {
+            if (AutoCompletion == null)
+            {
+                ShowMessageBox("Обновите станции!");
+                return;
+            }
             var temp = AutoCompletion.Where(x => x.Contains(str)).ToList();
             AutoSuggestions = temp.Count() == 1 ? temp[0] == str ? null : temp : temp;
         }
