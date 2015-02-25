@@ -7,7 +7,11 @@
     xmlns:micro="using:Caliburn.Micro"
     xmlns:viewModels="using:TrainShedule_HubVersion.ViewModels"
     mc:Ignorable="d"
+    xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignInstance viewModels:InformationPageViewModel}">
+    <Page.Resources>
+        <valueconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
     <Grid>
         <ListView
                         ItemsSource="{Binding AdditionalInformation}"
@@ -15,6 +19,6 @@
                         ItemTemplate="{StaticResource InformationTemplate}">
         </ListView>
         <Button x:Uid="ListOfPoint" Height="70" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFFF8000" micro:Message.Attach="[Event Click] = [Action SearchStopPoint]"/>
-        <ProgressBar IsIndeterminate="True" Visibility="{Binding VisibilityProgressBar}" VerticalAlignment="Top"/>
+        <ProgressBar IsIndeterminate="True" Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top"/>
     </Grid>
 </Page>

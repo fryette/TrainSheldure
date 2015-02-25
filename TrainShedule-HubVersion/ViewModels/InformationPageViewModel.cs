@@ -25,26 +25,26 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => AdditionalInformation);
             }
         }
-        private Visibility _visibilityProgressBar;
-        public Visibility VisibilityProgressBar
+        private bool _isTaskRun;
+        public bool IsTaskRun
         {
-            get { return _visibilityProgressBar; }
+            get { return _isTaskRun; }
             set
             {
-                _visibilityProgressBar = value;
-                NotifyOfPropertyChange(() => VisibilityProgressBar);
+                _isTaskRun = value;
+                NotifyOfPropertyChange(() => IsTaskRun);
             }
         }
         protected override void OnActivate()
         {
-            VisibilityProgressBar = Visibility.Collapsed;
             AdditionalInformation = Parameter.AdditionalInformation;
         }
         private async void SearchStopPoint()
         {
-            VisibilityProgressBar = Visibility.Visible;
+            if(IsTaskRun)return;
+            IsTaskRun = true;
             var stopPointList = await Task.Run(() => TrainStopGrabber.GetTrainStop(Parameter.Link));
-            VisibilityProgressBar = Visibility.Collapsed;
+            IsTaskRun = false;
             _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
         }
     }

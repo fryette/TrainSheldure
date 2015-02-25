@@ -88,10 +88,10 @@
     <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Entities\LastRequest.cs" />
     <Compile Include="Entities\MenuDataGroup.cs" />
     <Compile Include="Entities\MenuDataItem.cs" />
-    <Compile Include="Infrastructure\BooleanToVisibilityConverter.cs" />
     <Compile Include="Infrastructure\Parser.cs" />
     <Compile Include="Infrastructure\MenuData.cs" />
     <Compile Include="Entities\TrainStop.cs" />

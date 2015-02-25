@@ -32,7 +32,7 @@ namespace TrainShedule_HubVersion.Infrastructure
         public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date, string searchParameter, bool isEconom, bool specialSearch)
         {
             var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
-            var addiditionalInformation = GetPlaces(data).ToList();
+            var addiditionalInformation = GetPlaces(data, searchParameter).ToList();
             var links = GetLink(data);
             var trains = await Task.Run(() => GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
             trains = GetFinallyResult(addiditionalInformation, links, trains);
@@ -108,40 +108,59 @@ namespace TrainShedule_HubVersion.Infrastructure
             return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
         }
 
-        private static IEnumerable<AdditionalInformation[]> GetPlaces(string data)
+        private static IEnumerable<AdditionalInformation[]> GetPlaces(string data, string searchParameter)
         {
             var addiditionalParameter = Parser.ParseTrainData(data, AddiditionParameterPattern).ToList();
-            var addiditionInformationses = new List<AdditionalInformation[]>();
+            var addiditionInformation = new List<AdditionalInformation[]>();
+            if (searchParameter == "Аэропорт")
+            {
+                for (var i = 0; i < addiditionalParameter.Count; i++)
+                {
+                    addiditionInformation.Add(new[]
+                    {
+                        new AdditionalInformation
+                        {
+                            Name = "Сидячие",
+                            Place = "мест:неограничено",
+                            Price = "цена:неизвестно"
+
+                        }
+                    });}
+                return addiditionInformation;
+            }
             for (var i = 0; i < addiditionalParameter.Count; i++)
             {
                 if (!addiditionalParameter[i].Groups[1].Value.Contains("href")) continue;
-                if (i + 1 >= addiditionalParameter.Count || addiditionalParameter[i + 1].Groups[1].Value.Contains("href"))
-                    addiditionInformationses.Add(new[]
+                if (i + 1 >= addiditionalParameter.Count ||
+                    addiditionalParameter[i + 1].Groups[1].Value.Contains("href"))
+                    addiditionInformation.Add(new[]
                     {
-                        new AdditionalInformation {Name = "Мест нет. Уточняйте в кассах"} 
+                        new AdditionalInformation {Name = "Мест нет. Уточняйте в кассах"}
                     });
                 else
                 {
-                    var temp = Parser.ParseTrainData(addiditionalParameter[i + 1].Groups[1].Value, ParsePlacesAndPrices).ToList();
-                    var additionalInformations = new AdditionalInformation[temp.Count / 3];
+                    var temp =
+                        Parser.ParseTrainData(addiditionalParameter[i + 1].Groups[1].Value, ParsePlacesAndPrices)
+                            .ToList();
+                    var additionalInformations = new AdditionalInformation[temp.Count/3];
                     for (var j = 0; j < temp.Count; j += 3)
                     {
-                        additionalInformations[j / 3] = new AdditionalInformation
+                        additionalInformations[j/3] = new AdditionalInformation
                         {
                             Name = temp[j].Groups[1].Value.Length > 18
-                                    ? "Сидячие"
-                                    : temp[j].Groups[1].Value,
+                                ? "Сидячие"
+                                : temp[j].Groups[1].Value,
                             Place = "мест: " + (temp[j + 1].Groups[2].Value == UnknownStr
-                                                ? "неограничено"
-                                                : temp[j + 1].Groups[2].Value.Replace(UnknownStr, "")),
+                                ? "неограничено"
+                                : temp[j + 1].Groups[2].Value.Replace(UnknownStr, "")),
                             Price = "цена: " + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
-                    addiditionInformationses.Add(additionalInformations);
+                    addiditionInformation.Add(additionalInformations);
                     ++i;
                 }
             }
-            return addiditionInformationses;
+            return addiditionInformation;
         }
         private static List<string> GetLink(string data)
         {
@@ -149,7 +168,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
-        private static IEnumerable<Train> GetFinallyResult(IEnumerable<AdditionalInformation[]> addInformations,List<string> linksList, IEnumerable<Train> trains)
+        private static IEnumerable<Train> GetFinallyResult(IEnumerable<AdditionalInformation[]> addInformations, List<string> linksList, IEnumerable<Train> trains)
         {
             var addInf = addInformations.ToList();
             var trainsList = trains.ToList();

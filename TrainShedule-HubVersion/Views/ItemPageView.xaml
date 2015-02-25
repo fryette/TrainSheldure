@@ -6,12 +6,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:micro="using:Caliburn.Micro"
     mc:Ignorable="d"
+    xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignData ItemPageViewModel}">
-
+<Page.Resources>
+        <valueconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </Page.Resources>
     <Grid>
-        <StackPanel>
-            <ProgressBar IsIndeterminate="True" Visibility="{Binding VisibilityProgressBar}"/>
-        </StackPanel>
+        <ProgressBar IsIndeterminate="True" Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top"/>
         <StackPanel HorizontalAlignment="Center">
             <TextBlock x:Uid="SelectStantion" Style="{ThemeResource TitleTextBlockStyle}"/>
             <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}"/>

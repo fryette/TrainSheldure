@@ -2,9 +2,9 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainShedule_HubVersion.Converter
 {
-    public sealed class BooleanToVisibilityConverter : IValueConverter
+    public class BooleanToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {

@@ -85,26 +85,27 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => AutoSuggestions);
             }
         }
-        private Visibility _visibilityProgressBar;
-        public Visibility VisibilityProgressBar
+        private bool _isTaskRun;
+        public bool IsTaskRun
         {
-            get { return _visibilityProgressBar; }
+            get { return _isTaskRun; }
             set
             {
-                _visibilityProgressBar = value;
-                NotifyOfPropertyChange(() => VisibilityProgressBar);
+                _isTaskRun = value;
+                NotifyOfPropertyChange(() => IsTaskRun);
             }
         }
 
         protected async override void OnActivate()
         {
             Title = Parameter.Title;
-            VisibilityProgressBar = Visibility.Collapsed;
             if (AutoCompletion == null)
                 AutoCompletion = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletion");
             if (AutoCompletion == null)
                 ShowMessageBox("Обновите станции,это делается всего один раз.");
             LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
+            if (Parameter.Title == "Аэропорт")
+                From = "Национальный аэропорт «Минск»";
         }
         private static async void ShowMessageBox(string message)
         {
@@ -125,11 +126,12 @@ namespace TrainShedule_HubVersion.ViewModels
                 ShowMessageBox("Один или оба пункта не существует, проверьте еще раз или обновите станции");
                 return;
             }
-            VisibilityProgressBar = Visibility.Visible;
+            if (IsTaskRun) return;
+            IsTaskRun = true;
             SerializeLastReques();
             var schedule = await TrainGrabber.GetTrainSchedule(From, To, GetDate(), Parameter.Title, Parameter.IsEconom, Parameter.SpecialSearch);
             _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
-            VisibilityProgressBar = Visibility.Collapsed;
+            IsTaskRun = false;
         }
         private string GetDate()
         {
@@ -137,19 +139,20 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         private async void UpdateTrainStop()
         {
-            VisibilityProgressBar = Visibility.Visible;
+            if(IsTaskRun)return;
+            IsTaskRun = true;
             AutoCompletion = await Task.Run(() => TrainPointsGrabber.GetTrainPoints());
             if (AutoCompletion != null)
             {
                 AutoCompletion = AutoCompletion.Distinct();
-                await Serialize.SaveObjectToXml(new List<string>(AutoCompletion.Distinct()), "autocompletion");
+                await Serialize.SaveObjectToXml(new List<string>(AutoCompletion), "autocompletion");
                 ShowMessageBox("Обновление прошло успешно");
             }
             else
             {
                 ShowMessageBox("Сбой,попробуйте позже или проверьте связь интернет");
             }
-            VisibilityProgressBar = Visibility.Collapsed;
+            IsTaskRun = false;
         }
 
         private async void SerializeLastReques()

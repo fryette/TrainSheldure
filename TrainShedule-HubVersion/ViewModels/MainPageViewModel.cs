@@ -14,7 +14,7 @@ namespace TrainShedule_HubVersion.ViewModels
             _navigationService = navigationService;
         }
 
-        private IEnumerable<Train> _trains;
+        private static IEnumerable<Train> _trains;
         public IEnumerable<Train> Trains
         {
             get { return _trains; }
@@ -25,7 +25,7 @@ namespace TrainShedule_HubVersion.ViewModels
             }
         }
 
-        private IEnumerable<MenuDataItem> _menu;
+        private static IEnumerable<MenuDataItem> _menu;
         public IEnumerable<MenuDataItem> Menu
         {
             get { return _menu; }
@@ -50,6 +50,7 @@ namespace TrainShedule_HubVersion.ViewModels
 
         protected override async void OnActivate()
         {
+            if (_menu != null && _trains != null) return;
             Menu = await MenuData.GetItemsAsync();
             Trains = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
         }
