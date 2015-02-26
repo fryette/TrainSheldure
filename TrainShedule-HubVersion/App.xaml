@@ -44,8 +44,6 @@
                 <Setter Property="Padding" Value="{ThemeResource PhoneButtonContentPadding}"/>
                 <Setter Property="MinHeight" Value="{ThemeResource PhoneButtonMinHeight}"/>
                 <Setter Property="MinWidth" Value="{ThemeResource PhoneButtonMinWidth}"/>
-                <Setter Property="HorizontalAlignment" Value="Right"/>
-                <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="micro:Message.Attach" Value="[Event Click] = [Action Swap]"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -123,15 +121,12 @@
                 <Setter Property="MaxWidth" Value="400"/>
             </Style>
             <Style x:Key="AutoSuggestBoxStyle" TargetType="AutoSuggestBox">
-                <Setter Property="Width" Value="300"/>
                 <Setter Property="IsSuggestionListOpen" Value="True"/>
             </Style>
             <Style x:Key="DatePickerStyle" TargetType="DatePicker">
                 <Setter Property="MonthFormat" Value="{}{month.abbreviated}"/>
                 <Setter Property="YearFormat" Value="{}{year.abbreviated}"/>
                 <Setter Property="DayFormat" Value="{}{day.integer} {dayofweek.abbreviated}"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
-                <Setter Property="Width" Value="300"/>
             </Style>
             <DataTemplate x:Key="ScheduleTemplate">
                 <StackPanel Orientation="Horizontal" Background="#FF969696" Margin="0,5,0,0" MaxWidth="600" MinWidth="600">
@@ -223,12 +218,12 @@
                         <TextBlock Text="{Binding Departures}" Style="{StaticResource StopPointTextBlockStyle}"/>
                     </StackPanel>
                 </StackPanel>
-                </DataTemplate>
+            </DataTemplate>
             <DataTemplate x:Key="LastRequestTemplate">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock Text="{Binding From}" Style="{StaticResource BodyTextBlockStyle}" />
-                    <TextBlock Text="-" Style="{StaticResource BodyTextBlockStyle}" />
-                    <TextBlock Text="{Binding To}" Style="{StaticResource BodyTextBlockStyle}" />
+                <StackPanel Orientation="Horizontal" Background="#FFFF5D00" Margin="5,0,5,5" MinWidth="400" MinHeight="40">
+                        <TextBlock Text="{Binding From}" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Bold" Margin="5,0"/>
+                        <TextBlock Text="-" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Bold" Margin="5,0"/>
+                    <TextBlock Text="{Binding To}" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Bold" />
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>

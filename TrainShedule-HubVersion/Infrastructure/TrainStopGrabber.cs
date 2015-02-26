@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using TrainShedule_HubVersion.DataModel;
+using TrainShedule_HubVersion.Entities;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainShedule_HubVersion.Entities
 {
     class TrainStopGrabber
     {

@@ -1,8 +1,7 @@
 ﻿using System.Threading.Tasks;
-using Windows.UI.Xaml;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.DataModel;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Entities;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
@@ -41,7 +40,7 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         private async void SearchStopPoint()
         {
-            if(IsTaskRun)return;
+            if (IsTaskRun) return;
             IsTaskRun = true;
             var stopPointList = await Task.Run(() => TrainStopGrabber.GetTrainStop(Parameter.Link));
             IsTaskRun = false;

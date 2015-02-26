@@ -1,0 +1,62 @@
+﻿{
+    "Groups": [
+        {
+            "UniqueId": "Countries",
+            "Title": "Страны",
+            "Items": [
+                {
+                    "UniqueId": "moldova",
+                    "Title": "Молдова"
+                },
+                {
+                    "UniqueId": "kazahstan",
+                    "Title": "Казахстан"
+                },
+                {
+                    "UniqueId": "latvia",
+                    "Title": "Латвия"
+                },
+                {
+                    "UniqueId": "poland",
+                    "Title": "Польша"
+                },
+                {
+                    "UniqueId": "russia",
+                    "Title": "Россия"
+                },
+                {
+                    "UniqueId": "slovakia",
+                    "Title": "Словакия"
+                },
+                {
+                    "UniqueId": "ukraine",
+                    "Title": "Украина"
+                },
+                {
+                    "UniqueId": "france",
+                    "Title": "Франция"
+                },
+                {
+                    "UniqueId": "czech",
+                    "Title": "Чехия"
+                },
+                {
+                    "UniqueId": "austria",
+                    "Title": "Австрия"
+                },
+                {
+                    "UniqueId": "hungary",
+                    "Title": "Венгрия"
+                },
+                {
+                    "UniqueId": "germany",
+                    "Title": "Германия"
+                },
+                {
+                    "UniqueId": "litva",
+                    "Title": "Литва"
+                }
+            ]
+        }
+    ]
+}

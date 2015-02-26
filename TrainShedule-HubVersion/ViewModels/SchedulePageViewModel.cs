@@ -2,8 +2,8 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.DataModel;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Entities;
 
 namespace TrainShedule_HubVersion.ViewModels
 {

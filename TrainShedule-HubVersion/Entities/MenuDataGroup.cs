@@ -1,7 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace TrainShedule_HubVersion.DataModel
+namespace TrainShedule_HubVersion.Entities
 {
     /// <summary>
     /// Generic group data model.

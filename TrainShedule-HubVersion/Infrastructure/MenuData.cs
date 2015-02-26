@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.Data.Json;
-using Windows.Storage;
-
-// The data model defined by this file serves as a representative example of a strongly-typed
+﻿// The data model defined by this file serves as a representative example of a strongly-typed
 // model.  The property names chosen coincide with data bindings in the standard item templates.
 //
 // Applications may use this model as a starting point and build on it, or discard it entirely and
 // replace it with something appropriate to their needs. If using this model, you might improve app 
 // responsiveness by initiating the data loading task in the code behind for App.xaml when the app 
 // is first launched.
-using Windows.UI.Xaml.Controls;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.Data.Json;
+using Windows.Storage;
+using TrainShedule_HubVersion.Entities;
 
-namespace TrainShedule_HubVersion.DataModel
+namespace TrainShedule_HubVersion.Entities
 {
-    /// <summary>
-    /// Creates a collection of groups and items with content read from a static json file.
-    /// 
-    /// MenuDataSource initializes with data read from a static json file included in the 
-    /// project.  This provides menu data at both design-time and run-time.
-    /// </summary>
     public sealed class MenuData
     {
-        private static readonly MenuData _menuDataSource = new MenuData();
+        private static readonly MenuData MenuDataSource = new MenuData();
 
         private readonly ObservableCollection<MenuDataGroup> _groups = new ObservableCollection<MenuDataGroup>();
 
@@ -36,40 +29,29 @@ namespace TrainShedule_HubVersion.DataModel
 
         public static async Task<IEnumerable<MenuDataGroup>> GetGroupsAsync()
         {
-            await _menuDataSource.GetMenuDataAsync();
-            
-            return _menuDataSource.Groups;
+            await MenuDataSource.GetMenuDataAsync();
+
+            return MenuDataSource.Groups;
         }
 
         public static async Task<MenuDataGroup> GetGroupAsync(string uniqueId)
         {
-            await _menuDataSource.GetMenuDataAsync();
+            await MenuDataSource.GetMenuDataAsync();
             // Simple linear search is acceptable for small data sets
-            var matches = _menuDataSource.Groups.Where(group => group.UniqueId.Equals(uniqueId));
-            var menuDataGroups = matches as IList<MenuDataGroup> ?? matches.ToList();          
+            var matches = MenuDataSource.Groups.Where(group => group.UniqueId.Equals(uniqueId));
+            var menuDataGroups = matches as IList<MenuDataGroup> ?? matches.ToList();
             return menuDataGroups.Count() == 1 ? menuDataGroups.First() : null;
         }
 
         public static async Task<IEnumerable<MenuDataItem>> GetItemsAsync()
         {
-            await _menuDataSource.GetMenuDataAsync();
+            await MenuDataSource.GetMenuDataAsync();
             var matches =
-                _menuDataSource.Groups.SelectMany(group => group.Items);
+                MenuDataSource.Groups.SelectMany(group => group.Items);
             var menuDataItems = matches as IList<MenuDataItem> ?? matches.ToList();
             return menuDataItems;
-            
-        }
 
-        public static async Task<MenuDataItem> GetItemAsync(string uniqueId)
-        {
-            await _menuDataSource.GetMenuDataAsync();
-            // Simple linear search is acceptable for small data sets
-            var matches =
-                _menuDataSource.Groups.SelectMany(group => group.Items).Where(item => item.UniqueId.Equals(uniqueId));
-            var menuDataItems = matches as IList<MenuDataItem> ?? matches.ToList();
-            return menuDataItems.Count() == 1 ? menuDataItems.First() : null;
         }
-
         private async Task GetMenuDataAsync()
         {
             if (_groups.Count != 0)

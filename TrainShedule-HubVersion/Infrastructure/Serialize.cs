@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.Storage;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainShedule_HubVersion.Entities
 {
     internal class Serialize
     {

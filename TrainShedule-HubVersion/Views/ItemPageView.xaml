@@ -8,7 +8,7 @@
     mc:Ignorable="d"
     xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignData ItemPageViewModel}">
-<Page.Resources>
+    <Page.Resources>
         <valueconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid>
@@ -18,25 +18,29 @@
             <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}" FontSize="40"/>
         </StackPanel>
         <StackPanel Margin="0,100,0,0" Grid.RowSpan="2" MaxWidth="400">
-            <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DatePickerStyle}"/>
-            <AutoSuggestBox x:Uid="From" Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource AutoSuggestBoxStyle}" ItemsSource="{Binding AutoSuggestions}"/>
-            <Button Style="{StaticResource RoundByttonStyle}">
-                <Button.Background>
-                    <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png"/>
-                </Button.Background>
-            </Button>
-            <AutoSuggestBox x:Uid="To" Style="{StaticResource AutoSuggestBoxStyle}"
-                            Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AutoSuggestions}" HorizontalAlignment="Center" VerticalAlignment="Stretch"/>
+            <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DatePickerStyle}" Margin="0,0,0,5"/>
+            <StackPanel Orientation="Horizontal" Background="#FFFF5D00">
+                <TextBlock x:Uid="From" FontWeight="Bold" FontSize="25" Padding="5,0,0,0"/>
+            </StackPanel>
+            <AutoSuggestBox  Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource AutoSuggestBoxStyle}" ItemsSource="{Binding AutoSuggestions}" VerticalAlignment="Stretch"/>
+            <StackPanel Orientation="Horizontal" MinWidth="400" Background="#FFFF5D00">
+                <TextBlock x:Uid="To" FontSize="25" FontWeight="Bold" MinWidth="250" Padding="5,0,0,0"/>
+                <Button Style="{StaticResource RoundByttonStyle}" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Button.Background>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png"/>
+                    </Button.Background>
+                </Button>
+            </StackPanel>
+            <AutoSuggestBox  Style="{StaticResource AutoSuggestBoxStyle}" Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AutoSuggestions}"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
                 <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top" micro:Message.Attach="[Event Click] = [Action Search]"/>
-                <Button x:Uid="UpdateStopPoint"  Margin="5,0,0,0" micro:Message.Attach="[Event Click] = [Action UpdateTrainStop]"/>
             </StackPanel>
             <TextBlock x:Uid="LastRequest" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
-                <ListView 
+            <ListView 
                         IsItemClickEnabled="True"
                         ItemsSource="{Binding LastRequests}"
                         micro:Message.Attach="[Event ItemClick] = [Action SetRequest($clickeditem)]"
-                        ItemTemplate="{StaticResource LastRequestTemplate}" HorizontalAlignment="Center">
+                        ItemTemplate="{StaticResource LastRequestTemplate}">
             </ListView>
         </StackPanel>
     </Grid>

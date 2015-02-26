@@ -1,4 +1,4 @@
-namespace TrainShedule_HubVersion.DataModel
+namespace TrainShedule_HubVersion.Entities
 {
     public class Train
     {

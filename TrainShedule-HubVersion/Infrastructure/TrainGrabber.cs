@@ -4,9 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using TrainShedule_HubVersion.DataModel;
+using TrainShedule_HubVersion.Entities;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainShedule_HubVersion.Entities
 {
     internal class TrainGrabber
     {
@@ -45,7 +45,7 @@ namespace TrainShedule_HubVersion.Infrastructure
         private static string GetUrl(string fromName, string toName, string date)
         {
             return "http://rasp.rw.by/m/ru/route/?from=" +
-                   fromName + "&to=" + toName + "&date=" + date;
+                   fromName.Remove(fromName.IndexOf('(')) + "&to=" + toName.Remove(toName.IndexOf('(')) + "&date=" + date;
         }
 
         private static IEnumerable<Train> GetTrainsInformation(IEnumerable<Match> match, string date)

@@ -123,7 +123,7 @@
   <data name="ApplicationName.Text" xml:space="preserve">
     <value>Чыгунка</value>
   </data>
-  <data name="From.PlaceholderText" xml:space="preserve">
+  <data name="From.Text" xml:space="preserve">
     <value>Откуда</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
@@ -156,7 +156,7 @@
   <data name="SelectStantion.Text" xml:space="preserve">
     <value>Выбор станции</value>
   </data>
-  <data name="To.PlaceholderText" xml:space="preserve">
+  <data name="To.Text" xml:space="preserve">
     <value>Куда</value>
   </data>
   <data name="UpdateStopPoint.Content" xml:space="preserve">

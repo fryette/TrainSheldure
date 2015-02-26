@@ -12,13 +12,13 @@
     <Page.Resources>
         <valueconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
-    <Grid>
+    <Grid IsDoubleTapEnabled="False" IsHoldingEnabled="False">
         <ListView
                         ItemsSource="{Binding AdditionalInformation}"
                         Margin="5,0,0,0" Padding="0,70,0,0" 
                         ItemTemplate="{StaticResource InformationTemplate}">
         </ListView>
         <Button x:Uid="ListOfPoint" Height="70" HorizontalAlignment="Stretch" VerticalAlignment="Top" Background="#FFFF8000" micro:Message.Attach="[Event Click] = [Action SearchStopPoint]"/>
-        <ProgressBar IsIndeterminate="True" Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top"/>
+        <ProgressBar IsIndeterminate="True" VerticalAlignment="Top" Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"/>
     </Grid>
 </Page>

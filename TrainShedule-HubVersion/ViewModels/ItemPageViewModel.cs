@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.DataModel;
+using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Entities;
 using TrainShedule_HubVersion.Entities;
 using TrainShedule_HubVersion.Infrastructure;
 
@@ -99,13 +100,9 @@ namespace TrainShedule_HubVersion.ViewModels
         protected async override void OnActivate()
         {
             Title = Parameter.Title;
-            if (AutoCompletion == null)
-                AutoCompletion = await Serialize.ReadObjectFromXmlFileAsync<string>("autocompletion");
-            if (AutoCompletion == null)
-            {
-                ShowMessageBox("Обновите станции,это делается всего один раз.");
-                return;
-            }
+            var stopPoints = await CountryStopPointData.GetGroupsAsync();
+            AutoCompletion = stopPoints.SelectMany(dataGroup => dataGroup.Items,
+                (dataGroup, stopPoint) => stopPoint.UniqueId + "(" + dataGroup.Title + ")");
             LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
             if (Parameter.Title == "Аэропорт")
                 From = "Национальный аэропорт «Минск»";
@@ -117,6 +114,7 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         public void Swap()
         {
+            if(From==null||To==null)return;
             var temp = From;
             From = To;
             To = temp;
@@ -139,23 +137,6 @@ namespace TrainShedule_HubVersion.ViewModels
         private string GetDate()
         {
             return Datum.Date.Year + "-" + Datum.Date.Month + "-" + Datum.Date.Day;
-        }
-        private async void UpdateTrainStop()
-        {
-            if(IsTaskRun)return;
-            IsTaskRun = true;
-            AutoCompletion = await Task.Run(() => TrainPointsGrabber.GetTrainPoints());
-            if (AutoCompletion != null)
-            {
-                AutoCompletion = AutoCompletion.Distinct();
-                await Serialize.SaveObjectToXml(new List<string>(AutoCompletion), "autocompletion");
-                ShowMessageBox("Обновление прошло успешно");
-            }
-            else
-            {
-                ShowMessageBox("Сбой,попробуйте позже или проверьте связь интернет");
-            }
-            IsTaskRun = false;
         }
 
         private async void SerializeLastReques()
@@ -188,11 +169,6 @@ namespace TrainShedule_HubVersion.ViewModels
 
         private void UpdateAutoSuggestions(string str)
         {
-            if (AutoCompletion == null)
-            {
-                ShowMessageBox("Обновите станции!");
-                return;
-            }
             var temp = AutoCompletion.Where(x => x.Contains(str)).ToList();
             AutoSuggestions = temp.Count() == 1 ? temp[0] == str ? null : temp : temp;
         }

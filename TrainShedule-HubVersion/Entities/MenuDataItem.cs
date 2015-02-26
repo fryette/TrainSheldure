@@ -1,6 +1,6 @@
 using System;
 
-namespace TrainShedule_HubVersion.DataModel
+namespace TrainShedule_HubVersion.Entities
 {
     /// <summary>
     /// Generic item data model.

@@ -25,6 +25,7 @@ namespace TrainShedule_HubVersion
             _container.RegisterWinRTServices();
 
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
+
             _container.PerRequest<StopPointPageViewModel>();
             _container.PerRequest<SchedulePageViewModel>();
             _container.PerRequest<InformationPageViewModel>();
@@ -65,5 +66,6 @@ namespace TrainShedule_HubVersion
             frame.GoBack();
             e.Handled = true;
         }
+
     }
 }
