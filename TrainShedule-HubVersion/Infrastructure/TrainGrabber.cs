@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TrainShedule_HubVersion.Entities;
 
-namespace TrainShedule_HubVersion.Entities
+namespace TrainShedule_HubVersion.Infrastructure
 {
     internal class TrainGrabber
     {
@@ -34,7 +34,8 @@ namespace TrainShedule_HubVersion.Entities
             var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
             var addiditionalInformation = GetPlaces(data, searchParameter).ToList();
             var links = GetLink(data);
-            var trains = await Task.Run(() => GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
+            var trains = await Task.Run(() => date == "everyday" ? GetTrainsInformation(Parser.ParseTrainData(data, Pattern)) 
+                : GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
             trains = GetFinallyResult(addiditionalInformation, links, trains);
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
             return searchParameter == "Аэропорт" || searchParameter == "Ближайшие"
@@ -72,6 +73,33 @@ namespace TrainShedule_HubVersion.Entities
                     ImagePath = imagePath[i / 4],
                     OnTheWay = OnTheWay(starTime, endTime),
                     DepartureDate = date
+                });
+            }
+            return trainList;
+        }
+
+        private static IEnumerable<Train> GetTrainsInformation(IEnumerable<Match> match)
+        {
+            var parameters = match as IList<Match> ?? match.ToList();
+            var imagePath = new List<string>(GetImagePath(parameters));
+            var trainList = new List<Train>(parameters.Count / SearchCountParameter);
+            var step = parameters.Count - parameters.Count / SearchCountParameter;
+
+            for (var i = 0; i < step; i += 4)
+            {
+                var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
+                var endTime = DateTime.Parse(parameters[i + 1].Groups[2].Value);
+                trainList.Add(new Train
+                {
+                    StartTime = parameters[i].Groups[1].Value,
+                    EndTime = parameters[i + 1].Groups[2].Value,
+                    City = parameters[i + 2].Groups[3].Value.Replace("&nbsp;&mdash;", "-"),
+                    Description = parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
+                    BeforeDepartureTime = null,
+                    Type = parameters[i / 4 + step].Value,
+                    ImagePath = imagePath[i / 4],
+                    OnTheWay = OnTheWay(starTime, endTime),
+                    DepartureDate = null
                 });
             }
             return trainList;
@@ -125,7 +153,8 @@ namespace TrainShedule_HubVersion.Entities
                             Price = "цена:неизвестно"
 
                         }
-                    });}
+                    });
+                }
                 return addiditionInformation;
             }
             for (var i = 0; i < addiditionalParameter.Count; i++)
@@ -142,10 +171,10 @@ namespace TrainShedule_HubVersion.Entities
                     var temp =
                         Parser.ParseTrainData(addiditionalParameter[i + 1].Groups[1].Value, ParsePlacesAndPrices)
                             .ToList();
-                    var additionalInformations = new AdditionalInformation[temp.Count/3];
+                    var additionalInformations = new AdditionalInformation[temp.Count / 3];
                     for (var j = 0; j < temp.Count; j += 3)
                     {
-                        additionalInformations[j/3] = new AdditionalInformation
+                        additionalInformations[j / 3] = new AdditionalInformation
                         {
                             Name = temp[j].Groups[1].Value.Length > 18
                                 ? "Сидячие"

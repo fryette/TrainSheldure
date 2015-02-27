@@ -120,6 +120,9 @@
   <data name="AddInformation.Text" xml:space="preserve">
     <value>Доп.Информация</value>
   </data>
+  <data name="AllDays.Content" xml:space="preserve">
+    <value>На все дни</value>
+  </data>
   <data name="ApplicationName.Text" xml:space="preserve">
     <value>Чыгунка</value>
   </data>
@@ -158,6 +161,12 @@
   </data>
   <data name="To.Text" xml:space="preserve">
     <value>Куда</value>
+  </data>
+  <data name="Today.Content" xml:space="preserve">
+    <value>Сегодня</value>
+  </data>
+  <data name="Tomorrow.Content" xml:space="preserve">
+    <value>Завтра</value>
   </data>
   <data name="UpdateStopPoint.Content" xml:space="preserve">
     <value>Обновить станции</value>

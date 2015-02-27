@@ -7,12 +7,12 @@ using TrainShedule_HubVersion.Entities;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
-  public class SchedulePageViewModel : Screen
+    public class SchedulePageViewModel : Screen
     {
         public IEnumerable<Train> Parameter { get; set; }
         private readonly INavigationService _navigationService;
 
-      public SchedulePageViewModel(INavigationService navigationService)
+        public SchedulePageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }
@@ -30,7 +30,7 @@ namespace TrainShedule_HubVersion.ViewModels
 
         protected override void OnActivate()
         {
-            Trains = Parameter.Where(x => !x.BeforeDepartureTime.Contains('-'));
+            Trains = Parameter.Where(x => x.BeforeDepartureTime == null || !x.BeforeDepartureTime.Contains('-'));
             Task.Run(() => Serialize.SaveObjectToXml(new List<Train>(Trains), "LastTrainList"));
         }
 

@@ -25,6 +25,7 @@ namespace TrainShedule_HubVersion
             _container.RegisterWinRTServices();
 
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
+            MessageBinder.SpecialValues.Add("$clickeditem1", c => ((DataContextChangedEventArgs)c.EventArgs));
 
             _container.PerRequest<StopPointPageViewModel>();
             _container.PerRequest<SchedulePageViewModel>();

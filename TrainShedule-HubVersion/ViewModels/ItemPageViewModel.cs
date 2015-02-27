@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
-using TrainShedule_HubVersion.Entities;
 using TrainShedule_HubVersion.Entities;
 using TrainShedule_HubVersion.Infrastructure;
 
@@ -22,6 +18,30 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             _navigationService = navigationService;
         }
+
+        private readonly BindableCollection<string> _variantOfDate = new BindableCollection<string>(new[] { "Сегодня", "Завтра", "На все дни" });
+        public BindableCollection<string> Date
+        {
+            get { return _variantOfDate; }
+        }
+
+        private string _selectedDate;
+        public string SelectedDate
+        {
+            get
+            {
+                return _selectedDate;
+            }
+
+            set
+            {
+                _selectedDate = value;
+                if (SelectedDate == Date[0]) Datum = DateTime.Now;
+                else if (SelectedDate == Date[1]) Datum = DateTime.Now.AddDays(1);
+                NotifyOfPropertyChange(() => SelectedDate);
+            }
+        }
+
         private string _title;
         public string Title
         {
@@ -32,6 +52,7 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => Title);
             }
         }
+
         private string _from;
         public string From
         {
@@ -43,6 +64,7 @@ namespace TrainShedule_HubVersion.ViewModels
                 UpdateAutoSuggestions(From);
             }
         }
+
         private string _to;
         public string To
         {
@@ -65,6 +87,7 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => LastRequests);
             }
         }
+
         private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
         public DateTimeOffset Datum
         {
@@ -75,7 +98,9 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => Datum);
             }
         }
+
         public static IEnumerable<string> AutoCompletion { get; set; }
+
         private IEnumerable<string> _autoSuggestions;
         public IEnumerable<string> AutoSuggestions
         {
@@ -86,6 +111,7 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => AutoSuggestions);
             }
         }
+
         private bool _isTaskRun;
         public bool IsTaskRun
         {
@@ -99,10 +125,11 @@ namespace TrainShedule_HubVersion.ViewModels
 
         protected async override void OnActivate()
         {
+            SelectedDate = Date[0];
             Title = Parameter.Title;
-            var stopPoints = await CountryStopPointData.GetGroupsAsync();
-            AutoCompletion = stopPoints.SelectMany(dataGroup => dataGroup.Items,
-                (dataGroup, stopPoint) => stopPoint.UniqueId + "(" + dataGroup.Title + ")");
+            if (AutoCompletion == null)
+                AutoCompletion = (await CountryStopPointData.GetGroupsAsync()).SelectMany(dataGroup => dataGroup.Items)
+                        .Select(item => item.UniqueId);
             LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
             if (Parameter.Title == "Аэропорт")
                 From = "Национальный аэропорт «Минск»";
@@ -114,7 +141,7 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         public void Swap()
         {
-            if(From==null||To==null)return;
+            if (From == null || To == null) return;
             var temp = From;
             From = To;
             To = temp;
@@ -136,6 +163,7 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         private string GetDate()
         {
+            if (SelectedDate == Date[2]) return "everyday";
             return Datum.Date.Year + "-" + Datum.Date.Month + "-" + Datum.Date.Day;
         }
 
@@ -172,6 +200,5 @@ namespace TrainShedule_HubVersion.ViewModels
             var temp = AutoCompletion.Where(x => x.Contains(str)).ToList();
             AutoSuggestions = temp.Count() == 1 ? temp[0] == str ? null : temp : temp;
         }
-
     }
 }

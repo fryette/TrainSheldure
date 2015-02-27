@@ -19,12 +19,20 @@
         <StackPanel Grid.RowSpan="2" MaxWidth="400" Margin="0,100,0,0">
             <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"
                     Style="{StaticResource DatePickerStyle}" />
+            <ComboBox x:Name="Date" MinWidth="400" SelectedItem="{Binding Date}" SelectedValue="1"
+                     Margin="0,0,0,5" />
             <StackPanel Style="{StaticResource StackPanelStyle}">
+                <StackPanel.Background>
+                    <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/Сircle.png" />
+                </StackPanel.Background>
                 <TextBlock x:Uid="From" Style="{StaticResource SearchBlockStyle}" />
             </StackPanel>
             <AutoSuggestBox Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource AutoSuggestBoxStyle}" ItemsSource="{Binding AutoSuggestions}" />
             <StackPanel Style="{StaticResource StackPanelStyle}">
+                <StackPanel.Background>
+                    <ImageBrush ImageSource="ms-appx:///Assets/Сircle.png" Stretch="Fill" />
+                </StackPanel.Background>
                 <TextBlock x:Uid="To" MinWidth="250" Style="{StaticResource SearchBlockStyle}" />
                 <Button Style="{StaticResource RoundByttonStyle}">
                     <Button.Background>
