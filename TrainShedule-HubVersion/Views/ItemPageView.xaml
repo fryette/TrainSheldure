@@ -1,46 +1,48 @@
-﻿<Page
-    x:Class="TrainShedule_HubVersion.Views.ItemPageView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:micro="using:Caliburn.Micro"
-    mc:Ignorable="d"
-    xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignData ItemPageViewModel}">
+﻿<Page x:Class="TrainShedule_HubVersion.Views.ItemPageView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:micro="using:Caliburn.Micro"
+        mc:Ignorable="d" xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+        d:DataContext="{d:DesignData ItemPageViewModel}">
     <Page.Resources>
         <valueconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid>
-        <ProgressBar IsIndeterminate="True" Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" VerticalAlignment="Top"/>
+        <ProgressBar IsIndeterminate="True" VerticalAlignment="Top"
+                Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
         <StackPanel HorizontalAlignment="Center">
-            <TextBlock x:Uid="SelectStantion" Style="{ThemeResource TitleTextBlockStyle}"/>
-            <TextBlock Text="{Binding Title}" Style="{ThemeResource HeaderTextBlockStyle}" FontSize="40"/>
+            <TextBlock x:Uid="SelectStantion" Style="{ThemeResource TitleTextBlockStyle}" />
+            <TextBlock Text="{Binding Title}" FontSize="40" Style="{ThemeResource HeaderTextBlockStyle}" />
         </StackPanel>
-        <StackPanel Margin="0,100,0,0" Grid.RowSpan="2" MaxWidth="400">
-            <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource DatePickerStyle}" Margin="0,0,0,5"/>
-            <StackPanel Orientation="Horizontal" Background="#FFFF5D00">
-                <TextBlock x:Uid="From" FontWeight="Bold" FontSize="25" Padding="5,0,0,0"/>
+        <StackPanel Grid.RowSpan="2" MaxWidth="400" Margin="0,100,0,0">
+            <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"
+                    Style="{StaticResource DatePickerStyle}" />
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+                <TextBlock x:Uid="From" Style="{StaticResource SearchBlockStyle}" />
             </StackPanel>
-            <AutoSuggestBox  Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource AutoSuggestBoxStyle}" ItemsSource="{Binding AutoSuggestions}" VerticalAlignment="Stretch"/>
-            <StackPanel Orientation="Horizontal" MinWidth="400" Background="#FFFF5D00">
-                <TextBlock x:Uid="To" FontSize="25" FontWeight="Bold" MinWidth="250" Padding="5,0,0,0"/>
-                <Button Style="{StaticResource RoundByttonStyle}" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <AutoSuggestBox Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource AutoSuggestBoxStyle}" ItemsSource="{Binding AutoSuggestions}" />
+            <StackPanel Style="{StaticResource StackPanelStyle}">
+                <TextBlock x:Uid="To" MinWidth="250" Style="{StaticResource SearchBlockStyle}" />
+                <Button Style="{StaticResource RoundByttonStyle}">
                     <Button.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png"/>
+                        <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png" />
                     </Button.Background>
                 </Button>
             </StackPanel>
-            <AutoSuggestBox  Style="{StaticResource AutoSuggestBoxStyle}" Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding AutoSuggestions}"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top" micro:Message.Attach="[Event Click] = [Action Search]"/>
+            <AutoSuggestBox Style="{StaticResource AutoSuggestBoxStyle}"
+                    Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding AutoSuggestions}" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top"
+                        micro:Message.Attach="[Event Click] = [Action Search]" />
             </StackPanel>
-            <TextBlock x:Uid="LastRequest" Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center"/>
-            <ListView 
-                        IsItemClickEnabled="True"
-                        ItemsSource="{Binding LastRequests}"
-                        micro:Message.Attach="[Event ItemClick] = [Action SetRequest($clickeditem)]"
-                        ItemTemplate="{StaticResource LastRequestTemplate}">
+            <TextBlock x:Uid="LastRequest" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}" />
+            <ListView IsItemClickEnabled="True" ItemsSource="{Binding LastRequests}"
+                    ItemTemplate="{StaticResource LastRequestTemplate}"
+                    micro:Message.Attach="[Event ItemClick] = [Action SetRequest($clickeditem)]">
             </ListView>
         </StackPanel>
     </Grid>
