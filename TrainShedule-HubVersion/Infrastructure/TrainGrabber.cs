@@ -34,7 +34,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
             var addiditionalInformation = GetPlaces(data, searchParameter).ToList();
             var links = GetLink(data);
-            var trains = await Task.Run(() => date == "everyday" ? GetTrainsInformation(Parser.ParseTrainData(data, Pattern)) 
+            var trains = await Task.Run(() => date == "everyday" ? GetTrainsInformation(Parser.ParseTrainData(data, Pattern))
                 : GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
             trains = GetFinallyResult(addiditionalInformation, links, trains);
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
@@ -133,7 +133,10 @@ namespace TrainShedule_HubVersion.Infrastructure
             //only on bellarusian railways
             if (endTime < startTime) endTime = endTime.AddDays(1);
             var time = endTime - startTime;
-            return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
+            if (time.Days == 0)
+                return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
+            return "В пути: " + time.Days + "дней" + time.Hours + "ч. " + time.Minutes + "мин.";
+
         }
 
         private static IEnumerable<AdditionalInformation[]> GetPlaces(string data, string searchParameter)

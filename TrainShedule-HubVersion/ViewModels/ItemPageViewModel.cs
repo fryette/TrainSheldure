@@ -94,6 +94,16 @@ namespace TrainShedule_HubVersion.ViewModels
             get { return _datum; }
             set
             {
+                if (value.Date < DateTime.Now)
+                {
+                    ShowMessageBox("Поиск может производится начиная от текущего времени");
+                    return;
+                }
+                if (value.Date>DateTime.Now.AddDays(45))
+                {
+                    ShowMessageBox("Поиск может производится только 45 дней от текущего момента");
+                    return;
+                }
                 _datum = value;
                 NotifyOfPropertyChange(() => Datum);
             }
@@ -180,12 +190,15 @@ namespace TrainShedule_HubVersion.ViewModels
                 });
             }
             else
-                LastRequests[2] = new LastRequest
+            {
+                LastRequests[2] = LastRequests[1];
+                LastRequests[1] = LastRequests[0];
+                LastRequests[0] = new LastRequest
                 {
                     From = From,
                     To = To
                 };
-            LastRequests.Reverse();
+            }
             await Serialize.SaveObjectToXml(LastRequests, "lastRequests");
         }
 
