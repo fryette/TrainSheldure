@@ -94,16 +94,6 @@ namespace TrainShedule_HubVersion.ViewModels
             get { return _datum; }
             set
             {
-                if (value.Date < DateTime.Now)
-                {
-                    ShowMessageBox("Поиск может производится начиная от текущего времени");
-                    return;
-                }
-                if (value.Date>DateTime.Now.AddDays(45))
-                {
-                    ShowMessageBox("Поиск может производится только 45 дней от текущего момента");
-                    return;
-                }
                 _datum = value;
                 NotifyOfPropertyChange(() => Datum);
             }
@@ -158,6 +148,7 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         private async void Search()
         {
+            if(CheckDate())return;
             if (AutoCompletion == null || From == String.Empty || To == String.Empty ||
                 (!AutoCompletion.Contains(From) || !AutoCompletion.Contains(To)))
             {
@@ -171,6 +162,19 @@ namespace TrainShedule_HubVersion.ViewModels
             _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
             IsTaskRun = false;
         }
+
+        private bool CheckDate()
+        {
+            if ((Datum.Date - DateTime.Now).Days < 0)
+            {
+                ShowMessageBox("Поиск может производится начиная от текущего времени");
+                return true;
+            }
+            if (Datum.Date <= DateTime.Now.AddDays(45)) return false;
+            ShowMessageBox("Поиск может производится только за 45 дней от текущего момента или используйте режим \"На все дни\"");
+            return true;
+        }
+
         private string GetDate()
         {
             if (SelectedDate == Date[2]) return "everyday";
