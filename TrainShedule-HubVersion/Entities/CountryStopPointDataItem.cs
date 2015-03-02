@@ -2,12 +2,14 @@
 
 namespace TrainShedule_HubVersion.Entities
 {
-  public class CountryStopPointDataItem
+    public class CountryStopPointDataItem
     {
         public string UniqueId { get; set; }
-        public CountryStopPointDataItem(String uniqueId)
+        public string Country { get; set; }
+        public CountryStopPointDataItem(String uniqueId, String country)
         {
             UniqueId = uniqueId;
+            Country = country;
         }
     }
 }

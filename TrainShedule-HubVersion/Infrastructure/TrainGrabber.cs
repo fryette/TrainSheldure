@@ -38,15 +38,15 @@ namespace TrainShedule_HubVersion.Infrastructure
                 : GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
             trains = GetFinallyResult(addiditionalInformation, links, trains);
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
-            return searchParameter == "Аэропорт" || searchParameter == "Ближайшие"
+            return (searchParameter == "Аэропорт" || searchParameter == "Ближайший"
                 ? schedule
-                : schedule.Where(x => x.Type.Contains(searchParameter));
+                : schedule.Where(x => x.Type.Contains(searchParameter))).Where(x => x.BeforeDepartureTime == null || !x.BeforeDepartureTime.Contains('-')).ToList();
         }
 
         private static string GetUrl(string fromName, string toName, string date)
         {
             return "http://rasp.rw.by/m/ru/route/?from=" +
-                   fromName.Remove(fromName.IndexOf('(')) + "&to=" + toName.Remove(toName.IndexOf('(')) + "&date=" + date;
+                   fromName + "&to=" + toName + "&date=" + date;
         }
 
         private static IEnumerable<Train> GetTrainsInformation(IEnumerable<Match> match, string date)

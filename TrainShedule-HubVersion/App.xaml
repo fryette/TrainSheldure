@@ -195,9 +195,10 @@
                                     <StackPanel Orientation="Horizontal">
                                         <StackPanel Orientation="Vertical" HorizontalAlignment="Left" MinWidth="100"
                                                 MaxWidth="400" Margin="5,0,0,0">
-                                            <TextBlock Text="{Binding BeforeDepartureTime}"
-                                                    Foreground="DarkRed" Style="{StaticResource BasedTextBlockStyle}"/>
-                                            <TextBlock Text="{Binding OnTheWay}" Style="{StaticResource BasedTextBlockStyle}" />
+                                            <TextBlock Text="{Binding BeforeDepartureTime}" Foreground="DarkRed"
+                                                    Style="{StaticResource BasedTextBlockStyle}" />
+                                            <TextBlock Text="{Binding OnTheWay}"
+                                                    Style="{StaticResource BasedTextBlockStyle}" />
                                             <TextBlock x:Uid="AddInformation" Foreground="WhiteSmoke"
                                                     Style="{StaticResource BasedTextBlockStyle}" />
                                         </StackPanel>
@@ -232,8 +233,10 @@
                                 FontSize="18" MinWidth="150" />
                     </StackPanel>
                     <StackPanel Orientation="Vertical" MinWidth="100">
-                        <TextBlock Text="{Binding Place}" FontWeight="Normal" Style="{StaticResource BasedTextBlockStyle}" />
-                        <TextBlock Text="{Binding Price}" FontWeight="Normal" Style="{StaticResource BasedTextBlockStyle}" />
+                        <TextBlock Text="{Binding Place}" FontWeight="Normal"
+                                Style="{StaticResource BasedTextBlockStyle}" />
+                        <TextBlock Text="{Binding Price}" FontWeight="Normal"
+                                Style="{StaticResource BasedTextBlockStyle}" />
                     </StackPanel>
                 </StackPanel>
             </DataTemplate>

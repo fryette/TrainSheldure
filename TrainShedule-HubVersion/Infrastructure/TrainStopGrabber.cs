@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text.RegularExpressions;
 using TrainShedule_HubVersion.Entities;
 
-namespace TrainShedule_HubVersion.Entities
+namespace TrainShedule_HubVersion.Infrastructure
 {
     class TrainStopGrabber
     {
@@ -29,18 +27,13 @@ namespace TrainShedule_HubVersion.Entities
                 var arrivals = parameters[i + 1].Groups[2].Value.Replace("\n", "").Replace("\t", "");
                 var departure = parameters[i + 2].Groups[3].Value.Replace("</div>\n\t\t\t\t", "");
                 var stay = parameters[i + 3].Groups[4].Value.Replace("</div>\n\t\t\t", "");
-                if (arrivals == "" || departure == "")
-                {
-                    var temp = arrivals;
-                    arrivals = departure;
-                    departure = temp;
-                }
+
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = "Приб: " + (arrivals == "" ? departure : arrivals.Substring(0, 5)),
-                    Departures = "Отпр: " + (departure == "" ? arrivals : departure),
-                    Stay = "Стоянка: " + (stay == "" ? "нет" : stay)
+                    Arrivals = (arrivals == "" ? null : "Приб:" + arrivals.Substring(0, 5)),
+                    Departures = (departure == "" ? null : "Отпр: " + departure),
+                    Stay = stay == "" ? null : "Стоянка: " + stay
                 });
             }
             return trainStop;

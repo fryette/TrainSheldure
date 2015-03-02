@@ -19,6 +19,7 @@ namespace TrainShedule_HubVersion.ViewModels
             _navigationService = navigationService;
         }
 
+        #region properties
         private readonly BindableCollection<string> _variantOfDate = new BindableCollection<string>(new[] { "Сегодня", "Завтра", "На все дни" });
         public BindableCollection<string> Date
         {
@@ -99,10 +100,10 @@ namespace TrainShedule_HubVersion.ViewModels
             }
         }
 
-        public static IEnumerable<string> AutoCompletion { get; set; }
+        public static IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
 
-        private IEnumerable<string> _autoSuggestions;
-        public IEnumerable<string> AutoSuggestions
+        private List<string> _autoSuggestions;
+        public List<string> AutoSuggestions
         {
             get { return _autoSuggestions; }
             set
@@ -123,16 +124,28 @@ namespace TrainShedule_HubVersion.ViewModels
             }
         }
 
+        private bool _isFildEnabled = true;
+        public bool IsFildEnabled
+        {
+            get { return _isFildEnabled; }
+            set
+            {
+                _isFildEnabled = value;
+                NotifyOfPropertyChange(() => IsFildEnabled);
+            }
+        }
+        #endregion
+
+        #region actions
         protected async override void OnActivate()
         {
             SelectedDate = Date[0];
             Title = Parameter.Title;
             if (AutoCompletion == null)
-                AutoCompletion = (await CountryStopPointData.GetGroupsAsync()).SelectMany(dataGroup => dataGroup.Items)
-                        .Select(item => item.UniqueId);
+                AutoCompletion = (await CountryStopPointData.GetGroupsAsync()).SelectMany(dataGroup => dataGroup.Items);
             LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
             if (Parameter.Title == "Аэропорт")
-                From = "Национальный аэропорт «Минск»";
+                From = "Национальный аэропорт «Минск» (Беларусь)";
         }
         private static async void ShowMessageBox(string message)
         {
@@ -148,9 +161,9 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         private async void Search()
         {
-            if(CheckDate())return;
+            if (CheckDate()) return;
             if (AutoCompletion == null || From == String.Empty || To == String.Empty ||
-                (!AutoCompletion.Contains(From) || !AutoCompletion.Contains(To)))
+                (!AutoCompletion.Any(x => x.UniqueId.Contains(From.Split('(')[0])) || !AutoCompletion.Any(x => x.UniqueId.Contains(To.Split('(')[0]))))
             {
                 ShowMessageBox("Один или оба пункта не существует, проверьте еще раз или обновите станции");
                 return;
@@ -158,9 +171,13 @@ namespace TrainShedule_HubVersion.ViewModels
             if (IsTaskRun) return;
             IsTaskRun = true;
             SerializeLastReques();
-            var schedule = await TrainGrabber.GetTrainSchedule(From, To, GetDate(), Parameter.Title, Parameter.IsEconom, Parameter.SpecialSearch);
-            _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
+            var schedule = await TrainGrabber.GetTrainSchedule(From.Split('(')[0], To.Split('(')[0], GetDate(), Parameter.Title, Parameter.IsEconom, Parameter.SpecialSearch);
             IsTaskRun = false;
+            if (schedule == null || !schedule.Any())
+                ShowMessageBox("Поезда не найдены либо проверьте подключение к сети интернет");
+            else
+                _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
+
         }
 
         private bool CheckDate()
@@ -214,8 +231,22 @@ namespace TrainShedule_HubVersion.ViewModels
 
         private void UpdateAutoSuggestions(string str)
         {
-            var temp = AutoCompletion.Where(x => x.Contains(str)).ToList();
-            AutoSuggestions = temp.Count() == 1 ? temp[0] == str ? null : temp : temp;
+            AutoSuggestions = AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
+            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
+            AutoSuggestions.Clear();
         }
+
+        private void SuggestionChosen()
+        {
+            IsFildEnabled = false;
+            IsFildEnabled = true;
+        }
+
+        private void Clear()
+        {
+            From = String.Empty;
+            To = String.Empty;
+        }
+        #endregion
     }
 }

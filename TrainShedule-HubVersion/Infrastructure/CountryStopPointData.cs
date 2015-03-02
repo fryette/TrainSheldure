@@ -64,7 +64,7 @@ namespace TrainShedule_HubVersion.Infrastructure
 
                 foreach (var itemObject in groupObject["Items"].GetArray().Select(itemValue => itemValue.GetObject()))
                 {
-                    group.Items.Add(new CountryStopPointDataItem(itemObject["UniqueId"].GetString()));
+                    group.Items.Add(new CountryStopPointDataItem(itemObject["UniqueId"].GetString(), itemObject["Country"].GetString()));
                 }
                 Groups.Add(group);
             }

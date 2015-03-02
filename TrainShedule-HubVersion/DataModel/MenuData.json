@@ -6,7 +6,7 @@
             "Items": [
                 {
                     "UniqueId": "Menu-Nearest",
-                    "Title": "Ближайшие",
+                    "Title": "Ближайший",
                     "ImagePath": "/Assets/MenuIcon/Immidiate.png"
                    },
                 {

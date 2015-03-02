@@ -126,7 +126,10 @@
   <data name="ApplicationName.Text" xml:space="preserve">
     <value>Чыгунка</value>
   </data>
-  <data name="From.Text" xml:space="preserve">
+  <data name="Clear.Content" xml:space="preserve">
+    <value>Очистить</value>
+  </data>
+  <data name="From.PlaceholderText" xml:space="preserve">
     <value>Откуда</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
@@ -159,7 +162,7 @@
   <data name="SelectStantion.Text" xml:space="preserve">
     <value>Выбор станции</value>
   </data>
-  <data name="To.Text" xml:space="preserve">
+  <data name="To.PlaceholderText" xml:space="preserve">
     <value>Куда</value>
   </data>
   <data name="Today.Content" xml:space="preserve">
