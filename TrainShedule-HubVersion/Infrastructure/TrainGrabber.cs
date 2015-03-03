@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 using TrainShedule_HubVersion.Entities;
 
 namespace TrainShedule_HubVersion.Infrastructure
@@ -34,8 +36,14 @@ namespace TrainShedule_HubVersion.Infrastructure
             var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
             var addiditionalInformation = GetPlaces(data, searchParameter).ToList();
             var links = GetLink(data);
-            var trains = await Task.Run(() => date == "everyday" ? GetTrainsInformation(Parser.ParseTrainData(data, Pattern))
-                : GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
+            IEnumerable<Train> trains;
+            var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
+            var toItem = await CountryStopPointData.GetItemByIdAsync(to);
+            if (fromItem.Country != "(Беларусь)" && toItem.Country != "(Беларусь)")
+                trains = await Task.Run(() => GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern)));
+            else
+                trains = await Task.Run(() => date == "everyday" ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern))
+                    : GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
             trains = GetFinallyResult(addiditionalInformation, links, trains);
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
             return (searchParameter == "Аэропорт" || searchParameter == "Ближайший"
@@ -60,25 +68,14 @@ namespace TrainShedule_HubVersion.Infrastructure
             for (var i = 0; i < step; i += 4)
             {
                 var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
-                var endTime = DateTime.Parse(parameters[i + 1].Groups[2].Value);
-                trainList.Add(new Train
-                {
-                    StartTime = parameters[i].Groups[1].Value,
-                    EndTime = parameters[i + 1].Groups[2].Value,
-                    City = parameters[i + 2].Groups[3].Value.Replace("&nbsp;&mdash;", "-"),
-                    Description = parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
-                    BeforeDepartureTime =
-                        GetBeforeDepartureTime(starTime, dateOfDeparture),
-                    Type = parameters[i / 4 + step].Value,
-                    ImagePath = imagePath[i / 4],
-                    OnTheWay = OnTheWay(starTime, endTime),
-                    DepartureDate = date
-                });
+                trainList.Add(CreateTrain(parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value, parameters[i + 2].Groups[3].Value,
+                    parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "), parameters[i / 4 + step].Value,
+                    imagePath[i / 4], GetBeforeDepartureTime(starTime, dateOfDeparture), date));
             }
             return trainList;
         }
 
-        private static IEnumerable<Train> GetTrainsInformation(IEnumerable<Match> match)
+        private static IEnumerable<Train> GetTrainsInformationOnAllDays(IEnumerable<Match> match)
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var imagePath = new List<string>(GetImagePath(parameters));
@@ -87,22 +84,44 @@ namespace TrainShedule_HubVersion.Infrastructure
 
             for (var i = 0; i < step; i += 4)
             {
-                var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
-                var endTime = DateTime.Parse(parameters[i + 1].Groups[2].Value);
-                trainList.Add(new Train
-                {
-                    StartTime = parameters[i].Groups[1].Value,
-                    EndTime = parameters[i + 1].Groups[2].Value,
-                    City = parameters[i + 2].Groups[3].Value.Replace("&nbsp;&mdash;", "-"),
-                    Description = parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
-                    BeforeDepartureTime = null,
-                    Type = parameters[i / 4 + step].Value,
-                    ImagePath = imagePath[i / 4],
-                    OnTheWay = OnTheWay(starTime, endTime),
-                    DepartureDate = null
-                });
+                trainList.Add(CreateTrain(parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
+                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value,
+                    parameters[i / 4 + step].Value, imagePath[i / 4]));
             }
             return trainList;
+        }
+
+        private static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IEnumerable<Match> match)
+        {
+            var parameters = match as IList<Match> ?? match.ToList();
+            var trainList = new List<Train>(parameters.Count / SearchCountParameter);
+
+            for (var i = 0; i < parameters.Count; i += 4)
+            {
+                trainList.Add(CreateTrain(parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
+                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " ")));
+            }
+            return trainList;
+        }
+
+        private static Train CreateTrain(string time1, string time2, string city, string description = null, string type = null,
+            string imagePath = null, string beforeDepartureTime = null, string departureDate = null)
+        {
+            var startTime = DateTime.Parse(time1);
+            var endTime = DateTime.Parse(time2);
+
+            return new Train
+            {
+                StartTime = time1,
+                EndTime = time2,
+                City = city.Replace("&nbsp;&mdash;", "-"),
+                Description = description,
+                BeforeDepartureTime = beforeDepartureTime ?? description,
+                Type = type,
+                ImagePath = imagePath,
+                OnTheWay = OnTheWay(startTime, endTime),
+                DepartureDate = departureDate
+            };
         }
 
         private static IEnumerable<string> GetImagePath(IEnumerable<Match> match)

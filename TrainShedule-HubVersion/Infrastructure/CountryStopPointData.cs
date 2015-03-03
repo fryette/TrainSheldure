@@ -42,8 +42,17 @@ namespace TrainShedule_HubVersion.Infrastructure
                 MenuDataSource.Groups.SelectMany(group => group.Items);
             var menuDataItems = matches as IList<CountryStopPointDataItem> ?? matches.ToList();
             return menuDataItems;
-
         }
+
+        public static async Task<CountryStopPointDataItem> GetItemByIdAsync(string itemId)
+        {
+            await MenuDataSource.GetMenuDataAsync();
+            var matches =
+                MenuDataSource.Groups.SelectMany(group => group.Items);
+            var menuDataItems = matches as IList<CountryStopPointDataItem> ?? matches.ToList();
+            return menuDataItems.First(x => x.UniqueId == itemId);
+        }
+
         private async Task GetMenuDataAsync()
         {
             if (_groups.Count != 0)

@@ -20,7 +20,7 @@
             <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"
                     Style="{StaticResource DatePickerStyle}" />
             <ComboBox x:Name="Date" MinWidth="400" SelectedItem="{Binding Date}" SelectedValue="1" Margin="0,0,0,5" />
-            <AutoSuggestBox x:Uid="To" Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            <AutoSuggestBox x:Uid="From" Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ItemsSource="{Binding AutoSuggestions}" IsEnabled="{Binding IsFildEnabled}"
                     Style="{StaticResource AutoSuggestBoxStyle}"
                     micro:Message.Attach="[Event SuggestionChosen] = [Action SuggestionChosen]" />
@@ -30,7 +30,7 @@
                 </StackPanel.Background>
 
             </StackPanel>
-            <AutoSuggestBox x:Uid="From" IsEnabled="{Binding IsFildEnabled}"
+            <AutoSuggestBox x:Uid="To" IsEnabled="{Binding IsFildEnabled}"
                     Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ItemsSource="{Binding AutoSuggestions}" Style="{StaticResource AutoSuggestBoxStyle}"
                     micro:Message.Attach="[Event SuggestionChosen] = [Action SuggestionChosen]" />

@@ -50,7 +50,6 @@ namespace TrainShedule_HubVersion.Entities
                 MenuDataSource.Groups.SelectMany(group => group.Items);
             var menuDataItems = matches as IList<MenuDataItem> ?? matches.ToList();
             return menuDataItems;
-
         }
         private async Task GetMenuDataAsync()
         {
