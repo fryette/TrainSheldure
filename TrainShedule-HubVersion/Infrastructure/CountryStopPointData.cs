@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.Infrastructure
 {

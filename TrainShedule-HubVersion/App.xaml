@@ -132,6 +132,7 @@
             </Style>
             <Style x:Key="AutoSuggestBoxStyle" TargetType="AutoSuggestBox">
                 <Setter Property="IsSuggestionListOpen" Value="True" />
+                <Setter Property="Margin" Value="5,5,5,0" />
             </Style>
             <Style x:Key="DatePickerStyle" TargetType="DatePicker">
                 <Setter Property="MonthFormat" Value="{}{month.abbreviated}" />
@@ -215,6 +216,14 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </DataTemplate>
+            <DataTemplate x:Key="Standard200X180TileItemTemplate">
+                <Grid Margin="0,0,9.5,9.5" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
+                    <Image Source="{Binding ImagePath}" AutomationProperties.Name="{Binding Title}" Height="138.5"
+                            Width="138.5" Stretch="UniformToFill" />
+                    <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Visibility="Collapsed"
+                            Margin="9.5,0,0,6.5" Style="{ThemeResource BaseTextBlockStyle}" />
+                </Grid>
+            </DataTemplate>
             <DataTemplate x:Key="MainPageTemplate">
                 <GridView ItemsSource="{Binding Menu}" IsItemClickEnabled="True" Margin="0,9.5,0,0"
                         ItemTemplate="{StaticResource Standard200X180TileItemTemplate}"
@@ -264,14 +273,6 @@
             </DataTemplate>
             <DataTemplate x:Key="HubSectionHeaderTemplate">
                 <TextBlock Margin="0,0,0,-9.5" />
-            </DataTemplate>
-            <DataTemplate x:Key="Standard200X180TileItemTemplate">
-                <Grid Margin="0,0,9.5,9.5" Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
-                    <Image Source="{Binding ImagePath}" AutomationProperties.Name="{Binding Title}" Height="138.5"
-                            Width="138.5" Stretch="UniformToFill" />
-                    <TextBlock Text="{Binding Title}" VerticalAlignment="Bottom" Visibility="Collapsed"
-                            Margin="9.5,0,0,6.5" Style="{ThemeResource BaseTextBlockStyle}" />
-                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

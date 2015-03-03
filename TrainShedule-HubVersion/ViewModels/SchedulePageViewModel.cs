@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
@@ -14,7 +14,7 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             _navigationService = navigationService;
         }
-
+        #region action
         protected override void OnActivate()
         {
             Task.Run(() => Serialize.SaveObjectToXml(new List<Train>(Parameter), "LastTrainList"));
@@ -24,5 +24,6 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             _navigationService.NavigateToViewModel<InformationPageViewModel>(train);
         }
+        #endregion
     }
 }

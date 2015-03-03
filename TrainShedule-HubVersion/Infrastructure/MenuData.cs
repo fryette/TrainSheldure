@@ -1,20 +1,13 @@
-﻿// The data model defined by this file serves as a representative example of a strongly-typed
-// model.  The property names chosen coincide with data bindings in the standard item templates.
-//
-// Applications may use this model as a starting point and build on it, or discard it entirely and
-// replace it with something appropriate to their needs. If using this model, you might improve app 
-// responsiveness by initiating the data loading task in the code behind for App.xaml when the app 
-// is first launched.
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
 
-namespace TrainShedule_HubVersion.Entities
+namespace TrainShedule_HubVersion.Infrastructure
 {
     public sealed class MenuData
     {
@@ -37,7 +30,6 @@ namespace TrainShedule_HubVersion.Entities
         public static async Task<MenuDataGroup> GetGroupAsync(string uniqueId)
         {
             await MenuDataSource.GetMenuDataAsync();
-            // Simple linear search is acceptable for small data sets
             var matches = MenuDataSource.Groups.Where(group => group.UniqueId.Equals(uniqueId));
             var menuDataGroups = matches as IList<MenuDataGroup> ?? matches.ToList();
             return menuDataGroups.Count() == 1 ? menuDataGroups.First() : null;

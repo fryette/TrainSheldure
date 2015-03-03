@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Popups;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
 using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
     public class ItemPageViewModel : Screen
     {
+
         public MenuDataItem Parameter { get; set; }
 
         private readonly INavigationService _navigationService;
 
+        #region constructors
         public ItemPageViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }
-
+        #endregion
+        
         #region properties
         private readonly BindableCollection<string> _variantOfDate = new BindableCollection<string>(new[] { "Сегодня", "Завтра", "На все дни" });
         public BindableCollection<string> Date

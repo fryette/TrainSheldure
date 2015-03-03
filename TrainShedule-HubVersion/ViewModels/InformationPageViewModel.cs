@@ -1,13 +1,15 @@
 ﻿using System.Threading.Tasks;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
 using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
     public class InformationPageViewModel : Screen
     {
+        
         private readonly INavigationService _navigationService;
+        #region properties
         public Train Parameter { get; set; }
         public InformationPageViewModel(INavigationService navigationService)
         {
@@ -34,6 +36,9 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => IsTaskRun);
             }
         }
+        #endregion
+
+        #region action
         protected override void OnActivate()
         {
             AdditionalInformation = Parameter.AdditionalInformation;
@@ -46,5 +51,6 @@ namespace TrainShedule_HubVersion.ViewModels
             IsTaskRun = false;
             _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
         }
+        #endregion
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {

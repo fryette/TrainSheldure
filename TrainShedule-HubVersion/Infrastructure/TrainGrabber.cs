@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
-using TrainShedule_HubVersion.Entities;
 
 namespace TrainShedule_HubVersion.Infrastructure
 {
@@ -113,7 +110,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             return new Train
             {
                 StartTime = time1,
-                EndTime = time2,
+                EndTime = time2.Split('<')[0],
                 City = city.Replace("&nbsp;&mdash;", "-"),
                 Description = description,
                 BeforeDepartureTime = beforeDepartureTime ?? description,

@@ -17,9 +17,25 @@
             <TextBlock Text="{Binding Title}" FontSize="40" Style="{ThemeResource HeaderTextBlockStyle}" />
         </StackPanel>
         <StackPanel Grid.RowSpan="2" MaxWidth="400" Margin="0,100,0,0">
-            <DatePicker Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,5"
-                    Style="{StaticResource DatePickerStyle}" />
-            <ComboBox x:Name="Date" MinWidth="400" SelectedItem="{Binding Date}" SelectedValue="1" Margin="0,0,0,5" />
+            <StackPanel Orientation="Horizontal" MinWidth="400" Margin="5,0">
+                <StackPanel Orientation="Vertical">
+                    <DatePicker Header="Время отправления"
+                            Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource DatePickerStyle}" />
+                </StackPanel>
+                <StackPanel Orientation="Vertical" Margin="10,0,0,0" VerticalAlignment="Bottom">
+                    <ComboBox x:Name="Date" SelectedItem="{Binding Date}" SelectedValue="1" Margin="0,0"
+                            VerticalAlignment="Bottom" Width="145" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Button Style="{StaticResource RoundByttonStyle}" HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch" Margin="25,0,0,0">
+                        <Button.Background>
+                            <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png" />
+                        </Button.Background>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
             <AutoSuggestBox x:Uid="From" Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ItemsSource="{Binding AutoSuggestions}" IsEnabled="{Binding IsFildEnabled}"
                     Style="{StaticResource AutoSuggestBoxStyle}"
@@ -34,16 +50,11 @@
                     Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     ItemsSource="{Binding AutoSuggestions}" Style="{StaticResource AutoSuggestBoxStyle}"
                     micro:Message.Attach="[Event SuggestionChosen] = [Action SuggestionChosen]" />
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50"
+            <StackPanel Orientation="Horizontal">
+                <Button x:Uid="Search" HorizontalAlignment="Left" VerticalAlignment="Top"
                         micro:Message.Attach="[Event Click] = [Action Search]" />
-                <Button x:Uid="Clear" HorizontalAlignment="Left" VerticalAlignment="Top" Height="50"
+                <Button x:Uid="Clear" HorizontalAlignment="Left" VerticalAlignment="Top"
                         micro:Message.Attach="[Event Click] = [Action Clear]" Margin="5,0,0,0" />
-                <Button Style="{StaticResource RoundByttonStyle}" Margin="5,0,0,0">
-                    <Button.Background>
-                        <ImageBrush Stretch="UniformToFill" ImageSource="/Assets/appbar.refresh.png" />
-                    </Button.Background>
-                </Button>
             </StackPanel>
             <TextBlock x:Uid="LastRequest" HorizontalAlignment="Center" Style="{ThemeResource TitleTextBlockStyle}" />
             <ListView IsItemClickEnabled="True" ItemsSource="{Binding LastRequests}"

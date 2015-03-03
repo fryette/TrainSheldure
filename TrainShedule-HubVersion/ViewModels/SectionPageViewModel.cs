@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
@@ -14,6 +14,8 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             _navigationService = navigationService;
         }
+
+        #region properties
 
         private ImageSource _businessBackground = new BitmapImage(new Uri("ms-appx:///Assets/IRLB.png"));
         public ImageSource BusinessBackground
@@ -35,7 +37,9 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => BusinessBackground);
             }
         }
+        #endregion
 
+        #region action
         protected override void OnActivate()
         {
             Parameter.SpecialSearch = true;
@@ -54,5 +58,6 @@ namespace TrainShedule_HubVersion.ViewModels
             Parameter.IsEconom = true;
             _navigationService.NavigateToViewModel<ItemPageViewModel>(Parameter);
         }
+        #endregion
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
+using TrainShedule_HubVersion.Infrastructure;
+using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
@@ -13,6 +14,7 @@ namespace TrainShedule_HubVersion.ViewModels
             _navigationService = navigationService;
         }
 
+        #region properties
         private static IEnumerable<Train> _trains;
         public IEnumerable<Train> Trains
         {
@@ -34,7 +36,9 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => Menu);
             }
         }
-
+        #endregion
+        
+        #region action
         public void GoToSearch(MenuDataItem item)
         {
             if (item != null && (item.UniqueId == "Menu-Interregional" || item.UniqueId == "Menu-Regional"))
@@ -52,6 +56,7 @@ namespace TrainShedule_HubVersion.ViewModels
             if (_menu == null) Menu = await MenuData.GetItemsAsync();
             Trains = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
         }
+        #endregion
     }
 }
 
