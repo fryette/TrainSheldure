@@ -14,7 +14,7 @@ namespace TrainShedule_HubVersion.Infrastructure
     {
         #region constant
         private const string Pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
-                                       "(?<endTime><div class=\"list_end\">(.+?)<\\/?)|" +
+                                       "(?<endTime><div class=\"list_end\">(.+?)</div>)|" +
                                        "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
                                        "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
                                        "<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>";
@@ -108,7 +108,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             string imagePath = null, string beforeDepartureTime = null, string departureDate = null)
         {
             var startTime = DateTime.Parse(time1);
-            var endTime = DateTime.Parse(time2);
+            var endTime = DateTime.Parse(time2.Replace("<br />", " "));
 
             return new Train
             {
@@ -154,7 +154,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             var time = endTime - startTime;
             if (time.Days == 0)
                 return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
-            return "В пути: " + time.Days + "дней" + time.Hours + "ч. " + time.Minutes + "мин.";
+            return "В пути: " + (int)time.TotalHours + "ч. " + time.Minutes + "мин.";
 
         }
 
