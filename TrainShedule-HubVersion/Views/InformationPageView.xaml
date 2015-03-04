@@ -1,22 +1,31 @@
 ﻿<Page x:Class="TrainShedule_HubVersion.Views.InformationPage"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:micro="using:Caliburn.Micro"
-        xmlns:viewModels="using:TrainShedule_HubVersion.ViewModels" mc:Ignorable="d"
-        xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
-        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-        d:DataContext="{d:DesignInstance viewModels:InformationPageViewModel}">
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:viewModels="using:TrainShedule_HubVersion.ViewModels"
+      mc:Ignorable="d"
+      xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      d:DataContext="{d:DesignInstance viewModels:InformationPageViewModel}">
     <Page.Resources>
         <valueconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
-    <Grid IsDoubleTapEnabled="False" IsHoldingEnabled="False">
-        <ListView ItemsSource="{Binding AdditionalInformation}" Padding="0,70,0,0" Margin="5,0,0,0"
-                ItemTemplate="{StaticResource InformationTemplate}">
+    <Grid>
+        <ListView ItemsSource="{Binding AdditionalInformation}"
+                  Padding="0,70,0,0"
+                  Margin="5,0"
+                  ItemTemplate="{StaticResource InformationTemplate}">
         </ListView>
-        <Button x:Uid="ListOfPoint" Height="70" HorizontalAlignment="Stretch" VerticalAlignment="Top"
-                Background="#FFFF8000" micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
-        <ProgressBar IsIndeterminate="True" VerticalAlignment="Top"
-                Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <Button x:Uid="ListOfPoint"
+                Height="70"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Background="{StaticResource OrangeColorBrush}"
+                micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
+        <ProgressBar IsIndeterminate="True"
+                     VerticalAlignment="Top"
+                     Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
     </Grid>
 </Page>
