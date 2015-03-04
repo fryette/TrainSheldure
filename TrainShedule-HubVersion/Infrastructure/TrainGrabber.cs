@@ -37,9 +37,9 @@ namespace TrainShedule_HubVersion.Infrastructure
             var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
             var toItem = await CountryStopPointData.GetItemByIdAsync(to);
             if (fromItem.Country != "(Беларусь)" && toItem.Country != "(Беларусь)")
-                trains = await Task.Run(() => GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern)));
+                trains = await Task.Run(() => GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern), date));
             else
-                trains = await Task.Run(() => date == "everyday" ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern))
+                trains = await Task.Run(() => date == "everyday" ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern), date)
                     : GetTrainsInformation(Parser.ParseTrainData(data, Pattern), date));
             trains = GetFinallyResult(addiditionalInformation, links, trains);
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
@@ -65,14 +65,14 @@ namespace TrainShedule_HubVersion.Infrastructure
             for (var i = 0; i < step; i += 4)
             {
                 var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
-                trainList.Add(CreateTrain(parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value, parameters[i + 2].Groups[3].Value,
+                trainList.Add(CreateTrain(date + " " + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value, parameters[i + 2].Groups[3].Value,
                     parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "), parameters[i / 4 + step].Value,
                     imagePath[i / 4], GetBeforeDepartureTime(starTime, dateOfDeparture), date));
             }
             return trainList;
         }
 
-        private static IEnumerable<Train> GetTrainsInformationOnAllDays(IEnumerable<Match> match)
+        private static IEnumerable<Train> GetTrainsInformationOnAllDays(IEnumerable<Match> match, string date)
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var imagePath = new List<string>(GetImagePath(parameters));
@@ -88,14 +88,14 @@ namespace TrainShedule_HubVersion.Infrastructure
             return trainList;
         }
 
-        private static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IEnumerable<Match> match)
+        private static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IEnumerable<Match> match, string date)
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
 
             for (var i = 0; i < parameters.Count; i += 4)
             {
-                trainList.Add(CreateTrain(parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
+                trainList.Add(CreateTrain(date + " " + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
                     parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " ")));
             }
             return trainList;
@@ -108,13 +108,13 @@ namespace TrainShedule_HubVersion.Infrastructure
             var endTime = DateTime.Parse(time2.Replace("<br />", " "));
             return new Train
             {
-                StartTime = time1,
+                StartTime = time1.Contains(' ')?time1.Split(' ')[1]:time1,
                 EndTime = time2.Split('<')[0],
                 City = city.Replace("&nbsp;&mdash;", "-"),
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
                 ImagePath = imagePath,
-                OnTheWay = OnTheWay(startTime, endTime),
+                OnTheWay = departureDate == null ? null : OnTheWay(startTime, endTime),
                 DepartureDate = departureDate
             };
         }
@@ -150,7 +150,6 @@ namespace TrainShedule_HubVersion.Infrastructure
             if (time.Days == 0)
                 return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
             return "В пути: " + (int)time.TotalHours + "ч. " + time.Minutes + "мин.";
-
         }
 
         private static IEnumerable<AdditionalInformation[]> GetPlaces(string data, string searchParameter)
@@ -222,8 +221,8 @@ namespace TrainShedule_HubVersion.Infrastructure
             {
                 trainsList[i].AdditionalInformation = addInf[i];
                 trainsList[i].Link = linksList[i];
-                if(trainsList[i].BeforeDepartureTime!=null)
-                trainsList[i].IsPlace = addInf[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
+                if (trainsList[i].DepartureDate != null)
+                    trainsList[i].IsPlace = addInf[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
             }
             return trainsList;
         }
