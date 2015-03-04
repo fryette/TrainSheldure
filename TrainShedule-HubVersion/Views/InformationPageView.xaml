@@ -14,18 +14,18 @@
     </Page.Resources>
     <Grid>
         <ListView ItemsSource="{Binding AdditionalInformation}"
-                  Padding="0,70,0,0"
                   Margin="5,0"
                   ItemTemplate="{StaticResource InformationTemplate}">
         </ListView>
-        <Button x:Uid="ListOfPoint"
-                Height="70"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                Background="{StaticResource OrangeColorBrush}"
-                micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
         <ProgressBar IsIndeterminate="True"
                      VerticalAlignment="Top"
                      Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Остановки"
+                          Icon="Bookmarks"
+                          micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

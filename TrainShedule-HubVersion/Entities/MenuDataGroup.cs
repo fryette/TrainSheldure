@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using TrainShedule_HubVersion.Entities;
 
 namespace TrainShedule_HubVersion.Infrastructure
 {

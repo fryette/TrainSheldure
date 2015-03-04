@@ -101,19 +101,17 @@ namespace TrainShedule_HubVersion.Infrastructure
             return trainList;
         }
 
-        private static Train CreateTrain(string time1, string time2, string city, string description = null, string type = null,
+        private static Train CreateTrain(string time1, string time2, string city, string description, string type = null,
             string imagePath = null, string beforeDepartureTime = null, string departureDate = null)
         {
             var startTime = DateTime.Parse(time1);
             var endTime = DateTime.Parse(time2.Replace("<br />", " "));
-
             return new Train
             {
                 StartTime = time1,
                 EndTime = time2.Split('<')[0],
                 City = city.Replace("&nbsp;&mdash;", "-"),
-                Description = description,
-                BeforeDepartureTime = beforeDepartureTime ?? description,
+                BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
                 ImagePath = imagePath,
                 OnTheWay = OnTheWay(startTime, endTime),
@@ -224,6 +222,8 @@ namespace TrainShedule_HubVersion.Infrastructure
             {
                 trainsList[i].AdditionalInformation = addInf[i];
                 trainsList[i].Link = linksList[i];
+                if(trainsList[i].BeforeDepartureTime!=null)
+                trainsList[i].IsPlace = addInf[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
             }
             return trainsList;
         }

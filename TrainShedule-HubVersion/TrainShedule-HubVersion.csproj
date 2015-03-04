@@ -95,15 +95,20 @@
     <Compile Include="Entities\MenuDataGroup.cs" />
     <Compile Include="Entities\MenuDataItem.cs" />
     <Compile Include="Infrastructure\CountryStopPointData.cs" />
+    <Compile Include="Infrastructure\OpenMenuFlyoutAction.cs" />
     <Compile Include="Infrastructure\Parser.cs" />
     <Compile Include="Infrastructure\MenuData.cs" />
     <Compile Include="Entities\TrainStop.cs" />
+    <Compile Include="ViewModels\FavoritePageViewModel.cs" />
     <Compile Include="ViewModels\InformationPageViewModel.cs" />
     <Compile Include="ViewModels\SectionPageViewModel.cs" />
     <Compile Include="ViewModels\ItemPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\SchedulePageViewModel.cs" />
     <Compile Include="ViewModels\StopPointPageViewModel.cs" />
+    <Compile Include="Views\FavoritePageView.xaml.cs">
+      <DependentUpon>FavoritePageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InformationPageView.xaml.cs">
       <DependentUpon>InformationPageView.xaml</DependentUpon>
     </Compile>
@@ -181,6 +186,10 @@
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\FavoritePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\InformationPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -216,14 +225,12 @@
     <Reference Include="Caliburn.Micro.Platform">
       <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Caliburn.Micro.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Xaml.Interactions">
-      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Microsoft.Xaml.Interactions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Xaml.Interactivity">
-      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Microsoft.Xaml.Interactivity.dll</HintPath>
-    </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
+      <Name>Behaviors SDK %28XAML%29</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

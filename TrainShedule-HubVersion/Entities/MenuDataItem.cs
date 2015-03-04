@@ -1,6 +1,6 @@
 using System;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainShedule_HubVersion.Entities
 {
     /// <summary>
     /// Generic item data model.
@@ -19,6 +19,8 @@ namespace TrainShedule_HubVersion.Infrastructure
         public string ImagePath { get; private set; }
         public bool IsEconom { get; set; }
         public bool SpecialSearch { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
 
         public override string ToString()
         {

@@ -43,15 +43,6 @@
                               VerticalAlignment="Bottom"
                               Width="145" />
                 </StackPanel>
-
-                <Button Margin="5,0,0,5"
-                        Style="{StaticResource RoundByttonStyle}"
-                        VerticalAlignment="Center">
-                    <Button.Background>
-                        <ImageBrush Stretch="UniformToFill"
-                                    ImageSource="/Assets/appbar.refresh.png" />
-                    </Button.Background>
-                </Button>
             </StackPanel>
             <AutoSuggestBox x:Uid="From"
                             Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -92,17 +83,28 @@
             </ListView>
         </StackPanel>
     </Grid>
-    <!--<Page.BottomAppBar>
-    <CommandBar>
-        <AppBarButton Label="Refresh" Icon="Favorite" Click="AppBarButton_Click"/>
-        <AppBarButton Label="Help" Icon="Unfavorite" Click="AppBarButton_Click"/>
-
-        <CommandBar.SecondaryCommands>
-            <AppBarButton Label="Edit" Icon="Edit" Click="AppBarButton_Click"/>
-            <AppBarButton Label="Remove" Icon="Remove" Click="AppBarButton_Click"/>
-            <AppBarButton Label="Add" Icon="Add" Click="AppBarButton_Click"/>
-        </CommandBar.SecondaryCommands>
-    </CommandBar>
-</Page.BottomAppBar>-->
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Список"
+                          Icon="Bookmarks"
+                          micro:Message.Attach="[Event Click] = [Action GoToFavoriteList]" />
+            <AppBarButton Label="Запомнить"
+                          Icon="Favorite"
+                          micro:Message.Attach="[Event Click] = [Action AddToFavorite]" />
+            <AppBarButton Label="Удалить"
+                          Icon="Unfavorite"
+                          micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]" />
+            <AppBarButton Label="Обмен"
+                          Icon="Refresh"
+                          micro:Message.Attach="[Event Click] = [Action Swap]" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Информация(в разработке)"
+                              Icon="Remove" />
+                <AppBarButton Label="Оцените,это важно для нас"
+                              Icon="Add"
+                              micro:Message.Attach="[Event Click] = [Action HyperlinkClick]" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
     

@@ -145,7 +145,7 @@
     <value>Последний запрос</value>
   </data>
   <data name="LastRequest.Text" xml:space="preserve">
-    <value>Последний запросы</value>
+    <value>Последние запросы</value>
   </data>
   <data name="ListOfPoint.Content" xml:space="preserve">
     <value>Список остановок</value>

@@ -1,13 +1,15 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Linq;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Infrastructure;
 using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
     public class InformationPageViewModel : Screen
     {
-        
+
         private readonly INavigationService _navigationService;
         #region properties
         public Train Parameter { get; set; }
@@ -49,7 +51,13 @@ namespace TrainShedule_HubVersion.ViewModels
             IsTaskRun = true;
             var stopPointList = await Task.Run(() => TrainStopGrabber.GetTrainStop(Parameter.Link));
             IsTaskRun = false;
-            _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
+            if (stopPointList == null || !stopPointList.Any())
+            {
+                var messageDialog = new MessageDialog("Доступ к интернету отсутствует,проверьте подключение!");
+                await messageDialog.ShowAsync();
+            }
+            else
+                _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
         }
         #endregion
     }

@@ -45,5 +45,13 @@ namespace TrainShedule_HubVersion.Infrastructure
                 return false; // not exist
             }
         }
+        public static async void DeleteFile(string fileName)
+        {
+            var filed = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
+            if (filed != null)
+            {
+                await filed.DeleteAsync();
+            }
+        }
     }
 }

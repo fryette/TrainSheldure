@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.System;
 using Windows.UI.Popups;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainShedule_HubVersion.Entities;
 using TrainShedule_HubVersion.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
@@ -21,9 +22,9 @@ namespace TrainShedule_HubVersion.ViewModels
             _navigationService = navigationService;
         }
         #endregion
-        
+
         #region properties
-        private readonly BindableCollection<string> _variantOfDate = new BindableCollection<string>(new[] { "Сегодня", "Завтра", "На все дни" });
+        private readonly BindableCollection<string> _variantOfDate = new BindableCollection<string>(new[] { "Все поезда", "На все дни" });
         public BindableCollection<string> Date
         {
             get { return _variantOfDate; }
@@ -40,8 +41,6 @@ namespace TrainShedule_HubVersion.ViewModels
             set
             {
                 _selectedDate = value;
-                if (SelectedDate == Date[0]) Datum = DateTime.Now;
-                else if (SelectedDate == Date[1]) Datum = DateTime.Now.AddDays(1);
                 NotifyOfPropertyChange(() => SelectedDate);
             }
         }
@@ -89,6 +88,17 @@ namespace TrainShedule_HubVersion.ViewModels
             {
                 _lastRequests = value;
                 NotifyOfPropertyChange(() => LastRequests);
+            }
+        }
+
+        private List<LastRequest> _favoriteRequests;
+        public List<LastRequest> FavoriteRequests
+        {
+            get { return _favoriteRequests; }
+            set
+            {
+                _favoriteRequests = value;
+                NotifyOfPropertyChange(() => FavoriteRequests);
             }
         }
 
@@ -147,14 +157,20 @@ namespace TrainShedule_HubVersion.ViewModels
             if (AutoCompletion == null)
                 AutoCompletion = (await CountryStopPointData.GetGroupsAsync()).SelectMany(dataGroup => dataGroup.Items);
             LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
+            FavoriteRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("favoriteRequests");
             if (Parameter.Title == "Аэропорт")
                 From = "Национальный аэропорт «Минск» (Беларусь)";
+            if (Parameter.From == null) return;
+            From = Parameter.From;
+            To = Parameter.To;
         }
+
         private static async void ShowMessageBox(string message)
         {
             var messageDialog = new MessageDialog(message);
             await messageDialog.ShowAsync();
         }
+
         public void Swap()
         {
             if (From == null || To == null) return;
@@ -162,6 +178,7 @@ namespace TrainShedule_HubVersion.ViewModels
             From = To;
             To = temp;
         }
+
         private async void Search()
         {
             if (CheckDate()) return;
@@ -173,7 +190,7 @@ namespace TrainShedule_HubVersion.ViewModels
             }
             if (IsTaskRun) return;
             IsTaskRun = true;
-            SerializeLastReques();
+            SerializeLastRequest();
             var schedule = await TrainGrabber.GetTrainSchedule(From.Split('(')[0], To.Split('(')[0], GetDate(), Parameter.Title, Parameter.IsEconom, Parameter.SpecialSearch);
             IsTaskRun = false;
             if (schedule == null || !schedule.Any())
@@ -197,11 +214,11 @@ namespace TrainShedule_HubVersion.ViewModels
 
         private string GetDate()
         {
-            if (SelectedDate == Date[2]) return "everyday";
+            if (SelectedDate == Date[1]) return "everyday";
             return Datum.Date.Year + "-" + Datum.Date.Month + "-" + Datum.Date.Day;
         }
 
-        private async void SerializeLastReques()
+        private async void SerializeLastRequest()
         {
             if (LastRequests == null) LastRequests = new List<LastRequest>();
             if (LastRequests.Any(x => x.From == From && x.To == To)) return;
@@ -249,6 +266,51 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             From = String.Empty;
             To = String.Empty;
+        }
+
+        private async void AddToFavorite()
+        {
+            if (FavoriteRequests == null) FavoriteRequests = new List<LastRequest>();
+            if (FavoriteRequests.Any(x => x.From == From && x.To == To)) ShowMessageBox("Данный маршрут уже присутствует");
+            else
+            {
+                FavoriteRequests.Add(new LastRequest { From = From, To = To });
+                await Serialize.SaveObjectToXml(LastRequests, "favoriteRequests");
+                ShowMessageBox("Успешно добавлен!");
+            }
+        }
+
+        private async void DeleteInFavorite()
+        {
+            if (FavoriteRequests == null)
+            {
+                ShowMessageBox("Ваш список пуст");
+                return;
+            }
+            var objectToDelete = FavoriteRequests.FirstOrDefault(x => x.From == From && x.To == To);
+            if (objectToDelete != null)
+            {
+                FavoriteRequests.Remove(objectToDelete);
+                await Serialize.SaveObjectToXml(LastRequests, "favoriteRequests");
+                ShowMessageBox("Успешно удален!");
+            }
+            else
+                ShowMessageBox("Маршрут не найден,попробуйте сначало добавить!");
+        }
+
+        private void GoToFavoriteList()
+        {
+            if (FavoriteRequests != null)
+            {
+                _navigationService.NavigateToViewModel<FavoritePageViewModel>(Parameter);
+            }
+            else
+                ShowMessageBox("Ваш список пуст!");
+        }
+
+        private async void HyperlinkClick()
+        {
+            await Launcher.LaunchUriAsync(new Uri("http://www.windowsphone.com/s?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e"));
         }
         #endregion
     }
