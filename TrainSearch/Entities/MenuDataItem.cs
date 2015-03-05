@@ -1,17 +1,19 @@
 using System;
 
-namespace TrainShedule_HubVersion.Entities
+namespace TrainSearch.Entities
 {
     /// <summary>
     /// Generic item data model.
     /// </summary>
     public class MenuDataItem
     {
-        public MenuDataItem(String uniqueId, String title, String imagePath)
+        public MenuDataItem(String uniqueId, String title, String imagePath, String description)
         {
             UniqueId = uniqueId;
             Title = title;
             ImagePath = imagePath;
+            Description = description;
+
         }
 
         public string UniqueId { get; private set; }
@@ -21,6 +23,8 @@ namespace TrainShedule_HubVersion.Entities
         public bool SpecialSearch { get; set; }
         public string From { get; set; }
         public string To { get; set; }
+        public string Description { get; private set; }
+
 
         public override string ToString()
         {

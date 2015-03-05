@@ -5,12 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
-using TrainShedule_HubVersion.Entities;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainSearch.Entities;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Infrastructure
 {
-    public sealed class MenuData
+    public class MenuData
     {
         private static readonly MenuData MenuDataSource = new MenuData();
 
@@ -49,7 +48,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             if (_groups.Count != 0)
                 return;
 
-            var dataUri = new Uri("ms-appx:///DataModel/MenuData.json");
+            var dataUri = new Uri("ms-appx:///TrainSearch/DataModel/MenuData.json");
 
             var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             var jsonText = await FileIO.ReadTextAsync(file);
@@ -66,7 +65,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                 {
                     group.Items.Add(new MenuDataItem(itemObject["UniqueId"].GetString(),
                         itemObject["Title"].GetString(),
-                        itemObject["ImagePath"].GetString()));
+                        itemObject["ImagePath"].GetString(), itemObject["Description"].GetString()));
                 }
                 Groups.Add(group);
             }

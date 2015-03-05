@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using TrainSearch.Entities;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Infrastructure
 {
-    class TrainStopGrabber
+   public class TrainStopGrabber
     {
         private const string Pattern = "(?<name>class=\"list_text\">([^<]*)<\\/?)|" +
                                        "(?<startTime>class=\"list_start\">(.+?)<\\/?)|" +

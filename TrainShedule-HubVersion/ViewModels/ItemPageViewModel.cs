@@ -5,8 +5,8 @@ using System.Net.NetworkInformation;
 using Windows.System;
 using Windows.UI.Popups;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainSearch.Entities;
+using TrainSearch.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
@@ -320,6 +320,11 @@ namespace TrainShedule_HubVersion.ViewModels
         private async void HyperlinkClick()
         {
             await Launcher.LaunchUriAsync(new Uri("http://www.windowsphone.com/s?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e"));
+        }
+
+        private void GoToHelpPage()
+        {
+            _navigationService.NavigateToViewModel<HelpPageViewModel>();
         }
         #endregion
     }

@@ -99,8 +99,9 @@
                           Icon="Refresh"
                           micro:Message.Attach="[Event Click] = [Action Swap]" />
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Информация(в разработке)"
-                              Icon="Remove" />
+                <AppBarButton Label="Информация"
+                              Icon="Remove"
+                              micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
                 <AppBarButton Label="Оцените,это важно для нас"
                               Icon="Add"
                               micro:Message.Attach="[Event Click] = [Action HyperlinkClick]" />

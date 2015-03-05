@@ -5,7 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Infrastructure
 {
     class Parser
     {

@@ -3,7 +3,8 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainSearch.Entities;
+using TrainSearch.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {

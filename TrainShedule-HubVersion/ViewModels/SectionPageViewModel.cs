@@ -2,8 +2,7 @@
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Entities;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainSearch.Entities;
 
 namespace TrainShedule_HubVersion.ViewModels
 {

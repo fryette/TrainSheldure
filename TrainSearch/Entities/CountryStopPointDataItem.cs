@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Entities
 {
     public class CountryStopPointDataItem
     {

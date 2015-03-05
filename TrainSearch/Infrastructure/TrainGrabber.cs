@@ -4,10 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using TrainSearch.Entities;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Infrastructure
 {
-    internal class TrainGrabber
+    public class TrainGrabber
     {
         #region constant
         private const string Pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +

@@ -31,7 +31,8 @@
                           micro:Message.Attach="[Event Click] = [Action GoToFavoriteList]" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Информация"
-                              Icon="Remove" />
+                              Icon="Remove"
+                              micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>

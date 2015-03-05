@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using TrainShedule_HubVersion.Infrastructure;
+using TrainSearch.Entities;
+using TrainSearch.Infrastructure;
 
 namespace TrainShedule_HubVersion.ViewModels
 {
@@ -23,6 +24,10 @@ namespace TrainShedule_HubVersion.ViewModels
         private void ClickItem(Train train)
         {
             _navigationService.NavigateToViewModel<InformationPageViewModel>(train);
+        }
+        private void GoToHelpPage()
+        {
+            _navigationService.NavigateToViewModel<HelpPageViewModel>();
         }
         #endregion
     }

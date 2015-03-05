@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Windows.Storage;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Infrastructure
 {
-    internal class Serialize
+    public class Serialize
     {
         public static async Task SaveObjectToXml<T>(T objectToSave, string filename)
         {
@@ -19,7 +19,7 @@ namespace TrainShedule_HubVersion.Infrastructure
                 serializer.Serialize(stream, objectToSave);
         }
 
-        internal static async Task<IEnumerable<T>> ReadObjectFromXmlFileAsync<T>(string filename)
+        public static async Task<IEnumerable<T>> ReadObjectFromXmlFileAsync<T>(string filename)
         {
             var serializer = new XmlSerializer(typeof (List<T>));
             var folder = ApplicationData.Current.LocalFolder;

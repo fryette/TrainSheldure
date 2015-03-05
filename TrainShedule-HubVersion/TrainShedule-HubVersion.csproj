@@ -89,33 +89,23 @@
     <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Entities\CountryStopPointDataItem.cs" />
-    <Compile Include="Entities\CountryStopPointDataGroup.cs" />
-    <Compile Include="Entities\LastRequest.cs" />
-    <Compile Include="Entities\MenuDataGroup.cs" />
-    <Compile Include="Entities\MenuDataItem.cs" />
-    <Compile Include="Infrastructure\CountryStopPointData.cs" />
-    <Compile Include="Infrastructure\OpenMenuFlyoutAction.cs" />
-    <Compile Include="Infrastructure\Parser.cs" />
-    <Compile Include="Infrastructure\MenuData.cs" />
-    <Compile Include="Entities\TrainStop.cs" />
     <Compile Include="ViewModels\FavoritePageViewModel.cs" />
+    <Compile Include="ViewModels\HelpPageViewModel.cs" />
     <Compile Include="ViewModels\InformationPageViewModel.cs" />
-    <Compile Include="ViewModels\SectionPageViewModel.cs" />
     <Compile Include="ViewModels\ItemPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\SchedulePageViewModel.cs" />
+    <Compile Include="ViewModels\SectionPageViewModel.cs" />
     <Compile Include="ViewModels\StopPointPageViewModel.cs" />
     <Compile Include="Views\FavoritePageView.xaml.cs">
       <DependentUpon>FavoritePageView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\HelpPageView.xaml.cs">
+      <DependentUpon>HelpPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\InformationPageView.xaml.cs">
       <DependentUpon>InformationPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\TrainStopGrabber.cs" />
-    <Compile Include="Infrastructure\Serialize.cs" />
-    <Compile Include="Entities\Train.cs" />
-    <Compile Include="Infrastructure\TrainGrabber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\ItemPageView.xaml.cs">
       <DependentUpon>ItemPageView.xaml</DependentUpon>
@@ -170,10 +160,9 @@
     <Content Include="Assets\WideLogo.scale-240.png" />
     <Content Include="Assets\Сircle.png" />
     <Content Include="Common\ReadMe.txt" />
-    <Content Include="DataModel\Countries.json" />
-    <Content Include="DataModel\StopPoints.json" />
     <None Include="Package.StoreAssociation.xml" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -182,11 +171,11 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\MenuData.json" />
-    <PRIResource Include="Strings\ru-RU\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <Page Include="Views\FavoritePageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HelpPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -233,6 +222,12 @@
     <SDKReference Include="BehaviorsXamlSDKManaged, Version=12.0">
       <Name>Behaviors SDK %28XAML%29</Name>
     </SDKReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrainSearch\TrainSearch.csproj">
+      <Project>{506431d8-c791-4ece-891e-d2beff443620}</Project>
+      <Name>TrainSearch</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

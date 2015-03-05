@@ -5,10 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
+using TrainSearch.Entities;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Infrastructure
 {
-    class CountryStopPointData
+  public class CountryStopPointData
     {
         private static readonly CountryStopPointData MenuDataSource = new CountryStopPointData();
 
@@ -57,7 +58,7 @@ namespace TrainShedule_HubVersion.Infrastructure
             if (_groups.Count != 0)
                 return;
 
-            var dataUri = new Uri("ms-appx:///DataModel/StopPoints.json");
+            var dataUri = new Uri("ms-appx:///TrainSearch/DataModel/StopPoints.json");
 
             var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             var jsonText = await FileIO.ReadTextAsync(file);

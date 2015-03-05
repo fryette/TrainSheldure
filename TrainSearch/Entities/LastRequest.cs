@@ -1,4 +1,4 @@
-﻿namespace TrainShedule_HubVersion.Entities
+﻿namespace TrainSearch.Entities
 {
     public class LastRequest
     {

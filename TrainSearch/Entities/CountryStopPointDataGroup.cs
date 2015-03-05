@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Entities
 {
    public class CountryStopPointDataGroup
     {

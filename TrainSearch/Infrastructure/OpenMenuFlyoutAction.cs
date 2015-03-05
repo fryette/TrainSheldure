@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls.Primitives;
 using Microsoft.Xaml.Interactivity;
 
-namespace TrainShedule_HubVersion.Infrastructure
+namespace TrainSearch.Infrastructure
 {
     public class OpenMenuFlyoutAction : DependencyObject, IAction
     {
@@ -14,9 +14,6 @@ namespace TrainShedule_HubVersion.Infrastructure
             flyoutBase.ShowAt(senderElement);
 
             return null;
-        }
-        private void SelectItem()
-        {
         }
     }
 }

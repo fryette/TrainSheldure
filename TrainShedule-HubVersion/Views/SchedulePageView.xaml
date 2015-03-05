@@ -24,4 +24,12 @@
             </ListView>
         </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+             <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Информация"
+                              micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

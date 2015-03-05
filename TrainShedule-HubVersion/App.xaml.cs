@@ -26,6 +26,7 @@ namespace TrainShedule_HubVersion
 
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
 
+            _container.PerRequest<HelpPageViewModel>();
             _container.PerRequest<FavoritePageViewModel>();
             _container.PerRequest<StopPointPageViewModel>();
             _container.PerRequest<SchedulePageViewModel>();
