@@ -1,8 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls.Primitives;
 using Microsoft.Xaml.Interactivity;
-using TrainShedule_HubVersion.Entities;
-using TrainShedule_HubVersion.ViewModels;
 
 namespace TrainShedule_HubVersion.Infrastructure
 {
