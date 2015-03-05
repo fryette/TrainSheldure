@@ -216,6 +216,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="AppPromo">
+      <HintPath>..\packages\AppPromo.1.0.0.9\lib\wpa81\AppPromo.winmd</HintPath>
+    </Reference>
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.Core.2.0.1\lib\portable-net45+win8+wp8+wpa81\Caliburn.Micro.dll</HintPath>
     </Reference>

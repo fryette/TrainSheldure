@@ -41,7 +41,7 @@ namespace TrainShedule_HubVersion.Infrastructure
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var trainStop = new List<TrainStop>(parameters.Count / 2);
-            for (var i = 0; i < parameters.Count; i += 2)
+            for (var i = 0; i < parameters.Count-2; i += 2)
             {
                 trainStop.Add(new TrainStop
                 {
@@ -49,6 +49,11 @@ namespace TrainShedule_HubVersion.Infrastructure
                     Arrivals = "Отпр: " + (parameters[i].Groups[2].Value.Length > 5 ? "конечная" : parameters[i].Groups[2].Value),
                 });
             }
+            trainStop.Add(new TrainStop
+            {
+                Name = parameters[parameters.Count-1].Groups[1].Value,
+                Arrivals = "конечная ",
+            });
             return trainStop;
         }
     }

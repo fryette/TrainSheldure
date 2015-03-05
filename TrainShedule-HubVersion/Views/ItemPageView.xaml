@@ -6,6 +6,7 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
+      xmlns:appPromo="using:AppPromo"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       d:DataContext="{d:DesignData ItemPageViewModel}">
     <Page.Resources>
@@ -74,7 +75,8 @@
                         micro:Message.Attach="[Event Click] = [Action Clear]" />
             </StackPanel>
             <TextBlock x:Uid="LastRequest"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       Margin="5,0,0,0"
                        Style="{ThemeResource TitleTextBlockStyle}" />
             <ListView IsItemClickEnabled="True"
                       ItemsSource="{Binding LastRequests}"

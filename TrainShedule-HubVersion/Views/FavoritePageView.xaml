@@ -4,9 +4,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:micro="using:Caliburn.Micro"
-      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-      xmlns:infrastructure="using:TrainShedule_HubVersion.Infrastructure"
       xmlns:viewModels="using:TrainShedule_HubVersion.ViewModels"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -21,4 +18,11 @@
                   micro:Message.Attach="[Event ItemClick] = [Action SelectItem($clickeditem)]">
         </ListView>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Очистить"
+                          Icon="Delete"
+                          micro:Message.Attach="[Event Click] = [Action DeleteAllFavorite]" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

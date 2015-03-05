@@ -37,5 +37,11 @@ namespace TrainShedule_HubVersion.ViewModels
             Parameter.To = item.To;
             _navigationService.NavigateToViewModel<ItemPageViewModel>(Parameter);
         }
+
+        private void DeleteAllFavorite()
+        {
+            Serialize.DeleteFile("favoriteRequests");
+            _navigationService.NavigateToViewModel<ItemPageViewModel>(Parameter);
+        }
     }
 }

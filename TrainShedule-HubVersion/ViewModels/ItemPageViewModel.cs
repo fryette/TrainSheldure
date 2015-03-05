@@ -271,6 +271,7 @@ namespace TrainShedule_HubVersion.ViewModels
         private async void AddToFavorite()
         {
             if (FavoriteRequests == null) FavoriteRequests = new List<LastRequest>();
+            if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To)) { ShowMessageBox("Одна или обе станции не введены"); return; }
             if (FavoriteRequests.Any(x => x.From == From && x.To == To)) ShowMessageBox("Данный маршрут уже присутствует");
             else
             {
