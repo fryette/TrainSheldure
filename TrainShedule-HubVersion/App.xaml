@@ -222,7 +222,7 @@
             <DataTemplate x:Key="ScheduleTemplate">
                 <StackPanel Orientation="Horizontal"
                             Background="{StaticResource FontScheduleColorBrush}"
-                            Width="600"
+                            Width="400"
                             Margin="0,5,0,0">
                     <StackPanel Orientation="Vertical">
                         <Image Source="{Binding ImagePath}"
@@ -249,9 +249,7 @@
                                            Foreground="{StaticResource WhiteSmokeColorBrush}"
                                            Style="{StaticResource ScheduleTextBlockStyle}" />
                             </StackPanel>
-                            <StackPanel Orientation="Vertical"
-                                        HorizontalAlignment="Right"
-                                        MinWidth="120">
+                            <StackPanel Orientation="Vertical" Margin="5,0">
                                 <TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource TimeFontSize}"
                                            Foreground="{StaticResource WhiteColorBrush}"
@@ -265,90 +263,18 @@
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-            </DataTemplate>
-            <DataTemplate x:Key="SmallScheduleDataTemplate">
-                <StackPanel Orientation="Horizontal"
-                            MinWidth="600"
-                            Background="{StaticResource FontScheduleColorBrush}"
-                            Margin="0,5,0,0">
-                    <StackPanel Orientation="Vertical">
-                        <Image Source="{Binding ImagePath}"
-                               Height="99"
-                               Width="50" />
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding City}"
-                                       FontSize="{StaticResource SmallFontSize}"
-                                       MaxWidth="400"
-                                       Foreground="{StaticResource WhiteSmokeColorBrush}"
-                                       Style="{StaticResource BasedTextBlockStyle}" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical"
-                                        HorizontalAlignment="Left"
-                                        MinWidth="100"
-                                        MaxWidth="250"
-                                        Margin="5,0,0,0">
-                                <TextBlock Text="{Binding BeforeDepartureTime}"
-                                           Foreground="{StaticResource DarkRedColorBrush}"
-                                           Style="{StaticResource BasedTextBlockStyle}" />
-                                <TextBlock Text="{Binding OnTheWay}"
-                                           Style="{StaticResource BasedTextBlockStyle}" />
-                                <TextBlock Text="{Binding IsPlace}"
-                                           Foreground="{StaticResource WhiteSmokeColorBrush}"
-                                           Style="{StaticResource BasedTextBlockStyle}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Vertical"
-                                        HorizontalAlignment="Right"
-                                        MinWidth="100">
-                                <TextBlock Text="{Binding StartTime}"
-                                           FontSize="{StaticResource TimeFontSize}"
-                                           Foreground="{StaticResource WhiteColorBrush}"
-                                           Style="{StaticResource BasedTextBlockStyle}" />
-                                <TextBlock Text="{Binding EndTime}"
-                                           FontSize="{StaticResource BigFontSize}"
-                                           Foreground="{StaticResource DimGrayColorBrush}"
-                                           Margin="0,-5,0,0"
-                                           Style="{StaticResource BasedTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </DataTemplate>
-            <DataTemplate x:Key="LastScheduleTemplate">
-                <ListView ItemsSource="{Binding Trains}"
-                          IsItemClickEnabled="True"
-                          micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]"
-                          ItemTemplate="{StaticResource SmallScheduleDataTemplate}">
-                </ListView>
             </DataTemplate>
             <DataTemplate x:Key="Standard200X180TileItemTemplate">
-                <Grid Margin="0,0,9.5,9.5"
-                      Background="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}">
                     <Image Source="{Binding ImagePath}"
-                           AutomationProperties.Name="{Binding Title}"
                            Height="138.5"
-                           Width="138.5"
-                           Stretch="UniformToFill" />
-                    <TextBlock Text="{Binding Title}"
-                               VerticalAlignment="Bottom"
-                               Visibility="Collapsed"
-                               Margin="9.5,0,0,6.5"
-                               Style="{ThemeResource BaseTextBlockStyle}" />
-                </Grid>
+                           Width="138.5" 
+                           Margin="5,5"/>
             </DataTemplate>
             <DataTemplate x:Key="MainPageTemplate">
                 <GridView ItemsSource="{Binding Menu}"
                           IsItemClickEnabled="True"
-                          Margin="0,9.5,0,0"
                           ItemTemplate="{StaticResource Standard200X180TileItemTemplate}"
                           micro:Message.Attach="[Event ItemClick] = [Action GoToSearch($clickeditem)]">
-                    <GridView.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <ItemsWrapGrid />
-                        </ItemsPanelTemplate>
-                    </GridView.ItemsPanel>
                 </GridView>
             </DataTemplate>
             <DataTemplate x:Key="InformationTemplate">

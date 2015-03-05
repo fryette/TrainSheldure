@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 using TrainShedule_HubVersion.Entities;
 using TrainShedule_HubVersion.Infrastructure;
@@ -55,6 +56,12 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             if (_menu == null) Menu = await MenuData.GetItemsAsync();
             Trains = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
+        }
+
+        private void GoToFavoriteList()
+        {
+                _navigationService.NavigateToViewModel<FavoritePageViewModel>(Menu.First());
+
         }
         #endregion
     }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Caliburn.Micro;
@@ -47,17 +47,19 @@ namespace TrainShedule_HubVersion.ViewModels
         }
         private async void SearchStopPoint()
         {
-            if (IsTaskRun) return;
-            IsTaskRun = true;
-            var stopPointList = await Task.Run(() => TrainStopGrabber.GetTrainStop(Parameter.Link));
-            IsTaskRun = false;
-            if (stopPointList == null || !stopPointList.Any())
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                if (IsTaskRun) return;
+                IsTaskRun = true;
+                var stopPointList = await Task.Run(() => TrainStopGrabber.GetTrainStop(Parameter.Link));
+                IsTaskRun = false;
+                _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
+            }
+            else
             {
                 var messageDialog = new MessageDialog("Доступ к интернету отсутствует,проверьте подключение!");
                 await messageDialog.ShowAsync();
             }
-            else
-                _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
         }
         #endregion
     }

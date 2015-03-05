@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using Windows.System;
 using Windows.UI.Popups;
 using Caliburn.Micro;
@@ -182,22 +183,29 @@ namespace TrainShedule_HubVersion.ViewModels
         private async void Search()
         {
             if (CheckDate()) return;
-            if (AutoCompletion == null || From == String.Empty || To == String.Empty ||
+            if (AutoCompletion == null || string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To) ||
                 (!AutoCompletion.Any(x => x.UniqueId.Contains(From.Split('(')[0])) || !AutoCompletion.Any(x => x.UniqueId.Contains(To.Split('(')[0]))))
             {
                 ShowMessageBox("Один или оба пункта не существует, проверьте еще раз или обновите станции");
                 return;
             }
             if (IsTaskRun) return;
-            IsTaskRun = true;
-            SerializeLastRequest();
-            var schedule = await TrainGrabber.GetTrainSchedule(From.Split('(')[0], To.Split('(')[0], GetDate(), Parameter.Title, Parameter.IsEconom, Parameter.SpecialSearch);
-            IsTaskRun = false;
-            if (schedule == null || !schedule.Any())
-                ShowMessageBox("Поезда не найдены либо проверьте подключение к сети интернет");
+            if (NetworkInterface.GetIsNetworkAvailable())
+            {
+                IsTaskRun = true;
+                SerializeLastRequest();
+                var schedule = await TrainGrabber.GetTrainSchedule(From.Split('(')[0], To.Split('(')[0], GetDate(), Parameter.Title,
+                            Parameter.IsEconom, Parameter.SpecialSearch);
+                IsTaskRun = false;
+                if (schedule == null || !schedule.Any())
+                    ShowMessageBox("Поезда на дату отправления не найдены");
+                else
+                    _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
+            }
             else
-                _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
-
+            {
+                ShowMessageBox("Проверьте подключение к сети интернет");
+            }
         }
 
         private bool CheckDate()
@@ -276,7 +284,7 @@ namespace TrainShedule_HubVersion.ViewModels
             else
             {
                 FavoriteRequests.Add(new LastRequest { From = From, To = To });
-                await Serialize.SaveObjectToXml(LastRequests, "favoriteRequests");
+                await Serialize.SaveObjectToXml(FavoriteRequests, "favoriteRequests");
                 ShowMessageBox("Успешно добавлен!");
             }
         }

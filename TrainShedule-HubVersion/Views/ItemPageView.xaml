@@ -6,7 +6,6 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
-      xmlns:appPromo="using:AppPromo"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       d:DataContext="{d:DesignData ItemPageViewModel}">
     <Page.Resources>
@@ -109,4 +108,3 @@
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
-    

@@ -8,16 +8,11 @@
                     "UniqueId": "Menu-Nearest",
                     "Title": "Ближайший",
                     "ImagePath": "/Assets/MenuIcon/Immidiate.png"
-                   },
+                },
                 {
                     "UniqueId": "Menu-International",
                     "Title": "Международные",
                     "ImagePath": "/Assets/MenuIcon/IL.png"
-                },
-                {
-                    "UniqueId": "Menu-Airport",
-                    "Title": "Аэропорт",
-                    "ImagePath": "/Assets/MenuIcon/NatsA.png"
                 },
                 {
                     "UniqueId": "Menu-Cityes",
@@ -28,6 +23,11 @@
                     "UniqueId": "Menu-Interregional",
                     "Title": "Межрегиональные",
                     "ImagePath": "/Assets/MenuIcon/IRLB_IRLE.png"
+                },
+                {
+                    "UniqueId": "Menu-Airport",
+                    "Title": "Аэропорт",
+                    "ImagePath": "/Assets/MenuIcon/NatsA.png"
                 },
                 {
                     "UniqueId": "Menu-Regional",

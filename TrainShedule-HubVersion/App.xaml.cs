@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Windows.UI.Xaml.Input;
 using Caliburn.Micro;
 using System;
 using Windows.ApplicationModel.Activation;
@@ -67,11 +66,6 @@ namespace TrainShedule_HubVersion
             if (!frame.CanGoBack) return;
             frame.GoBack();
             e.Handled = true;
-        }
-
-        private void MenuFlyoutItem_OnClick(object sender, RoutedEventArgs e)
-        {
-            throw new NotImplementedException();
         }
     }
 }
