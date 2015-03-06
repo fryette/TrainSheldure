@@ -1,12 +1,13 @@
 ﻿<Page x:Class="Trains.App.Views.SectionPageView"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:micro="using:Caliburn.Micro"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
       xmlns:viewModels1="using:Trains.App.ViewModels"
       mc:Ignorable="d"
-        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-        d:DataContext="{d:DesignInstance viewModels1:SectionPageViewModel}">
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      d:DataContext="{d:DesignInstance viewModels1:SectionPageViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,10 +15,16 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <StackPanel Margin="19,0,0,0">
-            <TextBlock x:Uid="ApplicationName" Margin="0,12,0,0" Style="{ThemeResource TitleTextBlockStyle}" />
-            <TextBlock x:Uid="SelectClass" Margin="0,-6.5,0,26.5" Style="{ThemeResource HeaderTextBlockStyle}" />
+            <TextBlock x:Uid="ApplicationName"
+                       Margin="0,12,0,0"
+                       Style="{ThemeResource TitleTextBlockStyle}" />
+            <TextBlock x:Uid="SelectClass"
+                       Margin="0,-6.5,0,26.5"
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
         </StackPanel>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Top">
             <Button Style="{StaticResource SelectButtonStyle}"
                     micro:Message.Attach="[Event Click] = [Action ClickBusiness]">
                 <Button.Background>
@@ -32,4 +39,14 @@
             </Button>
         </StackPanel>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Стартовая"
+                          Icon="Home"
+                          micro:Message.Attach="[Event Click] = [Action GoToHomePage]" />
+            <AppBarButton Label="Справка"
+                          Icon="Help"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>

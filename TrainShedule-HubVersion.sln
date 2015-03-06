@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.App", "TrainShedule-HubVersion\Trains.App.csproj", "{FFD898BB-0027-441C-AF56-4F4950CE1437}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainSearch", "TrainSearch\TrainSearch.csproj", "{506431D8-C791-4ECE-891E-D2BEFF443620}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Train.Infrastucture", "TrainSearch\Train.Infrastucture.csproj", "{506431D8-C791-4ECE-891E-D2BEFF443620}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Model", "Trains.Model\Trains.Model.csproj", "{73F82F72-521E-4F11-AA97-9A377E8CBE3E}"
 EndProject

@@ -35,6 +35,35 @@ namespace Trains.App.ViewModels
         {
             get { return _variantOfDate; }
         }
+        private bool _isVisibleFavoriteIcon;
+        public bool IsVisibleFavoriteIcon
+        {
+            get
+            {
+                return _isVisibleFavoriteIcon;
+            }
+
+            set
+            {
+                _isVisibleFavoriteIcon = value;
+                NotifyOfPropertyChange(() => IsVisibleFavoriteIcon);
+            }
+        }
+        private bool _isVisibleUnFavoriteIcon;
+        public bool IsVisibleUnFavoriteIcon
+        {
+            get
+            {
+                return _isVisibleUnFavoriteIcon;
+            }
+
+            set
+            {
+                _isVisibleUnFavoriteIcon = value;
+                NotifyOfPropertyChange(() => IsVisibleUnFavoriteIcon);
+            }
+        }
+
 
         private string _selectedDate;
         public string SelectedDate
@@ -158,6 +187,7 @@ namespace Trains.App.ViewModels
         #region actions
         protected async override void OnActivate()
         {
+            _isVisibleFavoriteIcon = true;
             SelectedDate = Date[0];
             Title = Parameter.Title;
             if (AutoCompletion == null)
@@ -235,6 +265,10 @@ namespace Trains.App.ViewModels
 
         private void UpdateAutoSuggestions(string str)
         {
+            if (FavoriteRequests != null && FavoriteRequests.Any(x => x.From == From && x.To == To))
+                SetVisibilityToFavoriteIcons(false, true);
+            else
+                SetVisibilityToFavoriteIcons(true, false);
             AutoSuggestions = AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
             if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
             AutoSuggestions.Clear();
@@ -261,7 +295,8 @@ namespace Trains.App.ViewModels
             {
                 FavoriteRequests.Add(new LastRequest { From = From, To = To });
                 await Serialize.SaveObjectToXml(FavoriteRequests, "favoriteRequests");
-                ShowMessageBox("Успешно добавлен!");
+                ShowMessageBox("Станция добавлена!");
+                SetVisibilityToFavoriteIcons(false, true);
             }
         }
 
@@ -277,7 +312,8 @@ namespace Trains.App.ViewModels
             {
                 FavoriteRequests.Remove(objectToDelete);
                 _serializable.SerializeObjectToXml(LastRequests, "favoriteRequests");
-                ShowMessageBox("Успешно удален!");
+                ShowMessageBox("Станция удалена!");
+                SetVisibilityToFavoriteIcons(true, false);
             }
             else
                 ShowMessageBox("Маршрут не найден,попробуйте сначало добавить!");
@@ -291,6 +327,11 @@ namespace Trains.App.ViewModels
                 ShowMessageBox("Ваш список пуст!");
         }
 
+        private void SetVisibilityToFavoriteIcons(bool favorite, bool unfavorite)
+        {
+            IsVisibleFavoriteIcon = favorite;
+            IsVisibleUnFavoriteIcon = unfavorite;
+        }
         private async void HyperlinkClick()
         {
             await Launcher.LaunchUriAsync(new Uri("http://www.windowsphone.com/s?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e"));

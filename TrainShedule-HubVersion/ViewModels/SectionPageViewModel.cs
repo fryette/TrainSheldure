@@ -58,6 +58,16 @@ namespace Trains.App.ViewModels
             Parameter.IsEconom = true;
             _navigationService.NavigateToViewModel<ItemPageViewModel>(Parameter);
         }
+
+        private void GoToHomePage()
+        {
+            _navigationService.NavigateToViewModel<MainPageViewModel>();
+        }
+
+        private void GoToHelpPage()
+        {
+            _navigationService.NavigateToViewModel<HelpPageViewModel>();
+        }
         #endregion
     }
 }

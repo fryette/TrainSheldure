@@ -4,12 +4,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:micro="using:Caliburn.Micro"
-      xmlns:converter="using:Trains.App.Converter"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       d:DataContext="{d:DesignData ItemPageViewModel}">
     <Page.Resources>
-        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <micro:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid>
         <ProgressBar IsIndeterminate="True"
@@ -91,17 +90,20 @@
                           micro:Message.Attach="[Event Click] = [Action GoToFavoriteList]" />
             <AppBarButton Label="Запомнить"
                           Icon="Favorite"
+                          Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           micro:Message.Attach="[Event Click] = [Action AddToFavorite]" />
             <AppBarButton Label="Удалить"
-                          Icon="Unfavorite"
-                          micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]" />
-            <AppBarButton Label="Обмен"
-                          Icon="Refresh"
+                          Icon="UnFavorite"
+                          Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]"/>
+                <AppBarButton Label="Обмен"
+                          Icon="Sort"
                           micro:Message.Attach="[Event Click] = [Action Swap]" />
+            <AppBarButton Label="Справка"
+                          Icon="Help"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
+            
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Информация"
-                              Icon="Remove"
-                              micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
                 <AppBarButton Label="Оцените,это важно для нас"
                               Icon="Add"
                               micro:Message.Attach="[Event Click] = [Action HyperlinkClick]" />

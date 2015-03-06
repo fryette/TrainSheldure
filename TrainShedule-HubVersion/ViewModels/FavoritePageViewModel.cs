@@ -46,5 +46,10 @@ namespace Trains.App.ViewModels
             _serializable.DeleteFile("favoriteRequests");
             _navigationService.NavigateToViewModel<ItemPageViewModel>(Parameter);
         }
+
+        private void GoToHomePage()
+        {
+            _navigationService.NavigateToViewModel<MainPageViewModel>();
+        }
     }
 }

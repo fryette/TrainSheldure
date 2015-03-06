@@ -64,6 +64,11 @@ namespace Trains.App.ViewModels
                 await messageDialog.ShowAsync();
             }
         }
+
+        private void GoToHomePage()
+        {
+            _navigationService.NavigateToViewModel<MainPageViewModel>();
+        }
         #endregion
     }
 }

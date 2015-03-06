@@ -31,6 +31,10 @@ namespace Trains.App.ViewModels
         {
             _navigationService.NavigateToViewModel<HelpPageViewModel>();
         }
+        private void GoToHomePage()
+        {
+            _navigationService.NavigateToViewModel<MainPageViewModel>();
+        }
         #endregion
     }
 }

@@ -4,10 +4,10 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:micro="using:Caliburn.Micro"
-      xmlns:viewModels1="using:Trains.App.ViewModels"
+      xmlns:viewModels="using:Trains.App.ViewModels"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      d:DataContext="{d:DesignInstance viewModels1:SchedulePageViewModel }">
+      d:DataContext="{d:DesignInstance viewModels:SchedulePageViewModel }">
 
     <Grid>
         <StackPanel Margin="12,17,0,28">
@@ -26,10 +26,12 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Информация"
-                              micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
-            </CommandBar.SecondaryCommands>
+            <AppBarButton Label="Стартовая"
+                          Icon="Home"
+                          micro:Message.Attach="[Event Click] = [Action GoToHomePage]" />
+            <AppBarButton Label="Справка"
+                          Icon="Help"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

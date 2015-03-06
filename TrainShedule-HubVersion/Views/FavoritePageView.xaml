@@ -20,9 +20,13 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton Label="Стартовая"
+                          Icon="Home"
+                          micro:Message.Attach="[Event Click] = [Action GoToHomePage]" />
             <AppBarButton Label="Очистить"
                           Icon="Delete"
                           micro:Message.Attach="[Event Click] = [Action DeleteAllFavorite]" />
+
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

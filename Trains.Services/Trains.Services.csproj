@@ -39,9 +39,9 @@
       <Project>{73f82f72-521e-4f11-aa97-9a377e8cbe3e}</Project>
       <Name>Trains.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TrainSearch\TrainSearch.csproj">
+    <ProjectReference Include="..\TrainSearch\Train.Infrastucture.csproj">
       <Project>{506431d8-c791-4ece-891e-d2beff443620}</Project>
-      <Name>TrainSearch</Name>
+      <Name>Train.Infrastucture</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

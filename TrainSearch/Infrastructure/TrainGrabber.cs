@@ -39,7 +39,7 @@ namespace TrainSearch.Infrastructure
             var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
             var addiditionalInformation = GetPlaces(data, searchParameter);
             var links = GetLink(data);
-            
+
             IEnumerable<Train> trains;
             var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
             var toItem = await CountryStopPointData.GetItemByIdAsync(to);
@@ -50,7 +50,7 @@ namespace TrainSearch.Infrastructure
                     : GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date));
 
             trains = GetFinallyResult(addiditionalInformation, links, trains);
-            
+
             var schedule = specialSearch ? SearchBusinessOrEconomTrains(trains, isEconom) : trains;
 
             return (searchParameter == Airport || searchParameter == Near
@@ -74,7 +74,6 @@ namespace TrainSearch.Infrastructure
             for (var i = 0; i < step; i += 4)
             {
                 var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
-
                 trainList.Add(CreateTrain(date + " " + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value, parameters[i + 2].Groups[3].Value,
                     parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "), parameters[i / 4 + step].Value,
                     imagePath[i / 4], GetBeforeDepartureTime(starTime, dateOfDeparture), date));
@@ -113,7 +112,8 @@ namespace TrainSearch.Infrastructure
             string imagePath = null, string beforeDepartureTime = null, string departureDate = null)
         {
             var startTime = DateTime.Parse(time1);
-            var endTime = DateTime.Parse(time2.Replace("<br />", " "));
+            DateTime endTime;
+            endTime = DateTime.Parse(time2.Replace("<br />", " ") + (time2.Length>12 ? "" : " " + departureDate));
             return new Train
             {
                 StartTime = time1.Contains(' ') ? time1.Split(' ')[1] : time1,
@@ -143,23 +143,6 @@ namespace TrainSearch.Infrastructure
                     return "/Assets/Cityes.png";
                 });
         }
-        
-        private static string GetBeforeDepartureTime(DateTime time, DateTime dateToDeparture)
-        {
-            if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D", new CultureInfo("ru-ru"));
-            var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            return "через " + timeSpan.Hours + "ч. " + timeSpan.Minutes + "мин.";
-        }
-
-        private static string OnTheWay(DateTime startTime, DateTime endTime)
-        {
-            //only on bellarusian railways
-            if (endTime < startTime) endTime = endTime.AddDays(1);
-            var time = endTime - startTime;
-            if (time.Days == 0)
-                return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
-            return "В пути: " + (int)time.TotalHours + "ч. " + time.Minutes + "мин.";
-        }
 
         private static IEnumerable<AdditionalInformation[]> GetPlaces(string data, string searchParameter)
         {
@@ -187,7 +170,7 @@ namespace TrainSearch.Infrastructure
                         Parser.ParseTrainData(addiditionalParameter[i + 1].Groups[1].Value, ParsePlacesAndPrices)
                             .ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
-     
+
                     for (var j = 0; j < temp.Count; j += 3)
                     {
                         additionalInformations[j / 3] = new AdditionalInformation
@@ -225,6 +208,21 @@ namespace TrainSearch.Infrastructure
                     });
             }
             return addiditionInformation;
+        }
+
+        private static string GetBeforeDepartureTime(DateTime time, DateTime dateToDeparture)
+        {
+            if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D", new CultureInfo("ru-ru"));
+            var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
+            return "через " + timeSpan.Hours + "ч. " + timeSpan.Minutes + "мин.";
+        }
+
+        private static string OnTheWay(DateTime startTime, DateTime endTime)
+        {
+            var time = endTime - startTime;
+            if (time.Days == 0)
+                return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
+            return "В пути: " + (int)time.TotalHours + "ч. " + time.Minutes + "мин.";
         }
 
         private static List<string> GetLink(string data)

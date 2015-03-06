@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="using:Trains.App.ViewModels"
+        xmlns:micro="using:Caliburn.Micro"
         mc:Ignorable="d"
         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
         d:DataContext="{d:DesignInstance viewModels:StopPointPageViewModel}">
@@ -15,4 +16,14 @@
                   ItemTemplate="{StaticResource StopPointTemplate}">
         </ListView>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Стартовая"
+                          Icon="Home"
+                          micro:Message.Attach="[Event Click] = [Action GoToHomePage]" />
+            <AppBarButton Label="Справка"
+                          Icon="Help"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
+        </CommandBar>
+    </Page.BottomAppBar>
 </Page>
