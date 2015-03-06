@@ -7,8 +7,8 @@
     <ProjectGuid>{FFD898BB-0027-441C-AF56-4F4950CE1437}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TrainShedule_HubVersion</RootNamespace>
-    <AssemblyName>TrainShedule-HubVersion</AssemblyName>
+    <RootNamespace>Trains.App</RootNamespace>
+    <AssemblyName>Trains.App</AssemblyName>
     <DefaultLanguage>ru-RU</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
@@ -224,6 +224,14 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
+      <Project>{73f82f72-521e-4f11-aa97-9a377e8cbe3e}</Project>
+      <Name>Trains.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trains.Services\Trains.Services.csproj">
+      <Project>{13fda41e-d3b2-4a71-808c-aa1489fb628f}</Project>
+      <Name>Trains.Services</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TrainSearch\TrainSearch.csproj">
       <Project>{506431d8-c791-4ece-891e-d2beff443620}</Project>
       <Name>TrainSearch</Name>

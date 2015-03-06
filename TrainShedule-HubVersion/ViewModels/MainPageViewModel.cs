@@ -1,18 +1,21 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
+using Trains.Services.Interfaces;
 using TrainSearch.Entities;
 using TrainSearch.Infrastructure;
 
-namespace TrainShedule_HubVersion.ViewModels
+namespace Trains.App.ViewModels
 {
     public class MainPageViewModel : Screen
     {
+        private readonly IMain _mainService;
         private readonly INavigationService _navigationService;
 
-        public MainPageViewModel(INavigationService navigationService)
+        public MainPageViewModel(INavigationService navigationService, IMain mainService)
         {
             _navigationService = navigationService;
+            _mainService = mainService;
         }
 
         #region properties
@@ -27,7 +30,7 @@ namespace TrainShedule_HubVersion.ViewModels
             }
         }
 
-        private static IEnumerable<MenuDataItem> _menu;
+        private IEnumerable<MenuDataItem> _menu;
         public IEnumerable<MenuDataItem> Menu
         {
             get { return _menu; }
@@ -54,8 +57,8 @@ namespace TrainShedule_HubVersion.ViewModels
 
         protected override async void OnActivate()
         {
-            if (_menu == null) Menu = await MenuData.GetItemsAsync();
-            Trains = await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
+            Menu = await MenuData.GetItemsAsync();
+            Trains = await _mainService.GetTrains();
         }
 
         private void GoToFavoriteList()

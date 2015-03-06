@@ -1,15 +1,15 @@
-﻿<Page x:Class="TrainShedule_HubVersion.Views.ItemPageView"
+﻿<Page x:Class="Trains.App.Views.ItemPageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:micro="using:Caliburn.Micro"
+      xmlns:converter="using:Trains.App.Converter"
       mc:Ignorable="d"
-      xmlns:valueconverter="using:TrainShedule_HubVersion.Converter"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       d:DataContext="{d:DesignData ItemPageViewModel}">
     <Page.Resources>
-        <valueconverter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Page.Resources>
     <Grid>
         <ProgressBar IsIndeterminate="True"

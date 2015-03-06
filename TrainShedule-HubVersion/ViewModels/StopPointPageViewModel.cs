@@ -2,7 +2,7 @@
 using Caliburn.Micro;
 using TrainSearch.Entities;
 
-namespace TrainShedule_HubVersion.ViewModels
+namespace Trains.App.ViewModels
 {
     public class StopPointPageViewModel : Screen
     {

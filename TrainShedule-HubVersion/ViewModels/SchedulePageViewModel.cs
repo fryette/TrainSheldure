@@ -1,24 +1,26 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Linq;
 using Caliburn.Micro;
+using Trains.Services.Interfaces;
 using TrainSearch.Entities;
-using TrainSearch.Infrastructure;
 
-namespace TrainShedule_HubVersion.ViewModels
+namespace Trains.App.ViewModels
 {
     public class SchedulePageViewModel : Screen
     {
         public IEnumerable<Train> Parameter { get; set; }
         private readonly INavigationService _navigationService;
+        private readonly ISerializable _serializable;
 
-        public SchedulePageViewModel(INavigationService navigationService)
+        public SchedulePageViewModel(INavigationService navigationService, ISerializable serializable)
         {
             _navigationService = navigationService;
+            _serializable = serializable;
         }
         #region action
         protected override void OnActivate()
         {
-            Task.Run(() => Serialize.SaveObjectToXml(new List<Train>(Parameter), "LastTrainList"));
+            _serializable.SerializeObjectToXml(Parameter.ToList(), "LastTrainList");
         }
 
         private void ClickItem(Train train)

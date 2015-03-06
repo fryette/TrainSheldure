@@ -58,7 +58,7 @@ namespace TrainSearch.Infrastructure
             if (_groups.Count != 0)
                 return;
 
-            var dataUri = new Uri("ms-appx:///TrainSearch/DataModel/StopPoints.json");
+            var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/StopPoints.json");
 
             var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             var jsonText = await FileIO.ReadTextAsync(file);

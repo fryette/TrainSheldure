@@ -79,17 +79,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="DataModel\Countries.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Entities\CountryStopPointDataGroup.cs" />
-    <Compile Include="Entities\CountryStopPointDataItem.cs" />
-    <Compile Include="Entities\LastRequest.cs" />
-    <Compile Include="Entities\MenuDataGroup.cs" />
-    <Compile Include="Entities\MenuDataItem.cs" />
-    <Compile Include="Entities\Train.cs" />
-    <Compile Include="Entities\TrainStop.cs" />
     <Compile Include="Infrastructure\CountryStopPointData.cs" />
     <Compile Include="Infrastructure\MenuData.cs" />
     <Compile Include="Infrastructure\OpenMenuFlyoutAction.cs" />
@@ -98,12 +87,6 @@
     <Compile Include="Infrastructure\TrainGrabber.cs" />
     <Compile Include="Infrastructure\TrainStopGrabber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DataModel\MenuData.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="DataModel\StopPoints.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
@@ -125,6 +108,12 @@
   <ItemGroup>
     <None Include="packages.config" />
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
+      <Project>{73f82f72-521e-4f11-aa97-9a377e8cbe3e}</Project>
+      <Name>Trains.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

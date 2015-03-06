@@ -48,7 +48,7 @@ namespace TrainSearch.Infrastructure
             if (_groups.Count != 0)
                 return;
 
-            var dataUri = new Uri("ms-appx:///TrainSearch/DataModel/MenuData.json");
+            var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/MenuData.json");
 
             var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             var jsonText = await FileIO.ReadTextAsync(file);

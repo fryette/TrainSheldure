@@ -1,13 +1,13 @@
-﻿<Page x:Class="TrainShedule_HubVersion.Views.FavoritePageView"
+﻿<Page x:Class="Trains.App.Views.FavoritePageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:micro="using:Caliburn.Micro"
-      xmlns:viewModels="using:TrainShedule_HubVersion.ViewModels"
+      xmlns:viewModels1="using:Trains.App.ViewModels"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      d:DataContext="{d:DesignInstance viewModels:FavoritePageViewModel}">
+      d:DataContext="{d:DesignInstance viewModels1:FavoritePageViewModel}">
 
     <Grid>
         <ListView x:Name="FavoriteRequests"

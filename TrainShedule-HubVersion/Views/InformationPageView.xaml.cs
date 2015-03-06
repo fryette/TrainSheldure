@@ -1,6 +1,4 @@
-﻿using Windows.UI.Xaml.Navigation;
-
-namespace TrainShedule_HubVersion.Views
+﻿namespace Trains.App.Views
 {
     public sealed partial class InformationPage
     {

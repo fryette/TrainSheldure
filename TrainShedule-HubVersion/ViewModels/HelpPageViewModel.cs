@@ -3,7 +3,7 @@ using Caliburn.Micro;
 using TrainSearch.Entities;
 using TrainSearch.Infrastructure;
 
-namespace TrainShedule_HubVersion.ViewModels
+namespace Trains.App.ViewModels
 {
     public class HelpPageViewModel : Screen
     {

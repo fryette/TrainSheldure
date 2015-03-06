@@ -7,6 +7,7 @@ using Windows.Storage;
 using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Trains.App.Common;
 
 namespace TrainShedule_HubVersion.Common
 {

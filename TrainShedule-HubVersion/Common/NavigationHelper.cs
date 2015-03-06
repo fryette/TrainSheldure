@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using TrainShedule_HubVersion.Common;
 
-namespace TrainShedule_HubVersion.Common
+namespace Trains.App.Common
 {
     /// <summary>
     /// NavigationHelper aids in navigation between pages.  It provides commands used to 

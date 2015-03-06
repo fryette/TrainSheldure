@@ -1,14 +1,16 @@
-﻿using System.Collections.Generic;
-using Caliburn.Micro;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using Windows.ApplicationModel.Activation;
+using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.Phone.UI.Input;
-using TrainShedule_HubVersion.ViewModels;
-using TrainShedule_HubVersion.Views;
+using Caliburn.Micro;
+using Trains.App.ViewModels;
+using Trains.App.Views;
+using Trains.Services.Implementations;
+using Trains.Services.Interfaces;
 
-namespace TrainShedule_HubVersion
+namespace Trains.App
 {
     public sealed partial class App
     {
@@ -25,6 +27,11 @@ namespace TrainShedule_HubVersion
             _container.RegisterWinRTServices();
 
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
+
+            _container.Singleton<IMain, MainService>();
+            _container.Singleton<ISearch, Search>();
+            _container.Singleton<ISerializable, Serializable>();
+            _container.Singleton<ITrainStop, TrainStop>();
 
             _container.PerRequest<HelpPageViewModel>();
             _container.PerRequest<FavoritePageViewModel>();

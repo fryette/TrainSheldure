@@ -1,6 +1,6 @@
 ﻿using Windows.UI.Xaml.Controls;
 
-namespace TrainShedule_HubVersion.Views
+namespace Trains.App.Views
 {
     public sealed partial class FavoritePageView : Page
     {

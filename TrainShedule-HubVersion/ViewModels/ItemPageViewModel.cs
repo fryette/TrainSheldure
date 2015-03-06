@@ -5,10 +5,11 @@ using System.Net.NetworkInformation;
 using Windows.System;
 using Windows.UI.Popups;
 using Caliburn.Micro;
+using Trains.Services.Interfaces;
 using TrainSearch.Entities;
 using TrainSearch.Infrastructure;
 
-namespace TrainShedule_HubVersion.ViewModels
+namespace Trains.App.ViewModels
 {
     public class ItemPageViewModel : Screen
     {
@@ -16,11 +17,15 @@ namespace TrainShedule_HubVersion.ViewModels
         public MenuDataItem Parameter { get; set; }
 
         private readonly INavigationService _navigationService;
+        private readonly ISearch _search;
+        private readonly ISerializable _serializable;
 
         #region constructors
-        public ItemPageViewModel(INavigationService navigationService)
+        public ItemPageViewModel(INavigationService navigationService, ISearch item, ISerializable serializable)
         {
             _navigationService = navigationService;
+            _search = item;
+            _serializable = serializable;
         }
         #endregion
 
@@ -156,9 +161,9 @@ namespace TrainShedule_HubVersion.ViewModels
             SelectedDate = Date[0];
             Title = Parameter.Title;
             if (AutoCompletion == null)
-                AutoCompletion = (await CountryStopPointData.GetGroupsAsync()).SelectMany(dataGroup => dataGroup.Items);
-            LastRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("lastRequests");
-            FavoriteRequests = (List<LastRequest>)await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("favoriteRequests");
+                AutoCompletion = await _search.GetCountryStopPoint();
+            LastRequests = await _serializable.GetLastRequests("lastRequests");
+            FavoriteRequests = await _serializable.GetLastRequests("favoriteRequests");
             if (Parameter.Title == "Аэропорт")
                 From = "Национальный аэропорт «Минск» (Беларусь)";
             if (Parameter.From == null) return;
@@ -193,19 +198,15 @@ namespace TrainShedule_HubVersion.ViewModels
             if (NetworkInterface.GetIsNetworkAvailable())
             {
                 IsTaskRun = true;
-                SerializeLastRequest();
-                var schedule = await TrainGrabber.GetTrainSchedule(From.Split('(')[0], To.Split('(')[0], GetDate(), Parameter.Title,
-                            Parameter.IsEconom, Parameter.SpecialSearch);
+                _serializable.SerializeLastRequest(From, To, LastRequests);
+                var schedule = await _search.GetTrainSchedule(Parameter.IsEconom, Parameter.SpecialSearch, From, To, GetDate(), Parameter.Title);
                 IsTaskRun = false;
                 if (schedule == null || !schedule.Any())
                     ShowMessageBox("Поезда на дату отправления не найдены");
                 else
                     _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
             }
-            else
-            {
-                ShowMessageBox("Проверьте подключение к сети интернет");
-            }
+            else ShowMessageBox("Проверьте подключение к сети интернет");
         }
 
         private bool CheckDate()
@@ -224,31 +225,6 @@ namespace TrainShedule_HubVersion.ViewModels
         {
             if (SelectedDate == Date[1]) return "everyday";
             return Datum.Date.Year + "-" + Datum.Date.Month + "-" + Datum.Date.Day;
-        }
-
-        private async void SerializeLastRequest()
-        {
-            if (LastRequests == null) LastRequests = new List<LastRequest>();
-            if (LastRequests.Any(x => x.From == From && x.To == To)) return;
-            if (LastRequests.Count < 3)
-            {
-                LastRequests.Add(new LastRequest
-                {
-                    From = From,
-                    To = To
-                });
-            }
-            else
-            {
-                LastRequests[2] = LastRequests[1];
-                LastRequests[1] = LastRequests[0];
-                LastRequests[0] = new LastRequest
-                {
-                    From = From,
-                    To = To
-                };
-            }
-            await Serialize.SaveObjectToXml(LastRequests, "lastRequests");
         }
 
         private void SetRequest(LastRequest lastRequest)
@@ -289,7 +265,7 @@ namespace TrainShedule_HubVersion.ViewModels
             }
         }
 
-        private async void DeleteInFavorite()
+        private void DeleteInFavorite()
         {
             if (FavoriteRequests == null)
             {
@@ -300,7 +276,7 @@ namespace TrainShedule_HubVersion.ViewModels
             if (objectToDelete != null)
             {
                 FavoriteRequests.Remove(objectToDelete);
-                await Serialize.SaveObjectToXml(LastRequests, "favoriteRequests");
+                _serializable.SerializeObjectToXml(LastRequests, "favoriteRequests");
                 ShowMessageBox("Успешно удален!");
             }
             else
@@ -310,9 +286,7 @@ namespace TrainShedule_HubVersion.ViewModels
         private void GoToFavoriteList()
         {
             if (FavoriteRequests != null)
-            {
                 _navigationService.NavigateToViewModel<FavoritePageViewModel>(Parameter);
-            }
             else
                 ShowMessageBox("Ваш список пуст!");
         }

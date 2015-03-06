@@ -1,17 +1,19 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
+using Trains.Services.Interfaces;
 using TrainSearch.Entities;
-using TrainSearch.Infrastructure;
 
-namespace TrainShedule_HubVersion.ViewModels
+namespace Trains.App.ViewModels
 {
     public class FavoritePageViewModel : Screen
     {
         private readonly INavigationService _navigationService;
+        private readonly ISerializable _serializable;
+        
         public MenuDataItem Parameter { get; set; }
 
-        private IEnumerable<LastRequest> _favoriteRequests;
 
+        private IEnumerable<LastRequest> _favoriteRequests;
         public IEnumerable<LastRequest> FavoriteRequests
         {
             get { return _favoriteRequests; }
@@ -21,14 +23,15 @@ namespace TrainShedule_HubVersion.ViewModels
                 NotifyOfPropertyChange(() => FavoriteRequests);
             }
         }
-        public FavoritePageViewModel(INavigationService navigationService)
+        public FavoritePageViewModel(INavigationService navigationService,ISerializable serializable)
         {
             _navigationService = navigationService;
+            _serializable = serializable;
         }
 
         protected override async void OnActivate()
         {
-            FavoriteRequests = await Serialize.ReadObjectFromXmlFileAsync<LastRequest>("favoriteRequests");
+            FavoriteRequests = await _serializable.GetLastRequests("favoriteRequests");
         }
 
         private void SelectItem(LastRequest item)
@@ -40,7 +43,7 @@ namespace TrainShedule_HubVersion.ViewModels
 
         private void DeleteAllFavorite()
         {
-            Serialize.DeleteFile("favoriteRequests");
+            _serializable.DeleteFile("favoriteRequests");
             _navigationService.NavigateToViewModel<ItemPageViewModel>(Parameter);
         }
     }

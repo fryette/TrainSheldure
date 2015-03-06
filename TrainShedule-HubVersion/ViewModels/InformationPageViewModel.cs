@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Net.NetworkInformation;
-using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Caliburn.Micro;
+using Trains.Services.Interfaces;
 using TrainSearch.Entities;
-using TrainSearch.Infrastructure;
 
-namespace TrainShedule_HubVersion.ViewModels
+namespace Trains.App.ViewModels
 {
     public class InformationPageViewModel : Screen
     {
 
         private readonly INavigationService _navigationService;
+        private readonly ITrainStop _trainStop;
+
         #region properties
         public Train Parameter { get; set; }
-        public InformationPageViewModel(INavigationService navigationService)
+        public InformationPageViewModel(INavigationService navigationService, ITrainStop trainStop)
         {
             _navigationService = navigationService;
+            _trainStop = trainStop;
         }
 
         private AdditionalInformation[] _additionalInformation;
@@ -52,7 +54,7 @@ namespace TrainShedule_HubVersion.ViewModels
             {
                 if (IsTaskRun) return;
                 IsTaskRun = true;
-                var stopPointList = await Task.Run(() => TrainStopGrabber.GetTrainStop(Parameter.Link));
+                var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
                 IsTaskRun = false;
                 _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
             }
