@@ -28,17 +28,16 @@ namespace Trains.App
 
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
 
-            _container.Singleton<IMain, MainService>();
-            _container.Singleton<ISearch, Search>();
-            _container.Singleton<ISerializable, Serializable>();
-            _container.Singleton<ITrainStop, TrainStop>();
+            _container.Singleton<ILastRequestTrainService, MainService>();
+            _container.Singleton<ISearchService, Search>();
+            _container.Singleton<ISerializableService, Serializable>();
+            _container.Singleton<ITrainStopService, TrainStop>();
 
             _container.PerRequest<HelpPageViewModel>();
             _container.PerRequest<FavoritePageViewModel>();
             _container.PerRequest<StopPointPageViewModel>();
             _container.PerRequest<SchedulePageViewModel>();
             _container.PerRequest<InformationPageViewModel>();
-            _container.PerRequest<SectionPageViewModel>();
             _container.PerRequest<ItemPageViewModel>();
             _container.PerRequest<MainPageViewModel>();
         }

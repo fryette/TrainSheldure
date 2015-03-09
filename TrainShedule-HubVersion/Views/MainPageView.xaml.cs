@@ -5,6 +5,7 @@
         public MainPageView()
         {
             InitializeComponent();
+            MyStoryboard.Begin(); 
         }
     }
 }

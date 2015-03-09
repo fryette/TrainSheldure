@@ -1,4 +1,4 @@
-﻿namespace TrainSearch.Entities
+﻿namespace Trains.Model.Entities
 {
     public class LastRequest
     {

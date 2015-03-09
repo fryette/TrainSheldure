@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TrainSearch.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.Services.Interfaces
 {
-    public interface ISerializable
+    public interface ISerializableService
     {
         void SerializeLastRequest(string from, string to, List<LastRequest> lastrequsts);
         void SerializeObjectToXml<T>(T obj, string fileName);

@@ -26,9 +26,6 @@
             <AppBarButton Label="Остановки"
                           Icon="Bookmarks"
                           micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
-            <AppBarButton Label="Стартовая"
-                          Icon="Home"
-                          micro:Message.Attach="[Event Click] = [Action GoToHomePage]" />
-        </CommandBar>
+                </CommandBar>
     </Page.BottomAppBar>
 </Page>

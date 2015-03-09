@@ -2,39 +2,82 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
-using Windows.System;
 using Windows.UI.Popups;
 using Caliburn.Micro;
+using Trains.Infrastructure.Infrastructure;
+using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using TrainSearch.Entities;
-using TrainSearch.Infrastructure;
 
 namespace Trains.App.ViewModels
 {
+    /// <summary>
+    /// Search trains in the right direction
+    /// </summary>
     public class ItemPageViewModel : Screen
     {
+        #region constant
 
-        public MenuDataItem Parameter { get; set; }
+        private const string IncorrectInput = "Один или оба пункта не существует, проверьте еще раз ввод";
+        private const string ConectionError = "Проверьте подключение к интернету";
+        private const string SearchError = "Поезда на дату отправления не найдены";
+        private const string DateUpTooLater = "Поиск может производится начиная от текущего времени";
+        private const string DateTooBig ="Поиск может производится только за 45 дней от текущего момента или используйте режим \"На все дни\"";
+        #endregion
 
+        #region readonlyProperties
+
+        /// <summary>
+        /// Used to navigate between pages.
+        /// </summary>
         private readonly INavigationService _navigationService;
-        private readonly ISearch _search;
-        private readonly ISerializable _serializable;
+
+        /// <summary>
+        /// Used to search train schedule.
+        /// </summary>
+        private readonly ISearchService _search;
+
+        /// <summary>
+        /// Used to serialization/deserialization objects.
+        /// </summary>
+        private readonly ISerializableService _serializable;
+        #endregion
 
         #region constructors
-        public ItemPageViewModel(INavigationService navigationService, ISearch item, ISerializable serializable)
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="navigationService">Used to navigate between pages.</param>
+        /// <param name="search">Used to search train schedule.</param>
+        /// <param name="serializable">Used to serialization/deserialization objects.</param>
+        public ItemPageViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable)
         {
             _navigationService = navigationService;
-            _search = item;
+            _search = search;
             _serializable = serializable;
         }
         #endregion
 
         #region properties
-        private readonly BindableCollection<string> _variantOfDate = new BindableCollection<string>(new[] { "Все поезда", "На все дни" });
+
+        /// <summary>
+        /// Used to display the completed fields from and to.
+        /// </summary> 
+        public LastRequest Parameter { get; set; }
+
+        /// <summary>
+        /// Stores variant of search.
+        /// </summary> 
+        private readonly BindableCollection<string> _variantOfSearch = new BindableCollection<string>(new[] { "Все поезда", "На все дни" });
         public BindableCollection<string> Date
         {
-            get { return _variantOfDate; }
+            get { return _variantOfSearch; }
         }
+
+        /// <summary>
+        /// Used to display favorite icon.
+        /// </summary> 
         private bool _isVisibleFavoriteIcon;
         public bool IsVisibleFavoriteIcon
         {
@@ -49,6 +92,10 @@ namespace Trains.App.ViewModels
                 NotifyOfPropertyChange(() => IsVisibleFavoriteIcon);
             }
         }
+
+        /// <summary>
+        /// Used to display unfavorite icon.
+        /// </summary> 
         private bool _isVisibleUnFavoriteIcon;
         public bool IsVisibleUnFavoriteIcon
         {
@@ -64,7 +111,9 @@ namespace Trains.App.ViewModels
             }
         }
 
-
+        /// <summary>
+        /// Used to set code behind variant of search.
+        /// </summary> 
         private string _selectedDate;
         public string SelectedDate
         {
@@ -80,17 +129,9 @@ namespace Trains.App.ViewModels
             }
         }
 
-        private string _title;
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                _title = value;
-                NotifyOfPropertyChange(() => Title);
-            }
-        }
-
+        /// <summary>
+        /// Used to read and set start stop point.
+        /// </summary> 
         private string _from;
         public string From
         {
@@ -103,6 +144,9 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Used to read and set start end point.
+        /// </summary> 
         private string _to;
         public string To
         {
@@ -115,6 +159,9 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Displaying last user request.
+        /// </summary> 
         private List<LastRequest> _lastRequests;
         public List<LastRequest> LastRequests
         {
@@ -126,6 +173,9 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Keeps saved by user routes.
+        /// </summary> 
         private List<LastRequest> _favoriteRequests;
         public List<LastRequest> FavoriteRequests
         {
@@ -137,6 +187,9 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Keeps on what date search train.
+        /// </summary> 
         private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
         public DateTimeOffset Datum
         {
@@ -148,8 +201,14 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Keeps all stop points.
+        /// </summary> 
         public static IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
 
+        /// <summary>
+        /// Contains stopping points satisfying user input.
+        /// </summary> 
         private List<string> _autoSuggestions;
         public List<string> AutoSuggestions
         {
@@ -161,6 +220,9 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Used for process control.
+        /// </summary>
         private bool _isTaskRun;
         public bool IsTaskRun
         {
@@ -172,6 +234,9 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Used for field enabled control.
+        /// </summary>
         private bool _isFildEnabled = true;
         public bool IsFildEnabled
         {
@@ -185,107 +250,72 @@ namespace Trains.App.ViewModels
         #endregion
 
         #region actions
+
+        /// <summary>
+        /// Invoked when this page is about to be displayed in a Frame.
+        /// Set the default parameter of some properties.
+        /// </summary>
         protected async override void OnActivate()
         {
+            if (Parameter != null)
+            {
+                From = Parameter.From;
+                To = Parameter.To;
+            }
             _isVisibleFavoriteIcon = true;
             SelectedDate = Date[0];
-            Title = Parameter.Title;
             if (AutoCompletion == null)
                 AutoCompletion = await _search.GetCountryStopPoint();
-            LastRequests = await _serializable.GetLastRequests("lastRequests");
-            FavoriteRequests = await _serializable.GetLastRequests("favoriteRequests");
-            if (Parameter.Title == "Аэропорт")
-                From = "Национальный аэропорт «Минск» (Беларусь)";
-            if (Parameter.From == null) return;
-            From = Parameter.From;
-            To = Parameter.To;
+            LastRequests = SavedItems.LastRequests;
+            FavoriteRequests = SavedItems.FavoriteRequests;
         }
 
-        private static async void ShowMessageBox(string message)
-        {
-            var messageDialog = new MessageDialog(message);
-            await messageDialog.ShowAsync();
-        }
-
-        public void Swap()
-        {
-            if (From == null || To == null) return;
-            var temp = From;
-            From = To;
-            To = temp;
-        }
-
+        /// <summary>
+        /// Searches for train schedules at a specified date in the specified mode.
+        /// </summary>
         private async void Search()
         {
-            if (CheckDate()) return;
-            if (AutoCompletion == null || string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To) ||
-                (!AutoCompletion.Any(x => x.UniqueId.Contains(From.Split('(')[0])) || !AutoCompletion.Any(x => x.UniqueId.Contains(To.Split('(')[0]))))
-            {
-                ShowMessageBox("Один или оба пункта не существует, проверьте еще раз или обновите станции");
-                return;
-            }
-            if (IsTaskRun) return;
-            if (NetworkInterface.GetIsNetworkAvailable())
-            {
-                IsTaskRun = true;
-                _serializable.SerializeLastRequest(From, To, LastRequests);
-                var schedule = await _search.GetTrainSchedule(Parameter.IsEconom, Parameter.SpecialSearch, From, To, GetDate(), Parameter.Title);
-                IsTaskRun = false;
-                if (schedule == null || !schedule.Any())
-                    ShowMessageBox("Поезда на дату отправления не найдены");
-                else
-                    _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
-            }
-            else ShowMessageBox("Проверьте подключение к сети интернет");
+            if (!CheckInput()) return;
+            IsTaskRun = true;
+            _serializable.SerializeLastRequest(From, To, LastRequests);
+            var schedule = await _search.GetTrainSchedule(From, To, GetDate());
+            IsTaskRun = false;
+            if (schedule == null || !schedule.Any())
+                ShowMessageBox(SearchError);
+            else
+                _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
         }
 
-        private bool CheckDate()
-        {
-            if ((Datum.Date - DateTime.Now).Days < 0)
-            {
-                ShowMessageBox("Поиск может производится начиная от текущего времени");
-                return true;
-            }
-            if (Datum.Date <= DateTime.Now.AddDays(45)) return false;
-            ShowMessageBox("Поиск может производится только за 45 дней от текущего момента или используйте режим \"На все дни\"");
-            return true;
-        }
-
-        private string GetDate()
-        {
-            if (SelectedDate == Date[1]) return "everyday";
-            return Datum.Date.Year + "-" + Datum.Date.Month + "-" + Datum.Date.Day;
-        }
-
+        /// <summary>
+        /// Sets the user-selected route.
+        /// </summary>
         private void SetRequest(LastRequest lastRequest)
         {
             From = lastRequest.From;
             To = lastRequest.To;
         }
 
-        private void UpdateAutoSuggestions(string str)
-        {
-            if (FavoriteRequests != null && FavoriteRequests.Any(x => x.From == From && x.To == To))
-                SetVisibilityToFavoriteIcons(false, true);
-            else
-                SetVisibilityToFavoriteIcons(true, false);
-            AutoSuggestions = AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
-            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
-            AutoSuggestions.Clear();
-        }
-
+        /// <summary>
+        /// Close input keyboard,when user click on promt.
+        /// </summary>
         private void SuggestionChosen()
         {
             IsFildEnabled = false;
             IsFildEnabled = true;
         }
 
+        /// <summary>
+        /// Сlears the field From and To.
+        /// </summary>
         private void Clear()
         {
             From = String.Empty;
             To = String.Empty;
         }
-
+        
+        /// <summary>
+        /// Saves the entered route to favorite.
+        /// </summary>
         private async void AddToFavorite()
         {
             if (FavoriteRequests == null) FavoriteRequests = new List<LastRequest>();
@@ -294,12 +324,16 @@ namespace Trains.App.ViewModels
             else
             {
                 FavoriteRequests.Add(new LastRequest { From = From, To = To });
+                SavedItems.FavoriteRequests = FavoriteRequests;
                 await Serialize.SaveObjectToXml(FavoriteRequests, "favoriteRequests");
                 ShowMessageBox("Станция добавлена!");
                 SetVisibilityToFavoriteIcons(false, true);
             }
         }
 
+        /// <summary>
+        /// Deletes the entered route visas favorite.
+        /// </summary>
         private void DeleteInFavorite()
         {
             if (FavoriteRequests == null)
@@ -311,6 +345,7 @@ namespace Trains.App.ViewModels
             if (objectToDelete != null)
             {
                 FavoriteRequests.Remove(objectToDelete);
+                SavedItems.FavoriteRequests = FavoriteRequests;
                 _serializable.SerializeObjectToXml(LastRequests, "favoriteRequests");
                 ShowMessageBox("Станция удалена!");
                 SetVisibilityToFavoriteIcons(true, false);
@@ -319,28 +354,108 @@ namespace Trains.App.ViewModels
                 ShowMessageBox("Маршрут не найден,попробуйте сначало добавить!");
         }
 
+        /// <summary>
+        /// Go to favorite routes page.
+        /// </summary>
         private void GoToFavoriteList()
         {
             if (FavoriteRequests != null)
-                _navigationService.NavigateToViewModel<FavoritePageViewModel>(Parameter);
+                _navigationService.NavigateToViewModel<FavoritePageViewModel>();
             else
                 ShowMessageBox("Ваш список пуст!");
         }
 
+        /// <summary>
+        /// Go to help page,informations about belarussian trains icons.
+        /// </summary>
+        private void GoToHelpPage()
+        {
+            _navigationService.NavigateToViewModel<HelpPageViewModel>();
+        }
+
+        /// <summary>
+        /// Check input,before will perform a search.
+        /// </summary>
+        private bool CheckInput()
+        {
+            if (IsTaskRun || CheckDate() || string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To) ||
+                (!AutoCompletion.Any(x => x.UniqueId.Contains(From.Split('(')[0])) || !AutoCompletion.Any(x => x.UniqueId.Contains(To.Split('(')[0]))))
+            {
+                ShowMessageBox(IncorrectInput);
+                return false;
+            }
+            if (NetworkInterface.GetIsNetworkAvailable()) return true;
+            ShowMessageBox(ConectionError);
+            return false;
+        }
+
+        /// <summary>
+        /// Check,that date in correct format.
+        /// </summary>
+        private bool CheckDate()
+        {
+            if ((Datum.Date - DateTime.Now).Days < 0)
+            {
+                ShowMessageBox(DateUpTooLater);
+                return true;
+            }
+            if (Datum.Date <= DateTime.Now.AddDays(45)) return false;
+            ShowMessageBox(DateTooBig);
+            return true;
+        }
+
+        /// <summary>
+        /// Update prompts during user input stopping point
+        /// </summary>
+        private void UpdateAutoSuggestions(string str)
+        {
+            if (FavoriteRequests != null && FavoriteRequests.Any(x => x.From == From && x.To == To))
+                SetVisibilityToFavoriteIcons(false, true);
+            else
+                SetVisibilityToFavoriteIcons(true, false);
+            AutoSuggestions = AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
+            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
+            AutoSuggestions.Clear();
+        }
+
+        /// <summary>
+        /// Change visibility of favorite and unfavorite buttons when user add route to favorite or delete this route.
+        /// </summary>
         private void SetVisibilityToFavoriteIcons(bool favorite, bool unfavorite)
         {
             IsVisibleFavoriteIcon = favorite;
             IsVisibleUnFavoriteIcon = unfavorite;
         }
-        private async void HyperlinkClick()
+
+        /// <summary>
+        /// Show message box.
+        /// </summary>
+        private async void ShowMessageBox(string message)
         {
-            await Launcher.LaunchUriAsync(new Uri("http://www.windowsphone.com/s?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e"));
+            var dialog = new MessageDialog(message);
+            await dialog.ShowAsync();
         }
 
-        private void GoToHelpPage()
+        /// <summary>
+        /// Swaps From and To filds.
+        /// </summary>
+        public void Swap()
         {
-            _navigationService.NavigateToViewModel<HelpPageViewModel>();
+            if (From == null || To == null) return;
+            var temp = From;
+            From = To;
+            To = temp;
         }
+
+        /// <summary>
+        /// Check the search mode and issue the required date.
+        /// </summary>
+        private string GetDate()
+        {
+            if (SelectedDate == Date[1]) return "everyday";
+            return Datum.Date.Year + "-" + Datum.Date.Month + "-" + Datum.Date.Day;
+        }
+
         #endregion
     }
 }

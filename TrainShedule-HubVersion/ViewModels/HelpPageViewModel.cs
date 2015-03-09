@@ -1,15 +1,19 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using TrainSearch.Entities;
-using TrainSearch.Infrastructure;
+using Trains.Infrastructure.Infrastructure;
+using Trains.Model.Entities;
 
 namespace Trains.App.ViewModels
 {
+    /// <summary>
+    /// Used to dispalying informations about belarussian railway icons.
+    /// </summary>
     public class HelpPageViewModel : Screen
     {
+        /// <summary>
+        /// Used to dispalying informations about belarussian railway icons.
+        /// </summary>
         private static IEnumerable<MenuDataItem> _menu;
-        private INavigationService _navigationService;
-
         public IEnumerable<MenuDataItem> Menu
         {
             get { return _menu; }
@@ -20,19 +24,12 @@ namespace Trains.App.ViewModels
             }
         }
 
-        public HelpPageViewModel(INavigationService navigationService)
-        {
-            _navigationService = navigationService;
-        }
-
+        /// <summary>
+        /// Invoked when this page is about to be displayed in a Frame.
+        /// </summary>
         protected override async void OnActivate()
         {
             Menu = await MenuData.GetItemsAsync();
-        }
-
-        private void GoToHomePage()
-        {
-            _navigationService.NavigateToViewModel<MainPageViewModel>();
         }
     }
 }

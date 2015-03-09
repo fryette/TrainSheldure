@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</ProjectGuid>
+    <ProjectGuid>{6D5409E7-763E-4E8F-A491-902907EA4515}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Trains.Model</RootNamespace>
-    <AssemblyName>Trains.Model</AssemblyName>
+    <RootNamespace>Trains.Infrastructure</RootNamespace>
+    <AssemblyName>Trains.Infrastructure</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,25 +35,43 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Content Include="DataModel\Countries.json" />
+    <PRIResource Include="Strings\ru-RU\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CountryStopPointDataGroup.cs" />
-    <Compile Include="Entities\CountryStopPointDataItem.cs" />
-    <Compile Include="Entities\LastRequest.cs" />
-    <Compile Include="Entities\MenuDataGroup.cs" />
-    <Compile Include="Entities\MenuDataItem.cs" />
-    <Compile Include="Entities\SavedItems.cs" />
-    <Compile Include="Entities\Train.cs" />
-    <Compile Include="Entities\TrainStop.cs" />
-    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Infrastructure\CountryStopPointData.cs" />
+    <Compile Include="Infrastructure\MenuData.cs" />
+    <Compile Include="Infrastructure\OpenMenuFlyoutAction.cs" />
+    <Compile Include="Infrastructure\Parser.cs" />
+    <Compile Include="Infrastructure\Serialize.cs" />
+    <Compile Include="Infrastructure\TrainGrabber.cs" />
+    <Compile Include="Infrastructure\TrainStopGrabber.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\StopPoints.json" />
+    <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
+      <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
+      <Name>Trains.Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\Menu.json" />
+    <Reference Include="Caliburn.Micro">
+      <HintPath>..\packages\Caliburn.Micro.Core.2.0.1\lib\portable-net45+win8+wp8+wpa81\Caliburn.Micro.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Extensions">
+      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Caliburn.Micro.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Caliburn.Micro.Platform">
+      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Caliburn.Micro.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Interactions">
+      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Microsoft.Xaml.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Interactivity">
+      <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Microsoft.Xaml.Interactivity.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

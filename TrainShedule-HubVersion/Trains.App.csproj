@@ -96,7 +96,6 @@
     <Compile Include="ViewModels\ItemPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\SchedulePageViewModel.cs" />
-    <Compile Include="ViewModels\SectionPageViewModel.cs" />
     <Compile Include="ViewModels\StopPointPageViewModel.cs" />
     <Compile Include="Views\FavoritePageView.xaml.cs">
       <DependentUpon>FavoritePageView.xaml</DependentUpon>
@@ -116,9 +115,6 @@
     </Compile>
     <Compile Include="Views\SchedulePageView.xaml.cs">
       <DependentUpon>SchedulePageView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SectionPageView.xaml.cs">
-      <DependentUpon>SectionPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StopPointPageView.xaml.cs">
       <DependentUpon>StopPointPageView.xaml</DependentUpon>
@@ -150,6 +146,7 @@
     <Content Include="Assets\MenuIcon\RLB_RLE.png" />
     <Content Include="Assets\Interregional_econom.png" />
     <Content Include="Assets\Interregional_biznes.png" />
+    <Content Include="Assets\Model_train.jpg" />
     <Content Include="Assets\Regional_biznes.png" />
     <Content Include="Assets\Regional_econom.png" />
     <Content Include="Assets\Rhombus.png" />
@@ -197,10 +194,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SectionPageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\StopPointPageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +219,10 @@
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Trains.Infrastructure\Trains.Infrastructure.csproj">
+      <Project>{6D5409E7-763E-4E8F-A491-902907EA4515}</Project>
+      <Name>Trains.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
       <Project>{73f82f72-521e-4f11-aa97-9a377e8cbe3e}</Project>
       <Name>Trains.Model</Name>
@@ -233,10 +230,6 @@
     <ProjectReference Include="..\Trains.Services\Trains.Services.csproj">
       <Project>{13fda41e-d3b2-4a71-808c-aa1489fb628f}</Project>
       <Name>Trains.Services</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TrainSearch\Train.Infrastucture.csproj">
-      <Project>{506431d8-c791-4ece-891e-d2beff443620}</Project>
-      <Name>Train.Infrastucture</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">

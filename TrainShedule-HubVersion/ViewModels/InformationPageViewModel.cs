@@ -7,20 +7,40 @@ using TrainSearch.Entities;
 
 namespace Trains.App.ViewModels
 {
+    /// <summary>
+    /// Used to displaying stop points on selected route.
+    /// </summary>
     public class InformationPageViewModel : Screen
     {
-
+        /// <summary>
+        /// Used to navigate between pages.
+        /// </summary>
         private readonly INavigationService _navigationService;
-        private readonly ITrainStop _trainStop;
+        /// <summary>
+        /// Used to grab train stops.
+        /// </summary>
+        private readonly ITrainStopService _trainStop;
 
-        #region properties
+        /// <summary>
+        /// User-selected train.
+        /// </summary>
         public Train Parameter { get; set; }
-        public InformationPageViewModel(INavigationService navigationService, ITrainStop trainStop)
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="navigationService">Used to navigate between pages.</param>
+        /// <param name="trainStop">Used to grab train stops.</param>
+        public InformationPageViewModel(INavigationService navigationService, ITrainStopService trainStop)
         {
             _navigationService = navigationService;
             _trainStop = trainStop;
         }
-
+        
+        #region properties
+        /// <summary>
+        /// Used to dispalying informations about the seats and their prices.
+        /// </summary>
         private AdditionalInformation[] _additionalInformation;
         public AdditionalInformation[] AdditionalInformation
         {
@@ -31,6 +51,10 @@ namespace Trains.App.ViewModels
                 NotifyOfPropertyChange(() => AdditionalInformation);
             }
         }
+
+        /// <summary>
+        /// Used for process control.
+        /// </summary>
         private bool _isTaskRun;
         public bool IsTaskRun
         {
@@ -44,10 +68,18 @@ namespace Trains.App.ViewModels
         #endregion
 
         #region action
+        /// <summary>
+        /// Invoked when this page is about to be displayed in a Frame.
+        /// Set the additional informations about user-selected train.
+        /// </summary>
         protected override void OnActivate()
         {
             AdditionalInformation = Parameter.AdditionalInformation;
         }
+        
+        /// <summary>
+        /// Search additional information about user-selected train.
+        /// </summary>
         private async void SearchStopPoint()
         {
             if (NetworkInterface.GetIsNetworkAvailable())
@@ -63,11 +95,6 @@ namespace Trains.App.ViewModels
                 var messageDialog = new MessageDialog("Доступ к интернету отсутствует,проверьте подключение!");
                 await messageDialog.ShowAsync();
             }
-        }
-
-        private void GoToHomePage()
-        {
-            _navigationService.NavigateToViewModel<MainPageViewModel>();
         }
         #endregion
     }

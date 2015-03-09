@@ -4,8 +4,8 @@ using TrainSearch.Entities;
 
 namespace Trains.Services.Interfaces
 {
-    public interface ITrainStop
+    public interface ILastRequestTrainService
     {
-        Task<IEnumerable<TrainStop>> GetTrainStop(string link);
+        Task<IEnumerable<Train>> GetTrains();
     }
 }

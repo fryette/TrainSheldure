@@ -16,7 +16,7 @@ namespace Trains.Infrastructure.Infrastructure
                                        "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
                                        "<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>";
 
-        private const string AddiditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
+        private const string AdditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
 
         private const string ParsePlacesAndPrices =
             "(?<Name><td class=\"places_name\">([^<]+)</td>)|" +
@@ -34,7 +34,7 @@ namespace Trains.Infrastructure.Infrastructure
         public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date)
         {
             var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
-            var addiditionalInformation = GetPlaces(data);
+            var additionalInformation = GetPlaces(data);
             var links = GetLink(data);
 
             IEnumerable<Train> trains;
@@ -46,7 +46,7 @@ namespace Trains.Infrastructure.Infrastructure
                 trains = await Task.Run(() => date == EveryDay ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
                     : GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date));
 
-            return GetFinallyResult(addiditionalInformation, links, trains);
+            return GetFinallyResult(additionalInformation.ToList(), links, trains);
         }
 
         private static string GetUrl(string fromName, string toName, string date)
@@ -137,21 +137,21 @@ namespace Trains.Infrastructure.Infrastructure
 
         private static IEnumerable<AdditionalInformation[]> GetPlaces(string data)
         {
-            var addiditionInformation = new List<AdditionalInformation[]>();
-            var addiditionalParameter = Parser.ParseTrainData(data, AddiditionParameterPattern).ToList();
-            for (var i = 0; i < addiditionalParameter.Count; i++)
+            var additionInformation = new List<AdditionalInformation[]>();
+            var additionalParameter = Parser.ParseTrainData(data, AdditionParameterPattern).ToList();
+            for (var i = 0; i < additionalParameter.Count; i++)
             {
-                if (!addiditionalParameter[i].Groups[1].Value.Contains("href")) continue;
-                if (i + 1 >= addiditionalParameter.Count ||
-                    addiditionalParameter[i + 1].Groups[1].Value.Contains("href"))
-                    addiditionInformation.Add(new[]
+                if (!additionalParameter[i].Groups[1].Value.Contains("href")) continue;
+                if (i + 1 >= additionalParameter.Count ||
+                    additionalParameter[i + 1].Groups[1].Value.Contains("href"))
+                    additionInformation.Add(new[]
                     {
                         new AdditionalInformation {Name = "Мест нет. Уточняйте в кассах"}
                     });
                 else
                 {
                     var temp =
-                        Parser.ParseTrainData(addiditionalParameter[i + 1].Groups[1].Value, ParsePlacesAndPrices)
+                        Parser.ParseTrainData(additionalParameter[i + 1].Groups[1].Value, ParsePlacesAndPrices)
                             .ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
 
@@ -168,19 +168,19 @@ namespace Trains.Infrastructure.Infrastructure
                             Price = "цена: " + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
-                    addiditionInformation.Add(additionalInformations);
+                    additionInformation.Add(additionalInformations);
                     ++i;
                 }
             }
-            return addiditionInformation;
+            return additionInformation;
         }
 
         private static IEnumerable<AdditionalInformation[]> GetAirportPlaces(int count)
         {
-            var addiditionInformation = new List<AdditionalInformation[]>();
+            var additionInformation = new List<AdditionalInformation[]>();
             for (var i = 0; i < count; i++)
             {
-                addiditionInformation.Add(new[]
+                additionInformation.Add(new[]
                     {
                         new AdditionalInformation
                         {
@@ -191,7 +191,7 @@ namespace Trains.Infrastructure.Infrastructure
                         }
                     });
             }
-            return addiditionInformation;
+            return additionInformation;
         }
 
         private static string GetBeforeDepartureTime(DateTime time, DateTime dateToDeparture)
@@ -215,19 +215,18 @@ namespace Trains.Infrastructure.Infrastructure
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
-        private static IEnumerable<Train> GetFinallyResult(IEnumerable<AdditionalInformation[]> addInformations, List<string> linksList, IEnumerable<Train> trains)
+        private static IEnumerable<Train> GetFinallyResult(IReadOnlyList<AdditionalInformation[]> additionalInformation, List<string> linksList, IEnumerable<Train> trains)
         {
-            var addInf = addInformations.ToList();
             var trainsList = trains.ToList();
-            for (var i = 0; i < addInf.Count; i++)
+            for (var i = 0; i < additionalInformation.Count; i++)
             {
-                trainsList[i].AdditionalInformation = addInf[i];
+                trainsList[i].AdditionalInformation = additionalInformation[i];
                 trainsList[i].Link = linksList[i];
                 if (trainsList[i].DepartureDate != null)
-                    trainsList[i].IsPlace = addInf[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
+                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
             }
 
-            return trainsList.Where(x => x.BeforeDepartureTime == null || !x.BeforeDepartureTime.Contains('-'));
+            return trainsList.Where(x =>!x.BeforeDepartureTime.Contains('-'));
         }
 
     }

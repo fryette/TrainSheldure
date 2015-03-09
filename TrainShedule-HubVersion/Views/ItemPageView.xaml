@@ -17,7 +17,7 @@
         <StackPanel HorizontalAlignment="Center">
             <TextBlock x:Uid="SelectStantion"
                        Style="{ThemeResource TitleTextBlockStyle}" />
-            <TextBlock Text="{Binding Title}"
+            <TextBlock Text="Поиск"
                        FontSize="40"
                        Style="{ThemeResource HeaderTextBlockStyle}" />
         </StackPanel>
@@ -102,12 +102,6 @@
             <AppBarButton Label="Справка"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
-            
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Оцените,это важно для нас"
-                              Icon="Add"
-                              micro:Message.Attach="[Event Click] = [Action HyperlinkClick]" />
-            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

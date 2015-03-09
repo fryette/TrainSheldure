@@ -5,60 +5,50 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
-using TrainSearch.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.Infrastructure.Infrastructure
 {
-  public class CountryStopPointData
+    public class MenuData
     {
-        private static readonly CountryStopPointData MenuDataSource = new CountryStopPointData();
+        private static readonly MenuData MenuDataSource = new MenuData();
 
-        private readonly ObservableCollection<CountryStopPointDataGroup> _groups = new ObservableCollection<CountryStopPointDataGroup>();
+        private readonly ObservableCollection<MenuDataGroup> _groups = new ObservableCollection<MenuDataGroup>();
 
-        public ObservableCollection<CountryStopPointDataGroup> Groups
+        public ObservableCollection<MenuDataGroup> Groups
         {
             get { return _groups; }
         }
 
-        public static async Task<IEnumerable<CountryStopPointDataGroup>> GetGroupsAsync()
+        public static async Task<IEnumerable<MenuDataGroup>> GetGroupsAsync()
         {
             await MenuDataSource.GetMenuDataAsync();
 
             return MenuDataSource.Groups;
         }
 
-        public static async Task<CountryStopPointDataGroup> GetGroupAsync(string uniqueId)
+        public static async Task<MenuDataGroup> GetGroupAsync(string uniqueId)
         {
             await MenuDataSource.GetMenuDataAsync();
             var matches = MenuDataSource.Groups.Where(group => group.UniqueId.Equals(uniqueId));
-            var menuDataGroups = matches as IList<CountryStopPointDataGroup> ?? matches.ToList();
+            var menuDataGroups = matches as IList<MenuDataGroup> ?? matches.ToList();
             return menuDataGroups.Count() == 1 ? menuDataGroups.First() : null;
         }
 
-        public static async Task<IList<CountryStopPointDataItem>> GetItemsAsync()
+        public static async Task<IEnumerable<MenuDataItem>> GetItemsAsync()
         {
             await MenuDataSource.GetMenuDataAsync();
             var matches =
                 MenuDataSource.Groups.SelectMany(group => group.Items);
-            var menuDataItems = matches as IList<CountryStopPointDataItem> ?? matches.ToList();
+            var menuDataItems = matches as IList<MenuDataItem> ?? matches.ToList();
             return menuDataItems;
         }
-
-        public static async Task<CountryStopPointDataItem> GetItemByIdAsync(string itemId)
-        {
-            await MenuDataSource.GetMenuDataAsync();
-            var matches =
-                MenuDataSource.Groups.SelectMany(group => group.Items);
-            var menuDataItems = matches as IList<CountryStopPointDataItem> ?? matches.ToList();
-            return menuDataItems.First(x => x.UniqueId == itemId);
-        }
-
         private async Task GetMenuDataAsync()
         {
             if (_groups.Count != 0)
                 return;
 
-            var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/StopPoints.json");
+            var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/Menu.json");
 
             var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             var jsonText = await FileIO.ReadTextAsync(file);
@@ -68,12 +58,14 @@ namespace Trains.Infrastructure.Infrastructure
             foreach (var groupValue in jsonArray)
             {
                 var groupObject = groupValue.GetObject();
-                var group = new CountryStopPointDataGroup(groupObject["UniqueId"].GetString(),
+                var group = new MenuDataGroup(groupObject["UniqueId"].GetString(),
                     groupObject["Title"].GetString());
 
                 foreach (var itemObject in groupObject["Items"].GetArray().Select(itemValue => itemValue.GetObject()))
                 {
-                    group.Items.Add(new CountryStopPointDataItem(itemObject["UniqueId"].GetString(), itemObject["Country"].GetString()));
+                    group.Items.Add(new MenuDataItem(itemObject["UniqueId"].GetString(),
+                        itemObject["Title"].GetString(),
+                        itemObject["ImagePath"].GetString(), itemObject["Description"].GetString()));
                 }
                 Groups.Add(group);
             }

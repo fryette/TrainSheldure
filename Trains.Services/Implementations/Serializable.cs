@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Trains.Infrastructure.Infrastructure;
+using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using TrainSearch.Entities;
-using TrainSearch.Infrastructure;
 
 namespace Trains.Services.Implementations
 {
-    public class Serializable:ISerializable
+    public class Serializable:ISerializableService
     {
         public void SerializeLastRequest(string from, string to, List<LastRequest> lastRequests)
         {

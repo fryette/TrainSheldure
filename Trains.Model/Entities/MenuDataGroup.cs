@@ -1,7 +1,8 @@
 using System;
 using System.Collections.ObjectModel;
+using TrainSearch.Entities;
 
-namespace TrainSearch.Entities
+namespace Trains.Model.Entities
 {
     /// <summary>
     /// Generic group data model.

@@ -9,9 +9,57 @@
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.Resources>
+            <Storyboard x:Name="MyStoryboard">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                               AutoReverse="True"
+                                               RepeatBehavior="forever"
+                                               Storyboard.TargetName="MainImage">
+                    <EasingDoubleKeyFrame KeyTime="0"
+                                          Value="100" />
+                    <EasingDoubleKeyFrame KeyTime="0:0:8"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
         <Pivot Title="Чыгунка">
-            <PivotItem Header="Поиск"
-                       ContentTemplate="{StaticResource MainPageTemplate}">
+            <PivotItem Header="Поиск">
+                <GridView Height="200"
+                          IsItemClickEnabled="True"
+                          VerticalAlignment="Top"
+                          micro:Message.Attach="[Event ItemClick] = [Action GoToSearch]">
+                    <Grid Height="200"
+                          Margin="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="190" />
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0"
+                              Width="Auto"
+                              Height="Auto">
+                            <Image x:Name="MainImage"
+                                   Source="/Assets/Model_train.jpg"
+                                   Margin="-100,0,0,0"
+                                   Stretch="Fill">
+                                <Image.RenderTransform>
+                                    <CompositeTransform TranslateX="0" />
+                                </Image.RenderTransform>
+                            </Image>
+                        </Grid>
+                        <Grid Grid.Row="0"
+                              Margin="0,150,0,0">
+                            <Grid.Background>
+                                <SolidColorBrush Color="Black"
+                                                 Opacity="0.8" />
+                            </Grid.Background>
+                            <TextBlock Style="{StaticResource BoxTitleStyle}"
+                                       Text="Поиск"
+                                       MaxLines="2"
+                                       VerticalAlignment="Top"
+                                       Foreground="White"
+                                       Margin="5,0,0,0" />
+                        </Grid>
+                    </Grid>
+                </GridView>
             </PivotItem>
             <PivotItem Header="Последний">
                 <Grid>
@@ -24,6 +72,7 @@
             </PivotItem>
         </Pivot>
     </Grid>
+
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Label="Список"

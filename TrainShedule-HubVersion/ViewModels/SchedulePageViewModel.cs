@@ -6,34 +6,64 @@ using TrainSearch.Entities;
 
 namespace Trains.App.ViewModels
 {
+    /// <summary>
+    /// Shows train schedule.
+    /// </summary> 
     public class SchedulePageViewModel : Screen
     {
+        #region properties
+        /// <summary>
+        /// Сontains information on all trains on the route selected by the user.
+        /// </summary> 
         public IEnumerable<Train> Parameter { get; set; }
-        private readonly INavigationService _navigationService;
-        private readonly ISerializable _serializable;
 
-        public SchedulePageViewModel(INavigationService navigationService, ISerializable serializable)
+        /// <summary>
+        /// Used to navigate between pages.
+        /// </summary>
+        private readonly INavigationService _navigationService;
+
+        /// <summary>
+        /// Used to serialization/deserialization objects.
+        /// </summary>
+        private readonly ISerializableService _serializable;
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="navigationService">Used to navigate between pages.</param>
+        /// <param name="serializable">Used to serialization/deserialization objects.</param>
+        public SchedulePageViewModel(INavigationService navigationService, ISerializableService serializable)
         {
             _navigationService = navigationService;
             _serializable = serializable;
         }
+        #endregion
+
         #region action
+        /// <summary>
+        /// Invoked when this page is about to be displayed in a Frame.
+        /// Set the default parameter of some properties.
+        /// </summary>
         protected override void OnActivate()
         {
             _serializable.SerializeObjectToXml(Parameter.ToList(), "LastTrainList");
         }
-
+        /// <summary>
+        /// Invoked when the user selects his train of interest.
+        /// Go to the information page which show additional information about this train.
+        /// </summary>
+        /// <param name="train">Data that describes user-selected train(prices,seats,stop points and other)</param>
         private void ClickItem(Train train)
         {
             _navigationService.NavigateToViewModel<InformationPageViewModel>(train);
         }
+
+        /// <summary>
+        /// Go to saved by user routes page.
+        /// </summary>
         private void GoToHelpPage()
         {
             _navigationService.NavigateToViewModel<HelpPageViewModel>();
-        }
-        private void GoToHomePage()
-        {
-            _navigationService.NavigateToViewModel<MainPageViewModel>();
         }
         #endregion
     }

@@ -9,8 +9,8 @@
     <ProjectGuid>{506431D8-C791-4ECE-891E-D2BEFF443620}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TrainSearch</RootNamespace>
-    <AssemblyName>TrainSearch</AssemblyName>
+    <RootNamespace>Trains.Infrastructure</RootNamespace>
+    <AssemblyName>Trains.Infrastructure</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>

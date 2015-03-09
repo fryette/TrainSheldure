@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
+using Trains.Model.Entities;
 using TrainSearch.Entities;
 
-namespace TrainSearch.Infrastructure
+namespace Trains.Infrastructure.Infrastructure
 {
     public class MenuData
     {

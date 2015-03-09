@@ -2,6 +2,7 @@
 using Windows.UI.Xaml.Controls.Primitives;
 using Microsoft.Xaml.Interactivity;
 
+
 namespace Trains.Infrastructure.Infrastructure
 {
     public class OpenMenuFlyoutAction : DependencyObject, IAction

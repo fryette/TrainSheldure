@@ -4,9 +4,9 @@ using TrainSearch.Entities;
 
 namespace Trains.Services.Interfaces
 {
-    public interface ISearch
+    public interface ISearchService
     {
         Task<IEnumerable<CountryStopPointDataItem>> GetCountryStopPoint();
-        Task<IEnumerable<Train>> GetTrainSchedule(bool isEconom, bool specialSearch, params string[] parameters);
+        Task<IEnumerable<Train>> GetTrainSchedule(params string[] parameters);
     }
 }
