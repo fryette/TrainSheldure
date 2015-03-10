@@ -1,4 +1,7 @@
-﻿namespace Trains.App.Views
+﻿using System;
+using Windows.UI.Xaml;
+
+namespace Trains.App.Views
 {
     public sealed partial class MainPageView
     {

@@ -90,6 +90,7 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converter\BooleanToIconConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="ViewModels\AboutPageViewModel.cs" />
     <Compile Include="ViewModels\FavoritePageViewModel.cs" />
     <Compile Include="ViewModels\HelpPageViewModel.cs" />
     <Compile Include="ViewModels\InformationPageViewModel.cs" />
@@ -98,6 +99,9 @@
     <Compile Include="ViewModels\SchedulePageViewModel.cs" />
     <Compile Include="ViewModels\SplashScreenPageViewModel.cs" />
     <Compile Include="ViewModels\StopPointPageViewModel.cs" />
+    <Compile Include="Views\AboutPageView.xaml.cs">
+      <DependentUpon>AboutPageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FavoritePageView.xaml.cs">
       <DependentUpon>FavoritePageView.xaml</DependentUpon>
     </Compile>
@@ -131,6 +135,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\appbar.delete.png" />
+    <Content Include="Assets\appbar.email.gmail.png" />
+    <Content Include="Assets\appbar.information.png" />
+    <Content Include="Assets\appbar.star.add.png" />
+    <Content Include="Assets\appbar.star.png" />
     <Content Include="Assets\Cityes.png" />
     <Content Include="Assets\appbar.refresh.png" />
     <Content Include="Assets\DarkGray.png" />
@@ -179,6 +187,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\AboutPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\FavoritePageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

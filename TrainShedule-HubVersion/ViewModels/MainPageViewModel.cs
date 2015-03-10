@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.ApplicationModel.Email;
 using Windows.System;
 using Caliburn.Micro;
 using Trains.Model.Entities;
@@ -128,6 +129,32 @@ namespace Trains.App.ViewModels
         private void SelectTrain(LastRequest item)
         {
             _navigationService.NavigateToViewModel<ItemPageViewModel>(new LastRequest { From = item.From, To = item.To });
+        }
+
+        private async void SentEmail()
+        {
+            //predefine Recipient
+            var sendTo = new EmailRecipient()
+            {
+                Address = "sampir.fiesta@gmail.com"
+            };
+
+            //generate mail object
+            var mail = new EmailMessage {Subject = "this is the Subject", Body = "this is the Body"};
+
+            //add recipients to the mail object
+            mail.To.Add(sendTo);
+            //mail.Bcc.Add(sendTo);
+            //mail.CC.Add(sendTo);
+
+            //open the share contract with Mail only:
+            await EmailManager.ShowComposeNewEmailAsync(mail);
+        }
+
+        private async void GoToMarketPlace()
+        {
+            var uri = new Uri("ms-windows-store:reviewapp?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e");
+            await Launcher.LaunchUriAsync(uri);
         }
         #endregion
     }

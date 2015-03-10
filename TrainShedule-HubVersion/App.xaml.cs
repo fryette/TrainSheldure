@@ -33,6 +33,7 @@ namespace Trains.App
             _container.Singleton<ISerializableService, Serializable>();
             _container.Singleton<ITrainStopService, TrainStop>();
 
+            _container.PerRequest<AboutPageViewModel>();
             _container.PerRequest<SplashScreenPageViewModel>();
             _container.PerRequest<HelpPageViewModel>();
             _container.PerRequest<FavoritePageViewModel>();
