@@ -33,6 +33,7 @@ namespace Trains.App
             _container.Singleton<ISerializableService, Serializable>();
             _container.Singleton<ITrainStopService, TrainStop>();
 
+            _container.PerRequest<SplashScreenPageViewModel>();
             _container.PerRequest<HelpPageViewModel>();
             _container.PerRequest<FavoritePageViewModel>();
             _container.PerRequest<StopPointPageViewModel>();
@@ -49,7 +50,7 @@ namespace Trains.App
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            DisplayRootView<MainPageView>();
+            DisplayRootView<SplashScreenPageView>();
         }
 
         protected override object GetInstance(Type service, string key)

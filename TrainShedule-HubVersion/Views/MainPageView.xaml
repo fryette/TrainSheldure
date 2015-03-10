@@ -49,7 +49,7 @@
                               Margin="0,150,0,0">
                             <Grid.Background>
                                 <SolidColorBrush Color="Black"
-                                                 Opacity="0.8" />
+                                                 Opacity="0.6" />
                             </Grid.Background>
                             <TextBlock Style="{StaticResource BoxTitleStyle}"
                                        Text="Поиск"

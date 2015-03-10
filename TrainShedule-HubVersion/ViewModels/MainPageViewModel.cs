@@ -68,8 +68,6 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override async void OnActivate()
         {
-            SavedItems.LastRequests = await _serializable.GetLastRequests("lastRequests");
-            SavedItems.FavoriteRequests = await _serializable.GetLastRequests("favoriteRequests");
             Trains = await _lastRequestTrain.GetTrains();
         }
 

@@ -195,11 +195,37 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="MainPageTemplate">
-                <GridView ItemsSource="{Binding Menu}"
-                          IsItemClickEnabled="True"
-                          ItemTemplate="{StaticResource CatalogItem}"
-                          micro:Message.Attach="[Event ItemClick] = [Action GoToSearch($clickeditem)]">
-                </GridView>
+                <Grid Height="200"
+                      Margin="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="190" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Width="Auto"
+                          Height="Auto">
+                        <Image x:Name="MainImage"
+                               Source="/Assets/Model_train.jpg"
+                               Margin="-100,0,0,0"
+                               Stretch="Fill">
+                            <Image.RenderTransform>
+                                <CompositeTransform TranslateX="0" />
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                    <Grid Grid.Row="0"
+                          Margin="0,150,0,0">
+                        <Grid.Background>
+                            <SolidColorBrush Color="Black"
+                                             Opacity="0.6" />
+                        </Grid.Background>
+                        <TextBlock Style="{StaticResource BoxTitleStyle}"
+                                   Text="Поиск"
+                                   MaxLines="2"
+                                   VerticalAlignment="Top"
+                                   Foreground="White"
+                                   Margin="5,0,0,0" />
+                    </Grid>
+                </Grid>
             </DataTemplate>
             <DataTemplate x:Key="InformationTemplate">
                 <StackPanel Orientation="Horizontal"
