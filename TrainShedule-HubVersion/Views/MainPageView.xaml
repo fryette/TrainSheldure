@@ -126,6 +126,16 @@
                     </ListView>
                 </Grid>
             </PivotItem>
+            <PivotItem Header="Маршруты">
+                <Grid>
+                    <ListView x:Name="FavoriteRequests"
+                              ItemsSource="{Binding FavoriteRequests}"
+                              IsItemClickEnabled="True"
+                              Margin="5,0,0,0"
+                              ItemTemplate="{StaticResource FavoriteRequestTemplate}"
+                              micro:Message.Attach="[Event ItemClick] = [Action SelectTrain($clickeditem)]" />
+                </Grid>
+            </PivotItem>
         </Pivot>
     </Grid>
 

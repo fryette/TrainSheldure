@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 

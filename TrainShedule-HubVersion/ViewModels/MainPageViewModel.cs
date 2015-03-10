@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Windows.System;
 using Caliburn.Micro;
+using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using TrainSearch.Entities;
 
@@ -53,6 +54,21 @@ namespace Trains.App.ViewModels
                 NotifyOfPropertyChange(() => Trains);
             }
         }
+
+        /// <summary>
+        /// Object are stored custom routes.
+        /// </summary>
+        private IEnumerable<LastRequest> _favoriteRequests;
+        public IEnumerable<LastRequest> FavoriteRequests
+        {
+            get { return _favoriteRequests; }
+            set
+            {
+                _favoriteRequests = value;
+                NotifyOfPropertyChange(() => FavoriteRequests);
+            }
+        }
+
         #endregion
 
         #region action
@@ -64,6 +80,7 @@ namespace Trains.App.ViewModels
         protected override async void OnActivate()
         {
             Trains = await _lastRequestTrain.GetTrains();
+            FavoriteRequests = SavedItems.FavoriteRequests;
         }
 
         /// <summary>
@@ -101,6 +118,16 @@ namespace Trains.App.ViewModels
         private async void GoToNews()
         {
             await Launcher.LaunchUriAsync(new Uri("https://vk.com/belrailway"));
+        }
+
+        /// <summary>
+        /// Invoked when the user pressed on ListBoxItem.
+        /// </summary>
+        /// <param name="item">Data that describes route.
+        /// This parameter is used to transmit the search page trains.</param>
+        private void SelectTrain(LastRequest item)
+        {
+            _navigationService.NavigateToViewModel<ItemPageViewModel>(new LastRequest { From = item.From, To = item.To });
         }
         #endregion
     }
