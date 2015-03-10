@@ -23,10 +23,6 @@ namespace Trains.App.ViewModels
         /// </summary>
         private readonly INavigationService _navigationService;
 
-        /// <summary>
-        /// Used to serialization/deserialization objects.
-        /// </summary>
-        private readonly ISerializableService _serializable;
         #endregion
 
         #region constructors
@@ -36,12 +32,10 @@ namespace Trains.App.ViewModels
         /// </summary>
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="lastRequestTrainService">Used to search deserialize trains from the last request.</param>
-        /// <param name="serializable">Used to serialization/deserialization objects.</param>
-        public MainPageViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISerializableService serializable)
+        public MainPageViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService)
         {
             _navigationService = navigationService;
             _lastRequestTrain = lastRequestTrainService;
-            _serializable = serializable;
         }
         #endregion
 
@@ -106,7 +100,7 @@ namespace Trains.App.ViewModels
 
         private async void GoToNews()
         {
-            await Launcher.LaunchUriAsync(new Uri("http://www.windowsphone.com/s?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e"));
+            await Launcher.LaunchUriAsync(new Uri("https://vk.com/belrailway"));
         }
         #endregion
     }
