@@ -1,0 +1,16 @@
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\bin\Debug\Trains.Model.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\bin\Debug\Trains.Model.pdb
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\bin\Debug\Trains.Model.pri
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\Trains.Model.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\Trains.Model.pdb
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\priconfig.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\priconfig.xml.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\layout.resfiles
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\layout.resfiles.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\resources.resfiles
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\resources.resfiles.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\pri.resfiles
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\pri.resfiles.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\qualifiers.txt
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\qualifiers.txt.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\obj\Debug\MultipleQualifiersPerDimensionFound.txt

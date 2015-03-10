@@ -1,0 +1,194 @@
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\App.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.xr.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.exe
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.pdb
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\resources.pri
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\AppxManifest.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.build.appxrecipe
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\App.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\App.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\XamlTypeInfo.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\App.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\App.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\XamlSaveStateFile.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.exe
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.pdb
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\priconfig.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\priconfig.xml.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\layout.resfiles
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\layout.resfiles.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\resources.resfiles
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\resources.resfiles.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\pri.resfiles
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\pri.resfiles.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\qualifiers.txt
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\qualifiers.txt.intermediate
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\MultipleQualifiersPerDimensionFound.txt
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\ProjectArchitectures.txt
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\App.g.i.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\App.g.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.g.i.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.g.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.g.i.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.g.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.g.i.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.g.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.g.i.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.g.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.g.i.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.g.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\XamlTypeInfo.g.cs
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\App.xaml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.xaml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.xaml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.xaml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.xaml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.xaml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\App.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\XamlSaveStateFile.xml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.exe
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.pdb
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\App.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\HubPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\InformationPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\ItemPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\Schedule.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\SectionPage.xbf
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.xr.xml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.exe
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.pdb
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\resources.pri
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\AppxManifest.xml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.build.appxrecipe
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\priconfig.xml
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\priconfig.xml.intermediate
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\layout.resfiles
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\layout.resfiles.intermediate
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\resources.resfiles
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\resources.resfiles.intermediate
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\pri.resfiles
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\pri.resfiles.intermediate
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\qualifiers.txt
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\qualifiers.txt.intermediate
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\MultipleQualifiersPerDimensionFound.txt
+F:\Studio\Git\TrainShedule\TrainShedule-HubVersion\obj\Release\ProjectArchitectures.txt
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\App.xbf
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\HubPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\InformationPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\ItemPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\Schedule.xbf
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\SectionPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.xr.xml
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.exe
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.pdb
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\resources.pri
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\AppxManifest.xml
+E:\TrainShedule\TrainShedule-HubVersion\bin\Release\TrainShedule-HubVersion.build.appxrecipe
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\App.g.i.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\App.g.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.g.i.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.g.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.g.i.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.g.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.g.i.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.g.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.g.i.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.g.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.g.i.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.g.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\XamlTypeInfo.g.cs
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\App.xaml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.xaml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.xaml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\App.xbf
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\Schedule.xbf
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\SectionPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\XamlSaveStateFile.xml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.xaml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.xaml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.xaml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\HubPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\InformationPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\ItemPage.xbf
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.exe
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.pdb
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\priconfig.xml
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\priconfig.xml.intermediate
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\layout.resfiles
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\layout.resfiles.intermediate
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\resources.resfiles
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\resources.resfiles.intermediate
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\pri.resfiles
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\pri.resfiles.intermediate
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\qualifiers.txt
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\qualifiers.txt.intermediate
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\MultipleQualifiersPerDimensionFound.txt
+E:\TrainShedule\TrainShedule-HubVersion\obj\Release\ProjectArchitectures.txt
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\InformationPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\ItemPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\SchedulePageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\SectionPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\StopPointPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Caliburn.Micro.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Caliburn.Micro.Extensions.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Caliburn.Micro.Platform.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Microsoft.Xaml.Interactions.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Microsoft.Xaml.Interactivity.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Caliburn.Micro.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Caliburn.Micro.Extensions.pri
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Caliburn.Micro.Platform.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Caliburn.Micro.Platform.pri
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\InformationPageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\InformationPageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\ItemPageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\ItemPageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SchedulePageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SchedulePageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SectionPageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SectionPageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\StopPointPageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\StopPointPageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\InformationPageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\ItemPageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SchedulePageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SectionPageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\StopPointPageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\InformationPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\ItemPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SchedulePageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\SectionPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\StopPointPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.csproj.GenerateResource.Cache
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Caliburn.Micro.Extensions.pri.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Caliburn.Micro.Platform.pri.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\FavoritePageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\FavoritePageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\FavoritePageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\FavoritePageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\FavoritePageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\TrainShedule-HubVersion.csprojResolveAssemblyReference.cache
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\AppPromo.winmd
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\AppPromo.pdb
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\AppPromo.pri
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\AppPromo.pri.xml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\MainPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\MainPageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\MainPageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\MainPageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\MainPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\TrainSearch.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\TrainSearch.pdb
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\TrainSearch.pri
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Views\HelpPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\HelpPageView.g.i.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\HelpPageView.g.cs
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\HelpPageView.xaml
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\obj\Release\Views\HelpPageView.xbf
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Trains.Model.dll
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Trains.Model.pdb
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\bin\Release\Trains.Model.pri

@@ -1,0 +1,7 @@
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Infrastructure\Trains.Infrastructure.csproj;neutral
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Infrastructure\Trains.Infrastructure.csproj;neutral
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\Trains.Model.csproj;neutral
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\Trains.Model.csproj;neutral
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Model\Trains.Model.csproj;neutral
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\Trains.Services\Trains.Services.csproj;neutral
+C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\Trains.App.csproj;neutral
