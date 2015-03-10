@@ -1,1 +1,0 @@
-C:\Users\Yauhen_Sampir\Documents\Visual Studio 2013\Projects\TrainSchedule\TrainShedule-HubVersion\AppPackages\TrainShedule-HubVersion_1.1.0.12_AnyCPU_Debug_Test\TrainShedule-HubVersion_1.1.0.12_AnyCPU_Debug.appx
