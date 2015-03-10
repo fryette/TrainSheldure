@@ -47,6 +47,7 @@ namespace Trains.App.ViewModels
             SavedItems.AutoCompletion = await _search.GetCountryStopPoint();
             await Task.Delay(TimeSpan.FromSeconds(3));
             _navigationService.NavigateToViewModel<MainPageViewModel>();
+            
         }
     }
 }
