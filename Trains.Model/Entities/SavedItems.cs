@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TrainSearch.Entities;
 
 namespace Trains.Model.Entities
 {
@@ -7,5 +8,7 @@ namespace Trains.Model.Entities
         public static List<LastRequest> LastRequests { get; set; }
     
         public static List<LastRequest> FavoriteRequests { get; set; }
+
+        public static IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
     }
 }

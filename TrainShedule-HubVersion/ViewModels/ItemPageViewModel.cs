@@ -7,7 +7,6 @@ using Caliburn.Micro;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using TrainSearch.Entities;
 
 namespace Trains.App.ViewModels
 {
@@ -202,11 +201,6 @@ namespace Trains.App.ViewModels
         }
 
         /// <summary>
-        /// Keeps all stop points.
-        /// </summary> 
-        public static IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
-
-        /// <summary>
         /// Contains stopping points satisfying user input.
         /// </summary> 
         private List<string> _autoSuggestions;
@@ -255,7 +249,7 @@ namespace Trains.App.ViewModels
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
         /// </summary>
-        protected async override void OnActivate()
+        protected override void OnActivate()
         {
             if (Parameter != null)
             {
@@ -264,8 +258,6 @@ namespace Trains.App.ViewModels
             }
             _isVisibleFavoriteIcon = true;
             SelectedDate = Date[0];
-            if (AutoCompletion == null)
-                AutoCompletion = await _search.GetCountryStopPoint();
             LastRequests = SavedItems.LastRequests;
             FavoriteRequests = SavedItems.FavoriteRequests;
         }
@@ -379,7 +371,7 @@ namespace Trains.App.ViewModels
         private bool CheckInput()
         {
             if (IsTaskRun || CheckDate() || string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To) ||
-                (!AutoCompletion.Any(x => x.UniqueId.Contains(From.Split('(')[0])) || !AutoCompletion.Any(x => x.UniqueId.Contains(To.Split('(')[0]))))
+                (!SavedItems.AutoCompletion.Any(x => x.UniqueId.Contains(From.Split('(')[0])) || !SavedItems.AutoCompletion.Any(x => x.UniqueId.Contains(To.Split('(')[0]))))
             {
                 ShowMessageBox(IncorrectInput);
                 return false;
@@ -413,7 +405,7 @@ namespace Trains.App.ViewModels
                 SetVisibilityToFavoriteIcons(false, true);
             else
                 SetVisibilityToFavoriteIcons(true, false);
-            AutoSuggestions = AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
+            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
             if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
             AutoSuggestions.Clear();
         }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.ObjectModel;
-using TrainSearch.Entities;
 
 namespace Trains.Model.Entities
 {

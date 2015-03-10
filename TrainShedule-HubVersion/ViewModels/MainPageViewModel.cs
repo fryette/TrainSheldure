@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using TrainSearch.Entities;
 

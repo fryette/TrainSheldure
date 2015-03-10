@@ -34,10 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <PRIResource Include="Strings\ru-RU\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Infrastructure\CountryStopPointData.cs" />
     <Compile Include="Infrastructure\MenuData.cs" />
     <Compile Include="Infrastructure\OpenMenuFlyoutAction.cs" />
