@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Windows.System;
 using Caliburn.Micro;
 using Trains.Services.Interfaces;
 using TrainSearch.Entities;
@@ -100,6 +102,11 @@ namespace Trains.App.ViewModels
         private void GoToHelpPage()
         {
             _navigationService.NavigateToViewModel<HelpPageViewModel>();
+        }
+
+        private async void GoToNews()
+        {
+            await Launcher.LaunchUriAsync(new Uri("http://www.windowsphone.com/s?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e"));
         }
         #endregion
     }

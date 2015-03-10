@@ -150,9 +150,11 @@
     <Content Include="Assets\MenuIcon\IRLB_IRLE.png" />
     <Content Include="Assets\MenuIcon\logo_bch.png" />
     <Content Include="Assets\MenuIcon\NatsA.png" />
+    <Content Include="Assets\MenuIcon\result.jpg" />
     <Content Include="Assets\MenuIcon\RLB_RLE.png" />
     <Content Include="Assets\Interregional_econom.png" />
     <Content Include="Assets\Interregional_biznes.png" />
+    <Content Include="Assets\MenuIcon\logo_tile2.jpg" />
     <Content Include="Assets\Regional_biznes.png" />
     <Content Include="Assets\Regional_econom.png" />
     <Content Include="Assets\Model_train.jpg" />

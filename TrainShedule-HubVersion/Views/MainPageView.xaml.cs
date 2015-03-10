@@ -6,6 +6,7 @@
         {
             InitializeComponent();
             MyStoryboard.Begin();
+            MyStoryboard1.Begin();
         }
     }
 }

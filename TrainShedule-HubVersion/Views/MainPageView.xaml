@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:appPromo="using:AppPromo"
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -21,58 +20,101 @@
                                           Value="0" />
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
+            <Storyboard x:Name="MyStoryboard1">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                               AutoReverse="True"
+                                               RepeatBehavior="forever"
+                                               Storyboard.TargetName="MainImage1">
+                    <EasingDoubleKeyFrame KeyTime="0"
+                                          Value="-100" />
+                    <EasingDoubleKeyFrame KeyTime="0:0:8"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
         </Grid.Resources>
         <Pivot Title="Чыгунка">
             <PivotItem Header="Поиск">
                 <Grid>
-                    <GridView Background="#FF171717"
-                              Height="100"
-                              VerticalAlignment="Top">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Приложение принесет вам массу удовольствия, не забывайте оставлять ваши отзывы!"
-                                       TextWrapping="Wrap"
-                                       Width="200"
-                                       HorizontalAlignment="Left"
-                                       Margin="10" />
-                            <Image Source="/Assets/MenuIcon/logo_bch.png"
-                                   Stretch="Fill"
-                                   Height="100"
-                                   Width="142" />
-                        </StackPanel>
-                    </GridView>
-                    <GridView Height="150"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToSearch]"
-                              Margin="0,87,0,208">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="150" />
-                            </Grid.RowDefinitions>
-                            <Grid Grid.Row="0">
-                                <Image x:Name="MainImage"
-                                       Source="/Assets/Model_train.jpg"
-                                       Margin="-100,20,0,-20"
-                                       Stretch="Fill">
-                                    <Image.RenderTransform>
-                                        <CompositeTransform TranslateX="0" />
-                                    </Image.RenderTransform>
-                                </Image>
+                    <StackPanel>
+                        <GridView Background="#FF171717"
+                                  Height="100"
+                                  VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Приложение принесет вам массу удовольствия, не забывайте оставлять ваши отзывы!"
+                                           TextWrapping="Wrap"
+                                           Width="200"
+                                           HorizontalAlignment="Left"
+                                           Margin="10" />
+                                <Image Source="/Assets/MenuIcon/logo_bch.png"
+                                       Stretch="Fill"
+                                       Height="100"
+                                       Width="142" />
+                            </StackPanel>
+                        </GridView>
+                        <GridView Height="150"
+                                  IsItemClickEnabled="True"
+                                  micro:Message.Attach="[Event ItemClick] = [Action GoToSearch]">
+                            <Grid>
+                                <Grid 
+                                      Margin="0,10,0,-10">
+                                    <Image x:Name="MainImage"
+                                           Source="/Assets/MenuIcon/result.jpg"
+                                           Margin="-90,0,0,0"
+                                           Stretch="Fill">
+                                        <Image.RenderTransform>
+                                            <CompositeTransform TranslateX="0" />
+                                        </Image.RenderTransform>
+                                    </Image>
+                                </Grid>
+                                <Grid 
+                                      Margin="0,90,0,0">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="Black"
+                                                         Opacity="0.6" />
+                                    </Grid.Background>
+                                    <TextBlock Style="{StaticResource BoxTitleStyle}"
+                                               Text="Поиск"
+                                               MaxLines="2"
+                                               Foreground="White"
+                                               Margin="5,0,0,0"
+                                               VerticalAlignment="Top" />
+                                </Grid>
                             </Grid>
-                            <Grid Grid.Row="0"
-                                  Margin="0,90,0,0">
-                                <Grid.Background>
-                                    <SolidColorBrush Color="Black"
-                                                     Opacity="0.5" />
-                                </Grid.Background>
-                                <TextBlock Style="{StaticResource BoxTitleStyle}"
-                                           Text="Поиск"
-                                           MaxLines="2"
-                                           Foreground="White"
-                                           Margin="5,0,0,0"
-                                           VerticalAlignment="Top" />
+                        </GridView>
+                        <GridView Height="150"
+                                  IsItemClickEnabled="True"
+                                  micro:Message.Attach="[Event ItemClick] = [Action GoToNews]">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150" />
+                                </Grid.RowDefinitions>
+                                <Grid Grid.Row="0"
+                                      Margin="0,10,0,-10">
+                                    <Image x:Name="MainImage1"
+                                           Source="/Assets/MenuIcon/logo_tile2.jpg"
+                                           Margin="0,0,-100,0"
+                                           Stretch="Fill">
+                                        <Image.RenderTransform>
+                                            <CompositeTransform TranslateX="0" />
+                                        </Image.RenderTransform>
+                                    </Image>
+                                </Grid>
+                                <Grid Grid.Row="0"
+                                      Margin="0,90,0,0">
+                                    <Grid.Background>
+                                        <SolidColorBrush Color="Black"
+                                                         Opacity="0.6" />
+                                    </Grid.Background>
+                                    <TextBlock Style="{StaticResource BoxTitleStyle}"
+                                               Text="Новости.Фото."
+                                               MaxLines="2"
+                                               Foreground="White"
+                                               Margin="5,0,0,0"
+                                               VerticalAlignment="Top" />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </GridView>
+                        </GridView>
+                    </StackPanel>
                 </Grid>
             </PivotItem>
             <PivotItem Header="Последний">
