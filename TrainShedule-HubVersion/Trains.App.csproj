@@ -143,10 +143,12 @@
     <Content Include="Assets\HubBackground.theme-dark.png" />
     <Content Include="Assets\HubBackground.theme-light.png" />
     <Content Include="Assets\Logo.scale-240.png" />
+    <Content Include="Assets\BR.png" />
     <Content Include="Assets\MenuIcon\GE.png" />
     <Content Include="Assets\MenuIcon\IL.png" />
     <Content Include="Assets\MenuIcon\Immidiate.png" />
     <Content Include="Assets\MenuIcon\IRLB_IRLE.png" />
+    <Content Include="Assets\MenuIcon\logo_bch.png" />
     <Content Include="Assets\MenuIcon\NatsA.png" />
     <Content Include="Assets\MenuIcon\RLB_RLE.png" />
     <Content Include="Assets\Interregional_econom.png" />

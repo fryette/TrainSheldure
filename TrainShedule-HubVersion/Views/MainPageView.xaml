@@ -24,42 +24,56 @@
         </Grid.Resources>
         <Pivot Title="Чыгунка">
             <PivotItem Header="Поиск">
-                <GridView Height="200"
-                          IsItemClickEnabled="True"
-                          VerticalAlignment="Top"
-                          micro:Message.Attach="[Event ItemClick] = [Action GoToSearch]">
-                    <Grid Height="200"
-                          Margin="1">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="190" />
-                        </Grid.RowDefinitions>
-                        <Grid Grid.Row="0"
-                              Width="Auto"
-                              Height="Auto">
-                            <Image x:Name="MainImage"
-                                   Source="/Assets/Model_train.jpg"
-                                   Margin="-100,0,0,0"
-                                   Stretch="Fill">
-                                <Image.RenderTransform>
-                                    <CompositeTransform TranslateX="0" />
-                                </Image.RenderTransform>
-                            </Image>
+                <Grid>
+                    <GridView Background="#FF171717"
+                              Height="100"
+                              VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Приложение принесет вам массу удовольствия, не забывайте оставлять ваши отзывы!"
+                                       TextWrapping="Wrap"
+                                       Width="200"
+                                       HorizontalAlignment="Left"
+                                       Margin="10" />
+                            <Image Source="/Assets/MenuIcon/logo_bch.png"
+                                   Stretch="Fill"
+                                   Height="100"
+                                   Width="142" />
+                        </StackPanel>
+                    </GridView>
+                    <GridView Height="150"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToSearch]"
+                              Margin="0,87,0,208">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="150" />
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Image x:Name="MainImage"
+                                       Source="/Assets/Model_train.jpg"
+                                       Margin="-100,20,0,-20"
+                                       Stretch="Fill">
+                                    <Image.RenderTransform>
+                                        <CompositeTransform TranslateX="0" />
+                                    </Image.RenderTransform>
+                                </Image>
+                            </Grid>
+                            <Grid Grid.Row="0"
+                                  Margin="0,90,0,0">
+                                <Grid.Background>
+                                    <SolidColorBrush Color="Black"
+                                                     Opacity="0.5" />
+                                </Grid.Background>
+                                <TextBlock Style="{StaticResource BoxTitleStyle}"
+                                           Text="Поиск"
+                                           MaxLines="2"
+                                           Foreground="White"
+                                           Margin="5,0,0,0"
+                                           VerticalAlignment="Top" />
+                            </Grid>
                         </Grid>
-                        <Grid Grid.Row="0"
-                              Margin="0,150,0,0">
-                            <Grid.Background>
-                                <SolidColorBrush Color="Black"
-                                                 Opacity="0.6" />
-                            </Grid.Background>
-                            <TextBlock Style="{StaticResource BoxTitleStyle}"
-                                       Text="Поиск"
-                                       MaxLines="2"
-                                       VerticalAlignment="Top"
-                                       Foreground="White"
-                                       Margin="5,0,0,0" />
-                        </Grid>
-                    </Grid>
-                </GridView>
+                    </GridView>
+                </Grid>
             </PivotItem>
             <PivotItem Header="Последний">
                 <Grid>

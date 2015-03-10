@@ -45,7 +45,7 @@ namespace Trains.App.ViewModels
             SavedItems.LastRequests = await _serializable.GetLastRequests("lastRequests");
             SavedItems.FavoriteRequests = await _serializable.GetLastRequests("favoriteRequests");
             SavedItems.AutoCompletion = await _search.GetCountryStopPoint();
-            await Task.Delay(TimeSpan.FromSeconds(3));
+            //await Task.Delay(TimeSpan.FromSeconds(3));
             _navigationService.NavigateToViewModel<MainPageViewModel>();
             
         }
