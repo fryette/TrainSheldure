@@ -9,5 +9,8 @@
 
     <Grid Background="#FF192856">
         <Image Source="/Assets/Ikonka3.png"></Image>
+        <ProgressBar  Value="{Binding Progress}"
+                      VerticalAlignment="Bottom"
+                      Margin="0,0,0,100" />
     </Grid>
 </Page>

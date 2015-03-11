@@ -140,7 +140,7 @@ namespace Trains.App.ViewModels
             };
 
             //generate mail object
-            var mail = new EmailMessage {Subject = "this is the Subject", Body = "this is the Body"};
+            var mail = new EmailMessage {Subject = "Чыгунка/предложения/баги", Body = ""};
 
             //add recipients to the mail object
             mail.To.Add(sendTo);
@@ -155,6 +155,11 @@ namespace Trains.App.ViewModels
         {
             var uri = new Uri("ms-windows-store:reviewapp?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e");
             await Launcher.LaunchUriAsync(uri);
+        }
+
+        private async void GoToAboutPage()
+        {
+            _navigationService.NavigateToViewModel<AboutPageViewModel>();
         }
         #endregion
     }

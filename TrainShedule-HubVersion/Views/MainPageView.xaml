@@ -149,7 +149,8 @@
                                 <StackPanel Background="OrangeRed"
                                             Margin="5,0,0,0"
                                             Width="300">
-                                    <StackPanel VerticalAlignment="Center">
+                                    <StackPanel VerticalAlignment="Center"
+                                                Margin="5,0,0,0">
                                         <TextBlock Text="Оценить приложение"
                                                    FontSize="24"
                                                    FontWeight="Bold"></TextBlock>
@@ -170,7 +171,8 @@
                                 <StackPanel Background="OrangeRed"
                                             Margin="5,0,0,0"
                                             Width="300">
-                                    <StackPanel VerticalAlignment="Center">
+                                    <StackPanel VerticalAlignment="Center"
+                                                Margin="5,0,0,0">
                                         <TextBlock Text="Баги/Сотрудничество"
                                                    FontSize="24"
                                                    FontWeight="Bold"></TextBlock>
@@ -178,7 +180,8 @@
                                 </StackPanel>
                             </StackPanel>
                         </GridView>
-                        <GridView>
+                        <GridView IsItemClickEnabled="True"
+                                  micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]">
                             <StackPanel Orientation="Horizontal"
                                         Width="352">
                                 <StackPanel Background="OrangeRed">
@@ -189,8 +192,9 @@
                                 <StackPanel Background="OrangeRed"
                                             Margin="5,0,0,0"
                                             Width="300">
-                                    <StackPanel VerticalAlignment="Center">
-                                        <TextBlock Text="Оценить приложение"
+                                    <StackPanel VerticalAlignment="Center"
+                                                Margin="5,0,0,0">
+                                        <TextBlock Text="О приложении"
                                                    FontSize="24"
                                                    FontWeight="Bold"></TextBlock>
                                     </StackPanel>
@@ -222,9 +226,6 @@
 
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Список"
-                          Icon="Favorite"
-                          micro:Message.Attach="[Event Click] = [Action GoToFavoriteList]" />
             <AppBarButton Label="Справка"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
