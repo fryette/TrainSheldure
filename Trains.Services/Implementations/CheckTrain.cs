@@ -13,7 +13,7 @@ namespace Trains.Services.Implementations
         private const string DateTooBig = "Поиск может производится только за 45 дней от текущего момента или используйте режим \"На все дни\"";
         private const string IncorrectInput = "Один или оба пункта не существует, проверьте еще раз ввод";
         private const string ConectionError = "Проверьте подключение к интернету";
-
+        private const string Everyday = "everyday";
 
         public async void ShowMessageBox(string message)
         {
@@ -23,7 +23,7 @@ namespace Trains.Services.Implementations
 
         public string GetDate(DateTimeOffset datum, string selectedVariantOfSearch)
         {
-            if (selectedVariantOfSearch == "everyday") return "everyday";
+            if (selectedVariantOfSearch == Everyday) return Everyday;
             return datum.Date.Year + "-" + datum.Date.Month + "-" + datum.Date.Day;
         }
 

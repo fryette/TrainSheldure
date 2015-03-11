@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
-using Windows.UI.Popups;
 using Caliburn.Micro;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
-using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
 
 namespace Trains.App.ViewModels
@@ -19,6 +16,13 @@ namespace Trains.App.ViewModels
         #region constant
 
         private const string SearchError = "Поезда на дату отправления не найдены";
+        private const string ThisRouteIsPresent = "Данный маршрут уже присутствует";
+        private const string OneOrMoreStopPointIsInCorrect = "Одна или обе станции не введены";
+        private const string FavoriteString = "favoriteRequests";
+        private const string StantionIsAddedToFavorite = "Станция добавлена!";
+        private const string FavoriteListIsEmpthy = "Ваш список пуст";
+        private const string StantionIsDeletedInFavorite = "Станция удалена!";
+        private const string RouteIsIncorect = "Маршрут не найден,проверьте поля ввода станций!";
 
         #endregion
 
@@ -54,6 +58,7 @@ namespace Trains.App.ViewModels
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="search">Used to search train schedule.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
+        /// <param name="checkTrain">Used to CHeck</param>
         public ItemPageViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain)
         {
             _navigationService = navigationService;
@@ -283,6 +288,9 @@ namespace Trains.App.ViewModels
                 _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
         }
 
+        /// <summary>
+        /// TODO
+        /// </summary>
         private void Swap()
         {
             var tmp = From;
@@ -323,14 +331,18 @@ namespace Trains.App.ViewModels
         private async void AddToFavorite()
         {
             if (FavoriteRequests == null) FavoriteRequests = new List<LastRequest>();
-            if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To)) { _checkTrain.ShowMessageBox("Одна или обе станции не введены"); return; }
-            if (FavoriteRequests.Any(x => x.From == From && x.To == To)) _checkTrain.ShowMessageBox("Данный маршрут уже присутствует");
+            if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To))
+            {
+                _checkTrain.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
+                return;
+            }
+            if (FavoriteRequests.Any(x => x.From == From && x.To == To)) _checkTrain.ShowMessageBox(ThisRouteIsPresent);
             else
             {
                 FavoriteRequests.Add(new LastRequest { From = From, To = To });
                 SavedItems.FavoriteRequests = FavoriteRequests;
-                await Serialize.SaveObjectToXml(FavoriteRequests, "favoriteRequests");
-                _checkTrain.ShowMessageBox("Станция добавлена!");
+                await Serialize.SaveObjectToXml(FavoriteRequests, FavoriteString);
+                _checkTrain.ShowMessageBox(StantionIsAddedToFavorite);
                 SetVisibilityToFavoriteIcons(false, true);
             }
         }
@@ -342,7 +354,7 @@ namespace Trains.App.ViewModels
         {
             if (FavoriteRequests == null)
             {
-                _checkTrain.ShowMessageBox("Ваш список пуст");
+                _checkTrain.ShowMessageBox(FavoriteListIsEmpthy);
                 return;
             }
             var objectToDelete = FavoriteRequests.FirstOrDefault(x => x.From == From && x.To == To);
@@ -350,12 +362,12 @@ namespace Trains.App.ViewModels
             {
                 FavoriteRequests.Remove(objectToDelete);
                 SavedItems.FavoriteRequests = FavoriteRequests;
-                _serializable.SerializeObjectToXml(LastRequests, "favoriteRequests");
-                _checkTrain.ShowMessageBox("Станция удалена!");
+                _serializable.SerializeObjectToXml(LastRequests, FavoriteString);
+                _checkTrain.ShowMessageBox(StantionIsDeletedInFavorite);
                 SetVisibilityToFavoriteIcons(true, false);
             }
             else
-                _checkTrain.ShowMessageBox("Маршрут не найден,попробуйте сначало добавить!");
+                _checkTrain.ShowMessageBox(RouteIsIncorect);
         }
 
         /// <summary>
