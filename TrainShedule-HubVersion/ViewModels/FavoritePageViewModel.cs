@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
@@ -23,8 +24,8 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Object are stored custom routes.
         /// </summary>
-        private IEnumerable<LastRequest> _favoriteRequests;
-        public IEnumerable<LastRequest> FavoriteRequests
+        private List<LastRequest> _favoriteRequests;
+        public List<LastRequest> FavoriteRequests
         {
             get { return _favoriteRequests; }
             set
@@ -60,7 +61,9 @@ namespace Trains.App.ViewModels
         /// This parameter is used to transmit the search page trains.</param>
         private void SelectItem(LastRequest item)
         {
-            _navigationService.NavigateToViewModel<ItemPageViewModel>(new LastRequest { From = item.From, To = item.To });
+            item.IsCanBeDeleted = !item.IsCanBeDeleted;
+            //TODO remove and ask how create NotifyChangeProp
+            FavoriteRequests = FavoriteRequests.Select(x => x).ToList();
         }
 
         /// <summary>
@@ -68,8 +71,13 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void DeleteAllFavorite()
         {
-            _serializable.DeleteFile("favoriteRequests");
-            _navigationService.NavigateToViewModel<ItemPageViewModel>();
+            foreach (var lastRequest in FavoriteRequests.Where(x => x.IsCanBeDeleted))
+            {
+                SavedItems.FavoriteRequests.Remove(lastRequest);
+            }
+            FavoriteRequests = SavedItems.FavoriteRequests;
+            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, "favoriteRequests");
+            //_navigationService.NavigateToViewModel<ItemPageViewModel>();
         }
     }
 }

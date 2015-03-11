@@ -157,7 +157,7 @@ namespace Trains.App.ViewModels
             await Launcher.LaunchUriAsync(uri);
         }
 
-        private async void GoToAboutPage()
+        private void GoToAboutPage()
         {
             _navigationService.NavigateToViewModel<AboutPageViewModel>();
         }

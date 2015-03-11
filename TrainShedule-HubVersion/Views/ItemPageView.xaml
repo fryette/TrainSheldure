@@ -87,7 +87,7 @@
         <CommandBar>
             <AppBarButton Label="Список"
                           Icon="Bookmarks"
-                          micro:Message.Attach="[Event Click] = [Action GoToFavoriteList]" />
+                          micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
             <AppBarButton Label="Запомнить"
                           Icon="Favorite"
                           Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"

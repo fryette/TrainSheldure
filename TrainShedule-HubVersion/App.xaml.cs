@@ -75,6 +75,7 @@ namespace Trains.App
             if (frame == null) return;
             if (!frame.CanGoBack) return;
             frame.GoBack();
+            if (frame.CurrentSourcePageType == typeof(SplashScreenPageView)) return;
             e.Handled = true;
         }
     }

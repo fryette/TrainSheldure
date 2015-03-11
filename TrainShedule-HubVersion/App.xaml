@@ -1,10 +1,7 @@
 ﻿<micro:CaliburnApplication x:Class="Trains.App.App"
                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                           xmlns:micro="using:Caliburn.Micro"
-                           xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-                           xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-                           xmlns:infrastructure="using:Trains.Infrastructure.Infrastructure">
+                           xmlns:micro="using:Caliburn.Micro">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
@@ -32,6 +29,7 @@
             <Color x:Key="BoxBackgroundColor">#132037</Color>
             <Color x:Key="BoxForegroundColor">#d2ddf0</Color>
             <Color x:Key="TitleForegroundColor">#ffffff</Color>
+            <micro:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
             <Style x:Key="BasedTextBlockStyle"
                    TargetType="TextBlock">
@@ -291,17 +289,6 @@
                             MinHeight="40"
                             Background="{StaticResource OrangeColorBrush}"
                             Margin="5,0,5,5">
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="Holding">
-                            <infrastructure:OpenMenuFlyoutAction />
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                    <FlyoutBase.AttachedFlyout>
-                        <MenuFlyout>
-                            <MenuFlyoutItem Text="Delete"
-                                            Command="{Binding ElementName=FavoriteRequests, Path=DataContext.SelectItem}" />
-                        </MenuFlyout>
-                    </FlyoutBase.AttachedFlyout>
                     <TextBlock Text="{Binding From}"
                                Margin="5,0"
                                Style="{StaticResource BasedTextBlockStyle}" />
@@ -310,6 +297,31 @@
                                Style="{StaticResource BasedTextBlockStyle}" />
                     <TextBlock Text="{Binding To}"
                                Style="{StaticResource BasedTextBlockStyle}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="EditFavoriteRequestTemplate">
+                <StackPanel Orientation="Horizontal"
+                            MinWidth="400"
+                            MinHeight="60"
+                            Background="{StaticResource OrangeColorBrush}"
+                            Margin="0,0,0,5">
+                    <StackPanel Width="37"
+                                Visibility="{Binding IsCanBeDeleted,Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <CheckBox IsChecked="True"
+                                  Margin="5,0" />
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding From}"
+                                       FontSize="20"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                            <TextBlock Text="-"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                            <TextBlock Text="{Binding To}"
+                                       FontSize="20"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                        </StackPanel>
+                    </StackPanel>
                 </StackPanel>
             </DataTemplate>
         </ResourceDictionary>
