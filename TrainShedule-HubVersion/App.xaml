@@ -175,12 +175,6 @@
                     </StackPanel>
                 </StackPanel>
             </DataTemplate>
-            <DataTemplate x:Key="Standard200X180TileItemTemplate">
-                <Image Source="{Binding ImagePath}"
-                       Height="138.5"
-                       Width="138.5"
-                       Margin="5,5" />
-            </DataTemplate>
             <DataTemplate x:Key="HelpTemplate">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{Binding ImagePath}"
@@ -317,53 +311,6 @@
                     <TextBlock Text="{Binding To}"
                                Style="{StaticResource BasedTextBlockStyle}" />
                 </StackPanel>
-            </DataTemplate>
-            <DataTemplate x:Key="CatalogItem">
-                <Grid Margin="0,0,0,10"
-                      Height="220">
-                    <Grid.Background>
-                        <ImageBrush ImageSource="{Binding ImagePath}"
-                                    Stretch="UniformToFill"
-                                    AlignmentX="Center"
-                                    AlignmentY="Center" />
-                    </Grid.Background>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="1">
-                        <Image x:Name="MainImage"
-                               Source="/Assets/Model_train.jpg"
-                               Margin="-100,0,0,0">
-                            <Image.RenderTransform>
-                                <CompositeTransform TranslateX="0" />
-                            </Image.RenderTransform>
-                        </Image>
-                        <Rectangle Width="900"
-                                   Height="0" />
-                        <Grid Margin="12,5,12,5">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Grid.Row="0"
-                                       Style="{StaticResource BoxTitleStyle}"
-                                       Text="Поиск"
-                                       MaxLines="2" />
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </DataTemplate>
-            <DataTemplate x:Key="CatalogList">
-                <Grid>
-                    <ListView ItemsSource="{Binding Items}"
-                              SelectionMode="None"
-                              IsSwipeEnabled="False"
-                              IsItemClickEnabled="True"
-                              ScrollViewer.VerticalScrollBarVisibility="Hidden"
-                              ItemTemplate="{StaticResource CatalogItem}">
-                    </ListView>
-                </Grid>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
