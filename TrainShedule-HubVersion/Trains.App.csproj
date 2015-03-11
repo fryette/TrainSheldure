@@ -142,6 +142,7 @@
     <Content Include="Assets\Cityes.png" />
     <Content Include="Assets\appbar.refresh.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="Assets\Foreign_Trains.png" />
     <Content Include="Assets\Ikonka3.png" />
     <Content Include="Assets\Inteneshnl.png" />
     <Content Include="Assets\IRLB.png" />
@@ -166,7 +167,6 @@
     <Content Include="Assets\Regional_biznes.png" />
     <Content Include="Assets\Regional_econom.png" />
     <Content Include="Assets\Model_train.jpg" />
-    <Content Include="Assets\Rhombus.png" />
     <Content Include="Assets\RLB.png" />
     <Content Include="Assets\RLE.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
@@ -192,8 +192,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\FavoritePageView.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\HelpPageView.xaml">
       <SubType>Designer</SubType>

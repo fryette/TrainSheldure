@@ -14,7 +14,7 @@ namespace Trains.App.ViewModels
         /// Used to navigate between pages.
         /// </summary>
         private readonly INavigationService _navigationService;
-        
+
         /// <summary>
         /// Used to serialization/deserialization objects.
         /// </summary>

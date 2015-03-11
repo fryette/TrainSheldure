@@ -9,12 +9,11 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Default">
-                    <ImageBrush x:Key="HubBackgroundImageBrush"
-                                ImageSource="Assets/HubBackground.png" />
-                </ResourceDictionary>
-                <ResourceDictionary x:Key="HighContrast">
-                    <ImageBrush x:Key="HubBackgroundImageBrush"
-                                ImageSource="{x:Null}" />
+                    <SolidColorBrush x:Key="PivotHeaderForegroundUnselectedBrush"
+                                     Color="White" />
+                    <SolidColorBrush x:Key="PivotHeaderForegroundSelectedBrush"
+                                     Color="#FF00B5D0" />
+                    <x:Double x:Key="PivotHeaderItemFontSize">33</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
 

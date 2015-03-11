@@ -223,7 +223,7 @@
             </PivotItem>
         </Pivot>
     </Grid>
-
+    
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Label="Справка"

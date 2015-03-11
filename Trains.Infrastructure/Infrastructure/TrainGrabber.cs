@@ -94,7 +94,7 @@ namespace Trains.Infrastructure.Infrastructure
             for (var i = 0; i < parameters.Count; i += 4)
             {
                 trainList.Add(CreateTrain(date + " " + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
-                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " ")));
+                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, ""), null, "/Assets/Foreign_Trains.png"));
             }
             return trainList;
         }
