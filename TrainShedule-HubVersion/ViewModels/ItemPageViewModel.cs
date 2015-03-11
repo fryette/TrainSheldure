@@ -283,6 +283,13 @@ namespace Trains.App.ViewModels
                 _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
         }
 
+        private void Swap()
+        {
+            var tmp = From;
+            From = To;
+            To = tmp;
+        }
+
         /// <summary>
         /// Sets the user-selected route.
         /// </summary>

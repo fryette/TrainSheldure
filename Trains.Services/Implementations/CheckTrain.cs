@@ -21,13 +21,6 @@ namespace Trains.Services.Implementations
             await dialog.ShowAsync();
         }
 
-        public void Swap(ref string from, ref string to)
-        {
-            var tmp = from;
-            from = to;
-            to = tmp;
-        }
-
         public string GetDate(DateTimeOffset datum, string selectedVariantOfSearch)
         {
             if (selectedVariantOfSearch == "everyday") return "everyday";
