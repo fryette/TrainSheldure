@@ -48,10 +48,12 @@
     <Compile Include="Implementations\LastRequestTrain.cs" />
     <Compile Include="Implementations\Search.cs" />
     <Compile Include="Implementations\Serializable.cs" />
+    <Compile Include="Implementations\CheckTrain.cs" />
     <Compile Include="Implementations\TrainStop.cs" />
     <Compile Include="Interfaces\ILastRequestTrainService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
+    <Compile Include="Interfaces\ICheckTrainService.cs" />
     <Compile Include="Interfaces\ITrainStopService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

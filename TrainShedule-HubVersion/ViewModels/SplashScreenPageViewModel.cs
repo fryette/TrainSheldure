@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using Windows.ApplicationModel.Core;
-using Windows.Foundation;
+﻿using Windows.ApplicationModel.Core;
 using Windows.System.Threading;
 using Windows.UI.Core;
 using Caliburn.Micro;
@@ -17,11 +13,6 @@ namespace Trains.App.ViewModels
         /// Used to navigate between pages.
         /// </summary>
         private readonly INavigationService _navigationService;
-
-        /// <summary>
-        /// Used to start work with ThreadPool.
-        /// </summary>
-        private IAsyncAction _mWorkItem;
 
         /// <summary>
         /// For progress reporting.
@@ -74,21 +65,15 @@ namespace Trains.App.ViewModels
             var asyncAction = ThreadPool.RunAsync(async workItem =>
             {
                 SavedItems.LastRequests = await _serializable.GetLastRequests("lastRequests");
-                Progress += 20;
+                Progress += 33;
                 SavedItems.FavoriteRequests = await _serializable.GetLastRequests("favoriteRequests");
-                Progress += 20;
+                Progress += 33;
                 SavedItems.AutoCompletion = await _search.GetCountryStopPoint();
-                Progress += 20;
+                Progress += 33;
             });
-            _mWorkItem = asyncAction;
 
-            asyncAction.Completed = async (asyncInfo, asyncStatus) =>
-            {
-                await Task.Delay(TimeSpan.FromSeconds(1));
-                Progress += 40;
-                CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () => 
-                    _navigationService.NavigateToViewModel<MainPageViewModel>());
-            };
+            asyncAction.Completed = (asyncInfo, asyncStatus) => CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () => 
+                _navigationService.NavigateToViewModel<MainPageViewModel>());
         }
     }
 }

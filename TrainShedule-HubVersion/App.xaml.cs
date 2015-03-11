@@ -32,6 +32,7 @@ namespace Trains.App
             _container.Singleton<ISearchService, Search>();
             _container.Singleton<ISerializableService, Serializable>();
             _container.Singleton<ITrainStopService, TrainStop>();
+            _container.Singleton<ICheckTrainService, CheckTrain>();
 
             _container.PerRequest<AboutPageViewModel>();
             _container.PerRequest<SplashScreenPageViewModel>();
