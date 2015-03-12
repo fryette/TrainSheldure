@@ -8,15 +8,26 @@
       xmlns:viewModels1="using:Trains.App.ViewModels"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       d:DataContext="{d:DesignInstance viewModels1:InformationPageViewModel}">
-    
+
     <Grid>
-        <ListView ItemsSource="{Binding AdditionalInformation}"
-                  Margin="5,0"
-                  ItemTemplate="{StaticResource InformationTemplate}">
-        </ListView>
-        <ProgressBar IsIndeterminate="True"
-                     VerticalAlignment="Top"
-                     Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Row="0">
+            <TextBlock x:Uid="InformationHeader"
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
+        </Grid>
+        <Grid Row="1">
+            <ListView ItemsSource="{Binding AdditionalInformation}"
+                      Margin="5,0"
+                      ItemTemplate="{StaticResource InformationTemplate}">
+            </ListView>
+            <ProgressBar IsIndeterminate="True"
+                         VerticalAlignment="Top"
+                         Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>

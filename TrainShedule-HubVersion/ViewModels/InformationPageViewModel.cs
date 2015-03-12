@@ -12,8 +12,13 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class InformationPageViewModel : Screen
     {
+        #region constant
+        
         private const string InternetConnectionError = "Доступ к интернету отсутствует,проверьте подключение!";
 
+        #endregion
+
+        #region readonlyProperties
         /// <summary>
         /// Used to navigate between pages.
         /// </summary>
@@ -23,13 +28,9 @@ namespace Trains.App.ViewModels
         /// </summary>
         private readonly ITrainStopService _trainStop;
 
-        /// <summary>
-        /// User-selected train.
-        /// </summary>
-        public Train Parameter { get; set; }
+        #endregion
 
-        private static Train SavedLasTrainInformations { get; set; }
-
+        #region constructor
         /// <summary>
         /// Constructor
         /// </summary>
@@ -41,7 +42,21 @@ namespace Trains.App.ViewModels
             _trainStop = trainStop;
         }
 
+        #endregion
+
         #region properties
+
+        /// <summary>
+        /// User-selected train.
+        /// </summary>
+        public Train Parameter { get; set; }
+
+        /// <summary>
+        /// User-selected train.
+        /// Used to save train if user whant to search TrainStops
+        /// </summary>        
+        private static Train SavedLasTrainInformations { get; set; }
+
         /// <summary>
         /// Used to dispalying informations about the seats and their prices.
         /// </summary>
@@ -69,6 +84,7 @@ namespace Trains.App.ViewModels
                 NotifyOfPropertyChange(() => IsTaskRun);
             }
         }
+
         #endregion
 
         #region action

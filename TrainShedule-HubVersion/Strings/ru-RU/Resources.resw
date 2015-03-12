@@ -144,6 +144,9 @@
   <data name="HelpHeader.Text" xml:space="preserve">
     <value>Доп. Информация</value>
   </data>
+  <data name="InformationHeader.Text" xml:space="preserve">
+    <value>Места/цены</value>
+  </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Последние запросы</value>
   </data>
