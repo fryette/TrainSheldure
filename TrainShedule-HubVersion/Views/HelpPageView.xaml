@@ -14,9 +14,7 @@
         </Grid.RowDefinitions>
         <Grid Row="0">
             <TextBlock x:Uid="HeaderHelpPage"
-                       FontSize="{StaticResource HeaderFontSize}"
-                       Style="{ThemeResource HeaderTextBlockStyle}"
-                       HorizontalAlignment="Center" />
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">
             <ListView ItemsSource="{Binding Menu}"

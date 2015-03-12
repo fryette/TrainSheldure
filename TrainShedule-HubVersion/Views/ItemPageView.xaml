@@ -20,7 +20,6 @@
                          Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
             <StackPanel HorizontalAlignment="Center">
                 <TextBlock x:Uid="SearchTextBlock"
-                           FontSize="{StaticResource HeaderFontSize}"
                            Style="{ThemeResource HeaderTextBlockStyle}" />
             </StackPanel>
         </Grid>

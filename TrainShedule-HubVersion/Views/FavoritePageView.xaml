@@ -16,9 +16,7 @@
         </Grid.RowDefinitions>
         <Grid Row="0">
             <TextBlock x:Uid="EditHeaderFavorite"
-                       FontSize="{StaticResource HeaderFontSize}"
-                       Style="{ThemeResource HeaderTextBlockStyle}"
-                       HorizontalAlignment="Center" />
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">
             <ListView x:Name="FavoriteRequests"

@@ -127,6 +127,17 @@
                 <Setter Property="Foreground"
                         Value="{StaticResource BoxForegroundColor}" />
             </Style>
+            <Style TargetType="TextBlock"
+                   x:Key="HeaderTextBlockStyle">
+                <Setter Property="FontSize"
+                        Value="{StaticResource HeaderFontSize}" />
+                <Setter Property="FontWeight"
+                        Value="Medium" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+
+
+            </Style>
 
             <DataTemplate x:Key="ScheduleTemplate">
                 <StackPanel Orientation="Horizontal"

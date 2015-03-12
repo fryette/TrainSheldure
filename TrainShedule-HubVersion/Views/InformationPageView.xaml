@@ -6,12 +6,9 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       xmlns:viewModels1="using:Trains.App.ViewModels"
-      xmlns:converter="using:Trains.App.Converter"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
       d:DataContext="{d:DesignInstance viewModels1:InformationPageViewModel}">
-    <Page.Resources>
-        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </Page.Resources>
+    
     <Grid>
         <ListView ItemsSource="{Binding AdditionalInformation}"
                   Margin="5,0"
@@ -26,6 +23,6 @@
             <AppBarButton Label="Остановки"
                           Icon="Bookmarks"
                           micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
-                </CommandBar>
+        </CommandBar>
     </Page.BottomAppBar>
 </Page>
