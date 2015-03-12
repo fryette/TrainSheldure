@@ -400,11 +400,6 @@ namespace Trains.App.ViewModels
             IsVisibleFavoriteIcon = favorite;
             IsVisibleUnFavoriteIcon = unfavorite;
         }
-
-        private void GoToFavorite()
-        {
-            _navigationService.NavigateToViewModel<FavoritePageViewModel>();
-        }
         #endregion
     }
 }

@@ -122,6 +122,14 @@ namespace Trains.App.ViewModels
         }
 
         /// <summary>
+        /// Used to manage user-saved routes.
+        /// </summary>
+        private void GoToFavorite()
+        {
+            _navigationService.NavigateToViewModel<FavoritePageViewModel>();
+        }
+
+        /// <summary>
         /// Invoked when the user pressed on ListBoxItem.
         /// </summary>
         /// <param name="item">Data that describes route.
@@ -131,6 +139,9 @@ namespace Trains.App.ViewModels
             _navigationService.NavigateToViewModel<ItemPageViewModel>(new LastRequest { From = item.From, To = item.To });
         }
 
+        /// <summary>
+        /// Used to sent email to sampir.fiesta@gmail.com,or whant retain a comment about this App.
+        /// </summary>
         private async void SentEmail()
         {
             //predefine Recipient
@@ -140,27 +151,31 @@ namespace Trains.App.ViewModels
             };
 
             //generate mail object
-            var mail = new EmailMessage {Subject = "Чыгунка/предложения/баги", Body = ""};
+            var mail = new EmailMessage {Subject = "Чыгунка/предложения/баги"};
 
             //add recipients to the mail object
             mail.To.Add(sendTo);
-            //mail.Bcc.Add(sendTo);
-            //mail.CC.Add(sendTo);
 
-            //open the share contract with Mail only:
             await EmailManager.ShowComposeNewEmailAsync(mail);
         }
 
+        /// <summary>
+        /// Used to evaluate the application in the Windows phone store.
+        /// </summary>
         private async void GoToMarketPlace()
         {
             var uri = new Uri("ms-windows-store:reviewapp?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e");
             await Launcher.LaunchUriAsync(uri);
         }
 
+        /// <summary>
+        /// Used to read information about this application.
+        /// </summary>
         private void GoToAboutPage()
         {
             _navigationService.NavigateToViewModel<AboutPageViewModel>();
         }
+
         #endregion
     }
 }

@@ -85,9 +85,6 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Список"
-                          Icon="Bookmarks"
-                          micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
             <AppBarButton Label="Запомнить"
                           Icon="Favorite"
                           Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
@@ -95,8 +92,8 @@
             <AppBarButton Label="Удалить"
                           Icon="UnFavorite"
                           Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]"/>
-                <AppBarButton Label="Обмен"
+                          micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]" />
+            <AppBarButton Label="Обмен"
                           Icon="Sort"
                           micro:Message.Attach="[Event Click] = [Action Swap]" />
             <AppBarButton Label="Справка"
