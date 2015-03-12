@@ -1,8 +1,8 @@
 ﻿namespace Trains.App.Views
 {
-    public sealed partial class MainPageView
+    public sealed partial class MainView
     {
-        public MainPageView()
+        public MainView()
         {
             InitializeComponent();
             MyStoryboard.Begin();

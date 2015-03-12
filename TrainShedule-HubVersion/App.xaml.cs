@@ -34,15 +34,15 @@ namespace Trains.App
             _container.Singleton<ITrainStopService, TrainStop>();
             _container.Singleton<ICheckTrainService, CheckTrain>();
 
-            _container.PerRequest<AboutPageViewModel>();
-            _container.PerRequest<SplashScreenPageViewModel>();
-            _container.PerRequest<HelpPageViewModel>();
-            _container.PerRequest<EditFavoriteRoutesPageViewModel>();
-            _container.PerRequest<StopPointPageViewModel>();
-            _container.PerRequest<SchedulePageViewModel>();
-            _container.PerRequest<InformationPageViewModel>();
-            _container.PerRequest<ItemPageViewModel>();
-            _container.PerRequest<MainPageViewModel>();
+            _container.PerRequest<AboutViewModel>();
+            _container.PerRequest<SplashScreenViewModel>();
+            _container.PerRequest<HelpViewModel>();
+            _container.PerRequest<EditFavoriteRoutesViewModel>();
+            _container.PerRequest<StopPointViewModel>();
+            _container.PerRequest<ScheduleViewModel>();
+            _container.PerRequest<InformationViewModel>();
+            _container.PerRequest<ItemViewModel>();
+            _container.PerRequest<MainViewModel>();
         }
 
         protected override void PrepareViewFirst(Frame rootFrame)
@@ -52,7 +52,7 @@ namespace Trains.App
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            DisplayRootView<SplashScreenPageView>();
+            DisplayRootView<SplashScreenView>();
         }
 
         protected override object GetInstance(Type service, string key)
@@ -75,7 +75,7 @@ namespace Trains.App
             if (frame == null) return;
             if (!frame.CanGoBack) return;
             frame.GoBack();
-            if (frame.CurrentSourcePageType == typeof(SplashScreenPageView)) return;
+            if (frame.CurrentSourcePageType == typeof(SplashScreenView)) return;
             e.Handled = true;
         }
     }

@@ -9,7 +9,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Shows train schedule.
     /// </summary> 
-    public class SchedulePageViewModel : Screen
+    public class ScheduleViewModel : Screen
     {
         #region properties
         /// <summary>
@@ -32,7 +32,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
-        public SchedulePageViewModel(INavigationService navigationService, ISerializableService serializable)
+        public ScheduleViewModel(INavigationService navigationService, ISerializableService serializable)
         {
             _navigationService = navigationService;
             _serializable = serializable;
@@ -55,7 +55,7 @@ namespace Trains.App.ViewModels
         /// <param name="train">Data that describes user-selected train(prices,seats,stop points and other)</param>
         private void ClickItem(Train train)
         {
-            _navigationService.NavigateToViewModel<InformationPageViewModel>(train);
+            _navigationService.NavigateToViewModel<InformationViewModel>(train);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToHelpPage()
         {
-            _navigationService.NavigateToViewModel<HelpPageViewModel>();
+            _navigationService.NavigateToViewModel<HelpViewModel>();
         }
         #endregion
     }

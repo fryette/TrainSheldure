@@ -1,8 +1,8 @@
 ﻿namespace Trains.App.Views
 {
-    public sealed partial class HelpPageView
+    public sealed partial class EditFavoriteRoutesView
     {
-        public HelpPageView()
+        public EditFavoriteRoutesView()
         {
             InitializeComponent();
         }

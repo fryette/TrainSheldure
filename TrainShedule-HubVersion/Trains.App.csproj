@@ -90,42 +90,42 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Converter\BooleanToIconConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
-    <Compile Include="ViewModels\AboutPageViewModel.cs" />
-    <Compile Include="ViewModels\EditFavoriteRoutesPageViewModel.cs" />
-    <Compile Include="ViewModels\HelpPageViewModel.cs" />
-    <Compile Include="ViewModels\InformationPageViewModel.cs" />
-    <Compile Include="ViewModels\ItemPageViewModel.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
-    <Compile Include="ViewModels\SchedulePageViewModel.cs" />
-    <Compile Include="ViewModels\SplashScreenPageViewModel.cs" />
-    <Compile Include="ViewModels\StopPointPageViewModel.cs" />
-    <Compile Include="Views\AboutPageView.xaml.cs">
-      <DependentUpon>AboutPageView.xaml</DependentUpon>
+    <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\EditFavoriteRoutesViewModel.cs" />
+    <Compile Include="ViewModels\HelpViewModel.cs" />
+    <Compile Include="ViewModels\InformationViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\SplashScreenViewModel.cs" />
+    <Compile Include="ViewModels\StopPointViewModel.cs" />
+    <Compile Include="Views\AboutView.xaml.cs">
+      <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditFavoriteRoutesPageView.xaml.cs">
-      <DependentUpon>EditFavoriteRoutesPageView.xaml</DependentUpon>
+    <Compile Include="Views\EditFavoriteRoutesView.xaml.cs">
+      <DependentUpon>EditFavoriteRoutesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HelpPageView.xaml.cs">
-      <DependentUpon>HelpPageView.xaml</DependentUpon>
+    <Compile Include="Views\HelpView.xaml.cs">
+      <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\InformationPageView.xaml.cs">
-      <DependentUpon>InformationPageView.xaml</DependentUpon>
+    <Compile Include="Views\InformationView.xaml.cs">
+      <DependentUpon>InformationView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\ItemPageView.xaml.cs">
-      <DependentUpon>ItemPageView.xaml</DependentUpon>
+    <Compile Include="Views\ItemView.xaml.cs">
+      <DependentUpon>ItemView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPageView.xaml.cs">
-      <DependentUpon>MainPageView.xaml</DependentUpon>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SchedulePageView.xaml.cs">
-      <DependentUpon>SchedulePageView.xaml</DependentUpon>
+    <Compile Include="Views\ScheduleView.xaml.cs">
+      <DependentUpon>ScheduleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SplashScreenPageView.xaml.cs">
-      <DependentUpon>SplashScreenPageView.xaml</DependentUpon>
+    <Compile Include="Views\SplashScreenView.xaml.cs">
+      <DependentUpon>SplashScreenView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\StopPointPageView.xaml.cs">
-      <DependentUpon>StopPointPageView.xaml</DependentUpon>
+    <Compile Include="Views\StopPointView.xaml.cs">
+      <DependentUpon>StopPointView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -187,39 +187,39 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\AboutPageView.xaml">
+    <Page Include="Views\AboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EditFavoriteRoutesPageView.xaml">
+    <Page Include="Views\EditFavoriteRoutesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\HelpPageView.xaml">
+    <Page Include="Views\HelpView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\InformationPageView.xaml">
+    <Page Include="Views\InformationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ItemPageView.xaml">
+    <Page Include="Views\ItemView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainPageView.xaml">
+    <Page Include="Views\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SchedulePageView.xaml">
+    <Page Include="Views\ScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SplashScreenPageView.xaml">
+    <Page Include="Views\SplashScreenView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\StopPointPageView.xaml">
+    <Page Include="Views\StopPointView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

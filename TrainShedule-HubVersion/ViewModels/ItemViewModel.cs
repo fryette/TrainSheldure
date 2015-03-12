@@ -11,7 +11,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Search trains in the right direction
     /// </summary>
-    public class ItemPageViewModel : Screen
+    public class ItemViewModel : Screen
     {
         #region constant
 
@@ -59,7 +59,7 @@ namespace Trains.App.ViewModels
         /// <param name="search">Used to search train schedule.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
-        public ItemPageViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain)
+        public ItemViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain)
         {
             _navigationService = navigationService;
             _search = search;
@@ -284,7 +284,7 @@ namespace Trains.App.ViewModels
             if (schedule == null || !schedule.Any())
                 _checkTrain.ShowMessageBox(SearchError);
             else
-                _navigationService.NavigateToViewModel<SchedulePageViewModel>(schedule);
+                _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
         }
 
         /// <summary>
@@ -375,7 +375,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToHelpPage()
         {
-            _navigationService.NavigateToViewModel<HelpPageViewModel>();
+            _navigationService.NavigateToViewModel<HelpViewModel>();
         }
 
         /// <summary>

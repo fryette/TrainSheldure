@@ -8,7 +8,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Used to dispalying informations about belarussian railway icons.
     /// </summary>
-    public class HelpPageViewModel : Screen
+    public class HelpViewModel : Screen
     {
 
         #region properties

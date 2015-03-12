@@ -12,7 +12,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Model by start page
     /// </summary>
-    public class MainPageViewModel : Screen
+    public class MainViewModel : Screen
     {
         #region readonlyProperties
         /// <summary>
@@ -34,7 +34,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="lastRequestTrainService">Used to search deserialize trains from the last request.</param>
-        public MainPageViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService)
+        public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService)
         {
             _navigationService = navigationService;
             _lastRequestTrain = lastRequestTrainService;
@@ -89,7 +89,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToSearch()
         {
-            _navigationService.NavigateToViewModel<ItemPageViewModel>();
+            _navigationService.NavigateToViewModel<ItemViewModel>();
         }
 
         /// <summary>
@@ -98,14 +98,14 @@ namespace Trains.App.ViewModels
         /// <param name="train">Data that describes user-selected train(prices,seats,stop points,and other)</param>
         private void ClickItem(Train train)
         {
-            _navigationService.NavigateToViewModel<InformationPageViewModel>(train);
+            _navigationService.NavigateToViewModel<InformationViewModel>(train);
         }
         /// <summary>
         /// Go to favorite routes page.
         /// </summary>
         private void GoToFavoriteList()
         {
-            _navigationService.NavigateToViewModel<EditFavoriteRoutesPageViewModel>();
+            _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToHelpPage()
         {
-            _navigationService.NavigateToViewModel<HelpPageViewModel>();
+            _navigationService.NavigateToViewModel<HelpViewModel>();
         }
 
         private async void GoToNews()
@@ -126,7 +126,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            _navigationService.NavigateToViewModel<EditFavoriteRoutesPageViewModel>();
+            _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace Trains.App.ViewModels
         /// This parameter is used to transmit the search page trains.</param>
         private void SelectTrain(LastRequest item)
         {
-            _navigationService.NavigateToViewModel<ItemPageViewModel>(new LastRequest { From = item.From, To = item.To });
+            _navigationService.NavigateToViewModel<ItemViewModel>(new LastRequest { From = item.From, To = item.To });
         }
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToAboutPage()
         {
-            _navigationService.NavigateToViewModel<AboutPageViewModel>();
+            _navigationService.NavigateToViewModel<AboutViewModel>();
         }
 
         #endregion

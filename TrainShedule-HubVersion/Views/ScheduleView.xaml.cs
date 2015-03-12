@@ -1,10 +1,11 @@
 ﻿namespace Trains.App.Views
 {
-    public sealed partial class InformationPage
+    public sealed partial class ScheduleView
     {
-        public InformationPage()
+        public ScheduleView()
         {
             InitializeComponent();
         }
     }
+
 }

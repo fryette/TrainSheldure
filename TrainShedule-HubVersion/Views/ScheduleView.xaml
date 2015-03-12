@@ -1,0 +1,34 @@
+﻿<Page x:Class="Trains.App.Views.ScheduleView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      xmlns:viewModels="using:Trains.App.ViewModels"
+      mc:Ignorable="d"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      d:DataContext="{d:DesignInstance viewModels:SchedulePageViewModel }">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <TextBlock x:Uid="Transport"
+                       Style="{StaticResource HeaderTextBlockStyle}"/>
+        </Grid>
+        <Grid Row="1">
+            <ListView ItemsSource="{Binding Parameter}"
+                      IsItemClickEnabled="True"
+                      Margin="5,0"
+                      ItemTemplate="{StaticResource ScheduleTemplate}"
+                      micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
+            </ListView>
+        </Grid>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}"/></CommandBar>
+    </Page.BottomAppBar>
+</Page>

@@ -10,7 +10,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Used to displaying stop points on selected route.
     /// </summary>
-    public class InformationPageViewModel : Screen
+    public class InformationViewModel : Screen
     {
         #region constant
         
@@ -36,7 +36,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="trainStop">Used to grab train stops.</param>
-        public InformationPageViewModel(INavigationService navigationService, ITrainStopService trainStop)
+        public InformationViewModel(INavigationService navigationService, ITrainStopService trainStop)
         {
             _navigationService = navigationService;
             _trainStop = trainStop;
@@ -113,7 +113,7 @@ namespace Trains.App.ViewModels
                 var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
                 IsTaskRun = false;
                 SavedLasTrainInformations = Parameter;
-                _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
+                _navigationService.NavigateToViewModel<StopPointViewModel>(stopPointList);
             }
             else
             {

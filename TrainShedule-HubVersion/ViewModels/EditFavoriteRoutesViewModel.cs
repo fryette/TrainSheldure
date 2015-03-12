@@ -10,7 +10,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Used to dispalying users saved routes.
     /// </summary>
-    public class EditFavoriteRoutesPageViewModel : Screen
+    public class EditFavoriteRoutesViewModel : Screen
     {
         #region constants
         private const string NotifyMessage = "Выберите интересующие вас станции,затем выберите кнопку удалить выбранные";
@@ -42,7 +42,7 @@ namespace Trains.App.ViewModels
         /// Constructor
         /// </summary>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
-        public EditFavoriteRoutesPageViewModel(ISerializableService serializable)
+        public EditFavoriteRoutesViewModel(ISerializableService serializable)
         {
             _serializable = serializable;
         }

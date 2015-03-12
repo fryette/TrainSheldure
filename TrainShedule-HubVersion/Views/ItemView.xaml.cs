@@ -1,8 +1,8 @@
 ﻿namespace Trains.App.Views
 {
-    public sealed partial class ItemPageView
+    public sealed partial class ItemView
     {
-        public ItemPageView()
+        public ItemView()
         {
             InitializeComponent();
         }

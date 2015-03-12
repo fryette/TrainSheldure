@@ -7,7 +7,7 @@ using Trains.Services.Interfaces;
 
 namespace Trains.App.ViewModels
 {
-    public class SplashScreenPageViewModel : Screen
+    public class SplashScreenViewModel : Screen
     {
 
         #region properties
@@ -47,7 +47,7 @@ namespace Trains.App.ViewModels
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="search">Used to search train schedule.</param>
-        public SplashScreenPageViewModel(INavigationService navigationService, ISerializableService serializable, ISearchService search)
+        public SplashScreenViewModel(INavigationService navigationService, ISerializableService serializable, ISearchService search)
         {
             _navigationService = navigationService;
             _serializable = serializable;
@@ -83,7 +83,7 @@ namespace Trains.App.ViewModels
             });
 
             asyncAction.Completed = (asyncInfo, asyncStatus) => CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
-                _navigationService.NavigateToViewModel<MainPageViewModel>());
+                _navigationService.NavigateToViewModel<MainViewModel>());
         }
 
         #endregion

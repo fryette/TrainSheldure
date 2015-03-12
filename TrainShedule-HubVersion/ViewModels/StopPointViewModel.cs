@@ -7,7 +7,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Keep information about stop point.
     /// </summary>
-    public class StopPointPageViewModel : Screen
+    public class StopPointViewModel : Screen
     {
         #region readonlyProperties
         /// <summary>
@@ -28,7 +28,7 @@ namespace Trains.App.ViewModels
         #endregion
 
         #region actions
-        public StopPointPageViewModel(INavigationService navigationService)
+        public StopPointViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }
@@ -38,7 +38,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToHelpPage()
         {
-            _navigationService.NavigateToViewModel<HelpPageViewModel>();
+            _navigationService.NavigateToViewModel<HelpViewModel>();
         }
         #endregion
     }

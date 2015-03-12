@@ -1,8 +1,8 @@
 ﻿namespace Trains.App.Views
 {
-    public sealed partial class StopPointPageView
+    public sealed partial class SplashScreenView
     {
-        public StopPointPageView()
+        public SplashScreenView()
         {
             InitializeComponent();
         }
