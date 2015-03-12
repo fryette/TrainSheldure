@@ -1,4 +1,4 @@
-﻿<Page x:Class="Trains.App.Views.FavoritePageView"
+﻿<Page x:Class="Trains.App.Views.EditFavoriteRoutesPageView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
       xmlns:viewModels1="using:Trains.App.ViewModels"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      d:DataContext="{d:DesignInstance viewModels1:FavoritePageViewModel}">
+      d:DataContext="{d:DesignInstance viewModels1:EditFavoriteRoutesPageViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -30,9 +30,9 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Очистить"
+            <AppBarButton Label="Удалить"
                           Icon="Delete"
-                          micro:Message.Attach="[Event Click] = [Action DeleteAllFavorite]" />
+                          micro:Message.Attach="[Event Click] = [Action DeleteSelectedFavoriteRoutes]" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

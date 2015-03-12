@@ -91,7 +91,7 @@
     <Compile Include="Converter\BooleanToIconConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\AboutPageViewModel.cs" />
-    <Compile Include="ViewModels\FavoritePageViewModel.cs" />
+    <Compile Include="ViewModels\EditFavoriteRoutesPageViewModel.cs" />
     <Compile Include="ViewModels\HelpPageViewModel.cs" />
     <Compile Include="ViewModels\InformationPageViewModel.cs" />
     <Compile Include="ViewModels\ItemPageViewModel.cs" />
@@ -102,8 +102,8 @@
     <Compile Include="Views\AboutPageView.xaml.cs">
       <DependentUpon>AboutPageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FavoritePageView.xaml.cs">
-      <DependentUpon>FavoritePageView.xaml</DependentUpon>
+    <Compile Include="Views\EditFavoriteRoutesPageView.xaml.cs">
+      <DependentUpon>EditFavoriteRoutesPageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HelpPageView.xaml.cs">
       <DependentUpon>HelpPageView.xaml</DependentUpon>
@@ -191,7 +191,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FavoritePageView.xaml">
+    <Page Include="Views\EditFavoriteRoutesPageView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

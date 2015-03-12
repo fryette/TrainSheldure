@@ -37,7 +37,7 @@ namespace Trains.App
             _container.PerRequest<AboutPageViewModel>();
             _container.PerRequest<SplashScreenPageViewModel>();
             _container.PerRequest<HelpPageViewModel>();
-            _container.PerRequest<FavoritePageViewModel>();
+            _container.PerRequest<EditFavoriteRoutesPageViewModel>();
             _container.PerRequest<StopPointPageViewModel>();
             _container.PerRequest<SchedulePageViewModel>();
             _container.PerRequest<InformationPageViewModel>();

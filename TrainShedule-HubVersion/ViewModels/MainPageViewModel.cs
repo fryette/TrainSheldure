@@ -105,7 +105,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavoriteList()
         {
-            _navigationService.NavigateToViewModel<FavoritePageViewModel>();
+            _navigationService.NavigateToViewModel<EditFavoriteRoutesPageViewModel>();
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            _navigationService.NavigateToViewModel<FavoritePageViewModel>();
+            _navigationService.NavigateToViewModel<EditFavoriteRoutesPageViewModel>();
         }
 
         /// <summary>

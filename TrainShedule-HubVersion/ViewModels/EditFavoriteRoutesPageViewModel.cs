@@ -10,7 +10,7 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Used to dispalying users saved routes.
     /// </summary>
-    public class FavoritePageViewModel : Screen
+    public class EditFavoriteRoutesPageViewModel : Screen
     {
         #region constants
         private const string NotifyMessage = "Выберите интересующие вас станции,затем выберите кнопку удалить выбранные";
@@ -42,7 +42,7 @@ namespace Trains.App.ViewModels
         /// Constructor
         /// </summary>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
-        public FavoritePageViewModel(ISerializableService serializable)
+        public EditFavoriteRoutesPageViewModel(ISerializableService serializable)
         {
             _serializable = serializable;
         }
@@ -74,7 +74,7 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Deleted all all favorite saved routes.
         /// </summary>
-        private void DeleteAllFavorite()
+        private void DeleteSelectedFavoritsRoutes()
         {
             foreach (var lastRequest in FavoriteRequests.Where(x => x.IsCanBeDeleted))
             {
@@ -82,7 +82,6 @@ namespace Trains.App.ViewModels
             }
             FavoriteRequests = SavedItems.FavoriteRequests;
             _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, "favoriteRequests");
-            //_navigationService.NavigateToViewModel<ItemPageViewModel>();
         }
         #endregion
     }

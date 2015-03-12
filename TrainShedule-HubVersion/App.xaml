@@ -376,6 +376,16 @@
                 <Setter Property="micro:Message.Attach"
                         Value="[Action Swap]" />
             </Style>
+
+            <Style x:Key="DeleteSelectedFavoriteRoutesStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Удалить" />
+                <Setter Property="Icon"
+                        Value="Delete" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action Swap]" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </micro:CaliburnApplication>
