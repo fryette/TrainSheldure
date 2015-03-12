@@ -15,7 +15,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Row="0">
-            <TextBlock x:Uid="EditHeaderFavorite"
+            <TextBlock x:Uid="EditFavoriteHeader"
                        Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">

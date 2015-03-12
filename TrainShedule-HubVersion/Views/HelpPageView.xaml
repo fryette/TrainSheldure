@@ -13,7 +13,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Row="0">
-            <TextBlock x:Uid="HeaderHelpPage"
+            <TextBlock x:Uid="HelpHeader"
                        Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">

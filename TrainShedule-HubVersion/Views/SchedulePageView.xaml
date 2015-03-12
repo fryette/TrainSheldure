@@ -10,15 +10,18 @@
       d:DataContext="{d:DesignInstance viewModels:SchedulePageViewModel }">
 
     <Grid>
-        <StackPanel Margin="12,17,0,28">
-            <TextBlock x:Uid="NearestTransport"
-                       FontSize="{StaticResource BigFontSize}"
-                       FontWeight="Bold" />
-        </StackPanel>
-        <Grid Margin="0,48,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <TextBlock x:Uid="Transport"
+                       Style="{StaticResource HeaderTextBlockStyle}"/>
+        </Grid>
+        <Grid Row="1">
             <ListView ItemsSource="{Binding Parameter}"
                       IsItemClickEnabled="True"
-                      Margin="5,0,0,0"
+                      Margin="5,0"
                       ItemTemplate="{StaticResource ScheduleTemplate}"
                       micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
             </ListView>
@@ -26,7 +29,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-                      <AppBarButton Label="Справка"
+            <AppBarButton Label="Справка"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
         </CommandBar>

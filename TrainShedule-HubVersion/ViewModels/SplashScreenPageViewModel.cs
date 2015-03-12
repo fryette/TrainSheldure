@@ -9,6 +9,9 @@ namespace Trains.App.ViewModels
 {
     public class SplashScreenPageViewModel : Screen
     {
+
+        #region properties
+
         /// <summary>
         /// Used to navigate between pages.
         /// </summary>
@@ -51,6 +54,10 @@ namespace Trains.App.ViewModels
             _search = search;
         }
 
+        #endregion
+
+        #region action
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
@@ -60,6 +67,9 @@ namespace Trains.App.ViewModels
             StartedActions();
         }
 
+        /// <summary>
+        /// Download static resources
+        /// </summary>
         private void StartedActions()
         {
             var asyncAction = ThreadPool.RunAsync(async workItem =>
@@ -72,8 +82,10 @@ namespace Trains.App.ViewModels
                 Progress += 33;
             });
 
-            asyncAction.Completed = (asyncInfo, asyncStatus) => CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () => 
+            asyncAction.Completed = (asyncInfo, asyncStatus) => CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
                 _navigationService.NavigateToViewModel<MainPageViewModel>());
         }
+
+        #endregion
     }
 }

@@ -132,7 +132,7 @@
   <data name="DateOfDeparture.Header" xml:space="preserve">
     <value>Дата отправления</value>
   </data>
-  <data name="EditHeaderFavorite.Text" xml:space="preserve">
+  <data name="EditFavoriteHeader.Text" xml:space="preserve">
     <value>Управление</value>
   </data>
   <data name="From.PlaceholderText" xml:space="preserve">
@@ -141,7 +141,7 @@
   <data name="Header.Text" xml:space="preserve">
     <value>Быстрое расписание</value>
   </data>
-  <data name="HeaderHelpPage.Text" xml:space="preserve">
+  <data name="HelpHeader.Text" xml:space="preserve">
     <value>Доп. Информация</value>
   </data>
   <data name="LastRequest.Text" xml:space="preserve">
@@ -149,9 +149,6 @@
   </data>
   <data name="ListOfPoint.Content" xml:space="preserve">
     <value>Список остановок</value>
-  </data>
-  <data name="NearestTransport.Text" xml:space="preserve">
-    <value>Ближайший транспорт</value>
   </data>
   <data name="Search.Content" xml:space="preserve">
     <value>Поиск</value>
@@ -165,6 +162,9 @@
   <data name="SelectStantion.Text" xml:space="preserve">
     <value>Выбор станции</value>
   </data>
+  <data name="StopPointsHeader.Text" xml:space="preserve">
+    <value>Ост. Пункты</value>
+  </data>
   <data name="To.PlaceholderText" xml:space="preserve">
     <value>Куда</value>
   </data>
@@ -173,6 +173,9 @@
   </data>
   <data name="Tomorrow.Content" xml:space="preserve">
     <value>Завтра</value>
+  </data>
+  <data name="Transport.Text" xml:space="preserve">
+    <value>Результат</value>
   </data>
   <data name="UpdateStopPoint.Content" xml:space="preserve">
     <value>Обновить станции</value>
