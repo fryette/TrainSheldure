@@ -71,7 +71,8 @@
                         Value="True" />
                 <Setter Property="Margin"
                         Value="5,5,5,0" />
-                <Setter Property="micro:Message.Attach" Value="[Event SuggestionChosen] = [Action SuggestionChosen]"></Setter>
+                <Setter Property="micro:Message.Attach"
+                        Value="[Event SuggestionChosen] = [Action SuggestionChosen]"></Setter>
             </Style>
             <Style x:Key="DatePickerStyle"
                    TargetType="DatePicker">
@@ -293,7 +294,7 @@
                                Style="{StaticResource BasedTextBlockStyle}" />
                     <TextBlock Text="{Binding To}"
                                Style="{StaticResource BasedTextBlockStyle}" />
-                    
+
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="FavoriteRequestTemplate">
@@ -337,6 +338,16 @@
                     </StackPanel>
                 </StackPanel>
             </DataTemplate>
+
+            <Style x:Key="HelpAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Справка" />
+                <Setter Property="Icon"
+                        Value="Help" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action GoToHelpPage]" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </micro:CaliburnApplication>

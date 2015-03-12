@@ -26,6 +26,8 @@ namespace Trains.App.ViewModels
         /// </summary>
         public Train Parameter { get; set; }
 
+        private static Train SavedLasTrainInformations { get; set; }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -36,7 +38,7 @@ namespace Trains.App.ViewModels
             _navigationService = navigationService;
             _trainStop = trainStop;
         }
-        
+
         #region properties
         /// <summary>
         /// Used to dispalying informations about the seats and their prices.
@@ -68,15 +70,19 @@ namespace Trains.App.ViewModels
         #endregion
 
         #region action
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the additional informations about user-selected train.
         /// </summary>
         protected override void OnActivate()
         {
-            AdditionalInformation = Parameter.AdditionalInformation;
+            if (Parameter == null)
+                Parameter = SavedLasTrainInformations;
+            else
+                AdditionalInformation = Parameter.AdditionalInformation;
         }
-        
+
         /// <summary>
         /// Search additional information about user-selected train.
         /// </summary>
@@ -96,6 +102,7 @@ namespace Trains.App.ViewModels
                 await messageDialog.ShowAsync();
             }
         }
+
         #endregion
     }
 }
