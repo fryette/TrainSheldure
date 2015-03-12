@@ -12,6 +12,8 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class InformationPageViewModel : Screen
     {
+        private const string InternetConnectionError = "Доступ к интернету отсутствует,проверьте подключение!";
+
         /// <summary>
         /// Used to navigate between pages.
         /// </summary>
@@ -94,11 +96,12 @@ namespace Trains.App.ViewModels
                 IsTaskRun = true;
                 var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
                 IsTaskRun = false;
+                SavedLasTrainInformations = Parameter;
                 _navigationService.NavigateToViewModel<StopPointPageViewModel>(stopPointList);
             }
             else
             {
-                var messageDialog = new MessageDialog("Доступ к интернету отсутствует,проверьте подключение!");
+                var messageDialog = new MessageDialog(InternetConnectionError);
                 await messageDialog.ShowAsync();
             }
         }
