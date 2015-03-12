@@ -346,7 +346,6 @@
                 <Setter Property="micro:Message.Attach"
                         Value="[Action GoToHelpPage]" />
             </Style>
-
             <Style x:Key="AddToFavoriteAppBarButtonStyle"
                    TargetType="AppBarButton">
                 <Setter Property="Label"
@@ -356,7 +355,6 @@
                 <Setter Property="micro:Message.Attach"
                         Value="[Action AddToFavorite]" />
             </Style>
-
             <Style x:Key="DeleteInFavoriteAppBarButtonStyle"
                    TargetType="AppBarButton">
                 <Setter Property="Label"
@@ -366,7 +364,6 @@
                 <Setter Property="micro:Message.Attach"
                         Value="[Action DeleteInFavorite]" />
             </Style>
-
             <Style x:Key="SwapAppBarButtonStyle"
                    TargetType="AppBarButton">
                 <Setter Property="Label"
@@ -376,7 +373,6 @@
                 <Setter Property="micro:Message.Attach"
                         Value="[Action Swap]" />
             </Style>
-
             <Style x:Key="DeleteSelectedFavoriteRoutesStyle"
                    TargetType="AppBarButton">
                 <Setter Property="Label"
@@ -386,6 +382,16 @@
                 <Setter Property="micro:Message.Attach"
                         Value="[Action Swap]" />
             </Style>
+            <Style x:Key="ShowTrainStopAppButtonStyleStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Остановки" />
+                <Setter Property="Icon"
+                        Value="Bookmarks" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action SearchStopPoint]" />
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </micro:CaliburnApplication>

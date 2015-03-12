@@ -31,9 +31,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Остановки"
-                          Icon="Bookmarks"
-                          micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
+            <AppBarButton Style="{StaticResource ShowTrainStopAppButtonStyleStyle}"/>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

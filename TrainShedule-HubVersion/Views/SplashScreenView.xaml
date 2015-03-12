@@ -4,8 +4,9 @@
       xmlns:local="using:Trains.App.Views"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:Trains.App.ViewModels"
       mc:Ignorable="d"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:DataContext="{d:DesignInstance viewModels:SplashScreenViewModel}">
 
     <Grid Background="#FF192856">
         <Image Source="/Assets/Ikonka3.png"></Image>

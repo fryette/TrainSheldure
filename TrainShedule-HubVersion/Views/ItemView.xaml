@@ -54,10 +54,8 @@
                                 Style="{StaticResource AutoSuggestBoxStyle}" />
                 <StackPanel Orientation="Horizontal">
                     <Button x:Uid="Search"
-                            HorizontalAlignment="Left"
                             micro:Message.Attach="[Event Click] = [Action Search]" />
                     <Button x:Uid="Clear"
-                            HorizontalAlignment="Left"
                             Margin="5,0,0,0"
                             micro:Message.Attach="[Event Click] = [Action Clear]" />
                 </StackPanel>

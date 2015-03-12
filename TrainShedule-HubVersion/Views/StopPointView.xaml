@@ -7,7 +7,7 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-      d:DataContext="{d:DesignInstance viewModels:StopPointPageViewModel}">
+      d:DataContext="{d:DesignInstance viewModels:StopPointViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
