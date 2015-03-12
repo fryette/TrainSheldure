@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Net.NetworkInformation;
-using Windows.UI.Popups;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
+using Trains.Services.Tools;
 
 namespace Trains.Services.Implementations
 {
@@ -15,10 +15,9 @@ namespace Trains.Services.Implementations
         private const string ConectionError = "Проверьте подключение к интернету";
         private const string Everyday = "everyday";
 
-        public async void ShowMessageBox(string message)
+        public void ShowMessageBox(string message)
         {
-            var dialog = new MessageDialog(message);
-            await dialog.ShowAsync();
+            ToolHelper.ShowMessageBox(message);
         }
 
         public string GetDate(DateTimeOffset datum, string selectedVariantOfSearch)

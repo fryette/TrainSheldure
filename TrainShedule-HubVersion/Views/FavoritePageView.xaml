@@ -10,20 +10,31 @@
       d:DataContext="{d:DesignInstance viewModels1:FavoritePageViewModel}">
 
     <Grid>
-        <ListView x:Name="FavoriteRequests"
-                  ItemsSource="{Binding FavoriteRequests}"
-                  IsItemClickEnabled="True"
-                  Margin="5,0,0,0"
-                  ItemTemplate="{StaticResource EditFavoriteRequestTemplate}"
-                  micro:Message.Attach="[Event ItemClick] = [Action SelectItem($clickeditem)]" >
-        </ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <TextBlock x:Uid="EditHeaderFavorite"
+                       FontSize="{StaticResource HeaderFontSize}"
+                       Style="{ThemeResource HeaderTextBlockStyle}"
+                       HorizontalAlignment="Center" />
+        </Grid>
+        <Grid Row="1">
+            <ListView x:Name="FavoriteRequests"
+                      ItemsSource="{Binding FavoriteRequests}"
+                      IsItemClickEnabled="True"
+                      Margin="5,0,0,0"
+                      ItemTemplate="{StaticResource EditFavoriteRequestTemplate}"
+                      micro:Message.Attach="[Event ItemClick] = [Action SelectItem($clickeditem)]">
+            </ListView>
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-                        <AppBarButton Label="Очистить"
+            <AppBarButton Label="Очистить"
                           Icon="Delete"
                           micro:Message.Attach="[Event Click] = [Action DeleteAllFavorite]" />
-
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

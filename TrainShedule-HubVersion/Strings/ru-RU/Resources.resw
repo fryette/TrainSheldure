@@ -132,6 +132,9 @@
   <data name="DateOfDeparture.Header" xml:space="preserve">
     <value>Дата отправления</value>
   </data>
+  <data name="EditHeaderFavorite.Text" xml:space="preserve">
+    <value>Управление</value>
+  </data>
   <data name="From.PlaceholderText" xml:space="preserve">
     <value>Откуда</value>
   </data>
