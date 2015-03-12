@@ -23,11 +23,10 @@
                            Style="{ThemeResource HeaderTextBlockStyle}" />
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1"
+              Margin="10,0">
             <StackPanel>
-                <StackPanel Orientation="Horizontal"
-                            MinWidth="400"
-                            Margin="5,0">
+                <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical">
                         <DatePicker x:Uid="DateOfDeparture"
                                     Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -39,7 +38,6 @@
                         <ComboBox x:Name="Date"
                                   SelectedItem="{Binding Date}"
                                   SelectedValue="1"
-                                  Margin="0,0"
                                   VerticalAlignment="Bottom"
                                   Width="145" />
                     </StackPanel>
@@ -54,8 +52,7 @@
                                 Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding AutoSuggestions}"
                                 Style="{StaticResource AutoSuggestBoxStyle}" />
-                <StackPanel Orientation="Horizontal"
-                            Margin="5,5,0,0">
+                <StackPanel Orientation="Horizontal">
                     <Button x:Uid="Search"
                             HorizontalAlignment="Left"
                             micro:Message.Attach="[Event Click] = [Action Search]" />
@@ -66,7 +63,6 @@
                 </StackPanel>
                 <TextBlock x:Uid="LastRequest"
                            HorizontalAlignment="Left"
-                           Margin="5,0,0,0"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <ListView IsItemClickEnabled="True"
                           ItemsSource="{Binding LastRequests}"
@@ -78,17 +74,11 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Запомнить"
-                          Icon="Favorite"
-                          Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          micro:Message.Attach="[Event Click] = [Action AddToFavorite]" />
-            <AppBarButton Label="Удалить"
-                          Icon="UnFavorite"
-                          Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]" />
-            <AppBarButton Label="Обмен"
-                          Icon="Sort"
-                          micro:Message.Attach="[Event Click] = [Action Swap]" />
+            <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Style="{StaticResource AddToFavoriteAppBarButtonStyle}" />
+            <AppBarButton Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Style="{StaticResource DeleteInFavoriteAppBarButtonStyle}" />
+            <AppBarButton Style="{StaticResource SwapAppBarButtonStyle}" />
             <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}" />
         </CommandBar>
     </Page.BottomAppBar>

@@ -70,7 +70,7 @@
                 <Setter Property="IsSuggestionListOpen"
                         Value="True" />
                 <Setter Property="Margin"
-                        Value="5,5,5,0" />
+                        Value="0,5,0,0" />
                 <Setter Property="micro:Message.Attach"
                         Value="[Event SuggestionChosen] = [Action SuggestionChosen]"></Setter>
             </Style>
@@ -282,15 +282,13 @@
             </DataTemplate>
             <DataTemplate x:Key="LastRequestTemplate">
                 <StackPanel Orientation="Horizontal"
-                            MinWidth="400"
+                            Width="400"
                             MinHeight="40"
                             Background="{StaticResource OrangeColorBrush}"
-                            Margin="5,0,5,5">
+                            Margin="0,5">
                     <TextBlock Text="{Binding From}"
-                               Margin="5,0"
                                Style="{StaticResource BasedTextBlockStyle}" />
                     <TextBlock Text="-"
-                               Margin="5,0"
                                Style="{StaticResource BasedTextBlockStyle}" />
                     <TextBlock Text="{Binding To}"
                                Style="{StaticResource BasedTextBlockStyle}" />
@@ -347,6 +345,36 @@
                         Value="Help" />
                 <Setter Property="micro:Message.Attach"
                         Value="[Action GoToHelpPage]" />
+            </Style>
+
+            <Style x:Key="AddToFavoriteAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Добавить" />
+                <Setter Property="Icon"
+                        Value="Favorite" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action AddToFavorite]" />
+            </Style>
+
+            <Style x:Key="DeleteInFavoriteAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Удалить" />
+                <Setter Property="Icon"
+                        Value="UnFavorite" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action DeleteInFavorite]" />
+            </Style>
+
+            <Style x:Key="SwapAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Обмен" />
+                <Setter Property="Icon"
+                        Value="Sort" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action Swap]" />
             </Style>
         </ResourceDictionary>
     </Application.Resources>
