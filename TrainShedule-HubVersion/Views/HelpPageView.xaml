@@ -3,14 +3,26 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      d:DataContext="{d:DesignData HelpPageViewModel}">
 
     <Grid>
-        <ListView ItemsSource="{Binding Menu}"
-                  IsItemClickEnabled="True"
-                  ItemTemplate="{StaticResource HelpTemplate}">
-        </ListView>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <TextBlock x:Uid="HeaderHelpPage"
+                       FontSize="{StaticResource HeaderFontSize}"
+                       Style="{ThemeResource HeaderTextBlockStyle}"
+                       HorizontalAlignment="Center" />
+        </Grid>
+        <Grid Row="1">
+            <ListView ItemsSource="{Binding Menu}"
+                      IsItemClickEnabled="True"
+                      ItemTemplate="{StaticResource HelpTemplate}">
+            </ListView>
+        </Grid>
     </Grid>
 </Page>

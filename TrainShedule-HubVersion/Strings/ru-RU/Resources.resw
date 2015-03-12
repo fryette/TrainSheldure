@@ -141,6 +141,9 @@
   <data name="Header.Text" xml:space="preserve">
     <value>Быстрое расписание</value>
   </data>
+  <data name="HeaderHelpPage.Text" xml:space="preserve">
+    <value>Доп. Информация</value>
+  </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Последние запросы</value>
   </data>

@@ -10,6 +10,9 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class HelpPageViewModel : Screen
     {
+
+        #region properties
+        
         /// <summary>
         /// Used to dispalying informations about belarussian railway icons.
         /// </summary>
@@ -24,6 +27,10 @@ namespace Trains.App.ViewModels
             }
         }
 
+        #endregion
+
+        #region action
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -31,5 +38,7 @@ namespace Trains.App.ViewModels
         {
             Menu = await MenuData.GetItemsAsync();
         }
+
+        #endregion
     }
 }
