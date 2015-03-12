@@ -53,8 +53,7 @@
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding AutoSuggestions}"
-                                Style="{StaticResource AutoSuggestBoxStyle}"
-                                 />
+                                Style="{StaticResource AutoSuggestBoxStyle}" />
                 <StackPanel Orientation="Horizontal"
                             Margin="5,5,0,0">
                     <Button x:Uid="Search"
@@ -90,9 +89,7 @@
             <AppBarButton Label="Обмен"
                           Icon="Sort"
                           micro:Message.Attach="[Event Click] = [Action Swap]" />
-            <AppBarButton Label="Справка"
-                          Icon="Help"
-                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
+            <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
