@@ -71,6 +71,7 @@
                         Value="True" />
                 <Setter Property="Margin"
                         Value="5,5,5,0" />
+                <Setter Property="micro:Message.Attach" Value="[Event SuggestionChosen] = [Action SuggestionChosen]"></Setter>
             </Style>
             <Style x:Key="DatePickerStyle"
                    TargetType="DatePicker">
@@ -281,6 +282,7 @@
                                Style="{StaticResource BasedTextBlockStyle}" />
                     <TextBlock Text="{Binding To}"
                                Style="{StaticResource BasedTextBlockStyle}" />
+                    
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="FavoriteRequestTemplate">

@@ -129,20 +129,14 @@
   <data name="Clear.Content" xml:space="preserve">
     <value>Очистить</value>
   </data>
+  <data name="DateOfDeparture.Header" xml:space="preserve">
+    <value>Дата отправления</value>
+  </data>
   <data name="From.PlaceholderText" xml:space="preserve">
     <value>Откуда</value>
   </data>
   <data name="Header.Text" xml:space="preserve">
     <value>Быстрое расписание</value>
-  </data>
-  <data name="Hub.Header" xml:space="preserve">
-    <value>Быстрое расписание</value>
-  </data>
-  <data name="HubSection1.Header" xml:space="preserve">
-    <value>Варианты поиска транспорта</value>
-  </data>
-  <data name="HubSection2.Header" xml:space="preserve">
-    <value>Последний запрос</value>
   </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Последние запросы</value>
@@ -154,6 +148,9 @@
     <value>Ближайший транспорт</value>
   </data>
   <data name="Search.Content" xml:space="preserve">
+    <value>Поиск</value>
+  </data>
+  <data name="SearchTextBlock.Text" xml:space="preserve">
     <value>Поиск</value>
   </data>
   <data name="SelectClass.Text" xml:space="preserve">
