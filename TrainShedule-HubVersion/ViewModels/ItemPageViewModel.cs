@@ -266,7 +266,6 @@ namespace Trains.App.ViewModels
                 From = Parameter.From;
                 To = Parameter.To;
             }
-            _isVisibleFavoriteIcon = true;
             SelectedDate = Date[0];
             LastRequests = SavedItems.LastRequests;
             FavoriteRequests = SavedItems.FavoriteRequests;
@@ -289,7 +288,7 @@ namespace Trains.App.ViewModels
         }
 
         /// <summary>
-        /// TODO
+        /// Swaped From and To properties.
         /// </summary>
         private void Swap()
         {
@@ -323,6 +322,7 @@ namespace Trains.App.ViewModels
         {
             From = String.Empty;
             To = String.Empty;
+            SetVisibilityToFavoriteIcons(false,false);
         }
 
         /// <summary>
@@ -384,10 +384,10 @@ namespace Trains.App.ViewModels
         private void UpdateAutoSuggestions(string str)
         {
             if (string.IsNullOrEmpty(str)) return;
-            if (FavoriteRequests != null && FavoriteRequests.Any(x => x.From == From && x.To == To))
-                SetVisibilityToFavoriteIcons(false, true);
+            if (_checkTrain.CheckFavorite(From,To))
+                SetVisibilityToFavoriteIcons(true,false);
             else
-                SetVisibilityToFavoriteIcons(true, false);
+                SetVisibilityToFavoriteIcons(false,true);
             AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
             if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
             AutoSuggestions.Clear();

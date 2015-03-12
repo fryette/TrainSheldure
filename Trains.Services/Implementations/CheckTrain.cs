@@ -7,7 +7,7 @@ using Trains.Services.Tools;
 
 namespace Trains.Services.Implementations
 {
-   public class CheckTrain : ICheckTrainService
+    public class CheckTrain : ICheckTrainService
     {
         private const string DateUpTooLater = "Поиск может производится начиная от текущего времени";
         private const string DateTooBig = "Поиск может производится только за 45 дней от текущего момента или используйте режим \"На все дни\"";
@@ -50,6 +50,11 @@ namespace Trains.Services.Implementations
             if (NetworkInterface.GetIsNetworkAvailable()) return true;
             ShowMessageBox(ConectionError);
             return false;
+        }
+
+        public bool CheckFavorite(string from, string to)
+        {
+            return SavedItems.FavoriteRequests != null && string.IsNullOrEmpty(from) && string.IsNullOrEmpty(to) && SavedItems.FavoriteRequests.Any(x => x.From == from && x.To == to);
         }
     }
 }
