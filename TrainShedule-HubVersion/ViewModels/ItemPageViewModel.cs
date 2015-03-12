@@ -383,6 +383,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void UpdateAutoSuggestions(string str)
         {
+            if (string.IsNullOrEmpty(str)) return;
             if (FavoriteRequests != null && FavoriteRequests.Any(x => x.From == From && x.To == To))
                 SetVisibilityToFavoriteIcons(false, true);
             else
