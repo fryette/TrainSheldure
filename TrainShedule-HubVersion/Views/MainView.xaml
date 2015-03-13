@@ -225,12 +225,13 @@
         </Pivot>
     </Grid>
     
-    <Page.BottomAppBar>
+    <!--<Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Label="Управлять"
                           Icon="Favorite"
                           micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
-            <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}" />
+            --><!--<AppBarButton Style="{StaticResource HelpAppBarButtonStyle}"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />--><!--
         </CommandBar>
-    </Page.BottomAppBar>
+    </Page.BottomAppBar>-->
 </Page>

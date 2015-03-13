@@ -16,7 +16,7 @@
         </Grid.RowDefinitions>
         <Grid Row="0">
             <TextBlock x:Uid="Transport"
-                       Style="{StaticResource HeaderTextBlockStyle}"/>
+                       Style="{StaticResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">
             <ListView ItemsSource="{Binding Parameter}"
@@ -27,8 +27,10 @@
             </ListView>
         </Grid>
     </Grid>
-    <Page.BottomAppBar>
+    <!--<Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}"/></CommandBar>
-    </Page.BottomAppBar>
+            --><!--<AppBarButton Style="{StaticResource HelpAppBarButtonStyle}"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />--><!--
+        </CommandBar>
+    </Page.BottomAppBar>-->
 </Page>

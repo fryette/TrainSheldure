@@ -343,8 +343,6 @@
                         Value="Справка" />
                 <Setter Property="Icon"
                         Value="Help" />
-                <Setter Property="micro:Message.Attach"
-                        Value="[Action GoToHelpPage]" />
             </Style>
             <Style x:Key="AddToFavoriteAppBarButtonStyle"
                    TargetType="AppBarButton">
@@ -352,8 +350,6 @@
                         Value="Добавить" />
                 <Setter Property="Icon"
                         Value="Favorite" />
-                <Setter Property="micro:Message.Attach"
-                        Value="[Action AddToFavorite]" />
             </Style>
             <Style x:Key="DeleteInFavoriteAppBarButtonStyle"
                    TargetType="AppBarButton">
@@ -361,8 +357,6 @@
                         Value="Удалить" />
                 <Setter Property="Icon"
                         Value="UnFavorite" />
-                <Setter Property="micro:Message.Attach"
-                        Value="[Action DeleteInFavorite]" />
             </Style>
             <Style x:Key="SwapAppBarButtonStyle"
                    TargetType="AppBarButton">
@@ -370,8 +364,6 @@
                         Value="Обмен" />
                 <Setter Property="Icon"
                         Value="Sort" />
-                <Setter Property="micro:Message.Attach"
-                        Value="[Action Swap]" />
             </Style>
             <Style x:Key="DeleteSelectedFavoriteRoutesStyle"
                    TargetType="AppBarButton">
@@ -379,8 +371,6 @@
                         Value="Удалить" />
                 <Setter Property="Icon"
                         Value="Delete" />
-                <Setter Property="micro:Message.Attach"
-                        Value="[Action Swap]" />
             </Style>
             <Style x:Key="ShowTrainStopAppButtonStyleStyle"
                    TargetType="AppBarButton">
@@ -388,8 +378,6 @@
                         Value="Остановки" />
                 <Setter Property="Icon"
                         Value="Bookmarks" />
-                <Setter Property="micro:Message.Attach"
-                        Value="[Action SearchStopPoint]" />
             </Style>
 
         </ResourceDictionary>

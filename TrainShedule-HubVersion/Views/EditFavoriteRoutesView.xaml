@@ -28,9 +28,10 @@
             </ListView>
         </Grid>
     </Grid>
-    <Page.BottomAppBar>
+    <!--<Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Style="{StaticResource DeleteSelectedFavoriteRoutesStyle}"/>
+            <AppBarButton Style="{StaticResource DeleteSelectedFavoriteRoutesStyle}"
+                          micro:Message.Attach="[Event Click] = [Action DeleteSelectedFavoriteRoutes]" />
         </CommandBar>
-    </Page.BottomAppBar>
+    </Page.BottomAppBar>-->
 </Page>

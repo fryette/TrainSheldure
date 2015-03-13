@@ -26,9 +26,10 @@
             </ListView>
         </Grid>
     </Grid>
-    <Page.BottomAppBar>
+    <!--<Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}" />
+            --><!--<AppBarButton Style="{StaticResource HelpAppBarButtonStyle}"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />--><!--
         </CommandBar>
-    </Page.BottomAppBar>
+    </Page.BottomAppBar>-->
 </Page>
