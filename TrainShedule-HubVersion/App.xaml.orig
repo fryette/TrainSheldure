@@ -1,0 +1,572 @@
+﻿<micro:CaliburnApplication x:Class="Trains.App.App"
+                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                           xmlns:micro="using:Caliburn.Micro">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Default">
+                    <SolidColorBrush x:Key="PivotHeaderForegroundUnselectedBrush"
+                                     Color="White" />
+                    <SolidColorBrush x:Key="PivotHeaderForegroundSelectedBrush"
+                                     Color="#FF00B5D0" />
+                    <x:Double x:Key="PivotHeaderItemFontSize">33</x:Double>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+
+            <x:Double x:Key="NormalFontSize">16</x:Double>
+            <x:Double x:Key="SmallFontSize">14</x:Double>
+            <x:Double x:Key="BigFontSize">25</x:Double>
+            <x:Double x:Key="LabelFontSize">22</x:Double>
+            <x:Double x:Key="TimeFontSize">32</x:Double>
+            <x:Double x:Key="HeaderFontSize">40</x:Double>
+            <x:String x:Key="DefaultFontFamily">Segoe WP</x:String>
+            <SolidColorBrush x:Key="DarkRedColorBrush">DarkRed</SolidColorBrush>
+            <SolidColorBrush x:Key="OrangeColorBrush">OrangeRed</SolidColorBrush>
+            <SolidColorBrush x:Key="WhiteColorBrush">White</SolidColorBrush>
+            <Color x:Key="BlackColorBrush">Black</Color>
+            <SolidColorBrush x:Key="WhiteSmokeColorBrush">WhiteSmoke</SolidColorBrush>
+            <SolidColorBrush x:Key="DimGrayColorBrush">DimGray</SolidColorBrush>
+            <SolidColorBrush x:Key="FontScheduleColorBrush">#FF969696</SolidColorBrush>
+            <Color x:Key="BoxBackgroundColor">#132037</Color>
+            <Brush x:Key="DarkGray">#FF171717</Brush>
+            <Color x:Key="TitleForegroundColor">#ffffff</Color>
+            <Color x:Key="BoxForegroundColor">#d2ddf0</Color>
+
+            <FontFamily x:Key="DotumFontFamily">Dotum</FontFamily>
+            <FontFamily x:Key="Engraves-MtFontFamily">Engravers MT</FontFamily>
+
+            <micro:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+            <Style x:Key="SelectButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Height"
+                        Value="155" />
+                <Setter Property="Width"
+                        Value="155" />
+                <Setter Property="Margin"
+                        Value="10,0,50,0" />
+            </Style>
+
+            <Style x:Key="AutoSuggestBoxStyle"
+                   TargetType="AutoSuggestBox">
+                <Setter Property="IsSuggestionListOpen"
+                        Value="True" />
+                <Setter Property="Margin"
+                        Value="0,5,0,0" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Event SuggestionChosen] = [Action SuggestionChosen]"></Setter>
+            </Style>
+
+            <Style x:Key="DatePickerStyle"
+                   TargetType="DatePicker">
+                <Setter Property="MonthFormat"
+                        Value="{}{month.abbreviated}" />
+                <Setter Property="YearFormat"
+                        Value="{}{year.abbreviated}" />
+                <Setter Property="DayFormat"
+                        Value="{}{day.integer} {dayofweek.abbreviated}" />
+            </Style>
+
+            <Style x:Key="StackPanelStyle"
+                   TargetType="StackPanel">
+                <Setter Property="Orientation"
+                        Value="Horizontal" />
+                <Setter Property="Background"
+                        Value="{StaticResource OrangeColorBrush}" />
+            </Style>
+            <Style x:Key="ItemAbout1StackPanelStyle"
+                   TargetType="StackPanel"
+                   BasedOn="{StaticResource StackPanelStyle}">
+                <Setter Property="Width"
+                        Value="350" />
+                <Setter Property="Background"
+                        Value="{ StaticResource SystemColorWindowBrush}" />
+            </Style>
+            <Style x:Key="ItemAbout2StackPanelStyle"
+                   TargetType="StackPanel"
+                   BasedOn="{StaticResource StackPanelStyle}">
+                <Setter Property="Width"
+                        Value="300" />
+                <Setter Property="Margin"
+                        Value="5,0,0,0" />
+            </Style>
+
+
+            <Style x:Key="BasedTextBlockStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="{StaticResource NormalFontSize}" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="Margin"
+                        Value="5,0,0,0" />
+            </Style>
+            <Style x:Key="StopPointTextBlockStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource BasedTextBlockStyle}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource SmallFontSize}" />
+            </Style>
+            <Style x:Key="ScheduleTextBlockStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource BasedTextBlockStyle}">
+                <Setter Property="MaxWidth"
+                        Value="400" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource DarkRedColorBrush}" />
+            </Style>
+            <Style x:Key="SearchBlockStyle"
+                   TargetType="TextBlock">
+                <Setter Property="VerticalAlignment"
+                        Value="Center" />
+                <Setter Property="Height"
+                        Value="45" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource BigFontSize}" />
+                <Setter Property="Padding"
+                        Value="50,0,0,0" />
+            </Style>
+            <Style x:Key="BaseTextStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontFamily"
+                        Value="{StaticResource DefaultFontFamily}" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="TextTrimming"
+                        Value="WordEllipsis" />
+            </Style>
+            <Style x:Key="TitleStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource BaseTextStyle}">
+                <Setter Property="Foreground"
+                        Value="{StaticResource TitleForegroundColor}" />
+                <Setter Property="FontSize"
+                        Value="{StaticResource BigFontSize}" />
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+            </Style>
+            <Style x:Key="BoxTitleStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource TitleStyle}">
+                <Setter Property="Foreground"
+                        Value="{StaticResource BoxForegroundColor}" />
+            </Style>
+            <Style x:Key="HeaderTextBlockStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="{StaticResource HeaderFontSize}" />
+                <Setter Property="FontWeight"
+                        Value="Medium" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Center" />
+
+
+            </Style>
+            <Style x:Key="MenuTitleTextBlockStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource BoxTitleStyle}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource LabelFontSize}" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource WhiteColorBrush}" />
+                <Setter Property="Margin"
+                        Value="5,0,0,0" />
+            </Style>
+            <Style x:Key="AboutTitleTextBlockStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource BasedTextBlockStyle}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource BigFontSize}" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource WhiteColorBrush}" />
+
+            </Style>
+            <Style x:Key="BottomLabelTextBlockStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="{StaticResource LabelFontSize}" />
+                <Setter Property="Width"
+                        Value="200" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Left" />
+                <Setter Property="Margin"
+                        Value="10" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource DotumFontFamily}" />
+            </Style>
+            <Style x:Key="MainLabelTextBlockStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource BottomLabelTextBlockStyle}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource SmallFontSize}" />
+                <Setter Property="FontFamily"
+                        Value="{StaticResource Engraves-MtFontFamily}" />
+            </Style>
+
+
+            <Style x:Key="HelpAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Справка" />
+                <Setter Property="Icon"
+                        Value="Help" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action GoToHelpPage]" />
+            </Style>
+            <Style x:Key="AddToFavoriteAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Добавить" />
+                <Setter Property="Icon"
+                        Value="Favorite" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action AddToFavorite]" />
+            </Style>
+            <Style x:Key="DeleteInFavoriteAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Удалить" />
+                <Setter Property="Icon"
+                        Value="UnFavorite" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action DeleteInFavorite]" />
+            </Style>
+            <Style x:Key="SwapAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Обмен" />
+                <Setter Property="Icon"
+                        Value="Sort" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action Swap]" />
+            </Style>
+            <Style x:Key="DeleteSelectedFavoriteRoutesStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Удалить" />
+                <Setter Property="Icon"
+                        Value="Delete" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action DeleteSelectedFavoriteRoutes]" />
+            </Style>
+            <Style x:Key="ShowTrainStopAppButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Остановки" />
+                <Setter Property="Icon"
+                        Value="Bookmarks" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action SearchStopPoint]" />
+            </Style>
+            <Style x:Key="ManageFavoriteAppButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Управлять" />
+                <Setter Property="Icon"
+                        Value="Favorite" />
+                <Setter Property="micro:Message.Attach"
+                        Value="[Action GoToFavorite]" />
+            </Style>
+
+            <Style x:Key="ImageForAnimationStyle"
+                   TargetType="Image">
+                <Setter Property="Height"
+                        Value="150" />
+                <Setter Property="Stretch"
+                        Value="Fill" />
+                <Setter Property="Margin"
+                        Value="-100,0,0,0" />
+                <Setter Property="RenderTransform">
+                    <Setter.Value>
+                        <CompositeTransform />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="ImageAboutStyle"
+                   TargetType="Image">
+                <Setter Property="Stretch"
+                        Value="Fill" />
+                <Setter Property="Width"
+                        Value="50" />
+            </Style>
+            <Style x:Key="BRImageAboutStyle"
+                   TargetType="Image">
+                <Setter Property="Height"
+                        Value="100" />
+                <Setter Property="Width"
+                        Value="142" />
+                <Setter Property="HorizontalAlignment"
+                        Value="Right" />
+                <Setter Property="Source"
+                        Value="/Assets/MenuIcon/logo_bch.png" />
+            </Style>
+
+            <Style x:Key="GridImageTittleStyle"
+                   TargetType="Grid">
+
+                <Setter Property="VerticalAlignment"
+                        Value="Bottom" />
+                <Setter Property="Height"
+                        Value="50" />
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <SolidColorBrush Color="{StaticResource BlackColorBrush}"
+                                         Opacity="0.6" />
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <DataTemplate x:Key="ScheduleTemplate">
+                <StackPanel Orientation="Horizontal"
+                            Background="{StaticResource FontScheduleColorBrush}"
+                            Width="400"
+                            Margin="0,5,0,0">
+                    <StackPanel Orientation="Vertical">
+                        <Image Source="{Binding ImagePath}"
+                               Height="99"
+                               Width="50" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding City}"
+                                       FontSize="{StaticResource SmallFontSize}"
+                                       Foreground="{StaticResource WhiteColorBrush}"
+                                       Style="{StaticResource ScheduleTextBlockStyle}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Right"
+                                        MinWidth="200"
+                                        MaxWidth="250">
+                                <TextBlock Text="{Binding BeforeDepartureTime}"
+                                           Style="{StaticResource ScheduleTextBlockStyle}" />
+                                <TextBlock Text="{Binding OnTheWay}"
+                                           Style="{StaticResource ScheduleTextBlockStyle}" />
+                                <TextBlock Text="{Binding IsPlace}"
+                                           Foreground="{StaticResource WhiteSmokeColorBrush}"
+                                           Style="{StaticResource ScheduleTextBlockStyle}" />
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical"
+                                        Margin="5,0">
+                                <TextBlock Text="{Binding StartTime}"
+                                           FontSize="{StaticResource TimeFontSize}"
+                                           Foreground="{StaticResource WhiteColorBrush}"
+                                           Style="{StaticResource ScheduleTextBlockStyle}" />
+                                <TextBlock Text="{Binding EndTime}"
+                                           FontSize="{StaticResource BigFontSize}"
+                                           Foreground="{StaticResource DimGrayColorBrush}"
+                                           Margin="0,-5,0,0"
+                                           Style="{StaticResource ScheduleTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="HelpTemplate">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding ImagePath}"
+                           Height="138"
+                           Width="138"
+                           Margin="5,5,5,0" />
+                    <TextBlock Text="{Binding Description}"
+                               TextWrapping="Wrap"
+                               Margin="0,10,0,0"
+                               MaxWidth="240" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="MainPageTemplate">
+                <Grid Height="200"
+                      Margin="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="190" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Width="Auto"
+                          Height="Auto">
+                        <Image x:Name="MainImage"
+                               Source="/Assets/Model_train.jpg"
+                               Margin="-100,0,0,0"
+                               Stretch="Fill">
+                            <Image.RenderTransform>
+                                <CompositeTransform TranslateX="0" />
+                            </Image.RenderTransform>
+                        </Image>
+                    </Grid>
+                    <Grid Grid.Row="0"
+                          Margin="0,150,0,0">
+                        <Grid.Background>
+                            <SolidColorBrush Color="Black"
+                                             Opacity="0.6" />
+                        </Grid.Background>
+                        <TextBlock Style="{StaticResource BoxTitleStyle}"
+                                   Text="Поиск"
+                                   MaxLines="2"
+                                   VerticalAlignment="Top"
+                                   Foreground="White"
+                                   Margin="5,0,0,0" />
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="InformationTemplate">
+                <StackPanel Orientation="Horizontal"
+                            MinWidth="600"
+                            Background="{StaticResource OrangeColorBrush}"
+                            Margin="0,5,0,0">
+                    <StackPanel Orientation="Vertical"
+                                Margin="5,5,0,0">
+                        <TextBlock Text="{Binding Name}"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"
+                                   FontSize="{StaticResource NormalFontSize}"
+                                   MinWidth="150" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                MinWidth="100">
+                        <TextBlock Text="{Binding Place}"
+                                   FontWeight="Normal"
+                                   Style="{StaticResource BasedTextBlockStyle}" />
+                        <TextBlock Text="{Binding Price}"
+                                   FontWeight="Normal"
+                                   Style="{StaticResource BasedTextBlockStyle}" />
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="StopPointTemplate">
+                <StackPanel Orientation="Horizontal"
+                            MinWidth="600"
+                            Background="{StaticResource OrangeColorBrush}"
+                            Margin="0,2,0,0">
+                    <StackPanel Orientation="Vertical"
+                                Width="220"
+                                Margin="5,0,0,0">
+                        <TextBlock Text="{Binding Name}"
+                                   MaxWidth="300"
+                                   HorizontalAlignment="Left"
+                                   VerticalAlignment="Bottom"
+                                   Style="{StaticResource BasedTextBlockStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                MinWidth="150">
+                        <TextBlock Text="{Binding Arrivals}"
+                                   Style="{StaticResource StopPointTextBlockStyle}" />
+                        <TextBlock Text="{Binding Stay}"
+                                   Style="{StaticResource StopPointTextBlockStyle}" />
+                        <TextBlock Text="{Binding Departures}"
+                                   Style="{StaticResource StopPointTextBlockStyle}" />
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="LastRequestTemplate">
+                <StackPanel Orientation="Horizontal"
+                            Width="400"
+                            MinHeight="40"
+                            Background="{StaticResource OrangeColorBrush}"
+                            Margin="0,5">
+                    <TextBlock Text="{Binding From}"
+                               Style="{StaticResource BasedTextBlockStyle}" />
+                    <TextBlock Text="-"
+                               Style="{StaticResource BasedTextBlockStyle}" />
+                    <TextBlock Text="{Binding To}"
+                               Style="{StaticResource BasedTextBlockStyle}" />
+
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="FavoriteRequestTemplate">
+                <StackPanel Orientation="Horizontal"
+                            MinWidth="400"
+                            MinHeight="40"
+                            Background="{StaticResource OrangeColorBrush}"
+                            Margin="5,0,5,5">
+                    <TextBlock Text="{Binding From}"
+                               Margin="5,0"
+                               Style="{StaticResource BasedTextBlockStyle}" />
+                    <TextBlock Text="-"
+                               Margin="5,0"
+                               Style="{StaticResource BasedTextBlockStyle}" />
+                    <TextBlock Text="{Binding To}"
+                               Style="{StaticResource BasedTextBlockStyle}" />
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="EditFavoriteRequestTemplate">
+                <StackPanel Orientation="Horizontal"
+                            MinWidth="400"
+                            MinHeight="60"
+                            Background="{StaticResource OrangeColorBrush}"
+                            Margin="0,0,0,5">
+                    <StackPanel Width="37"
+                                Visibility="{Binding IsCanBeDeleted,Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <CheckBox IsChecked="True"
+                                  Margin="5,0" />
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding From}"
+                                       FontSize="20"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                            <TextBlock Text="-"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                            <TextBlock Text="{Binding To}"
+                                       FontSize="20"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </DataTemplate>
+
+<<<<<<< HEAD
+=======
+            <Style x:Key="HelpAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Справка" />
+                <Setter Property="Icon"
+                        Value="Help" />
+            </Style>
+            <Style x:Key="AddToFavoriteAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Добавить" />
+                <Setter Property="Icon"
+                        Value="Favorite" />
+            </Style>
+            <Style x:Key="DeleteInFavoriteAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Удалить" />
+                <Setter Property="Icon"
+                        Value="UnFavorite" />
+            </Style>
+            <Style x:Key="SwapAppBarButtonStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Обмен" />
+                <Setter Property="Icon"
+                        Value="Sort" />
+            </Style>
+            <Style x:Key="DeleteSelectedFavoriteRoutesStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Удалить" />
+                <Setter Property="Icon"
+                        Value="Delete" />
+            </Style>
+            <Style x:Key="ShowTrainStopAppButtonStyleStyle"
+                   TargetType="AppBarButton">
+                <Setter Property="Label"
+                        Value="Остановки" />
+                <Setter Property="Icon"
+                        Value="Bookmarks" />
+            </Style>
+
+>>>>>>> small refactoring
+        </ResourceDictionary>
+    </Application.Resources>
+</micro:CaliburnApplication>
