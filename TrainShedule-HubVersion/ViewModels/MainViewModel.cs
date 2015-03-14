@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Windows.ApplicationModel.Email;
 using Windows.System;
 using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
+using Trains.Services.Tools;
 using TrainSearch.Entities;
 
 namespace Trains.App.ViewModels
@@ -14,6 +16,11 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class MainViewModel : Screen
     {
+        #region constants
+
+        private const string EditFavoriteMessageError =
+            "Сохраните хотя бы одну станцию, что бы иметь возможность редактирования";
+        #endregion
         #region readonlyProperties
         /// <summary>
         /// Used to get trains from the last request.
@@ -126,7 +133,11 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
+            if(!SavedItems.FavoriteRequests.Any())ToolHelper.ShowMessageBox(EditFavoriteMessageError);
+            else
+            {
+              _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();                
+            }
         }
 
         /// <summary>
