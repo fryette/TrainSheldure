@@ -1,4 +1,5 @@
-﻿using Windows.ApplicationModel.Core;
+﻿using System;
+using Windows.ApplicationModel.Core;
 using Windows.System.Threading;
 using Windows.UI.Core;
 using Caliburn.Micro;
@@ -82,8 +83,8 @@ namespace Trains.App.ViewModels
                 Progress += 33;
             });
 
-            asyncAction.Completed = (asyncInfo, asyncStatus) => CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
-                _navigationService.NavigateToViewModel<MainViewModel>());
+            asyncAction.Completed = async (asyncInfo, asyncStatus) => await (CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>
+                _navigationService.NavigateToViewModel<MainViewModel>()));
         }
 
         #endregion

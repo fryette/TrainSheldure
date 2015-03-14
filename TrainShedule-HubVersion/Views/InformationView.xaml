@@ -29,10 +29,10 @@
                          Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
     </Grid>
-    <!--<Page.BottomAppBar>
+    <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Style="{StaticResource ShowTrainStopAppButtonStyleStyle}"
                           micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
         </CommandBar>
-    </Page.BottomAppBar>-->
+    </Page.BottomAppBar>
 </Page>

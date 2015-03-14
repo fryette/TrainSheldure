@@ -73,14 +73,18 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          Style="{StaticResource AddToFavoriteAppBarButtonStyle}"
+                          Label="Запомнить"
+                          Icon="Favorite"
                           micro:Message.Attach="[Event Click] = [Action AddToFavorite]" />
             <AppBarButton Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          Style="{StaticResource DeleteInFavoriteAppBarButtonStyle}"
+                          Label="Удалить"
+                          Icon="Unfavorite"
                           micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]" />
-            <!--<AppBarButton Style="{StaticResource SwapAppBarButtonStyle}"
-                          micro:Message.Attach="[Event Click] = [Action Swap]" />-->
-            <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}"
+            <AppBarButton Label="Обмен"
+                          Icon="Sort"
+                          micro:Message.Attach="[Event Click] = [Action Swap]" />
+            <AppBarButton Label="Справка"
+                          Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
         </CommandBar>
     </Page.BottomAppBar>
