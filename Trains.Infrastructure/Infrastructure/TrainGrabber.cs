@@ -33,7 +33,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date)
         {
-            var data = await Task.Run(() => Parser.GetHtmlCode(GetUrl(from, to, date)));
+            var data = Parser.GetHtmlCode(GetUrl(from, to, date));
             var additionalInformation = GetPlaces(data);
             var links = GetLink(data);
 
@@ -41,10 +41,10 @@ namespace Trains.Infrastructure.Infrastructure
             var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
             var toItem = await CountryStopPointData.GetItemByIdAsync(to);
             if (fromItem.Country != BelarusConstString && toItem.Country != BelarusConstString)
-                trains = await Task.Run(() => GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern).ToList(), date));
+                trains = GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern).ToList(), date);
             else
-                trains = await Task.Run(() => date == EveryDay ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
-                    : GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date));
+                trains = date == EveryDay ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
+                    : GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date);
 
             return GetFinallyResult(additionalInformation.ToList(), links, trains);
         }

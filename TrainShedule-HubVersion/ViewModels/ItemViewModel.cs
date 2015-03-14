@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Caliburn.Micro;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
+using TrainSearch.Entities;
 
 namespace Trains.App.ViewModels
 {
@@ -276,15 +278,21 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void Search()
         {
-            if (IsTaskRun || !_checkTrain.CheckInput(From, To, Datum)) return;
-            IsTaskRun = true;
-            _serializable.SerializeLastRequest(From, To, LastRequests);
-            var schedule = await _search.GetTrainSchedule(From, To, _checkTrain.GetDate(Datum, SelectedDate));
-            IsTaskRun = false;
+            var schedule = await Task.Run(() => GetTrains());
             if (schedule == null || !schedule.Any())
                 _checkTrain.ShowMessageBox(SearchError);
             else
                 _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
+        }
+
+        private async Task<IEnumerable<Train>> GetTrains()
+        {
+            if (IsTaskRun || !_checkTrain.CheckInput(From, To, Datum)) return null;
+            IsTaskRun = true;
+            _serializable.SerializeLastRequest(From, To, LastRequests);
+            var schedule = await _search.GetTrainSchedule(From, To, _checkTrain.GetDate(Datum, SelectedDate));
+            IsTaskRun = false;
+            return schedule;
         }
 
         /// <summary>

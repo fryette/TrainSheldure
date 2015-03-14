@@ -337,49 +337,6 @@
                 </StackPanel>
             </DataTemplate>
 
-            <Style x:Key="HelpAppBarButtonStyle"
-                   TargetType="AppBarButton">
-                <Setter Property="Label"
-                        Value="Справка" />
-                <Setter Property="Icon"
-                        Value="Help" />
-            </Style>
-            <Style x:Key="AddToFavoriteAppBarButtonStyle"
-                   TargetType="AppBarButton">
-                <Setter Property="Label"
-                        Value="Добавить" />
-                <Setter Property="Icon"
-                        Value="Favorite" />
-            </Style>
-            <Style x:Key="DeleteInFavoriteAppBarButtonStyle"
-                   TargetType="AppBarButton">
-                <Setter Property="Label"
-                        Value="Удалить" />
-                <Setter Property="Icon"
-                        Value="UnFavorite" />
-            </Style>
-            <Style x:Key="SwapAppBarButtonStyle"
-                   TargetType="AppBarButton">
-                <Setter Property="Label"
-                        Value="Обмен" />
-                <Setter Property="Icon"
-                        Value="Sort" />
-            </Style>
-            <Style x:Key="DeleteSelectedFavoriteRoutesStyle"
-                   TargetType="AppBarButton">
-                <Setter Property="Label"
-                        Value="Удалить" />
-                <Setter Property="Icon"
-                        Value="Delete" />
-            </Style>
-            <Style x:Key="ShowTrainStopAppButtonStyleStyle"
-                   TargetType="AppBarButton">
-                <Setter Property="Label"
-                        Value="Остановки" />
-                <Setter Property="Icon"
-                        Value="Bookmarks" />
-            </Style>
-
         </ResourceDictionary>
     </Application.Resources>
 </micro:CaliburnApplication>

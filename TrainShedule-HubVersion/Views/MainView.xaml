@@ -232,7 +232,6 @@
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="Управлять маршрутами"
-                              Icon="Favorite"
                               micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
             </CommandBar.SecondaryCommands>
         </CommandBar>

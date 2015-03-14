@@ -28,7 +28,8 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Style="{StaticResource HelpAppBarButtonStyle}"
+            <AppBarButton Label="Справка"
+                          Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
         </CommandBar>
     </Page.BottomAppBar>
