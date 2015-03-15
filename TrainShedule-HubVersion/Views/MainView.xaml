@@ -17,7 +17,7 @@
                                                Storyboard.TargetName="MainImage">
                     <EasingDoubleKeyFrame KeyTime="0"
                                           Value="100" />
-                    <EasingDoubleKeyFrame KeyTime="0:0:8"
+                    <EasingDoubleKeyFrame KeyTime="0:0:12"
                                           Value="0" />
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
@@ -27,96 +27,61 @@
                                                RepeatBehavior="forever"
                                                Storyboard.TargetName="MainImage1">
                     <EasingDoubleKeyFrame KeyTime="0"
-                                          Value="-100" />
-                    <EasingDoubleKeyFrame KeyTime="0:0:8"
+                                          Value="-140" />
+                    <EasingDoubleKeyFrame KeyTime="0:0:15"
                                           Value="0" />
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Grid.Resources>
-        <Pivot Title="Чыгунка">
-            <PivotItem Header="Поиск">
+        <Pivot x:Uid="ApplicationName">
+            <PivotItem x:Uid="MainPivot">
                 <Grid>
-                    <StackPanel>
-                        <GridView Background="#FF171717"
-                                  Height="100"
-                                  VerticalAlignment="Top">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Приложение принесет вам массу удовольствия, не забывайте оставлять ваши отзывы!"
-                                           TextWrapping="Wrap"
-                                           Width="200"
-                                           HorizontalAlignment="Left"
-                                           Margin="10" />
-                                <Image Source="/Assets/MenuIcon/logo_bch.png"
-                                       Stretch="Fill"
-                                       Height="100"
-                                       Width="142" />
-                            </StackPanel>
-                        </GridView>
-                        <GridView Height="150"
-                                  IsItemClickEnabled="True"
-                                  micro:Message.Attach="[Event ItemClick] = [Action GoToSearch]">
-                            <Grid>
-                                <Grid Margin="0,10,0,-10">
-                                    <Image x:Name="MainImage"
-                                           Source="/Assets/MenuIcon/result.jpg"
-                                           Margin="-90,0,0,0"
-                                           Stretch="Fill">
-                                        <Image.RenderTransform>
-                                            <CompositeTransform TranslateX="0" />
-                                        </Image.RenderTransform>
-                                    </Image>
-                                </Grid>
-                                <Grid Margin="0,90,0,0">
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="Black"
-                                                         Opacity="0.6" />
-                                    </Grid.Background>
-                                    <TextBlock Style="{StaticResource BoxTitleStyle}"
-                                               Text="Поиск"
-                                               MaxLines="2"
-                                               Foreground="White"
-                                               Margin="5,0,0,0"
-                                               VerticalAlignment="Top" />
-                                </Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="170" />
+                        <RowDefinition Height="150" />
+                        <RowDefinition Height="150" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Background="{StaticResource GrayColorBrush}">
+                        <TextBlock x:Uid="MainLabelText"
+                                   FontSize="{StaticResource SmallFontSize}"
+                                   Style="{StaticResource MainLabelTextBlockStyle}" />
+                        <Image Style="{StaticResource MainLogoImageStyle}" />
+                    </Grid>
+                    <GridView Grid.Row="1"
+                              IsItemClickEnabled="True"
+                              Margin="0,10,0,-10"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToSearch]">
+                        <Grid>
+                            <Image x:Name="MainImage"
+                                   Source="/Assets/MenuIcon/result.jpg"
+                                   Style="{StaticResource MainButtonImageStyle}" />
+                            <Grid Style="{StaticResource GridLabelMainStyle}">
+                                <TextBlock x:Uid="SearchLabel"
+                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
                             </Grid>
-                        </GridView>
-                        <GridView Height="150"
-                                  IsItemClickEnabled="True"
-                                  micro:Message.Attach="[Event ItemClick] = [Action GoToNews]">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="150" />
-                                </Grid.RowDefinitions>
-                                <Grid Grid.Row="0"
-                                      Margin="0,10,0,-10">
-                                    <Image x:Name="MainImage1"
-                                           Source="/Assets/MenuIcon/logo_tile2.jpg"
-                                           Margin="0,0,-100,0"
-                                           Stretch="Fill">
-                                        <Image.RenderTransform>
-                                            <CompositeTransform TranslateX="0" />
-                                        </Image.RenderTransform>
-                                    </Image>
-                                </Grid>
-                                <Grid Grid.Row="0"
-                                      Margin="0,90,0,0">
-                                    <Grid.Background>
-                                        <SolidColorBrush Color="Black"
-                                                         Opacity="0.6" />
-                                    </Grid.Background>
-                                    <TextBlock Style="{StaticResource BoxTitleStyle}"
-                                               Text="Новости.Фото."
-                                               MaxLines="2"
-                                               Foreground="White"
-                                               Margin="5,0,0,0"
-                                               VerticalAlignment="Top" />
-                                </Grid>
+                        </Grid>
+                    </GridView>
+                    <GridView Grid.Row="2"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToNews]">
+                        <Grid>
+                            <Image x:Name="MainImage1"
+                                   Source="/Assets/MenuIcon/logo_tile2.jpg"
+                                   Margin="0,0,-140,0"
+                                   Width="500"
+                                   Style="{StaticResource MainButtonImageStyle}" />
+                            <Grid Style="{StaticResource GridLabelMainStyle}">
+                                <TextBlock x:Uid="NewsLabel"
+                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
                             </Grid>
-                        </GridView>
-                    </StackPanel>
+                        </Grid>
+                    </GridView>
+                    <Grid Grid.Row="3"></Grid>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Последний">
+            <PivotItem x:Uid="LastPivot">
                 <Grid>
                     <ListView ItemsSource="{Binding Trains}"
                               IsItemClickEnabled="True"
@@ -125,7 +90,7 @@
                     </ListView>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Маршруты">
+            <PivotItem x:Uid="RoutesPivot">
                 <Grid>
                     <ListView x:Name="FavoriteRequests"
                               ItemsSource="{Binding FavoriteRequests}"
@@ -135,89 +100,67 @@
                               micro:Message.Attach="[Event ItemClick] = [Action SelectTrain($clickeditem)]" />
                 </Grid>
             </PivotItem>
-            <PivotItem Header="Больше">
+            <PivotItem x:Uid="AboutPivot">
                 <Grid>
-                    <StackPanel>
-                        <GridView IsItemClickEnabled="True"
-                                  micro:Message.Attach="[Event ItemClick] = [Action GoToMarketPlace]">
-                            <StackPanel Orientation="Horizontal"
-                                        Width="352">
-                                <StackPanel Background="OrangeRed">
-                                    <Image Width="50"
-                                           Source="/Assets/appbar.star.png"
-                                           Stretch="Fill" />
-                                </StackPanel>
-                                <StackPanel Background="OrangeRed"
-                                            Margin="5,0,0,0"
-                                            Width="300">
-                                    <StackPanel VerticalAlignment="Center"
-                                                Margin="5,0,0,0">
-                                        <TextBlock Text="Оценить приложение"
-                                                   FontSize="24"
-                                                   FontWeight="Bold"></TextBlock>
-                                    </StackPanel>
-                                </StackPanel>
-                            </StackPanel>
-                        </GridView>
-                        <GridView Margin="0,5"
-                                  IsItemClickEnabled="True"
-                                  micro:Message.Attach="[Event ItemClick] = [Action SentEmail]">
-                            <StackPanel Orientation="Horizontal"
-                                        Width="352">
-                                <StackPanel Background="OrangeRed">
-                                    <Image Width="50"
-                                           Source="/Assets/appbar.email.gmail.png"
-                                           Stretch="Fill" />
-                                </StackPanel>
-                                <StackPanel Background="OrangeRed"
-                                            Margin="5,0,0,0"
-                                            Width="300">
-                                    <StackPanel VerticalAlignment="Center"
-                                                Margin="5,0,0,0">
-                                        <TextBlock Text="Баги/Сотрудничество"
-                                                   FontSize="24"
-                                                   FontWeight="Bold"></TextBlock>
-                                    </StackPanel>
-                                </StackPanel>
-                            </StackPanel>
-                        </GridView>
-                        <GridView IsItemClickEnabled="True"
-                                  micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]">
-                            <StackPanel Orientation="Horizontal"
-                                        Width="352">
-                                <StackPanel Background="OrangeRed">
-                                    <Image Width="50"
-                                           Source="/Assets/appbar.information.png"
-                                           Stretch="Fill" />
-                                </StackPanel>
-                                <StackPanel Background="OrangeRed"
-                                            Margin="5,0,0,0"
-                                            Width="300">
-                                    <StackPanel VerticalAlignment="Center"
-                                                Margin="5,0,0,0">
-                                        <TextBlock Text="О приложении"
-                                                   FontSize="24"
-                                                   FontWeight="Bold"></TextBlock>
-                                    </StackPanel>
-                                </StackPanel>
-                            </StackPanel>
-                        </GridView>
-                    </StackPanel>
-                    <GridView Background="#FF171717"
-                              VerticalAlignment="Bottom"
-                              FontFamily="Buxton Sketch">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+
+                    </Grid.RowDefinitions>
+
+                    <GridView Grid.Row="0"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToMarketPlace]">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Все маршруты в вашем Windows Phone"
-                                       TextWrapping="Wrap"
-                                       Width="200"
-                                       HorizontalAlignment="Left"
-                                       Margin="10"
-                                       FontSize="22"
-                                       FontFamily="Dotum" />
-                            <Image Source="/Assets/MenuIcon/logo_bch.png"
-                                   Stretch="Fill"
-                                   Height="100"
-                                   Width="142" />
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.star.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="RateTextBlock"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="1"
+                              Margin="0,5"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action SentEmail]">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.email.gmail.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="BugsReport"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="2"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.information.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="AboutApp"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="3"
+                              Background="{StaticResource GrayColorBrush}"
+                              VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Uid="AboutLabel"
+                                       FontFamily="Dotum"
+                                       Style="{StaticResource MainLabelTextBlockStyle}" />
+                            <Image Style="{StaticResource MainLogoImageStyle}" />
                         </StackPanel>
                     </GridView>
                 </Grid>

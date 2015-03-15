@@ -19,7 +19,7 @@
                          VerticalAlignment="Top"
                          Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
             <StackPanel HorizontalAlignment="Center">
-                <TextBlock x:Uid="SearchTextBlock"
+                <TextBlock x:Uid="SearchLabel"
                            Style="{ThemeResource HeaderTextBlockStyle}" />
             </StackPanel>
         </Grid>

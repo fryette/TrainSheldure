@@ -117,14 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AboutApp.Text" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="AboutLabel.Text" xml:space="preserve">
+    <value>Все маршруты в вашем Windows Phone</value>
+  </data>
+  <data name="AboutPivot.Header" xml:space="preserve">
+    <value>Больше</value>
+  </data>
   <data name="AddInformation.Text" xml:space="preserve">
     <value>Доп.Информация</value>
   </data>
   <data name="AllDays.Content" xml:space="preserve">
     <value>На все дни</value>
   </data>
-  <data name="ApplicationName.Text" xml:space="preserve">
+  <data name="ApplicationName.Title" xml:space="preserve">
     <value>Чыгунка</value>
+  </data>
+  <data name="BugsReport.Text" xml:space="preserve">
+    <value>Баги/Сотрудничество</value>
   </data>
   <data name="Clear.Content" xml:space="preserve">
     <value>Очистить</value>
@@ -147,16 +159,34 @@
   <data name="InformationHeader.Text" xml:space="preserve">
     <value>Места/цены</value>
   </data>
+  <data name="LastPivot.Header" xml:space="preserve">
+    <value>Последний</value>
+  </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Последние запросы</value>
   </data>
   <data name="ListOfPoint.Content" xml:space="preserve">
     <value>Список остановок</value>
   </data>
+  <data name="MainLabelText.Text" xml:space="preserve">
+    <value>Приложение принесет вам массу удовольствия, не забывайте оставлять ваши отзывы!</value>
+  </data>
+  <data name="MainPivot.Header" xml:space="preserve">
+    <value>Главная</value>
+  </data>
+  <data name="NewsLabel.Text" xml:space="preserve">
+    <value>Новости.Фото.</value>
+  </data>
+  <data name="RateTextBlock.Text" xml:space="preserve">
+    <value>Оценить приложение</value>
+  </data>
+  <data name="RoutesPivot.Header" xml:space="preserve">
+    <value>Маршруты</value>
+  </data>
   <data name="Search.Content" xml:space="preserve">
     <value>Поиск</value>
   </data>
-  <data name="SearchTextBlock.Text" xml:space="preserve">
+  <data name="SearchLabel.Text" xml:space="preserve">
     <value>Поиск</value>
   </data>
   <data name="SelectClass.Text" xml:space="preserve">
