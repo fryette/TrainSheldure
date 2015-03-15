@@ -344,7 +344,8 @@ namespace Trains.App.ViewModels
                 _checkTrain.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
                 return;
             }
-            if (FavoriteRequests.Any(x => x.From == From && x.To == To)) _checkTrain.ShowMessageBox(ThisRouteIsPresent);
+            if (FavoriteRequests.Any(x => x.From == From && x.To == To)) 
+                _checkTrain.ShowMessageBox(ThisRouteIsPresent);
             else
             {
                 FavoriteRequests.Add(new LastRequest { From = From, To = To });
@@ -409,6 +410,7 @@ namespace Trains.App.ViewModels
             IsVisibleFavoriteIcon = favorite;
             IsVisibleUnFavoriteIcon = unfavorite;
         }
+
         #endregion
     }
 }

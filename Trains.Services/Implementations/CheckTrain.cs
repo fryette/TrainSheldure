@@ -54,7 +54,8 @@ namespace Trains.Services.Implementations
 
         public bool CheckFavorite(string from, string to)
         {
-            return SavedItems.FavoriteRequests != null && string.IsNullOrEmpty(from) && string.IsNullOrEmpty(to) && SavedItems.FavoriteRequests.Any(x => x.From == from && x.To == to);
+            if (SavedItems.FavoriteRequests == null ||!SavedItems.FavoriteRequests.Any()) return true;
+            return !string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to) && !SavedItems.FavoriteRequests.Any(x => x.From == from && x.To == to);
         }
     }
 }
