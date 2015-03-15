@@ -41,8 +41,8 @@ namespace Trains.Services.Implementations
         public bool CheckInput(string from, string to, DateTimeOffset datum)
         {
             if (CheckDate(datum) || String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
-                (!SavedItems.AutoCompletion.Any(x => x.UniqueId.Contains(from.Split('(')[0])) ||
-                 !SavedItems.AutoCompletion.Any(x => x.UniqueId.Contains(to.Split('(')[0]))))
+                !(SavedItems.AutoCompletion.Any(x => x.UniqueId == from) &&
+                 SavedItems.AutoCompletion.Any(x => x.UniqueId == to)))
             {
                 ShowMessageBox(IncorrectInput);
                 return false;
@@ -54,7 +54,7 @@ namespace Trains.Services.Implementations
 
         public bool CheckFavorite(string from, string to)
         {
-            if (SavedItems.FavoriteRequests == null ||!SavedItems.FavoriteRequests.Any()) return true;
+            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) return true;
             return !string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to) && !SavedItems.FavoriteRequests.Any(x => x.From == from && x.To == to);
         }
     }

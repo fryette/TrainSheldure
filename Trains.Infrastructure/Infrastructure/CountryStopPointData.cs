@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
-using TrainSearch.Entities;
+using Trains.Model.Entities;
+using Trains.Entities;
 
 namespace Trains.Infrastructure.Infrastructure
 {
@@ -73,7 +74,7 @@ namespace Trains.Infrastructure.Infrastructure
 
                 foreach (var itemObject in groupObject["Items"].GetArray().Select(itemValue => itemValue.GetObject()))
                 {
-                    group.Items.Add(new CountryStopPointDataItem(itemObject["UniqueId"].GetString(), itemObject["Country"].GetString()));
+                    group.Items.Add(new CountryStopPointDataItem(itemObject["UniqueId"].GetString(), itemObject["Country"].GetString(), itemObject["Exp"].GetString()));
                 }
                 Groups.Add(group);
             }

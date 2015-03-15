@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 
-namespace TrainSearch.Entities
+namespace Trains.Model.Entities
 {
    public class CountryStopPointDataGroup
     {

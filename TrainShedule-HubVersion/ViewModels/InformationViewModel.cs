@@ -3,7 +3,7 @@ using System.Net.NetworkInformation;
 using Windows.UI.Popups;
 using Caliburn.Micro;
 using Trains.Services.Interfaces;
-using TrainSearch.Entities;
+using Trains.Entities;
 
 namespace Trains.App.ViewModels
 {

@@ -7,7 +7,7 @@ using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
-using TrainSearch.Entities;
+using Trains.Entities;
 
 namespace Trains.App.ViewModels
 {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using TrainSearch.Entities;
+using Trains.Entities;
 
 namespace Trains.Services.Interfaces
 {

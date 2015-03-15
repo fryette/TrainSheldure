@@ -4,7 +4,8 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using TrainSearch.Entities;
+using Trains.Model.Entities;
+using Trains.Entities;
 namespace Trains.Infrastructure.Infrastructure
 {
     public class TrainGrabber
@@ -33,13 +34,14 @@ namespace Trains.Infrastructure.Infrastructure
 
         public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date)
         {
-            var data = Parser.GetHtmlCode(GetUrl(from, to, date));
+            var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
+            var toItem = await CountryStopPointData.GetItemByIdAsync(to);
+
+            var data = Parser.GetHtmlCode(GetUrl(fromItem, toItem, date));
             var additionalInformation = GetPlaces(data);
             var links = GetLink(data);
 
             IEnumerable<Train> trains;
-            var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
-            var toItem = await CountryStopPointData.GetItemByIdAsync(to);
             if (fromItem.Country != BelarusConstString && toItem.Country != BelarusConstString)
                 trains = GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern).ToList(), date);
             else
@@ -49,10 +51,10 @@ namespace Trains.Infrastructure.Infrastructure
             return GetFinallyResult(additionalInformation.ToList(), links, trains);
         }
 
-        private static string GetUrl(string fromName, string toName, string date)
+        private static string GetUrl(CountryStopPointDataItem fromItem, CountryStopPointDataItem toItem, string date)
         {
             return "http://rasp.rw.by/m/ru/route/?from=" +
-                   fromName + "&to=" + toName + "&date=" + date;
+                   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date;
         }
 
         private static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date)
@@ -104,7 +106,7 @@ namespace Trains.Infrastructure.Infrastructure
         {
             var startTime = DateTime.Parse(time1);
             DateTime endTime;
-            endTime = DateTime.Parse(time2.Replace("<br />", " ") + (time2.Length>12 ? "" : " " + departureDate));
+            endTime = DateTime.Parse(time2.Replace("<br />", " ") + (time2.Length > 12 ? "" : " " + departureDate));
             return new Train
             {
                 StartTime = time1.Contains(' ') ? time1.Split(' ')[1] : time1,
@@ -226,7 +228,7 @@ namespace Trains.Infrastructure.Infrastructure
                     trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
             }
 
-            return trainsList.Where(x =>!x.BeforeDepartureTime.Contains('-'));
+            return trainsList.Where(x => !x.BeforeDepartureTime.Contains('-'));
         }
 
     }

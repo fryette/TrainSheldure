@@ -6,7 +6,7 @@ using Caliburn.Micro;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using TrainSearch.Entities;
+using Trains.Entities;
 
 namespace Trains.App.ViewModels
 {
@@ -21,9 +21,9 @@ namespace Trains.App.ViewModels
         private const string ThisRouteIsPresent = "Данный маршрут уже присутствует";
         private const string OneOrMoreStopPointIsInCorrect = "Одна или обе станции не введены";
         private const string FavoriteString = "favoriteRequests";
-        private const string StantionIsAddedToFavorite = "Станция добавлена!";
+        private const string RouteIsAddedToFavorite = "Станция добавлена!";
         private const string FavoriteListIsEmpthy = "Ваш список пуст";
-        private const string StantionIsDeletedInFavorite = "Станция удалена!";
+        private const string RouteIsDeletedInFavorite = "Станция удалена!";
         private const string RouteIsIncorect = "Маршрут не найден,проверьте поля ввода станций!";
 
         #endregion
@@ -330,7 +330,7 @@ namespace Trains.App.ViewModels
         {
             From = String.Empty;
             To = String.Empty;
-            SetVisibilityToFavoriteIcons(false,false);
+            SetVisibilityToFavoriteIcons(false, false);
         }
 
         /// <summary>
@@ -338,20 +338,19 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void AddToFavorite()
         {
-            if (FavoriteRequests == null) FavoriteRequests = new List<LastRequest>();
             if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To))
             {
                 _checkTrain.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
                 return;
             }
-            if (FavoriteRequests.Any(x => x.From == From && x.To == To)) 
+            if (SavedItems.FavoriteRequests.Any(x => x.From == From && x.To == To))
                 _checkTrain.ShowMessageBox(ThisRouteIsPresent);
             else
             {
-                FavoriteRequests.Add(new LastRequest { From = From, To = To });
-                SavedItems.FavoriteRequests = FavoriteRequests;
+                SavedItems.FavoriteRequests.Add(new LastRequest { From = From, To = To });
+                FavoriteRequests = SavedItems.FavoriteRequests;
                 await Serialize.SaveObjectToXml(FavoriteRequests, FavoriteString);
-                _checkTrain.ShowMessageBox(StantionIsAddedToFavorite);
+                _checkTrain.ShowMessageBox(RouteIsAddedToFavorite);
                 SetVisibilityToFavoriteIcons(false, true);
             }
         }
@@ -372,7 +371,7 @@ namespace Trains.App.ViewModels
                 FavoriteRequests.Remove(objectToDelete);
                 SavedItems.FavoriteRequests = FavoriteRequests;
                 _serializable.SerializeObjectToXml(LastRequests, FavoriteString);
-                _checkTrain.ShowMessageBox(StantionIsDeletedInFavorite);
+                _checkTrain.ShowMessageBox(RouteIsDeletedInFavorite);
                 SetVisibilityToFavoriteIcons(true, false);
             }
             else
@@ -393,11 +392,11 @@ namespace Trains.App.ViewModels
         private void UpdateAutoSuggestions(string str)
         {
             if (string.IsNullOrEmpty(str)) return;
-            if (_checkTrain.CheckFavorite(From,To))
-                SetVisibilityToFavoriteIcons(true,false);
+            if (_checkTrain.CheckFavorite(From, To))
+                SetVisibilityToFavoriteIcons(true, false);
             else
-                SetVisibilityToFavoriteIcons(false,true);
-            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId + x.Country).ToList();
+                SetVisibilityToFavoriteIcons(false, true);
+            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId).ToList();
             if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
             AutoSuggestions.Clear();
         }

@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Services.Interfaces;
-using TrainSearch.Entities;
+using Trains.Entities;
 
 namespace Trains.Services.Implementations
 {

@@ -2,8 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Trains.Infrastructure.Infrastructure;
+using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using TrainSearch.Entities;
+using Trains.Entities;
 
 namespace Trains.Services.Implementations
 {
@@ -15,7 +16,7 @@ namespace Trains.Services.Implementations
         }
         public async Task<IEnumerable<Train>> GetTrainSchedule(params string[] parameters)
         {
-            return await TrainGrabber.GetTrainSchedule(parameters[0].Split('(')[0], parameters[1].Split('(')[0], parameters[2]);
+            return await TrainGrabber.GetTrainSchedule(parameters[0], parameters[1], parameters[2]);
         }
     }
 }

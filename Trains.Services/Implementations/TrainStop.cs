@@ -7,7 +7,7 @@ namespace Trains.Services.Implementations
 {
     public class TrainStop:ITrainStopService
     {
-        public async Task<IEnumerable<TrainSearch.Entities.TrainStop>> GetTrainStop(string link)
+        public async Task<IEnumerable<Trains.Entities.TrainStop>> GetTrainStop(string link)
         {
             return await Task.Run(()=>TrainStopGrabber.GetTrainStop(link));
         }
