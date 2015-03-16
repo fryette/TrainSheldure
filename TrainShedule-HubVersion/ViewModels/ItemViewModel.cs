@@ -343,6 +343,7 @@ namespace Trains.App.ViewModels
                 _checkTrain.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
                 return;
             }
+            if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests=new List<LastRequest>();
             if (SavedItems.FavoriteRequests.Any(x => x.From == From && x.To == To))
                 _checkTrain.ShowMessageBox(ThisRouteIsPresent);
             else
