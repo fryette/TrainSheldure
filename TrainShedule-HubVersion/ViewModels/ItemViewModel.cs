@@ -7,6 +7,7 @@ using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Entities;
+using Trains.Services.Tools;
 
 namespace Trains.App.ViewModels
 {
@@ -278,6 +279,13 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void Search()
         {
+            var checkInputError = await Task.Run(() => CheckTrain());
+            if (checkInputError != null)
+            {
+                _checkTrain.ShowMessageBox(checkInputError);
+                return;
+            }
+
             var schedule = await Task.Run(() => GetTrains());
             if (schedule == null || !schedule.Any())
                 _checkTrain.ShowMessageBox(SearchError);
@@ -287,12 +295,19 @@ namespace Trains.App.ViewModels
 
         private async Task<IEnumerable<Train>> GetTrains()
         {
-            if (IsTaskRun || !_checkTrain.CheckInput(From, To, Datum)) return null;
+
+
+            if (IsTaskRun) return null;
             IsTaskRun = true;
             _serializable.SerializeLastRequest(From, To, LastRequests);
             var schedule = await _search.GetTrainSchedule(From, To, _checkTrain.GetDate(Datum, SelectedDate));
             IsTaskRun = false;
             return schedule;
+        }
+
+        private string CheckTrain()
+        {
+            return _checkTrain.CheckInput(From, To, Datum);
         }
 
         /// <summary>
@@ -343,7 +358,7 @@ namespace Trains.App.ViewModels
                 _checkTrain.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
                 return;
             }
-            if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests=new List<LastRequest>();
+            if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests = new List<LastRequest>();
             if (SavedItems.FavoriteRequests.Any(x => x.From == From && x.To == To))
                 _checkTrain.ShowMessageBox(ThisRouteIsPresent);
             else

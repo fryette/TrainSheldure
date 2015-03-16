@@ -133,10 +133,10 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            if(!SavedItems.FavoriteRequests.Any())ToolHelper.ShowMessageBox(EditFavoriteMessageError);
+            if (!SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(EditFavoriteMessageError);
             else
             {
-              _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();                
+                _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
             }
         }
 

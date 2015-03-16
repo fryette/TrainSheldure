@@ -86,8 +86,7 @@
                     <ListView ItemsSource="{Binding Trains}"
                               IsItemClickEnabled="True"
                               ItemTemplate="{StaticResource ScheduleTemplate}"
-                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
-                    </ListView>
+                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"/>
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="RoutesPivot">

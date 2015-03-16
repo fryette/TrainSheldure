@@ -149,8 +149,6 @@
     <Content Include="Assets\IRLE.png" />
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
-    <Content Include="Assets\HubBackground.theme-dark.png" />
-    <Content Include="Assets\HubBackground.theme-light.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\BR.png" />
     <Content Include="Assets\MenuIcon\GE.png" />

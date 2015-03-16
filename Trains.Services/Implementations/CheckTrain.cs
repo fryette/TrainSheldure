@@ -38,18 +38,15 @@ namespace Trains.Services.Implementations
             return true;
         }
 
-        public bool CheckInput(string from, string to, DateTimeOffset datum)
+        public string CheckInput(string from, string to, DateTimeOffset datum)
         {
             if (CheckDate(datum) || String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
                 !(SavedItems.AutoCompletion.Any(x => x.UniqueId == from) &&
                  SavedItems.AutoCompletion.Any(x => x.UniqueId == to)))
             {
-                ShowMessageBox(IncorrectInput);
-                return false;
+                return IncorrectInput;
             }
-            if (NetworkInterface.GetIsNetworkAvailable()) return true;
-            ShowMessageBox(ConectionError);
-            return false;
+            return NetworkInterface.GetIsNetworkAvailable() ? null : ConectionError;
         }
 
         public bool CheckFavorite(string from, string to)

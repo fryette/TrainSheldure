@@ -224,12 +224,6 @@
                         Value="50" />
                 <Setter Property="VerticalAlignment"
                         Value="Bottom" />
-                <Setter Property="HorizontalAlignment"
-                        Value="Left" />
-                <Setter Property="Width"
-                        Value="300" />
-                <Setter Property="Margin"
-                        Value="0,0,0,20" />
             </Style>
 
             <DataTemplate x:Key="ScheduleTemplate">

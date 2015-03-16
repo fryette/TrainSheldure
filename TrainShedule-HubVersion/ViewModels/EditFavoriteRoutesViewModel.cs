@@ -74,12 +74,10 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Deleted all all favorite saved routes.
         /// </summary>
-        private void DeleteSelectedFavoritsRoutes()
+        private void DeleteSelectedFavoriteRoutes()
         {
             foreach (var lastRequest in FavoriteRequests.Where(x => x.IsCanBeDeleted))
-            {
                 SavedItems.FavoriteRequests.Remove(lastRequest);
-            }
             FavoriteRequests = SavedItems.FavoriteRequests;
             _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, "favoriteRequests");
         }

@@ -20,7 +20,7 @@
         </Grid>
         <Grid Row="1">
             <ListView x:Name="FavoriteRequests"
-                      ItemsSource="{Binding FavoriteRequests}"
+                      ItemsSource="{Binding FavoriteRequests,Mode=TwoWay}"
                       IsItemClickEnabled="True"
                       Margin="5,0,0,0"
                       ItemTemplate="{StaticResource EditFavoriteRequestTemplate}"
