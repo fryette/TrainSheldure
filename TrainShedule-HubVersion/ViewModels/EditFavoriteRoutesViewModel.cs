@@ -14,6 +14,8 @@ namespace Trains.App.ViewModels
     {
         #region constants
         private const string NotifyMessage = "Выберите интересующие вас станции,затем выберите кнопку удалить выбранные";
+        private const string FavoriteStr = "favoriteRequests";
+        private const string AllFavoritesDeleted = "Список ваших маршрутов теперь пуст";
         #endregion
 
         #region properties
@@ -23,7 +25,11 @@ namespace Trains.App.ViewModels
         /// </summary>
         private readonly ISerializableService _serializable;
 
-        
+        /// <summary>
+        /// Used to navigate between pages.
+        /// </summary>
+        private readonly INavigationService _navigationService;
+
         /// <summary>
         /// Object are stored custom routes.
         /// </summary>
@@ -42,9 +48,11 @@ namespace Trains.App.ViewModels
         /// Constructor
         /// </summary>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
-        public EditFavoriteRoutesViewModel(ISerializableService serializable)
+        /// <param name="navigationService">Used to navigate between pages.</param>
+        public EditFavoriteRoutesViewModel(ISerializableService serializable, INavigationService navigationService)
         {
             _serializable = serializable;
+            _navigationService = navigationService;
         }
 
         #endregion
@@ -79,7 +87,16 @@ namespace Trains.App.ViewModels
             foreach (var lastRequest in FavoriteRequests.Where(x => x.IsCanBeDeleted))
                 SavedItems.FavoriteRequests.Remove(lastRequest);
             FavoriteRequests = SavedItems.FavoriteRequests;
-            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, "favoriteRequests");
+            if (!FavoriteRequests.Any())
+            {
+                _serializable.DeleteFile(FavoriteStr);
+                _navigationService.NavigateToViewModel<MainViewModel>();
+                ToolHelper.ShowMessageBox(AllFavoritesDeleted);
+            }
+            else
+            {
+                _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FavoriteStr);
+            }
         }
         #endregion
     }

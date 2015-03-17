@@ -26,21 +26,20 @@ namespace Trains.Services.Implementations
             return datum.Date.Year + "-" + datum.Date.Month + "-" + datum.Date.Day;
         }
 
-        public bool CheckDate(DateTimeOffset datum)
+        public string CheckDate(DateTimeOffset datum)
         {
             if ((datum.Date - DateTime.Now).Days < 0)
             {
-                ShowMessageBox(DateUpTooLater);
-                return true;
+                return DateUpTooLater;
             }
-            if (datum.Date <= DateTime.Now.AddDays(45)) return false;
-            ShowMessageBox(DateTooBig);
-            return true;
+            return datum.Date <= DateTime.Now.AddDays(45) ? null : DateTooBig;
         }
 
         public string CheckInput(string from, string to, DateTimeOffset datum)
         {
-            if (CheckDate(datum) || String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
+            var dayError = CheckDate(datum);
+            if (dayError != null) return dayError;
+            if (CheckDate(datum)!=null || String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
                 !(SavedItems.AutoCompletion.Any(x => x.UniqueId == from) &&
                  SavedItems.AutoCompletion.Any(x => x.UniqueId == to)))
             {
