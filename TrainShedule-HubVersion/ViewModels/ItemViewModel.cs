@@ -6,7 +6,6 @@ using Caliburn.Micro;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using Trains.Entities;
 using Trains.Services.Tools;
 
 namespace Trains.App.ViewModels
@@ -26,6 +25,7 @@ namespace Trains.App.ViewModels
         private const string FavoriteListIsEmpthy = "Ваш список пуст";
         private const string RouteIsDeletedInFavorite = "Станция удалена!";
         private const string RouteIsIncorect = "Маршрут не найден,проверьте поля ввода станций!";
+        private const string UpdateLastRequestString = "updateLastRequst";
 
         #endregion
 
@@ -279,37 +279,35 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void Search()
         {
-            var checkInputError = await Task.Run(() => CheckTrain());
-            if (checkInputError != null)
-            {
-                _checkTrain.ShowMessageBox(checkInputError);
-                return;
-            }
-
-            var schedule = await Task.Run(() => GetTrains());
+            if (await CheckInput()) return;
+            IsTaskRun = true;
+            await Task.Run(() => SerializeDataSearch());
+            var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedDate)));
             if (schedule == null || !schedule.Any())
-                _checkTrain.ShowMessageBox(SearchError);
+                ToolHelper.ShowMessageBox(SearchError);
             else
                 _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
-        }
-
-        private async Task<IEnumerable<Train>> GetTrains()
-        {
-
-
-            if (IsTaskRun) return null;
-            IsTaskRun = true;
-            _serializable.SerializeLastRequest(From, To, LastRequests);
-            var schedule = await _search.GetTrainSchedule(From, To, _checkTrain.GetDate(Datum, SelectedDate));
             IsTaskRun = false;
-            return schedule;
         }
 
-        private string CheckTrain()
+        private void SerializeDataSearch()
         {
-            return _checkTrain.CheckInput(From, To, Datum);
+            SavedItems.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
+
+            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To };
+            _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, UpdateLastRequestString);
         }
 
+        private async Task<bool> CheckInput()
+        {
+            if (IsTaskRun) return true;
+            IsTaskRun = true;
+            var checkInputError = await Task.Run(() => _checkTrain.CheckInput(From, To, Datum));
+            if (checkInputError == null) return false;
+            ToolHelper.ShowMessageBox(checkInputError);
+            IsTaskRun = false;
+            return true;
+        }
         /// <summary>
         /// Swaped From and To properties.
         /// </summary>
@@ -355,18 +353,18 @@ namespace Trains.App.ViewModels
         {
             if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To))
             {
-                _checkTrain.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
+                ToolHelper.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
                 return;
             }
             if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests = new List<LastRequest>();
             if (SavedItems.FavoriteRequests.Any(x => x.From == From && x.To == To))
-                _checkTrain.ShowMessageBox(ThisRouteIsPresent);
+                ToolHelper.ShowMessageBox(ThisRouteIsPresent);
             else
             {
                 SavedItems.FavoriteRequests.Add(new LastRequest { From = From, To = To });
                 FavoriteRequests = SavedItems.FavoriteRequests;
                 await Serialize.SaveObjectToXml(FavoriteRequests, FavoriteString);
-                _checkTrain.ShowMessageBox(RouteIsAddedToFavorite);
+                ToolHelper.ShowMessageBox(RouteIsAddedToFavorite);
                 SetVisibilityToFavoriteIcons(false, true);
             }
         }
@@ -378,7 +376,7 @@ namespace Trains.App.ViewModels
         {
             if (FavoriteRequests == null)
             {
-                _checkTrain.ShowMessageBox(FavoriteListIsEmpthy);
+                ToolHelper.ShowMessageBox(FavoriteListIsEmpthy);
                 return;
             }
             var objectToDelete = FavoriteRequests.FirstOrDefault(x => x.From == From && x.To == To);
@@ -387,11 +385,11 @@ namespace Trains.App.ViewModels
                 FavoriteRequests.Remove(objectToDelete);
                 SavedItems.FavoriteRequests = FavoriteRequests;
                 _serializable.SerializeObjectToXml(LastRequests, FavoriteString);
-                _checkTrain.ShowMessageBox(RouteIsDeletedInFavorite);
+                ToolHelper.ShowMessageBox(RouteIsDeletedInFavorite);
                 SetVisibilityToFavoriteIcons(true, false);
             }
             else
-                _checkTrain.ShowMessageBox(RouteIsIncorect);
+                ToolHelper.ShowMessageBox(RouteIsIncorect);
         }
 
         /// <summary>

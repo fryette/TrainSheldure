@@ -10,5 +10,7 @@ namespace Trains.Model.Entities
         public static List<LastRequest> FavoriteRequests { get; set; }
 
         public static IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
+
+        public static LastRequest UpdatedLastRequest { get; set; }
     }
 }

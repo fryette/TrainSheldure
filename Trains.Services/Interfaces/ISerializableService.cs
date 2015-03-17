@@ -6,9 +6,10 @@ namespace Trains.Services.Interfaces
 {
     public interface ISerializableService
     {
-        void SerializeLastRequest(string from, string to, List<LastRequest> lastrequsts);
+        List<LastRequest> SerializeLastRequest(string from, string to, List<LastRequest> lastrequsts);
         void SerializeObjectToXml<T>(T obj, string fileName);
         Task<List<LastRequest>> GetLastRequests(string fileName);
         void DeleteFile(string fileName);
+        Task<T> ReadObjectFromXmlFileAsync<T>(string filename)where T:class ;
     }
 }

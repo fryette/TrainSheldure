@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.System.Threading;
 using Windows.UI.Core;
@@ -10,7 +11,11 @@ namespace Trains.App.ViewModels
 {
     public class SplashScreenViewModel : Screen
     {
-
+        #region constants
+        private const string FavoriteString = "favoriteRequests";
+        private const int AddedProgress = 20;
+        private const string UpdateLastRequestString = "updateLastRequst";
+        #endregion
         #region properties
 
         /// <summary>
@@ -75,12 +80,15 @@ namespace Trains.App.ViewModels
         {
             var asyncAction = ThreadPool.RunAsync(async workItem =>
             {
-                SavedItems.LastRequests = await _serializable.GetLastRequests("lastRequests");
-                Progress += 33;
-                SavedItems.FavoriteRequests = await _serializable.GetLastRequests("favoriteRequests");
-                Progress += 33;
-                SavedItems.AutoCompletion = await _search.GetCountryStopPoint();
-                Progress += 33;
+                SavedItems.LastRequests = await Task.Run(() => _serializable.GetLastRequests("lastRequests"));
+                Progress += AddedProgress;
+                SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests("favoriteRequests"));
+                Progress += AddedProgress;
+                SavedItems.AutoCompletion = await Task.Run(() => _search.GetCountryStopPoint());
+                Progress += AddedProgress;
+                SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(UpdateLastRequestString));
+                Progress += AddedProgress;
+
             });
 
             asyncAction.Completed = async (asyncInfo, asyncStatus) => await (CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High, () =>

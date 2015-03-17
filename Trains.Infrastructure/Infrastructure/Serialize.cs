@@ -11,7 +11,7 @@ namespace Trains.Infrastructure.Infrastructure
     {
         public static async Task SaveObjectToXml<T>(T objectToSave, string filename)
         {
-            var serializer = new XmlSerializer(typeof (T));
+            var serializer = new XmlSerializer(typeof(T));
             var folder = ApplicationData.Current.LocalFolder;
             var file = await folder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
             var stream = await file.OpenStreamForWriteAsync();
@@ -19,14 +19,14 @@ namespace Trains.Infrastructure.Infrastructure
                 serializer.Serialize(stream, objectToSave);
         }
 
-        public static async Task<IEnumerable<T>> ReadObjectFromXmlFileAsync<T>(string filename)
+        public static async Task<T> ReadObjectFromXmlFileAsync<T>(string filename) where T : class
         {
-            var serializer = new XmlSerializer(typeof (List<T>));
+            var serializer = new XmlSerializer(typeof(T));
             var folder = ApplicationData.Current.LocalFolder;
             if (!await CheckIsFile(filename)) return null;
             var file = await folder.GetFileAsync(filename);
             var stream = await file.OpenStreamForReadAsync();
-            var objectFromXml = (IEnumerable<T>) serializer.Deserialize(stream);
+            var objectFromXml = (T)serializer.Deserialize(stream);
             stream.Dispose();
             return objectFromXml;
         }

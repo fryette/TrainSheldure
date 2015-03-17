@@ -31,7 +31,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Поиск"
+            <AppBarButton Label="Остановки"
                           Icon="Document"
                           micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
         </CommandBar>

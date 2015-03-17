@@ -8,6 +8,6 @@ namespace Trains.Services.Interfaces
     public interface ISearchService
     {
         Task<IEnumerable<CountryStopPointDataItem>> GetCountryStopPoint();
-        Task<IEnumerable<Train>> GetTrainSchedule(params string[] parameters);
+        Task<List<Train>> GetTrainSchedule(string from, string to, string date);
     }
 }

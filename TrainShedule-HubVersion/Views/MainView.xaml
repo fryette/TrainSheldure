@@ -86,7 +86,7 @@
                     <ListView ItemsSource="{Binding Trains}"
                               IsItemClickEnabled="True"
                               ItemTemplate="{StaticResource ScheduleTemplate}"
-                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"/>
+                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]" />
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="RoutesPivot">
@@ -165,6 +165,12 @@
                 </Grid>
             </PivotItem>
         </Pivot>
+        <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="Идет обновление:"></TextBlock>
+            <ProgressBar IsIndeterminate="True"
+                         VerticalAlignment="Top"
+                         Margin="100,0,0,0" />
+        </Grid>
     </Grid>
 
     <Page.BottomAppBar>
@@ -173,6 +179,8 @@
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
             <CommandBar.SecondaryCommands>
+                <AppBarButton Label="Обновить последний запрос"
+                              micro:Message.Attach="[Event Click] = [Action UpdateLastRequest]" />
                 <AppBarButton Label="Управлять маршрутами"
                               micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
             </CommandBar.SecondaryCommands>

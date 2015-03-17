@@ -8,9 +8,9 @@ namespace Trains.Services.Implementations
 {
     public class MainService:ILastRequestTrainService
     {
-        public async Task<IEnumerable<Train>> GetTrains()
+        public async Task<List<Train>> GetTrains()
         {
-            return await Serialize.ReadObjectFromXmlFileAsync<Train>("LastTrainList");
+            return await Serialize.ReadObjectFromXmlFileAsync<List<Train>>("LastTrainList");
         }
     }
 }

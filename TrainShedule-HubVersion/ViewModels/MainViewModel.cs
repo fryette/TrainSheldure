@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
 using Windows.System;
 using Caliburn.Micro;
@@ -27,10 +28,21 @@ namespace Trains.App.ViewModels
         /// </summary>
         private readonly ILastRequestTrainService _lastRequestTrain;
 
+
+        /// <summary>
+        /// Used to serialization/deserialization objects.
+        /// </summary>
+        private readonly ISerializableService _serializable;
+
         /// <summary>
         /// Used to navigate between pages.
         /// </summary>
         private readonly INavigationService _navigationService;
+
+        /// <summary>
+        /// Used to search train schedule.
+        /// </summary>
+        private readonly ISearchService _search;
 
         #endregion
 
@@ -41,19 +53,37 @@ namespace Trains.App.ViewModels
         /// </summary>
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="lastRequestTrainService">Used to search deserialize trains from the last request.</param>
-        public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService)
+        /// <param name="search"></param>
+        public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISearchService search, ISerializableService serializable)
         {
             _navigationService = navigationService;
             _lastRequestTrain = lastRequestTrainService;
+            _search = search;
+            _serializable = serializable;
         }
         #endregion
 
         #region properties
+
+        /// <summary>
+        /// Used for process control.
+        /// </summary>
+        private bool _isTaskRun;
+        public bool IsTaskRun
+        {
+            get { return _isTaskRun; }
+            set
+            {
+                _isTaskRun = value;
+                NotifyOfPropertyChange(() => IsTaskRun);
+            }
+        }
+
         /// <summary>
         /// Keeps trains from the last request.
         /// </summary>
-        private static IEnumerable<Train> _trains;
-        public IEnumerable<Train> Trains
+        private static List<Train> _trains;
+        public List<Train> Trains
         {
             get { return _trains; }
             set
@@ -135,9 +165,7 @@ namespace Trains.App.ViewModels
         {
             if (!SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(EditFavoriteMessageError);
             else
-            {
                 _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
-            }
         }
 
         /// <summary>
@@ -162,7 +190,7 @@ namespace Trains.App.ViewModels
             };
 
             //generate mail object
-            var mail = new EmailMessage {Subject = "Чыгунка/предложения/баги"};
+            var mail = new EmailMessage { Subject = "Чыгунка/предложения/баги" };
 
             //add recipients to the mail object
             mail.To.Add(sendTo);
@@ -187,6 +215,26 @@ namespace Trains.App.ViewModels
             _navigationService.NavigateToViewModel<AboutViewModel>();
         }
 
+        /// <summary>
+        /// Update last route
+        /// </summary>
+        private async void UpdateLastRequest()
+        {
+            if (SavedItems.UpdatedLastRequest == null) ToolHelper.ShowMessageBox("Не найдет последний запрос,или произошла ошибка загрузки");
+            if (IsTaskRun) return;
+            IsTaskRun = true;
+            var trains =
+                await Task.Run(() => _search.GetTrainSchedule(SavedItems.UpdatedLastRequest.From,
+                                SavedItems.UpdatedLastRequest.To, ToolHelper.GetDate(DateTime.Now)));
+            IsTaskRun = false;
+            if (trains == null)
+            {
+                ToolHelper.ShowMessageBox("Обновление не удалось,проверьте подключение к интернету и попробуйте сного");
+                return;
+            }
+            Trains = trains;
+            await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
+        }
         #endregion
     }
 }

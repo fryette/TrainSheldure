@@ -32,7 +32,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         #endregion
 
-        public static async Task<IEnumerable<Train>> GetTrainSchedule(string from, string to, string date)
+        public static async Task<List<Train>> GetTrainSchedule(string from, string to, string date)
         {
             var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
             var toItem = await CountryStopPointData.GetItemByIdAsync(to);
@@ -48,7 +48,7 @@ namespace Trains.Infrastructure.Infrastructure
                 trains = date == EveryDay ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
                     : GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date);
 
-            return GetFinallyResult(additionalInformation.ToList(), links, trains);
+            return GetFinallyResult(additionalInformation, links, trains).ToList();
         }
 
         private static string GetUrl(CountryStopPointDataItem fromItem, CountryStopPointDataItem toItem, string date)
@@ -89,7 +89,7 @@ namespace Trains.Infrastructure.Infrastructure
             return trainList;
         }
 
-        private static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
+        private static List<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
         {
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
 
@@ -137,7 +137,7 @@ namespace Trains.Infrastructure.Infrastructure
                 });
         }
 
-        private static IEnumerable<AdditionalInformation[]> GetPlaces(string data)
+        private static List<AdditionalInformation[]> GetPlaces(string data)
         {
             var additionInformation = new List<AdditionalInformation[]>();
             var additionalParameter = Parser.ParseTrainData(data, AdditionParameterPattern).ToList();
@@ -217,7 +217,7 @@ namespace Trains.Infrastructure.Infrastructure
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
-        private static IEnumerable<Train> GetFinallyResult(IReadOnlyList<AdditionalInformation[]> additionalInformation, List<string> linksList, IEnumerable<Train> trains)
+        private static IEnumerable<Train> GetFinallyResult(List<AdditionalInformation[]> additionalInformation, List<string> linksList, IEnumerable<Train> trains)
         {
             var trainsList = trains.ToList();
             for (var i = 0; i < additionalInformation.Count; i++)

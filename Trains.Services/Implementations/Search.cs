@@ -14,9 +14,9 @@ namespace Trains.Services.Implementations
         {
             return (await CountryStopPointData.GetGroupsAsync()).SelectMany(dataGroup => dataGroup.Items);
         }
-        public async Task<IEnumerable<Train>> GetTrainSchedule(params string[] parameters)
+        public async Task<List<Train>> GetTrainSchedule(string from,string to,string date)
         {
-            return await TrainGrabber.GetTrainSchedule(parameters[0], parameters[1], parameters[2]);
+            return await TrainGrabber.GetTrainSchedule(from, to, date);
         }
     }
 }

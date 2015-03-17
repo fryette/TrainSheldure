@@ -6,6 +6,6 @@ namespace Trains.Services.Interfaces
 {
     public interface ILastRequestTrainService
     {
-        Task<IEnumerable<Train>> GetTrains();
+        Task<List<Train>> GetTrains();
     }
 }

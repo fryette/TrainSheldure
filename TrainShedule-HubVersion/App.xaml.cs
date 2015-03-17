@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
@@ -14,12 +15,15 @@ namespace Trains.App
 {
     public sealed partial class App
     {
+        public static Func<string, Task> ShowMessageDialog { get; set; }
         public App()
         {
             InitializeComponent();
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
+
         private WinRTContainer _container;
+
         protected override void Configure()
         {
             _container = new WinRTContainer();
@@ -69,6 +73,7 @@ namespace Trains.App
         {
             _container.BuildUp(instance);
         }
+
         private static void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
         {
             var frame = Window.Current.Content as Frame;
