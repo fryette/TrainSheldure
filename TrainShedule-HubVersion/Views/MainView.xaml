@@ -166,10 +166,9 @@
             </PivotItem>
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="Идет обновление:"></TextBlock>
+            <TextBlock x:Uid="Update" />
             <ProgressBar IsIndeterminate="True"
-                         VerticalAlignment="Top"
-                         Margin="100,0,0,0" />
+                         VerticalAlignment="Top" />
         </Grid>
     </Grid>
 

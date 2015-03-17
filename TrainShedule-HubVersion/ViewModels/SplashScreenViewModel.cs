@@ -68,9 +68,17 @@ namespace Trains.App.ViewModels
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
         /// </summary>
-        protected override void OnActivate()
+        protected override async void OnActivate()
         {
-            StartedActions();
+            await Task.Run(async () =>
+            {
+                while (Progress < 80)
+                {
+                    Progress += 1;
+                    await Task.Delay(5);
+                }
+            });
+            await Task.Run(() => StartedActions());
         }
 
         /// <summary>

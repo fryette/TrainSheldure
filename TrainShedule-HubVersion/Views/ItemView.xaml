@@ -9,22 +9,23 @@
       d:DataContext="{d:DesignData ItemViewModel}">
     <Page.Resources>
     </Page.Resources>
-    <Grid>
+    <Grid Margin="10,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <ProgressBar IsIndeterminate="True"
-                         VerticalAlignment="Top"
-                         Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
+            <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock x:Uid="DownloadTrain" />
+                <ProgressBar IsIndeterminate="True"
+                             VerticalAlignment="Top" />
+            </Grid>
             <StackPanel HorizontalAlignment="Center">
                 <TextBlock x:Uid="SearchLabel"
                            Style="{ThemeResource HeaderTextBlockStyle}" />
             </StackPanel>
         </Grid>
-        <Grid Grid.Row="1"
-              Margin="10,0">
+        <Grid Grid.Row="1">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Orientation="Vertical">

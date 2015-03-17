@@ -32,6 +32,7 @@
             <Color x:Key="BoxBackgroundColor">#132037</Color>
             <Color x:Key="BoxForegroundColor">#d2ddf0</Color>
             <Color x:Key="TitleForegroundColor">#ffffff</Color>
+            <SolidColorBrush x:Key="SplashScreenColor">#FF192856</SolidColorBrush>
             <micro:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
 
             <Style x:Key="BasedTextBlockStyle"
@@ -137,6 +138,8 @@
                         Value="{StaticResource HeaderFontSize}" />
                 <Setter Property="FontWeight"
                         Value="Medium" />
+                <Setter Property="Margin"
+                        Value="0,10,0,0" />
                 <Setter Property="HorizontalAlignment"
                         Value="Center" />
 
@@ -152,7 +155,8 @@
                         Value="Left" />
                 <Setter Property="Margin"
                         Value="10" />
-                <Setter Property="FontSize" Value="{StaticResource MainFontSize}"/>
+                <Setter Property="FontSize"
+                        Value="{StaticResource MainFontSize}" />
 
             </Style>
             <Style x:Key="MainImageLabelTextBlockStyle"
@@ -172,8 +176,6 @@
                 <Setter Property="Margin"
                         Value="5,0,0,0" />
             </Style>
-
-
             <Style x:Key="MainAboutStackPanelStyle"
                    TargetType="StackPanel">
                 <Setter Property="Background"
@@ -183,9 +185,6 @@
                 <Setter Property="Margin"
                         Value="5,0,0,0" />
             </Style>
-
-
-
 
             <Style x:Key="MainLogoImageStyle"
                    TargetType="Image">
@@ -207,7 +206,8 @@
                         <CompositeTransform />
                     </Setter.Value>
                 </Setter>
-                <Setter Property="Height" Value="150"/>
+                <Setter Property="Height"
+                        Value="150" />
                 <Setter Property="Stretch"
                         Value="Fill" />
             </Style>

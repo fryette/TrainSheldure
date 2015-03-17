@@ -16,6 +16,11 @@
         </Grid.RowDefinitions>
 
         <Grid Row="0">
+            <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock x:Uid="DownloadStopPoints" />
+                <ProgressBar IsIndeterminate="True"
+                             VerticalAlignment="Top" />
+            </Grid>
             <TextBlock x:Uid="InformationHeader"
                        Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
@@ -24,9 +29,6 @@
                       Margin="5,0"
                       ItemTemplate="{StaticResource InformationTemplate}">
             </ListView>
-            <ProgressBar IsIndeterminate="True"
-                         VerticalAlignment="Top"
-                         Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
     </Grid>
     <Page.BottomAppBar>

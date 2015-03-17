@@ -144,6 +144,15 @@
   <data name="DateOfDeparture.Header" xml:space="preserve">
     <value>Дата отправления</value>
   </data>
+  <data name="DownloadData.Text" xml:space="preserve">
+    <value>Загрузка параметров</value>
+  </data>
+  <data name="DownloadStopPoints.Text" xml:space="preserve">
+    <value>Идет загрузка списка станций</value>
+  </data>
+  <data name="DownloadTrain.Text" xml:space="preserve">
+    <value>Идет загрузка списка поездов</value>
+  </data>
   <data name="EditFavoriteHeader.Text" xml:space="preserve">
     <value>Управление</value>
   </data>
@@ -209,6 +218,9 @@
   </data>
   <data name="Transport.Text" xml:space="preserve">
     <value>Результат</value>
+  </data>
+  <data name="Update.Text" xml:space="preserve">
+    <value>Идет обновление</value>
   </data>
   <data name="UpdateStopPoint.Content" xml:space="preserve">
     <value>Обновить станции</value>
