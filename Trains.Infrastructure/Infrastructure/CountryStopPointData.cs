@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Windows.Data.Json;
 using Windows.Storage;
 using Trains.Model.Entities;
-using Trains.Entities;
 
 namespace Trains.Infrastructure.Infrastructure
 {

@@ -6,7 +6,7 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       xmlns:viewModels="using:Trains.App.ViewModels"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      Background="{StaticResource BackgroundColorBrush}"
       d:DataContext="{d:DesignInstance viewModels:InformationViewModel}">
 
     <Grid>

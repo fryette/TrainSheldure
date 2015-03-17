@@ -4,12 +4,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+      Background="{StaticResource BackgroundColorBrush}">
 
     <Grid>
         <Pivot Title="Чыгунка">
-            <PivotItem Header="о нас">
-                <Grid Background="#FF171717">
+            <PivotItem Header="О нас">
+                <Grid>
                     <StackPanel Margin="10,10,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Приложение создано:"
@@ -28,7 +28,7 @@
                                        FontSize="16"
                                        FontWeight="Bold" />
                         </StackPanel>
-                        <TextBlock Text="Логотипы являются собственностью создателя."
+                        <TextBlock Text="Логотип БЧ является собственностью беларусской железной дароги."
                                    FontSize="14"
                                    Margin="0,20,0,0"
                                    Foreground="#FF727272"
@@ -37,15 +37,44 @@
                                    Margin="0,20,0,0"
                                    FontSize="14"
                                    Foreground="#FF727272" />
-                        <TextBlock Text="Caliburn.Micro, JSON.Net"
+                        <TextBlock Text="Caliburn.Micro, JSON.Net, AppPromo, BehaviorsSDK(XAML)"
                                    FontSize="14"
                                    Margin="0,10,0,0"
-                                   Foreground="#FF727272" />
+                                   Foreground="#FF727272"
+                                   TextWrapping="Wrap" />
                     </StackPanel>
                 </Grid>
             </PivotItem>
             <PivotItem Header="Изменения">
-                //TODO
+                    <StackPanel Margin="5,0">
+                        <TextBlock Text="В этой версии:"
+                                   Style="{StaticResource BasedTextBlockStyle}"
+                                   HorizontalAlignment="Center" />
+                        <TextBlock Text="-Исправлены баги связаные с падением приложения."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Добавлены отсутствующие станции."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Исправлена работа станций,теперь ищет корректно(Речица,Береза Картуская,Молодежная и некоторые другие."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Оптимизирован поиск,теперь ищет быстрее и тратит меньше трафика."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Добавлены Названия страниц по всему приложению."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Добавлена возможность управлять своими маршрутами."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Добавлена возможность быстрого перехода на поиск необходимого маршрута с главного меню."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Произведен полный редизайн меню."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Добавлена страница обратной связи."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Добавлена возможность обновить последний запрос с главного меню."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="-Оптимизирована работа приложения,теперь нет зависаний при нажатии на кнопку поиск."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                        <TextBlock Text="Мелкие технические изменения."
+                                   Style="{StaticResource AboutPageTextBlockStyle}" />
+                    </StackPanel>
             </PivotItem>
         </Pivot>
     </Grid>

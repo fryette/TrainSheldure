@@ -5,10 +5,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:viewModels="using:Trains.App.ViewModels"
       mc:Ignorable="d"
-      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      Background="{StaticResource SplashScreenColor}"
       d:DataContext="{d:DesignInstance viewModels:SplashScreenViewModel}">
 
-    <Grid Background="{StaticResource SplashScreenColor}">
+    <Grid>
         <StackPanel>
             <Image Source="/Assets/MainImage.png" />
             <TextBlock x:Uid="DownloadData" />
