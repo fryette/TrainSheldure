@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.ApplicationModel.Email;
 using Windows.System;
+using Windows.System.Threading;
+using Windows.UI.Core;
 using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
@@ -21,6 +24,16 @@ namespace Trains.App.ViewModels
 
         private const string EditFavoriteMessageError =
             "Сохраните хотя бы одну станцию, что бы иметь возможность редактирования";
+        private const string FavoriteString = "favoriteRequests";
+        private const string LastRequestString = "lastRequests";
+
+        private const string UpdateLastRequestString = "updateLastRequst";
+        private const string IsFirstStartString = "isFirstStart";
+        private const string FirstMessageStartString = "Привет, обращаюсь к вам, от лица разработчика данного приложения. Многие ждали обновления, " +
+                                                       "внедрения новых функций, удобства, покупки билетов, без рекламы. Я обращаюсь" +
+                                                       " ко всем,кто только начал пользоваться, и продолжает пользоваться данным приложением, если вы хотите новых функций и " +
+                                                       "исправления багов/глюков,оставьте отзыв в маркете, в противном случае, я прекращу поддержку.Каждый может помочь. Спасибо за внимание.";
+
         #endregion
         #region readonlyProperties
         /// <summary>
@@ -54,6 +67,7 @@ namespace Trains.App.ViewModels
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="lastRequestTrainService">Used to search deserialize trains from the last request.</param>
         /// <param name="search"></param>
+        /// <param name="serializable"></param>
         public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISearchService search, ISerializableService serializable)
         {
             _navigationService = navigationService;
@@ -76,6 +90,34 @@ namespace Trains.App.ViewModels
             {
                 _isTaskRun = value;
                 NotifyOfPropertyChange(() => IsTaskRun);
+            }
+        }
+
+        /// <summary>
+        /// Used for process control.
+        /// </summary>
+        private bool _isBarDownloaded;
+        public bool IsBarDownloaded
+        {
+            get { return _isBarDownloaded; }
+            set
+            {
+                _isBarDownloaded = value;
+                NotifyOfPropertyChange(() => IsBarDownloaded);
+            }
+        }
+
+        /// <summary>
+        /// Used for process download data control.
+        /// </summary>
+        private bool _isDownloadRun;
+        public bool IsDownloadRun
+        {
+            get { return _isDownloadRun; }
+            set
+            {
+                _isDownloadRun = value;
+                NotifyOfPropertyChange(() => IsDownloadRun);
             }
         }
 
@@ -117,6 +159,15 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override async void OnActivate()
         {
+            IsDownloadRun = true;
+            if (SavedItems.AutoCompletion == null)
+            {
+                CheckIsFirstStart();
+                await Task.Run(() => StartedActions());
+                await Task.Delay(2000);
+            }
+            IsDownloadRun = false;
+            IsBarDownloaded = true;
             Trains = await _lastRequestTrain.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
         }
@@ -163,7 +214,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            if (!SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(EditFavoriteMessageError);
+            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(EditFavoriteMessageError);
             else
                 _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
         }
@@ -240,7 +291,34 @@ namespace Trains.App.ViewModels
             await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
         }
 
-        
+        private async void StartedActions()
+        {
+            SavedItems.AutoCompletion = await Task.Run(() => _search.GetCountryStopPoint());
+            SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(UpdateLastRequestString));
+        }
+
+        private async void CheckIsFirstStart()
+        {
+            if ((await _serializable.CheckIsFile(IsFirstStartString)))
+            {
+                await Task.Run(() => SerializationData());
+            }
+            else
+            {
+                ToolHelper.ShowMessageBox(FirstMessageStartString);
+                _serializable.SerializeObjectToXml(true, IsFirstStartString);
+                if (await _serializable.CheckIsFile(FavoriteString))
+                    _serializable.DeleteFile(FavoriteString);
+                if (await _serializable.CheckIsFile(LastRequestString))
+                    _serializable.DeleteFile(LastRequestString);
+            }
+        }
+
+        private async void SerializationData()
+        {
+            SavedItems.LastRequests = await Task.Run(() => _serializable.GetLastRequests(LastRequestString));
+            SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FavoriteString));
+        }
         #endregion
     }
 }

@@ -39,7 +39,6 @@ namespace Trains.App
             _container.Singleton<ICheckTrainService, CheckTrain>();
 
             _container.PerRequest<AboutViewModel>();
-            _container.PerRequest<SplashScreenViewModel>();
             _container.PerRequest<HelpViewModel>();
             _container.PerRequest<EditFavoriteRoutesViewModel>();
             _container.PerRequest<StopPointViewModel>();
@@ -56,7 +55,7 @@ namespace Trains.App
 
         protected override void OnLaunched(LaunchActivatedEventArgs args)
         {
-            DisplayRootView<SplashScreenView>();
+            DisplayRootView<MainView>();
         }
 
         protected override object GetInstance(Type service, string key)
@@ -80,8 +79,8 @@ namespace Trains.App
             if (frame == null) return;
             if (!frame.CanGoBack) return;
             frame.GoBack();
-            if (frame.CurrentSourcePageType == typeof(SplashScreenView)) return;
             e.Handled = true;
         }
+        
     }
 }
