@@ -190,9 +190,6 @@
 
     <Page.BottomAppBar>
         <CommandBar Visibility="{Binding IsBarDownloaded,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <AppBarButton Label="Справка"
-                          Icon="Help"
-                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
             <AppBarButton x:Name="UpdateAppBar"
                           Icon="Sync"
                           Label="Обновить"
@@ -201,6 +198,10 @@
                           Icon="Repair"
                           Label="Управлять"
                           micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
+            <AppBarButton Label="Справка"
+                          Icon="Help"
+                          micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
+
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
