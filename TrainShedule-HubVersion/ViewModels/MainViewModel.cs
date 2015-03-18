@@ -220,7 +220,11 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (SavedItems.UpdatedLastRequest == null) ToolHelper.ShowMessageBox("Не найдет последний запрос,или произошла ошибка загрузки");
+            if (SavedItems.UpdatedLastRequest == null)
+            {
+                ToolHelper.ShowMessageBox("Не найден последний запрос,или произошла ошибка загрузки");
+                return;
+            }
             if (IsTaskRun) return;
             IsTaskRun = true;
             var trains =
@@ -229,12 +233,14 @@ namespace Trains.App.ViewModels
             IsTaskRun = false;
             if (trains == null)
             {
-                ToolHelper.ShowMessageBox("Обновление не удалось,проверьте подключение к интернету и попробуйте сного");
+                ToolHelper.ShowMessageBox("Обновление не удалось,проверьте подключение к интернету и попробуйте опять");
                 return;
             }
             Trains = trains;
             await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
         }
+
+        
         #endregion
     }
 }

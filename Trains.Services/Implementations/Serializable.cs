@@ -9,6 +9,11 @@ namespace Trains.Services.Implementations
 {
     public class Serializable : ISerializableService
     {
+        public Task<bool> CheckIsFile(string fileName)
+        {
+            return Serialize.CheckIsFile(fileName);
+        }
+
         public List<LastRequest> SerializeLastRequest(string from, string to, List<LastRequest> lastRequests)
         {
             if (lastRequests == null) lastRequests = new List<LastRequest>();
@@ -48,7 +53,7 @@ namespace Trains.Services.Implementations
 
         public void DeleteFile(string fileName)
         {
-            Serialize.DeleteFile("favoriteRequests");
+            Serialize.DeleteFile(fileName);
         }
 
         public Task<T> ReadObjectFromXmlFileAsync<T>(string filename) where T : class
