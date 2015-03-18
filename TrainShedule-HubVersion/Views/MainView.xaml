@@ -193,14 +193,14 @@
             <AppBarButton Label="Справка"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
-            <CommandBar.SecondaryCommands>
-                <AppBarButton x:Name="UpdateAppBar"
-                              Label="Обновить последний запрос"
-                              micro:Message.Attach="[Event Click] = [Action UpdateLastRequest]" />
-                <AppBarButton x:Name="ManagedAppBar"
-                              Label="Управлять маршрутами"
-                              micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
-            </CommandBar.SecondaryCommands>
+            <AppBarButton x:Name="UpdateAppBar"
+                          Icon="Sync"
+                          Label="Обновить"
+                          micro:Message.Attach="[Event Click] = [Action UpdateLastRequest]" />
+            <AppBarButton x:Name="ManagedAppBar"
+                          Icon="Repair"
+                          Label="Управлять"
+                          micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
         </CommandBar>
     </Page.BottomAppBar>
 </Page>
