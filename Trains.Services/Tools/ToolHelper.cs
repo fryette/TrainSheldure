@@ -6,6 +6,7 @@ namespace Trains.Services.Tools
     public static class ToolHelper
     {
         private const string Everyday = "everyday";
+        private const string EveryDaySelectionMode = "На все дни";
 
         public static async void ShowMessageBox(string message)
         {
@@ -14,7 +15,7 @@ namespace Trains.Services.Tools
         }
         public static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
-            if (selectedVariantOfSearch == Everyday) return Everyday;
+            if (selectedVariantOfSearch == EveryDaySelectionMode) return Everyday;
             return datum.Date.Year + "-" + datum.Date.Month + "-" + datum.Date.Day;
         }
     }

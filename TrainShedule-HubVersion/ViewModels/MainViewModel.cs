@@ -294,7 +294,15 @@ namespace Trains.App.ViewModels
         private async void StartedActions()
         {
             SavedItems.AutoCompletion = await Task.Run(() => _search.GetCountryStopPoint());
-            SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(UpdateLastRequestString));
+            try
+            {
+                SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(UpdateLastRequestString));
+            }
+            catch (Exception)
+            {
+
+                SavedItems.UpdatedLastRequest = null;
+            }
         }
 
         private async void CheckIsFirstStart()
@@ -306,7 +314,7 @@ namespace Trains.App.ViewModels
             else
             {
                 ToolHelper.ShowMessageBox(FirstMessageStartString);
-                _serializable.SerializeObjectToXml(true, IsFirstStartString);
+                await Task.Run(() => _serializable.SerializeObjectToXml(true, IsFirstStartString));
                 if (await _serializable.CheckIsFile(FavoriteString))
                     _serializable.DeleteFile(FavoriteString);
                 if (await _serializable.CheckIsFile(LastRequestString))

@@ -89,7 +89,7 @@ namespace Trains.Infrastructure.Infrastructure
             return trainList;
         }
 
-        private static List<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
+        private static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
         {
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
 
