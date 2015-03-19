@@ -25,7 +25,7 @@ namespace Trains.App.Views
 
         private void SetAppBarVisibility(bool updateAppBar, bool managedAppBar)
         {
-            UpdateAppBar.Visibility = updateAppBar?Visibility.Visible : Visibility.Collapsed;
+            UpdateAppBar.Visibility = updateAppBar ? Visibility.Visible : Visibility.Collapsed;
             ManagedAppBar.Visibility = managedAppBar ? Visibility.Visible : Visibility.Collapsed;
         }
     }

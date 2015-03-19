@@ -9,11 +9,6 @@
       d:DataContext="{d:DesignData MainViewModel}">
 
     <Grid>
-
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
         <Grid.Resources>
             <Storyboard x:Name="MyStoryboard">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
@@ -38,10 +33,8 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Grid.Resources>
-        <Pivot x:Uid="ApplicationName"
-               PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem x:Uid="MainPivot"
-                       x:Name="MainPivot">
+        <Pivot x:Uid="ApplicationName">
+            <PivotItem x:Uid="MainPivot">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -73,7 +66,6 @@
                     <GridView Grid.Row="2"
                               IsItemClickEnabled="True"
                               micro:Message.Attach="[Event ItemClick] = [Action GoToNews]">
-                        <Grid>
                             <Image x:Name="MainImage1"
                                    Source="/Assets/MenuIcon/logo_tile2.jpg"
                                    Margin="0,0,-140,0"
@@ -83,19 +75,15 @@
                                 <TextBlock x:Uid="NewsLabel"
                                            Style="{StaticResource MainImageLabelTextBlockStyle}" />
                             </Grid>
-                        </Grid>
                     </GridView>
-                    <Grid Grid.Row="3"></Grid>
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="LastPivot"
                        x:Name="LastPivot">
-                <Grid>
-                    <ListView ItemsSource="{Binding Trains}"
-                              IsItemClickEnabled="True"
-                              ItemTemplate="{StaticResource ScheduleTemplate}"
-                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]" />
-                </Grid>
+                <ListView ItemsSource="{Binding Trains}"
+                          IsItemClickEnabled="True"
+                          ItemTemplate="{StaticResource ScheduleTemplate}"
+                          micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]" />
             </PivotItem>
             <PivotItem x:Uid="RoutesPivot"
                        x:Name="RoutesPivot">
@@ -163,8 +151,7 @@
                     </GridView>
                     <GridView Grid.Row="3"
                               Background="{StaticResource GrayColorBrush}"
-                              VerticalAlignment="Bottom"
-                              Margin="0,0,0,100">
+                              VerticalAlignment="Bottom">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Uid="AboutLabel"
                                        FontFamily="Dotum"
@@ -175,14 +162,12 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        <Grid Grid.Row="0"
-              Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock x:Uid="Update" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
-        <Grid Grid.Row="0"
-              Background="{StaticResource BackgroundColorBrush}"
+        <Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
@@ -190,7 +175,7 @@
     </Grid>
 
     <Page.BottomAppBar>
-        <CommandBar Visibility="{Binding IsBarDownloaded,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <CommandBar>
             <AppBarButton x:Name="UpdateAppBar"
                           Icon="Sync"
                           Label="Обновить"
