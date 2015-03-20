@@ -293,8 +293,7 @@ namespace Trains.App.ViewModels
         private void SerializeDataSearch()
         {
             SavedItems.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
-
-            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To };
+            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedDate, Date = Datum };
             _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, UpdateLastRequestString);
         }
 

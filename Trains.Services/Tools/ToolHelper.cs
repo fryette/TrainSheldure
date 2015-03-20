@@ -16,6 +16,7 @@ namespace Trains.Services.Tools
         public static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
             if (selectedVariantOfSearch == EveryDaySelectionMode) return Everyday;
+            if (datum < DateTime.Now) datum = DateTime.Now;
             return datum.Date.Year + "-" + datum.Date.Month + "-" + datum.Date.Day;
         }
     }

@@ -25,11 +25,12 @@ namespace Trains.App.ViewModels
         private const string LastRequestString = "lastRequests";
 
         private const string UpdateLastRequestString = "updateLastRequst";
+        private const string IsSecondStartString = "isSecondStart";
         private const string IsFirstStartString = "isFirstStart";
-        private const string FirstMessageStartString = "Привет, обращаюсь к вам, от лица разработчика данного приложения. Многие ждали обновления, " +
+        private const string FirstMessageStartString = "Данное обновление вышло только благодаря вам(тем, кто все же оставил отзыв либо оценку)! Отдельное спасибо за отзыв Сергею Мешкову! Все свои предложения можете отправить в соответствующем разделе.\r\n Привет, обращаюсь к вам, от лица разработчика данного приложения. Многие ждали обновления, " +
                                                        "внедрения новых функций, удобства, покупки билетов, без рекламы. Я обращаюсь" +
-                                                       " ко всем,кто только начал пользоваться, и продолжает пользоваться данным приложением, если вы хотите новых функций и " +
-                                                       "исправления багов/глюков,оставьте отзыв в маркете, в противном случае, я прекращу поддержку.Каждый может помочь. Спасибо за внимание.";
+                                                       " ко всем, кто только начал и продолжает пользоваться данным приложением, если вы хотите новых функций и " +
+                                                       "исправления багов/глюков, оставьте отзыв в маркете, в противном случае, я прекращу поддержку. Каждый может внести свой вклад! Спасибо за внимание.";
 
         #endregion
         #region readonlyProperties
@@ -180,7 +181,7 @@ namespace Trains.App.ViewModels
             IsDownloadRun = false;
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)
-                LastRoute = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To;
+                LastRoute = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To + " " + SavedItems.UpdatedLastRequest.SelectionMode;
             Trains = await _lastRequestTrain.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
         }
@@ -291,9 +292,10 @@ namespace Trains.App.ViewModels
             }
             if (IsTaskRun) return;
             IsTaskRun = true;
+            DateTime udateTime;
             var trains =
                 await Task.Run(() => _search.GetTrainSchedule(SavedItems.UpdatedLastRequest.From,
-                                SavedItems.UpdatedLastRequest.To, ToolHelper.GetDate(DateTime.Now)));
+                                SavedItems.UpdatedLastRequest.To, ToolHelper.GetDate(SavedItems.UpdatedLastRequest.Date, SavedItems.UpdatedLastRequest.SelectionMode)));
             IsTaskRun = false;
             if (trains == null)
             {
@@ -313,23 +315,24 @@ namespace Trains.App.ViewModels
             }
             catch (Exception)
             {
-
                 SavedItems.UpdatedLastRequest = null;
             }
         }
 
         private async void CheckIsFirstStart()
         {
-            if ((await _serializable.CheckIsFile(IsFirstStartString)))
+            if ((await _serializable.CheckIsFile(IsSecondStartString)))
             {
                 await Task.Run(() => SerializationData());
             }
             else
             {
                 ToolHelper.ShowMessageBox(FirstMessageStartString);
-                await Task.Run(() => _serializable.SerializeObjectToXml(true, IsFirstStartString));
-                if (await _serializable.CheckIsFile(FavoriteString))
-                    _serializable.DeleteFile(FavoriteString);
+                await Task.Run(() => _serializable.SerializeObjectToXml(true, IsSecondStartString));
+                if (await _serializable.CheckIsFile(IsFirstStartString))
+                    _serializable.DeleteFile(IsFirstStartString);
+                //if (await _serializable.CheckIsFile(FavoriteString))
+                //    _serializable.DeleteFile(FavoriteString);
                 if (await _serializable.CheckIsFile(LastRequestString))
                     _serializable.DeleteFile(LastRequestString);
             }
