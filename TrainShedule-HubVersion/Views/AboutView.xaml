@@ -50,31 +50,17 @@
                         <TextBlock Text="В этой версии:"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    HorizontalAlignment="Center" />
-                        <TextBlock Text="-Исправлены баги связаные с падением приложения."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Добавлены отсутствующие станции."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Исправлена работа станций,теперь ищет корректно(Речица,Береза Картуская,Молодежная и некоторые другие."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Оптимизирован поиск,теперь ищет быстрее и тратит меньше трафика."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Добавлены Названия страниц по всему приложению."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Добавлена возможность управлять своими маршрутами."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Добавлена возможность быстрого перехода на поиск необходимого маршрута с главного меню."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Произведен полный редизайн меню."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Добавлена страница обратной связи."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Добавлена возможность обновить последний запрос с главного меню."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="-Оптимизирована работа приложения,теперь нет зависаний при нажатии на кнопку поиск."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                        <TextBlock Text="Мелкие технические изменения."
-                                   Style="{StaticResource AboutPageTextBlockStyle}" />
-                    </StackPanel>
+                    <TextBlock Text="- Исправлен баг с неправильным отображением поездов при поиске 'На все дни'"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
+                    <TextBlock Text="- Исправлено неправильно отображение кнопок в главном меню"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
+                    <TextBlock Text="- Исправлен стартовый экран"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
+                    <TextBlock Text="- Редизайн расписания"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
+                    <TextBlock Text="- Оптимизация кода"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
+                </StackPanel>
             </PivotItem>
         </Pivot>
     </Grid>

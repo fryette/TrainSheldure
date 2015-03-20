@@ -249,7 +249,7 @@ namespace Trains.App.ViewModels
         private async void SentEmail()
         {
             //predefine Recipient
-            var sendTo = new EmailRecipient()
+            var sendTo = new EmailRecipient
             {
                 Address = "sampir.fiesta@gmail.com"
             };
