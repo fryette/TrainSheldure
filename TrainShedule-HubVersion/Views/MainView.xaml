@@ -33,7 +33,8 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Grid.Resources>
-        <Pivot x:Uid="ApplicationName">
+        <Pivot x:Uid="ApplicationName"
+               PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem x:Uid="MainPivot">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -79,11 +80,20 @@
             </PivotItem>
             <PivotItem x:Uid="LastPivot"
                        x:Name="LastPivot">
-                <ListView ItemsSource="{Binding Trains}"
-                          IsItemClickEnabled="True"
-                          ItemTemplate="{StaticResource ScheduleTemplate}"
-                          micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"
-                          HorizontalContentAlignment="Center" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{Binding LastRoute}"
+                               Style="{StaticResource ScheduleTextBlockStyle}"
+                               HorizontalAlignment="Center" />
+                    <ListView Grid.Row="1" ItemsSource="{Binding Trains}"
+                              IsItemClickEnabled="True"
+                              ItemTemplate="{StaticResource ScheduleTemplate}"
+                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"
+                              HorizontalContentAlignment="Center" />
+                </Grid>
             </PivotItem>
             <PivotItem x:Uid="RoutesPivot"
                        x:Name="RoutesPivot">

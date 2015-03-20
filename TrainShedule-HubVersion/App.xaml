@@ -17,9 +17,8 @@
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
             <x:Double x:Key="SmallFontSize">14</x:Double>
-            <x:Double x:Key="BigFontSize">18</x:Double>
+            <x:Double x:Key="BigFontSize">25</x:Double>
             <x:Double x:Key="MainFontSize">24</x:Double>
-            <x:Double x:Key="TimeFontSize">20</x:Double>
             <x:Double x:Key="HeaderFontSize">40</x:Double>
             <x:String x:Key="DefaultFontFamily">Segoe WP</x:String>
             <SolidColorBrush x:Key="DarkRedColorBrush">DarkRed</SolidColorBrush>
@@ -47,7 +46,7 @@
                 <Setter Property="FontWeight"
                         Value="Bold" />
                 <Setter Property="HorizontalAlignment"
-                        Value="Right" />
+                        Value="Center" />
                 <Setter Property="Margin"
                         Value="5,0,0,0" />
             </Style>
@@ -256,7 +255,8 @@
                         <TextBlock Text="{Binding IsPlace}"
                                    Foreground="{StaticResource WhiteSmokeColorBrush}"
                                    Style="{StaticResource ScheduleTextBlockStyle}"
-                                   VerticalAlignment="Center" />
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right" />
                     </Grid>
                     <Grid Grid.Row="1">
                         <StackPanel Orientation="Horizontal">
@@ -270,7 +270,7 @@
                                         Margin="5,0"
                                         VerticalAlignment="Center">
                                 <TextBlock Text="{Binding StartTime}"
-                                           FontSize="{StaticResource TimeFontSize}"
+                                           FontSize="{StaticResource BigFontSize}"
                                            Foreground="{StaticResource WhiteColorBrush}"
                                            Style="{StaticResource ScheduleTextBlockStyle}" />
                                 <TextBlock Text="{Binding EndTime}"
@@ -283,65 +283,17 @@
                                        Foreground="{StaticResource WhiteColorBrush}"
                                        Style="{StaticResource ScheduleTextBlockStyle}"
                                        TextWrapping="Wrap"
-                                       Width="140"
+                                       Width="130"
                                        VerticalAlignment="Center" />
                             <TextBlock Text="{Binding OnTheWay}"
-                                       FontSize="{StaticResource BigFontSize}"
                                        Foreground="{StaticResource WhiteColorBrush}"
                                        Style="{StaticResource ScheduleTextBlockStyle}"
+                                       FontSize="20"
                                        VerticalAlignment="Center"
                                        TextWrapping="Wrap"
-                                       MinWidth="100" />
+                                       Width="70"/>
                         </StackPanel>
                     </Grid>
-
-
-
-
-                    <!--<StackPanel Orientation="Horizontal"
-                                Background="{StaticResource FontScheduleColorBrush}"
-                                Width="400"
-                                Margin="0,5,0,0">
-                        <StackPanel Orientation="Vertical">
-                            <Image Source="{Binding ImagePath}"
-                                   Height="99"
-                                   Width="50" />
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding City}"
-                                           FontSize="{StaticResource SmallFontSize}"
-                                           Foreground="{StaticResource WhiteColorBrush}"
-                                           Style="{StaticResource ScheduleTextBlockStyle}" />
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <StackPanel Orientation="Vertical"
-                                            HorizontalAlignment="Right"
-                                            MinWidth="200"
-                                            MaxWidth="250">
-                                    <TextBlock Text="{Binding BeforeDepartureTime}"
-                                               Style="{StaticResource ScheduleTextBlockStyle}" />
-                                    <TextBlock Text="{Binding OnTheWay}"
-                                               Style="{StaticResource ScheduleTextBlockStyle}" />
-                                    <TextBlock Text="{Binding IsPlace}"
-                                               Foreground="{StaticResource WhiteSmokeColorBrush}"
-                                               Style="{StaticResource ScheduleTextBlockStyle}" />
-                                </StackPanel>
-                                <StackPanel Orientation="Vertical"
-                                            Margin="5,0">
-                                    <TextBlock Text="{Binding StartTime}"
-                                               FontSize="{StaticResource TimeFontSize}"
-                                               Foreground="{StaticResource WhiteColorBrush}"
-                                               Style="{StaticResource ScheduleTextBlockStyle}" />
-                                    <TextBlock Text="{Binding EndTime}"
-                                               FontSize="{StaticResource BigFontSize}"
-                                               Foreground="{StaticResource DimGrayColorBrush}"
-                                               Margin="0,-5,0,0"
-                                               Style="{StaticResource ScheduleTextBlockStyle}" />
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                    </StackPanel>-->
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="HelpTemplate">

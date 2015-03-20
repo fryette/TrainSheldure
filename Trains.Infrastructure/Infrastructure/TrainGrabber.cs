@@ -207,8 +207,8 @@ namespace Trains.Infrastructure.Infrastructure
         {
             var time = endTime - startTime;
             if (time.Days == 0)
-                return time.Hours + "ч. " + time.Minutes + "мин.";
-            return (int)time.TotalHours + "ч. " + time.Minutes + "мин.";
+                return time.Hours + " ч. " + time.Minutes + " мин.";
+            return (int)time.TotalHours + " ч. " + time.Minutes + " мин.";
         }
 
         private static List<string> GetLink(string data)

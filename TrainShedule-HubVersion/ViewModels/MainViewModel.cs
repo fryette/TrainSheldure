@@ -146,6 +146,20 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Last route
+        /// </summary>
+        private string _lastRoute;
+        public string LastRoute
+        {
+            get { return _lastRoute; }
+            set
+            {
+                _lastRoute = value;
+                NotifyOfPropertyChange(() => LastRoute);
+            }
+        }
+
         #endregion
 
         #region action
@@ -165,6 +179,8 @@ namespace Trains.App.ViewModels
             }
             IsDownloadRun = false;
             IsBarDownloaded = true;
+            if (SavedItems.UpdatedLastRequest != null)
+                LastRoute = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To;
             Trains = await _lastRequestTrain.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
         }
