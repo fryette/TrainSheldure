@@ -18,6 +18,7 @@
             <x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
             <x:Double x:Key="SmallFontSize">14</x:Double>
             <x:Double x:Key="BigFontSize">25</x:Double>
+            <x:Double x:Key="MediumFontSize">20</x:Double>
             <x:Double x:Key="MainFontSize">24</x:Double>
             <x:Double x:Key="HeaderFontSize">40</x:Double>
             <x:String x:Key="DefaultFontFamily">Segoe WP</x:String>
@@ -240,7 +241,7 @@
             <DataTemplate x:Key="ScheduleTemplate">
                 <Grid Margin="0,0,0,10">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="25" />
+                        <RowDefinition MaxHeight="100"/>
                         <RowDefinition Height="100" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -250,25 +251,29 @@
                         <TextBlock Text="{Binding BeforeDepartureTime}"
                                    Style="{StaticResource ScheduleTextBlockStyle}"
                                    HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   FontFamily="Segoe WP" />
+                                   VerticalAlignment="Center" 
+                                   MaxWidth="180"
+                                   TextWrapping="Wrap" />
                         <TextBlock Text="{Binding IsPlace}"
                                    Foreground="{StaticResource WhiteSmokeColorBrush}"
                                    Style="{StaticResource ScheduleTextBlockStyle}"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Right" />
+                                   HorizontalAlignment="Right" 
+                                   MaxWidth="150"
+                                   Margin="0,0,5,0" />
                     </Grid>
                     <Grid Grid.Row="1">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel HorizontalAlignment="Left">
                                 <Image Source="{Binding ImagePath}"
-                                       Height="99"
+                                       Height="100"
                                        Width="50"
                                        HorizontalAlignment="Left" />
                             </StackPanel>
                             <StackPanel Orientation="Vertical"
                                         Margin="5,0"
-                                        VerticalAlignment="Center">
+                                        VerticalAlignment="Center"
+                                        Width="70">
                                 <TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource BigFontSize}"
                                            Foreground="{StaticResource WhiteColorBrush}"
@@ -288,10 +293,10 @@
                             <TextBlock Text="{Binding OnTheWay}"
                                        Foreground="{StaticResource WhiteColorBrush}"
                                        Style="{StaticResource ScheduleTextBlockStyle}"
-                                       FontSize="20"
+                                       FontSize="{StaticResource MediumFontSize}"
                                        VerticalAlignment="Center"
                                        TextWrapping="Wrap"
-                                       Width="70"/>
+                                       Width="70" />
                         </StackPanel>
                     </Grid>
                 </Grid>

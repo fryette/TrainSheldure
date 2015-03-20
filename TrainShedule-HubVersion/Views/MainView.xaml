@@ -80,14 +80,14 @@
             </PivotItem>
             <PivotItem x:Uid="LastPivot"
                        x:Name="LastPivot">
-                <Grid>
+                <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0" Text="{Binding LastRoute}"
-                               Style="{StaticResource ScheduleTextBlockStyle}"
-                               HorizontalAlignment="Center" />
+                               FontSize="{StaticResource BigFontSize}"
+                               Style="{StaticResource ScheduleTextBlockStyle}"/>
                     <ListView Grid.Row="1" ItemsSource="{Binding Trains}"
                               IsItemClickEnabled="True"
                               ItemTemplate="{StaticResource ScheduleTemplate}"

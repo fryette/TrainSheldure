@@ -228,7 +228,7 @@ namespace Trains.Infrastructure.Infrastructure
                     trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
                 else
                 {
-                    trainsList[i].IsPlace = "Мест: уточните дату";
+                    trainsList[i].IsPlace = "Места: уточните дату";
                 }
             }
 
