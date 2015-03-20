@@ -9,8 +9,8 @@
       Background="{StaticResource BackgroundColorBrush}"
       d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel }">
 
-    <Grid>
-        <Grid.RowDefinitions >
+    <Grid Margin="5,0">
+        <Grid.RowDefinitions>
             <RowDefinition Height="80" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
@@ -21,7 +21,6 @@
         <Grid Row="1">
             <ListView ItemsSource="{Binding Parameter}"
                       IsItemClickEnabled="True"
-                      Margin="5,0"
                       ItemTemplate="{StaticResource ScheduleTemplate}"
                       micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
             </ListView>

@@ -111,11 +111,11 @@ namespace Trains.Infrastructure.Infrastructure
             {
                 StartTime = time1.Contains(' ') ? time1.Split(' ')[1] : time1,
                 EndTime = time2.Split('<')[0],
-                City = city.Replace("&nbsp;&mdash;", "-"),
+                City = city.Replace("&nbsp;&mdash;", " - "),
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
                 ImagePath = imagePath,
-                OnTheWay = departureDate == null ? null : OnTheWay(startTime, endTime),
+                OnTheWay = departureDate == null ? "" : OnTheWay(startTime, endTime),
                 DepartureDate = departureDate
             };
         }
@@ -200,15 +200,15 @@ namespace Trains.Infrastructure.Infrastructure
         {
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D", new CultureInfo("ru-ru"));
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            return "через " + timeSpan.Hours + "ч. " + timeSpan.Minutes + "мин.";
+            return "через " + timeSpan.Hours + " ч. " + timeSpan.Minutes + " мин.";
         }
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
         {
             var time = endTime - startTime;
             if (time.Days == 0)
-                return "В пути: " + time.Hours + "ч. " + time.Minutes + "мин.";
-            return "В пути: " + (int)time.TotalHours + "ч. " + time.Minutes + "мин.";
+                return time.Hours + "ч. " + time.Minutes + "мин.";
+            return (int)time.TotalHours + "ч. " + time.Minutes + "мин.";
         }
 
         private static List<string> GetLink(string data)
@@ -226,6 +226,10 @@ namespace Trains.Infrastructure.Infrastructure
                 trainsList[i].Link = linksList[i];
                 if (trainsList[i].DepartureDate != null)
                     trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
+                else
+                {
+                    trainsList[i].IsPlace = "Мест: уточните дату";
+                }
             }
 
             return trainsList.Where(x => !x.BeforeDepartureTime.Contains('-'));

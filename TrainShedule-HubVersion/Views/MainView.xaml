@@ -63,19 +63,18 @@
                             </Grid>
                         </Grid>
                     </GridView>
-                    <GridView Grid.Row="2"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToNews]">
-                            <Image x:Name="MainImage1"
-                                   Source="/Assets/MenuIcon/logo_tile2.jpg"
-                                   Margin="0,0,-140,0"
-                                   Width="500"
-                                   Style="{StaticResource MainButtonImageStyle}" />
-                            <Grid Style="{StaticResource GridLabelMainStyle}">
-                                <TextBlock x:Uid="NewsLabel"
-                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
-                            </Grid>
-                    </GridView>
+                    <Grid Grid.Row="2"
+                          micro:Message.Attach="[Event Tapped] = [Action GoToNews]">
+                        <Image x:Name="MainImage1"
+                               Source="/Assets/MenuIcon/logo_tile2.jpg"
+                               Margin="0,0,-140,0"
+                               Width="500"
+                               Style="{StaticResource MainButtonImageStyle}" />
+                        <Grid Style="{StaticResource GridLabelMainStyle}">
+                            <TextBlock x:Uid="NewsLabel"
+                                       Style="{StaticResource MainImageLabelTextBlockStyle}" />
+                        </Grid>
+                    </Grid>
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="LastPivot"
@@ -83,7 +82,8 @@
                 <ListView ItemsSource="{Binding Trains}"
                           IsItemClickEnabled="True"
                           ItemTemplate="{StaticResource ScheduleTemplate}"
-                          micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]" />
+                          micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"
+                          HorizontalContentAlignment="Center" />
             </PivotItem>
             <PivotItem x:Uid="RoutesPivot"
                        x:Name="RoutesPivot">
