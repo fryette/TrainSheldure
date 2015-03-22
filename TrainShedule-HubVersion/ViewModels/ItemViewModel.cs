@@ -81,7 +81,7 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Stores variant of search.
         /// </summary> 
-        private readonly BindableCollection<string> _variantOfSearch = new BindableCollection<string>(new[] { "Все поезда", "На все дни" });
+        private readonly BindableCollection<string> _variantOfSearch = new BindableCollection<string>(new[] { "На дату", "На все дни" });
         public BindableCollection<string> Date
         {
             get { return _variantOfSearch; }

@@ -24,7 +24,7 @@
                             <TextBlock Text="Версия:"
                                        FontSize="14"
                                        FontWeight="Bold" />
-                            <TextBlock Text=" 1.2.0.2"
+                            <TextBlock Text=" 1.2.0.3"
                                        FontSize="16"
                                        FontWeight="Bold" />
                         </StackPanel>
@@ -57,6 +57,10 @@
                     <TextBlock Text="- Исправлен стартовый экран"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Редизайн расписания"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
+                    <TextBlock Text="- Теперь вместо '0 ч 20 мин' будет отображаться '20 мин'"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
+                    <TextBlock Text="- Заменены некоторые подсказки"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Оптимизация кода"
                                Style="{StaticResource AboutPageTextBlockStyle}" />

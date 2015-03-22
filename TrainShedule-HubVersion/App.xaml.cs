@@ -81,5 +81,6 @@ namespace Trains.App
             frame.GoBack();
             e.Handled = true;
         }
+        
     }
 }
