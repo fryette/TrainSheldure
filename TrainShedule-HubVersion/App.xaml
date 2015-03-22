@@ -241,7 +241,7 @@
             <DataTemplate x:Key="ScheduleTemplate">
                 <Grid Margin="0,0,0,10">
                     <Grid.RowDefinitions>
-                        <RowDefinition MaxHeight="100"/>
+                        <RowDefinition MaxHeight="100" />
                         <RowDefinition Height="100" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -251,15 +251,13 @@
                         <TextBlock Text="{Binding BeforeDepartureTime}"
                                    Style="{StaticResource ScheduleTextBlockStyle}"
                                    HorizontalAlignment="Left"
-                                   VerticalAlignment="Center" 
-                                   MaxWidth="180"
+                                   VerticalAlignment="Center"
                                    TextWrapping="Wrap" />
                         <TextBlock Text="{Binding IsPlace}"
                                    Foreground="{StaticResource WhiteSmokeColorBrush}"
                                    Style="{StaticResource ScheduleTextBlockStyle}"
                                    VerticalAlignment="Center"
-                                   HorizontalAlignment="Right" 
-                                   MaxWidth="150"
+                                   HorizontalAlignment="Right"
                                    Margin="0,0,5,0" />
                     </Grid>
                     <Grid Grid.Row="1">
@@ -285,8 +283,8 @@
                                            Style="{StaticResource ScheduleTextBlockStyle}" />
                             </StackPanel>
                             <TextBlock Text="{Binding City}"
-                                       Foreground="{StaticResource WhiteColorBrush}"
                                        Style="{StaticResource ScheduleTextBlockStyle}"
+                                       FontSize="13"
                                        TextWrapping="Wrap"
                                        Width="130"
                                        VerticalAlignment="Center" />
@@ -296,7 +294,7 @@
                                        FontSize="{StaticResource MediumFontSize}"
                                        VerticalAlignment="Center"
                                        TextWrapping="Wrap"
-                                       Width="70" />
+                                       Width="100" />
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -314,28 +312,30 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="InformationTemplate">
-                <StackPanel Orientation="Horizontal"
-                            MinWidth="600"
-                            Background="{StaticResource OrangeColorBrush}"
-                            Margin="0,5,0,0">
-                    <StackPanel Orientation="Vertical"
-                                Margin="5,5,0,0">
+                <Grid Background="{StaticResource OrangeColorBrush}"
+                      Margin="0,5,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal">
                         <TextBlock Text="{Binding Name}"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Bottom"
                                    FontSize="{StaticResource NormalFontSize}"
-                                   MinWidth="150" />
+                                   TextWrapping="Wrap"
+                                   MinWidth="200" 
+                                   MaxWidth="400"/>
+                        <StackPanel Orientation="Vertical"
+                                    MinWidth="200">
+                            <TextBlock Text="{Binding Place}"
+                                       FontWeight="Normal"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                            <TextBlock Text="{Binding Price}"
+                                       FontWeight="Normal"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                        </StackPanel>
                     </StackPanel>
-                    <StackPanel Orientation="Vertical"
-                                MinWidth="100">
-                        <TextBlock Text="{Binding Place}"
-                                   FontWeight="Normal"
-                                   Style="{StaticResource BasedTextBlockStyle}" />
-                        <TextBlock Text="{Binding Price}"
-                                   FontWeight="Normal"
-                                   Style="{StaticResource BasedTextBlockStyle}" />
-                    </StackPanel>
-                </StackPanel>
+                </Grid>
             </DataTemplate>
             <DataTemplate x:Key="StopPointTemplate">
                 <StackPanel Orientation="Horizontal"

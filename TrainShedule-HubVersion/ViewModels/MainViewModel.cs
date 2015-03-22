@@ -181,7 +181,7 @@ namespace Trains.App.ViewModels
             IsDownloadRun = false;
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)
-                LastRoute = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To + " " + SavedItems.UpdatedLastRequest.SelectionMode;
+                LastRoute = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To;
             Trains = await _lastRequestTrain.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
         }

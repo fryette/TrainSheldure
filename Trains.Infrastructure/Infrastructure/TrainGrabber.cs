@@ -200,7 +200,8 @@ namespace Trains.Infrastructure.Infrastructure
         {
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D", new CultureInfo("ru-ru"));
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            return "через " + timeSpan.Hours + " ч. " + timeSpan.Minutes + " мин.";
+            var hours = timeSpan.Hours == 0 ? "" : (timeSpan.Hours + " ч. ");
+            return "через " + hours + timeSpan.Minutes + " мин.";
         }
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
@@ -228,7 +229,7 @@ namespace Trains.Infrastructure.Infrastructure
                     trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains("нет") ? "Мест нет" : "Места есть";
                 else
                 {
-                    trainsList[i].IsPlace = "Места: уточните дату";
+                    trainsList[i].AdditionalInformation.First().Name = "Уточните дату для отображения информации о местах";
                 }
             }
 
