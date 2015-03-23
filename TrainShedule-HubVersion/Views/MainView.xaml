@@ -112,6 +112,7 @@
                         <RowDefinition Height="50" />
                         <RowDefinition Height="60" />
                         <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
                         <RowDefinition Height="*" />
 
                     </Grid.RowDefinitions>
@@ -160,6 +161,21 @@
                         </StackPanel>
                     </GridView>
                     <GridView Grid.Row="3"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToSettingsPage]">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,5">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.information.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock Text="Settings"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="4"
                               Background="{StaticResource GrayColorBrush}"
                               VerticalAlignment="Bottom">
                         <StackPanel Orientation="Horizontal">

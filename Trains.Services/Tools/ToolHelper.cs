@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Windows.UI.Popups;
 
 namespace Trains.Services.Tools
@@ -17,7 +18,7 @@ namespace Trains.Services.Tools
         {
             if (selectedVariantOfSearch == EveryDaySelectionMode) return Everyday;
             if (datum < DateTime.Now) datum = DateTime.Now;
-            return datum.Date.Year + "-" + datum.Date.Month + "-" + datum.Date.Day;
+            return datum.ToString("yy-MM-dd",CultureInfo.CurrentCulture);
         }
     }
 }

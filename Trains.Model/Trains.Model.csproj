@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Entities\CountryStopPointDataGroup.cs" />
     <Compile Include="Entities\CountryStopPointDataItem.cs" />
+    <Compile Include="Entities\Languages.cs" />
     <Compile Include="Entities\LastRequest.cs" />
     <Compile Include="Entities\MenuDataGroup.cs" />
     <Compile Include="Entities\MenuDataItem.cs" />

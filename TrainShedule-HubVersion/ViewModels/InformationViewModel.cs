@@ -2,6 +2,7 @@
 using System.Net.NetworkInformation;
 using Windows.UI.Popups;
 using Caliburn.Micro;
+using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Entities;
 
@@ -14,7 +15,7 @@ namespace Trains.App.ViewModels
     {
         #region constant
         
-        private const string InternetConnectionError = "Доступ к интернету отсутствует,проверьте подключение!";
+        //private const string InternetConnectionError = "Доступ к интернету отсутствует,проверьте подключение!";
 
         #endregion
 
@@ -117,7 +118,7 @@ namespace Trains.App.ViewModels
             }
             else
             {
-                var messageDialog = new MessageDialog(InternetConnectionError);
+                var messageDialog = new MessageDialog(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
                 await messageDialog.ShowAsync();
             }
         }

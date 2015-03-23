@@ -13,9 +13,9 @@ namespace Trains.App.ViewModels
     public class EditFavoriteRoutesViewModel : Screen
     {
         #region constants
-        private const string NotifyMessage = "Выберите интересующие вас станции,затем выберите кнопку удалить выбранные";
+        //private const string NotifyMessage = "Выберите интересующие вас станции,затем выберите кнопку удалить выбранные";
         private const string FavoriteStr = "favoriteRequests";
-        private const string AllFavoritesDeleted = "Список ваших маршрутов теперь пуст";
+        //private const string AllFavoritesDeleted = "Список ваших маршрутов теперь пуст";
         #endregion
 
         #region properties
@@ -64,7 +64,7 @@ namespace Trains.App.ViewModels
         protected override void OnActivate()
         {
             FavoriteRequests = SavedItems.FavoriteRequests;
-            ToolHelper.ShowMessageBox(NotifyMessage);
+            ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("NotifyMessage"));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Trains.App.ViewModels
             {
                 _serializable.DeleteFile(FavoriteStr);
                 _navigationService.NavigateToViewModel<MainViewModel>();
-                ToolHelper.ShowMessageBox(AllFavoritesDeleted);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("AllFavoritesDeleted"));
             }
             else
             {

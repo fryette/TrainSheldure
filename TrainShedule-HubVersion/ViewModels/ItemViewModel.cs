@@ -17,14 +17,14 @@ namespace Trains.App.ViewModels
     {
         #region constant
 
-        private const string SearchError = "Поезда на дату отправления не найдены";
-        private const string ThisRouteIsPresent = "Данный маршрут уже присутствует";
-        private const string OneOrMoreStopPointIsInCorrect = "Одна или обе станции не введены";
+        //private const string SearchError = "Поезда на дату отправления не найдены";
+        //private const string ThisRouteIsPresent = "Данный маршрут уже присутствует";
+        //private const string PointsIsInCorrect = "Одна или обе станции не введены";
         private const string FavoriteString = "favoriteRequests";
-        private const string RouteIsAddedToFavorite = "Станция добавлена!";
-        private const string FavoriteListIsEmpthy = "Ваш список пуст";
-        private const string RouteIsDeletedInFavorite = "Станция удалена!";
-        private const string RouteIsIncorect = "Маршрут не найден,проверьте поля ввода станций!";
+        //private const string RouteIsAddedToFavorite = "Станция добавлена!";
+        //private const string FavoriteListIsEmpthy = "Ваш список пуст";
+        //private const string RouteIsDeletedInFavorite = "Станция удалена!";
+        //private const string RouteIsIncorect = "Маршрут не найден,проверьте поля ввода станций!";
         private const string UpdateLastRequestString = "updateLastRequst";
 
         #endregion
@@ -284,7 +284,7 @@ namespace Trains.App.ViewModels
             await Task.Run(() => SerializeDataSearch());
             var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedDate)));
             if (schedule == null || !schedule.Any())
-                ToolHelper.ShowMessageBox(SearchError);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
             else
                 _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
             IsTaskRun = false;
@@ -352,18 +352,18 @@ namespace Trains.App.ViewModels
         {
             if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To))
             {
-                ToolHelper.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("PointsIsInCorrect"));
                 return;
             }
             if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests = new List<LastRequest>();
             if (SavedItems.FavoriteRequests.Any(x => x.From == From && x.To == To))
-                ToolHelper.ShowMessageBox(ThisRouteIsPresent);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ThisRouteIsPresent"));
             else
             {
                 SavedItems.FavoriteRequests.Add(new LastRequest { From = From, To = To });
                 FavoriteRequests = SavedItems.FavoriteRequests;
                 await Serialize.SaveObjectToXml(FavoriteRequests, FavoriteString);
-                ToolHelper.ShowMessageBox(RouteIsAddedToFavorite);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsAddedToFavorite"));
                 SetVisibilityToFavoriteIcons(false, true);
             }
         }
@@ -375,7 +375,7 @@ namespace Trains.App.ViewModels
         {
             if (FavoriteRequests == null)
             {
-                ToolHelper.ShowMessageBox(FavoriteListIsEmpthy);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FavoriteListIsEmpthy"));
                 return;
             }
             var objectToDelete = FavoriteRequests.FirstOrDefault(x => x.From == From && x.To == To);
@@ -384,11 +384,11 @@ namespace Trains.App.ViewModels
                 FavoriteRequests.Remove(objectToDelete);
                 SavedItems.FavoriteRequests = FavoriteRequests;
                 _serializable.SerializeObjectToXml(LastRequests, FavoriteString);
-                ToolHelper.ShowMessageBox(RouteIsDeletedInFavorite);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
                 SetVisibilityToFavoriteIcons(true, false);
             }
             else
-                ToolHelper.ShowMessageBox(RouteIsIncorect);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsIncorect"));
         }
 
         /// <summary>

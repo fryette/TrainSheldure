@@ -53,13 +53,14 @@ namespace Trains.Infrastructure.Infrastructure
 
         private static string GetUrl(CountryStopPointDataItem fromItem, CountryStopPointDataItem toItem, string date)
         {
-            return "http://rasp.rw.by/m/ru/route/?from=" +
+            return "http://rasp.rw.by/m/"+SavedItems.ResourceLoader.GetString("Culture")+"/route/?from=" +
                    fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date;
         }
 
         private static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date)
         {
-            var dateOfDeparture = DateTime.Parse(date);
+            CultureInfo provider = CultureInfo.InvariantCulture;
+            var dateOfDeparture = DateTime.ParseExact(date,"yy-MM-dd",provider);
             var imagePath = new List<string>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - parameters.Count / SearchCountParameter;
@@ -106,11 +107,12 @@ namespace Trains.Infrastructure.Infrastructure
         {
             var startTime = DateTime.Parse(time1);
             DateTime endTime;
-            endTime = DateTime.Parse(time2.Replace("<br />", " ") + (time2.Length > 12 ? "" : " " + departureDate));
+            time2 = time2.Replace("<br />", " ") + (time2.Length > 12 ? "" : " " + departureDate);
+            endTime = DateTime.Parse(time2,new CultureInfo(SavedItems.ResourceLoader.GetString("Culture")));
             return new Train
             {
-                StartTime = time1.Contains(' ') ? time1.Split(' ')[1] : time1,
-                EndTime = time2.Split('<')[0],
+                StartTime = endTime.ToString("t"),
+                EndTime = endTime.ToString("t"),
                 City = city.Replace("&nbsp;&mdash;", " - "),
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
@@ -173,25 +175,6 @@ namespace Trains.Infrastructure.Infrastructure
                     additionInformation.Add(additionalInformations);
                     ++i;
                 }
-            }
-            return additionInformation;
-        }
-
-        private static IEnumerable<AdditionalInformation[]> GetAirportPlaces(int count)
-        {
-            var additionInformation = new List<AdditionalInformation[]>();
-            for (var i = 0; i < count; i++)
-            {
-                additionInformation.Add(new[]
-                    {
-                        new AdditionalInformation
-                        {
-                            Name = "Сидячие",
-                            Place = "мест:неограничено",
-                            Price = "цена:неизвестно"
-
-                        }
-                    });
             }
             return additionInformation;
         }

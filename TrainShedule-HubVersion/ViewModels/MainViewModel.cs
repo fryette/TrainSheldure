@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
+using Windows.ApplicationModel.Resources;
 using Windows.System;
 using Caliburn.Micro;
 using Trains.Model.Entities;
@@ -15,22 +17,20 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Model by start page
     /// </summary>
+    [assembly: NeutralResourcesLanguage("en")]
     public class MainViewModel : Screen
     {
         #region constants
 
-        private const string EditFavoriteMessageError =
-            "Сохраните хотя бы одну станцию, что бы иметь возможность редактирования";
+        //private const string EditFavoriteMessageError =
+        //    "Сохраните хотя бы одну станцию, что бы иметь возможность редактирования";
         private const string FavoriteString = "favoriteRequests";
         private const string LastRequestString = "lastRequests";
 
         private const string UpdateLastRequestString = "updateLastRequst";
         private const string IsSecondStartString = "isSecondStart";
         private const string IsFirstStartString = "isFirstStart";
-        private const string FirstMessageStartString = "Данное обновление вышло только благодаря вам(тем, кто все же оставил отзыв либо оценку)!\r\nОтдельное спасибо за отзыв Сергею Мешкову!\r\nВсе свои предложения можете отправить в соответствующем разделе.\r\nПривет, обращаюсь к вам, от лица разработчика данного приложения. Многие ждали обновления, " +
-                                                       "внедрения новых функций, удобства, покупки билетов, без рекламы. Я обращаюсь" +
-                                                       " ко всем, кто только начал и продолжает пользоваться данным приложением, если вы хотите новых функций и " +
-                                                       "исправления багов/глюков, оставьте отзыв в маркете, в противном случае, я прекращу поддержку. Каждый может внести свой вклад! Спасибо за внимание.";
+        //private const string FirstMessageStartString = "Если вы хотите новых функций и оперативного исправления багов/глюков, оставьте отзыв в маркете. Каждый комментарий приближайет выход очередного обновления! Шлите свои предложения по улучшению! Спасибо за внимание.";
 
         #endregion
         #region readonlyProperties
@@ -171,6 +171,10 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override async void OnActivate()
         {
+            //Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en";
+            //ResourceLoader loader = ResourceLoader.GetForViewIndependentUse("Resources");
+            //string s = loader.GetString("Test");
+
             IsDownloadRun = true;
             if (SavedItems.AutoCompletion == null)
             {
@@ -178,6 +182,10 @@ namespace Trains.App.ViewModels
                 await Task.Run(() => StartedActions());
                 await Task.Delay(2000);
             }
+            var lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
+
+            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang == null ? "ru" : lang.Id;
+            SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
             IsDownloadRun = false;
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)
@@ -228,7 +236,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(EditFavoriteMessageError);
+            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
             else
                 _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
         }
@@ -327,7 +335,7 @@ namespace Trains.App.ViewModels
             }
             else
             {
-                ToolHelper.ShowMessageBox(FirstMessageStartString);
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FirstMessageStartString"));
                 await Task.Run(() => _serializable.SerializeObjectToXml(true, IsSecondStartString));
                 if (await _serializable.CheckIsFile(IsFirstStartString))
                     _serializable.DeleteFile(IsFirstStartString);
@@ -342,6 +350,11 @@ namespace Trains.App.ViewModels
         {
             SavedItems.LastRequests = await Task.Run(() => _serializable.GetLastRequests(LastRequestString));
             SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FavoriteString));
+        }
+
+        private void GoToSettingsPage()
+        {
+            _navigationService.NavigateToViewModel<SettingsViewModel>();
         }
         #endregion
     }

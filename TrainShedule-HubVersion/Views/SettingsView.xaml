@@ -1,0 +1,33 @@
+﻿<Page x:Class="Trains.App.Views.SettingsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:micro="using:Caliburn.Micro"
+      mc:Ignorable="d"
+      Background="{StaticResource BackgroundColorBrush}"
+      d:DataContext="{d:DesignData SettingsViewModel}">
+
+    <Grid Margin="5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock Text="Выберите язык"
+                       Style="{StaticResource StopPointTextBlockStyle}"
+                       HorizontalAlignment="Left" />
+            <ComboBox x:Name="Languages"
+                      SelectedItem="{Binding SelectedLanguages,Mode=TwoWay}"
+                      SelectedValue="1"
+                      Width="145"
+                      HorizontalAlignment="Right" />
+        </Grid>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Label="Сохранить"
+                          Icon="Save"
+                          micro:Message.Attach="[Event Click] = [Action SaveChanges]" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>

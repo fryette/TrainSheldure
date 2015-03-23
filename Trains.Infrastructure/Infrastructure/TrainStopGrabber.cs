@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 using Trains.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.Infrastructure.Infrastructure
 {
@@ -31,7 +32,7 @@ namespace Trains.Infrastructure.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = (arrivals == "" ? null : "Приб:" + arrivals.Substring(0, 5)),
+                    Arrivals = (arrivals == "" ? null : "Приб: " + arrivals.Substring(0, 5)),
                     Departures = (departure == "" ? null : "Отпр: " + departure),
                     Stay = stay == "" ? null : "Стоянка: " + stay
                 });

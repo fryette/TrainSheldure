@@ -1,4 +1,4 @@
-﻿namespace Trains.Entities
+﻿namespace Trains.Model.Entities
 {
     public class TrainStop
     {
