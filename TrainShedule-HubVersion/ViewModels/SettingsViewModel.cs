@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
+using Trains.Services.Tools;
 
 namespace Trains.App.ViewModels
 {
@@ -50,6 +52,7 @@ namespace Trains.App.ViewModels
         {
             _serialize = serializable;
         }
+
         #endregion
 
         #region actions
@@ -67,6 +70,8 @@ namespace Trains.App.ViewModels
             _serialize.SerializeObjectToXml(lang, "currentLanguage");
             Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang.Id;
             SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
+            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride=lang.Id;
+            ToolHelper.ShowMessageBox("Успешно обновлен язык! Просьба перезайти в приложение!");
         }
         #endregion
     }

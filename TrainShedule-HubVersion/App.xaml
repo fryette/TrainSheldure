@@ -44,8 +44,6 @@
                    TargetType="TextBlock">
                 <Setter Property="FontSize"
                         Value="{StaticResource NormalFontSize}" />
-                <Setter Property="FontWeight"
-                        Value="Bold" />
                 <Setter Property="HorizontalAlignment"
                         Value="Center" />
                 <Setter Property="Margin"
