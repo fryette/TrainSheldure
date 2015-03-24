@@ -64,18 +64,21 @@
                             </Grid>
                         </Grid>
                     </GridView>
-                    <Grid Grid.Row="2"
-                          micro:Message.Attach="[Event Tapped] = [Action GoToNews]">
-                        <Image x:Name="MainImage1"
-                               Source="/Assets/MenuIcon/logo_tile2.jpg"
-                               Margin="0,0,-140,0"
-                               Width="500"
-                               Style="{StaticResource MainButtonImageStyle}" />
-                        <Grid Style="{StaticResource GridLabelMainStyle}">
-                            <TextBlock x:Uid="NewsLabel"
-                                       Style="{StaticResource MainImageLabelTextBlockStyle}" />
+                    <GridView Grid.Row="2"
+                              IsItemClickEnabled="False"
+                              Margin="0,10,0,-10"
+                              micro:Message.Attach="[Event Tapped] = [Action GoToNews]">
+                        <Grid>
+                            <Image x:Name="MainImage1"
+                                   Source="/Assets/MenuIcon/logo_tile2.jpg"
+                                   Margin="0,0,-140,0"
+                                   Style="{StaticResource MainButtonImageStyle}" />
+                            <Grid Style="{StaticResource GridLabelMainStyle}">
+                                <TextBlock x:Uid="NewsLabel"
+                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </GridView>
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="LastPivot"
