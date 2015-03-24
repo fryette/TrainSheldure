@@ -24,9 +24,6 @@ namespace Trains.Infrastructure.Infrastructure
             "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
             "(?<Price><td class=\"places_price\">([^<]*))";
 
-        //private const string BelarusConstString = "(Беларусь)";
-        //private const string EveryDay = "everyday";
-
         private const string UnknownStr = "&nbsp;";
         private const int SearchCountParameter = 5;
 
@@ -82,7 +79,7 @@ namespace Trains.Infrastructure.Infrastructure
 
             for (var i = 0; i < step; i += 4)
             {
-                trainList.Add(CreateTrain(DateTime.Now.ToString("yy-MM-dd")+' '+parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value + ' ' + DateTime.Now.ToString("yy-MM-dd"),
+                trainList.Add(CreateTrain(DateTime.Now.ToString("yy-MM-dd") + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value + ' ' + DateTime.Now.ToString("yy-MM-dd"),
                     parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value,
                     parameters[i / 4 + step].Value, imagePath[i / 4]));
             }
@@ -151,7 +148,7 @@ namespace Trains.Infrastructure.Infrastructure
                     additionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     additionInformation.Add(new[]
                     {
-                        new AdditionalInformation {Name = SavedItems.ResourceLoader.GetString("InternetConnectionError")}
+                        new AdditionalInformation {Name = SavedItems.ResourceLoader.GetString("NoPlace")}
                     });
                 else
                 {
@@ -170,7 +167,7 @@ namespace Trains.Infrastructure.Infrastructure
                             Place = SavedItems.ResourceLoader.GetString("Place") + (temp[j + 1].Groups[2].Value == UnknownStr
                                 ? SavedItems.ResourceLoader.GetString("Unlimited")
                                 : temp[j + 1].Groups[2].Value.Replace(UnknownStr, "")),
-                            Price = "цена: " + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
+                            Price = SavedItems.ResourceLoader.GetString("Price") + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
                     additionInformation.Add(additionalInformations);
@@ -208,13 +205,12 @@ namespace Trains.Infrastructure.Infrastructure
             for (var i = 0; i < additionalInformation.Count; i++)
             {
                 trainsList[i].AdditionalInformation = additionalInformation[i];
-                trainsList[i].Link = linksList[i];
+                trainsList[i].Link = linksList[i]; 
                 if (trainsList[i].DepartureDate != null)
                     trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(SavedItems.ResourceLoader.GetString("No")) ? SavedItems.ResourceLoader.GetString("PlaceNo") : SavedItems.ResourceLoader.GetString("PlaceYes");
                 else
-                    trainsList[i].AdditionalInformation.First().Name = "Уточните дату для отображения информации о местах";
+                    trainsList[i].AdditionalInformation.First().Name = SavedItems.ResourceLoader.GetString("SpecifyDate");
             }
-
             return trainsList.Where(x => !x.BeforeDepartureTime.Contains('-'));
         }
     }
