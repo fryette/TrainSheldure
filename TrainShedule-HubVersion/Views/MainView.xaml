@@ -196,11 +196,11 @@
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
-        <Grid Background="{StaticResource BackgroundColorBrush}"
+        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
-        </Grid>
+        </Grid>-->
     </Grid>
 
     <Page.BottomAppBar>
