@@ -271,7 +271,7 @@
     <value>На все дни</value>
   </data>
   <data name="Place" xml:space="preserve">
-    <value>Мест</value>
+    <value>Мест: </value>
   </data>
   <data name="PlaceNo" xml:space="preserve">
     <value>Мест нет</value>
@@ -329,9 +329,6 @@
   </data>
   <data name="StopPointsHeader.Text" xml:space="preserve">
     <value>Ост. Пункты</value>
-  </data>
-  <data name="Test" xml:space="preserve">
-    <value>test</value>
   </data>
   <data name="ThisRouteIsPresent" xml:space="preserve">
     <value>Данный маршрут уже присутствует</value>
