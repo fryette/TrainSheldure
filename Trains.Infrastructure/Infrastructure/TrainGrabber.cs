@@ -19,10 +19,14 @@ namespace Trains.Infrastructure.Infrastructure
 
         private const string AdditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
 
-        private const string ParsePlacesAndPrices =
+        private const string PlacesAndPricesPattern =
             "(?<Name><td class=\"places_name\">([^<]+)</td>)|" +
             "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
             "(?<Price><td class=\"places_price\">([^<]*))";
+
+        private const string LinkPattern = "<a href=\"/m/ru/train/(.+?)\"";
+
+        private const string TimeFormat = "yy-MM-dd HH:mm";
 
         private const string UnknownStr = "&nbsp;";
         private const int SearchCountParameter = 5;
@@ -64,9 +68,13 @@ namespace Trains.Infrastructure.Infrastructure
             for (var i = 0; i < step; i += 4)
             {
                 var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
-                trainList.Add(CreateTrain(date + " " + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value, parameters[i + 2].Groups[3].Value,
-                    parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "), parameters[i / 4 + step].Value,
-                    imagePath[i / 4], GetBeforeDepartureTime(starTime, dateOfDeparture), date));
+                trainList.Add(CreateTrain(date + ' ' + parameters[i].Groups[1].Value,
+                    parameters[i + 1].Groups[2].Value,
+                    parameters[i + 2].Groups[3].Value,
+                    parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
+                    parameters[i / 4 + step].Value,
+                    imagePath[i / 4],
+                    GetBeforeDepartureTime(starTime, dateOfDeparture), date));
             }
             return trainList;
         }
@@ -76,12 +84,15 @@ namespace Trains.Infrastructure.Infrastructure
             var imagePath = new List<string>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - parameters.Count / SearchCountParameter;
-
+            var dateNow = DateTime.Now.ToString("yy-MM-dd") + ' ';
             for (var i = 0; i < step; i += 4)
             {
-                trainList.Add(CreateTrain(DateTime.Now.ToString("yy-MM-dd") + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value + ' ' + DateTime.Now.ToString("yy-MM-dd"),
-                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value,
-                    parameters[i / 4 + step].Value, imagePath[i / 4]));
+                trainList.Add(CreateTrain(dateNow + parameters[i].Groups[1].Value,
+                    dateNow + parameters[i + 1].Groups[2].Value,
+                    parameters[i + 2].Groups[3].Value,
+                    parameters[i + 3].Groups[4].Value,
+                    parameters[i / 4 + step].Value,
+                    imagePath[i / 4]));
             }
             return trainList;
         }
@@ -92,8 +103,8 @@ namespace Trains.Infrastructure.Infrastructure
 
             for (var i = 0; i < parameters.Count; i += 4)
             {
-                trainList.Add(CreateTrain(date + " " + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
-                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, ""), null, "/Assets/Foreign_Trains.png"));
+                trainList.Add(CreateTrain(date + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
+                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), null, "/Assets/Foreign_Trains.png"));
             }
             return trainList;
         }
@@ -104,18 +115,18 @@ namespace Trains.Infrastructure.Infrastructure
             DateTime endTime;
             DateTime startTime;
             time2 = time2.Replace("<br />", " ");
-            startTime = DateTime.ParseExact(time1, "yy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            startTime = DateTime.ParseExact(time1, TimeFormat, CultureInfo.InvariantCulture);
             endTime = time2.Length > 10 ? DateTime.Parse(time2, CultureInfo.CurrentCulture)
-                : DateTime.ParseExact(time2 + ' ' + departureDate, "HH:mm yy-MM-dd", CultureInfo.InvariantCulture);
+                : DateTime.ParseExact(departureDate + ' ' + time2, TimeFormat, CultureInfo.InvariantCulture);
             return new Train
             {
-                StartTime = startTime.ToString("t"),
-                EndTime = endTime.ToString("t"),
+                StartTime = startTime.ToString("t", CultureInfo.InvariantCulture),
+                EndTime = endTime.ToString("t", CultureInfo.InvariantCulture),
                 City = city.Replace("&nbsp;&mdash;", " - "),
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
                 ImagePath = imagePath,
-                OnTheWay = departureDate == null ? "" : OnTheWay(startTime, endTime),
+                OnTheWay = departureDate == null ? null : OnTheWay(startTime, endTime),
                 DepartureDate = departureDate
             };
         }
@@ -144,7 +155,7 @@ namespace Trains.Infrastructure.Infrastructure
             for (var i = 0; i < additionalParameter.Count; i++)
             {
                 if (!additionalParameter[i].Groups[1].Value.Contains("href")) continue;
-                if (i + 1 >= additionalParameter.Count ||
+                if (i + 1 == additionalParameter.Count ||
                     additionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     additionInformation.Add(new[]
                     {
@@ -153,8 +164,7 @@ namespace Trains.Infrastructure.Infrastructure
                 else
                 {
                     var temp =
-                        Parser.ParseTrainData(additionalParameter[i + 1].Groups[1].Value, ParsePlacesAndPrices)
-                            .ToList();
+                        Parser.ParseTrainData(additionalParameter[i + 1].Groups[1].Value, PlacesAndPricesPattern).ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
 
                     for (var j = 0; j < temp.Count; j += 3)
@@ -166,7 +176,7 @@ namespace Trains.Infrastructure.Infrastructure
                                 : temp[j].Groups[1].Value,
                             Place = SavedItems.ResourceLoader.GetString("Place") + (temp[j + 1].Groups[2].Value == UnknownStr
                                 ? SavedItems.ResourceLoader.GetString("Unlimited")
-                                : temp[j + 1].Groups[2].Value.Replace(UnknownStr, "")),
+                                : temp[j + 1].Groups[2].Value.Replace(UnknownStr, string.Empty)),
                             Price = SavedItems.ResourceLoader.GetString("Price") + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
@@ -195,19 +205,20 @@ namespace Trains.Infrastructure.Infrastructure
 
         private static List<string> GetLink(string data)
         {
-            var links = Parser.ParseTrainData(data, "<a href=\"/m/ru/train/(.+?)\"").ToList();
+            var links = Parser.ParseTrainData(data, LinkPattern);
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
-        private static IEnumerable<Train> GetFinallyResult(List<AdditionalInformation[]> additionalInformation, List<string> linksList, IEnumerable<Train> trains)
+        private static IEnumerable<Train> GetFinallyResult(IReadOnlyList<AdditionalInformation[]> additionalInformation, IReadOnlyList<string> linksList, IEnumerable<Train> trains)
         {
             var trainsList = trains.ToList();
             for (var i = 0; i < additionalInformation.Count; i++)
             {
                 trainsList[i].AdditionalInformation = additionalInformation[i];
-                trainsList[i].Link = linksList[i]; 
+                trainsList[i].Link = linksList[i];
                 if (trainsList[i].DepartureDate != null)
-                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(SavedItems.ResourceLoader.GetString("No")) ? SavedItems.ResourceLoader.GetString("PlaceNo") : SavedItems.ResourceLoader.GetString("PlaceYes");
+                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(SavedItems.ResourceLoader.GetString("No")) ?
+                        SavedItems.ResourceLoader.GetString("PlaceNo") : SavedItems.ResourceLoader.GetString("PlaceYes");
                 else
                     trainsList[i].AdditionalInformation.First().Name = SavedItems.ResourceLoader.GetString("SpecifyDate");
             }
