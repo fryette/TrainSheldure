@@ -184,7 +184,7 @@
     <value>Сохраните хотя бы один маршрут, что бы иметь возможность редактирования</value>
   </data>
   <data name="ErrorUpdate" xml:space="preserve">
-    <value>Не найден последний запрос,или произошла ошибка загрузки</value>
+    <value>Не найден последний запрос, или произошла ошибка загрузки</value>
   </data>
   <data name="Everyday" xml:space="preserve">
     <value>everyday</value>
@@ -223,7 +223,7 @@
     <value>Международные</value>
   </data>
   <data name="InternetConnectionError" xml:space="preserve">
-    <value>Доступ к интернету отсутствует,проверьте подключение!</value>
+    <value>Доступ к интернету отсутствует, проверьте подключение!</value>
   </data>
   <data name="Interregional" xml:space="preserve">
     <value>Межрегиональные</value>

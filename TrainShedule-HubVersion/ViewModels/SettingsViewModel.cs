@@ -23,7 +23,7 @@ namespace Trains.App.ViewModels
         };
         public IEnumerable<string> Languages
         {
-            get { return _languagesList.Select(x=>x.Name); }
+            get { return _languagesList.Select(x => x.Name); }
         }
         /// <summary>
         /// Used to set code behind variant of search.
@@ -58,7 +58,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
-            SelectedLanguages = _languagesList[0].Name;
+            SelectedLanguages = _languagesList.First(x => x.Id == SavedItems.ResourceLoader.GetString("Culture")).Name;
         }
 
         private void SaveChanges()

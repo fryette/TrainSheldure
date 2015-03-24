@@ -294,7 +294,7 @@ namespace Trains.App.ViewModels
         {
             if (SavedItems.UpdatedLastRequest == null)
             {
-                ToolHelper.ShowMessageBox("Не найден последний запрос,или произошла ошибка загрузки");
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ErrorUpdate"));
                 return;
             }
             if (IsTaskRun) return;
@@ -306,7 +306,7 @@ namespace Trains.App.ViewModels
             IsTaskRun = false;
             if (trains == null)
             {
-                ToolHelper.ShowMessageBox("Обновление не удалось,проверьте подключение к интернету и попробуйте опять");
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
                 return;
             }
             Trains = trains;
