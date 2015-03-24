@@ -178,14 +178,13 @@ namespace Trains.App.ViewModels
             IsDownloadRun = true;
             if (SavedItems.AutoCompletion == null)
             {
+                var lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
+                Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang == null ? "ru" : lang.Id;
+                SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
                 CheckIsFirstStart();
                 await Task.Run(() => StartedActions());
                 await Task.Delay(2000);
             }
-            var lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
-
-            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang == null ? "ru" : lang.Id;
-            SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
             IsDownloadRun = false;
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)

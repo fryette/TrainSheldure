@@ -58,7 +58,7 @@ namespace Trains.Infrastructure.Infrastructure
             if (_groups.Count != 0)
                 return;
 
-            var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/StopPoints.json");
+            var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/StopPoints"+SavedItems.ResourceLoader.GetString("Culture")+".json");
 
             var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
             var jsonText = await FileIO.ReadTextAsync(file);

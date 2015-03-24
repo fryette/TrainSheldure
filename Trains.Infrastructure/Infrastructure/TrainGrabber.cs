@@ -24,7 +24,6 @@ namespace Trains.Infrastructure.Infrastructure
             "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
             "(?<Price><td class=\"places_price\">([^<]*))";
 
-        private const string LinkPattern = "<a href=\"/m/ru/train/(.+?)\"";
 
         private const string TimeFormat = "yy-MM-dd HH:mm";
 
@@ -205,7 +204,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         private static List<string> GetLink(string data)
         {
-            var links = Parser.ParseTrainData(data, LinkPattern);
+            var links = Parser.ParseTrainData(data, "<a href=\"/m/" + SavedItems.ResourceLoader.GetString("Culture")+ "/train/(.+?)\"");
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
