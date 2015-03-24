@@ -50,6 +50,7 @@
                         Value="Center" />
                 <Setter Property="Margin"
                         Value="5,0,0,0" />
+                <Setter Property="Foreground" Value="{StaticResource WhiteColorBrush}"/>
             </Style>
             <Style x:Key="StopPointTextBlockStyle"
                    TargetType="TextBlock"
@@ -252,7 +253,7 @@
                                    Style="{StaticResource ScheduleTextBlockStyle}"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   TextWrapping="Wrap" />
+                                   TextWrapping="Wrap"/>
                         <TextBlock Text="{Binding IsPlace}"
                                    Foreground="{StaticResource WhiteSmokeColorBrush}"
                                    Style="{StaticResource ScheduleTextBlockStyle}"
@@ -274,7 +275,6 @@
                                         Width="70">
                                 <TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource BigFontSize}"
-                                           Foreground="{StaticResource WhiteColorBrush}"
                                            Style="{StaticResource ScheduleTextBlockStyle}" />
                                 <TextBlock Text="{Binding EndTime}"
                                            FontSize="{StaticResource BigFontSize}"
@@ -287,7 +287,8 @@
                                        FontSize="13"
                                        TextWrapping="Wrap"
                                        Width="130"
-                                       VerticalAlignment="Center" />
+                                       VerticalAlignment="Center" 
+                                       Foreground="{StaticResource WhiteColorBrush}"/>
                             <TextBlock Text="{Binding OnTheWay}"
                                        Foreground="{StaticResource WhiteColorBrush}"
                                        Style="{StaticResource ScheduleTextBlockStyle}"

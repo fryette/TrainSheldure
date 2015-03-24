@@ -136,6 +136,7 @@
   <ItemGroup>
     <Content Include="Assets\appbar.email.gmail.png" />
     <Content Include="Assets\appbar.information.png" />
+    <Content Include="Assets\appbar.settings.png" />
     <Content Include="Assets\appbar.star.png" />
     <Content Include="Assets\Cityes.png" />
     <Content Include="Assets\Foreign_Trains.png" />

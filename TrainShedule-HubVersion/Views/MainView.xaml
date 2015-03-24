@@ -170,10 +170,10 @@
                                     Margin="0,5">
                             <StackPanel Background="OrangeRed">
                                 <Image Width="50"
-                                       Source="/Assets/appbar.information.png" />
+                                       Source="/Assets/appbar.settings.png" />
                             </StackPanel>
                             <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock Text="Settings"
+                                <TextBlock Text="Настройки"
                                            Style="{StaticResource MainAboutTextBlockStyle}" />
                             </StackPanel>
                         </StackPanel>
@@ -196,11 +196,11 @@
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
-        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
+        <Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
-        </Grid>-->
+        </Grid>
     </Grid>
 
     <Page.BottomAppBar>
