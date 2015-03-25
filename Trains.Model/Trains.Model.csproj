@@ -54,10 +54,13 @@
     <Content Include="DataModel\StopPointsru.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\Menu.json" />
+    <Content Include="DataModel\Menuru.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataModel\StopPointsbe.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataModel\Menube.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

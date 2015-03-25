@@ -65,11 +65,8 @@ namespace Trains.App.ViewModels
 
         private void SaveChanges()
         {
-            var lang = _languagesList.First(x => x.Name == SelectedLanguages);
-            _serialize.SerializeObjectToXml(lang, "currentLanguage");
-            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang.Id;
-            SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
-            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride=lang.Id;
+            _serialize.SerializeObjectToXml(_languagesList.First(x => x.Name == SelectedLanguages), "currentLanguage");
+            _serialize.DeleteFile("lastRequests");
             ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("LanguageChanged"));
         }
         #endregion

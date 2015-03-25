@@ -35,19 +35,17 @@
                 <StackPanel>
                     <TextBlock x:Uid="CurrentChanges"
                                Style="{StaticResource BasedTextBlockStyle}" />
-                    <TextBlock Text="- Исправлен баг с неправильным отображением поездов при поиске 'На все дни'"
+                    <TextBlock Text="- Исправлен баг с неправильным слайда 'Новости'"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
-                    <TextBlock Text="- Исправлено неправильно отображение кнопок в главном меню"
+                    <TextBlock Text="- Полностью локализовано приложение на белорусский язык"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
-                    <TextBlock Text="- Исправлен стартовый экран"
+                    <TextBlock Text="- Исправлен логит БЧ"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
-                    <TextBlock Text="- Редизайн расписания"
+                    <TextBlock Text="- Исправлен баг связаный с затемненными цветами в последнем запросе"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Теперь вместо '0 ч 20 мин' будет отображаться '20 мин'"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
-                    <TextBlock Text="- Заменены некоторые подсказки"
-                               Style="{StaticResource AboutPageTextBlockStyle}" />
-                    <TextBlock Text="- Оптимизация кода"
+                    <TextBlock Text="- Упрощены некоторые подсказки"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                 </StackPanel>
             </PivotItem>

@@ -13,14 +13,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <TextBlock Text="Выберите язык"
-                       Style="{StaticResource StopPointTextBlockStyle}"
-                       HorizontalAlignment="Left" />
             <ComboBox x:Name="Languages"
+                      x:Uid="LangSetting"
                       SelectedItem="{Binding SelectedLanguages,Mode=TwoWay}"
                       SelectedValue="1"
-                      Width="145"
-                      HorizontalAlignment="Right" />
+                      Margin="10,0" />
         </Grid>
     </Grid>
     <Page.BottomAppBar>

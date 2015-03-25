@@ -408,4 +408,7 @@
   <data name="StopPointAppBar.Label" xml:space="preserve">
     <value>Прыпынкі</value>
   </data>
+  <data name="LangSetting.Header" xml:space="preserve">
+    <value>мовы</value>
+  </data>
 </root>

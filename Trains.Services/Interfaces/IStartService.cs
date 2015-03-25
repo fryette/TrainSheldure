@@ -1,7 +1,9 @@
-﻿namespace Trains.Services.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace Trains.Services.Interfaces
 {
     public interface IStartService
     {
-        void RestoreData();
+        Task RestoreData();
     }
 }

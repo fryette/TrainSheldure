@@ -168,12 +168,8 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override async void OnActivate()
         {
-            //Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = "en";
-            //ResourceLoader loader = ResourceLoader.GetForViewIndependentUse("Resources");
-            //string s = loader.GetString("Test");
-
             IsDownloadRun = true;
-            _start.RestoreData();
+            await _start.RestoreData();
             IsDownloadRun = false;
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)
