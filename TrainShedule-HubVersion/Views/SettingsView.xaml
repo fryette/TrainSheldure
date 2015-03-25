@@ -25,7 +25,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Сохранить"
+            <AppBarButton x:Uid="SaveAppBar"
                           Icon="Save"
                           micro:Message.Attach="[Event Click] = [Action SaveChanges]" />
         </CommandBar>

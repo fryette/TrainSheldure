@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutApp.Text" xml:space="preserve">
-    <value>О приложении</value>
+    <value>Аб прыкладанні</value>
   </data>
   <data name="AboutLabel.Text" xml:space="preserve">
     <value>Усе маршруты ў вашым Windows Phone</value>
@@ -132,7 +132,7 @@
   <data name="AddInformation.Text" xml:space="preserve">
     <value>Дад. Інфармацыя</value>
   </data>
-  <data name="AllDays.Content" xml:space="preserve">
+  <data name="AllDays" xml:space="preserve">
     <value>На ўсе дні</value>
   </data>
   <data name="AllFavoritesDeleted" xml:space="preserve">
@@ -187,7 +187,7 @@
     <value>Выдаліць</value>
   </data>
   <data name="Departure" xml:space="preserve">
-    <value>Прыб </value>
+    <value>Прыб: </value>
   </data>
   <data name="DownloadData.Text" xml:space="preserve">
     <value>Загрузка параметраў</value>
@@ -364,7 +364,7 @@
     <value>Стаянка: </value>
   </data>
   <data name="StopPointsHeader.Text" xml:space="preserve">
-    <value>Прып. Пункты</value>
+    <value>Прыпынкі</value>
   </data>
   <data name="SwapAppBar.Label" xml:space="preserve">
     <value>Абмен</value>
@@ -404,5 +404,8 @@
   </data>
   <data name="Via" xml:space="preserve">
     <value>праз </value>
+  </data>
+  <data name="StopPointAppBar.Label" xml:space="preserve">
+    <value>Прыпынкі</value>
   </data>
 </root>

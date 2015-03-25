@@ -33,7 +33,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:Uid="SaveAppBar"
+            <AppBarButton x:Uid="StopPointAppBar"
                           Icon="Document"
                           micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
         </CommandBar>

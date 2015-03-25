@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Globalization;
 using Windows.UI.Popups;
+using Trains.Model.Entities;
 
 namespace Trains.Services.Tools
 {
     public static class ToolHelper
     {
-        private const string Everyday = "everyday";
-        private const string EveryDaySelectionMode = "На все дни";
 
         public static async void ShowMessageBox(string message)
         {
@@ -16,9 +15,9 @@ namespace Trains.Services.Tools
         }
         public static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
-            if (selectedVariantOfSearch == EveryDaySelectionMode) return Everyday;
+            if (selectedVariantOfSearch == SavedItems.ResourceLoader.GetString("AllDays")) return SavedItems.ResourceLoader.GetString("Everyday");
             if (datum < DateTime.Now) datum = DateTime.Now;
-            return datum.ToString("yy-MM-dd",CultureInfo.CurrentCulture);
+            return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
         }
     }
 }

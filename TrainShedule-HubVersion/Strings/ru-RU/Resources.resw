@@ -129,7 +129,7 @@
   <data name="AddInformation.Text" xml:space="preserve">
     <value>Доп.Информация</value>
   </data>
-  <data name="AllDays.Content" xml:space="preserve">
+  <data name="AllDays" xml:space="preserve">
     <value>На все дни</value>
   </data>
   <data name="AllFavoritesDeleted" xml:space="preserve">
@@ -325,7 +325,7 @@
     <value>Уточните дату для отображения информации о местах</value>
   </data>
   <data name="Stay" xml:space="preserve">
-    <value>Стоянка:</value>
+    <value>Стоянка: </value>
   </data>
   <data name="StopPointsHeader.Text" xml:space="preserve">
     <value>Ост. Пункты</value>
@@ -404,5 +404,8 @@
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Версия: 1.2.0.3</value>
+  </data>
+  <data name="StopPointAppBar.Label" xml:space="preserve">
+    <value>Остановки</value>
   </data>
 </root>
