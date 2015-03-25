@@ -47,6 +47,8 @@
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Упрощены некоторые подсказки"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
+                    <TextBlock Text="- Исправлен баг с отображением маршрутов при первом запуске"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
                 </StackPanel>
             </PivotItem>
         </Pivot>
