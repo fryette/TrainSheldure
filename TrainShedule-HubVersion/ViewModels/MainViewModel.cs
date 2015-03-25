@@ -22,12 +22,7 @@ namespace Trains.App.ViewModels
 
         //private const string EditFavoriteMessageError =
         //    "Сохраните хотя бы одну станцию, что бы иметь возможность редактирования";
-        private const string FavoriteString = "favoriteRequests";
-        private const string LastRequestString = "lastRequests";
 
-        private const string UpdateLastRequestString = "updateLastRequst";
-        private const string IsSecondStartString = "isSecondStart";
-        private const string IsFirstStartString = "isFirstStart";
         //private const string FirstMessageStartString = "Если вы хотите новых функций и оперативного исправления багов/глюков, оставьте отзыв в маркете. Каждый комментарий приближайет выход очередного обновления! Шлите свои предложения по улучшению! Спасибо за внимание.";
 
         #endregion
@@ -64,12 +59,13 @@ namespace Trains.App.ViewModels
         /// <param name="lastRequestTrainService">Used to search deserialize trains from the last request.</param>
         /// <param name="search"></param>
         /// <param name="serializable"></param>
-        public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISearchService search, ISerializableService serializable)
+        public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISearchService search, ISerializableService serializable, IStartService start)
         {
             _navigationService = navigationService;
             _lastRequestTrain = lastRequestTrainService;
             _search = search;
             _serializable = serializable;
+            _start = start;
         }
         #endregion
 
@@ -149,6 +145,9 @@ namespace Trains.App.ViewModels
         /// Last route
         /// </summary>
         private string _lastRoute;
+
+        private readonly IStartService _start;
+
         public string LastRoute
         {
             get { return _lastRoute; }
@@ -174,15 +173,7 @@ namespace Trains.App.ViewModels
             //string s = loader.GetString("Test");
 
             IsDownloadRun = true;
-            if (SavedItems.AutoCompletion == null)
-            {
-                var lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
-                Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang == null ? "ru" : lang.Id;
-                SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
-                CheckIsFirstStart();
-                await Task.Run(() => StartedActions());
-                await Task.Delay(2000);
-            }
+            _start.RestoreData();
             IsDownloadRun = false;
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)
@@ -290,14 +281,9 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (SavedItems.UpdatedLastRequest == null)
-            {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ErrorUpdate"));
-                return;
-            }
+            if (SavedItems.UpdatedLastRequest == null)return;;
             if (IsTaskRun) return;
             IsTaskRun = true;
-            DateTime udateTime;
             var trains =
                 await Task.Run(() => _search.GetTrainSchedule(SavedItems.UpdatedLastRequest.From,
                                 SavedItems.UpdatedLastRequest.To, ToolHelper.GetDate(SavedItems.UpdatedLastRequest.Date, SavedItems.UpdatedLastRequest.SelectionMode)));
@@ -311,48 +297,11 @@ namespace Trains.App.ViewModels
             await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
         }
 
-        private async void StartedActions()
-        {
-            SavedItems.AutoCompletion = await Task.Run(() => _search.GetCountryStopPoint());
-            try
-            {
-                SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(UpdateLastRequestString));
-            }
-            catch (Exception)
-            {
-                SavedItems.UpdatedLastRequest = null;
-            }
-        }
-
-        private async void CheckIsFirstStart()
-        {
-            if ((await _serializable.CheckIsFile(IsSecondStartString)))
-            {
-                await Task.Run(() => SerializationData());
-            }
-            else
-            {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FirstMessageStartString"));
-                await Task.Run(() => _serializable.SerializeObjectToXml(true, IsSecondStartString));
-                if (await _serializable.CheckIsFile(IsFirstStartString))
-                    _serializable.DeleteFile(IsFirstStartString);
-                //if (await _serializable.CheckIsFile(FavoriteString))
-                //    _serializable.DeleteFile(FavoriteString);
-                if (await _serializable.CheckIsFile(LastRequestString))
-                    _serializable.DeleteFile(LastRequestString);
-            }
-        }
-
-        private async void SerializationData()
-        {
-            SavedItems.LastRequests = await Task.Run(() => _serializable.GetLastRequests(LastRequestString));
-            SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FavoriteString));
-        }
-
         private void GoToSettingsPage()
         {
             _navigationService.NavigateToViewModel<SettingsViewModel>();
         }
+
         #endregion
     }
 }
