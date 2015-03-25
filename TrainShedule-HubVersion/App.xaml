@@ -225,7 +225,14 @@
                 <Setter Property="VerticalAlignment"
                         Value="Bottom" />
             </Style>
-
+            <Style x:Key="AboutAppStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
+                <Setter Property="Margin" Value="0,10,0,0"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="Foreground" Value="{StaticResource DimGrayColorBrush}"/>
+            </Style>
+            
+            
             <Style x:Key="AboutPageTextBlockStyle"
                    TargetType="TextBlock">
                 <Setter Property="TextWrapping"

@@ -262,7 +262,7 @@
     <value>Мест нет. Уточняйте в кассах</value>
   </data>
   <data name="NotifyMessage" xml:space="preserve">
-    <value>Выберите интересующие вас станции,затем выберите кнопку удалить выбранные</value>
+    <value>Выберите интересующие вас станции, затем выберите кнопку удалить выбранные</value>
   </data>
   <data name="OnDay" xml:space="preserve">
     <value>На дату</value>
@@ -298,7 +298,7 @@
     <value>Станция удалена!</value>
   </data>
   <data name="RouteIsIncorect" xml:space="preserve">
-    <value>Маршрут не найден,проверьте поля ввода станций!</value>
+    <value>Маршрут не найден, проверьте поля ввода станций!</value>
   </data>
   <data name="RoutesPivot.Header" xml:space="preserve">
     <value>Маршруты</value>
@@ -359,5 +359,50 @@
   </data>
   <data name="Culture" xml:space="preserve">
     <value>ru</value>
+  </data>
+  <data name="AboutUs.Header" xml:space="preserve">
+    <value>О Нас</value>
+  </data>
+  <data name="Author.Text" xml:space="preserve">
+    <value>Приложение создано: Sampir Yauhen</value>
+  </data>
+  <data name="Changes.Header" xml:space="preserve">
+    <value>Изменения</value>
+  </data>
+  <data name="Copyright.Text" xml:space="preserve">
+    <value>Логотип БЧ является собственностью белорусской железной дароги.</value>
+  </data>
+  <data name="CurrentChanges.Text" xml:space="preserve">
+    <value>В этой версии:</value>
+  </data>
+  <data name="DeleteAppBar.Label" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="HelpAppBar.Label" xml:space="preserve">
+    <value>Справка</value>
+  </data>
+  <data name="LanguageChanged" xml:space="preserve">
+    <value>Успешно обновлен язык! Просьба перезайти в приложение!</value>
+  </data>
+  <data name="ManageAppBar.Label" xml:space="preserve">
+    <value>Управлять</value>
+  </data>
+  <data name="SaveAppBar.Label" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Settings.Text" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="SwapAppBar.Label" xml:space="preserve">
+    <value>Обмен</value>
+  </data>
+  <data name="UpdateAppBar.Label" xml:space="preserve">
+    <value>Обновить</value>
+  </data>
+  <data name="UsingLibrary.Text" xml:space="preserve">
+    <value>Используемые бибилиотеки:</value>
+  </data>
+  <data name="Version.Text" xml:space="preserve">
+    <value>Версия: 1.2.0.3</value>
   </data>
 </root>

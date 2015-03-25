@@ -30,7 +30,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Удалить"
+            <AppBarButton x:Uid="DeleteAppBar"
                           Icon="Delete"
                           micro:Message.Attach="[Event Click] = [Action DeleteSelectedFavoriteRoutes]" />
         </CommandBar>

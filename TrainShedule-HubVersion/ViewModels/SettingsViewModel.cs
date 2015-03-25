@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
 using Caliburn.Micro;
 using Trains.Model.Entities;
@@ -71,7 +70,7 @@ namespace Trains.App.ViewModels
             Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang.Id;
             SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
             Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride=lang.Id;
-            ToolHelper.ShowMessageBox("Успешно обновлен язык! Просьба перезайти в приложение!");
+            ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("LanguageChanged"));
         }
         #endregion
     }

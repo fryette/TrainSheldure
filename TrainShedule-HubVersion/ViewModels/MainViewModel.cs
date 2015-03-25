@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Resources;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
 using Windows.ApplicationModel.Resources;
@@ -17,7 +16,6 @@ namespace Trains.App.ViewModels
     /// <summary>
     /// Model by start page
     /// </summary>
-    [assembly: NeutralResourcesLanguage("en")]
     public class MainViewModel : Screen
     {
         #region constants

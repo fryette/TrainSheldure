@@ -28,7 +28,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Справка"
+            <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
         </CommandBar>

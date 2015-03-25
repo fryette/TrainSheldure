@@ -173,7 +173,7 @@
                                        Source="/Assets/appbar.settings.png" />
                             </StackPanel>
                             <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock Text="Настройки"
+                                <TextBlock x:Uid="Settings"
                                            Style="{StaticResource MainAboutTextBlockStyle}" />
                             </StackPanel>
                         </StackPanel>
@@ -206,14 +206,14 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="UpdateAppBar"
+                          x:Uid="UpdateAppBar"
                           Icon="Sync"
-                          Label="Обновить"
                           micro:Message.Attach="[Event Click] = [Action UpdateLastRequest]" />
             <AppBarButton x:Name="ManagedAppBar"
+                          x:Uid="ManageAppBar"
                           Icon="Repair"
-                          Label="Управлять"
                           micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
-            <AppBarButton Label="Справка"
+            <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
 
