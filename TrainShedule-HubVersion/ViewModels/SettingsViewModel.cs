@@ -65,7 +65,7 @@ namespace Trains.App.ViewModels
             SelectedLanguages = _languagesList.First(x => x.Id == SavedItems.ResourceLoader.GetString("Culture")).Name;
         }
 
-        private void SaveChanges()
+        private void SaveChanges() 
         {
             var lang = _languagesList.First(x => x.Name == SelectedLanguages);
             _serialize.SerializeObjectToXml(lang, "currentLanguage");
