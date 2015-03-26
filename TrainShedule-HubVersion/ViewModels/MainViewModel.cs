@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
 using Windows.ApplicationModel.Resources;
+using Windows.Globalization;
 using Windows.System;
 using Caliburn.Micro;
+using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
 using Trains.Entities;
+using Language = Trains.Model.Entities.Language;
 
 namespace Trains.App.ViewModels
 {
@@ -170,12 +173,12 @@ namespace Trains.App.ViewModels
         {
             IsDownloadRun = true;
             await _start.RestoreData();
-            IsDownloadRun = false;
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)
                 LastRoute = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To;
             Trains = await _lastRequestTrain.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
+            IsDownloadRun = false;
         }
 
         /// <summary>
@@ -277,7 +280,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (SavedItems.UpdatedLastRequest == null)return;;
+            if (SavedItems.UpdatedLastRequest == null) return; ;
             if (IsTaskRun) return;
             IsTaskRun = true;
             var trains =

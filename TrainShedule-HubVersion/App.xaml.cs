@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
+using Windows.Globalization;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Trains.App.ViewModels;
 using Trains.App.Views;
+using Trains.Infrastructure.Infrastructure;
+using Trains.Model.Entities;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
+using Language = Trains.Model.Entities.Language;
+using TrainStop = Trains.Services.Implementations.TrainStop;
 
 namespace Trains.App
 {
@@ -24,7 +30,7 @@ namespace Trains.App
 
         private WinRTContainer _container;
 
-        protected override void Configure()
+        protected override async void Configure()
         {
             _container = new WinRTContainer();
 
@@ -49,6 +55,7 @@ namespace Trains.App
             _container.PerRequest<InformationViewModel>();
             _container.PerRequest<ItemViewModel>();
             _container.PerRequest<MainViewModel>();
+
         }
 
         protected override void PrepareViewFirst(Frame rootFrame)

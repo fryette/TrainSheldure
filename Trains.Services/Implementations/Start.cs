@@ -32,8 +32,8 @@ namespace Trains.Services.Implementations
         public async Task RestoreData()
         {
             if (SavedItems.AutoCompletion != null) return;
-            var lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
-            ApplicationLanguages.PrimaryLanguageOverride = lang == null ? "ru" : lang.Id;
+            SavedItems.Lang = await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage");
+            ApplicationLanguages.PrimaryLanguageOverride = SavedItems.Lang == null ? "ru" : SavedItems.Lang.Id;
             SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
             CheckIsFirstStart();
             await Task.Run(() => StartedActions());

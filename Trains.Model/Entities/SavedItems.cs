@@ -13,5 +13,6 @@ namespace Trains.Model.Entities
 
         public static LastRequest UpdatedLastRequest { get; set; }
         public static ResourceLoader ResourceLoader;
+        public static Language Lang { get; set; }
     }
 }

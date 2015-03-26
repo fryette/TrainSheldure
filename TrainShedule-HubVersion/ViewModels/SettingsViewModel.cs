@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Windows.ApplicationModel.Resources;
+using Windows.Globalization;
 using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
+using Language = Trains.Model.Entities.Language;
 
 namespace Trains.App.ViewModels
 {
@@ -20,7 +22,7 @@ namespace Trains.App.ViewModels
         private readonly List<Language> _languagesList = new List<Language>
         {
             new Language{Name = "Русский",Id = "ru"},
-            new Language{Name = "Беларусский",Id = "be"}
+            new Language{Name = "Белорусский",Id = "be"}
         };
         public IEnumerable<string> Languages
         {
@@ -65,8 +67,10 @@ namespace Trains.App.ViewModels
 
         private void SaveChanges()
         {
-            _serialize.SerializeObjectToXml(_languagesList.First(x => x.Name == SelectedLanguages), "currentLanguage");
+            var lang = _languagesList.First(x => x.Name == SelectedLanguages);
+            _serialize.SerializeObjectToXml(lang, "currentLanguage");
             _serialize.DeleteFile("lastRequests");
+            ApplicationLanguages.PrimaryLanguageOverride = lang.Id;
             ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("LanguageChanged"));
         }
         #endregion
