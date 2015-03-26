@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
+using Windows.ApplicationModel.Resources.Core;
 using Windows.Globalization;
 using Windows.UI.Core;
 using Trains.Model.Entities;
@@ -32,8 +34,9 @@ namespace Trains.Services.Implementations
         public async Task RestoreData()
         {
             if (SavedItems.AutoCompletion != null) return;
-            SavedItems.Lang = await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage");
-            ApplicationLanguages.PrimaryLanguageOverride = SavedItems.Lang == null ? "ru" : SavedItems.Lang.Id;
+            SavedItems.Lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
+            var context = ResourceContext.GetForCurrentView();
+            context.Languages = new List<string> { SavedItems.Lang == null ? "ru-RU" : SavedItems.Lang.Id};
             SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
             CheckIsFirstStart();
             await Task.Run(() => StartedActions());

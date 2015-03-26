@@ -7,7 +7,8 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       Background="{StaticResource BackgroundColorBrush}"
-      d:DataContext="{d:DesignInstance viewModels:StopPointViewModel}">
+      d:DataContext="{d:DesignInstance viewModels:StopPointViewModel}"
+      RequestedTheme="Dark">
 
     <Grid>
         <Grid.RowDefinitions>

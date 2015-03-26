@@ -6,7 +6,8 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       Background="{StaticResource BackgroundColorBrush}"
-      d:DataContext="{d:DesignData SettingsViewModel}">
+      d:DataContext="{d:DesignData SettingsViewModel}"
+      RequestedTheme="Dark">
 
     <Grid Margin="5,0">
         <Grid.RowDefinitions>
