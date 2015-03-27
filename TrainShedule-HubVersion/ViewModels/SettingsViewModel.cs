@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Windows.Globalization;
 using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
@@ -63,14 +62,15 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            ToolHelper.ShowMessageBox("Просьба воздержаться от установки белорусского языка, он может навредить приложению, вы можете потерять сохраненные маршруты/может перестать искать расписание поздов, в этом случае просьба переустановить приложение, либо потворно выставить русский язык. Это временно, мы ищем решение проблемы.");
             SelectedLanguages = _languagesList.First(x => x.Id == SavedItems.ResourceLoader.GetString("Culture"));
         }
 
-        private void SaveChanges() 
+        private void SaveChanges()
         {
             _serialize.SerializeObjectToXml(SelectedLanguages, FileName.CurrentLanguage);
             _serialize.DeleteFile(FileName.LastRequests);
-            ApplicationLanguages.PrimaryLanguageOverride = SelectedLanguages.Id;
+
             ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("LanguageChanged"));
         }
         #endregion

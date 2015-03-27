@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.Phone.UI.Input;
@@ -8,6 +9,8 @@ using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Trains.App.ViewModels;
 using Trains.App.Views;
+using Trains.Infrastructure.Infrastructure;
+using Trains.Model.Entities;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
 using TrainStop = Trains.Services.Implementations.TrainStop;
@@ -27,6 +30,7 @@ namespace Trains.App
 
         protected override void Configure()
         {
+            SetDefaultLanguage();
             _container = new WinRTContainer();
 
             _container.RegisterWinRTServices();
@@ -41,8 +45,6 @@ namespace Trains.App
             _container.Singleton<IStartService, Start>();
             _container.Singleton<IFavoriteManageService, FavoriteManage>();
 
-
-
             _container.PerRequest<SettingsViewModel>();
             _container.PerRequest<AboutViewModel>();
             _container.PerRequest<HelpViewModel>();
@@ -52,7 +54,6 @@ namespace Trains.App
             _container.PerRequest<InformationViewModel>();
             _container.PerRequest<ItemViewModel>();
             _container.PerRequest<MainViewModel>();
-
         }
 
         protected override void PrepareViewFirst(Frame rootFrame)
@@ -87,6 +88,15 @@ namespace Trains.App
             if (!frame.CanGoBack) return;
             frame.GoBack();
             e.Handled = true;
+        }
+
+        private static async void SetDefaultLanguage()
+        {
+            var lang = (await Serialize.ReadObjectFromXmlFileAsync<Language>(FileName.CurrentLanguage));
+            lang = lang ?? new Language { Id = "ru" };
+            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang.Id;
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(lang.Id);
+            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(lang.Id);
         }
     }
 }

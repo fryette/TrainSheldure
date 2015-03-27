@@ -36,6 +36,8 @@
                 <StackPanel>
                     <TextBlock x:Uid="CurrentChanges"
                                Style="{StaticResource BasedTextBlockStyle}" />
+                    <TextBlock Text="- Исправление бага с белорусским языком"
+                               Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Исправлен баг с неправильным слайда 'Новости'"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Полностью локализовано приложение на белорусский язык"
@@ -43,8 +45,6 @@
                     <TextBlock Text="- Исправлен логит БЧ"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Исправлен баг связаный с затемненными цветами в последнем запросе"
-                               Style="{StaticResource AboutPageTextBlockStyle}" />
-                    <TextBlock Text="- Теперь вместо '0 ч 20 мин' будет отображаться '20 мин'"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
                     <TextBlock Text="- Упрощены некоторые подсказки"
                                Style="{StaticResource AboutPageTextBlockStyle}" />
