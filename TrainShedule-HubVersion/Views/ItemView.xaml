@@ -37,11 +37,12 @@
                     <StackPanel Orientation="Vertical"
                                 VerticalAlignment="Bottom"
                                 Margin="10,0,0,0">
-                        <ComboBox x:Name="Date"
-                                  SelectedItem="{Binding Date}"
+                        <ComboBox 
+                            ItemsSource="{Binding VariantOfSearch,Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
                                   SelectedValue="1"
                                   VerticalAlignment="Bottom"
-                                  Width="145" />
+                                  Width="145"/>
                     </StackPanel>
                 </StackPanel>
                 <AutoSuggestBox x:Uid="From"
@@ -81,7 +82,7 @@
                           Icon="Favorite"
                           micro:Message.Attach="[Event Click] = [Action AddToFavorite]" />
             <AppBarButton x:Uid="Delete"
-                Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           Icon="Unfavorite"
                           micro:Message.Attach="[Event Click] = [Action DeleteInFavorite]" />
             <AppBarButton x:Uid="SwapAppBar"

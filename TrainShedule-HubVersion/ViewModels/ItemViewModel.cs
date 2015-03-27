@@ -81,11 +81,16 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Stores variant of search.
         /// </summary> 
-        private readonly BindableCollection<string> _variantOfSearch = new BindableCollection<string>(new[] { SavedItems.ResourceLoader.GetString("OnDay"), 
-            SavedItems.ResourceLoader.GetString("AllDays") });
-        public BindableCollection<string> Date
+        public List<string> VariantOfSearch
         {
-            get { return _variantOfSearch; }
+            get
+            {
+                return new List<string>
+                {
+                    SavedItems.ResourceLoader.GetString("OnDay"),
+                    SavedItems.ResourceLoader.GetString("AllDays")
+                };
+            }
         }
 
         /// <summary>
@@ -128,7 +133,7 @@ namespace Trains.App.ViewModels
         /// Used to set code behind variant of search.
         /// </summary> 
         private string _selectedDate;
-        public string SelectedDate
+        public string SelectedVariant
         {
             get
             {
@@ -138,7 +143,7 @@ namespace Trains.App.ViewModels
             set
             {
                 _selectedDate = value;
-                NotifyOfPropertyChange(() => SelectedDate);
+                NotifyOfPropertyChange(() => SelectedVariant);
             }
         }
 
@@ -270,7 +275,7 @@ namespace Trains.App.ViewModels
                 From = Parameter.From;
                 To = Parameter.To;
             }
-            SelectedDate = Date[0];
+            SelectedVariant = VariantOfSearch[0];
             LastRequests = SavedItems.LastRequests;
             FavoriteRequests = SavedItems.FavoriteRequests;
         }
@@ -283,7 +288,7 @@ namespace Trains.App.ViewModels
             if (await CheckInput()) return;
             IsTaskRun = true;
             await Task.Run(() => SerializeDataSearch());
-            var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedDate)));
+            var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
             if (schedule == null || !schedule.Any())
                 ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
             else
@@ -294,7 +299,7 @@ namespace Trains.App.ViewModels
         private void SerializeDataSearch()
         {
             SavedItems.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
-            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedDate, Date = Datum };
+            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
             _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, UpdateLastRequestString);
         }
 
