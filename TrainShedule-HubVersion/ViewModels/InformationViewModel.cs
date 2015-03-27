@@ -1,11 +1,6 @@
-﻿using System;
-using System.Net.NetworkInformation;
-using Windows.UI.Popups;
-using Caliburn.Micro;
-using Trains.Model.Entities;
+﻿using Caliburn.Micro;
 using Trains.Services.Interfaces;
 using Trains.Entities;
-using Trains.Services.Tools;
 
 namespace Trains.App.ViewModels
 {

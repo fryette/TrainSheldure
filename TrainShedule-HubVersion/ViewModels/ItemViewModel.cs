@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
@@ -23,6 +22,8 @@ namespace Trains.App.ViewModels
         #endregion
 
         #region readonlyProperties
+
+        private readonly IFavoriteManageService _manageFavoriteRequest;
 
         /// <summary>
         /// Used to navigate between pages.
@@ -55,6 +56,7 @@ namespace Trains.App.ViewModels
         /// <param name="search">Used to search train schedule.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
+        /// <param name="manageFavoriteRequest"></param>
         public ItemViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest)
         {
             _navigationService = navigationService;
@@ -185,8 +187,6 @@ namespace Trains.App.ViewModels
             }
         }
 
-
-
         /// <summary>
         /// Keeps on what date search train.
         /// </summary> 
@@ -233,8 +233,6 @@ namespace Trains.App.ViewModels
         /// Used for field enabled control.
         /// </summary>
         private bool _isFildEnabled = true;
-
-        private readonly IFavoriteManageService _manageFavoriteRequest;
 
         public bool IsFildEnabled
         {
@@ -342,9 +340,7 @@ namespace Trains.App.ViewModels
         private async void DeleteInFavorite()
         {
             if (await Task.Run(() => _manageFavoriteRequest.DeleteRoute(From, To)))
-            {
                 SetVisibilityToFavoriteIcons(true, false);
-            }
         }
 
         /// <summary>
@@ -361,13 +357,14 @@ namespace Trains.App.ViewModels
         private void UpdateAutoSuggestions(string str)
         {
             if (string.IsNullOrEmpty(str)) return;
+            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId).ToList();
+            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
+            AutoSuggestions.Clear();
+
             if (_checkTrain.CheckFavorite(From, To))
                 SetVisibilityToFavoriteIcons(true, false);
             else
                 SetVisibilityToFavoriteIcons(false, true);
-            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId).ToList();
-            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
-            AutoSuggestions.Clear();
         }
 
         /// <summary>

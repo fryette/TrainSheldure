@@ -3,16 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
-using Windows.ApplicationModel.Resources;
-using Windows.Globalization;
 using Windows.System;
 using Caliburn.Micro;
-using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
 using Trains.Entities;
-using Language = Trains.Model.Entities.Language;
 
 namespace Trains.App.ViewModels
 {
@@ -21,14 +17,6 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class MainViewModel : Screen
     {
-        #region constants
-
-        //private const string EditFavoriteMessageError =
-        //    "Сохраните хотя бы одну станцию, что бы иметь возможность редактирования";
-
-        //private const string FirstMessageStartString = "Если вы хотите новых функций и оперативного исправления багов/глюков, оставьте отзыв в маркете. Каждый комментарий приближайет выход очередного обновления! Шлите свои предложения по улучшению! Спасибо за внимание.";
-
-        #endregion
         #region readonlyProperties
         /// <summary>
         /// Used to get trains from the last request.
@@ -53,7 +41,7 @@ namespace Trains.App.ViewModels
 
         #endregion
 
-        #region constructors
+        #region ctor
 
         /// <summary>
         /// Constructor
@@ -175,7 +163,7 @@ namespace Trains.App.ViewModels
             await _start.RestoreData();
             IsBarDownloaded = true;
             if (SavedItems.UpdatedLastRequest != null)
-                LastRoute = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To;
+                LastRoute = String.Format("{0} - {1}", SavedItems.UpdatedLastRequest.From, SavedItems.UpdatedLastRequest.To);
             Trains = await _lastRequestTrain.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
             IsDownloadRun = false;
@@ -197,6 +185,7 @@ namespace Trains.App.ViewModels
         {
             _navigationService.NavigateToViewModel<InformationViewModel>(train);
         }
+
         /// <summary>
         /// Go to favorite routes page.
         /// </summary>
@@ -223,7 +212,8 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
+            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) 
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
             else
                 _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
         }
@@ -280,7 +270,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (SavedItems.UpdatedLastRequest == null) return; ;
+            if (SavedItems.UpdatedLastRequest == null) return;
             if (IsTaskRun) return;
             IsTaskRun = true;
             var trains =
