@@ -24,15 +24,15 @@ namespace Trains.App.ViewModels
             new Language{Name = "Русский",Id = "ru"},
             new Language{Name = "Белорусский",Id = "be"}
         };
-        public IEnumerable<string> Languages
+        public List<Language> Languages
         {
-            get { return _languagesList.Select(x => x.Name); }
+            get { return _languagesList; }
         }
         /// <summary>
         /// Used to set code behind variant of search.
         /// </summary> 
-        private string _selectedLanguages;
-        public string SelectedLanguages
+        private Language _selectedLanguages;
+        public Language SelectedLanguages
         {
             get
             {
@@ -62,15 +62,14 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
-            SelectedLanguages = _languagesList.First(x => x.Id == SavedItems.ResourceLoader.GetString("Culture")).Name;
+            SelectedLanguages = _languagesList.First(x => x.Id == SavedItems.ResourceLoader.GetString("Culture"));
         }
 
         private void SaveChanges() 
         {
-            var lang = _languagesList.First(x => x.Name == SelectedLanguages);
-            _serialize.SerializeObjectToXml(lang, "currentLanguage");
+            _serialize.SerializeObjectToXml(SelectedLanguages, "currentLanguage");
             _serialize.DeleteFile("lastRequests");
-            ApplicationLanguages.PrimaryLanguageOverride = lang.Id;
+            ApplicationLanguages.PrimaryLanguageOverride = SelectedLanguages.Id;
             ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("LanguageChanged"));
         }
         #endregion

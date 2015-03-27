@@ -33,7 +33,7 @@ namespace Trains.Services.Implementations
             if (SavedItems.AutoCompletion != null) return;
             SavedItems.Lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
             var context = ResourceContext.GetForCurrentView();
-            context.Languages = new List<string> { SavedItems.Lang == null ? "ru-RU" : SavedItems.Lang.Id};
+            context.Languages = new List<string> { SavedItems.Lang == null ? "ru" : SavedItems.Lang.Id};
             SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
             CheckIsFirstStart();
             await Task.Run(() => StartedActions());
