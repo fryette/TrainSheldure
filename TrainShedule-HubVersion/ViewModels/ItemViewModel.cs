@@ -285,7 +285,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void Search()
         {
-            if (await CheckInput()) return;
+            if (IsTaskRun || await Task.Run(() => _checkTrain.CheckInput(From, To, Datum))) return;
             IsTaskRun = true;
             await Task.Run(() => SerializeDataSearch());
             var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
@@ -303,16 +303,6 @@ namespace Trains.App.ViewModels
             _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, UpdateLastRequestString);
         }
 
-        private async Task<bool> CheckInput()
-        {
-            if (IsTaskRun) return true;
-            IsTaskRun = true;
-            var checkInputError = await Task.Run(() => _checkTrain.CheckInput(From, To, Datum));
-            if (checkInputError == null) return false;
-            ToolHelper.ShowMessageBox(checkInputError);
-            IsTaskRun = false;
-            return true;
-        }
         /// <summary>
         /// Swaped From and To properties.
         /// </summary>

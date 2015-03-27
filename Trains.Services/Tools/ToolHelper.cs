@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Trains.Model.Entities;
 
@@ -8,10 +9,16 @@ namespace Trains.Services.Tools
     public static class ToolHelper
     {
 
-        public static async void ShowMessageBox(string message)
+        public static void ShowMessageBox(string message)
         {
-            var dialog = new MessageDialog(message);
-            await dialog.ShowAsync();
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+                (Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    var dialog = new MessageDialog(message);
+                    //IUICommand command = await dialog.ShowAsync();
+                    await dialog.ShowAsync();
+                });
+
         }
         public static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
