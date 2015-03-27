@@ -5,6 +5,7 @@ using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Entities;
+using Trains.Services.Tools;
 
 namespace Trains.App.ViewModels
 {
@@ -14,16 +15,18 @@ namespace Trains.App.ViewModels
     public class InformationViewModel : Screen
     {
         #region constant
-        
+
         //private const string InternetConnectionError = "Доступ к интернету отсутствует,проверьте подключение!";
 
         #endregion
 
         #region readonlyProperties
+
         /// <summary>
         /// Used to navigate between pages.
         /// </summary>
         private readonly INavigationService _navigationService;
+
         /// <summary>
         /// Used to grab train stops.
         /// </summary>
@@ -32,6 +35,7 @@ namespace Trains.App.ViewModels
         #endregion
 
         #region constructor
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -56,12 +60,13 @@ namespace Trains.App.ViewModels
         /// User-selected train.
         /// Used to save train if user whant to search TrainStops
         /// </summary>        
-        private static Train SavedLasTrainInformations { get; set; }
+        private static Train SavedLastTrainInformations { get; set; }
 
         /// <summary>
         /// Used to dispalying informations about the seats and their prices.
         /// </summary>
         private AdditionalInformation[] _additionalInformation;
+
         public AdditionalInformation[] AdditionalInformation
         {
             get { return _additionalInformation; }
@@ -76,6 +81,7 @@ namespace Trains.App.ViewModels
         /// Used for process control.
         /// </summary>
         private bool _isTaskRun;
+
         public bool IsTaskRun
         {
             get { return _isTaskRun; }
@@ -97,7 +103,7 @@ namespace Trains.App.ViewModels
         protected override void OnActivate()
         {
             if (Parameter == null)
-                Parameter = SavedLasTrainInformations;
+                Parameter = SavedLastTrainInformations;
             else
                 AdditionalInformation = Parameter.AdditionalInformation;
         }
@@ -107,22 +113,14 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void SearchStopPoint()
         {
-            if (NetworkInterface.GetIsNetworkAvailable())
-            {
-                if (IsTaskRun) return;
-                IsTaskRun = true;
-                var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
-                IsTaskRun = false;
-                SavedLasTrainInformations = Parameter;
-                _navigationService.NavigateToViewModel<StopPointViewModel>(stopPointList);
-            }
-            else
-            {
-                var messageDialog = new MessageDialog(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
-                await messageDialog.ShowAsync();
-            }
+            if (IsTaskRun) return;
+            IsTaskRun = true;
+            SavedLastTrainInformations = Parameter;
+            var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
+            IsTaskRun = false;
+            _navigationService.NavigateToViewModel<StopPointViewModel>(stopPointList);
         }
-
         #endregion
     }
 }
+
