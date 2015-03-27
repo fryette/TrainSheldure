@@ -27,6 +27,7 @@ namespace Trains.App.ViewModels
         {
             get { return _languagesList; }
         }
+
         /// <summary>
         /// Used to set code behind variant of search.
         /// </summary> 
@@ -44,6 +45,7 @@ namespace Trains.App.ViewModels
                 NotifyOfPropertyChange(() => SelectedLanguages);
             }
         }
+
         #endregion
 
         #region ctor

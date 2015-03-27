@@ -48,6 +48,7 @@ namespace Trains.App.ViewModels
         {
             _serializable.SerializeObjectToXml(Parameter.ToList(), "LastTrainList");
         }
+
         /// <summary>
         /// Invoked when the user selects his train of interest.
         /// Go to the information page which show additional information about this train.

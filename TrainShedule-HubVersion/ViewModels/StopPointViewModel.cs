@@ -41,7 +41,6 @@ namespace Trains.App.ViewModels
             _navigationService.NavigateToViewModel<HelpViewModel>();
         }
 
-
         #endregion
     }
 

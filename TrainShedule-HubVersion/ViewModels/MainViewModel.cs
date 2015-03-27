@@ -50,6 +50,7 @@ namespace Trains.App.ViewModels
         /// <param name="lastRequestTrainService">Used to search deserialize trains from the last request.</param>
         /// <param name="search"></param>
         /// <param name="serializable"></param>
+        /// <param name="start"></param>
         public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISearchService search, ISerializableService serializable, IStartService start)
         {
             _navigationService = navigationService;
