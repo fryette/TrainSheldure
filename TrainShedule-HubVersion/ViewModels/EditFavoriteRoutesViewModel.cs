@@ -13,9 +13,7 @@ namespace Trains.App.ViewModels
     public class EditFavoriteRoutesViewModel : Screen
     {
         #region constants
-        //private const string NotifyMessage = "Выберите интересующие вас станции,затем выберите кнопку удалить выбранные";
         private const string FavoriteStr = "favoriteRequests";
-        //private const string AllFavoritesDeleted = "Список ваших маршрутов теперь пуст";
         #endregion
 
         #region properties
@@ -23,7 +21,7 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Used to serialization/deserialization objects.
         /// </summary>
-        private readonly ISerializableService _serializable;
+        private readonly IFavoriteManageService _favoriteManage;
 
         /// <summary>
         /// Used to navigate between pages.
@@ -47,11 +45,11 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="serializable">Used to serialization/deserialization objects.</param>
+        /// <param name="favoriteManage">Used to manage favorite routes.</param>
         /// <param name="navigationService">Used to navigate between pages.</param>
-        public EditFavoriteRoutesViewModel(ISerializableService serializable, INavigationService navigationService)
+        public EditFavoriteRoutesViewModel(IFavoriteManageService favoriteManage, INavigationService navigationService)
         {
-            _serializable = serializable;
+            _favoriteManage = favoriteManage;
             _navigationService = navigationService;
         }
 
@@ -84,19 +82,10 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void DeleteSelectedFavoriteRoutes()
         {
-            foreach (var lastRequest in FavoriteRequests.Where(x => x.IsCanBeDeleted))
-                SavedItems.FavoriteRequests.Remove(lastRequest);
-            FavoriteRequests = SavedItems.FavoriteRequests;
-            if (!FavoriteRequests.Any())
-            {
-                _serializable.DeleteFile(FavoriteStr);
+            _favoriteManage.DeleteFavorite(FavoriteRequests);
+            if (!SavedItems.FavoriteRequests.Any())
                 _navigationService.NavigateToViewModel<MainViewModel>();
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("AllFavoritesDeleted"));
-            }
-            else
-            {
-                _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FavoriteStr);
-            }
+            FavoriteRequests = SavedItems.FavoriteRequests;
         }
         #endregion
     }

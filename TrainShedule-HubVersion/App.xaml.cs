@@ -39,6 +39,8 @@ namespace Trains.App
             _container.Singleton<ITrainStopService, TrainStop>();
             _container.Singleton<ICheckTrainService, CheckTrain>();
             _container.Singleton<IStartService, Start>();
+            _container.Singleton<IFavoriteManageService, FavoriteManage>();
+
 
 
             _container.PerRequest<SettingsViewModel>();
