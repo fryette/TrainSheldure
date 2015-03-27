@@ -82,7 +82,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void DeleteSelectedFavoriteRoutes()
         {
-            _favoriteManage.DeleteFavorite(FavoriteRequests);
+            _favoriteManage.ManageFavorite(FavoriteRequests);
             if (!SavedItems.FavoriteRequests.Any())
                 _navigationService.NavigateToViewModel<MainViewModel>();
             FavoriteRequests = SavedItems.FavoriteRequests;

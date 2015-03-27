@@ -17,14 +17,7 @@ namespace Trains.App.ViewModels
     {
         #region constant
 
-        //private const string SearchError = "Поезда на дату отправления не найдены";
-        //private const string ThisRouteIsPresent = "Данный маршрут уже присутствует";
-        //private const string PointsIsInCorrect = "Одна или обе станции не введены";
         private const string FavoriteString = "favoriteRequests";
-        //private const string RouteIsAddedToFavorite = "Станция добавлена!";
-        //private const string FavoriteListIsEmpthy = "Ваш список пуст";
-        //private const string RouteIsDeletedInFavorite = "Станция удалена!";
-        //private const string RouteIsIncorect = "Маршрут не найден,проверьте поля ввода станций!";
         private const string UpdateLastRequestString = "updateLastRequst";
 
         #endregion
@@ -62,12 +55,13 @@ namespace Trains.App.ViewModels
         /// <param name="search">Used to search train schedule.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
-        public ItemViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain)
+        public ItemViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest)
         {
             _navigationService = navigationService;
             _search = search;
             _serializable = serializable;
             _checkTrain = checkTrain;
+            _manageFavoriteRequest = manageFavoriteRequest;
         }
         #endregion
 
@@ -191,19 +185,7 @@ namespace Trains.App.ViewModels
             }
         }
 
-        /// <summary>
-        /// Keeps saved by user routes.
-        /// </summary> 
-        private List<LastRequest> _favoriteRequests;
-        public List<LastRequest> FavoriteRequests
-        {
-            get { return _favoriteRequests; }
-            set
-            {
-                _favoriteRequests = value;
-                NotifyOfPropertyChange(() => FavoriteRequests);
-            }
-        }
+
 
         /// <summary>
         /// Keeps on what date search train.
@@ -251,6 +233,9 @@ namespace Trains.App.ViewModels
         /// Used for field enabled control.
         /// </summary>
         private bool _isFildEnabled = true;
+
+        private readonly IFavoriteManageService _manageFavoriteRequest;
+
         public bool IsFildEnabled
         {
             get { return _isFildEnabled; }
@@ -277,7 +262,6 @@ namespace Trains.App.ViewModels
             }
             SelectedVariant = VariantOfSearch[0];
             LastRequests = SavedItems.LastRequests;
-            FavoriteRequests = SavedItems.FavoriteRequests;
         }
 
         /// <summary>
@@ -287,13 +271,15 @@ namespace Trains.App.ViewModels
         {
             if (IsTaskRun || await Task.Run(() => _checkTrain.CheckInput(From, To, Datum))) return;
             IsTaskRun = true;
-            await Task.Run(() => SerializeDataSearch());
+            SerializeDataSearch();
             var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
-            if (schedule == null || !schedule.Any())
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
-            else
-                _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
             IsTaskRun = false;
+            if (schedule == null || !schedule.Any())
+            {
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
+                return;
+            }
+            _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
         }
 
         private void SerializeDataSearch()
@@ -346,45 +332,19 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void AddToFavorite()
         {
-            if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To))
-            {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("PointsIsInCorrect"));
-                return;
-            }
-            if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests = new List<LastRequest>();
-            if (SavedItems.FavoriteRequests.Any(x => x.From == From && x.To == To))
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ThisRouteIsPresent"));
-            else
-            {
-                SavedItems.FavoriteRequests.Add(new LastRequest { From = From, To = To });
-                FavoriteRequests = SavedItems.FavoriteRequests;
-                await Serialize.SaveObjectToXml(FavoriteRequests, FavoriteString);
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsAddedToFavorite"));
+            if (await Task.Run(() => _manageFavoriteRequest.AddToFavorite(From, To)))
                 SetVisibilityToFavoriteIcons(false, true);
-            }
         }
 
         /// <summary>
         /// Deletes the entered route visas favorite.
         /// </summary>
-        private void DeleteInFavorite()
+        private async void DeleteInFavorite()
         {
-            if (FavoriteRequests == null)
+            if (await Task.Run(() => _manageFavoriteRequest.DeleteRoute(From, To)))
             {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FavoriteListIsEmpthy"));
-                return;
-            }
-            var objectToDelete = FavoriteRequests.FirstOrDefault(x => x.From == From && x.To == To);
-            if (objectToDelete != null)
-            {
-                FavoriteRequests.Remove(objectToDelete);
-                SavedItems.FavoriteRequests = FavoriteRequests;
-                _serializable.SerializeObjectToXml(LastRequests, FavoriteString);
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
                 SetVisibilityToFavoriteIcons(true, false);
             }
-            else
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsIncorect"));
         }
 
         /// <summary>
