@@ -12,10 +12,6 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class EditFavoriteRoutesViewModel : Screen
     {
-        #region constants
-        private const string FavoriteStr = "favoriteRequests";
-        #endregion
-
         #region properties
 
         /// <summary>

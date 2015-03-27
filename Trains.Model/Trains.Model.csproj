@@ -45,6 +45,7 @@
     <Compile Include="Entities\MenuDataGroup.cs" />
     <Compile Include="Entities\MenuDataItem.cs" />
     <Compile Include="Entities\SavedItems.cs" />
+    <Compile Include="Entities\FileName.cs" />
     <Compile Include="Entities\Train.cs" />
     <Compile Include="Entities\TrainStop.cs" />
     <Compile Include="Properties\Annotations.cs" />

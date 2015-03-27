@@ -8,7 +8,6 @@ namespace Trains.Services.Implementations
 {
     public class FavoriteManage : IFavoriteManageService
     {
-        private const string FavoriteString = "favoriteRequests";
         private readonly ISerializableService _serializable;
 
         public FavoriteManage(ISerializableService serializable)
@@ -23,10 +22,10 @@ namespace Trains.Services.Implementations
             favoriteList = SavedItems.FavoriteRequests;
             if (!favoriteList.Any())
             {
-                _serializable.DeleteFile(FavoriteString);
+                _serializable.DeleteFile(FileName.FavoriteRequests);
                 ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("AllFavoritesDeleted"));
             }
-            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FavoriteString);
+            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
         }
 
         public bool AddToFavorite(string from, string to)
@@ -45,7 +44,7 @@ namespace Trains.Services.Implementations
             }
 
             SavedItems.FavoriteRequests.Add(new LastRequest { From = from, To = to });
-            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FavoriteString);
+            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
             ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsAddedToFavorite"));
             return true;
         }
@@ -56,7 +55,7 @@ namespace Trains.Services.Implementations
             if (objectToDelete != null)
             {
                 SavedItems.FavoriteRequests.Remove(objectToDelete);
-                _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FavoriteString);
+                _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
                 ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
                 return true;
             }

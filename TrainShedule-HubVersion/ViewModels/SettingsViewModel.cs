@@ -68,8 +68,8 @@ namespace Trains.App.ViewModels
 
         private void SaveChanges() 
         {
-            _serialize.SerializeObjectToXml(SelectedLanguages, "currentLanguage");
-            _serialize.DeleteFile("lastRequests");
+            _serialize.SerializeObjectToXml(SelectedLanguages, FileName.CurrentLanguage);
+            _serialize.DeleteFile(FileName.LastRequests);
             ApplicationLanguages.PrimaryLanguageOverride = SelectedLanguages.Id;
             ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("LanguageChanged"));
         }

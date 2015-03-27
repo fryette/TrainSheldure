@@ -11,12 +11,8 @@ namespace Trains.Services.Implementations
 {
     public class Start : IStartService
     {
-        private const string FavoriteString = "favoriteRequests";
-        private const string LastRequestString = "lastRequests";
 
-        private const string UpdateLastRequestString = "updateLastRequst";
-        private const string IsSecondStartString = "isSecondStart";
-        private const string IsFirstStartString = "isFirstStart";
+
 
 
         private readonly ISerializableService _serializable;
@@ -31,7 +27,7 @@ namespace Trains.Services.Implementations
         public async Task RestoreData()
         {
             if (SavedItems.AutoCompletion != null) return;
-            SavedItems.Lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>("currentLanguage"));
+            SavedItems.Lang = (await _serializable.ReadObjectFromXmlFileAsync<Language>(FileName.CurrentLanguage));
             var context = ResourceContext.GetForCurrentView();
             context.Languages = new List<string> { SavedItems.Lang == null ? "ru" : SavedItems.Lang.Id};
             SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
@@ -43,23 +39,23 @@ namespace Trains.Services.Implementations
         private async void StartedActions()
         {
             SavedItems.AutoCompletion = await Task.Run(() => _search.GetCountryStopPoint());
-             SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FavoriteString));
-            SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(UpdateLastRequestString));
+             SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FileName.FavoriteRequests));
+            SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(FileName.UpdateLastRequest));
             SavedItems.UpdatedLastRequest = null;
         }
 
         private async void CheckIsFirstStart()
         {
-            if ((await _serializable.CheckIsFile(IsFirstStartString)))
+            if ((await _serializable.CheckIsFile(FileName.IsFirstStart)))
             {
-                SavedItems.LastRequests = await Task.Run(() => _serializable.GetLastRequests(LastRequestString));
+                SavedItems.LastRequests = await Task.Run(() => _serializable.GetLastRequests(FileName.LastRequests));
             }
             else
             {
                 ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FirstMessageStartString"));
-                await Task.Run(() => _serializable.SerializeObjectToXml(true, IsFirstStartString));
-                _serializable.DeleteFile(IsSecondStartString);
-                _serializable.DeleteFile(LastRequestString);
+                await Task.Run(() => _serializable.SerializeObjectToXml(true, FileName.IsFirstStart));
+                _serializable.DeleteFile(FileName.IsSecondStart);
+                _serializable.DeleteFile(FileName.LastRequests);
             }
         }
     }

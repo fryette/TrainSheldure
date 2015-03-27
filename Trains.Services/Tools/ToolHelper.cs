@@ -14,7 +14,6 @@ namespace Trains.Services.Tools
                 (Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
                 {
                     var dialog = new MessageDialog(message);
-                    //IUICommand command = await dialog.ShowAsync();
                     await dialog.ShowAsync();
                 });
 

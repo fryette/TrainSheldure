@@ -32,6 +32,8 @@ namespace Trains.Infrastructure.Infrastructure
 
         #endregion
 
+        #region action
+
         public static async Task<List<Train>> GetTrainSchedule(string from, string to, string date)
         {
             var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
@@ -223,5 +225,7 @@ namespace Trains.Infrastructure.Infrastructure
             }
             return trainsList.Where(x => !x.BeforeDepartureTime.Contains('-'));
         }
+
+        #endregion
     }
 }

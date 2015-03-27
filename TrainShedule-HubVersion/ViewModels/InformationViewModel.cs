@@ -9,12 +9,6 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class InformationViewModel : Screen
     {
-        #region constant
-
-        //private const string InternetConnectionError = "Доступ к интернету отсутствует,проверьте подключение!";
-
-        #endregion
-
         #region readonlyProperties
 
         /// <summary>

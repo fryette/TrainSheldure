@@ -14,13 +14,6 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class ItemViewModel : Screen
     {
-        #region constant
-
-        private const string FavoriteString = "favoriteRequests";
-        private const string UpdateLastRequestString = "updateLastRequst";
-
-        #endregion
-
         #region readonlyProperties
 
         private readonly IFavoriteManageService _manageFavoriteRequest;
@@ -284,7 +277,7 @@ namespace Trains.App.ViewModels
         {
             SavedItems.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
             SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
-            _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, UpdateLastRequestString);
+            _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, FileName.UpdateLastRequest);
         }
 
         /// <summary>
