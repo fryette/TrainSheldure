@@ -78,7 +78,8 @@
                 <Setter Property="Margin"
                         Value="0,5,0,0" />
                 <Setter Property="micro:Message.Attach"
-                        Value="[Event SuggestionChosen] = [Action SuggestionChosen]"></Setter>
+                        Value="[Event SuggestionChosen] = [Action SuggestionChosen]"/>
+                
             </Style>
             <Style x:Key="DatePickerStyle"
                    TargetType="DatePicker">

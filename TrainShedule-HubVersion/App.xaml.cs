@@ -25,7 +25,7 @@ namespace Trains.App
 
         private WinRTContainer _container;
 
-        protected override async void Configure()
+        protected override void Configure()
         {
             _container = new WinRTContainer();
 

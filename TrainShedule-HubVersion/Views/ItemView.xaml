@@ -48,7 +48,9 @@
                                 Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding AutoSuggestions}"
                                 IsEnabled="{Binding IsFildEnabled}"
-                                Style="{StaticResource AutoSuggestBoxStyle}" />
+                                Style="{StaticResource AutoSuggestBoxStyle}"
+                                FontSize="60">
+                </AutoSuggestBox>
                 <AutoSuggestBox x:Uid="To"
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"

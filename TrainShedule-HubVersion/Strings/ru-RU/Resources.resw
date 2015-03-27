@@ -403,7 +403,7 @@
     <value>Используемые бибилиотеки:</value>
   </data>
   <data name="Version.Text" xml:space="preserve">
-    <value>Версия: 1.2.0.4</value>
+    <value>Версия: 1.2.0.12</value>
   </data>
   <data name="StopPointAppBar.Label" xml:space="preserve">
     <value>Остановки</value>
