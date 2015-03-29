@@ -350,7 +350,7 @@ namespace Trains.App.ViewModels
         private void UpdateAutoSuggestions(string str)
         {
             if (string.IsNullOrEmpty(str)) return;
-            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId).ToList();
+            AutoSuggestions = SavedItems.AutoCompletion.Where(x => String.Compare(x.UniqueId,str,StringComparison.CurrentCultureIgnoreCase)==1).Select(x => x.UniqueId).ToList();
             if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
             AutoSuggestions.Clear();
 
