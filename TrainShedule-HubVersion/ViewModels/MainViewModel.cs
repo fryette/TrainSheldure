@@ -213,7 +213,7 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) 
+            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any())
                 ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
             else
                 _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
@@ -271,20 +271,17 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (SavedItems.UpdatedLastRequest == null) return;
             if (IsTaskRun) return;
             IsTaskRun = true;
-            var trains =
-                await Task.Run(() => _search.GetTrainSchedule(SavedItems.UpdatedLastRequest.From,
-                                SavedItems.UpdatedLastRequest.To, ToolHelper.GetDate(SavedItems.UpdatedLastRequest.Date, SavedItems.UpdatedLastRequest.SelectionMode)));
-            IsTaskRun = false;
+            var trains = await Task.Run(() => _search.UpdateTrainSchedule());
             if (trains == null)
-            {
                 ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
-                return;
+            else
+            {
+                Trains = trains;
+                await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
             }
-            Trains = trains;
-            await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
+            IsTaskRun = false;
         }
 
         private void GoToSettingsPage()

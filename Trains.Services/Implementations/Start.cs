@@ -31,7 +31,6 @@ namespace Trains.Services.Implementations
             SavedItems.AutoCompletion = await Task.Run(() => _search.GetCountryStopPoint());
             SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FileName.FavoriteRequests));
             SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(FileName.UpdateLastRequest));
-            SavedItems.UpdatedLastRequest = null;
         }
 
         private async void CheckIsFirstStart()
