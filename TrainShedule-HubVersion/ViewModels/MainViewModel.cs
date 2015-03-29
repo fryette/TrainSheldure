@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
+using Windows.Globalization;
 using Windows.System;
 using Caliburn.Micro;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
 using Trains.Entities;
+using Language = Trains.Model.Entities.Language;
 
 namespace Trains.App.ViewModels
 {

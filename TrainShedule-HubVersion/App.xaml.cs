@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using Windows.Globalization;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +14,7 @@ using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
+using Language = Trains.Model.Entities.Language;
 using TrainStop = Trains.Services.Implementations.TrainStop;
 
 namespace Trains.App
@@ -23,6 +25,7 @@ namespace Trains.App
         public App()
         {
             InitializeComponent();
+            SetLanguage();
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
@@ -30,7 +33,6 @@ namespace Trains.App
 
         protected override void Configure()
         {
-            SetDefaultLanguage();
             _container = new WinRTContainer();
 
             _container.RegisterWinRTServices();
@@ -90,13 +92,10 @@ namespace Trains.App
             e.Handled = true;
         }
 
-        private static async void SetDefaultLanguage()
+        private static async void SetLanguage()
         {
-            var lang = (await Serialize.ReadObjectFromXmlFileAsync<Language>(FileName.CurrentLanguage));
-            lang = lang ?? new Language { Id = "ru" };
-            Windows.Globalization.ApplicationLanguages.PrimaryLanguageOverride = lang.Id;
-            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo(lang.Id);
-            CultureInfo.DefaultThreadCurrentUICulture = new CultureInfo(lang.Id);
+            SavedItems.Lang = await Serialize.ReadObjectFromXmlFileAsync<Language>(FileName.CurrentLanguage);
+            ApplicationLanguages.PrimaryLanguageOverride = SavedItems.Lang == null ? "ru" : SavedItems.Lang.Id;
         }
     }
 }
