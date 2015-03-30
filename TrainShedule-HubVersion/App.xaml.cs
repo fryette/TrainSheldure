@@ -37,6 +37,7 @@ namespace Trains.App
             _container.RegisterWinRTServices();
 
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
+            MessageBinder.SpecialValues.Add("$clickeditem1", c => ((PivotItemEventArgs)c.EventArgs).Item);
 
             _container.Singleton<ILastRequestTrainService, MainService>();
             _container.Singleton<ISearchService, Search>();
