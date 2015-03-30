@@ -102,7 +102,6 @@
             <ProgressRing IsActive="True" />
         </Grid>
     </Grid>
-
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="UpdateAppBar"
@@ -116,7 +115,6 @@
             <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
-
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

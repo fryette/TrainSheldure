@@ -1,10 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Windows.ApplicationModel.Resources;
-using Windows.Globalization;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
-using Language = Trains.Model.Entities.Language;
 
 namespace Trains.Services.Implementations
 {
