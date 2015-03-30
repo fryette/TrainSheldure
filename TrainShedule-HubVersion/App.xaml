@@ -324,22 +324,21 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Width="400">
                         <TextBlock Text="{Binding Name}"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Bottom"
                                    FontSize="{StaticResource NormalFontSize}"
-                                   TextWrapping="Wrap"
-                                   MinWidth="200" 
-                                   MaxWidth="400"/>
-                        <StackPanel Orientation="Vertical"
-                                    MinWidth="200">
+                                   TextWrapping="Wrap" 
+                                   MinWidth="100"/>
+                        <StackPanel Orientation="Vertical">
                             <TextBlock Text="{Binding Place}"
-                                       FontWeight="Normal"
-                                       Style="{StaticResource BasedTextBlockStyle}" />
+                                       Style="{StaticResource BasedTextBlockStyle}"
+                                       HorizontalAlignment="Left" />
                             <TextBlock Text="{Binding Price}"
-                                       FontWeight="Normal"
-                                       Style="{StaticResource BasedTextBlockStyle}" />
+                                       Style="{StaticResource BasedTextBlockStyle}"
+                                       TextWrapping="Wrap"
+                                       HorizontalAlignment="Left" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
