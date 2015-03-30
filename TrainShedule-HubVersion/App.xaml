@@ -390,7 +390,7 @@
 
                 </StackPanel>
             </DataTemplate>
-            <DataTemplate x:Key="FavoriteRequestTemplate">
+            <DataTemplate x:Key="ManageFavoriteRequestTemplate">
                 <StackPanel Orientation="Horizontal"
                             MinWidth="400"
                             MinHeight="40"
@@ -529,7 +529,13 @@
                               HorizontalContentAlignment="Center" />
                 </Grid>
             </DataTemplate>
-
+            <DataTemplate x:Key="FavoriteRequestTemplate">
+                <ListView x:Name="FavoriteRequests"
+                          ItemsSource="{Binding FavoriteRequests}"
+                          IsItemClickEnabled="True"
+                          ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}"
+                          micro:Message.Attach="[Event ItemClick] = [Action SelectTrain($clickeditem)]" />
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </micro:CaliburnApplication>

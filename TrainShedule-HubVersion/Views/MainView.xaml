@@ -86,14 +86,8 @@
                        x:Name="LastPivot"
                        ContentTemplate="{StaticResource LastScheduleTemplate}" />
             <PivotItem x:Uid="RoutesPivot"
-                       x:Name="RoutesPivot">
-                <ListView x:Name="FavoriteRequests"
-                          ItemsSource="{Binding FavoriteRequests}"
-                          IsItemClickEnabled="True"
-                          Margin="5,0,0,0"
-                          ItemTemplate="{StaticResource FavoriteRequestTemplate}"
-                          micro:Message.Attach="[Event ItemClick] = [Action SelectTrain($clickeditem)]" />
-            </PivotItem>
+                       x:Name="RoutesPivot"
+                       ContentTemplate="{StaticResource FavoriteRequestTemplate}" />
             <PivotItem x:Uid="AboutPivot"
                        ContentTemplate="{StaticResource AboutAppTemplate}" />
         </Pivot>
