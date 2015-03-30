@@ -48,7 +48,8 @@
                         Value="Center" />
                 <Setter Property="Margin"
                         Value="5,0,0,0" />
-                <Setter Property="Foreground" Value="{StaticResource WhiteColorBrush}"/>
+                <Setter Property="Foreground"
+                        Value="{StaticResource WhiteColorBrush}" />
             </Style>
             <Style x:Key="StopPointTextBlockStyle"
                    TargetType="TextBlock"
@@ -78,8 +79,8 @@
                 <Setter Property="Margin"
                         Value="0,5,0,0" />
                 <Setter Property="micro:Message.Attach"
-                        Value="[Event SuggestionChosen] = [Action SuggestionChosen]"/>
-                
+                        Value="[Event SuggestionChosen] = [Action SuggestionChosen]" />
+
             </Style>
             <Style x:Key="DatePickerStyle"
                    TargetType="DatePicker">
@@ -226,14 +227,19 @@
                 <Setter Property="VerticalAlignment"
                         Value="Bottom" />
             </Style>
-            <Style x:Key="AboutAppStyle" TargetType="TextBlock">
-                <Setter Property="FontSize" Value="{StaticResource SmallFontSize}"/>
-                <Setter Property="Margin" Value="0,10,0,0"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
-                <Setter Property="Foreground" Value="{StaticResource DimGrayColorBrush}"/>
+            <Style x:Key="AboutAppStyle"
+                   TargetType="TextBlock">
+                <Setter Property="FontSize"
+                        Value="{StaticResource SmallFontSize}" />
+                <Setter Property="Margin"
+                        Value="0,10,0,0" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
+                <Setter Property="Foreground"
+                        Value="{StaticResource DimGrayColorBrush}" />
             </Style>
-            
-            
+
+
             <Style x:Key="AboutPageTextBlockStyle"
                    TargetType="TextBlock">
                 <Setter Property="TextWrapping"
@@ -259,7 +265,7 @@
                                    Style="{StaticResource ScheduleTextBlockStyle}"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   TextWrapping="Wrap"/>
+                                   TextWrapping="Wrap" />
                         <TextBlock Text="{Binding IsPlace}"
                                    Foreground="{StaticResource WhiteSmokeColorBrush}"
                                    Style="{StaticResource ScheduleTextBlockStyle}"
@@ -293,8 +299,8 @@
                                        FontSize="13"
                                        TextWrapping="Wrap"
                                        Width="130"
-                                       VerticalAlignment="Center" 
-                                       Foreground="{StaticResource WhiteColorBrush}"/>
+                                       VerticalAlignment="Center"
+                                       Foreground="{StaticResource WhiteColorBrush}" />
                             <TextBlock Text="{Binding OnTheWay}"
                                        Foreground="{StaticResource WhiteColorBrush}"
                                        Style="{StaticResource ScheduleTextBlockStyle}"
@@ -324,13 +330,14 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Orientation="Horizontal" Width="400">
+                    <StackPanel Orientation="Horizontal"
+                                Width="400">
                         <TextBlock Text="{Binding Name}"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Bottom"
                                    FontSize="{StaticResource NormalFontSize}"
-                                   TextWrapping="Wrap" 
-                                   MinWidth="100"/>
+                                   TextWrapping="Wrap"
+                                   MinWidth="100" />
                         <StackPanel Orientation="Vertical">
                             <TextBlock Text="{Binding Place}"
                                        Style="{StaticResource BasedTextBlockStyle}"
@@ -424,7 +431,104 @@
                     </StackPanel>
                 </StackPanel>
             </DataTemplate>
+            <DataTemplate x:Key="AboutAppTemplate">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
+                    <GridView Grid.Row="0"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToMarketPlace]">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.star.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="RateTextBlock"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="1"
+                              Margin="0,5"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action SentEmail]">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.email.gmail.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="BugsReport"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="2"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.information.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="AboutApp"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="3"
+                              IsItemClickEnabled="True"
+                              micro:Message.Attach="[Event ItemClick] = [Action GoToSettingsPage]">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,5">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.settings.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="Settings"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="4"
+                              Background="{StaticResource GrayColorBrush}"
+                              VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Uid="AboutLabel"
+                                       FontFamily="Dotum"
+                                       Style="{StaticResource MainLabelTextBlockStyle}" />
+                            <Image Style="{StaticResource MainLogoImageStyle}" />
+                        </StackPanel>
+                    </GridView>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="LastScheduleTemplate">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Text="{Binding LastRoute}"
+                               FontSize="{StaticResource MediumFontSize}"
+                               Style="{StaticResource ScheduleTextBlockStyle}" />
+                    <ListView Grid.Row="1"
+                              ItemsSource="{Binding Trains}"
+                              IsItemClickEnabled="True"
+                              ItemTemplate="{StaticResource ScheduleTemplate}"
+                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"
+                              HorizontalContentAlignment="Center" />
+                </Grid>
+            </DataTemplate>
 
         </ResourceDictionary>
     </Application.Resources>

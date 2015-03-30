@@ -83,114 +83,19 @@
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="LastPivot"
-                       x:Name="LastPivot">
-                <Grid HorizontalAlignment="Center">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30"/>
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="{Binding LastRoute}"
-                               FontSize="{StaticResource MediumFontSize}"
-                               Style="{StaticResource ScheduleTextBlockStyle}"/>
-                    <ListView Grid.Row="1" ItemsSource="{Binding Trains}"
-                              IsItemClickEnabled="True"
-                              ItemTemplate="{StaticResource ScheduleTemplate}"
-                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"
-                              HorizontalContentAlignment="Center" />
-                </Grid>
-            </PivotItem>
+                       x:Name="LastPivot"
+                       ContentTemplate="{StaticResource LastScheduleTemplate}" />
             <PivotItem x:Uid="RoutesPivot"
                        x:Name="RoutesPivot">
-                <Grid>
-                    <ListView x:Name="FavoriteRequests"
-                              ItemsSource="{Binding FavoriteRequests}"
-                              IsItemClickEnabled="True"
-                              Margin="5,0,0,0"
-                              ItemTemplate="{StaticResource FavoriteRequestTemplate}"
-                              micro:Message.Attach="[Event ItemClick] = [Action SelectTrain($clickeditem)]" />
-                </Grid>
+                <ListView x:Name="FavoriteRequests"
+                          ItemsSource="{Binding FavoriteRequests}"
+                          IsItemClickEnabled="True"
+                          Margin="5,0,0,0"
+                          ItemTemplate="{StaticResource FavoriteRequestTemplate}"
+                          micro:Message.Attach="[Event ItemClick] = [Action SelectTrain($clickeditem)]" />
             </PivotItem>
-            <PivotItem x:Uid="AboutPivot">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
-
-                    </Grid.RowDefinitions>
-
-                    <GridView Grid.Row="0"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToMarketPlace]">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.star.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="RateTextBlock"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GridView>
-                    <GridView Grid.Row="1"
-                              Margin="0,5"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action SentEmail]">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.email.gmail.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="BugsReport"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GridView>
-                    <GridView Grid.Row="2"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.information.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="AboutApp"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GridView>
-                    <GridView Grid.Row="3"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToSettingsPage]">
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0,5">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.settings.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="Settings"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GridView>
-                    <GridView Grid.Row="4"
-                              Background="{StaticResource GrayColorBrush}"
-                              VerticalAlignment="Bottom">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Uid="AboutLabel"
-                                       FontFamily="Dotum"
-                                       Style="{StaticResource MainLabelTextBlockStyle}" />
-                            <Image Style="{StaticResource MainLogoImageStyle}" />
-                        </StackPanel>
-                    </GridView>
-                </Grid>
-            </PivotItem>
+            <PivotItem x:Uid="AboutPivot"
+                       ContentTemplate="{StaticResource AboutAppTemplate}" />
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock x:Uid="Update" />
