@@ -1,0 +1,114 @@
+﻿<views:MvxWindowsPage x:Class="Trains.WP.Views.MainView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:local="using:Trains.WP.Views"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      mc:Ignorable="d"
+                      Background="{StaticResource BackgroundColorBrush}"
+                      d:DataContext="{d:DesignData MainViewModel}">
+    <Grid>
+        <Grid.Resources>
+            <Storyboard x:Name="MyStoryboard">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                               AutoReverse="True"
+                                               RepeatBehavior="forever"
+                                               Storyboard.TargetName="MainImage">
+                    <EasingDoubleKeyFrame KeyTime="0"
+                                          Value="100" />
+                    <EasingDoubleKeyFrame KeyTime="0:0:12"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+            <Storyboard x:Name="MyStoryboard1">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                               AutoReverse="True"
+                                               RepeatBehavior="forever"
+                                               Storyboard.TargetName="MainImage1">
+                    <EasingDoubleKeyFrame KeyTime="0"
+                                          Value="-140" />
+                    <EasingDoubleKeyFrame KeyTime="0:0:15"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
+        <Pivot x:Uid="ApplicationName"
+               PivotItemLoaded="Pivot_OnPivotItemLoaded">
+            <PivotItem x:Uid="MainPivot">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="170" />
+                        <RowDefinition Height="150" />
+                        <RowDefinition Height="150" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Background="{StaticResource GrayColorBrush}">
+                        <TextBlock x:Uid="MainLabelText"
+                                   FontSize="{StaticResource SmallFontSize}"
+                                   Style="{StaticResource MainLabelTextBlockStyle}" />
+                        <Image Style="{StaticResource MainLogoImageStyle}" />
+                    </Grid>
+                    <GridView Grid.Row="1"
+                              IsItemClickEnabled="True"
+                              Margin="0,10,0,-10">
+                        <Grid>
+                            <Image x:Name="MainImage"
+                                   Source="/Assets/MenuIcon/result.jpg"
+                                   Style="{StaticResource MainButtonImageStyle}" />
+                            <Grid Style="{StaticResource GridLabelMainStyle}">
+                                <TextBlock x:Uid="SearchLabel"
+                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
+                            </Grid>
+                        </Grid>
+                    </GridView>
+                    <GridView Grid.Row="2"
+                              IsItemClickEnabled="False"
+                              Margin="0,10,0,-10">
+                        <Grid>
+                            <Image x:Name="MainImage1"
+                                   Source="/Assets/MenuIcon/logo_tile2.jpg"
+                                   Margin="0,0,-140,0"
+                                   Style="{StaticResource MainButtonImageStyle}" />
+                            <Grid Style="{StaticResource GridLabelMainStyle}">
+                                <TextBlock x:Uid="NewsLabel"
+                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
+                            </Grid>
+                        </Grid>
+                    </GridView>
+                </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="LastPivot"
+                       x:Name="LastPivot"
+                       ContentTemplate="{StaticResource LastScheduleTemplate}" />
+            <PivotItem x:Uid="RoutesPivot"
+                       x:Name="RoutesPivot"
+                       ContentTemplate="{StaticResource FavoriteRequestTemplate}" />
+            <PivotItem x:Uid="AboutPivot"
+                       ContentTemplate="{StaticResource AboutAppTemplate}" />
+        </Pivot>
+        <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock x:Uid="Update" />
+            <ProgressBar IsIndeterminate="True"
+                         VerticalAlignment="Top" />
+        </Grid>
+        <Grid Background="{StaticResource BackgroundColorBrush}"
+              Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Image Source="/Assets/SplashScreen.png" />
+            <ProgressRing IsActive="True" />
+        </Grid>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Name="UpdateAppBar"
+                          x:Uid="UpdateAppBar"
+                          Icon="Sync"/>
+            <AppBarButton x:Name="ManagedAppBar"
+                          x:Uid="ManageAppBar"
+                          Icon="Repair"/>
+            <AppBarButton x:Uid="HelpAppBar"
+                          Icon="Help"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+</views:MvxWindowsPage>
