@@ -7,29 +7,25 @@
       xmlns:viewModels="using:Trains.App.ViewModels"
       mc:Ignorable="d"
       Background="{StaticResource BackgroundColorBrush}"
-      d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel }">
+      d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel }"
+      RequestedTheme="Dark">
 
-    <Grid>
-        <Grid.RowDefinitions >
-            <RowDefinition Height="80" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Row="0">
-            <TextBlock x:Uid="Transport"
-                       Style="{StaticResource HeaderTextBlockStyle}" />
-        </Grid>
-        <Grid Row="1">
-            <ListView ItemsSource="{Binding Parameter}"
-                      IsItemClickEnabled="True"
-                      Margin="5,0"
-                      ItemTemplate="{StaticResource ScheduleTemplate}"
-                      micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]">
-            </ListView>
-        </Grid>
+    <Grid Margin="5,0">
+        <Pivot micro:Message.Attach="[Event Pivot_OnPivotItemLoaded] = [Action ClickItem1($clickeditem1)]">
+            <PivotItem Header="{Binding Request}" FontSize="10">
+                <ListView ItemsSource="{Binding Parameter}"
+                          IsItemClickEnabled="True"
+                          ItemTemplate="{StaticResource ScheduleTemplate}"
+                          micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)]" />
+            </PivotItem>
+            <PivotItem>
+                
+            </PivotItem>
+        </Pivot>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Справка"
+            <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
         </CommandBar>

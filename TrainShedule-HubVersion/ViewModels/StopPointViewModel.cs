@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using Trains.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.App.ViewModels
 {
@@ -40,6 +40,7 @@ namespace Trains.App.ViewModels
         {
             _navigationService.NavigateToViewModel<HelpViewModel>();
         }
+
         #endregion
     }
 

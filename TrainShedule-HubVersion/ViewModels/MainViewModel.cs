@@ -17,11 +17,6 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class MainViewModel : Screen
     {
-        #region constants
-
-        private const string EditFavoriteMessageError =
-            "Сохраните хотя бы одну станцию, что бы иметь возможность редактирования";
-        #endregion
         #region readonlyProperties
         /// <summary>
         /// Used to get trains from the last request.
@@ -46,7 +41,7 @@ namespace Trains.App.ViewModels
 
         #endregion
 
-        #region constructors
+        #region ctor
 
         /// <summary>
         /// Constructor
@@ -54,12 +49,15 @@ namespace Trains.App.ViewModels
         /// <param name="navigationService">Used to navigate between pages.</param>
         /// <param name="lastRequestTrainService">Used to search deserialize trains from the last request.</param>
         /// <param name="search"></param>
-        public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISearchService search, ISerializableService serializable)
+        /// <param name="serializable"></param>
+        /// <param name="start"></param>
+        public MainViewModel(INavigationService navigationService, ILastRequestTrainService lastRequestTrainService, ISearchService search, ISerializableService serializable, IStartService start)
         {
             _navigationService = navigationService;
             _lastRequestTrain = lastRequestTrainService;
             _search = search;
             _serializable = serializable;
+            _start = start;
         }
         #endregion
 
@@ -76,6 +74,34 @@ namespace Trains.App.ViewModels
             {
                 _isTaskRun = value;
                 NotifyOfPropertyChange(() => IsTaskRun);
+            }
+        }
+
+        /// <summary>
+        /// Used for process control.
+        /// </summary>
+        private bool _isBarDownloaded;
+        public bool IsBarDownloaded
+        {
+            get { return _isBarDownloaded; }
+            set
+            {
+                _isBarDownloaded = value;
+                NotifyOfPropertyChange(() => IsBarDownloaded);
+            }
+        }
+
+        /// <summary>
+        /// Used for process download data control.
+        /// </summary>
+        private bool _isDownloadRun;
+        public bool IsDownloadRun
+        {
+            get { return _isDownloadRun; }
+            set
+            {
+                _isDownloadRun = value;
+                NotifyOfPropertyChange(() => IsDownloadRun);
             }
         }
 
@@ -107,6 +133,23 @@ namespace Trains.App.ViewModels
             }
         }
 
+        /// <summary>
+        /// Last route
+        /// </summary>
+        private string _lastRoute;
+
+        private readonly IStartService _start;
+
+        public string LastRoute
+        {
+            get { return _lastRoute; }
+            set
+            {
+                _lastRoute = value;
+                NotifyOfPropertyChange(() => LastRoute);
+            }
+        }
+
         #endregion
 
         #region action
@@ -117,8 +160,14 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override async void OnActivate()
         {
+            IsDownloadRun = true;
+            await _start.RestoreData();
+            IsBarDownloaded = true;
+            if (SavedItems.UpdatedLastRequest != null)
+                LastRoute = String.Format("{0} - {1}", SavedItems.UpdatedLastRequest.From, SavedItems.UpdatedLastRequest.To);
             Trains = await _lastRequestTrain.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
+            IsDownloadRun = false;
         }
 
         /// <summary>
@@ -137,6 +186,7 @@ namespace Trains.App.ViewModels
         {
             _navigationService.NavigateToViewModel<InformationViewModel>(train);
         }
+
         /// <summary>
         /// Go to favorite routes page.
         /// </summary>
@@ -163,7 +213,8 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            if (!SavedItems.FavoriteRequests.Any()) ToolHelper.ShowMessageBox(EditFavoriteMessageError);
+            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any())
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
             else
                 _navigationService.NavigateToViewModel<EditFavoriteRoutesViewModel>();
         }
@@ -184,7 +235,7 @@ namespace Trains.App.ViewModels
         private async void SentEmail()
         {
             //predefine Recipient
-            var sendTo = new EmailRecipient()
+            var sendTo = new EmailRecipient
             {
                 Address = "sampir.fiesta@gmail.com"
             };
@@ -220,27 +271,24 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (SavedItems.UpdatedLastRequest == null)
-            {
-                ToolHelper.ShowMessageBox("Не найден последний запрос,или произошла ошибка загрузки");
-                return;
-            }
             if (IsTaskRun) return;
             IsTaskRun = true;
-            var trains =
-                await Task.Run(() => _search.GetTrainSchedule(SavedItems.UpdatedLastRequest.From,
-                                SavedItems.UpdatedLastRequest.To, ToolHelper.GetDate(DateTime.Now)));
-            IsTaskRun = false;
+            var trains = await Task.Run(() => _search.UpdateTrainSchedule());
             if (trains == null)
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
+            else
             {
-                ToolHelper.ShowMessageBox("Обновление не удалось,проверьте подключение к интернету и попробуйте опять");
-                return;
+                Trains = trains;
+                await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
             }
-            Trains = trains;
-            await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
+            IsTaskRun = false;
         }
 
-        
+        private void GoToSettingsPage()
+        {
+            _navigationService.NavigateToViewModel<SettingsViewModel>();
+        }
+
         #endregion
     }
 }

@@ -6,7 +6,8 @@
       xmlns:micro="using:Caliburn.Micro"
       mc:Ignorable="d"
       Background="{StaticResource BackgroundColorBrush}"
-      d:DataContext="{d:DesignData MainViewModel}">
+      d:DataContext="{d:DesignData MainViewModel}"
+      RequestedTheme="Dark">
 
     <Grid>
         <Grid.Resources>
@@ -33,7 +34,8 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Grid.Resources>
-        <Pivot x:Uid="ApplicationName">
+        <Pivot x:Uid="ApplicationName"
+               PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem x:Uid="MainPivot">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -64,13 +66,13 @@
                         </Grid>
                     </GridView>
                     <GridView Grid.Row="2"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToNews]">
+                              IsItemClickEnabled="False"
+                              Margin="0,10,0,-10"
+                              micro:Message.Attach="[Event Tapped] = [Action GoToNews]">
                         <Grid>
                             <Image x:Name="MainImage1"
                                    Source="/Assets/MenuIcon/logo_tile2.jpg"
                                    Margin="0,0,-140,0"
-                                   Width="500"
                                    Style="{StaticResource MainButtonImageStyle}" />
                             <Grid Style="{StaticResource GridLabelMainStyle}">
                                 <TextBlock x:Uid="NewsLabel"
@@ -78,111 +80,41 @@
                             </Grid>
                         </Grid>
                     </GridView>
-                    <Grid Grid.Row="3"></Grid>
                 </Grid>
             </PivotItem>
-            <PivotItem x:Uid="LastPivot">
-                <Grid>
-                    <ListView ItemsSource="{Binding Trains}"
-                              IsItemClickEnabled="True"
-                              ItemTemplate="{StaticResource ScheduleTemplate}"
-                              micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]" />
-                </Grid>
-            </PivotItem>
-            <PivotItem x:Uid="RoutesPivot">
-                <Grid>
-                    <ListView x:Name="FavoriteRequests"
-                              ItemsSource="{Binding FavoriteRequests}"
-                              IsItemClickEnabled="True"
-                              Margin="5,0,0,0"
-                              ItemTemplate="{StaticResource FavoriteRequestTemplate}"
-                              micro:Message.Attach="[Event ItemClick] = [Action SelectTrain($clickeditem)]" />
-                </Grid>
-            </PivotItem>
-            <PivotItem x:Uid="AboutPivot">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="*" />
-
-                    </Grid.RowDefinitions>
-
-                    <GridView Grid.Row="0"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToMarketPlace]">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.star.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="RateTextBlock"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GridView>
-                    <GridView Grid.Row="1"
-                              Margin="0,5"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action SentEmail]">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.email.gmail.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="BugsReport"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GridView>
-                    <GridView Grid.Row="2"
-                              IsItemClickEnabled="True"
-                              micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.information.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="AboutApp"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
-                        </StackPanel>
-                    </GridView>
-                    <GridView Grid.Row="3"
-                              Background="{StaticResource GrayColorBrush}"
-                              VerticalAlignment="Bottom">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Uid="AboutLabel"
-                                       FontFamily="Dotum"
-                                       Style="{StaticResource MainLabelTextBlockStyle}" />
-                            <Image Style="{StaticResource MainLogoImageStyle}" />
-                        </StackPanel>
-                    </GridView>
-                </Grid>
-            </PivotItem>
+            <PivotItem x:Uid="LastPivot"
+                       x:Name="LastPivot"
+                       ContentTemplate="{StaticResource LastScheduleTemplate}" />
+            <PivotItem x:Uid="RoutesPivot"
+                       x:Name="RoutesPivot"
+                       ContentTemplate="{StaticResource FavoriteRequestTemplate}" />
+            <PivotItem x:Uid="AboutPivot"
+                       ContentTemplate="{StaticResource AboutAppTemplate}" />
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock x:Uid="Update" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
+        <Grid Background="{StaticResource BackgroundColorBrush}"
+              Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Image Source="/Assets/SplashScreen.png" />
+            <ProgressRing IsActive="True" />
+        </Grid>
     </Grid>
-
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Справка"
+            <AppBarButton x:Name="UpdateAppBar"
+                          x:Uid="UpdateAppBar"
+                          Icon="Sync"
+                          micro:Message.Attach="[Event Click] = [Action UpdateLastRequest]" />
+            <AppBarButton x:Name="ManagedAppBar"
+                          x:Uid="ManageAppBar"
+                          Icon="Repair"
+                          micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
+            <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
                           micro:Message.Attach="[Event Click] = [Action GoToHelpPage]" />
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Label="Обновить последний запрос"
-                              micro:Message.Attach="[Event Click] = [Action UpdateLastRequest]" />
-                <AppBarButton Label="Управлять маршрутами"
-                              micro:Message.Attach="[Event Click] = [Action GoToFavorite]" />
-            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </Page>

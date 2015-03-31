@@ -10,7 +10,6 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class HelpViewModel : Screen
     {
-
         #region properties
         
         /// <summary>

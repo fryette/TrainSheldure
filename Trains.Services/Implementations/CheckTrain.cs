@@ -9,36 +9,30 @@ namespace Trains.Services.Implementations
 {
     public class CheckTrain : ICheckTrainService
     {
-        private const string DateUpTooLater = "Поиск может производится начиная от текущего времени";
-        private const string DateTooBig = "Поиск может производится только за 45 дней от текущего момента или используйте режим \"На все дни\"";
-        private const string IncorrectInput = "Один или оба пункта не существует, проверьте еще раз ввод";
-        private const string ConectionError = "Проверьте подключение к интернету";
-
-        public void ShowMessageBox(string message)
-        {
-            ToolHelper.ShowMessageBox(message);
-        }
-
-        public string CheckDate(DateTimeOffset datum)
+        public bool CheckInput(string from, string to, DateTimeOffset datum)
         {
             if ((datum.Date - DateTime.Now).Days < 0)
             {
-                return DateUpTooLater;
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateUpTooLater"));
+                return true;
             }
-            return datum.Date <= DateTime.Now.AddDays(45) ? null : DateTooBig;
-        }
-
-        public string CheckInput(string from, string to, DateTimeOffset datum)
-        {
-            var dayError = CheckDate(datum);
-            if (dayError != null) return dayError;
-            if (CheckDate(datum)!=null || String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
-                !(SavedItems.AutoCompletion.Any(x => x.UniqueId == from) &&
-                 SavedItems.AutoCompletion.Any(x => x.UniqueId == to)))
+            if (datum.Date > DateTime.Now.AddDays(45))
             {
-                return IncorrectInput;
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateTooBig"));
+                return true;
             }
-            return NetworkInterface.GetIsNetworkAvailable() ? null : ConectionError;
+
+            if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
+                !(SavedItems.AutoCompletion.Any(x => x.UniqueId == from) &&
+                  SavedItems.AutoCompletion.Any(x => x.UniqueId == to)))
+            {
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("IncorrectInput"));
+                return true;
+            }
+
+            if (NetworkInterface.GetIsNetworkAvailable()) return false;
+            ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ConectionError"));
+            return true;
         }
 
         public bool CheckFavorite(string from, string to)

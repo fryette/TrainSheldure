@@ -7,7 +7,8 @@
       mc:Ignorable="d"
       xmlns:viewModels="using:Trains.App.ViewModels"
       Background="{StaticResource BackgroundColorBrush}"
-      d:DataContext="{d:DesignInstance viewModels:InformationViewModel}">
+      d:DataContext="{d:DesignInstance viewModels:InformationViewModel}"
+      RequestedTheme="Dark">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -33,7 +34,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton Label="Остановки"
+            <AppBarButton x:Uid="StopPointAppBar"
                           Icon="Document"
                           micro:Message.Attach="[Event Click] = [Action SearchStopPoint]" />
         </CommandBar>

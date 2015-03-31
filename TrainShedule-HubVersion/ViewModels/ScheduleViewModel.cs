@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
+using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Entities;
 
@@ -16,6 +18,8 @@ namespace Trains.App.ViewModels
         /// Сontains information on all trains on the route selected by the user.
         /// </summary> 
         public IEnumerable<Train> Parameter { get; set; }
+
+        public string Request { get; set; }
 
         /// <summary>
         /// Used to navigate between pages.
@@ -46,8 +50,10 @@ namespace Trains.App.ViewModels
         /// </summary>
         protected override void OnActivate()
         {
+            Request = SavedItems.UpdatedLastRequest.From + " - " + SavedItems.UpdatedLastRequest.To;
             _serializable.SerializeObjectToXml(Parameter.ToList(), "LastTrainList");
         }
+
         /// <summary>
         /// Invoked when the user selects his train of interest.
         /// Go to the information page which show additional information about this train.
@@ -56,6 +62,11 @@ namespace Trains.App.ViewModels
         private void ClickItem(Train train)
         {
             _navigationService.NavigateToViewModel<InformationViewModel>(train);
+        }
+
+        private void ClickItem1(Object train)
+        {
+            //_navigationService.NavigateToViewModel<InformationViewModel>(train);
         }
 
         /// <summary>

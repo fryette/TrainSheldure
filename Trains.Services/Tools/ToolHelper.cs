@@ -1,21 +1,28 @@
 ﻿using System;
+using System.Globalization;
 using Windows.UI.Popups;
+using Trains.Model.Entities;
 
 namespace Trains.Services.Tools
 {
     public static class ToolHelper
     {
-        private const string Everyday = "everyday";
 
-        public static async void ShowMessageBox(string message)
+        public static void ShowMessageBox(string message)
         {
-            var dialog = new MessageDialog(message);
-            await dialog.ShowAsync();
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+                (Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    var dialog = new MessageDialog(message);
+                    await dialog.ShowAsync();
+                });
+
         }
         public static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
-            if (selectedVariantOfSearch == Everyday) return Everyday;
-            return datum.Date.Year + "-" + datum.Date.Month + "-" + datum.Date.Day;
+            if (selectedVariantOfSearch == SavedItems.ResourceLoader.GetString("AllDays")) return SavedItems.ResourceLoader.GetString("Everyday");
+            if (datum < DateTime.Now) datum = DateTime.Now;
+            return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
         }
     }
 }

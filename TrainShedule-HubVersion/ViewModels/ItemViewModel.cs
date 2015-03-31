@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Caliburn.Micro;
-using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
@@ -15,21 +14,9 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class ItemViewModel : Screen
     {
-        #region constant
-
-        private const string SearchError = "Поезда на дату отправления не найдены";
-        private const string ThisRouteIsPresent = "Данный маршрут уже присутствует";
-        private const string OneOrMoreStopPointIsInCorrect = "Одна или обе станции не введены";
-        private const string FavoriteString = "favoriteRequests";
-        private const string RouteIsAddedToFavorite = "Станция добавлена!";
-        private const string FavoriteListIsEmpthy = "Ваш список пуст";
-        private const string RouteIsDeletedInFavorite = "Станция удалена!";
-        private const string RouteIsIncorect = "Маршрут не найден,проверьте поля ввода станций!";
-        private const string UpdateLastRequestString = "updateLastRequst";
-
-        #endregion
-
         #region readonlyProperties
+
+        private readonly IFavoriteManageService _manageFavoriteRequest;
 
         /// <summary>
         /// Used to navigate between pages.
@@ -62,12 +49,14 @@ namespace Trains.App.ViewModels
         /// <param name="search">Used to search train schedule.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
-        public ItemViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain)
+        /// <param name="manageFavoriteRequest"></param>
+        public ItemViewModel(INavigationService navigationService, ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest)
         {
             _navigationService = navigationService;
             _search = search;
             _serializable = serializable;
             _checkTrain = checkTrain;
+            _manageFavoriteRequest = manageFavoriteRequest;
         }
         #endregion
 
@@ -81,10 +70,16 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Stores variant of search.
         /// </summary> 
-        private readonly BindableCollection<string> _variantOfSearch = new BindableCollection<string>(new[] { "Все поезда", "На все дни" });
-        public BindableCollection<string> Date
+        public List<string> VariantOfSearch
         {
-            get { return _variantOfSearch; }
+            get
+            {
+                return new List<string>
+                {
+                    SavedItems.ResourceLoader.GetString("OnDay"),
+                    SavedItems.ResourceLoader.GetString("AllDays")
+                };
+            }
         }
 
         /// <summary>
@@ -127,7 +122,7 @@ namespace Trains.App.ViewModels
         /// Used to set code behind variant of search.
         /// </summary> 
         private string _selectedDate;
-        public string SelectedDate
+        public string SelectedVariant
         {
             get
             {
@@ -137,7 +132,7 @@ namespace Trains.App.ViewModels
             set
             {
                 _selectedDate = value;
-                NotifyOfPropertyChange(() => SelectedDate);
+                NotifyOfPropertyChange(() => SelectedVariant);
             }
         }
 
@@ -182,20 +177,6 @@ namespace Trains.App.ViewModels
             {
                 _lastRequests = value;
                 NotifyOfPropertyChange(() => LastRequests);
-            }
-        }
-
-        /// <summary>
-        /// Keeps saved by user routes.
-        /// </summary> 
-        private List<LastRequest> _favoriteRequests;
-        public List<LastRequest> FavoriteRequests
-        {
-            get { return _favoriteRequests; }
-            set
-            {
-                _favoriteRequests = value;
-                NotifyOfPropertyChange(() => FavoriteRequests);
             }
         }
 
@@ -245,6 +226,7 @@ namespace Trains.App.ViewModels
         /// Used for field enabled control.
         /// </summary>
         private bool _isFildEnabled = true;
+
         public bool IsFildEnabled
         {
             get { return _isFildEnabled; }
@@ -269,9 +251,8 @@ namespace Trains.App.ViewModels
                 From = Parameter.From;
                 To = Parameter.To;
             }
-            SelectedDate = Date[0];
+            SelectedVariant = VariantOfSearch[0];
             LastRequests = SavedItems.LastRequests;
-            FavoriteRequests = SavedItems.FavoriteRequests;
         }
 
         /// <summary>
@@ -279,35 +260,26 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void Search()
         {
-            if (await CheckInput()) return;
+            if (IsTaskRun || await Task.Run(() => _checkTrain.CheckInput(From, To, Datum))) return;
             IsTaskRun = true;
-            await Task.Run(() => SerializeDataSearch());
-            var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedDate)));
-            if (schedule == null || !schedule.Any())
-                ToolHelper.ShowMessageBox(SearchError);
-            else
-                _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
+            SerializeDataSearch();
+            var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
             IsTaskRun = false;
+            if (schedule == null || !schedule.Any())
+            {
+                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
+                return;
+            }
+            _navigationService.NavigateToViewModel<ScheduleViewModel>(schedule);
         }
 
         private void SerializeDataSearch()
         {
             SavedItems.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
-
-            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To };
-            _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, UpdateLastRequestString);
+            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
+            _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, FileName.UpdateLastRequest);
         }
 
-        private async Task<bool> CheckInput()
-        {
-            if (IsTaskRun) return true;
-            IsTaskRun = true;
-            var checkInputError = await Task.Run(() => _checkTrain.CheckInput(From, To, Datum));
-            if (checkInputError == null) return false;
-            ToolHelper.ShowMessageBox(checkInputError);
-            IsTaskRun = false;
-            return true;
-        }
         /// <summary>
         /// Swaped From and To properties.
         /// </summary>
@@ -351,45 +323,17 @@ namespace Trains.App.ViewModels
         /// </summary>
         private async void AddToFavorite()
         {
-            if (string.IsNullOrEmpty(From) || string.IsNullOrEmpty(To))
-            {
-                ToolHelper.ShowMessageBox(OneOrMoreStopPointIsInCorrect);
-                return;
-            }
-            if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests = new List<LastRequest>();
-            if (SavedItems.FavoriteRequests.Any(x => x.From == From && x.To == To))
-                ToolHelper.ShowMessageBox(ThisRouteIsPresent);
-            else
-            {
-                SavedItems.FavoriteRequests.Add(new LastRequest { From = From, To = To });
-                FavoriteRequests = SavedItems.FavoriteRequests;
-                await Serialize.SaveObjectToXml(FavoriteRequests, FavoriteString);
-                ToolHelper.ShowMessageBox(RouteIsAddedToFavorite);
+            if (await Task.Run(() => _manageFavoriteRequest.AddToFavorite(From, To)))
                 SetVisibilityToFavoriteIcons(false, true);
-            }
         }
 
         /// <summary>
         /// Deletes the entered route visas favorite.
         /// </summary>
-        private void DeleteInFavorite()
+        private async void DeleteInFavorite()
         {
-            if (FavoriteRequests == null)
-            {
-                ToolHelper.ShowMessageBox(FavoriteListIsEmpthy);
-                return;
-            }
-            var objectToDelete = FavoriteRequests.FirstOrDefault(x => x.From == From && x.To == To);
-            if (objectToDelete != null)
-            {
-                FavoriteRequests.Remove(objectToDelete);
-                SavedItems.FavoriteRequests = FavoriteRequests;
-                _serializable.SerializeObjectToXml(LastRequests, FavoriteString);
-                ToolHelper.ShowMessageBox(RouteIsDeletedInFavorite);
+            if (await Task.Run(() => _manageFavoriteRequest.DeleteRoute(From, To)))
                 SetVisibilityToFavoriteIcons(true, false);
-            }
-            else
-                ToolHelper.ShowMessageBox(RouteIsIncorect);
         }
 
         /// <summary>
@@ -406,13 +350,14 @@ namespace Trains.App.ViewModels
         private void UpdateAutoSuggestions(string str)
         {
             if (string.IsNullOrEmpty(str)) return;
+            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.IndexOf(str,StringComparison.OrdinalIgnoreCase)>=0).Select(x => x.UniqueId).ToList();
+            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
+            AutoSuggestions.Clear();
+
             if (_checkTrain.CheckFavorite(From, To))
                 SetVisibilityToFavoriteIcons(true, false);
             else
                 SetVisibilityToFavoriteIcons(false, true);
-            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.Contains(str)).Select(x => x.UniqueId).ToList();
-            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
-            AutoSuggestions.Clear();
         }
 
         /// <summary>

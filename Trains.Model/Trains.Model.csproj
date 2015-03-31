@@ -40,20 +40,28 @@
   <ItemGroup>
     <Compile Include="Entities\CountryStopPointDataGroup.cs" />
     <Compile Include="Entities\CountryStopPointDataItem.cs" />
+    <Compile Include="Entities\Languages.cs" />
     <Compile Include="Entities\LastRequest.cs" />
     <Compile Include="Entities\MenuDataGroup.cs" />
     <Compile Include="Entities\MenuDataItem.cs" />
     <Compile Include="Entities\SavedItems.cs" />
+    <Compile Include="Entities\FileName.cs" />
     <Compile Include="Entities\Train.cs" />
     <Compile Include="Entities\TrainStop.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\StopPoints.json" />
+    <Content Include="DataModel\StopPointsru.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\Menu.json" />
+    <Content Include="DataModel\Menuru.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataModel\StopPointsbe.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataModel\Menube.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

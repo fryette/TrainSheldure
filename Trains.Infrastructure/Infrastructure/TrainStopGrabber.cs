@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Trains.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.Infrastructure.Infrastructure
 {
-   public class TrainStopGrabber
+    public class TrainStopGrabber
     {
         private const string Pattern = "(?<name>class=\"list_text\">([^<]*)<\\/?)|" +
                                        "(?<startTime>class=\"list_start\">(.+?)<\\/?)|" +
@@ -14,7 +15,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         public static IEnumerable<TrainStop> GetTrainStop(string link)
         {
-            var match = Parser.GetData("http://rasp.rw.by/m/ru/train/" + link, Pattern);
+            var match = Parser.GetData("http://rasp.rw.by/m/" + SavedItems.ResourceLoader.GetString("Culture") + "/train/" + link, Pattern);
             return link.Contains("thread") ? GetRegionalEconomTrainStops(match) : GetTrainStops(match);
         }
 
@@ -31,9 +32,9 @@ namespace Trains.Infrastructure.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = (arrivals == "" ? null : "Приб:" + arrivals.Substring(0, 5)),
-                    Departures = (departure == "" ? null : "Отпр: " + departure),
-                    Stay = stay == "" ? null : "Стоянка: " + stay
+                    Arrivals = (String.IsNullOrEmpty(arrivals)? null : SavedItems.ResourceLoader.GetString("Departure") + arrivals.Substring(0, 5)),
+                    Departures = (String.IsNullOrEmpty(departure) ? null : SavedItems.ResourceLoader.GetString("Arrival") + departure),
+                    Stay = String.IsNullOrEmpty(stay) ? null : SavedItems.ResourceLoader.GetString("Stay") + stay
                 });
             }
             return trainStop;
@@ -42,18 +43,18 @@ namespace Trains.Infrastructure.Infrastructure
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var trainStop = new List<TrainStop>(parameters.Count / 2);
-            for (var i = 0; i < parameters.Count-2; i += 2)
+            for (var i = 0; i < parameters.Count - 2; i += 2)
             {
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i + 1].Groups[1].Value,
-                    Arrivals = "Отпр: " + (parameters[i].Groups[2].Value.Length > 5 ? "конечная" : parameters[i].Groups[2].Value),
+                    Arrivals = SavedItems.ResourceLoader.GetString("Departure") + (parameters[i].Groups[2].Value.Length > 5 ? SavedItems.ResourceLoader.GetString("FinalStopPoint") : parameters[i].Groups[2].Value),
                 });
             }
             trainStop.Add(new TrainStop
             {
-                Name = parameters[parameters.Count-1].Groups[1].Value,
-                Arrivals = "конечная ",
+                Name = parameters[parameters.Count - 1].Groups[1].Value,
+                Arrivals = SavedItems.ResourceLoader.GetString("FinalStopPoint"),
             });
             return trainStop;
         }

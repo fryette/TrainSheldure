@@ -36,7 +36,7 @@ namespace Trains.Services.Implementations
                     To = to
                 };
             }
-            SerializeObjectToXml(lastRequests, "lastRequests");
+            SerializeObjectToXml(lastRequests, FileName.LastRequests);
             return lastRequests;
         }
 

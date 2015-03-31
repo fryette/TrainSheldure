@@ -18,7 +18,7 @@ namespace Trains.Infrastructure.Infrastructure
         public static string GetHtmlCode(string url)
         {
             var httpClient = new HttpClient();
-            var httpResponseMessage = httpClient.GetAsync(url + "&" + new Random().Next(0, 9)).Result;
+            var httpResponseMessage = httpClient.GetAsync(url + '&' + new Random().Next(0, 9)).Result;
             var res = httpResponseMessage.Content.ReadAsStreamAsync().Result;
             return new StreamReader(res, Encoding.UTF8).ReadToEnd();
         }

@@ -12,18 +12,12 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class EditFavoriteRoutesViewModel : Screen
     {
-        #region constants
-        private const string NotifyMessage = "Выберите интересующие вас станции,затем выберите кнопку удалить выбранные";
-        private const string FavoriteStr = "favoriteRequests";
-        private const string AllFavoritesDeleted = "Список ваших маршрутов теперь пуст";
-        #endregion
-
         #region properties
 
         /// <summary>
         /// Used to serialization/deserialization objects.
         /// </summary>
-        private readonly ISerializableService _serializable;
+        private readonly IFavoriteManageService _favoriteManage;
 
         /// <summary>
         /// Used to navigate between pages.
@@ -47,11 +41,11 @@ namespace Trains.App.ViewModels
         /// <summary>
         /// Constructor
         /// </summary>
-        /// <param name="serializable">Used to serialization/deserialization objects.</param>
+        /// <param name="favoriteManage">Used to manage favorite routes.</param>
         /// <param name="navigationService">Used to navigate between pages.</param>
-        public EditFavoriteRoutesViewModel(ISerializableService serializable, INavigationService navigationService)
+        public EditFavoriteRoutesViewModel(IFavoriteManageService favoriteManage, INavigationService navigationService)
         {
-            _serializable = serializable;
+            _favoriteManage = favoriteManage;
             _navigationService = navigationService;
         }
 
@@ -64,7 +58,7 @@ namespace Trains.App.ViewModels
         protected override void OnActivate()
         {
             FavoriteRequests = SavedItems.FavoriteRequests;
-            ToolHelper.ShowMessageBox(NotifyMessage);
+            ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("NotifyMessage"));
         }
 
         /// <summary>
@@ -84,19 +78,10 @@ namespace Trains.App.ViewModels
         /// </summary>
         private void DeleteSelectedFavoriteRoutes()
         {
-            foreach (var lastRequest in FavoriteRequests.Where(x => x.IsCanBeDeleted))
-                SavedItems.FavoriteRequests.Remove(lastRequest);
-            FavoriteRequests = SavedItems.FavoriteRequests;
-            if (!FavoriteRequests.Any())
-            {
-                _serializable.DeleteFile(FavoriteStr);
+            _favoriteManage.ManageFavorite(FavoriteRequests);
+            if (!SavedItems.FavoriteRequests.Any())
                 _navigationService.NavigateToViewModel<MainViewModel>();
-                ToolHelper.ShowMessageBox(AllFavoritesDeleted);
-            }
-            else
-            {
-                _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FavoriteStr);
-            }
+            FavoriteRequests = SavedItems.FavoriteRequests;
         }
         #endregion
     }

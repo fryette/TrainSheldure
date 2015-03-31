@@ -46,11 +46,8 @@ namespace Trains.Infrastructure.Infrastructure
         }
         public static async void DeleteFile(string fileName)
         {
-            var filed = await ApplicationData.Current.LocalFolder.GetFileAsync(fileName);
-            if (filed != null)
-            {
-                await filed.DeleteAsync();
-            }
+            if (!(await CheckIsFile(fileName))) return;
+            await (await ApplicationData.Current.LocalFolder.GetFileAsync(fileName)).DeleteAsync();
         }
     }
 }
