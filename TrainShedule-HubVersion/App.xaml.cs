@@ -39,7 +39,7 @@ namespace Trains.App
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
             MessageBinder.SpecialValues.Add("$clickeditem1", c => ((PivotItemEventArgs)c.EventArgs).Item);
 
-            _container.Singleton<ILastRequestTrainService, MainService>();
+            _container.Singleton<ILastRequestTrainService, LastRequestTrain>();
             _container.Singleton<ISearchService, Search>();
             _container.Singleton<ISerializableService, Serializable>();
             _container.Singleton<ITrainStopService, TrainStop>();

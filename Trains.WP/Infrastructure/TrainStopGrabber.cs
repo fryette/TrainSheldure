@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Trains.Model.Entities;
 
-namespace Trains.Infrastructure.Infrastructure
+namespace Trains.WP.Infrastructure
 {
     public class TrainStopGrabber
     {
@@ -32,7 +32,7 @@ namespace Trains.Infrastructure.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = (String.IsNullOrEmpty(arrivals) ? null : "Прибытие: " + arrivals.Substring(0, 5)),
+                    Arrivals = (String.IsNullOrEmpty(arrivals)? null : "Прибытие: " + arrivals.Substring(0, 5)),
                     Departures = (String.IsNullOrEmpty(departure) ? null : "Отправление: " + departure),
                     Stay = String.IsNullOrEmpty(stay) ? null : "Стоянка: " + stay
                 });

@@ -1,13 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Trains.Infrastructure.Infrastructure;
+using Trains.Entities;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using Trains.Entities;
-using Trains.Services.Tools;
 
-namespace Trains.Services.Implementations
+namespace Trains.WP.Implementations
 {
     public class Search : ISearchService
     {

@@ -7,11 +7,12 @@ using Trains.Entities;
 
 namespace Trains.Services.Implementations
 {
-    public class MainService:ILastRequestTrainService
+    public class LastRequestTrain:ILastRequestTrainService
     {
         public async Task<List<Train>> GetTrains()
         {
-            return await Serialize.ReadObjectFromXmlFileAsync<List<Train>>(FileName.LastTrainList);
+            //return await Serialize.ReadObjectFromXmlFileAsync<List<Train>>(FileName.LastTrainList);
+            return null;
         }
     }
 }

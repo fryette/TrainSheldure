@@ -1,3 +1,4 @@
+using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
 
 namespace Trains.Core
@@ -10,8 +11,8 @@ namespace Trains.Core
                 .EndingWith("Service")
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
-				
-            RegisterAppStart<ViewModels.FirstViewModel>();
+
+            RegisterAppStart<ViewModels.MainViewModel>();
         }
     }
 }

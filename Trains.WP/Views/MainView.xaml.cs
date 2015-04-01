@@ -11,6 +11,8 @@ namespace Trains.WP.Views
         public MainView()
         {
             InitializeComponent();
+            MyStoryboard.Begin();
+            MyStoryboard1.Begin();
         }
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)

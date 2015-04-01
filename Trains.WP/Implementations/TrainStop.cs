@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using Trains.Infrastructure.Infrastructure;
-using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using Trains.Services.Tools;
+using Trains.WP.Infrastructure;
 
-namespace Trains.Services.Implementations
+namespace Trains.WP.Implementations
 {
     public class TrainStop : ITrainStopService
     {

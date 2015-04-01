@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Globalization;
-//using Windows.UI.Popups;
+using Windows.UI.Popups;
 using Trains.Model.Entities;
 
-namespace Trains.Services.Tools
+namespace Trains.WP.Tools
 {
     public static class ToolHelper
     {
 
         public static void ShowMessageBox(string message)
         {
-            //Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
-            //    (Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
-            //    {
-            //        var dialog = new MessageDialog(message);
-            //        await dialog.ShowAsync();
-            //    });
+            Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+                (Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+                {
+                    var dialog = new MessageDialog(message);
+                    await dialog.ShowAsync();
+                });
 
         }
         public static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)

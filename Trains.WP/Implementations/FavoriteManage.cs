@@ -3,7 +3,7 @@ using System.Linq;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 
-namespace Trains.Services.Implementations
+namespace Trains.WP.Implementations
 {
     public class FavoriteManage : IFavoriteManageService
     {
@@ -51,12 +51,15 @@ namespace Trains.Services.Implementations
         public bool DeleteRoute(string from, string to)
         {
             var objectToDelete = SavedItems.FavoriteRequests.FirstOrDefault(x => x.From == from && x.To == to);
-            if (objectToDelete == null) return false;
-            SavedItems.FavoriteRequests.Remove(objectToDelete);
-            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
-            return true;
+            if (objectToDelete != null)
+            {
+                SavedItems.FavoriteRequests.Remove(objectToDelete);
+                _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
+                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
+                return true;
+            }
             //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsIncorect"));
+            return false;
         }
     }
 }

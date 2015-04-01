@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Windows.ApplicationModel.Resources;
+//using Windows.ApplicationModel.Resources;
 
 namespace Trains.Model.Entities
 {
@@ -12,7 +12,7 @@ namespace Trains.Model.Entities
         public static IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
 
         public static LastRequest UpdatedLastRequest { get; set; }
-        public static ResourceLoader ResourceLoader;
+        //public static ResourceLoader ResourceLoader;
         public static Language Lang { get; set; }
     }
 }
