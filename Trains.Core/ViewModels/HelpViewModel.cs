@@ -31,7 +31,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public async void Init()
         {
-            Menu = await MenuData.GetItemsAsync();
+            //Menu = await MenuData.GetItemsAsync();
         }
 
         #endregion
