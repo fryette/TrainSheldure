@@ -10,6 +10,19 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <TextBlock x:Uid="HelpHeader"
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
+        </Grid>
+        <Grid Row="1">
+            <ListView ItemsSource="{Binding Menu}"
+                      IsItemClickEnabled="True"
+                      ItemTemplate="{StaticResource HelpTemplate}">
+            </ListView>
+        </Grid>
     </Grid>
 </views:MvxWindowsPage>
