@@ -39,7 +39,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
         public IMvxCommand GoToNewsCommand { get; private set; }
         public IMvxCommand GoToFavoriteCommand { get; private set; }
-        public IMvxCommand GoToHelpPageCommand { get; private set; }
+        public IMvxCommand GoToHelpCommand { get; private set; }
         public IMvxCommand GoToMarketPlaceCommand { get; private set; }
         public IMvxCommand GoToAboutPageCommand { get; private set; }
         public IMvxCommand GoToSettingsPageCommand { get; private set; }
@@ -63,7 +63,7 @@ namespace Trains.Core.ViewModels
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToNewsCommand = new MvxCommand(GoToNews);
-            GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
+            GoToHelpCommand = new MvxCommand(GoToHelpPage);
             GoToMarketPlaceCommand = new MvxCommand(GoToMarketPlace);
             GoToAboutPageCommand = new MvxCommand(GoToAboutPage);
             GoToSettingsPageCommand = new MvxCommand(GoToSettingsPage);
@@ -262,7 +262,6 @@ namespace Trains.Core.ViewModels
         private void SelectTrain(LastRequest item)
         {
             ShowViewModel<ItemViewModel>(new LastRequest { From = item.From, To = item.To });
-            //_navigationService.NavigateToViewModel<ItemViewModel>(new LastRequest { From = item.From, To = item.To });
         }
 
         /// <summary>
