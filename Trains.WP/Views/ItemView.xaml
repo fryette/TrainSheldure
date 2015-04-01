@@ -6,9 +6,82 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       mc:Ignorable="d"
-                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                      d:DataContext="{d:DesignData MainViewModel}">
 
-    <Grid>
-
+    <Grid Margin="10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock x:Uid="DownloadTrain" />
+                <ProgressBar IsIndeterminate="True"
+                             VerticalAlignment="Top" />
+            </Grid>
+            <StackPanel HorizontalAlignment="Center">
+                <TextBlock x:Uid="SearchLabel"
+                           Style="{ThemeResource HeaderTextBlockStyle}" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical">
+                        <DatePicker x:Uid="DateOfDeparture"
+                                    Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Style="{StaticResource DatePickerStyle}" />
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical"
+                                VerticalAlignment="Bottom"
+                                Margin="10,0,0,0">
+                        <ComboBox ItemsSource="{Binding VariantOfSearch,Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
+                                  SelectedValue="1"
+                                  VerticalAlignment="Bottom"
+                                  Width="145" />
+                    </StackPanel>
+                </StackPanel>
+                <AutoSuggestBox x:Uid="From"
+                                Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding AutoSuggestions}"
+                                IsEnabled="{Binding IsFildEnabled}"
+                                Style="{StaticResource AutoSuggestBoxStyle}"
+                                FontSize="60">
+                </AutoSuggestBox>
+                <AutoSuggestBox x:Uid="To"
+                                IsEnabled="{Binding IsFildEnabled}"
+                                Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding AutoSuggestions}"
+                                Style="{StaticResource AutoSuggestBoxStyle}" />
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Uid="Search" />
+                    <Button x:Uid="Clear"
+                            Margin="5,0,0,0" />
+                </StackPanel>
+                <TextBlock x:Uid="LastRequest"
+                           HorizontalAlignment="Left"
+                           Style="{ThemeResource TitleTextBlockStyle}" />
+                <ListView IsItemClickEnabled="True"
+                          ItemsSource="{Binding LastRequests}"
+                          ItemTemplate="{StaticResource LastRequestTemplate}">
+                </ListView>
+            </StackPanel>
+        </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          x:Uid="SaveAppBar"
+                          Icon="Favorite" />
+            <AppBarButton x:Uid="Delete"
+                          Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Icon="Unfavorite"/>
+            <AppBarButton x:Uid="SwapAppBar"
+                          Icon="Sort"/>
+            <AppBarButton x:Uid="HelpAppBar"
+                          Icon="Help"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </views:MvxWindowsPage>
