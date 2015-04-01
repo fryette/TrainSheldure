@@ -72,6 +72,11 @@
                     <GridView Grid.Row="2"
                               IsItemClickEnabled="False"
                               Margin="0,10,0,-10">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Tapped">
+                                <core:InvokeCommandAction Command="{Binding GoToNewsCommand}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
                         <Grid>
                             <Image x:Name="MainImage1"
                                    Source="/Assets/MenuIcon/logo_tile2.jpg"
@@ -109,12 +114,16 @@
         <CommandBar>
             <AppBarButton x:Name="UpdateAppBar"
                           x:Uid="UpdateAppBar"
-                          Icon="Sync"/>
+                          Icon="Sync"
+                          Command="{Binding UpdateLastRequestCommand}">
+            </AppBarButton>
             <AppBarButton x:Name="ManagedAppBar"
                           x:Uid="ManageAppBar"
-                          Icon="Repair"/>
+                          Icon="Repair"
+                          Command="{Binding GoToFavoriteCommand}" />
             <AppBarButton x:Uid="HelpAppBar"
-                          Icon="Help"/>
+                          Icon="Help"
+                          Command="{Binding GoToFavoriteCommand}" />
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

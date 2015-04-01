@@ -36,17 +36,17 @@ namespace Trains.Core.ViewModels
         #region commands
 
         public IMvxCommand GoToSearchCommand { get; private set; }
-        public IMvxCommand ClickItemCommand { get; private set; }
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
         public IMvxCommand GoToNewsCommand { get; private set; }
         public IMvxCommand GoToFavoriteCommand { get; private set; }
-        public IMvxCommand SelectTrainCommand { get; private set; }
-        public IMvxCommand SentEmailCommand { get; private set; }
         public IMvxCommand GoToHelpPageCommand { get; private set; }
         public IMvxCommand GoToMarketPlaceCommand { get; private set; }
         public IMvxCommand GoToAboutPageCommand { get; private set; }
-        public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand GoToSettingsPageCommand { get; private set; }
+        public IMvxCommand ClickItemCommand { get; private set; }
+        public IMvxCommand SelectTrainCommand { get; private set; }
+        public IMvxCommand SentEmailCommand { get; private set; }
+        public IMvxCommand UpdateLastRequestCommand { get; private set; }
 
         #endregion
 
@@ -58,18 +58,19 @@ namespace Trains.Core.ViewModels
             _start = start;
             _serializable = serializable;
             _search = search;
+
             GoToSearchCommand = new MvxCommand(GoToSearch);
-            ClickItemCommand = new MvxCommand(() => ClickItem(SelectedTrain));
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToNewsCommand = new MvxCommand(GoToNews);
-            SelectTrainCommand = new MvxCommand(() => SelectTrain(LastRequestTrain));
-            SentEmailCommand = new MvxCommand(SentEmail);
             GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
             GoToMarketPlaceCommand = new MvxCommand(GoToMarketPlace);
             GoToAboutPageCommand = new MvxCommand(GoToAboutPage);
-            UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             GoToSettingsPageCommand = new MvxCommand(GoToSettingsPage);
+            ClickItemCommand = new MvxCommand(() => ClickItem(SelectedTrain));
+            SelectTrainCommand = new MvxCommand(() => SelectTrain(LastRequestTrain));
+            SentEmailCommand = new MvxCommand(SentEmail);
+            UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
         }
 
         #endregion
@@ -310,7 +311,7 @@ namespace Trains.Core.ViewModels
             IsTaskRun = true;
             var trains = await Task.Run(() => _search.UpdateTrainSchedule());
             if (trains == null) ;
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
+            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
             else
             {
                 Trains = trains;
