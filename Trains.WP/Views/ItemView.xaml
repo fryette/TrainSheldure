@@ -69,16 +69,21 @@
                     </interactivity:Interaction.Behaviors>
                 </AutoSuggestBox>
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Uid="Search" />
+                    <Button x:Uid="Search" Command="{Binding SearchCommand}"/>
                     <Button x:Uid="Clear"
                             Margin="5,0,0,0" />
                 </StackPanel>
                 <TextBlock x:Uid="LastRequest"
                            HorizontalAlignment="Left"
                            Style="{ThemeResource TitleTextBlockStyle}" />
-                <ListView IsItemClickEnabled="True"
-                          ItemsSource="{Binding LastRequests}"
+                <ListView ItemsSource="{Binding LastRequests}"
+                          SelectedItem="{Binding LastRequest,Mode=TwoWay}"
                           ItemTemplate="{StaticResource LastRequestTemplate}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Tapped">
+                            <core:InvokeCommandAction Command="{Binding SetLastRouteCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
                 </ListView>
             </StackPanel>
         </Grid>

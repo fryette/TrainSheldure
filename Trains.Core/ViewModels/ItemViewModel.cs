@@ -6,6 +6,7 @@ using Cirrious.MvvmCross.ViewModels;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
+using Newtonsoft.Json;
 
 namespace Trains.Core.ViewModels
 {
@@ -40,6 +41,8 @@ namespace Trains.Core.ViewModels
         public IMvxCommand AddToFavoriteCommand { get; private set; }
         public IMvxCommand DeleteInFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
+        public IMvxCommand SetLastRouteCommand { get; private set; }
+
 
         #endregion
 
@@ -65,10 +68,30 @@ namespace Trains.Core.ViewModels
             AddToFavoriteCommand = new MvxCommand(AddToFavorite);
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
+            SetLastRouteCommand = new MvxCommand(() => SetRequest(LastRequest));
         }
         #endregion
 
         #region properties
+
+        /// <summary>
+        /// Used to display favorite icon.
+        /// </summary> 
+        private LastRequest _lastRequest;
+        public LastRequest LastRequest
+        {
+            get
+            {
+                return _lastRequest;
+            }
+
+            set
+            {
+                _lastRequest = value;
+                RaisePropertyChanged(() => LastRequest);
+            }
+        }
+
 
         /// <summary>
         /// Used to display the completed fields from and to.
@@ -278,7 +301,7 @@ namespace Trains.Core.ViewModels
                 //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
                 return;
             }
-            ShowViewModel<ScheduleViewModel>(schedule);
+            ShowViewModel<ScheduleViewModel>(new {param = JsonConvert.SerializeObject(schedule) });
         }
 
         private void SerializeDataSearch()

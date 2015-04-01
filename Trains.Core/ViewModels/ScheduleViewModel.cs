@@ -31,9 +31,9 @@ namespace Trains.Core.ViewModels
             _serializable = serializable;
         }
 
-        public void Init(IEnumerable<Train> trains)
+        public void Init(string param)
         {
-            Parameter = trains;
+            Parameter = JsonConvert.DeserializeObject<List<Train>>(param);
         }
         #endregion
     }
