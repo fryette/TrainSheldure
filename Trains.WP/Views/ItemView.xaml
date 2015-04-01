@@ -6,6 +6,8 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       mc:Ignorable="d"
+                      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                       d:DataContext="{d:DesignData MainViewModel}">
 
@@ -49,12 +51,23 @@
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Style="{StaticResource AutoSuggestBoxStyle}"
                                 FontSize="60">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="SuggestionChosen">
+                            <core:InvokeCommandAction Command="{Binding SuggestionChosenCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
                 </AutoSuggestBox>
                 <AutoSuggestBox x:Uid="To"
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding AutoSuggestions}"
-                                Style="{StaticResource AutoSuggestBoxStyle}" />
+                                Style="{StaticResource AutoSuggestBoxStyle}" >
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="SuggestionChosen">
+                            <core:InvokeCommandAction Command="{Binding SuggestionChosenCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </AutoSuggestBox>
                 <StackPanel Orientation="Horizontal">
                     <Button x:Uid="Search" />
                     <Button x:Uid="Clear"

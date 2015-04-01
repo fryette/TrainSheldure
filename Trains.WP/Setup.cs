@@ -38,10 +38,6 @@ namespace Trains.WP
             Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
             Mvx.LazyConstructAndRegisterSingleton<ICheckTrainService, CheckTrain>();
             Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
-            //Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
-            //Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
-            //Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
-            //Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
 
             base.InitializePlatformServices();
         }
