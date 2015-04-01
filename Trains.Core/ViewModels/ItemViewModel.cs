@@ -32,6 +32,17 @@ namespace Trains.Core.ViewModels
 
         #endregion
 
+        #region command
+
+        public IMvxCommand SearchCommand { get; private set; }
+        public IMvxCommand SuggestionChosenCommand { get; private set; }
+        public IMvxCommand ClearCommand { get; private set; }
+        public IMvxCommand AddToFavoriteCommand { get; private set; }
+        public IMvxCommand DeleteInFavoriteCommand { get; private set; }
+        public IMvxCommand GoToHelpCommand { get; private set; }
+
+        #endregion
+
         #region constructors
 
         /// <summary>
@@ -47,6 +58,13 @@ namespace Trains.Core.ViewModels
             _serializable = serializable;
             _checkTrain = checkTrain;
             _manageFavoriteRequest = manageFavoriteRequest;
+
+            SearchCommand = new MvxCommand(Search);
+            SuggestionChosenCommand = new MvxCommand(SuggestionChosen);
+            ClearCommand = new MvxCommand(SuggestionChosen);
+            AddToFavoriteCommand = new MvxCommand(AddToFavorite);
+            DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
+            GoToHelpCommand = new MvxCommand(GoToHelpPage);
         }
         #endregion
 
