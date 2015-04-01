@@ -12,8 +12,12 @@ namespace Trains.Model.Entities
             Items = new ObservableCollection<CountryStopPointDataItem>();
         }
 
-        public string UniqueId { get; private set; }
-        public string Title { get; private set; }
-        public ObservableCollection<CountryStopPointDataItem> Items { get; private set; }
+       public CountryStopPointDataGroup()
+       {
+       }
+
+       public string UniqueId { get; set; }
+        public string Title { get; set; }
+        public ObservableCollection<CountryStopPointDataItem> Items { get; set; }
     }
 }

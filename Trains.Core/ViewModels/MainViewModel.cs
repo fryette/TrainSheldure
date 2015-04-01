@@ -191,7 +191,7 @@ namespace Trains.Core.ViewModels
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
         /// </summary>
-        protected async void Init()
+        public async void Init()
         {
             IsDownloadRun = true;
             await _start.RestoreData();

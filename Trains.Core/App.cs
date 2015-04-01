@@ -13,6 +13,7 @@ namespace Trains.Core
                 .RegisterAsLazySingleton();
 
             RegisterAppStart<ViewModels.MainViewModel>();
+            Mvx.LazyConstructAndRegisterSingleton<IAppSettings,AppSettings>();
         }
     }
 }

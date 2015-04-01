@@ -3,7 +3,7 @@ using Trains.Model.Entities;
 
 namespace Trains.Core
 {
-    class AppSettings:IAppSettings
+  public class AppSettings:IAppSettings
     {
         public List<LastRequest> LastRequests { get; set; }
         public List<LastRequest> FavoriteRequests { get; set; }
