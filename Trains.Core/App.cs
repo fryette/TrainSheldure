@@ -1,5 +1,6 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
+using Trains.Core.ServicesAndInterfaces;
 using Trains.Infrastructure.Interfaces;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
