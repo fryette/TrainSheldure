@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Data.Json;
-using Windows.Storage;
+//using Windows.Data.Json;
+//using Windows.Storage;
 using Trains.Model.Entities;
 
 namespace Trains.Infrastructure.Infrastructure
@@ -55,28 +55,28 @@ namespace Trains.Infrastructure.Infrastructure
 
         private async Task GetMenuDataAsync()
         {
-            if (_groups.Count != 0)
-                return;
+            //if (_groups.Count != 0)
+            //    return;
 
-            var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/StopPoints"+SavedItems.ResourceLoader.GetString("Culture")+".json");
+            //var dataUri = new Uri("ms-appx:///Trains.Model/DataModel/StopPoints" + SavedItems.ResourceLoader.GetString("Culture") + ".json");
 
-            var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
-            var jsonText = await FileIO.ReadTextAsync(file);
-            var jsonObject = JsonObject.Parse(jsonText);
-            var jsonArray = jsonObject["Groups"].GetArray();
+            //var file = await StorageFile.GetFileFromApplicationUriAsync(dataUri);
+            //var jsonText = await FileIO.ReadTextAsync(file);
+            //var jsonObject = JsonObject.Parse(jsonText);
+            //var jsonArray = jsonObject["Groups"].GetArray();
 
-            foreach (var groupValue in jsonArray)
-            {
-                var groupObject = groupValue.GetObject();
-                var group = new CountryStopPointDataGroup(groupObject["UniqueId"].GetString(),
-                    groupObject["Title"].GetString());
+            //foreach (var groupValue in jsonArray)
+            //{
+            //    var groupObject = groupValue.GetObject();
+            //    var group = new CountryStopPointDataGroup(groupObject["UniqueId"].GetString(),
+            //        groupObject["Title"].GetString());
 
-                foreach (var itemObject in groupObject["Items"].GetArray().Select(itemValue => itemValue.GetObject()))
-                {
-                    group.Items.Add(new CountryStopPointDataItem(itemObject["UniqueId"].GetString(), itemObject["Country"].GetString(), itemObject["Exp"].GetString()));
-                }
-                Groups.Add(group);
-            }
+            //    foreach (var itemObject in groupObject["Items"].GetArray().Select(itemValue => itemValue.GetObject()))
+            //    {
+            //        group.Items.Add(new CountryStopPointDataItem(itemObject["UniqueId"].GetString(), itemObject["Country"].GetString(), itemObject["Exp"].GetString()));
+            //    }
+            //    Groups.Add(group);
+            //}
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Trains.Services.Implementations
             {
                 return await Task.Run(() => TrainStopGrabber.GetTrainStop(link));
             }
-            ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
+            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
             return null;
         }
     }

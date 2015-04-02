@@ -1,5 +1,5 @@
 ﻿using System.Threading.Tasks;
-using Windows.ApplicationModel.Resources;
+//using Windows.ApplicationModel.Resources;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
@@ -20,7 +20,7 @@ namespace Trains.Services.Implementations
         public async Task RestoreData()
         {
             if (SavedItems.AutoCompletion != null) return;
-            SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
+            //SavedItems.ResourceLoader = ResourceLoader.GetForViewIndependentUse("Resources");
             CheckIsFirstStart();
             await Task.Run(() => StartedActions());
             await Task.Delay(2000);
@@ -39,7 +39,7 @@ namespace Trains.Services.Implementations
                 SavedItems.LastRequests = await Task.Run(() => _serializable.GetLastRequests(FileName.LastRequests));
             else
             {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FirstMessageStartString"));
+                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FirstMessageStartString"));
                 await Task.Run(() => _serializable.SerializeObjectToXml(true, FileName.IsFirstStart));
                 _serializable.DeleteFile(FileName.IsSecondStart);
                 _serializable.DeleteFile(FileName.LastRequests);

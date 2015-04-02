@@ -44,10 +44,10 @@ namespace Trains.Infrastructure.Infrastructure
             var links = GetLink(data);
 
             IEnumerable<Train> trains;
-            if (fromItem.Country != SavedItems.ResourceLoader.GetString("BelarusConstString") && toItem.Country != SavedItems.ResourceLoader.GetString("BelarusConstString"))
+            if (fromItem.Country != "(Беларусь)" && toItem.Country != "(Беларусь)")
                 trains = GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern).ToList(), date);
             else
-                trains = date == SavedItems.ResourceLoader.GetString("EveryDay") ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
+                trains = date == "everyday" ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
                     : GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date);
 
             return GetFinallyResult(additionalInformation, links, trains).ToList();
@@ -55,7 +55,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         private static string GetUrl(CountryStopPointDataItem fromItem, CountryStopPointDataItem toItem, string date)
         {
-            return "http://rasp.rw.by/m/" + SavedItems.ResourceLoader.GetString("Culture") + "/route/?from=" +
+            return "http://rasp.rw.by/m/" + "ru" + "/route/?from=" +
                    fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date;
         }
 
@@ -137,13 +137,13 @@ namespace Trains.Infrastructure.Infrastructure
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
                 {
-                    if (type.Contains(SavedItems.ResourceLoader.GetString("International")))
+                    if (type.Contains("Международные"))
                         return "/Assets/Inteneshnl.png";
-                    if (type.Contains(SavedItems.ResourceLoader.GetString("Interregional")))
-                        return type.Contains(SavedItems.ResourceLoader.GetString("Business"))
+                    if (type.Contains("Межрегиональные"))
+                        return type.Contains("бизнес")
                             ? "/Assets/Interregional_biznes.png"
                             : "/Assets/Interregional_econom.png";
-                    if (type.Contains(SavedItems.ResourceLoader.GetString("Regional")))
+                    if (type.Contains("региональные"))
                         return type.Contains("бизнес") ? "/Assets/Regional_biznes.png" : "/Assets/Regional_econom.png";
                     return "/Assets/Cityes.png";
                 });
@@ -160,7 +160,7 @@ namespace Trains.Infrastructure.Infrastructure
                     additionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     additionInformation.Add(new[]
                     {
-                        new AdditionalInformation {Name = SavedItems.ResourceLoader.GetString("NoPlace")}
+                        new AdditionalInformation {Name = "Мест нет. Уточняйте в кассах"}
                     });
                 else
                 {
@@ -173,12 +173,12 @@ namespace Trains.Infrastructure.Infrastructure
                         additionalInformations[j / 3] = new AdditionalInformation
                         {
                             Name = temp[j].Groups[1].Value.Length > 18
-                                ? SavedItems.ResourceLoader.GetString("Sessile")
+                                ? "Сидячие"
                                 : temp[j].Groups[1].Value,
-                            Place = SavedItems.ResourceLoader.GetString("Place") + (temp[j + 1].Groups[2].Value == UnknownStr
-                                ? SavedItems.ResourceLoader.GetString("Unlimited")
+                            Place = "Мест: " + (temp[j + 1].Groups[2].Value == UnknownStr
+                                ? "неограничено"
                                 : temp[j + 1].Groups[2].Value.Replace(UnknownStr, string.Empty)),
-                            Price = SavedItems.ResourceLoader.GetString("Price") + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
+                            Price = "цена" + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
                     additionInformation.Add(additionalInformations);
@@ -192,21 +192,21 @@ namespace Trains.Infrastructure.Infrastructure
         {
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D");
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + SavedItems.ResourceLoader.GetString("Hour"));
-            return SavedItems.ResourceLoader.GetString("Via") + hours + timeSpan.Minutes + SavedItems.ResourceLoader.GetString("Min");
+            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + " ч. ");
+            return "через" + hours + timeSpan.Minutes + " мин.";
         }
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
         {
             var time = endTime - startTime;
             if (time.Days == 0)
-                return time.Hours + SavedItems.ResourceLoader.GetString("Hour") + time.Minutes + SavedItems.ResourceLoader.GetString("Min");
-            return (int)time.TotalHours + SavedItems.ResourceLoader.GetString("Hour") + time.Minutes + SavedItems.ResourceLoader.GetString("Min");
+                return time.Hours + " ч. " + time.Minutes + " мин.";
+            return (int)time.TotalHours + " ч. " + time.Minutes + " мин.";
         }
 
         private static List<string> GetLink(string data)
         {
-            var links = Parser.ParseTrainData(data, "<a href=\"/m/" + SavedItems.ResourceLoader.GetString("Culture")+ "/train/(.+?)\"");
+            var links = Parser.ParseTrainData(data, "<a href=\"/m/" + "ru" + "/train/(.+?)\"");
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
@@ -218,12 +218,12 @@ namespace Trains.Infrastructure.Infrastructure
                 trainsList[i].AdditionalInformation = additionalInformation[i];
                 trainsList[i].Link = linksList[i];
                 if (trainsList[i].DepartureDate != null)
-                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(SavedItems.ResourceLoader.GetString("No")) ?
-                        SavedItems.ResourceLoader.GetString("PlaceNo") : SavedItems.ResourceLoader.GetString("PlaceYes");
+                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains("нет") ?
+                        "Мест нет" : "Места есть";
                 else
-                    trainsList[i].AdditionalInformation.First().Name = SavedItems.ResourceLoader.GetString("SpecifyDate");
+                    trainsList[i].AdditionalInformation.First().Name = "Уточните дату для отображения информации о местах";
             }
-            return trainsList.Where(x => !x.BeforeDepartureTime.Contains('-'));
+            return trainsList.Where(x => !x.BeforeDepartureTime.Contains("-"));
         }
 
         #endregion

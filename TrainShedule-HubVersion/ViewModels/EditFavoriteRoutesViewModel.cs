@@ -12,6 +12,7 @@ namespace Trains.App.ViewModels
     /// </summary>
     public class EditFavoriteRoutesViewModel : Screen
     {
+
         #region properties
 
         /// <summary>

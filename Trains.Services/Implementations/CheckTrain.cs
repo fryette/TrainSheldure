@@ -13,12 +13,12 @@ namespace Trains.Services.Implementations
         {
             if ((datum.Date - DateTime.Now).Days < 0)
             {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateUpTooLater"));
+                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateUpTooLater"));
                 return true;
             }
             if (datum.Date > DateTime.Now.AddDays(45))
             {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateTooBig"));
+                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateTooBig"));
                 return true;
             }
 
@@ -26,12 +26,12 @@ namespace Trains.Services.Implementations
                 !(SavedItems.AutoCompletion.Any(x => x.UniqueId == from) &&
                   SavedItems.AutoCompletion.Any(x => x.UniqueId == to)))
             {
-                ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("IncorrectInput"));
+                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("IncorrectInput"));
                 return true;
             }
 
             if (NetworkInterface.GetIsNetworkAvailable()) return false;
-            ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ConectionError"));
+            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ConectionError"));
             return true;
         }
 

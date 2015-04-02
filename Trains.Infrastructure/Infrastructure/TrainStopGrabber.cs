@@ -15,7 +15,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         public static IEnumerable<TrainStop> GetTrainStop(string link)
         {
-            var match = Parser.GetData("http://rasp.rw.by/m/" + SavedItems.ResourceLoader.GetString("Culture") + "/train/" + link, Pattern);
+            var match = Parser.GetData("http://rasp.rw.by/m/ru/train/" + link, Pattern);
             return link.Contains("thread") ? GetRegionalEconomTrainStops(match) : GetTrainStops(match);
         }
 
@@ -32,9 +32,9 @@ namespace Trains.Infrastructure.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = (String.IsNullOrEmpty(arrivals)? null : SavedItems.ResourceLoader.GetString("Departure") + arrivals.Substring(0, 5)),
-                    Departures = (String.IsNullOrEmpty(departure) ? null : SavedItems.ResourceLoader.GetString("Arrival") + departure),
-                    Stay = String.IsNullOrEmpty(stay) ? null : SavedItems.ResourceLoader.GetString("Stay") + stay
+                    Arrivals = (String.IsNullOrEmpty(arrivals) ? null : "Прибытие: " + arrivals.Substring(0, 5)),
+                    Departures = (String.IsNullOrEmpty(departure) ? null : "Отправление: " + departure),
+                    Stay = String.IsNullOrEmpty(stay) ? null : "Стоянка: " + stay
                 });
             }
             return trainStop;
@@ -48,13 +48,13 @@ namespace Trains.Infrastructure.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i + 1].Groups[1].Value,
-                    Arrivals = SavedItems.ResourceLoader.GetString("Departure") + (parameters[i].Groups[2].Value.Length > 5 ? SavedItems.ResourceLoader.GetString("FinalStopPoint") : parameters[i].Groups[2].Value),
+                    Arrivals = "Отправление: " + (parameters[i].Groups[2].Value.Length > 5 ? "конечная" : parameters[i].Groups[2].Value),
                 });
             }
             trainStop.Add(new TrainStop
             {
                 Name = parameters[parameters.Count - 1].Groups[1].Value,
-                Arrivals = SavedItems.ResourceLoader.GetString("FinalStopPoint"),
+                Arrivals = "конечная",
             });
             return trainStop;
         }
