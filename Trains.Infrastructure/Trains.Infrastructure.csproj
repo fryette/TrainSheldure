@@ -43,7 +43,9 @@
     <Compile Include="Infrastructure\Serialize.cs" />
     <Compile Include="Infrastructure\TrainGrabber.cs" />
     <Compile Include="Infrastructure\TrainStopGrabber.cs" />
+    <Compile Include="Interfaces\IFileSystem.cs" />
     <Compile Include="Interfaces\IHttpService.cs" />
+    <Compile Include="Interfaces\ILocalDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

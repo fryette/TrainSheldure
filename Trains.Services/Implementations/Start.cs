@@ -1,20 +1,23 @@
 ﻿using System.Threading.Tasks;
+using Trains.Infrastructure.Infrastructure;
 //using Windows.ApplicationModel.Resources;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
+using System.Linq;
+using Trains.Infrastructure.Interfaces;
 
 namespace Trains.Services.Implementations
 {
     public class Start : IStartService
     {
         private readonly ISerializableService _serializable;
-        private readonly ISearchService _search;
+        private readonly ILocalDataService _local;
 
-        public Start(ISerializableService serializable, ISearchService search)
+        public Start(ISerializableService serializable, ILocalDataService local)
         {
             _serializable = serializable;
-            _search = search;
+            _local = local;
         }
 
         public async Task RestoreData()
@@ -28,7 +31,8 @@ namespace Trains.Services.Implementations
 
         private async void StartedActions()
         {
-            SavedItems.AutoCompletion = await Task.Run(() => _search.GetCountryStopPoint());
+            SavedItems.AutoCompletion = (await _local.GetData()).SelectMany(dataGroup => dataGroup.Items);
+
             SavedItems.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FileName.FavoriteRequests));
             SavedItems.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(FileName.UpdateLastRequest));
         }

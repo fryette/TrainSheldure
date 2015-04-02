@@ -15,7 +15,8 @@ namespace Trains.Infrastructure.Infrastructure
 
         public static IEnumerable<TrainStop> GetTrainStop(string link)
         {
-            var match = Parser.GetData("http://rasp.rw.by/m/ru/train/" + link, Pattern);
+            //var match = Parser.GetData("http://rasp.rw.by/m/ru/train/" + link, Pattern);
+            IEnumerable<Match> match = null;
             return link.Contains("thread") ? GetRegionalEconomTrainStops(match) : GetTrainStops(match);
         }
 

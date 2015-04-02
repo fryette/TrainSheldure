@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Trains.Model.Entities;
 using Trains.Entities;
+
 namespace Trains.Infrastructure.Infrastructure
 {
     public class TrainGrabber
@@ -34,32 +35,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         #region action
 
-        public static async Task<List<Train>> GetTrainSchedule(string from, string to, string date)
-        {
-            var fromItem = await CountryStopPointData.GetItemByIdAsync(from);
-            var toItem = await CountryStopPointData.GetItemByIdAsync(to);
-
-            var data = Parser.GetHtmlCode(GetUrl(fromItem, toItem, date));
-            var additionalInformation = GetPlaces(data);
-            var links = GetLink(data);
-
-            IEnumerable<Train> trains;
-            if (fromItem.Country != "(Беларусь)" && toItem.Country != "(Беларусь)")
-                trains = GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern).ToList(), date);
-            else
-                trains = date == "everyday" ? GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
-                    : GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date);
-
-            return GetFinallyResult(additionalInformation, links, trains).ToList();
-        }
-
-        private static string GetUrl(CountryStopPointDataItem fromItem, CountryStopPointDataItem toItem, string date)
-        {
-            return "http://rasp.rw.by/m/" + "ru" + "/route/?from=" +
-                   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date;
-        }
-
-        private static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date)
+        public static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date)
         {
             var dateOfDeparture = DateTime.ParseExact(date, "yy-MM-dd", CultureInfo.InvariantCulture);
             var imagePath = new List<string>(GetImagePath(parameters));
@@ -80,7 +56,7 @@ namespace Trains.Infrastructure.Infrastructure
             return trainList;
         }
 
-        private static IEnumerable<Train> GetTrainsInformationOnAllDays(IReadOnlyList<Match> parameters)
+        public static IEnumerable<Train> GetTrainsInformationOnAllDays(IReadOnlyList<Match> parameters)
         {
             var imagePath = new List<string>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
@@ -98,7 +74,7 @@ namespace Trains.Infrastructure.Infrastructure
             return trainList;
         }
 
-        private static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
+        public static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
         {
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
 
@@ -132,7 +108,7 @@ namespace Trains.Infrastructure.Infrastructure
             };
         }
 
-        private static IEnumerable<string> GetImagePath(IEnumerable<Match> match)
+        public static IEnumerable<string> GetImagePath(IEnumerable<Match> match)
         {
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
@@ -149,7 +125,7 @@ namespace Trains.Infrastructure.Infrastructure
                 });
         }
 
-        private static List<AdditionalInformation[]> GetPlaces(string data)
+        public static List<AdditionalInformation[]> GetPlaces(string data)
         {
             var additionInformation = new List<AdditionalInformation[]>();
             var additionalParameter = Parser.ParseTrainData(data, AdditionParameterPattern).ToList();
@@ -204,13 +180,13 @@ namespace Trains.Infrastructure.Infrastructure
             return (int)time.TotalHours + " ч. " + time.Minutes + " мин.";
         }
 
-        private static List<string> GetLink(string data)
+        public static List<string> GetLink(string data)
         {
             var links = Parser.ParseTrainData(data, "<a href=\"/m/" + "ru" + "/train/(.+?)\"");
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
-        private static IEnumerable<Train> GetFinallyResult(IReadOnlyList<AdditionalInformation[]> additionalInformation, IReadOnlyList<string> linksList, IEnumerable<Train> trains)
+        public static IEnumerable<Train> GetFinallyResult(IReadOnlyList<AdditionalInformation[]> additionalInformation, IReadOnlyList<string> linksList, IEnumerable<Train> trains)
         {
             var trainsList = trains.ToList();
             for (var i = 0; i < additionalInformation.Count; i++)

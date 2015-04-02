@@ -7,9 +7,9 @@ using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
 using FavoriteManage = Trains.WP.Implementations.FavoriteManage;
 using LastRequestTrain = Trains.WP.Implementations.LastRequestTrain;
-using Search = Trains.WP.Implementations.Search;
 using Serializable = Trains.WP.Implementations.Serializable;
-using Start = Trains.WP.Implementations.Start;
+using Trains.Infrastructure.Interfaces;
+using Trains.WP.Implementations;
 
 namespace Trains.WP
 {
@@ -32,10 +32,9 @@ namespace Trains.WP
 
         protected override void InitializePlatformServices()
         {
+            Mvx.LazyConstructAndRegisterSingleton<IFileSystem, FileSystem>();
             Mvx.LazyConstructAndRegisterSingleton<ILastRequestTrainService, LastRequestTrain>();
-            Mvx.LazyConstructAndRegisterSingleton<IStartService, Start>();
             Mvx.LazyConstructAndRegisterSingleton<ISerializableService, Serializable>();
-            Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
             Mvx.LazyConstructAndRegisterSingleton<ICheckTrainService, CheckTrain>();
             Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
 
