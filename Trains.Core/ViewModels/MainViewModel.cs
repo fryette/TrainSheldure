@@ -8,6 +8,7 @@ using Trains.Entities;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
+using Trains.Core.ServicesAndInterfaces;
 
 namespace Trains.Core.ViewModels
 {
@@ -20,6 +21,8 @@ namespace Trains.Core.ViewModels
         private readonly ILastRequestTrainService _lastRequestTrainService;
 
         private readonly IStartService _start;
+
+        private readonly IAppSettings _appSettings;
 
         /// <summary>
         /// Used to serialization/deserialization objects.
@@ -54,12 +57,13 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ILastRequestTrainService lastRequestTrainService, IStartService start, ISerializableService serializable, ISearchService search, ITestService testService)
+        public MainViewModel(ILastRequestTrainService lastRequestTrainService, IStartService start, ISerializableService serializable, ISearchService search,IAppSettings appSettings, ITestService testService)
         {
             _lastRequestTrainService = lastRequestTrainService;
             _start = start;
             _serializable = serializable;
             _search = search;
+            _appSettings = appSettings;
 			_testService = testService;
 
             GoToSearchCommand = new MvxCommand(GoToSearch);
@@ -200,10 +204,10 @@ namespace Trains.Core.ViewModels
             IsDownloadRun = true;
             await _start.RestoreData();
             IsBarDownloaded = true;
-            if (SavedItems.UpdatedLastRequest != null)
-                LastRoute = String.Format("{0} - {1}", SavedItems.UpdatedLastRequest.From, SavedItems.UpdatedLastRequest.To);
+            if (_appSettings.UpdatedLastRequest != null)
+                LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
             Trains = await _lastRequestTrainService.GetTrains();
-            FavoriteRequests = SavedItems.FavoriteRequests;
+            FavoriteRequests = _appSettings.FavoriteRequests;
             IsDownloadRun = false;
 
 			// TODO: example
@@ -253,7 +257,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void GoToFavorite()
         {
-            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) ;
+            if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any()) ;
             //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();

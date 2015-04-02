@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Trains.Model.Entities;
 
-namespace Trains.Core
+namespace Trains.Core.ServicesAndInterfaces
 {
-    interface IAppSettings
+   public interface IAppSettings
     {
         List<LastRequest> LastRequests { get; set; }
 
