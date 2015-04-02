@@ -1,6 +1,7 @@
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Entities;
 using Trains.Services.Interfaces;
+using Newtonsoft.Json;
 
 namespace Trains.Core.ViewModels
 {
@@ -104,7 +105,7 @@ namespace Trains.Core.ViewModels
             SavedLastTrainInformations = Parameter;
             var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
             IsTaskRun = false;
-            ShowViewModel<StopPointViewModel>(stopPointList);
+            ShowViewModel<StopPointViewModel>(new { param = JsonConvert.SerializeObject(stopPointList) });
         }
 
         #endregion
