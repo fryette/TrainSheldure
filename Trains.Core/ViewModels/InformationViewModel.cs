@@ -18,11 +18,11 @@ namespace Trains.Core.ViewModels
 
         #region command
 
-        IMvxCommand SearchStopPointsCommand { get; private set; }
+        public IMvxCommand SearchStopPointsCommand { get; private set; }
 
         #endregion
 
-        #region constructor
+        #region ctor
 
         /// <summary>
         /// Constructor

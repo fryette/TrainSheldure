@@ -301,7 +301,8 @@ namespace Trains.Core.ViewModels
                 //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
                 return;
             }
-            ShowViewModel<ScheduleViewModel>(new {param = JsonConvert.SerializeObject(schedule) });
+            _serializable.SerializeObjectToXml(schedule, "LastTrainList");
+            ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
         }
 
         private void SerializeDataSearch()

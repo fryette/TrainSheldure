@@ -16,7 +16,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private readonly IFavoriteManageService _favoriteManage;
 
-        private readonly IAppSettings _appSettings { get; set; }
+        private readonly IAppSettings _appSettings;
 
         /// <summary>
         /// Constructor
@@ -32,8 +32,8 @@ namespace Trains.Core.ViewModels
 
         #region command
 
-        IMvxCommand DeleteCommand { get; private set; }
-        IMvxCommand SelectItemCommand { get; private set; }
+        public IMvxCommand DeleteCommand { get; private set; }
+        public IMvxCommand SelectItemCommand { get; private set; }
 
         #endregion
 
