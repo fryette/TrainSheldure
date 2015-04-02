@@ -27,6 +27,8 @@ namespace Trains.Droid
 		public static void UpdateIdValues()
 		{
 			global::Chance.MvvmCross.Plugins.UserInteraction.Droid.Resource.String.library_name = global::Trains.Droid.Resource.String.library_name;
+			global::Cirrious.MvvmCross.Plugins.Network.Droid.Resource.String.ApplicationName = global::Trains.Droid.Resource.String.ApplicationName;
+			global::Cirrious.MvvmCross.Plugins.Network.Droid.Resource.String.Hello = global::Trains.Droid.Resource.String.Hello;
 		}
 		
 		public partial class Attribute
@@ -102,10 +104,31 @@ namespace Trains.Droid
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int MainView = 2130903040;
+			public const int AboutView = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int SplashScreen = 2130903041;
+			public const int EditFavoriteRoutesView = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int HelpView = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int InformationView = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int ItemView = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int MainView = 2130903045;
+			
+			// aapt resource value: 0x7f030006
+			public const int ScheduleView = 2130903046;
+			
+			// aapt resource value: 0x7f030007
+			public const int SettingsView = 2130903047;
+			
+			// aapt resource value: 0x7f030008
+			public const int SplashScreen = 2130903048;
 			
 			static Layout()
 			{
@@ -120,14 +143,14 @@ namespace Trains.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040002
-			public const int ApplicationName = 2130968578;
-			
 			// aapt resource value: 0x7f040001
-			public const int Hello = 2130968577;
+			public const int ApplicationName = 2130968577;
 			
 			// aapt resource value: 0x7f040000
-			public const int library_name = 2130968576;
+			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int library_name = 2130968578;
 			
 			static String()
 			{
