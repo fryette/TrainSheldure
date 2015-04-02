@@ -1,5 +1,8 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
+using Trains.Infrastructure.Interfaces;
+using Trains.Services.Implementations;
+using Trains.Services.Interfaces;
 
 namespace Trains.Core
 {
@@ -13,7 +16,11 @@ namespace Trains.Core
                 .RegisterAsLazySingleton();
 
             RegisterAppStart<ViewModels.MainViewModel>();
-            Mvx.LazyConstructAndRegisterSingleton<IAppSettings,AppSettings>();
+            
+			Mvx.LazyConstructAndRegisterSingleton<IAppSettings,AppSettings>();
+
+			Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
+			Mvx.LazyConstructAndRegisterSingleton<ITestService, TestService>();
         }
     }
 }

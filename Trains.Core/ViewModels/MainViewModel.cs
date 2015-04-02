@@ -31,6 +31,8 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private readonly ISearchService _search;
 
+		private readonly ITestService _testService;
+
         #endregion
 
         #region commands
@@ -52,12 +54,13 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ILastRequestTrainService lastRequestTrainService, IStartService start, ISerializableService serializable, ISearchService search)
+        public MainViewModel(ILastRequestTrainService lastRequestTrainService, IStartService start, ISerializableService serializable, ISearchService search, ITestService testService)
         {
             _lastRequestTrainService = lastRequestTrainService;
             _start = start;
             _serializable = serializable;
             _search = search;
+			_testService = testService;
 
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
@@ -202,6 +205,9 @@ namespace Trains.Core.ViewModels
             Trains = await _lastRequestTrainService.GetTrains();
             FavoriteRequests = SavedItems.FavoriteRequests;
             IsDownloadRun = false;
+
+			// TODO: example
+			// var html = await _testService.GetHtml(new Uri("http://google.com"));
         }
 
         /// <summary>
