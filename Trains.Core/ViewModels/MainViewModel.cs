@@ -9,12 +9,15 @@ using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
 using Trains.Core.ServicesAndInterfaces;
+using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
 
 namespace Trains.Core.ViewModels
 {
     public class MainViewModel : MvxViewModel
     {
         #region readonlyProperties
+
         //<summary>
         //Used to get trains from the last request.
         //</summary>
@@ -34,37 +37,48 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private readonly ISearchService _search;
 
-		private readonly ITestService _testService;
+        private readonly ITestService _testService;
 
         #endregion
 
         #region commands
 
         public IMvxCommand GoToSearchCommand { get; private set; }
+
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
+
         public IMvxCommand GoToNewsCommand { get; private set; }
+
         public IMvxCommand GoToFavoriteCommand { get; private set; }
+
         public IMvxCommand GoToHelpCommand { get; private set; }
+
         public IMvxCommand GoToMarketPlaceCommand { get; private set; }
+
         public IMvxCommand GoToAboutPageCommand { get; private set; }
+
         public IMvxCommand GoToSettingsPageCommand { get; private set; }
+
         public IMvxCommand ClickItemCommand { get; private set; }
+
         public IMvxCommand SelectTrainCommand { get; private set; }
+
         public IMvxCommand SentEmailCommand { get; private set; }
+
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
 
         #endregion
 
         #region ctor
 
-        public MainViewModel(ILastRequestTrainService lastRequestTrainService, IStartService start, ISerializableService serializable, ISearchService search,IAppSettings appSettings, ITestService testService)
+        public MainViewModel(ILastRequestTrainService lastRequestTrainService, IStartService start, ISerializableService serializable, ISearchService search, IAppSettings appSettings, ITestService testService)
         {
             _lastRequestTrainService = lastRequestTrainService;
             _start = start;
             _serializable = serializable;
             _search = search;
             _appSettings = appSettings;
-			_testService = testService;
+            _testService = testService;
 
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
@@ -85,6 +99,7 @@ namespace Trains.Core.ViewModels
         #region properties
 
         private Train _selectedTrain;
+
         public Train SelectedTrain
         {
             get { return _selectedTrain; }
@@ -96,6 +111,7 @@ namespace Trains.Core.ViewModels
         }
 
         private LastRequest _lastRequestTrain;
+
         public LastRequest LastRequestTrain
         {
             get { return _lastRequestTrain; }
@@ -110,6 +126,7 @@ namespace Trains.Core.ViewModels
         /// Used for process control.
         /// </summary>
         private bool _isTaskRun;
+
         public bool IsTaskRun
         {
             get { return _isTaskRun; }
@@ -124,6 +141,7 @@ namespace Trains.Core.ViewModels
         /// Used for process control.
         /// </summary>
         private bool _isBarDownloaded;
+
         public bool IsBarDownloaded
         {
             get { return _isBarDownloaded; }
@@ -138,6 +156,7 @@ namespace Trains.Core.ViewModels
         /// Used for process download data control.
         /// </summary>
         private bool _isDownloadRun;
+
         public bool IsDownloadRun
         {
             get { return _isDownloadRun; }
@@ -152,6 +171,7 @@ namespace Trains.Core.ViewModels
         /// Keeps trains from the last request.
         /// </summary>
         private static List<Train> _trains;
+
         public List<Train> Trains
         {
             get { return _trains; }
@@ -166,6 +186,7 @@ namespace Trains.Core.ViewModels
         /// Object are stored custom routes.
         /// </summary>
         private IEnumerable<LastRequest> _favoriteRequests;
+
         public IEnumerable<LastRequest> FavoriteRequests
         {
             get { return _favoriteRequests; }
@@ -210,8 +231,8 @@ namespace Trains.Core.ViewModels
             FavoriteRequests = _appSettings.FavoriteRequests;
             IsDownloadRun = false;
 
-			// TODO: example
-			// var html = await _testService.GetHtml(new Uri("http://google.com"));
+            // TODO: example
+            // var html = await _testService.GetHtml(new Uri("http://google.com"));
         }
 
         /// <summary>
@@ -255,9 +276,11 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Used to manage user-saved routes.
         /// </summary>
-        private void GoToFavorite()
+        private async void GoToFavorite()
         {
-            if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any()) ;
+            if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any())
+                await Mvx.Resolve<IUserInteraction>().AlertAsync("ItestString");
+
             //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();
@@ -316,10 +339,12 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (IsTaskRun) return;
+            if (IsTaskRun)
+                return;
             IsTaskRun = true;
             var trains = await Task.Run(() => _search.UpdateTrainSchedule());
-            if (trains == null) ;
+            if (trains == null)
+                ;
             //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
             else
             {
