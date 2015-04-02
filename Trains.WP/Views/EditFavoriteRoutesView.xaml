@@ -10,6 +10,29 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <TextBlock x:Uid="EditFavoriteHeader"
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
+        </Grid>
+        <Grid Row="1">
+            <ListView x:Name="FavoriteRequests"
+                      ItemsSource="{Binding FavoriteRequests,Mode=TwoWay}"
+                      IsItemClickEnabled="True"
+                      Margin="5,0,0,0"
+                      ItemTemplate="{StaticResource EditFavoriteRequestTemplate}"
+                      >
+            </ListView>
+        </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="DeleteAppBar"
+                          Icon="Delete"
+                          />
+        </CommandBar>
+    </Page.BottomAppBar>
 </views:MvxWindowsPage>

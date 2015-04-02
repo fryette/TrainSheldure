@@ -19,6 +19,27 @@ namespace Trains.Core.ViewModels
         private readonly IAppSettings _appSettings { get; set; }
 
         /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="favoriteManage">Used to manage favorite routes.</param>
+        public EditFavoriteRoutesViewModel(IFavoriteManageService favoriteManage, IAppSettings appSettings)
+        {
+            _favoriteManage = favoriteManage;
+            _appSettings = appSettings;
+        }
+
+        #endregion
+
+        #region command
+
+        IMvxCommand DeleteCommand { get; private set; }
+        IMvxCommand SelectItemCommand { get; private set; }
+
+        #endregion
+
+        #region ctor
+
+        /// <summary>
         /// Object are stored custom routes.
         /// </summary>
         private List<LastRequest> _favoriteRequests;
@@ -32,26 +53,33 @@ namespace Trains.Core.ViewModels
             }
         }
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="favoriteManage">Used to manage favorite routes.</param>
-        public EditFavoriteRoutesViewModel(IFavoriteManageService favoriteManage, IAppSettings appSettings)
-        {
-            _favoriteManage = favoriteManage;
-            _appSettings = appSettings;
-        }
-
         #endregion
 
         #region actions
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
-        protected override void OnActivate()
+        public void Init()
         {
             FavoriteRequests = _appSettings.FavoriteRequests;
+            DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
+            SelectItemCommand = new MvxCommand(() => SelectItem(SelectedItem));
             //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("NotifyMessage"));
+        }
+
+
+        private LastRequest _selectedItem;
+        public LastRequest SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                RaisePropertyChanged(() => SelectedItem);
+            }
         }
 
         /// <summary>
@@ -76,7 +104,6 @@ namespace Trains.Core.ViewModels
                 ShowViewModel<MainViewModel>();
             FavoriteRequests = _appSettings.FavoriteRequests;
         }
-
     }
         #endregion
 }
