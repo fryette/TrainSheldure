@@ -99,6 +99,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Implementations\FavoriteManage.cs" />
@@ -204,6 +206,18 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.0\lib\wpa81\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.5.0\lib\wpa81\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File.WindowsCommon">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.File.3.5.0\lib\wpa81\Cirrious.MvvmCross.Plugins.File.WindowsCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Network.3.5.0\lib\wpa81\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network.WindowsCommon">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Network.3.5.0\lib\wpa81\Cirrious.MvvmCross.Plugins.Network.WindowsCommon.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.WindowsCommon">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.5.0\lib\wpa81\Cirrious.MvvmCross.WindowsCommon.dll</HintPath>
