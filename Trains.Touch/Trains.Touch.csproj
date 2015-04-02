@@ -88,18 +88,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Debug\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Release\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Ad-Hoc|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\Ad-Hoc\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AppStore|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <OutputPath>bin\AppStore\</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
@@ -143,7 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Trains.Core\Trains.Core.csproj">
-      <Project>{d5769ced-2d11-4058-8894-acd18a90cd5a}</Project>
+      <Project>{D5769CED-2D11-4058-8894-ACD18A90CD5A}</Project>
       <Name>Trains.Core</Name>
     </ProjectReference>
   </ItemGroup>
