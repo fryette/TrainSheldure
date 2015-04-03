@@ -10,6 +10,33 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <Grid Row="0">
+            <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock x:Uid="DownloadStopPoints" />
+                <ProgressBar IsIndeterminate="True"
+                             VerticalAlignment="Top" />
+            </Grid>
+            <TextBlock x:Uid="InformationHeader"
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
+        </Grid>
+        <Grid Row="1">
+            <ListView ItemsSource="{Binding AdditionalInformation}"
+                      Margin="5,0"
+                      ItemTemplate="{StaticResource InformationTemplate}">
+            </ListView>
+        </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="StopPointAppBar"
+                          Icon="Document"
+                          Command="{Binding SearchStopPointsCommand}" />
+        </CommandBar>
+    </Page.BottomAppBar>
+
 </views:MvxWindowsPage>

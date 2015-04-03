@@ -82,8 +82,6 @@
                         Value="True" />
                 <Setter Property="Margin"
                         Value="0,5,0,0" />
-                <!--<Setter Property="micro:Message.Attach"
-                        Value="[Event SuggestionChosen] = [Action SuggestionChosen]" />-->
             </Style>
             <Style x:Key="DatePickerStyle"
                    TargetType="DatePicker">
@@ -544,17 +542,15 @@
                                Style="{StaticResource ScheduleTextBlockStyle}" />
                     <ListView Grid.Row="1"
                               ItemsSource="{Binding Trains}"
-                              IsItemClickEnabled="True"
+                              SelectedItem="{Binding SelectedTrain,Mode=TwoWay}"
                               ItemTemplate="{StaticResource ScheduleTemplate}"
                               HorizontalContentAlignment="Center">
                         <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="ItemClick">
-                                <core:InvokeCommandAction Command="{Binding GoToFavoriteCommand}" />
+                            <core:EventTriggerBehavior EventName="Tapped">
+                                <core:InvokeCommandAction Command="{Binding ClickItemCommand}" />
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
                     </ListView>
-                    <!--micro:Message.Attach="[Event ItemClick] = [Action ClickItem($clickeditem)];[Event DragItemsStarting] = [Action GoToFavorite]"-->
-
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="FavoriteRequestTemplate">
