@@ -30,7 +30,7 @@ namespace Trains.Services.Implementations
 
         #endregion
 
-        public IHttpService _httpService { get; set; }
+        public readonly IHttpService _httpService;
         private readonly IAppSettings _appSettings;
 
         public Search(IHttpService httpService,IAppSettings appSettings)
@@ -50,10 +50,10 @@ namespace Trains.Services.Implementations
 
             IEnumerable<Train> trains;
             if (fromItem.Country != "(Беларусь)" && toItem.Country != "(Беларусь)")
-                trains = TrainGrabber.GetTrainsInformationOnForeignStantion(Parser.ParseTrainData(data, Pattern).ToList(), date);
+                trains = TrainGrabber.GetTrainsInformationOnForeignStantion(Parser.ParseData(data, Pattern).ToList(), date);
             else
-                trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseTrainData(data, Pattern).ToList())
-                    : TrainGrabber.GetTrainsInformation(Parser.ParseTrainData(data, Pattern).ToList(), date);
+                trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
+                    : TrainGrabber.GetTrainsInformation(Parser.ParseData(data, Pattern).ToList(), date);
 
             return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
         }

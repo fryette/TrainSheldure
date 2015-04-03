@@ -128,7 +128,7 @@ namespace Trains.Infrastructure.Infrastructure
         public static List<AdditionalInformation[]> GetPlaces(string data)
         {
             var additionInformation = new List<AdditionalInformation[]>();
-            var additionalParameter = Parser.ParseTrainData(data, AdditionParameterPattern).ToList();
+            var additionalParameter = Parser.ParseData(data, AdditionParameterPattern).ToList();
             for (var i = 0; i < additionalParameter.Count; i++)
             {
                 if (!additionalParameter[i].Groups[1].Value.Contains("href")) continue;
@@ -141,7 +141,7 @@ namespace Trains.Infrastructure.Infrastructure
                 else
                 {
                     var temp =
-                        Parser.ParseTrainData(additionalParameter[i + 1].Groups[1].Value, PlacesAndPricesPattern).ToList();
+                        Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, PlacesAndPricesPattern).ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
 
                     for (var j = 0; j < temp.Count; j += 3)
@@ -182,7 +182,7 @@ namespace Trains.Infrastructure.Infrastructure
 
         public static List<string> GetLink(string data)
         {
-            var links = Parser.ParseTrainData(data, "<a href=\"/m/" + "ru" + "/train/(.+?)\"");
+            var links = Parser.ParseData(data, "<a href=\"/m/" + "ru" + "/train/(.+?)\"");
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 

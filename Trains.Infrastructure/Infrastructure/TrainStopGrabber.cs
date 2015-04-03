@@ -8,19 +8,7 @@ namespace Trains.Infrastructure.Infrastructure
 {
     public class TrainStopGrabber
     {
-        private const string Pattern = "(?<name>class=\"list_text\">([^<]*)<\\/?)|" +
-                                       "(?<startTime>class=\"list_start\">(.+?)<\\/?)|" +
-                                       "(?<endTime>class=\"list_end\">(.+?)<\\/?)|" +
-                                       "(?<stopTime>class=\"list_stop\">(.+?)<\\/?)";
-
-        public static IEnumerable<TrainStop> GetTrainStop(string link)
-        {
-            //var match = Parser.GetData("http://rasp.rw.by/m/ru/train/" + link, Pattern);
-            IEnumerable<Match> match = null;
-            return link.Contains("thread") ? GetRegionalEconomTrainStops(match) : GetTrainStops(match);
-        }
-
-        private static IEnumerable<TrainStop> GetTrainStops(IEnumerable<Match> match)
+        public static IEnumerable<TrainStop> GetTrainStops(IEnumerable<Match> match)
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var trainStop = new List<TrainStop>(parameters.Count / 4);
@@ -40,7 +28,7 @@ namespace Trains.Infrastructure.Infrastructure
             }
             return trainStop;
         }
-        private static IEnumerable<TrainStop> GetRegionalEconomTrainStops(IEnumerable<Match> match)
+        public static IEnumerable<TrainStop> GetRegionalEconomTrainStops(IEnumerable<Match> match)
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var trainStop = new List<TrainStop>(parameters.Count / 2);

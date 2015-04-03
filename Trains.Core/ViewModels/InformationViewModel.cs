@@ -2,6 +2,7 @@ using Cirrious.MvvmCross.ViewModels;
 using Trains.Entities;
 using Trains.Services.Interfaces;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace Trains.Core.ViewModels
 {
@@ -94,7 +95,7 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun) return;
             IsTaskRun = true;
-            var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
+            var stopPointList = (await _trainStop.GetTrainStop(Parameter.Link));
             IsTaskRun = false;
             ShowViewModel<StopPointViewModel>(new { param = JsonConvert.SerializeObject(stopPointList) });
         }

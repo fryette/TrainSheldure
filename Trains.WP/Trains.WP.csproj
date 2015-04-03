@@ -108,7 +108,6 @@
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Implementations\FileSystem.cs" />
-    <Compile Include="Implementations\TrainStop.cs" />
     <Compile Include="Implementations\UserInteractionService.cs" />
     <Compile Include="Infrastructure\Serialize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,6 +136,9 @@
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StopPointView.xaml.cs">
+      <DependentUpon>StopPointView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -178,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\StopPointView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

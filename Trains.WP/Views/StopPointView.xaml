@@ -1,0 +1,36 @@
+﻿<views:MvxWindowsPage
+    x:Class="Trains.WP.Views.StopPointView"
+    xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Trains.WP.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Row="0">
+            <TextBlock x:Uid="StopPointsHeader"
+                       Style="{ThemeResource HeaderTextBlockStyle}" />
+        </Grid>
+        <Grid Row="1">
+            <ListView ItemsSource="{Binding Parameter}"
+                      IsItemClickEnabled="True"
+                      Margin="5,0"
+                      ItemTemplate="{StaticResource StopPointTemplate}">
+            </ListView>
+        </Grid>
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="SaveAppBar"
+                          Icon="Help"
+                          Command="{Binding GoToHelpPage}" />
+        </CommandBar>
+    </Page.BottomAppBar>
+</views:MvxWindowsPage>

@@ -10,7 +10,7 @@ namespace Trains.Infrastructure.Infrastructure
 {
    public class Parser
     {
-        public static IEnumerable<Match> ParseTrainData(string data, string pattern)
+        public static IEnumerable<Match> ParseData(string data, string pattern)
         {
             return new Regex(pattern, RegexOptions.Singleline).Matches(data).Cast<Match>();
         }
