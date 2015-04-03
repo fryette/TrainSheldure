@@ -1,8 +1,8 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
-using Trains.Core.ServicesAndInterfaces;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Infrastructure.Interfaces;
+using Trains.Services.Implementation;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
 
@@ -18,11 +18,11 @@ namespace Trains.Core
                 .RegisterAsLazySingleton();
 
             RegisterAppStart<ViewModels.MainViewModel>();
-            
-			Mvx.LazyConstructAndRegisterSingleton<IAppSettings,AppSettings>();
 
-			Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
-			Mvx.LazyConstructAndRegisterSingleton<ITestService, TestService>();
+            Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
+
+            Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
+            Mvx.LazyConstructAndRegisterSingleton<ITestService, TestService>();
             Mvx.LazyConstructAndRegisterSingleton<IStartService, Start>();
             Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
             Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, CountryStopPointData>();

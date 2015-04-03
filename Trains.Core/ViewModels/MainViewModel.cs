@@ -8,7 +8,6 @@ using Trains.Entities;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
-using Trains.Core.ServicesAndInterfaces;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 

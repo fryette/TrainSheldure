@@ -9,36 +9,43 @@ namespace Trains.Services.Implementations
 {
     public class CheckTrain : ICheckTrainService
     {
+        private readonly IAppSettings _appSettings;
+
+        public CheckTrain(IAppSettings appSettings)
+        {
+            _appSettings = appSettings;
+        }
+
         public bool CheckInput(string from, string to, DateTimeOffset datum)
         {
             if ((datum.Date - DateTime.Now).Days < 0)
             {
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateUpTooLater"));
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("DateUpTooLater"));
                 return true;
             }
             if (datum.Date > DateTime.Now.AddDays(45))
             {
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("DateTooBig"));
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("DateTooBig"));
                 return true;
             }
 
             if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
-                !(SavedItems.AutoCompletion.Any(x => x.UniqueId == from) &&
-                  SavedItems.AutoCompletion.Any(x => x.UniqueId == to)))
+                !(_appSettings.AutoCompletion.Any(x => x.UniqueId == from) &&
+                  _appSettings.AutoCompletion.Any(x => x.UniqueId == to)))
             {
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("IncorrectInput"));
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("IncorrectInput"));
                 return true;
             }
 
             if (NetworkInterface.GetIsNetworkAvailable()) return false;
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ConectionError"));
+            //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("ConectionError"));
             return true;
         }
 
         public bool CheckFavorite(string from, string to)
         {
-            if (SavedItems.FavoriteRequests == null || !SavedItems.FavoriteRequests.Any()) return true;
-            return !string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to) && !SavedItems.FavoriteRequests.Any(x => x.From == from && x.To == to);
+            if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any()) return true;
+            return !string.IsNullOrEmpty(from) && !string.IsNullOrEmpty(to) && !_appSettings.FavoriteRequests.Any(x => x.From == from && x.To == to);
         }
     }
 }

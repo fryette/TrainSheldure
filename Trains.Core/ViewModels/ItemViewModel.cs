@@ -14,6 +14,8 @@ namespace Trains.Core.ViewModels
     {
         #region readonlyProperties
 
+        private readonly IAppSettings _appSettings;
+
         private readonly IFavoriteManageService _manageFavoriteRequest;
 
         /// <summary>
@@ -46,7 +48,7 @@ namespace Trains.Core.ViewModels
 
         #endregion
 
-        #region constructors
+        #region ctor
 
         /// <summary>
         /// Constructor
@@ -55,8 +57,9 @@ namespace Trains.Core.ViewModels
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
         /// <param name="manageFavoriteRequest"></param>
-        public ItemViewModel(ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest)
+        public ItemViewModel(ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest,IAppSettings appSettings)
         {
+            _appSettings = appSettings;
             _search = search;
             _serializable = serializable;
             _checkTrain = checkTrain;
@@ -283,7 +286,7 @@ namespace Trains.Core.ViewModels
                 To = Parameter.To;
             }
             SelectedVariant = VariantOfSearch[0];
-            LastRequests = SavedItems.LastRequests;
+            LastRequests = _appSettings.LastRequests;
         }
 
         /// <summary>
@@ -307,9 +310,9 @@ namespace Trains.Core.ViewModels
 
         private void SerializeDataSearch()
         {
-            SavedItems.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
-            SavedItems.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
-            _serializable.SerializeObjectToXml(SavedItems.UpdatedLastRequest, FileName.UpdateLastRequest);
+            _appSettings.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
+            _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
+            _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, FileName.UpdateLastRequest);
         }
 
         /// <summary>
@@ -382,7 +385,7 @@ namespace Trains.Core.ViewModels
         private void UpdateAutoSuggestions(string str)
         {
             if (string.IsNullOrEmpty(str)) return;
-            AutoSuggestions = SavedItems.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
+            AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
             if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
             AutoSuggestions.Clear();
 

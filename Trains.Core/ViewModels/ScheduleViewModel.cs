@@ -3,9 +3,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using Trains.Entities;
 using Trains.Services.Interfaces;
-using System.Collections.Generic;
 using System.Linq;
-using Trains.Core.ServicesAndInterfaces;
 
 namespace Trains.Core.ViewModels
 {

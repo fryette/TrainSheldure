@@ -49,6 +49,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Implementations\AppSettings.cs" />
     <Compile Include="Implementations\FavoriteManage.cs" />
     <Compile Include="Implementations\LastRequestTrain.cs" />
     <Compile Include="Implementations\Search.cs" />
@@ -57,6 +58,7 @@
     <Compile Include="Implementations\Start.cs" />
     <Compile Include="Implementations\TestService.cs" />
     <Compile Include="Implementations\TrainStop.cs" />
+    <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\IFavoriteManageService.cs" />
     <Compile Include="Interfaces\ILastRequestTrainService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />

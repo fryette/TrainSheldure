@@ -31,16 +31,18 @@ namespace Trains.Services.Implementations
         #endregion
 
         public IHttpService _httpService { get; set; }
+        private readonly IAppSettings _appSettings;
 
-        public Search(IHttpService httpService)
+        public Search(IHttpService httpService,IAppSettings appSettings)
         {
+            _appSettings = appSettings;
             _httpService = httpService;
         }
 
         public async Task<List<Train>> GetTrainSchedule(string from, string to, string date)
         {
-            var fromItem = SavedItems.AutoCompletion.First(x => x.UniqueId == from);
-            var toItem = SavedItems.AutoCompletion.First(x => x.UniqueId == to);
+            var fromItem = _appSettings.AutoCompletion.First(x => x.UniqueId == from);
+            var toItem = _appSettings.AutoCompletion.First(x => x.UniqueId == to);
 
             var data = await _httpService.LoadResponseAsync(GetUrl(fromItem, toItem, date));
             var additionalInformation = TrainGrabber.GetPlaces(data);
@@ -64,9 +66,9 @@ namespace Trains.Services.Implementations
 
         public async Task<List<Train>> UpdateTrainSchedule()
         {
-            //if (SavedItems.UpdatedLastRequest == null) return null;
-            //return await TrainGrabber.GetTrainSchedule(SavedItems.UpdatedLastRequest.From,
-            //                    SavedItems.UpdatedLastRequest.To, ToolHelper.GetDate(SavedItems.UpdatedLastRequest.Date, SavedItems.UpdatedLastRequest.SelectionMode));
+            //if (_appSettings.UpdatedLastRequest == null) return null;
+            //return await TrainGrabber.GetTrainSchedule(_appSettings.UpdatedLastRequest.From,
+            //                    _appSettings.UpdatedLastRequest.To, ToolHelper.GetDate(_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode));
             return null;
         }
 

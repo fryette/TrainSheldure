@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using System.Linq;
-using Trains.Core.ServicesAndInterfaces;
 
 namespace Trains.Core.ViewModels
 {

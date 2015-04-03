@@ -8,57 +8,59 @@ namespace Trains.WP.Implementations
     public class FavoriteManage : IFavoriteManageService
     {
         private readonly ISerializableService _serializable;
+        private readonly IAppSettings _appSettings;
 
-        public FavoriteManage(ISerializableService serializable)
+        public FavoriteManage(ISerializableService serializable,IAppSettings appSettings)
         {
             _serializable = serializable;
+            _appSettings = appSettings;
         }
 
         public void ManageFavorite(List<LastRequest> favoriteList)
         {
             foreach (var lastRequest in favoriteList.Where(x => x.IsCanBeDeleted))
-                SavedItems.FavoriteRequests.Remove(lastRequest);
-            favoriteList = SavedItems.FavoriteRequests;
+                _appSettings.FavoriteRequests.Remove(lastRequest);
+            favoriteList = _appSettings.FavoriteRequests;
             if (!favoriteList.Any())
             {
                 _serializable.DeleteFile(FileName.FavoriteRequests);
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("AllFavoritesDeleted"));
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("AllFavoritesDeleted"));
             }
-            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
+            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, FileName.FavoriteRequests);
         }
 
         public bool AddToFavorite(string from, string to)
         {
             if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
             {
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("PointsIsInCorrect"));
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("PointsIsInCorrect"));
                 return false;
             }
 
-            if (SavedItems.FavoriteRequests == null) SavedItems.FavoriteRequests = new List<LastRequest>();
-            if (SavedItems.FavoriteRequests.Any(x => x.From == from && x.To == to))
+            if (_appSettings.FavoriteRequests == null) _appSettings.FavoriteRequests = new List<LastRequest>();
+            if (_appSettings.FavoriteRequests.Any(x => x.From == from && x.To == to))
             {
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("ThisRouteIsPresent"));
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("ThisRouteIsPresent"));
                 return false;
             }
 
-            SavedItems.FavoriteRequests.Add(new LastRequest { From = from, To = to });
-            _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsAddedToFavorite"));
+            _appSettings.FavoriteRequests.Add(new LastRequest { From = from, To = to });
+            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, FileName.FavoriteRequests);
+            //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsAddedToFavorite"));
             return true;
         }
 
         public bool DeleteRoute(string from, string to)
         {
-            var objectToDelete = SavedItems.FavoriteRequests.FirstOrDefault(x => x.From == from && x.To == to);
+            var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.From == from && x.To == to);
             if (objectToDelete != null)
             {
-                SavedItems.FavoriteRequests.Remove(objectToDelete);
-                _serializable.SerializeObjectToXml(SavedItems.FavoriteRequests, FileName.FavoriteRequests);
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
+                _appSettings.FavoriteRequests.Remove(objectToDelete);
+                _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, FileName.FavoriteRequests);
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
                 return true;
             }
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("RouteIsIncorect"));
+            //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsIncorect"));
             return false;
         }
     }

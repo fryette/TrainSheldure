@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using Trains.Model.Entities;
+using Trains.Services.Interfaces;
 
-namespace Trains.Core.ServicesAndInterfaces
+namespace Trains.Services.Implementation
 {
-  public class AppSettings:IAppSettings
+    public class AppSettings : IAppSettings
     {
         public List<LastRequest> LastRequests { get; set; }
         public List<LastRequest> FavoriteRequests { get; set; }

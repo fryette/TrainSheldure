@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Trains.Model.Entities;
 
-namespace Trains.Core.ServicesAndInterfaces
+namespace Trains.Services.Interfaces
 {
    public interface IAppSettings
     {
