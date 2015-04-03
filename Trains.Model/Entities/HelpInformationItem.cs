@@ -7,9 +7,9 @@ namespace Trains.Model.Entities
     /// </summary>
     public class HelpInformationItem
     {
-        public string UniqueId { get; private set; }
-        public string Title { get; private set; }
-        public string ImagePath { get; private set; }
-        public string Description { get; private set; }
+        public string UniqueId { get; set; }
+        public string Title { get; set; }
+        public string ImagePath { get; set; }
+        public string Description { get; set; }
     }
 }
