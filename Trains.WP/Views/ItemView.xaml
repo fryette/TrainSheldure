@@ -71,7 +71,8 @@
                 <StackPanel Orientation="Horizontal">
                     <Button x:Uid="Search" Command="{Binding SearchCommand}"/>
                     <Button x:Uid="Clear"
-                            Margin="5,0,0,0" />
+                            Margin="5,0,0,0" 
+                            Command="{Binding ClearCommand}"/>
                 </StackPanel>
                 <TextBlock x:Uid="LastRequest"
                            HorizontalAlignment="Left"
@@ -92,14 +93,18 @@
         <CommandBar>
             <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           x:Uid="SaveAppBar"
-                          Icon="Favorite" />
+                          Icon="Favorite" 
+                          Command="{Binding AddToFavoriteCommand}"/>
             <AppBarButton x:Uid="Delete"
                           Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          Icon="Unfavorite"/>
+                          Icon="Unfavorite"
+                          Command="{Binding DeleteInFavoriteCommand}"/>
             <AppBarButton x:Uid="SwapAppBar"
-                          Icon="Sort"/>
+                          Icon="Sort"
+                          Command="{Binding SwapCommand}"/>
             <AppBarButton x:Uid="HelpAppBar"
-                          Icon="Help"/>
+                          Icon="Help"
+                          Command="{Binding GoToHelpCommand}"/>
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

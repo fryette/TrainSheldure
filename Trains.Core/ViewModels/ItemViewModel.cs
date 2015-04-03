@@ -44,7 +44,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand DeleteInFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
         public IMvxCommand SetLastRouteCommand { get; private set; }
-
+        public IMvxCommand SwapCommand { get; private set; }
 
         #endregion
 
@@ -72,6 +72,7 @@ namespace Trains.Core.ViewModels
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SetLastRouteCommand = new MvxCommand(() => SetRequest(LastRequest));
+            SwapCommand = new MvxCommand(Swap);
         }
         #endregion
 
