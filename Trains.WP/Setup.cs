@@ -5,7 +5,6 @@ using Cirrious.MvvmCross.WindowsCommon.Platform;
 using Windows.UI.Xaml.Controls;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
-using FavoriteManage = Trains.WP.Implementations.FavoriteManage;
 using LastRequestTrain = Trains.WP.Implementations.LastRequestTrain;
 using Serializable = Trains.WP.Implementations.Serializable;
 using Trains.Infrastructure.Interfaces;
@@ -37,7 +36,6 @@ namespace Trains.WP
             Mvx.LazyConstructAndRegisterSingleton<ILastRequestTrainService, LastRequestTrain>();
             Mvx.LazyConstructAndRegisterSingleton<ISerializableService, Serializable>();
             Mvx.LazyConstructAndRegisterSingleton<ICheckTrainService, CheckTrain>();
-            Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
             Mvx.LazyConstructAndRegisterSingleton<IUserInteraction, UserInteractionService>();
 
             base.InitializePlatformServices();

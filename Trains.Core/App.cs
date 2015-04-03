@@ -28,6 +28,8 @@ namespace Trains.Core
             Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
             Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
             Mvx.LazyConstructAndRegisterSingleton<ITrainStopService, TrainStop>();
+            Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
+
 
         }
     }

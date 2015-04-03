@@ -107,7 +107,6 @@
     <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="DebugTrace.cs" />
-    <Compile Include="Implementations\FavoriteManage.cs" />
     <Compile Include="Implementations\FileSystem.cs" />
     <Compile Include="Implementations\LastRequestTrain.cs" />
     <Compile Include="Implementations\Serializable.cs" />
