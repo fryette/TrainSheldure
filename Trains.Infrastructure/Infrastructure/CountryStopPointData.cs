@@ -18,11 +18,19 @@ namespace Trains.Infrastructure.Infrastructure
             _fileSystem = fileSystem;
         }
 
-        public async Task<List<CountryStopPointDataGroup>> GetData()
+        public async Task<List<CountryStopPointGroup>> GetStopPoints()
         {
-            var datauri = new Uri("ms-appx:///trains.model/datamodel/stoppointsru.json");
-            var jsontext = await _fileSystem.GetFileContents("ms-appx:///trains.model/datamodel/stoppointsru.json");
-            return JsonConvert.DeserializeObject<List<CountryStopPointDataGroup>>(jsontext);
+            return JsonDeserializer<List<CountryStopPointGroup>>(await _fileSystem.GetFileContents("ms-appx:///trains.model/datamodel/StopPointsRU.json"));
+        }
+
+        public async Task<List<HelpInformationGroup>> GetHelpInformations()
+        {
+            return JsonDeserializer<List<HelpInformationGroup>>(await _fileSystem.GetFileContents("ms-appx:///trains.model/datamodel/HelpInformationRU.json"));
+        }
+
+        private T JsonDeserializer<T>(string jsonText) where T : class
+        {
+            return JsonConvert.DeserializeObject<T>(jsonText);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Trains.Services.Implementation
     {
         public List<LastRequest> LastRequests { get; set; }
         public List<LastRequest> FavoriteRequests { get; set; }
-        public IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
+        public IEnumerable<CountryStopPointItem> AutoCompletion { get; set; }
         public LastRequest UpdatedLastRequest { get; set; }
     }
 }

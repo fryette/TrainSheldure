@@ -33,8 +33,8 @@ namespace Trains.Services.Implementations
 
         private async void StartedActions()
         {
-            _appSettings.AutoCompletion = (await _local.GetData()).SelectMany(dataGroup => dataGroup.Items);
-
+            _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items);
+            
             _appSettings.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FileName.FavoriteRequests));
             _appSettings.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(FileName.UpdateLastRequest));
         }

@@ -9,6 +9,7 @@ namespace Trains.Infrastructure.Interfaces
 {
     public interface ILocalDataService
     {
-        Task<List<CountryStopPointDataGroup>> GetData();
+        Task<List<CountryStopPointGroup>> GetStopPoints();
+        Task<List<HelpInformationGroup>> GetHelpInformations();
     }
 }

@@ -40,12 +40,12 @@
     <Content Include="DataModel\Countries.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CountryStopPointDataGroup.cs" />
-    <Compile Include="Entities\CountryStopPointDataItem.cs" />
+    <Compile Include="Entities\CountryStopPointGroup.cs" />
+    <Compile Include="Entities\CountryStopPointItem.cs" />
     <Compile Include="Entities\Languages.cs" />
     <Compile Include="Entities\LastRequest.cs" />
-    <Compile Include="Entities\MenuDataGroup.cs" />
-    <Compile Include="Entities\MenuDataItem.cs" />
+    <Compile Include="Entities\HelpInformationGroup.cs" />
+    <Compile Include="Entities\HelpInformationItem.cs" />
     <Compile Include="Entities\FileName.cs" />
     <Compile Include="Entities\Train.cs" />
     <Compile Include="Entities\TrainStop.cs" />
@@ -54,10 +54,10 @@
     <Compile Include="Entities\ChygunkaSettings.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\StopPointsru.json" />
+    <Content Include="DataModel\StopPointsRU.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataModel\Menuru.json" />
+    <Content Include="DataModel\HelpInformationRU.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DataModel\StopPointsbe.json" />

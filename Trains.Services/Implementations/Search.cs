@@ -58,7 +58,7 @@ namespace Trains.Services.Implementations
             return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
         }
 
-        private Uri GetUrl(CountryStopPointDataItem fromItem, CountryStopPointDataItem toItem, string date)
+        private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
         {
             return new Uri("http://rasp.rw.by/m/" + "ru" + "/route/?from=" +
                    fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date);

@@ -9,7 +9,7 @@ namespace Trains.Services.Interfaces
 
         List<LastRequest> FavoriteRequests { get; set; }
 
-        IEnumerable<CountryStopPointDataItem> AutoCompletion { get; set; }
+        IEnumerable<CountryStopPointItem> AutoCompletion { get; set; }
 
         LastRequest UpdatedLastRequest { get; set; }
 
