@@ -239,7 +239,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void GoToSearch()
         {
-            ShowViewModel<ItemViewModel>();
+            ShowViewModel<SearchViewModel>();
         }
 
         /// <summary>
@@ -293,7 +293,7 @@ namespace Trains.Core.ViewModels
         /// This parameter is used to transmit the search page trains.</param>
         private void SelectTrain(LastRequest item)
         {
-            ShowViewModel<ItemViewModel>(new LastRequest { From = item.From, To = item.To });
+            ShowViewModel<SearchViewModel>(new LastRequest { From = item.From, To = item.To });
         }
 
         /// <summary>

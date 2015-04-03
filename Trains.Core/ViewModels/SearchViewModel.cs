@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Trains.Core.ViewModels
 {
-    class ItemViewModel : MvxViewModel
+    class SearchViewModel : MvxViewModel
     {
         #region readonlyProperties
 
@@ -57,7 +57,7 @@ namespace Trains.Core.ViewModels
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
         /// <param name="manageFavoriteRequest"></param>
-        public ItemViewModel(ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest,IAppSettings appSettings)
+        public SearchViewModel(ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest,IAppSettings appSettings)
         {
             _appSettings = appSettings;
             _search = search;
