@@ -19,7 +19,7 @@
                        Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">
-            <ListView ItemsSource="{Binding Menu}"
+            <ListView ItemsSource="{Binding HelpInformation}"
                       IsItemClickEnabled="True"
                       ItemTemplate="{StaticResource HelpTemplate}">
             </ListView>
