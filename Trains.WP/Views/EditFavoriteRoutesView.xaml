@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
     mc:Ignorable="d"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
@@ -21,9 +23,14 @@
         <Grid Row="1">
             <ListView x:Name="FavoriteRequests"
                       ItemsSource="{Binding FavoriteRequests,Mode=TwoWay}"
-                      IsItemClickEnabled="True"
+                      SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
                       Margin="5,0,0,0"
                       ItemTemplate="{StaticResource EditFavoriteRequestTemplate}">
+                <interactivity:Interaction.Behaviors>
+                    <core:EventTriggerBehavior EventName="Tapped">
+                        <core:InvokeCommandAction Command="{Binding SelectItemCommand}" />
+                    </core:EventTriggerBehavior>
+                </interactivity:Interaction.Behaviors>
             </ListView>
         </Grid>
     </Grid>
@@ -31,7 +38,7 @@
         <CommandBar>
             <AppBarButton x:Uid="DeleteAppBar"
                           Icon="Delete"
-                          />
+                          Command="{Binding DeleteCommand}"/>
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>
