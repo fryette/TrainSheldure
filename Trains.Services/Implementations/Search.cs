@@ -66,10 +66,9 @@ namespace Trains.Services.Implementations
 
         public async Task<List<Train>> UpdateTrainSchedule()
         {
-            //if (_appSettings.UpdatedLastRequest == null) return null;
-            //return await TrainGrabber.GetTrainSchedule(_appSettings.UpdatedLastRequest.From,
-            //                    _appSettings.UpdatedLastRequest.To, ToolHelper.GetDate(_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode));
-            return null;
+            if (_appSettings.UpdatedLastRequest == null) return null;
+            return await GetTrainSchedule(_appSettings.UpdatedLastRequest.From,
+                                _appSettings.UpdatedLastRequest.To, ToolHelper.GetDate(_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode));
         }
 
     }
