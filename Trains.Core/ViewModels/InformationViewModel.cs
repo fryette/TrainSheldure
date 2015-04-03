@@ -44,12 +44,6 @@ namespace Trains.Core.ViewModels
         public Train Parameter { get; set; }
 
         /// <summary>
-        /// User-selected train.
-        /// Used to save train if user whant to search TrainStops
-        /// </summary>        
-        private static Train SavedLastTrainInformations { get; set; }
-
-        /// <summary>
         /// Used to dispalying informations about the seats and their prices.
         /// </summary>
         private AdditionalInformation[] _additionalInformation;
@@ -90,10 +84,7 @@ namespace Trains.Core.ViewModels
         public void Init(string param)
         {
             Parameter = JsonConvert.DeserializeObject<Train>(param);
-            if (Parameter == null)
-                Parameter = SavedLastTrainInformations;
-            else
-                AdditionalInformation = Parameter.AdditionalInformation;
+            AdditionalInformation = Parameter.AdditionalInformation;
         }
 
         /// <summary>
@@ -103,7 +94,6 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun) return;
             IsTaskRun = true;
-            SavedLastTrainInformations = Parameter;
             var stopPointList = await _trainStop.GetTrainStop(Parameter.Link);
             IsTaskRun = false;
             ShowViewModel<StopPointViewModel>(new { param = JsonConvert.SerializeObject(stopPointList) });
