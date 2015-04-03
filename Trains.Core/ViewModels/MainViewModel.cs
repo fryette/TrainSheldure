@@ -10,6 +10,7 @@ using Trains.Services.Interfaces;
 using Trains.Services.Tools;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
+using Newtonsoft.Json;
 
 namespace Trains.Core.ViewModels
 {
@@ -43,27 +44,16 @@ namespace Trains.Core.ViewModels
         #region commands
 
         public IMvxCommand GoToSearchCommand { get; private set; }
-
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
-
         public IMvxCommand GoToNewsCommand { get; private set; }
-
         public IMvxCommand GoToFavoriteCommand { get; private set; }
-
         public IMvxCommand GoToHelpCommand { get; private set; }
-
         public IMvxCommand GoToMarketPlaceCommand { get; private set; }
-
         public IMvxCommand GoToAboutPageCommand { get; private set; }
-
         public IMvxCommand GoToSettingsPageCommand { get; private set; }
-
         public IMvxCommand ClickItemCommand { get; private set; }
-
         public IMvxCommand SelectTrainCommand { get; private set; }
-
         public IMvxCommand SentEmailCommand { get; private set; }
-
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
 
         #endregion
@@ -248,7 +238,7 @@ namespace Trains.Core.ViewModels
         /// <param name="train">Data that describes user-selected train(prices,seats,stop points,and other)</param>
         private void ClickItem(Train train)
         {
-            ShowViewModel<InformationViewModel>(train);
+            ShowViewModel<InformationViewModel>(new { param = JsonConvert.SerializeObject(train) });
         }
 
         /// <summary>

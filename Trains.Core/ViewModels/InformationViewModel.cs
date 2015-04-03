@@ -87,8 +87,9 @@ namespace Trains.Core.ViewModels
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the additional informations about user-selected train.
         /// </summary>
-        public void Init()
+        public void Init(string param)
         {
+            Parameter = JsonConvert.DeserializeObject<Train>(param);
             if (Parameter == null)
                 Parameter = SavedLastTrainInformations;
             else
