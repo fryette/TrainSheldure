@@ -97,12 +97,6 @@ namespace Trains.Core.ViewModels
             }
         }
 
-
-        /// <summary>
-        /// Used to display the completed fields from and to.
-        /// </summary> 
-        public LastRequest Parameter { get; set; }
-
         /// <summary>
         /// Stores variant of search.
         /// </summary> 
@@ -280,12 +274,13 @@ namespace Trains.Core.ViewModels
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
         /// </summary>
-        public void Init()
+        public void Init(string param)
         {
-            if (Parameter != null)
+            if (param != null)
             {
-                From = Parameter.From;
-                To = Parameter.To;
+                LastRequest temp = JsonConvert.DeserializeObject<LastRequest>(param);
+                From = temp.From;
+                To = temp.To;
             }
             SelectedVariant = VariantOfSearch[0];
             LastRequests = _appSettings.LastRequests;

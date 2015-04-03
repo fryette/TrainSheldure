@@ -52,7 +52,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand GoToAboutPageCommand { get; private set; }
         public IMvxCommand GoToSettingsPageCommand { get; private set; }
         public IMvxCommand ClickItemCommand { get; private set; }
-        public IMvxCommand SelectTrainCommand { get; private set; }
+        public IMvxCommand SelectFavoriteTrainCommand { get; private set; }
         public IMvxCommand SentEmailCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
 
@@ -78,7 +78,7 @@ namespace Trains.Core.ViewModels
             GoToAboutPageCommand = new MvxCommand(GoToAboutPage);
             GoToSettingsPageCommand = new MvxCommand(GoToSettingsPage);
             ClickItemCommand = new MvxCommand(() => ClickItem(SelectedTrain));
-            SelectTrainCommand = new MvxCommand(() => SelectTrain(LastRequestTrain));
+            SelectFavoriteTrainCommand = new MvxCommand(() => SelectFavoriteTrain(SelectedRoute));
             SentEmailCommand = new MvxCommand(SentEmail);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
         }
@@ -99,15 +99,15 @@ namespace Trains.Core.ViewModels
             }
         }
 
-        private LastRequest _lastRequestTrain;
+        private LastRequest _selectedRoute;
 
-        public LastRequest LastRequestTrain
+        public LastRequest SelectedRoute
         {
-            get { return _lastRequestTrain; }
+            get { return _selectedRoute; }
             set
             {
-                _lastRequestTrain = value;
-                RaisePropertyChanged(() => LastRequestTrain);
+                _selectedRoute = value;
+                RaisePropertyChanged(() => SelectedRoute);
             }
         }
 
@@ -281,9 +281,9 @@ namespace Trains.Core.ViewModels
         /// </summary>
         /// <param name="item">Data that describes route.
         /// This parameter is used to transmit the search page trains.</param>
-        private void SelectTrain(LastRequest item)
+        private void SelectFavoriteTrain(LastRequest item)
         {
-            ShowViewModel<SearchViewModel>(new LastRequest { From = item.From, To = item.To });
+            ShowViewModel<SearchViewModel>(new { param = JsonConvert.SerializeObject(item)});
         }
 
         /// <summary>
