@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Trains.Entities;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 
@@ -11,5 +12,6 @@ namespace Trains.Services.Implementation
         public IEnumerable<CountryStopPointItem> AutoCompletion { get; set; }
         public LastRequest UpdatedLastRequest { get; set; }
         public IEnumerable<HelpInformationItem> HelpInformation { get; set; }
+        public IEnumerable<Train> LastRequestTrain { get; set; }
     }
 }

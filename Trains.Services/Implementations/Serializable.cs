@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Trains.Infrastructure.Infrastructure;
@@ -7,8 +8,9 @@ using Trains.Services.Interfaces;
 
 namespace Trains.Services.Implementations
 {
-    public class Serializable : ISerializableService
+    public class Serializable
     {
+
         public Task<bool> CheckIsFile(string fileName)
         {
             return Serialize.CheckIsFile(fileName);
@@ -16,26 +18,12 @@ namespace Trains.Services.Implementations
 
         public List<LastRequest> SerializeLastRequest(string from, string to, List<LastRequest> lastRequests)
         {
-            if (lastRequests == null) lastRequests = new List<LastRequest>();
+            if (lastRequests == null) lastRequests = new List<LastRequest>(3);
             if (lastRequests.Any(x => x.From == from && x.To == to)) return lastRequests;
-            if (lastRequests.Count < 3)
-            {
-                lastRequests.Add(new LastRequest
-                {
-                    From = from,
-                    To = to
-                });
-            }
-            else
-            {
-                lastRequests[2] = lastRequests[1];
-                lastRequests[1] = lastRequests[0];
-                lastRequests[0] = new LastRequest
-                {
-                    From = from,
-                    To = to
-                };
-            }
+            lastRequests[2] = lastRequests[1];
+            lastRequests[1] = lastRequests[0];
+            lastRequests[0] = new LastRequest { From = from, To = to };
+            
             SerializeObjectToXml(lastRequests, FileName.LastRequests);
             return lastRequests;
         }

@@ -57,7 +57,7 @@ namespace Trains.Core.ViewModels
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
         /// <param name="manageFavoriteRequest"></param>
-        public SearchViewModel(ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest,IAppSettings appSettings)
+        public SearchViewModel(ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest, IAppSettings appSettings)
         {
             _appSettings = appSettings;
             _search = search;
@@ -301,15 +301,34 @@ namespace Trains.Core.ViewModels
                 //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
                 return;
             }
-            _serializable.SerializeObjectToXml(schedule, "LastTrainList");
+
+            _appSettings.LastRequestTrain = schedule;
+            await _serializable.SerializeObjectToXml(schedule, "LastTrainList");
             ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
         }
 
         private void SerializeDataSearch()
         {
-            _appSettings.LastRequests = _serializable.SerializeLastRequest(From, To, LastRequests);
+            SerializeLastRequests();
             _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
             _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, FileName.UpdateLastRequest);
+        }
+
+        private async void SerializeLastRequests()
+        {
+            if (LastRequests == null) LastRequests = new List<LastRequest>(3);
+            if (LastRequests.Any(x => x.From == From && x.To == To)) return;
+            if (LastRequests.Count == 3)
+            {
+                LastRequests[2] = LastRequests[1];
+                LastRequests[1] = LastRequests[0];
+                LastRequests[0] = new LastRequest { From = From, To = To };
+            }
+            else
+                LastRequests.Add(new LastRequest { From = From, To = To });
+
+            _appSettings.LastRequests = LastRequests;
+            await _serializable.SerializeObjectToXml<List<LastRequest>>(LastRequests, FileName.LastRequests);
         }
 
         /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Trains.Entities;
 using Trains.Model.Entities;
 
 namespace Trains.Services.Interfaces
@@ -14,6 +15,8 @@ namespace Trains.Services.Interfaces
         LastRequest UpdatedLastRequest { get; set; }
 
         IEnumerable<HelpInformationItem> HelpInformation { get; set; }
+
+        IEnumerable<Train> LastRequestTrain { get; set; }
         //public static ResourceLoader ResourceLoader;
         //Language Lang { get; set; }
     }

@@ -108,8 +108,6 @@
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Implementations\FileSystem.cs" />
-    <Compile Include="Implementations\LastRequestTrain.cs" />
-    <Compile Include="Implementations\Serializable.cs" />
     <Compile Include="Implementations\TrainStop.cs" />
     <Compile Include="Implementations\UserInteractionService.cs" />
     <Compile Include="Infrastructure\Serialize.cs" />

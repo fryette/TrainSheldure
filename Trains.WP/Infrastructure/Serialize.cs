@@ -2,13 +2,14 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using Trains.Services.Interfaces;
 using Windows.Storage;
 
 namespace Trains.WP.Infrastructure
 {
-    public class Serialize
+    public class Serialize : ISerializableService
     {
-        public static async Task SaveObjectToXml<T>(T objectToSave, string filename)
+        public async Task SerializeObjectToXml<T>(T objectToSave, string filename)
         {
             var serializer = new XmlSerializer(typeof(T));
             var folder = ApplicationData.Current.LocalFolder;
@@ -18,7 +19,7 @@ namespace Trains.WP.Infrastructure
                 serializer.Serialize(stream, objectToSave);
         }
 
-        public static async Task<T> ReadObjectFromXmlFileAsync<T>(string filename) where T : class
+        public async Task<T> ReadObjectFromXmlFileAsync<T>(string filename) where T : class
         {
             var serializer = new XmlSerializer(typeof(T));
             var folder = ApplicationData.Current.LocalFolder;
@@ -30,7 +31,7 @@ namespace Trains.WP.Infrastructure
             return objectFromXml;
         }
 
-        public static async Task<bool> CheckIsFile(string fileName)
+        public async Task<bool> CheckIsFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName)) return false;
             var folder = ApplicationData.Current.LocalFolder;
@@ -44,7 +45,7 @@ namespace Trains.WP.Infrastructure
                 return false; // not exist
             }
         }
-        public static async void DeleteFile(string fileName)
+        public async Task DeleteFile(string fileName)
         {
             if (!(await CheckIsFile(fileName))) return;
             await (await ApplicationData.Current.LocalFolder.GetFileAsync(fileName)).DeleteAsync();

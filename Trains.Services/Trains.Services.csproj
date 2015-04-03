@@ -51,7 +51,6 @@
   <ItemGroup>
     <Compile Include="Implementations\AppSettings.cs" />
     <Compile Include="Implementations\FavoriteManage.cs" />
-    <Compile Include="Implementations\LastRequestTrain.cs" />
     <Compile Include="Implementations\LocalData.cs" />
     <Compile Include="Implementations\Search.cs" />
     <Compile Include="Implementations\Serializable.cs" />
@@ -61,7 +60,6 @@
     <Compile Include="Implementations\TrainStop.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\IFavoriteManageService.cs" />
-    <Compile Include="Interfaces\ILastRequestTrainService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Interfaces\ICheckTrainService.cs" />
