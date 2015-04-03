@@ -67,13 +67,14 @@ namespace Trains.Core.ViewModels
 
             SearchCommand = new MvxCommand(Search);
             SuggestionChosenCommand = new MvxCommand(SuggestionChosen);
-            ClearCommand = new MvxCommand(SuggestionChosen);
+            ClearCommand = new MvxCommand(Clear);
             AddToFavoriteCommand = new MvxCommand(AddToFavorite);
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SetLastRouteCommand = new MvxCommand(() => SetRequest(LastRequest));
             SwapCommand = new MvxCommand(Swap);
         }
+
         #endregion
 
         #region properties
