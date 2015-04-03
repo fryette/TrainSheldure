@@ -40,7 +40,7 @@ namespace Trains.Core.ViewModels
             _serializable = serializable;
 
             GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
-            SelectTrainCommand = new MvxCommand(()=>ClickItem(SelectedItem));
+            SelectTrainCommand = new MvxCommand(() => ClickItem(SelectedTrain));
         }
 
         #endregion
@@ -54,17 +54,17 @@ namespace Trains.Core.ViewModels
 
         public string Request { get; set; }
 
-        private Train _selectedItem;
-        public Train SelectedItem
+        private Train _selectedTrain;
+        public Train SelectedTrain
         {
             get
             {
-                return _selectedItem;
+                return _selectedTrain;
             }
             set
             {
-                _selectedItem = value;
-                RaisePropertyChanged(() => SelectedItem);
+                _selectedTrain = value;
+                RaisePropertyChanged(() => SelectedTrain);
             }
         }
 
@@ -90,7 +90,7 @@ namespace Trains.Core.ViewModels
         /// <param name="train">Data that describes user-selected train(prices,seats,stop points and other)</param>
         private void ClickItem(Train train)
         {
-            ShowViewModel<InformationViewModel>(train);
+            ShowViewModel<InformationViewModel>(new { param = JsonConvert.SerializeObject(train) });
         }
 
         /// <summary>
