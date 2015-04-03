@@ -2,6 +2,7 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Infrastructure.Interfaces;
+using Trains.Service.Implementation;
 using Trains.Services.Implementation;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
@@ -25,7 +26,7 @@ namespace Trains.Core
             Mvx.LazyConstructAndRegisterSingleton<ITestService, TestService>();
             Mvx.LazyConstructAndRegisterSingleton<IStartService, Start>();
             Mvx.LazyConstructAndRegisterSingleton<ISearchService, Search>();
-            Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, CountryStopPointData>();
+            Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
 
         }
     }

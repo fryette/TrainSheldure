@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using Trains.Infrastructure.Interfaces;
 using Trains.Model.Entities;
 
-namespace Trains.Infrastructure.Infrastructure
+namespace Trains.Service.Implementation
 {
-    public class CountryStopPointData : ILocalDataService
+    public class LocalData : ILocalDataService
     {
         private readonly IFileSystem _fileSystem;
 
-        public CountryStopPointData(IFileSystem fileSystem)
+        public LocalData(IFileSystem fileSystem)
         {
             _fileSystem = fileSystem;
         }

@@ -10,5 +10,6 @@ namespace Trains.Services.Implementation
         public List<LastRequest> FavoriteRequests { get; set; }
         public IEnumerable<CountryStopPointItem> AutoCompletion { get; set; }
         public LastRequest UpdatedLastRequest { get; set; }
+        public IEnumerable<HelpInformationItem> HelpInformation { get; set; }
     }
 }

@@ -15,7 +15,7 @@ namespace Trains.Services.Implementations
         private readonly ILocalDataService _local;
         private readonly IAppSettings _appSettings;
 
-        public Start(ISerializableService serializable, ILocalDataService local,IAppSettings appSettings)
+        public Start(ISerializableService serializable, ILocalDataService local, IAppSettings appSettings)
         {
             _serializable = serializable;
             _local = local;
@@ -34,7 +34,7 @@ namespace Trains.Services.Implementations
         private async void StartedActions()
         {
             _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items);
-            
+            _appSettings.HelpInformation = (await _local.GetHelpInformations()).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.FavoriteRequests = await Task.Run(() => _serializable.GetLastRequests(FileName.FavoriteRequests));
             _appSettings.UpdatedLastRequest = await Task.Run(() => _serializable.ReadObjectFromXmlFileAsync<LastRequest>(FileName.UpdateLastRequest));
         }
