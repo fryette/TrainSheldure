@@ -10,6 +10,7 @@ using LastRequestTrain = Trains.WP.Implementations.LastRequestTrain;
 using Serializable = Trains.WP.Implementations.Serializable;
 using Trains.Infrastructure.Interfaces;
 using Trains.WP.Implementations;
+using Chance.MvvmCross.Plugins.UserInteraction;
 
 namespace Trains.WP
 {
@@ -37,6 +38,7 @@ namespace Trains.WP
             Mvx.LazyConstructAndRegisterSingleton<ISerializableService, Serializable>();
             Mvx.LazyConstructAndRegisterSingleton<ICheckTrainService, CheckTrain>();
             Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
+            Mvx.LazyConstructAndRegisterSingleton<IUserInteraction, UserInteractionService>();
 
             base.InitializePlatformServices();
         }
