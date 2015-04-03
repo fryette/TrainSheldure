@@ -23,8 +23,7 @@
                       ItemsSource="{Binding FavoriteRequests,Mode=TwoWay}"
                       IsItemClickEnabled="True"
                       Margin="5,0,0,0"
-                      ItemTemplate="{StaticResource EditFavoriteRequestTemplate}"
-                      >
+                      ItemTemplate="{StaticResource EditFavoriteRequestTemplate}">
             </ListView>
         </Grid>
     </Grid>
