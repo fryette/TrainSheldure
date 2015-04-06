@@ -46,7 +46,6 @@
     <Compile Include="Entities\LastRequest.cs" />
     <Compile Include="Entities\HelpInformationGroup.cs" />
     <Compile Include="Entities\HelpInformationItem.cs" />
-    <Compile Include="Entities\FileName.cs" />
     <Compile Include="Entities\Train.cs" />
     <Compile Include="Entities\TrainStop.cs" />
     <Compile Include="Properties\Annotations.cs" />

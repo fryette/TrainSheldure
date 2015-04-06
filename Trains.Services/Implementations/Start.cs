@@ -8,6 +8,7 @@ using System.Linq;
 using Trains.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using Trains.Entities;
+using Trains.Resources;
 
 namespace Trains.Services.Implementations
 {
@@ -37,21 +38,21 @@ namespace Trains.Services.Implementations
         {
             _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.HelpInformation = (await _local.GetHelpInformations()).SelectMany(dataGroup => dataGroup.Items);
-            _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(FileName.FavoriteRequests);
-            _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(FileName.UpdateLastRequest);
-            _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(FileName.LastTrainList);
+            _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
+            _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
+            _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
         }
 
         private async void CheckIsFirstStart()
         {
-            if ((await _serializable.CheckIsFile(FileName.IsFirstStart)))
-                _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(FileName.LastRequests);
+            if ((await _serializable.CheckIsFile(Constants.IsFirstStart)))
+                _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.LastRequests);
             else
             {
                 //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("FirstMessageStartString"));
-                await Task.Run(() => _serializable.SerializeObjectToXml(true, FileName.IsFirstStart));
-                await _serializable.DeleteFile(FileName.IsSecondStart);
-                await _serializable.DeleteFile(FileName.LastRequests);
+                await Task.Run(() => _serializable.SerializeObjectToXml(true, Constants.IsFirstStart));
+                await _serializable.DeleteFile(Constants.IsSecondStart);
+                await _serializable.DeleteFile(Constants.LastRequests);
             }
         }
 

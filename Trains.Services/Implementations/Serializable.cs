@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
+using Trains.Resources;
 using Trains.Services.Interfaces;
 
 namespace Trains.Services.Implementations
@@ -11,9 +12,9 @@ namespace Trains.Services.Implementations
     public class Serializable
     {
 
-        public Task<bool> CheckIsFile(string fileName)
+        public Task<bool> CheckIsFile(string Constants)
         {
-            return Serialize.CheckIsFile(fileName);
+            return Serialize.CheckIsFile(Constants);
         }
 
         public List<LastRequest> SerializeLastRequest(string from, string to, List<LastRequest> lastRequests)
@@ -24,29 +25,29 @@ namespace Trains.Services.Implementations
             lastRequests[1] = lastRequests[0];
             lastRequests[0] = new LastRequest { From = from, To = to };
             
-            SerializeObjectToXml(lastRequests, FileName.LastRequests);
+            SerializeObjectToXml(lastRequests, Constants.LastRequests);
             return lastRequests;
         }
 
-        public async void SerializeObjectToXml<T>(T obj, string fileName)
+        public async void SerializeObjectToXml<T>(T obj, string Constants)
         {
-            await Serialize.SaveObjectToXml(obj, fileName);
+            await Serialize.SaveObjectToXml(obj, Constants);
         }
 
-        public async Task<List<LastRequest>> GetLastRequests(string fileName)
+        public async Task<List<LastRequest>> GetLastRequests(string Constants)
         {
-            var obj = await Serialize.ReadObjectFromXmlFileAsync<List<LastRequest>>(fileName);
+            var obj = await Serialize.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants);
             return obj == null ? null : obj.ToList();
         }
 
-        public void DeleteFile(string fileName)
+        public void DeleteFile(string Constants)
         {
-            Serialize.DeleteFile(fileName);
+            Serialize.DeleteFile(Constants);
         }
 
-        public Task<T> ReadObjectFromXmlFileAsync<T>(string filename) where T : class
+        public Task<T> ReadObjectFromXmlFileAsync<T>(string Constants) where T : class
         {
-            return Serialize.ReadObjectFromXmlFileAsync<T>(filename);
+            return Serialize.ReadObjectFromXmlFileAsync<T>(Constants);
         }
     }
 }

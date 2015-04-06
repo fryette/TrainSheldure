@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Trains.Model.Entities;
+using Trains.Resources;
 using Trains.Services.Interfaces;
 
 namespace Trains.Services.Implementations
@@ -23,10 +24,10 @@ namespace Trains.Services.Implementations
             favoriteList = _appSettings.FavoriteRequests;
             if (!favoriteList.Any())
             {
-                _serializable.DeleteFile(FileName.FavoriteRequests);
+                _serializable.DeleteFile(Constants.FavoriteRequests);
                 //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("AllFavoritesDeleted"));
             }
-            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, FileName.FavoriteRequests);
+            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
         }
 
         public bool AddToFavorite(string from, string to)
@@ -45,7 +46,7 @@ namespace Trains.Services.Implementations
             }
 
             _appSettings.FavoriteRequests.Add(new LastRequest { From = from, To = to });
-            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, FileName.FavoriteRequests);
+            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsAddedToFavorite"));
             return true;
         }
@@ -55,7 +56,7 @@ namespace Trains.Services.Implementations
             var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.From == from && x.To == to);
             if (objectToDelete == null) return false;
             _appSettings.FavoriteRequests.Remove(objectToDelete);
-            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, FileName.FavoriteRequests);
+            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
             return true;
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsIncorect"));
