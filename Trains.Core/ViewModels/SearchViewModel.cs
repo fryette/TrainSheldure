@@ -7,6 +7,7 @@ using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;
 using Newtonsoft.Json;
+using System.Net.NetworkInformation;
 
 namespace Trains.Core.ViewModels
 {
@@ -35,11 +36,6 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private readonly ISerializableService _serializable;
 
-        /// <summary>
-        /// Used to navigate between pages.
-        /// </summary>
-        private readonly ICheckTrainService _checkTrain;
-
         #endregion
 
         #region command
@@ -64,12 +60,11 @@ namespace Trains.Core.ViewModels
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
         /// <param name="checkTrain">Used to CHeck</param>
         /// <param name="manageFavoriteRequest"></param>
-        public SearchViewModel(ISearchService search, ISerializableService serializable, ICheckTrainService checkTrain, IFavoriteManageService manageFavoriteRequest, IAppSettings appSettings)
+        public SearchViewModel(ISearchService search, ISerializableService serializable, IFavoriteManageService manageFavoriteRequest, IAppSettings appSettings)
         {
             _appSettings = appSettings;
             _search = search;
             _serializable = serializable;
-            _checkTrain = checkTrain;
             _manageFavoriteRequest = manageFavoriteRequest;
 
             SearchCommand = new MvxCommand(Search);
@@ -298,7 +293,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void Search()
         {
-            if (IsTaskRun || await Task.Run(() => _checkTrain.CheckInput(From, To, Datum))) return;
+            if (IsTaskRun || await Task.Run(() => CheckInput())) return;
             IsTaskRun = true;
             SerializeDataSearch();
             var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
@@ -412,7 +407,7 @@ namespace Trains.Core.ViewModels
             if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
             AutoSuggestions.Clear();
 
-            if (_checkTrain.CheckFavorite(From, To))
+            if (CheckFavorite())
                 SetVisibilityToFavoriteIcons(true, false);
             else
                 SetVisibilityToFavoriteIcons(false, true);
@@ -425,6 +420,38 @@ namespace Trains.Core.ViewModels
         {
             IsVisibleFavoriteIcon = favorite;
             IsVisibleUnFavoriteIcon = unfavorite;
+        }
+
+        public bool CheckInput()
+        {
+            if ((Datum.Date - DateTime.Now).Days < 0)
+            {
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("DateUpTooLater"));
+                return true;
+            }
+            if (Datum.Date > DateTime.Now.AddDays(45))
+            {
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("DateTooBig"));
+                return true;
+            }
+
+            if (String.IsNullOrEmpty(From) || String.IsNullOrEmpty(To) ||
+                !(_appSettings.AutoCompletion.Any(x => x.UniqueId == From) &&
+                  _appSettings.AutoCompletion.Any(x => x.UniqueId == To)))
+            {
+                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("IncorrectInput"));
+                return true;
+            }
+
+            if (NetworkInterface.GetIsNetworkAvailable()) return false;
+            //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("ConectionError"));
+            return true;
+        }
+
+        public bool CheckFavorite()
+        {
+            if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any()) return true;
+            return !string.IsNullOrEmpty(From) && !string.IsNullOrEmpty(To) && !_appSettings.FavoriteRequests.Any(x => x.From == From && x.To == To);
         }
 
         #endregion

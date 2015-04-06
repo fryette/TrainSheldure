@@ -30,7 +30,6 @@ namespace Trains.Core
             Mvx.LazyConstructAndRegisterSingleton<ITrainStopService, TrainStop>();
             Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
             Mvx.LazyConstructAndRegisterSingleton<ITrainStopService, TrainStop>();
-            Mvx.LazyConstructAndRegisterSingleton<ICheckTrainService, CheckTrain>();
         }
     }
 }
