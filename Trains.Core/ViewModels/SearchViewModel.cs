@@ -9,6 +9,8 @@ using Trains.Services.Tools;
 using Newtonsoft.Json;
 using System.Net.NetworkInformation;
 using Trains.Resources;
+using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
 
 namespace Trains.Core.ViewModels
 {
@@ -287,19 +289,19 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void Search()
         {
-            if (IsTaskRun || await Task.Run(() => CheckInput())) return;
+            if (IsTaskRun || await CheckInput()) return;
             IsTaskRun = true;
             SerializeDataSearch();
             var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
             IsTaskRun = false;
             if (schedule == null || !schedule.Any())
             {
-                //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("SearchError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("SearchError"));
                 return;
             }
 
             _appSettings.LastRequestTrain = schedule;
-            await _serializable.SerializeObjectToXml(schedule, "LastTrainList");
+            await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
             ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
         }
 
@@ -416,16 +418,16 @@ namespace Trains.Core.ViewModels
             IsVisibleUnFavoriteIcon = unfavorite;
         }
 
-        public bool CheckInput()
+        public async Task<bool> CheckInput()
         {
             if ((Datum.Date - DateTime.Now).Days < 0)
             {
-                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("DateUpTooLater"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("DateUpTooLater"));
                 return true;
             }
             if (Datum.Date > DateTime.Now.AddDays(45))
             {
-                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("DateTooBig"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("DateTooBig"));
                 return true;
             }
 
@@ -433,12 +435,12 @@ namespace Trains.Core.ViewModels
                 !(_appSettings.AutoCompletion.Any(x => x.UniqueId == From) &&
                   _appSettings.AutoCompletion.Any(x => x.UniqueId == To)))
             {
-                //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("IncorrectInput"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("IncorrectInput"));
                 return true;
             }
 
             if (NetworkInterface.GetIsNetworkAvailable()) return false;
-            //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("ConectionError"));
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("ConectionError"));
             return true;
         }
 

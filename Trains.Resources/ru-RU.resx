@@ -117,7 +117,145 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="String1" xml:space="preserve">
-    <value>1</value>
+  <data name="AllDays" xml:space="preserve">
+    <value>На все дни</value>
+  </data>
+  <data name="AllFavoritesDeleted" xml:space="preserve">
+    <value>Список ваших маршрутов теперь пуст</value>
+  </data>
+  <data name="Arrival" xml:space="preserve">
+    <value>Отпр: </value>
+  </data>
+  <data name="BelarusConstString" xml:space="preserve">
+    <value>(Беларусь)</value>
+  </data>
+  <data name="Business" xml:space="preserve">
+    <value>бизнес</value>
+  </data>
+  <data name="ConectionError" xml:space="preserve">
+    <value>Проверьте подключение к интернету</value>
+  </data>
+  <data name="Culture" xml:space="preserve">
+    <value>ru</value>
+  </data>
+  <data name="DateTooBig" xml:space="preserve">
+    <value>Поиск может производится только за 45 дней от текущего момента или используйте режим 'На все дни'</value>
+  </data>
+  <data name="DateUpTooLater" xml:space="preserve">
+    <value>Поиск может производится начиная от текущего времени</value>
+  </data>
+  <data name="Departure" xml:space="preserve">
+    <value>Приб </value>
+  </data>
+  <data name="EditFavoriteMessageError" xml:space="preserve">
+    <value>Сохраните хотя бы один маршрут, что бы иметь возможность редактирования</value>
+  </data>
+  <data name="ErrorUpdate" xml:space="preserve">
+    <value>Не найден последний запрос, или произошла ошибка загрузки</value>
+  </data>
+  <data name="Everyday" xml:space="preserve">
+    <value>everyday</value>
+  </data>
+  <data name="FavoriteListIsEmpthy" xml:space="preserve">
+    <value>Ваш список пуст</value>
+  </data>
+  <data name="Feedback" xml:space="preserve">
+    <value>Чыгунка/предложения/баги</value>
+  </data>
+  <data name="FinalStopPoint" xml:space="preserve">
+    <value>конечная</value>
+  </data>
+  <data name="FirstMessageStartString" xml:space="preserve">
+    <value>Те кто так долго ждали беларусского языка теперь могут выставить его в настройках! Полный список изменений смотрите в соответствующем разделе. Если вы хотите новых функций и оперативного исправления багов/глюков, оставьте отзыв в маркете. Каждый комментарий приближает выход очередного обновления! Шлите свои предложения по улучшению! Спасибо за внимание.</value>
+  </data>
+  <data name="Hour" xml:space="preserve">
+    <value> ч. </value>
+  </data>
+  <data name="IncorrectInput" xml:space="preserve">
+    <value>Один или оба пункта не существует, проверьте еще раз ввод</value>
+  </data>
+  <data name="International" xml:space="preserve">
+    <value>Международные</value>
+  </data>
+  <data name="InternetConnectionError" xml:space="preserve">
+    <value>Доступ к интернету отсутствует, проверьте подключение!</value>
+  </data>
+  <data name="Interregional" xml:space="preserve">
+    <value>Межрегиональные</value>
+  </data>
+  <data name="LanguageChanged" xml:space="preserve">
+    <value>Успешно обновлен язык! Просьба перезайти в приложение!</value>
+  </data>
+  <data name="lastRequests" xml:space="preserve">
+    <value>lastRequests</value>
+  </data>
+  <data name="LastTrainList" xml:space="preserve">
+    <value>LastTrainList</value>
+  </data>
+  <data name="Min" xml:space="preserve">
+    <value> мин.</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>нет</value>
+  </data>
+  <data name="NoPlace" xml:space="preserve">
+    <value>Мест нет. Уточняйте в кассах</value>
+  </data>
+  <data name="NotifyMessage" xml:space="preserve">
+    <value>Выберите интересующие вас станции, затем выберите кнопку удалить выбранные</value>
+  </data>
+  <data name="OnDay" xml:space="preserve">
+    <value>На дату</value>
+  </data>
+  <data name="OnEveryDay" xml:space="preserve">
+    <value>На все дни</value>
+  </data>
+  <data name="Place" xml:space="preserve">
+    <value>Мест: </value>
+  </data>
+  <data name="PlaceNo" xml:space="preserve">
+    <value>Мест нет</value>
+  </data>
+  <data name="PlaceYes" xml:space="preserve">
+    <value>Места есть</value>
+  </data>
+  <data name="PointsIsInCorrect" xml:space="preserve">
+    <value>Одна или обе станции не введены</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>цена: </value>
+  </data>
+  <data name="Regional" xml:space="preserve">
+    <value>Региональные</value>
+  </data>
+  <data name="RouteIsAddedToFavorite" xml:space="preserve">
+    <value>Маршрут добавлен!</value>
+  </data>
+  <data name="RouteIsDeletedInFavorite" xml:space="preserve">
+    <value>Станция удалена!</value>
+  </data>
+  <data name="RouteIsIncorect" xml:space="preserve">
+    <value>Маршрут не найден, проверьте поля ввода станций!</value>
+  </data>
+  <data name="SearchError" xml:space="preserve">
+    <value>Поезда на дату отправления не найдены</value>
+  </data>
+  <data name="Sessile" xml:space="preserve">
+    <value>Сидячие</value>
+  </data>
+  <data name="SpecifyDate" xml:space="preserve">
+    <value>Уточните дату для отображения информации о местах</value>
+  </data>
+  <data name="Stay" xml:space="preserve">
+    <value>Стоянка: </value>
+  </data>
+  <data name="ThisRouteIsPresent" xml:space="preserve">
+    <value>Данный маршрут уже присутствует</value>
+  </data>
+  <data name="Unlimited" xml:space="preserve">
+    <value>неограничено</value>
+  </data>
+  <data name="Via" xml:space="preserve">
+    <value>через </value>
   </data>
 </root>

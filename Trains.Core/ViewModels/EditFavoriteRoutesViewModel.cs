@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using System.Linq;
+using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
 
 namespace Trains.Core.ViewModels
 {
@@ -58,12 +60,12 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
-        public void Init()
+        public async void Init()
         {
             FavoriteRequests = _appSettings.FavoriteRequests;
             DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
             SelectItemCommand = new MvxCommand(() => SelectItem(SelectedItem));
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("NotifyMessage"));
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("NotifyMessage"));
         }
 
 

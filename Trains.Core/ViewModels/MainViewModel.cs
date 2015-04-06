@@ -12,6 +12,7 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Newtonsoft.Json;
 using System.Resources;
+using Trains.Resources;
 
 namespace Trains.Core.ViewModels
 {
@@ -258,9 +259,7 @@ namespace Trains.Core.ViewModels
         private async void GoToFavorite()
         {
             if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any())
-                await Mvx.Resolve<IUserInteraction>().AlertAsync("ItestString");
-
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("EditFavoriteMessageError"));
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();
         }
@@ -322,12 +321,11 @@ namespace Trains.Core.ViewModels
             IsTaskRun = true;
             var trains = await Task.Run(() => _search.UpdateTrainSchedule());
             if (trains == null)
-                ;
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("InternetConnectionError"));
             else
             {
                 Trains = trains;
-                await Task.Run(() => _serializable.SerializeObjectToXml(Trains, "LastTrainList"));
+                await Task.Run(() => _serializable.SerializeObjectToXml(Trains, Constants.LastTrainList));
             }
             IsTaskRun = false;
         }

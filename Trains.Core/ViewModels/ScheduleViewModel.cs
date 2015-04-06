@@ -79,8 +79,7 @@ namespace Trains.Core.ViewModels
         public void Init(string param)
         {
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
-            //Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
-            //_serializable.SerializeObjectToXml(Parameter.ToList(), "LastTrainList");
+            Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
         }
 
         /// <summary>
