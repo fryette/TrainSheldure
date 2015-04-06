@@ -42,7 +42,7 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// User-selected train.
         /// </summary>
-        public Train Train { get; set; }
+        private Train Train;
 
         /// <summary>
         /// Used to dispalying informations about the seats and their prices.
