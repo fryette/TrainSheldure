@@ -6,9 +6,8 @@ using Windows.UI.Xaml.Controls;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
 using Trains.Infrastructure.Interfaces;
-using Trains.WP.Implementations;
 using Chance.MvvmCross.Plugins.UserInteraction;
-using Trains.WP.Infrastructure;
+using Trains.WP.Services;
 
 namespace Trains.WP
 {
@@ -33,7 +32,6 @@ namespace Trains.WP
         {
             Mvx.LazyConstructAndRegisterSingleton<IFileSystem, FileSystem>();
             Mvx.LazyConstructAndRegisterSingleton<ISerializableService, Serialize>();
-            Mvx.LazyConstructAndRegisterSingleton<ICheckTrainService, CheckTrain>();
             Mvx.LazyConstructAndRegisterSingleton<IUserInteraction, UserInteractionService>();
 
             base.InitializePlatformServices();

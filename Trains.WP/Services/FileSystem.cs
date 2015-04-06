@@ -8,7 +8,7 @@ using Trains.Services.Interfaces;
 using Windows.Data.Json;
 using Windows.Storage;
 
-namespace Trains.WP.Implementations
+namespace Trains.WP.Services
 {
     public class FileSystem : IFileSystem
     {

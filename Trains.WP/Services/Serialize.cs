@@ -5,7 +5,7 @@ using System.Xml.Serialization;
 using Trains.Services.Interfaces;
 using Windows.Storage;
 
-namespace Trains.WP.Infrastructure
+namespace Trains.WP.Services
 {
     public class Serialize : ISerializableService
     {

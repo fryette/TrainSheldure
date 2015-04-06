@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace Trains.WP.Implementations
+namespace Trains.WP.Services
 {
     public class UserInteractionService : IUserInteraction
     {
