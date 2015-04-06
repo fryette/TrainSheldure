@@ -16,7 +16,7 @@ namespace Trains.Services.Interfaces
 
         IEnumerable<HelpInformationItem> HelpInformation { get; set; }
 
-        IEnumerable<Train> LastRequestTrain { get; set; }
+        List<Train> LastRequestTrain { get; set; }
         //public static ResourceLoader ResourceLoader;
         //Language Lang { get; set; }
     }

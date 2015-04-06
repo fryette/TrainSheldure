@@ -13,7 +13,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
@@ -84,6 +84,10 @@
     <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
       <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
       <Name>Trains.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trains.Resources\Trains.Resources.csproj">
+      <Project>{bea17689-0d32-46b2-a216-2c2bd5ad8764}</Project>
+      <Name>Trains.Resources</Name>
     </ProjectReference>
     <ProjectReference Include="..\Trains.Services\Trains.Services.csproj">
       <Project>{13FDA41E-D3B2-4A71-808C-AA1489FB628F}</Project>

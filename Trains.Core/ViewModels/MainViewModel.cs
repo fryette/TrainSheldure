@@ -11,6 +11,7 @@ using Trains.Services.Tools;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Newtonsoft.Json;
+using System.Resources;
 
 namespace Trains.Core.ViewModels
 {
@@ -153,9 +154,9 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Keeps trains from the last request.
         /// </summary>
-        private static IEnumerable<Train> _trains;
+        private static List<Train> _trains;
 
-        public IEnumerable<Train> Trains
+        public List<Train> Trains
         {
             get { return _trains; }
             set
@@ -213,9 +214,6 @@ namespace Trains.Core.ViewModels
             Trains = _appSettings.LastRequestTrain;
             FavoriteRequests = _appSettings.FavoriteRequests;
             IsDownloadRun = false;
-
-            // TODO: example
-            // var html = await _testService.GetHtml(new Uri("http://google.com"));
         }
 
         /// <summary>
@@ -267,7 +265,6 @@ namespace Trains.Core.ViewModels
             //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("EditFavoriteMessageError"));
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();
-
         }
 
         /// <summary>
@@ -277,7 +274,7 @@ namespace Trains.Core.ViewModels
         /// This parameter is used to transmit the search page trains.</param>
         private void SelectFavoriteTrain(LastRequest item)
         {
-            ShowViewModel<SearchViewModel>(new { param = JsonConvert.SerializeObject(item)});
+            ShowViewModel<SearchViewModel>(new { param = JsonConvert.SerializeObject(item) });
         }
 
         /// <summary>
