@@ -33,7 +33,6 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private readonly ISearchService _search;
 
-        private readonly ITestService _testService;
 
         #endregion
 
@@ -56,13 +55,12 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(IStartService start, ISerializableService serializable, ISearchService search, IAppSettings appSettings, ITestService testService)
+        public MainViewModel(IStartService start, ISerializableService serializable, ISearchService search, IAppSettings appSettings)
         {
             _start = start;
             _serializable = serializable;
             _search = search;
             _appSettings = appSettings;
-            _testService = testService;
 
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);

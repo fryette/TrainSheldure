@@ -35,7 +35,6 @@ namespace Trains.Services.Implementations
                 var match = Parser.ParseData(data, Pattern);
                 return link.Contains("thread") ? TrainStopGrabber.GetRegionalEconomTrainStops(match) : TrainStopGrabber.GetTrainStops(match);
             }
-            //ToolHelper.ShowMessageBox(SavedItems.ResourceLoader.GetString("InternetConnectionError"));
             return null;
         }
     }

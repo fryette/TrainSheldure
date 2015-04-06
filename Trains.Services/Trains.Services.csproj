@@ -54,14 +54,12 @@
     <Compile Include="Implementations\LocalData.cs" />
     <Compile Include="Implementations\Search.cs" />
     <Compile Include="Implementations\Start.cs" />
-    <Compile Include="Implementations\TestService.cs" />
     <Compile Include="Implementations\TrainStop.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\IFavoriteManageService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Interfaces\IStartService.cs" />
-    <Compile Include="Interfaces\ITestService.cs" />
     <Compile Include="Interfaces\ITrainStopService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementations\WebBackendAppService.cs" />
