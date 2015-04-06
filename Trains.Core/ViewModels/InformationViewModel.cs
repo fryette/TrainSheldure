@@ -42,7 +42,7 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// User-selected train.
         /// </summary>
-        public Train Parameter { get; set; }
+        public Train Train { get; set; }
 
         /// <summary>
         /// Used to dispalying informations about the seats and their prices.
@@ -84,8 +84,8 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
-            Parameter = JsonConvert.DeserializeObject<Train>(param);
-            AdditionalInformation = Parameter.AdditionalInformation;
+            Train = JsonConvert.DeserializeObject<Train>(param);
+            AdditionalInformation = Train.AdditionalInformation;
         }
 
         /// <summary>
@@ -95,7 +95,7 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun) return;
             IsTaskRun = true;
-            var stopPointList = (await _trainStop.GetTrainStop(Parameter.Link));
+            var stopPointList = (await _trainStop.GetTrainStop(Train.Link));
             IsTaskRun = false;
             ShowViewModel<StopPointViewModel>(new { param = JsonConvert.SerializeObject(stopPointList) });
         }

@@ -14,7 +14,7 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Used to display stop points and time of arrival and time of departure.
         /// </summary> 
-        public List<TrainStop> Parameter { get; set; }
+        public List<TrainStop> TrainStops { get; set; }
         #endregion
 
         #region command
@@ -32,7 +32,7 @@ namespace Trains.Core.ViewModels
 
         public void Init(string param)
         {
-            Parameter = JsonConvert.DeserializeObject<List<TrainStop>>(param);
+            TrainStops = JsonConvert.DeserializeObject<List<TrainStop>>(param);
         }
 
         /// <summary>

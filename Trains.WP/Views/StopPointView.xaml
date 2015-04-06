@@ -19,7 +19,7 @@
                        Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">
-            <ListView ItemsSource="{Binding Parameter}"
+            <ListView ItemsSource="{Binding TrainStops}"
                       IsItemClickEnabled="True"
                       Margin="5,0"
                       ItemTemplate="{StaticResource StopPointTemplate}">

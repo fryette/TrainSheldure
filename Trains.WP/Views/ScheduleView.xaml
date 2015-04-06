@@ -14,7 +14,7 @@
     <Grid Margin="5,0">
         <Pivot>
             <PivotItem Header="{Binding Request}" FontSize="10">
-                <ListView ItemsSource="{Binding Parameter}"
+                <ListView ItemsSource="{Binding Trains}"
                           SelectedItem="{Binding SelectedTrain,Mode=TwoWay}"
                           ItemTemplate="{StaticResource ScheduleTemplate}">
                     <interactivity:Interaction.Behaviors>

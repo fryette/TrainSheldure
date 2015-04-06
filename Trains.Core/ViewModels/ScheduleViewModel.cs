@@ -50,7 +50,7 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Ñontains information on all trains on the route selected by the user.
         /// </summary> 
-        public IEnumerable<Train> Parameter { get; set; }
+        public IEnumerable<Train> Trains { get; set; }
 
         public string Request { get; set; }
 
@@ -78,7 +78,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
-            Parameter = JsonConvert.DeserializeObject<List<Train>>(param);
+            Trains = JsonConvert.DeserializeObject<List<Train>>(param);
             //Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
             //_serializable.SerializeObjectToXml(Parameter.ToList(), "LastTrainList");
         }
