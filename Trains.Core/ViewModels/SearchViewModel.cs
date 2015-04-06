@@ -8,18 +8,12 @@ using Trains.Services.Interfaces;
 using Trains.Services.Tools;
 using Newtonsoft.Json;
 using System.Net.NetworkInformation;
+using Trains.Resources;
 
 namespace Trains.Core.ViewModels
 {
     class SearchViewModel : MvxViewModel
     {
-        #region constant
-
-        private const string UpdateLastRequest = "updateLastRequst";
-        private const string LastRequestsStr = "lastRequests";
-        
-        #endregion
-
         #region readonlyProperties
 
         private readonly IAppSettings _appSettings;
@@ -313,7 +307,7 @@ namespace Trains.Core.ViewModels
         {
             SerializeLastRequests();
             _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
-            _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, UpdateLastRequest);
+            _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
         }
 
         private async void SerializeLastRequests()
@@ -330,7 +324,7 @@ namespace Trains.Core.ViewModels
                 LastRequests.Add(new LastRequest { From = From, To = To });
 
             _appSettings.LastRequests = LastRequests;
-            await _serializable.SerializeObjectToXml<List<LastRequest>>(LastRequests, LastRequestsStr);
+            await _serializable.SerializeObjectToXml<List<LastRequest>>(LastRequests, Constants.LastRequests);
         }
 
         /// <summary>
