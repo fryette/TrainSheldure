@@ -119,7 +119,7 @@ namespace Trains.Infrastructure.Infrastructure
                         return type.Contains("бизнес")
                             ? "/Assets/Interregional_biznes.png"
                             : "/Assets/Interregional_econom.png";
-                    if (type.Contains("региональные"))
+                    if (type.Contains("Региональные"))
                         return type.Contains("бизнес") ? "/Assets/Regional_biznes.png" : "/Assets/Regional_econom.png";
                     return "/Assets/Cityes.png";
                 });
@@ -169,7 +169,7 @@ namespace Trains.Infrastructure.Infrastructure
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D");
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
             var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + " ч. ");
-            return "через" + hours + timeSpan.Minutes + " мин.";
+            return "через " + hours + timeSpan.Minutes + " мин.";
         }
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
