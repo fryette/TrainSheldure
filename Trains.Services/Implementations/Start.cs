@@ -9,6 +9,9 @@ using Trains.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using Trains.Entities;
 using Trains.Resources;
+using System;
+using System.Reflection;
+using System.Resources;
 
 namespace Trains.Services.Implementations
 {
@@ -36,6 +39,9 @@ namespace Trains.Services.Implementations
 
         private async void StartedActions()
         {
+            var assembly = typeof(Constants).GetTypeInfo().Assembly;
+            //TODO выбор языка не стоит,захардокадано первый resource манифест 
+            _appSettings.Resource = new ResourceManager(assembly.GetManifestResourceNames()[0].Replace(".resources", String.Empty), assembly);
             _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.HelpInformation = (await _local.GetHelpInformations()).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);

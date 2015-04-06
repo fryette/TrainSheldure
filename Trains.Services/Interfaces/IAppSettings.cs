@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Resources;
 using Trains.Entities;
 using Trains.Model.Entities;
 
@@ -17,7 +18,7 @@ namespace Trains.Services.Interfaces
         IEnumerable<HelpInformationItem> HelpInformation { get; set; }
 
         List<Train> LastRequestTrain { get; set; }
-        //public static ResourceLoader ResourceLoader;
+        ResourceManager Resource { get; set; }
         //Language Lang { get; set; }
     }
 }

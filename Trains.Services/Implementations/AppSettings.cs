@@ -13,5 +13,8 @@ namespace Trains.Services.Implementation
         public LastRequest UpdatedLastRequest { get; set; }
         public IEnumerable<HelpInformationItem> HelpInformation { get; set; }
         public List<Train> LastRequestTrain { get; set; }
+
+
+        public System.Resources.ResourceManager Resource { get; set; }
     }
 }
