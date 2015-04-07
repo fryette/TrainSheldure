@@ -3,7 +3,7 @@ using Trains.Entities;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 
-namespace Trains.Services.Implementation
+namespace Trains.Core
 {
     public class AppSettings : IAppSettings
     {

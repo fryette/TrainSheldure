@@ -292,7 +292,11 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput()) return;
             IsTaskRun = true;
-            var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
+            var schedule = await Task.Run(() => {
+
+				// TODO: refactoring this
+				_search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant));
+			});
             if (schedule == null || !schedule.Any())
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("SearchError"));
