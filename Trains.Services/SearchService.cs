@@ -5,9 +5,8 @@ using Trains.Services.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Entities;
-using Trains.Services.Tools;
-using Trains.Services.Interfaces;
 using System;
+using System.Globalization;
 
 namespace Trains.Services.Implementations
 {
@@ -31,26 +30,21 @@ namespace Trains.Services.Implementations
         #endregion
 
         public readonly IHttpService _httpService;
-        //private readonly IAppSettings _appSettings;
 
-        public SearchService(IHttpService httpService /*,IAppSettings appSettings*/)
+        public SearchService(IHttpService httpService)
         {
-            //_appSettings = appSettings;
             _httpService = httpService;
         }
 
-        public async Task<List<Train>> GetTrainSchedule(string from, string to, string date)
+        public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, System.DateTimeOffset Datum, string selectedVariant)
         {
-			// TODO: refactoring this
-			var fromItem = new CountryStopPointItem(); // _appSettings.AutoCompletion.First(x => x.UniqueId == from);
-			var toItem = new CountryStopPointItem(); // _appSettings.AutoCompletion.First(x => x.UniqueId == to);
-
-            var data = await _httpService.LoadResponseAsync(GetUrl(fromItem, toItem, date));
+            var date=GetDate(Datum,selectedVariant);
+            var data = await _httpService.LoadResponseAsync(GetUrl(from, to,date ));
             var additionalInformation = TrainGrabber.GetPlaces(data);
             var links = TrainGrabber.GetLink(data);
 
             IEnumerable<Train> trains;
-            if (fromItem.Country != "(Беларусь)" && toItem.Country != "(Беларусь)")
+            if (from.Country != "(Беларусь)" && to.Country != "(Беларусь)")
                 trains = TrainGrabber.GetTrainsInformationOnForeignStantion(Parser.ParseData(data, Pattern).ToList(), date);
             else
                 trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
@@ -73,8 +67,15 @@ namespace Trains.Services.Implementations
 			// _appSettings.UpdatedLastRequest.From
 			// _appSettings.UpdatedLastRequest.To
 			// ToolHelper.GetDate(_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode)
-            return await GetTrainSchedule(null, null , null);
+            //return await GetTrainSchedule(null, null , null,null);
+            return null;
         }
 
+        private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
+        {
+            if (selectedVariantOfSearch == "На все дни") return "everyday";
+            if (datum < DateTime.Now) datum = DateTime.Now;
+            return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+        }
     }
 }

@@ -7,7 +7,6 @@ using Cirrious.MvvmCross.ViewModels;
 using Trains.Entities;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using Trains.Services.Tools;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Newtonsoft.Json;

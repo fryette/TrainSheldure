@@ -5,13 +5,11 @@ using System.Threading.Tasks;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using Trains.Services.Tools;
 using Newtonsoft.Json;
 using System.Net.NetworkInformation;
 using Trains.Resources;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
-using Trains.Services.Interfaces;
 using Trains.Core.Interfaces;
 
 namespace Trains.Core.ViewModels
@@ -293,11 +291,7 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput()) return;
             IsTaskRun = true;
-            var schedule = await Task.Run(() => 
-
-				// TODO: refactoring this
-				_search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant))
-			);
+            var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
             if (schedule == null || !schedule.Any())
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("SearchError"));

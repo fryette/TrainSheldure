@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Trains.Services.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
-using Trains.Services.Tools;
 
 namespace Trains.Services.Implementations
 {
