@@ -11,6 +11,7 @@ using Trains.Services.Tools;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Newtonsoft.Json;
+using System.Reflection;
 using System.Resources;
 using Trains.Resources;
 using Trains.Infrastructure.Interfaces;
@@ -21,9 +22,9 @@ namespace Trains.Core.ViewModels
     {
         #region readonlyProperties
 
-        private readonly IStartService _start;
-
         private readonly IAppSettings _appSettings;
+
+        private readonly ILocalDataService _local;
 
         /// <summary>
         /// Used to serialization/deserialization objects.
@@ -57,12 +58,12 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(IStartService start, ISerializableService serializable, ISearchService search, IAppSettings appSettings)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, ILocalDataService local)
         {
-            _start = start;
             _serializable = serializable;
             _search = search;
             _appSettings = appSettings;
+            _local = local;
 
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
@@ -207,7 +208,8 @@ namespace Trains.Core.ViewModels
         public async void Init()
         {
             IsDownloadRun = true;
-            await _start.RestoreData();
+            if (_appSettings.AutoCompletion == null)
+                RestoreData();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
@@ -334,6 +336,18 @@ namespace Trains.Core.ViewModels
         private void GoToSettingsPage()
         {
             ShowViewModel<SettingsViewModel>();
+        }
+
+        private async void RestoreData()
+        {
+            var assembly = typeof(Constants).GetTypeInfo().Assembly;
+            //TODO выбор языка не стоит,захардокадано первый resource манифест 
+            _appSettings.Resource = new ResourceManager(assembly.GetManifestResourceNames()[0].Replace(".resources", String.Empty), assembly);
+            _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items);
+            _appSettings.HelpInformation = (await _local.GetHelpInformations()).SelectMany(dataGroup => dataGroup.Items);
+            _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
+            _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
+            _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
         }
 
         #endregion
