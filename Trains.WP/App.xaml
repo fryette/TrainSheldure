@@ -17,7 +17,7 @@
             </ResourceDictionary.ThemeDictionaries>
 
             <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-
+            <converter:EnumToImagePathConverter x:Key="EnumToImageConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
@@ -277,7 +277,7 @@
                     <Grid Grid.Row="1">
                         <StackPanel Orientation="Horizontal">
                             <StackPanel HorizontalAlignment="Left">
-                                <Image Source="{Binding ImagePath}"
+                                <Image Source="{Binding Image,Converter={StaticResource EnumToImageConverter}}"
                                        Height="100"
                                        Width="50"
                                        HorizontalAlignment="Left" />

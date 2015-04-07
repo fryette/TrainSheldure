@@ -38,7 +38,7 @@ namespace Trains.Services.Infrastructure
         public static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date)
         {
             var dateOfDeparture = DateTime.ParseExact(date, "yy-MM-dd", CultureInfo.InvariantCulture);
-            var imagePath = new List<string>(GetImagePath(parameters));
+            var imagePath = new List<Picture>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - parameters.Count / SearchCountParameter;
 
@@ -49,8 +49,8 @@ namespace Trains.Services.Infrastructure
                     parameters[i + 1].Groups[2].Value,
                     parameters[i + 2].Groups[3].Value,
                     parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
-                    parameters[i / 4 + step].Value,
                     imagePath[i / 4],
+                    parameters[i / 4 + step].Value,
                     GetBeforeDepartureTime(starTime, dateOfDeparture), date));
             }
             return trainList;
@@ -58,7 +58,7 @@ namespace Trains.Services.Infrastructure
 
         public static IEnumerable<Train> GetTrainsInformationOnAllDays(IReadOnlyList<Match> parameters)
         {
-            var imagePath = new List<string>(GetImagePath(parameters));
+            var imagePath = new List<Picture>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - parameters.Count / SearchCountParameter;
             var dateNow = DateTime.Now.ToString("yy-MM-dd") + ' ';
@@ -68,8 +68,8 @@ namespace Trains.Services.Infrastructure
                     dateNow + parameters[i + 1].Groups[2].Value,
                     parameters[i + 2].Groups[3].Value,
                     parameters[i + 3].Groups[4].Value,
-                    parameters[i / 4 + step].Value,
-                    imagePath[i / 4]));
+                    imagePath[i / 4],
+                    parameters[i / 4 + step].Value));
             }
             return trainList;
         }
@@ -81,13 +81,13 @@ namespace Trains.Services.Infrastructure
             for (var i = 0; i < parameters.Count; i += 4)
             {
                 trainList.Add(CreateTrain(date + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
-                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), null, "/Assets/Foreign_Trains.png"));
+                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), Picture.Foreign));
             }
             return trainList;
         }
 
-        private static Train CreateTrain(string time1, string time2, string city, string description, string type = null,
-            string imagePath = null, string beforeDepartureTime = null, string departureDate = null)
+        private static Train CreateTrain(string time1, string time2, string city, string description, Picture image, string type = null,
+             string beforeDepartureTime = null, string departureDate = null)
         {
             DateTime endTime;
             DateTime startTime;
@@ -102,26 +102,26 @@ namespace Trains.Services.Infrastructure
                 City = city.Replace("&nbsp;&mdash;", " - "),
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
-                ImagePath = imagePath,
+                Image = image,
                 OnTheWay = departureDate == null ? null : OnTheWay(startTime, endTime),
                 DepartureDate = departureDate
             };
         }
 
-        public static IEnumerable<string> GetImagePath(IEnumerable<Match> match)
+        public static IEnumerable<Picture> GetImagePath(IEnumerable<Match> match)
         {
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
                 {
                     if (type.Contains("Международные"))
-                        return "/Assets/Inteneshnl.png";
+                        return Picture.International;
                     if (type.Contains("Межрегиональные"))
                         return type.Contains("бизнес")
-                            ? "/Assets/Interregional_biznes.png"
-                            : "/Assets/Interregional_econom.png";
+                            ? Picture.InterRegionalBusiness
+                            : Picture.InterRegionalEconom;
                     if (type.Contains("Региональные"))
-                        return type.Contains("бизнес") ? "/Assets/Regional_biznes.png" : "/Assets/Regional_econom.png";
-                    return "/Assets/Cityes.png";
+                        return type.Contains("бизнес") ? Picture.RegionalBusiness : Picture.RegionalEconom;
+                    return Picture.City;
                 });
         }
 
@@ -202,10 +202,6 @@ namespace Trains.Services.Infrastructure
             return trainsList.Where(x => !x.BeforeDepartureTime.Contains("-"));
         }
 
-        enum Picture
-        {
-
-        }
         #endregion
     }
 }

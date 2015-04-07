@@ -102,6 +102,7 @@
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\EnumToImagePathConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Services\Serialize.cs" />
@@ -233,7 +234,7 @@
     <Content Include="Assets\appbar.settings.png" />
     <Content Include="Assets\appbar.star.png" />
     <Content Include="Assets\Cityes.png" />
-    <Content Include="Assets\Foreign_Trains.png" />
+    <Content Include="Assets\Foreign.png" />
     <Content Include="Assets\HelpPageIcons\GE.png" />
     <Content Include="Assets\HelpPageIcons\IL.png" />
     <Content Include="Assets\HelpPageIcons\IRLB_IRLE.png" />
