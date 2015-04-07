@@ -44,6 +44,7 @@
     <Compile Include="Interfaces\IFileSystem.cs" />
     <Compile Include="Interfaces\IHttpService.cs" />
     <Compile Include="Interfaces\ILocalDataService.cs" />
+    <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

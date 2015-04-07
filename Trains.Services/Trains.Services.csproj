@@ -58,7 +58,6 @@
     <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\IFavoriteManageService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
-    <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Interfaces\IStartService.cs" />
     <Compile Include="Interfaces\ITrainStopService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

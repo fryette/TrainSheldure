@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Trains.Model.Entities;
 
-namespace Trains.Services.Interfaces
+namespace Trains.Infrastructure.Interfaces
 {
     public interface ISerializableService
     {

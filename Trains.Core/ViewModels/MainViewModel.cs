@@ -13,6 +13,7 @@ using Cirrious.CrossCore;
 using Newtonsoft.Json;
 using System.Resources;
 using Trains.Resources;
+using Trains.Infrastructure.Interfaces;
 
 namespace Trains.Core.ViewModels
 {
