@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Trains.Model.Entities;
 using Trains.Entities;
 
-namespace Trains.Infrastructure.Infrastructure
+namespace Trains.Services.Infrastructure
 {
     public class TrainGrabber
     {

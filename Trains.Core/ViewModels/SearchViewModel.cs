@@ -11,7 +11,7 @@ using System.Net.NetworkInformation;
 using Trains.Resources;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
-using Trains.Infrastructure.Interfaces;
+using Trains.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
 {

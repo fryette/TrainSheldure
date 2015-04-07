@@ -5,7 +5,7 @@ using Cirrious.MvvmCross.WindowsCommon.Platform;
 using Windows.UI.Xaml.Controls;
 using Trains.Services.Implementations;
 using Trains.Services.Interfaces;
-using Trains.Infrastructure.Interfaces;
+using Trains.Services.Interfaces;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Trains.WP.Services;
 

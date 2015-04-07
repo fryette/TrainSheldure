@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using Trains.Infrastructure.Infrastructure;
-using Trains.Infrastructure.Interfaces;
+using Trains.Services.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Services.Tools;

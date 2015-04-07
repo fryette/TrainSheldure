@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Trains.Model.Entities;
 
-namespace Trains.Infrastructure.Interfaces
+namespace Trains.Services.Interfaces
 {
     public interface ILocalDataService
     {

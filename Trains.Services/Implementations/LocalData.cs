@@ -7,8 +7,8 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
-using Trains.Infrastructure.Interfaces;
 using Trains.Model.Entities;
+using Trains.Services.Interfaces;
 
 namespace Trains.Service.Implementation
 {

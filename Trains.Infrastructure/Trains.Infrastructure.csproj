@@ -8,7 +8,7 @@
     <ProjectGuid>{6D5409E7-763E-4E8F-A491-902907EA4515}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Trains.Infrastructure</RootNamespace>
+    <RootNamespace>Trains.Services</RootNamespace>
     <AssemblyName>Trains.Infrastructure</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -40,7 +40,6 @@
     <Compile Include="Infrastructure\Parser.cs" />
     <Compile Include="Infrastructure\TrainGrabber.cs" />
     <Compile Include="Infrastructure\TrainStopGrabber.cs" />
-    <Compile Include="Interfaces\ILocalDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -57,6 +56,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

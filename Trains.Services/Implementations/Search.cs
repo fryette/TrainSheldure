@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Trains.Infrastructure.Infrastructure;
+using Trains.Services.Infrastructure;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 using Trains.Entities;
 using Trains.Services.Tools;
-using Trains.Infrastructure.Interfaces;
+using Trains.Services.Interfaces;
 using System;
 
 namespace Trains.Services.Implementations

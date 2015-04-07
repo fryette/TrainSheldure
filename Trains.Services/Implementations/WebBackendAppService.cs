@@ -1,5 +1,4 @@
 ﻿using System;
-using Trains.Infrastructure.Interfaces;
 using System.Threading.Tasks;
 using Trains.Model;
 using Trains.Resources;

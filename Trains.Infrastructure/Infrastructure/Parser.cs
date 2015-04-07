@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Trains.Infrastructure.Infrastructure
+namespace Trains.Services.Infrastructure
 {
    public class Parser
     {
