@@ -202,6 +202,10 @@ namespace Trains.Infrastructure.Infrastructure
             return trainsList.Where(x => !x.BeforeDepartureTime.Contains("-"));
         }
 
+        enum Picture
+        {
+
+        }
         #endregion
     }
 }

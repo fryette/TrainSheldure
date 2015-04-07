@@ -30,7 +30,6 @@ namespace Trains.WP
 
         protected override void InitializePlatformServices()
         {
-            Mvx.LazyConstructAndRegisterSingleton<IFileSystem, FileSystem>();
             Mvx.LazyConstructAndRegisterSingleton<ISerializableService, Serialize>();
             Mvx.LazyConstructAndRegisterSingleton<IUserInteraction, UserInteractionService>();
 

@@ -107,7 +107,6 @@
     <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="DebugTrace.cs" />
-    <Compile Include="Services\FileSystem.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Services\Serialize.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

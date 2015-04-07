@@ -40,7 +40,6 @@
     <Compile Include="Infrastructure\Parser.cs" />
     <Compile Include="Infrastructure\TrainGrabber.cs" />
     <Compile Include="Infrastructure\TrainStopGrabber.cs" />
-    <Compile Include="Interfaces\IFileSystem.cs" />
     <Compile Include="Interfaces\IHttpService.cs" />
     <Compile Include="Interfaces\ILocalDataService.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
