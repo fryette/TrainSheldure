@@ -292,25 +292,26 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput()) return;
             IsTaskRun = true;
-            SerializeDataSearch();
             var schedule = await Task.Run(() => _search.GetTrainSchedule(From, To, ToolHelper.GetDate(Datum, SelectedVariant)));
-            IsTaskRun = false;
             if (schedule == null || !schedule.Any())
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("SearchError"));
+                IsTaskRun = false;
                 return;
             }
 
             _appSettings.LastRequestTrain = schedule;
+            await SerializeDataSearch();
             await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
+            IsTaskRun = false;
             ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
         }
 
-        private void SerializeDataSearch()
+        private async Task SerializeDataSearch()
         {
             SerializeLastRequests();
             _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
-            _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
+            await _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
         }
 
         private async void SerializeLastRequests()
