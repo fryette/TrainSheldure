@@ -38,8 +38,8 @@ namespace Trains.Services.Implementations
 
         public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, System.DateTimeOffset Datum, string selectedVariant)
         {
-            var date=GetDate(Datum,selectedVariant);
-            var data = await _httpService.LoadResponseAsync(GetUrl(from, to,date ));
+            var date = GetDate(Datum, selectedVariant);
+            var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
             var additionalInformation = TrainGrabber.GetPlaces(data);
             var links = TrainGrabber.GetLink(data);
 
@@ -56,19 +56,7 @@ namespace Trains.Services.Implementations
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
         {
             return new Uri("http://rasp.rw.by/m/" + "ru" + "/route/?from=" +
-                   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date+"&"+new Random().Next(0,20));
-        }
-
-        public async Task<List<Train>> UpdateTrainSchedule()
-        {
-            //if (_appSettings.UpdatedLastRequest == null) return null;
-
-			// TODO: refactoring this
-			// _appSettings.UpdatedLastRequest.From
-			// _appSettings.UpdatedLastRequest.To
-			// ToolHelper.GetDate(_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode)
-            //return await GetTrainSchedule(null, null , null,null);
-            return null;
+                   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date + "&" + new Random().Next(0, 20));
         }
 
         private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)

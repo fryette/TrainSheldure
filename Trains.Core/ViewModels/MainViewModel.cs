@@ -318,10 +318,14 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (IsTaskRun)
-                return;
+            if (IsTaskRun) return;
+            if (_appSettings.UpdatedLastRequest == null) return;
             IsTaskRun = true;
-            var trains = await Task.Run(() => _search.UpdateTrainSchedule());
+
+            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.From),
+                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To), 
+                _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
+
             if (trains == null)
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("InternetConnectionError"));
             else
@@ -329,6 +333,7 @@ namespace Trains.Core.ViewModels
                 Trains = trains;
                 await Task.Run(() => _serializable.SerializeObjectToXml(Trains, Constants.LastTrainList));
             }
+
             IsTaskRun = false;
         }
 
