@@ -208,7 +208,7 @@ namespace Trains.Core.ViewModels
         {
             IsDownloadRun = true;
             if (_appSettings.AutoCompletion == null)
-                RestoreData();
+                await RestoreData();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
@@ -337,7 +337,7 @@ namespace Trains.Core.ViewModels
             ShowViewModel<SettingsViewModel>();
         }
 
-        private async void RestoreData()
+        private async Task RestoreData()
         {
             var assembly = typeof(Constants).GetTypeInfo().Assembly;
             //TODO выбор языка не стоит,захардокадано первый resource манифест 
@@ -347,6 +347,7 @@ namespace Trains.Core.ViewModels
             _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
             _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
             _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
+            _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.LastRequests);
         }
 
         #endregion
