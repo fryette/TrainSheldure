@@ -38,7 +38,6 @@
   <ItemGroup>
     <Compile Include="Extensions\HttpWebRequest.cs" />
     <Compile Include="Infrastructure\Parser.cs" />
-    <Compile Include="Infrastructure\Serialize.cs" />
     <Compile Include="Infrastructure\TrainGrabber.cs" />
     <Compile Include="Infrastructure\TrainStopGrabber.cs" />
     <Compile Include="Interfaces\IFileSystem.cs" />
