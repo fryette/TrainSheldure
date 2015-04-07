@@ -45,5 +45,21 @@
       <LastGenOutput>ru-RU.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\Countries.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\HelpInformationRU.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\Menube.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\StopPointsbe.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\StopPointsru.json" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

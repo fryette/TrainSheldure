@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using Trains.Infrastructure.Interfaces;
 using Trains.Model.Entities;
@@ -11,21 +14,31 @@ namespace Trains.Service.Implementation
 {
     public class LocalData : ILocalDataService
     {
-        private readonly IFileSystem _fileSystem;
-
-        public LocalData(IFileSystem fileSystem)
-        {
-            _fileSystem = fileSystem;
-        }
+		public async Task<string> LoadContent(string fileName)
+		{
+			var assembly = typeof(Trains.Resources.Constants).GetTypeInfo().Assembly;
+			var name = string.Format("Trains.Resources.DataModels.{0}", fileName);
+			var stream = assembly.GetManifestResourceStream(name);
+			
+			if (stream != null) {
+				using (var reader = new StreamReader(stream))
+				{
+					return await reader.ReadToEndAsync();
+				}
+			}
+			return null;
+		}
 
         public async Task<List<CountryStopPointGroup>> GetStopPoints()
         {
-            return JsonDeserializer<List<CountryStopPointGroup>>(await _fileSystem.GetFileContents("ms-appx:///trains.model/datamodel/StopPointsRU.json"));
+			var json = await LoadContent("StopPointsru.json");
+            return JsonDeserializer<List<CountryStopPointGroup>>(json);
         }
 
         public async Task<List<HelpInformationGroup>> GetHelpInformations()
         {
-            return JsonDeserializer<List<HelpInformationGroup>>(await _fileSystem.GetFileContents("ms-appx:///trains.model/datamodel/HelpInformationRU.json"));
+			var json = await LoadContent("HelpInformationRU.json");
+            return JsonDeserializer<List<HelpInformationGroup>>(json);
         }
 
         private T JsonDeserializer<T>(string jsonText) where T : class
