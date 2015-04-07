@@ -3,6 +3,7 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
+using Trains.Core.Interfaces;
 using Trains.Droid.Services;
 
 namespace Trains.Droid
