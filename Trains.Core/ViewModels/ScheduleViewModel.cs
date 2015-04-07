@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Trains.Entities;
 using Trains.Services.Interfaces;
 using System.Linq;
+using Trains.Core.Interfaces;
 
 namespace Trains.Core.ViewModels
 {

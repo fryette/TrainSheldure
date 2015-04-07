@@ -166,10 +166,6 @@
       <Project>{D5769CED-2D11-4058-8894-ACD18A90CD5A}</Project>
       <Name>Trains.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Trains.Infrastructure\Trains.Infrastructure.csproj">
-      <Project>{6d5409e7-763e-4e8f-a491-902907ea4515}</Project>
-      <Name>Trains.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

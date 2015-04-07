@@ -11,7 +11,7 @@ using System;
 
 namespace Trains.Services.Implementations
 {
-    public class Search : ISearchService
+    public class SearchService : ISearchService
     {
         #region constant
 
@@ -31,18 +31,19 @@ namespace Trains.Services.Implementations
         #endregion
 
         public readonly IHttpService _httpService;
-        private readonly IAppSettings _appSettings;
+        //private readonly IAppSettings _appSettings;
 
-        public Search(IHttpService httpService, IAppSettings appSettings)
+        public SearchService(IHttpService httpService /*,IAppSettings appSettings*/)
         {
-            _appSettings = appSettings;
+            //_appSettings = appSettings;
             _httpService = httpService;
         }
 
         public async Task<List<Train>> GetTrainSchedule(string from, string to, string date)
         {
-            var fromItem = _appSettings.AutoCompletion.First(x => x.UniqueId == from);
-            var toItem = _appSettings.AutoCompletion.First(x => x.UniqueId == to);
+			// TODO: refactoring this
+			var fromItem = new CountryStopPointItem(); // _appSettings.AutoCompletion.First(x => x.UniqueId == from);
+			var toItem = new CountryStopPointItem(); // _appSettings.AutoCompletion.First(x => x.UniqueId == to);
 
             var data = await _httpService.LoadResponseAsync(GetUrl(fromItem, toItem, date));
             var additionalInformation = TrainGrabber.GetPlaces(data);
@@ -66,9 +67,13 @@ namespace Trains.Services.Implementations
 
         public async Task<List<Train>> UpdateTrainSchedule()
         {
-            if (_appSettings.UpdatedLastRequest == null) return null;
-            return await GetTrainSchedule(_appSettings.UpdatedLastRequest.From,
-                                _appSettings.UpdatedLastRequest.To, ToolHelper.GetDate(_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode));
+            //if (_appSettings.UpdatedLastRequest == null) return null;
+
+			// TODO: refactoring this
+			// _appSettings.UpdatedLastRequest.From
+			// _appSettings.UpdatedLastRequest.To
+			// ToolHelper.GetDate(_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode)
+            return await GetTrainSchedule(null, null , null);
         }
 
     }

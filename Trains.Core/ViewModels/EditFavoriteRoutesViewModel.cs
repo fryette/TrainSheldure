@@ -5,6 +5,7 @@ using Trains.Services.Interfaces;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
+using Trains.Core.Interfaces;
 
 namespace Trains.Core.ViewModels
 {

@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 using Trains.Resources;
 using Trains.Services.Interfaces;
 
-namespace Trains.Services.Implementations
+namespace Trains.Core
 {
     public class FavoriteManage : IFavoriteManageService
     {

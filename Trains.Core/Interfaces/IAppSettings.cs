@@ -3,7 +3,7 @@ using System.Resources;
 using Trains.Entities;
 using Trains.Model.Entities;
 
-namespace Trains.Services.Interfaces
+namespace Trains.Core.Interfaces
 {
    public interface IAppSettings
     {

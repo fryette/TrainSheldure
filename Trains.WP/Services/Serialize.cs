@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Trains.Services.Interfaces;
+using Trains.Core.Interfaces;
 using Trains.Services.Interfaces;
 using Windows.Storage;
 

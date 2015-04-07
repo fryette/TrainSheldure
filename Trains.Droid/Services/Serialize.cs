@@ -9,8 +9,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Trains.Infrastructure.Interfaces;
 using System.Threading.Tasks;
+using Trains.Core.Interfaces;
 
 namespace Trains.Droid.Services
 {

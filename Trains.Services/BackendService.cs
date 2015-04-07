@@ -7,11 +7,11 @@ using Trains.Services.Interfaces;
 
 namespace Trains.Services
 {
-    public class WebBackendAppService : IBackendService
+    public class BackendService : IBackendService
     {
         private readonly IHttpService _httpService;
 
-        public WebBackendAppService(IHttpService httpService)
+        public BackendService(IHttpService httpService)
         {
             _httpService = httpService;
         }
