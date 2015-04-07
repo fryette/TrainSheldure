@@ -14,7 +14,7 @@ namespace Trains.Services.Implementations
     public class Search : ISearchService
     {
         #region constant
-        
+
         private const string Pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
                                        "(?<endTime><div class=\"list_end\">(.+?)</div>)|" +
                                        "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
@@ -33,7 +33,7 @@ namespace Trains.Services.Implementations
         public readonly IHttpService _httpService;
         private readonly IAppSettings _appSettings;
 
-        public Search(IHttpService httpService,IAppSettings appSettings)
+        public Search(IHttpService httpService, IAppSettings appSettings)
         {
             _appSettings = appSettings;
             _httpService = httpService;
@@ -61,7 +61,7 @@ namespace Trains.Services.Implementations
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
         {
             return new Uri("http://rasp.rw.by/m/" + "ru" + "/route/?from=" +
-                   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date);
+                   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date+"&"+new Random().Next(0,20));
         }
 
         public async Task<List<Train>> UpdateTrainSchedule()
