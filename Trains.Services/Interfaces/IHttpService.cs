@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 
-namespace Trains.Infrastructure.Interfaces
+namespace Trains.Services.Interfaces
 {
     public interface IHttpService
     {

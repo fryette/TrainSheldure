@@ -56,6 +56,7 @@
     <Compile Include="Implementations\TrainStop.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\IFavoriteManageService.cs" />
+    <Compile Include="Interfaces\IHttpService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />
     <Compile Include="Interfaces\ITrainStopService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

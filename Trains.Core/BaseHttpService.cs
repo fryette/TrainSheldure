@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Trains.Infrastructure.Interfaces;
+using Trains.Services.Interfaces;
 
 namespace Trains.Core
 {
