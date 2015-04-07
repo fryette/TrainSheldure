@@ -35,10 +35,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <ProjectReference Include="..\Trains.Infrastructure\Trains.Infrastructure.csproj">
-      <Project>{6D5409E7-763E-4E8F-A491-902907EA4515}</Project>
-      <Name>Trains.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
       <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
       <Name>Trains.Model</Name>
@@ -49,6 +45,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Parser.cs" />
+    <Compile Include="Infrastructure\TrainGrabber.cs" />
+    <Compile Include="Infrastructure\TrainStopGrabber.cs" />
     <Compile Include="Interfaces\IHttpService.cs" />
     <Compile Include="SearchService.cs" />
     <Compile Include="TrainStopService.cs" />

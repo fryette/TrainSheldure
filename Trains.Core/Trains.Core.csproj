@@ -85,10 +85,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Trains.Infrastructure\Trains.Infrastructure.csproj">
-      <Project>{6D5409E7-763E-4E8F-A491-902907EA4515}</Project>
-      <Name>Trains.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
       <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
       <Name>Trains.Model</Name>

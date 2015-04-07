@@ -86,10 +86,6 @@
       <Project>{d5769ced-2d11-4058-8894-acd18a90cd5a}</Project>
       <Name>Trains.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Trains.Infrastructure\Trains.Infrastructure.csproj">
-      <Project>{6d5409e7-763e-4e8f-a491-902907ea4515}</Project>
-      <Name>Trains.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
       <Project>{73f82f72-521e-4f11-aa97-9a377e8cbe3e}</Project>
       <Name>Trains.Model</Name>
