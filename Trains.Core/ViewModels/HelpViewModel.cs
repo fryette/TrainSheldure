@@ -1,5 +1,6 @@
 using Cirrious.MvvmCross.ViewModels;
 using System.Collections.Generic;
+using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 

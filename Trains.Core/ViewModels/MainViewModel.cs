@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using System.Reflection;
 using System.Resources;
 using Trains.Resources;
+using Trains.Core.Interfaces;
 
 namespace Trains.Core.ViewModels
 {

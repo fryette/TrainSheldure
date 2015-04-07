@@ -7,10 +7,11 @@ using System.Linq;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
+using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 
-namespace Trains.Service.Implementation
+namespace Trains.Core
 {
     public class LocalData : ILocalDataService
     {
