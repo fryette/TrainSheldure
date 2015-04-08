@@ -165,9 +165,6 @@
   <data name="FinalStopPoint" xml:space="preserve">
     <value>конечная</value>
   </data>
-  <data name="FirstMessageStartString" xml:space="preserve">
-    <value>Те кто так долго ждали беларусского языка теперь могут выставить его в настройках! Полный список изменений смотрите в соответствующем разделе. Если вы хотите новых функций и оперативного исправления багов/глюков, оставьте отзыв в маркете. Каждый комментарий приближает выход очередного обновления! Шлите свои предложения по улучшению! Спасибо за внимание.</value>
-  </data>
   <data name="Hour" xml:space="preserve">
     <value> ч. </value>
   </data>
@@ -200,9 +197,6 @@
   </data>
   <data name="OnDay" xml:space="preserve">
     <value>На дату</value>
-  </data>
-  <data name="OnEveryDay" xml:space="preserve">
-    <value>На все дни</value>
   </data>
   <data name="Place" xml:space="preserve">
     <value>Мест: </value>

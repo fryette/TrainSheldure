@@ -114,14 +114,15 @@ namespace Trains.Services.Infrastructure
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
                 {
-                    if (type.Contains("Международные"))
+                    if (type.Contains(ResourceLoader.Instance.Resource.GetString("International")))
                         return Picture.International;
-                    if (type.Contains("Межрегиональные"))
-                        return type.Contains("бизнес")
+                    if (type.Contains(ResourceLoader.Instance.Resource.GetString("Interregional")))
+                        return type.Contains(ResourceLoader.Instance.Resource.GetString("Business"))
                             ? Picture.InterRegionalBusiness
                             : Picture.InterRegionalEconom;
-                    if (type.Contains("Региональные"))
-                        return type.Contains("бизнес") ? Picture.RegionalBusiness : Picture.RegionalEconom;
+                    if (type.Contains(ResourceLoader.Instance.Resource.GetString("Regional")))
+                        return type.Contains(ResourceLoader.Instance.Resource.GetString("Business")) 
+                            ? Picture.RegionalBusiness : Picture.RegionalEconom;
                     return Picture.City;
                 });
         }
@@ -168,16 +169,16 @@ namespace Trains.Services.Infrastructure
         {
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D");
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + " ч. ");
-            return "через " + hours + timeSpan.Minutes + " мин.";
+            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + ResourceLoader.Instance.Resource.GetString("Hour"));
+            return ResourceLoader.Instance.Resource.GetString("Via") + hours + timeSpan.Minutes + ResourceLoader.Instance.Resource.GetString("Min");
         }
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
         {
             var time = endTime - startTime;
             if (time.Days == 0)
-                return time.Hours + " ч. " + time.Minutes + " мин.";
-            return (int)time.TotalHours + " ч. " + time.Minutes + " мин.";
+                return time.Hours + ResourceLoader.Instance.Resource.GetString("Hour") + time.Minutes + ResourceLoader.Instance.Resource.GetString("Min");
+            return (int)time.TotalHours + ResourceLoader.Instance.Resource.GetString("Hour") + time.Minutes + ResourceLoader.Instance.Resource.GetString("Min");
         }
 
         public static List<string> GetLink(string data)
@@ -194,10 +195,10 @@ namespace Trains.Services.Infrastructure
                 trainsList[i].AdditionalInformation = additionalInformation[i];
                 trainsList[i].Link = linksList[i];
                 if (trainsList[i].DepartureDate != null)
-                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains("нет") ?
-                        "Мест нет" : "Места есть";
+                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource.GetString("No")) ?
+                        ResourceLoader.Instance.Resource.GetString("NoPlace") : ResourceLoader.Instance.Resource.GetString("YesPlace");
                 else
-                    trainsList[i].AdditionalInformation.First().Name = "Уточните дату для отображения информации о местах";
+                    trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource.GetString("SpecifyDate");
             }
             return trainsList.Where(x => !x.BeforeDepartureTime.Contains("-"));
         }

@@ -197,15 +197,6 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Те кто так долго ждали беларусского языка теперь могут выставить его в настройках! Полный список изменений смотрите в соответствующем разделе. Если вы хотите новых функций и оперативного исправления багов/глюков, оставьте отзыв в маркете. Каждый комментарий приближает выход очередного обновления! Шлите свои предложения по улучшению! Спасибо за внимание..
-        /// </summary>
-        internal static string FirstMessageStartString {
-            get {
-                return ResourceManager.GetString("FirstMessageStartString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  ч. .
         /// </summary>
         internal static string Hour {
@@ -301,15 +292,6 @@ namespace Trains.Resources {
         internal static string OnDay {
             get {
                 return ResourceManager.GetString("OnDay", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to На все дни.
-        /// </summary>
-        internal static string OnEveryDay {
-            get {
-                return ResourceManager.GetString("OnEveryDay", resourceCulture);
             }
         }
         
