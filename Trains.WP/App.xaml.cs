@@ -111,5 +111,33 @@ namespace Trains.WP
             frame.GoBack();
             e.Handled = true;
         }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                // Retrieves the activation Uri.
+                var protocolArgs = (ProtocolActivatedEventArgs)args;
+                var uri = protocolArgs.Uri;
+
+                var frame = Window.Current.Content as Frame;
+
+                if (frame == null)
+                    frame = new Frame();
+
+                // Navigates to MainPage, passing the Uri to it.
+                //frame.Navigate(typeof(MainPage), uri);
+
+                base.OnActivated(args);
+                
+                Window.Current.Content = frame;
+
+                // Ensure the current window is active
+                Window.Current.Activate();
+            }
+
+            base.OnActivated(args);
+        }
+
     }
 }
