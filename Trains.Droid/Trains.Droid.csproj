@@ -117,6 +117,7 @@
     <Compile Include="Views\ItemView.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\ScheduleView.cs" />
+    <Compile Include="Views\SearchView.cs" />
     <Compile Include="Views\SettingsView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -143,6 +144,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\SettingsView.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\SearchView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -84,11 +84,17 @@ namespace Trains.Droid
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f050002
+			public const int FromTextView = 2131034114;
+			
 			// aapt resource value: 0x7f050000
 			public const int MvxBindingTagUnique = 2131034112;
 			
 			// aapt resource value: 0x7f050001
 			public const int MyButton = 2131034113;
+			
+			// aapt resource value: 0x7f050003
+			public const int ToTextView = 2131034115;
 			
 			static Id()
 			{
@@ -125,10 +131,13 @@ namespace Trains.Droid
 			public const int ScheduleView = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int SettingsView = 2130903047;
+			public const int SearchView = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int SplashScreen = 2130903048;
+			public const int SettingsView = 2130903048;
+			
+			// aapt resource value: 0x7f030009
+			public const int SplashScreen = 2130903049;
 			
 			static Layout()
 			{
@@ -148,6 +157,9 @@ namespace Trains.Droid
 			
 			// aapt resource value: 0x7f040000
 			public const int Hello = 2130968576;
+			
+			// aapt resource value: 0x7f040003
+			public const int Search = 2130968579;
 			
 			// aapt resource value: 0x7f040002
 			public const int library_name = 2130968578;
