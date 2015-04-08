@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Trains.Model.Entities;
 using Trains.Entities;
+using Trains.Resources;
 
 namespace Trains.Services.Infrastructure
 {
@@ -37,7 +38,7 @@ namespace Trains.Services.Infrastructure
 
         public static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date)
         {
-            var dateOfDeparture = DateTime.ParseExact(date, "yy-MM-dd", CultureInfo.InvariantCulture);
+            var dateOfDeparture = DateTime.ParseExact(date, Constants.DateFormat, CultureInfo.InvariantCulture);
             var imagePath = new List<Picture>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - parameters.Count / SearchCountParameter;
@@ -61,7 +62,7 @@ namespace Trains.Services.Infrastructure
             var imagePath = new List<Picture>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - parameters.Count / SearchCountParameter;
-            var dateNow = DateTime.Now.ToString("yy-MM-dd") + ' ';
+            var dateNow = DateTime.Now.ToString(Constants.DateFormat) + ' ';
             for (var i = 0; i < step; i += 4)
             {
                 trainList.Add(CreateTrain(dateNow + parameters[i].Groups[1].Value,
@@ -131,7 +132,6 @@ namespace Trains.Services.Infrastructure
             var additionalParameter = Parser.ParseData(data, AdditionParameterPattern).ToList();
             for (var i = 0; i < additionalParameter.Count; i++)
             {
-                if (!additionalParameter[i].Groups[1].Value.Contains("href")) continue;
                 if (i + 1 == additionalParameter.Count ||
                     additionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     additionInformation.Add(new[]

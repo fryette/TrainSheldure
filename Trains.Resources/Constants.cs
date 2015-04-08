@@ -11,6 +11,8 @@ namespace Trains.Resources
         public const string CurrentLanguage = "currentLanguage";
         public const string FavoriteRequests = "favoriteRequests";
         public const string LastTrainList = "LastTrainList";
+
+        public const string DateFormat = "yy-MM-dd";
     }
 }
 
