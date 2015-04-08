@@ -306,7 +306,7 @@
                                        FontSize="{StaticResource MediumFontSize}"
                                        VerticalAlignment="Center"
                                        TextWrapping="Wrap"
-                                       Width="100" />
+                                       Width="95" />
                         </StackPanel>
                     </Grid>
                 </Grid>

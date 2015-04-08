@@ -137,7 +137,7 @@ namespace Trains.Services.Infrastructure
                     additionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     additionInformation.Add(new[]
                     {
-                        new AdditionalInformation {Name = "Мест нет. Уточняйте в кассах"}
+                        new AdditionalInformation {Name = ResourceLoader.Instance.Resource.GetString("NoPlace")}
                     });
                 else
                 {
@@ -150,12 +150,12 @@ namespace Trains.Services.Infrastructure
                         additionalInformations[j / 3] = new AdditionalInformation
                         {
                             Name = temp[j].Groups[1].Value.Length > 18
-                                ? "Сидячие"
+                                ? ResourceLoader.Instance.Resource.GetString("Sessile")
                                 : temp[j].Groups[1].Value,
-                            Place = "Мест: " + (temp[j + 1].Groups[2].Value == UnknownStr
-                                ? "неограничено"
+                            Place = ResourceLoader.Instance.Resource.GetString("Place") + (temp[j + 1].Groups[2].Value == UnknownStr
+                                ? ResourceLoader.Instance.Resource.GetString("Unlimited")
                                 : temp[j + 1].Groups[2].Value.Replace(UnknownStr, string.Empty)),
-                            Price = "цена" + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
+                            Price = ResourceLoader.Instance.Resource.GetString("Price") + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
                     additionInformation.Add(additionalInformations);
@@ -196,7 +196,7 @@ namespace Trains.Services.Infrastructure
                 trainsList[i].Link = linksList[i];
                 if (trainsList[i].DepartureDate != null)
                     trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource.GetString("No")) ?
-                        ResourceLoader.Instance.Resource.GetString("NoPlace") : ResourceLoader.Instance.Resource.GetString("YesPlace");
+                        ResourceLoader.Instance.Resource.GetString("PlaceNo") : ResourceLoader.Instance.Resource.GetString("PlaceYes");
                 else
                     trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource.GetString("SpecifyDate");
             }

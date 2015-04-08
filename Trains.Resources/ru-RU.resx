@@ -117,14 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllDays" xml:space="preserve">
-    <value>На все дни</value>
-  </data>
   <data name="AllFavoritesDeleted" xml:space="preserve">
     <value>Список ваших маршрутов теперь пуст</value>
   </data>
   <data name="Arrival" xml:space="preserve">
-    <value>Отпр: </value>
+    <value>Отправление: </value>
   </data>
   <data name="BelarusConstString" xml:space="preserve">
     <value>(Беларусь)</value>
@@ -145,7 +142,7 @@
     <value>Поиск может производится начиная от текущего времени</value>
   </data>
   <data name="Departure" xml:space="preserve">
-    <value>Приб </value>
+    <value>Прибытие: </value>
   </data>
   <data name="EditFavoriteMessageError" xml:space="preserve">
     <value>Сохраните хотя бы один маршрут, что бы иметь возможность редактирования</value>
@@ -158,12 +155,6 @@
   </data>
   <data name="FavoriteListIsEmpthy" xml:space="preserve">
     <value>Ваш список пуст</value>
-  </data>
-  <data name="Feedback" xml:space="preserve">
-    <value>Чыгунка/предложения/баги</value>
-  </data>
-  <data name="FinalStopPoint" xml:space="preserve">
-    <value>конечная</value>
   </data>
   <data name="Hour" xml:space="preserve">
     <value> ч. </value>
@@ -194,6 +185,9 @@
   </data>
   <data name="NotifyMessage" xml:space="preserve">
     <value>Выберите интересующие вас станции, затем выберите кнопку удалить выбранные</value>
+  </data>
+  <data name="OnAllDays" xml:space="preserve">
+    <value>На все дни</value>
   </data>
   <data name="OnDay" xml:space="preserve">
     <value>На дату</value>

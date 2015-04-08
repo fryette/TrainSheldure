@@ -62,15 +62,6 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to На все дни.
-        /// </summary>
-        internal static string AllDays {
-            get {
-                return ResourceManager.GetString("AllDays", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Список ваших маршрутов теперь пуст.
         /// </summary>
         internal static string AllFavoritesDeleted {
@@ -80,7 +71,7 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Отпр: .
+        ///   Looks up a localized string similar to Отправление: .
         /// </summary>
         internal static string Arrival {
             get {
@@ -134,7 +125,7 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Приб .
+        ///   Looks up a localized string similar to Прибытие: .
         /// </summary>
         internal static string Departure {
             get {
@@ -175,24 +166,6 @@ namespace Trains.Resources {
         internal static string FavoriteListIsEmpthy {
             get {
                 return ResourceManager.GetString("FavoriteListIsEmpthy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Чыгунка/предложения/баги.
-        /// </summary>
-        internal static string Feedback {
-            get {
-                return ResourceManager.GetString("Feedback", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to конечная.
-        /// </summary>
-        internal static string FinalStopPoint {
-            get {
-                return ResourceManager.GetString("FinalStopPoint", resourceCulture);
             }
         }
         
@@ -283,6 +256,15 @@ namespace Trains.Resources {
         internal static string NotifyMessage {
             get {
                 return ResourceManager.GetString("NotifyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to На все дни.
+        /// </summary>
+        internal static string OnAllDays {
+            get {
+                return ResourceManager.GetString("OnAllDays", resourceCulture);
             }
         }
         

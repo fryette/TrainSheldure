@@ -104,8 +104,8 @@ namespace Trains.Core.ViewModels
             {
                 return new List<string>
                 {
-                    "На дату",
-                    "На все дни"
+                    ResourceLoader.Instance.Resource.GetString("OnDay"),
+                    ResourceLoader.Instance.Resource.GetString("OnAllDays")
                 };
             }
         }

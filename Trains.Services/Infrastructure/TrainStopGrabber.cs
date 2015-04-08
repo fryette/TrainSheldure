@@ -21,9 +21,9 @@ namespace Trains.Services.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = (String.IsNullOrEmpty(arrivals) ? null : "Прибытие: " + arrivals.Substring(0, 5)),
-                    Departures = (String.IsNullOrEmpty(departure) ? null : "Отправление: " + departure),
-                    Stay = String.IsNullOrEmpty(stay) ? null : "Стоянка: " + stay
+                    Arrivals = (String.IsNullOrEmpty(arrivals) ? null : Resources.ResourceLoader.Instance.Resource.GetString("Departure") + arrivals.Substring(0, 5)),
+                    Departures = (String.IsNullOrEmpty(departure) ? null : Resources.ResourceLoader.Instance.Resource.GetString("Arrival") + departure),
+                    Stay = String.IsNullOrEmpty(stay) ? null : Resources.ResourceLoader.Instance.Resource.GetString("Stay") + stay
                 });
             }
             return trainStop;
@@ -32,19 +32,14 @@ namespace Trains.Services.Infrastructure
         {
             var parameters = match as IList<Match> ?? match.ToList();
             var trainStop = new List<TrainStop>(parameters.Count / 2);
-            for (var i = 0; i < parameters.Count - 2; i += 2)
+            for (var i = 0; i < parameters.Count; i += 2)
             {
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i + 1].Groups[1].Value,
-                    Arrivals = "Отправление: " + (parameters[i].Groups[2].Value.Length > 5 ? "конечная" : parameters[i].Groups[2].Value),
+                    Arrivals = Resources.ResourceLoader.Instance.Resource.GetString("Arrival")+ parameters[i].Groups[2].Value
                 });
             }
-            trainStop.Add(new TrainStop
-            {
-                Name = parameters[parameters.Count - 1].Groups[1].Value,
-                Arrivals = "конечная",
-            });
             return trainStop;
         }
     }
