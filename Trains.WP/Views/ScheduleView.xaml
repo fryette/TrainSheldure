@@ -9,7 +9,8 @@
     xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     mc:Ignorable="d"
     xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
-    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    Background="{StaticResource BackgroundColorBrush}"
+      RequestedTheme="Dark">
 
     <Grid Margin="5,0">
         <Pivot>
