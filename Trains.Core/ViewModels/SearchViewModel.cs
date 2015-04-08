@@ -293,17 +293,15 @@ namespace Trains.Core.ViewModels
             IsTaskRun = true;
             var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
             if (schedule == null || !schedule.Any())
-            {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("SearchError"));
-                IsTaskRun = false;
-                return;
+            else
+            {
+                _appSettings.LastRequestTrain = schedule;
+                await SerializeDataSearch();
+                await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
+                ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
-
-            _appSettings.LastRequestTrain = schedule;
-            await SerializeDataSearch();
-            await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
             IsTaskRun = false;
-            ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
         }
 
         private async Task SerializeDataSearch()
