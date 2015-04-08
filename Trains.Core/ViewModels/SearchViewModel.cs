@@ -293,7 +293,7 @@ namespace Trains.Core.ViewModels
             IsTaskRun = true;
             var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
             if (schedule == null || !schedule.Any())
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("SearchError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
             else
             {
                 _appSettings.LastRequestTrain = schedule;
@@ -421,12 +421,12 @@ namespace Trains.Core.ViewModels
         {
             if ((Datum.Date - DateTime.Now).Days < 0)
             {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("DateUpTooLater"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateUpTooLater"));
                 return true;
             }
             if (Datum.Date > DateTime.Now.AddDays(45))
             {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("DateTooBig"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateTooBig"));
                 return true;
             }
 
@@ -434,12 +434,12 @@ namespace Trains.Core.ViewModels
                 !(_appSettings.AutoCompletion.Any(x => x.UniqueId == From) &&
                   _appSettings.AutoCompletion.Any(x => x.UniqueId == To)))
             {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("IncorrectInput"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("IncorrectInput"));
                 return true;
             }
 
             if (NetworkInterface.GetIsNetworkAvailable()) return false;
-            await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("ConectionError"));
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("ConectionError"));
             return true;
         }
 

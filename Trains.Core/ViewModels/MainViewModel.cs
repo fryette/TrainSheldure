@@ -261,7 +261,7 @@ namespace Trains.Core.ViewModels
         private async void GoToFavorite()
         {
             if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any())
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("EditFavoriteMessageError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("EditFavoriteMessageError"));
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();
         }
@@ -327,7 +327,7 @@ namespace Trains.Core.ViewModels
                 _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
             if (trains == null)
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("InternetConnectionError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("InternetConnectionError"));
             else
             {
                 Trains = trains;
@@ -344,9 +344,6 @@ namespace Trains.Core.ViewModels
 
         private async Task RestoreData()
         {
-            var assembly = typeof(Constants).GetTypeInfo().Assembly;
-            //TODO выбор языка не стоит,захардокадано первый resource манифест 
-            _appSettings.Resource = new ResourceManager(assembly.GetManifestResourceNames()[0].Replace(".resources", String.Empty), assembly);
             _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.HelpInformation = (await _local.GetHelpInformations()).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);

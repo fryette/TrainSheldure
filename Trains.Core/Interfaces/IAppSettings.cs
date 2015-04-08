@@ -18,7 +18,5 @@ namespace Trains.Core.Interfaces
         IEnumerable<HelpInformationItem> HelpInformation { get; set; }
 
         List<Train> LastRequestTrain { get; set; }
-        ResourceManager Resource { get; set; }
-        //Language Lang { get; set; }
     }
 }

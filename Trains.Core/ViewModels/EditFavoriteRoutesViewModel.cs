@@ -6,6 +6,7 @@ using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Trains.Core.Interfaces;
+using Trains.Resources;
 
 namespace Trains.Core.ViewModels
 {
@@ -66,7 +67,7 @@ namespace Trains.Core.ViewModels
             FavoriteRequests = _appSettings.FavoriteRequests;
             DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
             SelectItemCommand = new MvxCommand(() => SelectItem(SelectedItem));
-            await Mvx.Resolve<IUserInteraction>().AlertAsync(_appSettings.Resource.GetString("NotifyMessage"));
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("NotifyMessage"));
         }
 
 
