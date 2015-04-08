@@ -186,12 +186,6 @@
   <data name="LanguageChanged" xml:space="preserve">
     <value>Успешно обновлен язык! Просьба перезайти в приложение!</value>
   </data>
-  <data name="lastRequests" xml:space="preserve">
-    <value>lastRequests</value>
-  </data>
-  <data name="LastTrainList" xml:space="preserve">
-    <value>LastTrainList</value>
-  </data>
   <data name="Min" xml:space="preserve">
     <value> мин.</value>
   </data>

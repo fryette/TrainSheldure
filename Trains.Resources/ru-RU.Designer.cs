@@ -260,24 +260,6 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to lastRequests.
-        /// </summary>
-        internal static string lastRequests {
-            get {
-                return ResourceManager.GetString("lastRequests", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LastTrainList.
-        /// </summary>
-        internal static string LastTrainList {
-            get {
-                return ResourceManager.GetString("LastTrainList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to  мин..
         /// </summary>
         internal static string Min {
