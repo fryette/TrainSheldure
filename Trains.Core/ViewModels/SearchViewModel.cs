@@ -304,7 +304,7 @@ namespace Trains.Core.ViewModels
                 capturedException = ExceptionDispatchInfo.Capture(e);
             }
 
-            if(capturedException == null)
+            if(capturedException != null)
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
             if (!schedule.Any())
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
