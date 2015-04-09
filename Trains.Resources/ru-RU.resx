@@ -220,7 +220,7 @@
     <value>Маршрут не найден, проверьте поля ввода станций!</value>
   </data>
   <data name="SearchError" xml:space="preserve">
-    <value>Поезда на дату отправления не найдены</value>
+    <value>Произошел сбой при загрузке данных, при продолжительном сбое просьба уведомить нас</value>
   </data>
   <data name="Sessile" xml:space="preserve">
     <value>Сидячие</value>
@@ -233,6 +233,9 @@
   </data>
   <data name="ThisRouteIsPresent" xml:space="preserve">
     <value>Данный маршрут уже присутствует</value>
+  </data>
+  <data name="TrainsNotFound" xml:space="preserve">
+    <value>Поезда на дату отправления не найдены</value>
   </data>
   <data name="Unlimited" xml:space="preserve">
     <value>неограничено</value>

@@ -359,7 +359,7 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Поезда на дату отправления не найдены.
+        ///   Looks up a localized string similar to Произошел сбой при загрузке данных, при продолжительном сбое просьба уведомить нас.
         /// </summary>
         internal static string SearchError {
             get {
@@ -400,6 +400,15 @@ namespace Trains.Resources {
         internal static string ThisRouteIsPresent {
             get {
                 return ResourceManager.GetString("ThisRouteIsPresent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Поезда на дату отправления не найдены.
+        /// </summary>
+        internal static string TrainsNotFound {
+            get {
+                return ResourceManager.GetString("TrainsNotFound", resourceCulture);
             }
         }
         
