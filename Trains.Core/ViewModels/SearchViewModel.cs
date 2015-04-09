@@ -16,7 +16,7 @@ using System.Runtime.ExceptionServices;
 
 namespace Trains.Core.ViewModels
 {
-    class SearchViewModel : MvxViewModel
+    public class SearchViewModel : MvxViewModel
     {
         #region readonlyProperties
 

@@ -40,11 +40,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/FromTextView"
-        android:ems="10"
-        android:imeOptions="actionSearch"
-        android:inputType="textAutoComplete|textAutoCorrect"
-        android:textColor="#FFFFFF" />
+        android:id="@+id/FromTextView" />
     <TextView
         android:text="Куда:"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -53,11 +49,7 @@
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ToTextView"
-        android:ems="10"
-        android:imeOptions="actionSearch"
-        android:inputType="textAutoComplete|textAutoCorrect"
-        android:textColor="#FFFFFF" />
+        android:id="@+id/ToTextView" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
