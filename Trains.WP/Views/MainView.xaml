@@ -98,18 +98,120 @@
                        x:Name="RoutesPivot"
                        ContentTemplate="{StaticResource FavoriteRequestTemplate}" />
             <PivotItem x:Uid="AboutPivot"
-                       ContentTemplate="{StaticResource AboutAppTemplate}" />
+                        >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="60" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <GridView Grid.Row="0"
+                              IsItemClickEnabled="True">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{Binding GoToMarketPlaceCommand}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                        <!--micro:Message.Attach="[Event ItemClick] = [Action GoToMarketPlace]"-->
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.star.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="RateTextBlock"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="1"
+                              Margin="0,5"
+                              IsItemClickEnabled="True">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{Binding SentEmailCommand}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                        <!--micro:Message.Attach="[Event ItemClick] = [Action SentEmail]"-->
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.email.gmail.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="BugsReport"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="2"
+                              IsItemClickEnabled="True">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{Binding GoToAboutPageCommand}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                        <!--micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]"-->
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.information.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <TextBlock x:Uid="AboutApp"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="3"
+                              IsItemClickEnabled="True">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="ItemClick">
+                                <core:InvokeCommandAction Command="{Binding GoToSettingsPageCommand}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                        <!--micro:Message.Attach="[Event ItemClick] = [Action GoToSettingsPage]"-->
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="0,5">
+                            <StackPanel Background="OrangeRed">
+                                <Image Width="50"
+                                       Source="/Assets/appbar.settings.png" />
+                            </StackPanel>
+                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
+                                <StackPanel.Background>
+                                    <SolidColorBrush Color="{ThemeResource PhoneBackgroundColor}"/>
+                                </StackPanel.Background>
+                                <TextBlock x:Uid="Settings"
+                                           Style="{StaticResource MainAboutTextBlockStyle}" SelectionHighlightColor="{ThemeResource PhoneAccentBrush}" Foreground="{ThemeResource PhoneAccentBrush}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </GridView>
+                    <GridView Grid.Row="4"
+                              Background="{StaticResource GrayColorBrush}"
+                              VerticalAlignment="Bottom">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock x:Uid="AboutLabel"
+                                       FontFamily="Dotum"
+                                       Style="{StaticResource MainLabelTextBlockStyle}" Foreground="{ThemeResource PhoneHighContrastSelectedBackgroundThemeBrush}" SelectionHighlightColor="{x:Null}" />
+                            <Image Style="{StaticResource MainLogoImageStyle}" />
+                        </StackPanel>
+                    </GridView>
+                </Grid>
+            </PivotItem>
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock x:Uid="Update" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
-        <Grid Background="{StaticResource BackgroundColorBrush}"
+        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
-        </Grid>
+        </Grid>-->
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>

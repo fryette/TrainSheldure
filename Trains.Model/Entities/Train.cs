@@ -16,6 +16,8 @@ namespace Trains.Entities
         public string DepartureDate { get; set; }
         public string Link { get; set; }
         public string IsPlace { get; set; }
+        public PlaceClasses PlaceClasses { get; set; }
+
     }
 }
 

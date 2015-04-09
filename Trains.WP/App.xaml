@@ -18,6 +18,8 @@
 
             <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
             <converter:EnumToImagePathConverter x:Key="EnumToImageConverter" />
+            <converter:BooleanToBackgroundConverter x:Key="BooleanToBackgroundConverter" />
+            <converter:IsPlaceToVisibilityConverter x:Key="IsPlaceToVisibilityConverter"/>
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
@@ -50,8 +52,6 @@
                         Value="{StaticResource NormalFontSize}" />
                 <Setter Property="HorizontalAlignment"
                         Value="Center" />
-                <Setter Property="Margin"
-                        Value="5,0,0,0" />
                 <Setter Property="Foreground"
                         Value="{StaticResource WhiteColorBrush}" />
             </Style>
@@ -61,12 +61,7 @@
                 <Setter Property="FontSize"
                         Value="{StaticResource SmallFontSize}" />
             </Style>
-            <Style x:Key="ScheduleTextBlockStyle"
-                   TargetType="TextBlock"
-                   BasedOn="{StaticResource BasedTextBlockStyle}">
-                <Setter Property="MaxWidth"
-                        Value="400" />
-            </Style>
+
             <Style x:Key="SelectButtonStyle"
                    TargetType="Button">
                 <Setter Property="Height"
@@ -254,59 +249,75 @@
 
             <DataTemplate x:Key="ScheduleTemplate">
                 <Grid Margin="0,0,0,10">
-                    <Grid.RowDefinitions>
-                        <RowDefinition MaxHeight="100" />
-                        <RowDefinition Height="100" />
-                    </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Grid Background="#FF00398B">
+                    <!--<Grid Background="#FF00398B">
                         <TextBlock Text="{Binding BeforeDepartureTime}"
-                                   Style="{StaticResource ScheduleTextBlockStyle}"
+                                   Style="{StaticResource BasedTextBlockStyle}"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
                                    TextWrapping="Wrap" />
                         <TextBlock Text="{Binding IsPlace}"
                                    Foreground="{StaticResource WhiteSmokeColorBrush}"
-                                   Style="{StaticResource ScheduleTextBlockStyle}"
+                                   Style="{StaticResource BasedTextBlockStyle}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"
                                    Margin="0,0,5,0" />
-                    </Grid>
-                    <Grid Grid.Row="1">
+                    </Grid>-->
+                    <Grid Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel HorizontalAlignment="Left">
-                                <Image Source="{Binding Image,Converter={StaticResource EnumToImageConverter}}"
-                                       Height="100"
-                                       Width="50"
-                                       HorizontalAlignment="Left" />
-                            </StackPanel>
                             <StackPanel Orientation="Vertical"
-                                        Margin="5,0"
+                                        HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Width="70">
+                                        Width="70" Background="Red">
                                 <TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource BigFontSize}"
-                                           Style="{StaticResource ScheduleTextBlockStyle}" />
+                                           Style="{StaticResource BasedTextBlockStyle}" />
                                 <TextBlock Text="{Binding EndTime}"
                                            FontSize="{StaticResource BigFontSize}"
                                            Foreground="{StaticResource DimGrayColorBrush}"
-                                           Margin="0,-5,0,0"
-                                           Style="{StaticResource ScheduleTextBlockStyle}" />
+                                           Style="{StaticResource BasedTextBlockStyle}" />
                             </StackPanel>
-                            <TextBlock Text="{Binding City}"
-                                       Style="{StaticResource ScheduleTextBlockStyle}"
-                                       FontSize="13"
-                                       TextWrapping="Wrap"
-                                       Width="130"
-                                       VerticalAlignment="Center" />
-                            <TextBlock Text="{Binding OnTheWay}"
-                                       Style="{StaticResource ScheduleTextBlockStyle}"
-                                       FontSize="{StaticResource MediumFontSize}"
-                                       VerticalAlignment="Center"
-                                       TextWrapping="Wrap"
-                                       Width="95" />
+                            <StackPanel Margin="5,0,0,0">
+                                <TextBlock Text="{Binding City}"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                <TextBlock Text="{Binding OnTheWay}"
+                                       Style="{StaticResource BasedTextBlockStyle}"
+                                       HorizontalAlignment="Left"/>
+                                <StackPanel Orientation="Horizontal" >
+                                    <TextBlock Text="{Binding IsPlace}"
+                                       Style="{StaticResource BasedTextBlockStyle}"
+                                       HorizontalAlignment="Left"/>
+                                    <StackPanel Orientation="Horizontal" Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}">
+                                        <Border BorderBrush="DarkGray" BorderThickness="1" Margin="10,0,0,0" Padding="5,0"
+                                            Background="{Binding PlaceClasses.General,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="О" HorizontalAlignment="Center"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                        </Border>
+                                        <Border BorderBrush="DarkGray" BorderThickness="1" Margin="10,0" Padding="5,0"
+                                            Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="C" HorizontalAlignment="Center"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                        </Border>
+                                        <Border BorderBrush="DarkGray" BorderThickness="1" Padding="5,0"
+                                            Background="{Binding PlaceClasses.SecondClass,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="П" HorizontalAlignment="Center"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                        </Border>
+                                        <Border BorderBrush="DarkGray" BorderThickness="1" Margin="10,0" Padding="5,0"
+                                            Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="К" HorizontalAlignment="Center"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                        </Border>
+                                        <Border BorderBrush="DarkGray" BorderThickness="1" Padding="5,0" 
+                                            Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="СВ" HorizontalAlignment="Center"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                        </Border>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
                         </StackPanel>
                     </Grid>
                 </Grid>
@@ -530,6 +541,7 @@
                     </GridView>
                 </Grid>
             </DataTemplate>
+
             <DataTemplate x:Key="LastScheduleTemplate">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
@@ -539,7 +551,7 @@
                     <TextBlock Grid.Row="0"
                                Text="{Binding LastRoute}"
                                FontSize="{StaticResource MediumFontSize}"
-                               Style="{StaticResource ScheduleTextBlockStyle}" />
+                               Style="{StaticResource BasedTextBlockStyle}" />
                     <ListView Grid.Row="1"
                               ItemsSource="{Binding Trains}"
                               SelectedItem="{Binding SelectedTrain,Mode=TwoWay}"

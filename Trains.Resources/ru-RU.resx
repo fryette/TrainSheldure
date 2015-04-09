@@ -196,10 +196,10 @@
     <value>Мест: </value>
   </data>
   <data name="PlaceNo" xml:space="preserve">
-    <value>Мест нет</value>
+    <value>Мест нет </value>
   </data>
   <data name="PlaceYes" xml:space="preserve">
-    <value>Места есть</value>
+    <value>Места есть </value>
   </data>
   <data name="PointsIsInCorrect" xml:space="preserve">
     <value>Одна или обе станции не введены</value>
@@ -223,7 +223,7 @@
     <value>Произошел сбой при загрузке данных, при продолжительном сбое просьба уведомить нас</value>
   </data>
   <data name="Sessile" xml:space="preserve">
-    <value>Сидячие</value>
+    <value>Сидячий</value>
   </data>
   <data name="SpecifyDate" xml:space="preserve">
     <value>Уточните дату для отображения информации о местах</value>

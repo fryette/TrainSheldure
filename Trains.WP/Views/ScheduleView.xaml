@@ -23,6 +23,17 @@
                             <core:InvokeCommandAction Command="{Binding SelectTrainCommand}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
+                    <!--<ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock
+                        --><!--Text="{Binding ЫЕ}"--><!--
+                        FontSize="40" />
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>-->
                 </ListView>
             </PivotItem>
             <PivotItem>

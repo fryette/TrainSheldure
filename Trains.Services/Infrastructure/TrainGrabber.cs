@@ -104,7 +104,7 @@ namespace Trains.Services.Infrastructure
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
                 Image = image,
-                OnTheWay = departureDate == null ? null : OnTheWay(startTime, endTime),
+                OnTheWay = departureDate == null ? null : "едет " + OnTheWay(startTime, endTime),
                 DepartureDate = departureDate
             };
         }
@@ -121,7 +121,7 @@ namespace Trains.Services.Infrastructure
                             ? Picture.InterRegionalBusiness
                             : Picture.InterRegionalEconom;
                     if (type.Contains(ResourceLoader.Instance.Resource.GetString("Regional")))
-                        return type.Contains(ResourceLoader.Instance.Resource.GetString("Business")) 
+                        return type.Contains(ResourceLoader.Instance.Resource.GetString("Business"))
                             ? Picture.RegionalBusiness : Picture.RegionalEconom;
                     return Picture.City;
                 });
@@ -144,7 +144,7 @@ namespace Trains.Services.Infrastructure
                     var temp =
                         Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, PlacesAndPricesPattern).ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
-
+                    var placeClasses = new PlaceClasses();
                     for (var j = 0; j < temp.Count; j += 3)
                     {
                         additionalInformations[j / 3] = new AdditionalInformation
@@ -199,6 +199,41 @@ namespace Trains.Services.Infrastructure
                         ResourceLoader.Instance.Resource.GetString("PlaceNo") : ResourceLoader.Instance.Resource.GetString("PlaceYes");
                 else
                     trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource.GetString("SpecifyDate");
+                var placeClasses = new PlaceClasses();
+
+                foreach (var name in additionalInformation[i].Select(x => x.Name))
+                {
+                    switch (name)
+                    {
+                        case "Сидячий":
+                            {
+                                placeClasses.Sedentary = true;
+                                break;
+                            }
+                        case "Общий":
+                            {
+                                placeClasses.General = true;
+                                break;
+                            }
+                        case "Плацкартный":
+                            {
+                                placeClasses.SecondClass = true;
+                                break;
+                            }
+                        case "Купе":
+                            {
+                                placeClasses.Coupe = true;
+                                break;
+                            }
+                        case "СВ":
+                            {
+                                placeClasses.Luxury = true;
+                                break;
+                            }
+                        default: { break; }
+                    }
+                }
+                trainsList[i].PlaceClasses = placeClasses;
             }
             return trainsList.Where(x => !x.BeforeDepartureTime.Contains("-"));
         }

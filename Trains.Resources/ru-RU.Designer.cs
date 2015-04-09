@@ -287,7 +287,7 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Мест нет.
+        ///   Looks up a localized string similar to Мест нет .
         /// </summary>
         internal static string PlaceNo {
             get {
@@ -296,7 +296,7 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Места есть.
+        ///   Looks up a localized string similar to Места есть .
         /// </summary>
         internal static string PlaceYes {
             get {
@@ -368,7 +368,7 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сидячие.
+        ///   Looks up a localized string similar to Сидячий.
         /// </summary>
         internal static string Sessile {
             get {

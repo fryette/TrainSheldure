@@ -43,6 +43,7 @@
     <Compile Include="Entities\HelpInformationGroup.cs" />
     <Compile Include="Entities\HelpInformationItem.cs" />
     <Compile Include="Entities\PictureEnum.cs" />
+    <Compile Include="Entities\PlaceClasses.cs" />
     <Compile Include="Entities\Train.cs" />
     <Compile Include="Entities\TrainStop.cs" />
     <Compile Include="Properties\Annotations.cs" />
