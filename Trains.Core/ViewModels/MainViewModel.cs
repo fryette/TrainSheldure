@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Resources;
 using Trains.Resources;
 using Trains.Core.Interfaces;
+using Cirrious.MvvmCross.Plugins.Email;
 
 namespace Trains.Core.ViewModels
 {
@@ -279,21 +280,13 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Used to sent email to sampir.fiesta@gmail.com,or whant retain a comment about this App.
         /// </summary>
-        private async void SentEmail()
+        private void SentEmail()
         {
-            ////predefine Recipient
-            //var sendTo = new EmailRecipient
-            //{
-            //    Address = "sampir.fiesta@gmail.com"
-            //};
-
-            ////generate mail object
-            //var mail = new EmailMessage { Subject = "Чыгунка/предложения/баги" };
-
-            ////add recipients to the mail object
-            //mail.To.Add(sendTo);
-
-            //await EmailManager.ShowComposeNewEmailAsync(mail);
+            Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com",
+                  string.Empty,
+                  "Чыгунка/предложения/баги",
+                  String.Empty,
+                  false);
         }
 
         /// <summary>
@@ -323,7 +316,7 @@ namespace Trains.Core.ViewModels
             IsTaskRun = true;
 
             var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.From),
-                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To), 
+                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To),
                 _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
             if (trains == null)
