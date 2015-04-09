@@ -270,7 +270,7 @@
                             <StackPanel Orientation="Vertical"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Width="70" Background="Red">
+                                        Width="70" Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}">
                                 <TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource BigFontSize}"
                                            Style="{StaticResource BasedTextBlockStyle}" />
