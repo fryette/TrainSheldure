@@ -11,6 +11,8 @@ using Trains.Resources;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Trains.Core.Interfaces;
+using Trains.Entities;
+using System.Runtime.ExceptionServices;
 
 namespace Trains.Core.ViewModels
 {
@@ -291,8 +293,18 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput()) return;
             IsTaskRun = true;
-            var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
-            if (schedule == null || !schedule.Any())
+            List<Train> schedule = null;
+            ExceptionDispatchInfo capturedException = null;
+            try
+            {
+                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
+            }
+            catch (Exception e)
+            {
+                capturedException = ExceptionDispatchInfo.Capture(e);
+            }
+
+            if (capturedException == null || !schedule.Any())
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
             else
             {
