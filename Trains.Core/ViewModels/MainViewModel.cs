@@ -18,7 +18,7 @@ using Cirrious.MvvmCross.Plugins.Email;
 
 namespace Trains.Core.ViewModels
 {
-    public class MainViewModel : MvxViewModel
+    public class MainViewModel : BaseSearchViewModel
     {
         #region readonlyProperties
 
@@ -84,6 +84,38 @@ namespace Trains.Core.ViewModels
         #region properties
 
         /// <summary>
+        /// Stores variant of search.
+        /// </summary> 
+        public List<string> VariantOfSearch
+        {
+            get
+            {
+                return new List<string>
+                {
+                    "Вчера","Сегодня","Завтра","Все дни","На дату"
+                };
+            }
+        }
+
+        /// <summary>
+        /// Used to set code behind variant of search.
+        /// </summary> 
+        private string _selectedDate;
+        public string SelectedVariant
+        {
+            get
+            {
+                return _selectedDate;
+            }
+
+            set
+            {
+                _selectedDate = value;
+                RaisePropertyChanged(() => SelectedVariant);
+            }
+        }
+
+        /// <summary>
         /// Contains stopping points satisfying user input.
         /// </summary> 
         private List<string> _autoSuggestions;
@@ -108,7 +140,7 @@ namespace Trains.Core.ViewModels
             {
                 _from = value;
                 RaisePropertyChanged(() => From);
-                UpdateAutoSuggestions(From);
+                AutoSuggestions = UpdateAutoSuggestions(From, _appSettings.AutoCompletion);
             }
         }
 
@@ -123,7 +155,7 @@ namespace Trains.Core.ViewModels
             {
                 _to = value;
                 RaisePropertyChanged(() => To);
-                UpdateAutoSuggestions(To);
+                AutoSuggestions = UpdateAutoSuggestions(To, _appSettings.AutoCompletion);
             }
         }
 
@@ -180,7 +212,7 @@ namespace Trains.Core.ViewModels
                 RaisePropertyChanged(() => IsBarDownloaded);
             }
         }
-        
+
         /// <summary>
         /// Used for process download data control.
         /// </summary>
@@ -251,6 +283,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public async void Init()
         {
+            SelectedVariant = VariantOfSearch[1];
             IsDownloadRun = true;
             if (_appSettings.AutoCompletion == null)
                 await RestoreData();
@@ -389,12 +422,6 @@ namespace Trains.Core.ViewModels
             _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.LastRequests);
         }
 
-        private void UpdateAutoSuggestions(string str)
-        {
-            if (string.IsNullOrEmpty(str)) return;
-            AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
-            if (AutoSuggestions.Count == 1 || AutoSuggestions[0] == str) AutoSuggestions = null;
-        }
         #endregion
     }
 }

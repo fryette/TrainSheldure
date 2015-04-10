@@ -31,30 +31,8 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="170" />
-                        <RowDefinition Height="230" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
-                    <StackPanel Grid.Row="1" Margin="0,20,0,0"
-                          Background="{StaticResource GrayColorBrush}">
-                        <TextBlock Text="Быстрый поиск поезда" FontSize="18"/>
-                        <AutoSuggestBox x:Uid="From"
-                                Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding AutoSuggestions}"
-                                IsEnabled="{Binding IsFildEnabled}"
-                                Style="{StaticResource AutoSuggestBoxStyle}"
-                                FontSize="60"
-                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
-                        <AutoSuggestBox x:Uid="To"
-                                IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
-                                Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding AutoSuggestions}"
-                                Style="{StaticResource AutoSuggestBoxStyle}" 
-                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
-
-                        <TextBox Text="Сегодня" Margin="0,5"></TextBox>
-                        <Button Content="Найти" HorizontalAlignment="Right" Margin="0,0,0,0"></Button>
-                    </StackPanel>
-
                     <GridView Grid.Row="0"
                               IsItemClickEnabled="True"
                               Margin="0,10,0,-10">
@@ -73,25 +51,29 @@
                             </Grid>
                         </Grid>
                     </GridView>
-                    <!--<GridView Grid.Row="3"
-                              IsItemClickEnabled="False"
-                              Margin="0,10,0,-10">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Tapped">
-                                <core:InvokeCommandAction Command="{Binding GoToNewsCommand}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                        <Grid>
-                            <Image x:Name="MainImage1"
-                                   Source="/Assets/MenuIcon/logo_tile2.jpg"
-                                   Margin="0,0,-140,0"
-                                   Style="{StaticResource MainButtonImageStyle}" />
-                            <Grid Style="{StaticResource GridLabelMainStyle}">
-                                <TextBlock x:Uid="NewsLabel"
-                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
-                            </Grid>
-                        </Grid>
-                    </GridView>-->
+
+                    <StackPanel Grid.Row="1" Margin="0,20,0,0"
+                          Background="{StaticResource GrayColorBrush}">
+                        <TextBlock Text="Быстрый поиск поезда" FontSize="18"/>
+                        <ComboBox ItemsSource="{Binding VariantOfSearch,Mode=TwoWay}"
+                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"/>
+                        <AutoSuggestBox x:Uid="From"
+                                Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding AutoSuggestions}"
+                                IsEnabled="{Binding IsFildEnabled}"
+                                Style="{StaticResource AutoSuggestBoxStyle}"
+                                FontSize="60"
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                        <AutoSuggestBox x:Uid="To"
+                                IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
+                                Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding AutoSuggestions}"
+                                Style="{StaticResource AutoSuggestBoxStyle}" 
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                        
+
+                        <Button Content="Найти" HorizontalAlignment="Right" Margin="0,0,0,0"></Button>
+                    </StackPanel>
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="LastPivot"

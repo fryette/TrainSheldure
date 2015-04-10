@@ -16,7 +16,7 @@ using System.Runtime.ExceptionServices;
 
 namespace Trains.Core.ViewModels
 {
-    public class SearchViewModel : MvxViewModel
+    public class SearchViewModel : BaseSearchViewModel
     {
         #region readonlyProperties
 
@@ -265,10 +265,12 @@ namespace Trains.Core.ViewModels
             }
         }
 
-		public List<string> AutoCompletion
-		{
-			get { return _appSettings.AutoCompletion.Select(x => x.UniqueId).ToList(); }
-		}
+        public List<string> AutoCompletion
+        {
+            get { return _appSettings.AutoCompletion.Select(x => x.UniqueId).ToList(); }
+        }
+
+
         #endregion
 
         #region actions
@@ -294,7 +296,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void Search()
         {
-            if (IsTaskRun || await CheckInput()) return;
+            if (IsTaskRun || await CheckInput(Datum, From, To, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
             List<Train> schedule = null;
             ExceptionDispatchInfo capturedException = null;
@@ -307,7 +309,7 @@ namespace Trains.Core.ViewModels
                 capturedException = ExceptionDispatchInfo.Capture(e);
             }
 
-            if(capturedException != null)
+            if (capturedException != null)
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
             if (!schedule.Any())
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
@@ -323,25 +325,9 @@ namespace Trains.Core.ViewModels
 
         private async Task SerializeDataSearch()
         {
-            SerializeLastRequests();
             _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
             await _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
-        }
-
-        private async void SerializeLastRequests()
-        {
-            if (LastRequests == null) LastRequests = new List<LastRequest>(3);
-            if (LastRequests.Any(x => x.From == From && x.To == To)) return;
-            if (LastRequests.Count == 3)
-            {
-                LastRequests[2] = LastRequests[1];
-                LastRequests[1] = LastRequests[0];
-                LastRequests[0] = new LastRequest { From = From, To = To };
-            }
-            else
-                LastRequests.Add(new LastRequest { From = From, To = To });
-
-            _appSettings.LastRequests = LastRequests;
+            _appSettings.LastRequests = UpdateLastRequests(LastRequests, From, To);
             await _serializable.SerializeObjectToXml<List<LastRequest>>(LastRequests, Constants.LastRequests);
         }
 
@@ -405,10 +391,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void UpdateAutoSuggestions(string str)
         {
-            if (string.IsNullOrEmpty(str)) return;
-            AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
-            if (AutoSuggestions.Count != 1 || AutoSuggestions[0] != str) return;
-            AutoSuggestions.Clear();
+            AutoSuggestions = base.UpdateAutoSuggestions(str, _appSettings.AutoCompletion);
 
             if (CheckFavorite())
                 SetVisibilityToFavoriteIcons(true, false);
@@ -423,32 +406,6 @@ namespace Trains.Core.ViewModels
         {
             IsVisibleFavoriteIcon = favorite;
             IsVisibleUnFavoriteIcon = unfavorite;
-        }
-
-        public async Task<bool> CheckInput()
-        {
-            if ((Datum.Date - DateTime.Now).Days < 0)
-            {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateUpTooLater"));
-                return true;
-            }
-            if (Datum.Date > DateTime.Now.AddDays(45))
-            {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateTooBig"));
-                return true;
-            }
-
-            if (String.IsNullOrEmpty(From) || String.IsNullOrEmpty(To) ||
-                !(_appSettings.AutoCompletion.Any(x => x.UniqueId == From) &&
-                  _appSettings.AutoCompletion.Any(x => x.UniqueId == To)))
-            {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("IncorrectInput"));
-                return true;
-            }
-
-            if (NetworkInterface.GetIsNetworkAvailable()) return false;
-            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("ConectionError"));
-            return true;
         }
 
         public bool CheckFavorite()
