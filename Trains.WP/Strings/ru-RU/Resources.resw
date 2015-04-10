@@ -244,7 +244,7 @@
     <value>Список остановок</value>
   </data>
   <data name="MainLabelText.Text" xml:space="preserve">
-    <value>Приложение принесет вам массу удовольствия, не забывайте оставлять ваши отзывы!</value>
+    <value>Мы приветствуем вас в в приложении для поиска железнодорожных билетов. Наше приложение использует сайт rw.by (Белорусской Железной дороги) для поиска поездов и свободных мест. Надеемся на вашу поддержку и будем рады видеть ваши отзывы и пожелания... вместе мы сделаем мир чуточку удобнее!</value>
   </data>
   <data name="MainPivot.Header" xml:space="preserve">
     <value>Главная</value>
@@ -310,7 +310,7 @@
     <value>Поезда на дату отправления не найдены</value>
   </data>
   <data name="SearchLabel.Text" xml:space="preserve">
-    <value>Поиск</value>
+    <value>Подобрать поезд</value>
   </data>
   <data name="SelectClass.Text" xml:space="preserve">
     <value>Выбор класса</value>

@@ -23,35 +23,60 @@
                                           Value="0" />
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
-            <Storyboard x:Name="MyStoryboard1">
-                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
-                                               AutoReverse="True"
-                                               RepeatBehavior="forever"
-                                               Storyboard.TargetName="MainImage1">
-                    <EasingDoubleKeyFrame KeyTime="0"
-                                          Value="-140" />
-                    <EasingDoubleKeyFrame KeyTime="0:0:15"
-                                          Value="0" />
-                </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
+            
         </Grid.Resources>
         <Pivot x:Uid="ApplicationName"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem x:Uid="MainPivot">
                 <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="170" />
-                        <RowDefinition Height="150" />
-                        <RowDefinition Height="150" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0"
-                          Background="{StaticResource GrayColorBrush}">
-                        <TextBlock x:Uid="MainLabelText"
+					<Grid.RowDefinitions>
+                        <RowDefinition Height="190" />
+												<RowDefinition Height="170" />
+										</Grid.RowDefinitions>
+
+					<!--<Grid Grid.Row="0" Background="{StaticResource GrayColorBrush}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="0" />
+						</Grid.ColumnDefinitions>
+						
+							<TextBlock Grid.Column="0"  x:Uid="MainLabelText"
+												 TextWrapping="Wrap"
                                    FontSize="{StaticResource SmallFontSize}"
                                    Style="{StaticResource MainLabelTextBlockStyle}" />
-                        <Image Style="{StaticResource MainLogoImageStyle}" />
-                    </Grid>
+							<Image Grid.Column="1" Style="{StaticResource MainLogoImageStyle}" Stretch="UniformToFill" Margin="0" HorizontalAlignment="Right" />
+	
+					</Grid>-->
+					<StackPanel Grid.Row="0"
+                          Background="{StaticResource GrayColorBrush}">
+						<TextBlock Text="Быстрый поиск поезда"/>
+						<AutoSuggestBox x:Uid="From"
+                                Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding AutoSuggestions}"
+                                IsEnabled="{Binding IsFildEnabled}"
+                                Style="{StaticResource AutoSuggestBoxStyle}"
+                                FontSize="60">
+							<interactivity:Interaction.Behaviors>
+								<core:EventTriggerBehavior EventName="SuggestionChosen">
+									<core:InvokeCommandAction Command="{Binding SuggestionChosenCommand}" />
+								</core:EventTriggerBehavior>
+							</interactivity:Interaction.Behaviors>
+						</AutoSuggestBox>
+						<AutoSuggestBox x:Uid="To"
+                                IsEnabled="{Binding IsFildEnabled}"
+                                Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                ItemsSource="{Binding AutoSuggestions}"
+                                Style="{StaticResource AutoSuggestBoxStyle}" >
+							<interactivity:Interaction.Behaviors>
+								<core:EventTriggerBehavior EventName="SuggestionChosen">
+									<core:InvokeCommandAction Command="{Binding SuggestionChosenCommand}" />
+								</core:EventTriggerBehavior>
+							</interactivity:Interaction.Behaviors>
+						</AutoSuggestBox>
+						<TextBox Text="Сегодня" Margin="0,5"></TextBox>
+						<Button Content="Найти" HorizontalAlignment="Right" Margin="0,0,0,0"></Button>
+					</StackPanel>
+					
                     <GridView Grid.Row="1"
                               IsItemClickEnabled="True"
                               Margin="0,10,0,-10">
@@ -70,7 +95,7 @@
                             </Grid>
                         </Grid>
                     </GridView>
-                    <GridView Grid.Row="2"
+                    <!--<GridView Grid.Row="3"
                               IsItemClickEnabled="False"
                               Margin="0,10,0,-10">
                         <interactivity:Interaction.Behaviors>
@@ -88,7 +113,7 @@
                                            Style="{StaticResource MainImageLabelTextBlockStyle}" />
                             </Grid>
                         </Grid>
-                    </GridView>
+                    </GridView>-->
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="LastPivot"

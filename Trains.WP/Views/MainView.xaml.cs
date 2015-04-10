@@ -13,7 +13,6 @@ namespace Trains.WP.Views
         {
             InitializeComponent();
             MyStoryboard.Begin();
-            MyStoryboard1.Begin();
         }
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)

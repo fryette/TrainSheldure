@@ -105,6 +105,7 @@
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\ColorBrush.cs" />
     <Compile Include="Converter\EnumToImagePathConverter.cs" />
+    <Compile Include="Converter\IsPlaceToColorConverter.cs" />
     <Compile Include="Converter\IsPlaceToVisibilityConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
