@@ -266,6 +266,11 @@ namespace Trains.Core.ViewModels
                 RaisePropertyChanged(() => IsFildEnabled);
             }
         }
+
+		public List<string> AutoCompletion
+		{
+			get { return _appSettings.AutoCompletion.Select(x => x.UniqueId).ToList(); }
+		}
         #endregion
 
         #region actions
