@@ -20,9 +20,11 @@
             <converter:EnumToImagePathConverter x:Key="EnumToImageConverter" />
             <converter:BooleanToBackgroundConverter x:Key="BooleanToBackgroundConverter" />
             <converter:IsPlaceToVisibilityConverter x:Key="IsPlaceToVisibilityConverter"/>
+						<converter:IsPlaceToColorConverter x:Key="IsPlaceToColorConverter"/>
 
-            <x:Double x:Key="NormalFontSize">16</x:Double>
-            <x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
+			<x:Double x:Key="NormalFontSize">16</x:Double>
+			<x:Double x:Key="NormalLargeFontSize">18</x:Double>
+			<x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
             <x:Double x:Key="SmallFontSize">14</x:Double>
             <x:Double x:Key="BigFontSize">25</x:Double>
             <x:Double x:Key="MediumFontSize">20</x:Double>
@@ -44,9 +46,16 @@
             <SolidColorBrush x:Key="BackgroundColorBrush">#FF171717</SolidColorBrush>
             <FontFamily x:Key="ArialFontFamily">Arial</FontFamily>
 
-
-
-            <Style x:Key="BasedTextBlockStyle"
+			<Style x:Key="BasedHeaderTextBlockStyle"
+                   TargetType="TextBlock">
+				<Setter Property="FontSize"
+                        Value="{StaticResource NormalLargeFontSize}" />
+				<Setter Property="HorizontalAlignment"
+                        Value="Center" />
+				<Setter Property="Foreground"
+                        Value="{StaticResource WhiteColorBrush}" />
+			</Style>
+			<Style x:Key="BasedTextBlockStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontSize"
                         Value="{StaticResource NormalFontSize}" />
@@ -149,8 +158,8 @@
                    TargetType="TextBlock">
                 <Setter Property="TextWrapping"
                         Value="Wrap" />
-                <Setter Property="Width"
-                        Value="180" />
+                <!--<Setter Property="Width"
+                        Value="180" />-->
                 <Setter Property="HorizontalAlignment"
                         Value="Left" />
                 <Setter Property="Margin"
@@ -248,7 +257,7 @@
             </Style>
 
             <DataTemplate x:Key="ScheduleTemplate">
-                <Grid Margin="0,0,0,10">
+                <Grid Margin="0,0,0,15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
@@ -267,11 +276,14 @@
                     </Grid>-->
                     <Grid Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel Orientation="Vertical"
+							<Border Width="10" Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}"></Border>
+
+							<StackPanel Orientation="Vertical"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
-                                        Width="70" Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}">
-                                <TextBlock Text="{Binding StartTime}"
+                                        Width="70">
+															
+															<TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource BigFontSize}"
                                            Style="{StaticResource BasedTextBlockStyle}" />
                                 <TextBlock Text="{Binding EndTime}"
@@ -281,13 +293,14 @@
                             </StackPanel>
                             <StackPanel Margin="5,0,0,0">
                                 <TextBlock Text="{Binding City}"
-                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                       Style="{StaticResource BasedHeaderTextBlockStyle}" TextWrapping="WrapWholeWords"/>
                                 <TextBlock Text="{Binding OnTheWay}"
                                        Style="{StaticResource BasedTextBlockStyle}"
                                        HorizontalAlignment="Left"/>
                                 <StackPanel Orientation="Horizontal" >
                                     <TextBlock Text="{Binding IsPlace}"
                                        Style="{StaticResource BasedTextBlockStyle}"
+																			 Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
                                        HorizontalAlignment="Left"/>
                                     <StackPanel Orientation="Horizontal" Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}">
                                         <Border BorderBrush="DarkGray" BorderThickness="1" Margin="10,0,0,0" Padding="5,0"

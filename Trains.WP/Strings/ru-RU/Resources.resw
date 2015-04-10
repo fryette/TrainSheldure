@@ -310,7 +310,7 @@
     <value>Поезда на дату отправления не найдены</value>
   </data>
   <data name="SearchLabel.Text" xml:space="preserve">
-    <value>Подобрать поезд</value>
+    <value>Детальный подбор поезда</value>
   </data>
   <data name="SelectClass.Text" xml:space="preserve">
     <value>Выбор класса</value>
