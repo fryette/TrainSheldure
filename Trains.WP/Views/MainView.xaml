@@ -31,7 +31,7 @@
                 <Grid>
 					<Grid.RowDefinitions>
                         <RowDefinition Height="170" />
-												<RowDefinition Height="200" />
+												<RowDefinition Height="230" />
 										</Grid.RowDefinitions>
 
 					<!--<Grid Grid.Row="0" Background="{StaticResource GrayColorBrush}">
@@ -47,7 +47,7 @@
 							<Image Grid.Column="1" Style="{StaticResource MainLogoImageStyle}" Stretch="UniformToFill" Margin="0" HorizontalAlignment="Right" />
 	
 					</Grid>-->
-					<StackPanel Grid.Row="1"
+					<StackPanel Grid.Row="1" Margin="0,20,0,0"
                           Background="{StaticResource GrayColorBrush}">
 						<TextBlock Text="Быстрый поиск поезда" FontSize="18"/>
 						<AutoSuggestBox x:Uid="From"
