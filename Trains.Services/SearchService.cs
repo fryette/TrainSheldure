@@ -61,7 +61,14 @@ namespace Trains.Services.Implementations
 
         private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
-            if (selectedVariantOfSearch == "На все дни") return "everyday";
+            if (selectedVariantOfSearch == "Сегодня") return "today";
+            if (selectedVariantOfSearch == "Завтра") return "tomorrow";
+            if (selectedVariantOfSearch == "Все дни") return "everyday";
+            if (selectedVariantOfSearch == "Вчера")
+            {
+                return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+            }
+
             if (datum < DateTime.Now) datum = DateTime.Now;
             return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
         }

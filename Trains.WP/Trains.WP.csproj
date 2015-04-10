@@ -107,6 +107,7 @@
     <Compile Include="Converter\EnumToImagePathConverter.cs" />
     <Compile Include="Converter\IsPlaceToColorConverter.cs" />
     <Compile Include="Converter\IsPlaceToVisibilityConverter.cs" />
+    <Compile Include="DatePickerCustom.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Services\Serialize.cs" />

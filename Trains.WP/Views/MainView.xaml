@@ -56,7 +56,8 @@
                           Background="{StaticResource GrayColorBrush}">
                         <TextBlock Text="Быстрый поиск поезда" FontSize="18"/>
                         <ComboBox ItemsSource="{Binding VariantOfSearch,Mode=TwoWay}"
-                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"/>
+                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
+                                  SelectionChanged="ComboBox_SelectionChanged"/>
                         <AutoSuggestBox x:Uid="From"
                                 Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding AutoSuggestions}"
@@ -70,9 +71,9 @@
                                 ItemsSource="{Binding AutoSuggestions}"
                                 Style="{StaticResource AutoSuggestBoxStyle}" 
                                 SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
-                        
 
-                        <Button Content="Найти" HorizontalAlignment="Right" Margin="0,0,0,0"></Button>
+
+                        <Button Content="Найти" HorizontalAlignment="Right" Margin="0,0,0,0" Command="{Binding SearchCommand}"/>
                     </StackPanel>
                 </Grid>
             </PivotItem>

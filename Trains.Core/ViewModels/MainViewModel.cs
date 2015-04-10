@@ -15,6 +15,7 @@ using System.Resources;
 using Trains.Resources;
 using Trains.Core.Interfaces;
 using Cirrious.MvvmCross.Plugins.Email;
+using System.Runtime.ExceptionServices;
 
 namespace Trains.Core.ViewModels
 {
@@ -53,6 +54,8 @@ namespace Trains.Core.ViewModels
         public IMvxCommand SelectFavoriteTrainCommand { get; private set; }
         public IMvxCommand SentEmailCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
+        public IMvxCommand SearchCommand { get; private set; }
+
 
         #endregion
 
@@ -77,11 +80,23 @@ namespace Trains.Core.ViewModels
             SelectFavoriteTrainCommand = new MvxCommand(() => SelectFavoriteTrain(SelectedRoute));
             SentEmailCommand = new MvxCommand(SentEmail);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
+            SearchCommand = new MvxCommand(Search);
         }
 
         #endregion
 
         #region properties
+
+        private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
+        public DateTimeOffset Datum
+        {
+            get { return _datum; }
+            set
+            {
+                _datum = value;
+                RaisePropertyChanged(() => Datum);
+            }
+        }
 
         /// <summary>
         /// Stores variant of search.
@@ -293,6 +308,44 @@ namespace Trains.Core.ViewModels
             Trains = _appSettings.LastRequestTrain;
             FavoriteRequests = _appSettings.FavoriteRequests;
             IsDownloadRun = false;
+        }
+
+        /// <summary>
+        /// Searches for train schedules at a specified date in the specified mode.
+        /// </summary>
+        private async void Search()
+        {
+            if (IsTaskRun || await CheckInput(Datum, From, To, _appSettings.AutoCompletion)) return;
+            IsTaskRun = true;
+            List<Train> schedule = null;
+            ExceptionDispatchInfo capturedException = null;
+            try
+            {
+                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
+            }
+            catch (Exception e)
+            {
+                capturedException = ExceptionDispatchInfo.Capture(e);
+            }
+
+            if (capturedException != null)
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
+            if (!schedule.Any())
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
+            else
+            {
+                _appSettings.LastRequestTrain = schedule;
+                await SerializeDataSearch();
+                await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
+                ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
+            }
+            IsTaskRun = false;
+        }
+
+        private async Task SerializeDataSearch()
+        {
+            _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
+            await _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
         }
 
         /// <summary>
