@@ -83,6 +83,50 @@ namespace Trains.Core.ViewModels
 
         #region properties
 
+        /// <summary>
+        /// Contains stopping points satisfying user input.
+        /// </summary> 
+        private List<string> _autoSuggestions;
+        public List<string> AutoSuggestions
+        {
+            get { return _autoSuggestions; }
+            set
+            {
+                _autoSuggestions = value;
+                RaisePropertyChanged(() => AutoSuggestions);
+            }
+        }
+
+        /// <summary>
+        /// Used to read and set start stop point.
+        /// </summary> 
+        private string _from;
+        public string From
+        {
+            get { return _from; }
+            set
+            {
+                _from = value;
+                RaisePropertyChanged(() => From);
+                UpdateAutoSuggestions(From);
+            }
+        }
+
+        /// <summary>
+        /// Used to read and set start end point.
+        /// </summary> 
+        private string _to;
+        public string To
+        {
+            get { return _to; }
+            set
+            {
+                _to = value;
+                RaisePropertyChanged(() => To);
+                UpdateAutoSuggestions(To);
+            }
+        }
+
         private Train _selectedTrain;
 
         public Train SelectedTrain
@@ -136,7 +180,7 @@ namespace Trains.Core.ViewModels
                 RaisePropertyChanged(() => IsBarDownloaded);
             }
         }
-
+        
         /// <summary>
         /// Used for process download data control.
         /// </summary>
@@ -337,7 +381,7 @@ namespace Trains.Core.ViewModels
 
         private async Task RestoreData()
         {
-            _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items);
+            _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items).ToList();
             _appSettings.HelpInformation = (await _local.GetHelpInformations()).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
             _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
@@ -345,6 +389,12 @@ namespace Trains.Core.ViewModels
             _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.LastRequests);
         }
 
+        private void UpdateAutoSuggestions(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return;
+            AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
+            if (AutoSuggestions.Count == 1 || AutoSuggestions[0] == str) AutoSuggestions = null;
+        }
         #endregion
     }
 }

@@ -51,24 +51,16 @@
                                 ItemsSource="{Binding AutoSuggestions}"
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Style="{StaticResource AutoSuggestBoxStyle}"
-                                FontSize="60">
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="SuggestionChosen">
-                            <core:InvokeCommandAction Command="{Binding SuggestionChosenCommand}" />
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </AutoSuggestBox>
+                                FontSize="60"
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+
                 <AutoSuggestBox x:Uid="To"
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding AutoSuggestions}"
-                                Style="{StaticResource AutoSuggestBoxStyle}" >
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="SuggestionChosen">
-                            <core:InvokeCommandAction Command="{Binding SuggestionChosenCommand}" />
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </AutoSuggestBox>
+                                Style="{StaticResource AutoSuggestBoxStyle}" 
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+
                 <StackPanel Orientation="Horizontal">
                     <Button x:Uid="Search" Command="{Binding SearchCommand}"/>
                     <Button x:Uid="Clear"

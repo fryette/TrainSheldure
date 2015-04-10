@@ -11,7 +11,7 @@ namespace Trains.Core.Interfaces
 
         List<LastRequest> FavoriteRequests { get; set; }
 
-        IEnumerable<CountryStopPointItem> AutoCompletion { get; set; }
+        List<CountryStopPointItem> AutoCompletion { get; set; }
 
         LastRequest UpdatedLastRequest { get; set; }
 

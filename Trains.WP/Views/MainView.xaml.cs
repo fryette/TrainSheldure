@@ -30,5 +30,11 @@ namespace Trains.WP.Views
             UpdateAppBar.Visibility = updateAppBar ? Visibility.Visible : Visibility.Collapsed;
             ManagedAppBar.Visibility = managedAppBar ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+                Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
+                Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
+        }
     }
 }

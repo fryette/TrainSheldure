@@ -39,7 +39,6 @@ namespace Trains.Core.ViewModels
         #region command
 
         public IMvxCommand SearchCommand { get; private set; }
-        public IMvxCommand SuggestionChosenCommand { get; private set; }
         public IMvxCommand ClearCommand { get; private set; }
         public IMvxCommand AddToFavoriteCommand { get; private set; }
         public IMvxCommand DeleteInFavoriteCommand { get; private set; }
@@ -66,7 +65,6 @@ namespace Trains.Core.ViewModels
             _manageFavoriteRequest = manageFavoriteRequest;
 
             SearchCommand = new MvxCommand(Search);
-            SuggestionChosenCommand = new MvxCommand(SuggestionChosen);
             ClearCommand = new MvxCommand(Clear);
             AddToFavoriteCommand = new MvxCommand(AddToFavorite);
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
@@ -364,15 +362,6 @@ namespace Trains.Core.ViewModels
         {
             From = lastRequest.From;
             To = lastRequest.To;
-        }
-
-        /// <summary>
-        /// Close input keyboard,when user click on promt.
-        /// </summary>
-        private void SuggestionChosen()
-        {
-            IsFildEnabled = false;
-            IsFildEnabled = true;
         }
 
         /// <summary>
