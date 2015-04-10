@@ -32,24 +32,16 @@
             android:layout_toRightOf="@id/SearchDate"
             android:id="@+id/SearchType" />
     </RelativeLayout>
-    <TextView
-        android:text="Откуда:"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/FromTextView" />
-    <TextView
-        android:text="Куда:"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/FromTextView"
+        android:hint="Откуда" />
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ToTextView" />
+        android:id="@+id/ToTextView"
+        android:hint="Куда" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

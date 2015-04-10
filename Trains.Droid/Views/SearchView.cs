@@ -21,6 +21,8 @@ namespace Trains.Droid.Views
 
 		private Button _searchDateButton;
 		private Button _searchTypeButton;
+		private AutoCompleteTextView _fromTextView;
+		private AutoCompleteTextView _toTextView;
 		
 		private DateTimeOffset SearchDate
 		{
@@ -39,18 +41,35 @@ namespace Trains.Droid.Views
 			set { ((SearchViewModel)ViewModel).SelectedVariant = value; }
 		}
 
+		private List<string> AutoCompletion
+		{
+			get { return ((SearchViewModel)ViewModel).AutoCompletion; }
+		}
+
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.SearchView);
 
 			_searchDateButton = FindViewById<Button>(Resource.Id.SearchDate);
+			_searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
+			_fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
+			_toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
+		}
+
+		protected override void OnStart()
+		{
 			_searchDateButton.Click += searchDateButton_Click;
 			_searchDateButton.Text = SearchDate.ToString(DateFormat);
 
-			_searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
 			_searchTypeButton.Click += searchTypeButton_Click;
 			_searchTypeButton.Text = SelectedType;
+
+			var autoCompleteAdapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, AutoCompletion);
+			_fromTextView.Adapter = autoCompleteAdapter;
+			_toTextView.Adapter = autoCompleteAdapter;
+
+			base.OnStart();
 		}
 
 		private void searchDateButton_Click(object sender, EventArgs e)
