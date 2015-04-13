@@ -14,6 +14,8 @@ namespace Trains.Resources
 
         public const string StopPointsJson = "StopPointsru.json";
         public const string HelpInformationJson = "HelpInformationRU.json";
+        public const string CarriageModelJson = "CarriageModel.json";
+
 
         public const string DateFormat = "yy-MM-dd";
     }

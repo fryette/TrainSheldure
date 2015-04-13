@@ -16,4 +16,16 @@ namespace Trains.Model.Entities
         City = 5,
         Foreign = 6
     }
+
+    public enum Carriage
+    {
+        FirstClassSleeper = 0,
+        CompartmentSleeper = 1,
+        EconomyClassSleeper = 2,
+        SeatingCoaches1 = 3,
+        SeatingCoaches2 = 4,
+        MultipleUnitCars1 = 5,
+        MultipleUnitCars2 = 6,
+        MultipleUnitCoach = 7
+    }
 }

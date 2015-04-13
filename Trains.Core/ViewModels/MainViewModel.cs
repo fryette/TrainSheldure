@@ -462,6 +462,7 @@ namespace Trains.Core.ViewModels
             _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
             _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
             _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.LastRequests);
+            _appSettings.CarriageModel = (await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson));
         }
 
         #endregion

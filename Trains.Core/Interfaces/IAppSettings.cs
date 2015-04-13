@@ -18,5 +18,8 @@ namespace Trains.Core.Interfaces
         IEnumerable<HelpInformationItem> HelpInformation { get; set; }
 
         List<Train> LastRequestTrain { get; set; }
+
+        List<CarriageModel> CarriageModel { get; set; }
+
     }
 }

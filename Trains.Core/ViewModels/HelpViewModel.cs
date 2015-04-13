@@ -39,6 +39,17 @@ namespace Trains.Core.ViewModels
             }
         }
 
+        private static IEnumerable<CarriageModel> _carriageInformation;
+        public IEnumerable<CarriageModel> CarriageInformation
+        {
+            get { return _carriageInformation; }
+            set
+            {
+                _carriageInformation = value;
+                RaisePropertyChanged(() => CarriageInformation);
+            }
+        }
+
         #endregion
 
         #region action
@@ -49,6 +60,7 @@ namespace Trains.Core.ViewModels
         public void Init()
         {
             HelpInformation = _appSettings.HelpInformation;
+            CarriageInformation = _appSettings.CarriageModel;
         }
 
         #endregion
