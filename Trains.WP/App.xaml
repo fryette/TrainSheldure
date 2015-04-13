@@ -20,11 +20,11 @@
             <converter:EnumToImagePathConverter x:Key="EnumToImageConverter" />
             <converter:BooleanToBackgroundConverter x:Key="BooleanToBackgroundConverter" />
             <converter:IsPlaceToVisibilityConverter x:Key="IsPlaceToVisibilityConverter"/>
-						<converter:IsPlaceToColorConverter x:Key="IsPlaceToColorConverter"/>
+            <converter:IsPlaceToColorConverter x:Key="IsPlaceToColorConverter"/>
 
-			<x:Double x:Key="NormalFontSize">16</x:Double>
-			<x:Double x:Key="NormalLargeFontSize">18</x:Double>
-			<x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
+            <x:Double x:Key="NormalFontSize">16</x:Double>
+            <x:Double x:Key="NormalLargeFontSize">18</x:Double>
+            <x:Double x:Key="NewInThisVersionFontSize">12</x:Double>
             <x:Double x:Key="SmallFontSize">14</x:Double>
             <x:Double x:Key="BigFontSize">25</x:Double>
             <x:Double x:Key="MediumFontSize">20</x:Double>
@@ -46,16 +46,17 @@
             <SolidColorBrush x:Key="BackgroundColorBrush">#FF171717</SolidColorBrush>
             <FontFamily x:Key="ArialFontFamily">Arial</FontFamily>
 
-			<Style x:Key="BasedHeaderTextBlockStyle"
+
+            <Style x:Key="BasedHeaderTextBlockStyle"
                    TargetType="TextBlock">
-				<Setter Property="FontSize"
+                <Setter Property="FontSize"
                         Value="{StaticResource NormalLargeFontSize}" />
-				<Setter Property="HorizontalAlignment"
+                <Setter Property="HorizontalAlignment"
                         Value="Center" />
-				<Setter Property="Foreground"
+                <Setter Property="Foreground"
                         Value="{StaticResource WhiteColorBrush}" />
-			</Style>
-			<Style x:Key="BasedTextBlockStyle"
+            </Style>
+            <Style x:Key="BasedTextBlockStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontSize"
                         Value="{StaticResource NormalFontSize}" />
@@ -256,6 +257,7 @@
 
             </Style>
 
+
             <DataTemplate x:Key="ScheduleTemplate">
                 <Grid Margin="0,0,0,15">
                     <Grid.ColumnDefinitions>
@@ -276,14 +278,14 @@
                     </Grid>-->
                     <Grid Grid.Row="0">
                         <StackPanel Orientation="Horizontal">
-							<Border Width="10" Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}"></Border>
+                            <Border Width="10" Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}"></Border>
 
-							<StackPanel Orientation="Vertical"
+                            <StackPanel Orientation="Vertical"
                                         HorizontalAlignment="Center"
                                         VerticalAlignment="Center"
                                         Width="70">
-															
-															<TextBlock Text="{Binding StartTime}"
+
+                                <TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource BigFontSize}"
                                            Style="{StaticResource BasedTextBlockStyle}" />
                                 <TextBlock Text="{Binding EndTime}"
@@ -326,6 +328,11 @@
                                         <Border BorderBrush="DarkGray" BorderThickness="1" Padding="5,0" 
                                             Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}">
                                             <TextBlock Text="СВ" HorizontalAlignment="Center"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                        </Border>
+                                        <Border BorderBrush="DarkGray" BorderThickness="1" Margin="10,0" Padding="5,0" 
+                                            Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="ЭР" HorizontalAlignment="Center"
                                        Style="{StaticResource BasedTextBlockStyle}"/>
                                         </Border>
                                     </StackPanel>

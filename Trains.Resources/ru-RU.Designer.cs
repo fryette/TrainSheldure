@@ -260,7 +260,7 @@ namespace Trains.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to На все дни.
+        ///   Looks up a localized string similar to Все дни.
         /// </summary>
         internal static string OnAllDays {
             get {

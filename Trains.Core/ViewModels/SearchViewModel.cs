@@ -311,14 +311,18 @@ namespace Trains.Core.ViewModels
 
             if (capturedException != null)
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
-            if (!schedule.Any())
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
+
             else
             {
-                _appSettings.LastRequestTrain = schedule;
-                await SerializeDataSearch();
-                await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
-                ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
+                if (!schedule.Any())
+                    await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
+                else
+                {
+                    _appSettings.LastRequestTrain = schedule;
+                    await SerializeDataSearch();
+                    await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
+                    ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
+                }
             }
             IsTaskRun = false;
         }

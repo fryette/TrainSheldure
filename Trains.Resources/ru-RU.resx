@@ -187,7 +187,7 @@
     <value>Выберите интересующие вас станции, затем выберите кнопку удалить выбранные</value>
   </data>
   <data name="OnAllDays" xml:space="preserve">
-    <value>На все дни</value>
+    <value>Все дни</value>
   </data>
   <data name="OnDay" xml:space="preserve">
     <value>На дату</value>

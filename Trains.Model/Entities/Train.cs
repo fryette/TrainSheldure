@@ -17,6 +17,8 @@ namespace Trains.Entities
         public string Link { get; set; }
         public string IsPlace { get; set; }
         public PlaceClasses PlaceClasses { get; set; }
+        
+        public bool InternetRegistration { get; set; }
 
     }
 }
