@@ -23,7 +23,6 @@
                                           Value="0" />
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
-
         </Grid.Resources>
         <Pivot x:Uid="ApplicationName"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
@@ -193,6 +192,7 @@
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
+
         <!--<Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />

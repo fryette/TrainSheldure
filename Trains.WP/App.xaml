@@ -21,6 +21,8 @@
             <converter:BooleanToBackgroundConverter x:Key="BooleanToBackgroundConverter" />
             <converter:IsPlaceToVisibilityConverter x:Key="IsPlaceToVisibilityConverter"/>
             <converter:IsPlaceToColorConverter x:Key="IsPlaceToColorConverter"/>
+            <converter:CarriageToImageConverter x:Key="CarriageToImageConverter"/>
+
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>

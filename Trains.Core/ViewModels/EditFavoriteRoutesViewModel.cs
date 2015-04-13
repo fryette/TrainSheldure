@@ -14,6 +14,20 @@ namespace Trains.Core.ViewModels
     {
         #region properties
 
+        private LastRequest _selectedItem;
+        public LastRequest SelectedItem
+        {
+            get
+            {
+                return _selectedItem;
+            }
+            set
+            {
+                _selectedItem = value;
+                RaisePropertyChanged(() => SelectedItem);
+            }
+        }
+
         /// <summary>
         /// Used to serialization/deserialization objects.
         /// </summary>
@@ -66,23 +80,8 @@ namespace Trains.Core.ViewModels
         {
             FavoriteRequests = _appSettings.FavoriteRequests;
             DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
-            SelectItemCommand = new MvxCommand(() => SelectItem(SelectedItem));
+            SelectItemCommand = new MvxCommand(() => SelectItem());
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("NotifyMessage"));
-        }
-
-
-        private LastRequest _selectedItem;
-        public LastRequest SelectedItem
-        {
-            get
-            {
-                return _selectedItem;
-            }
-            set
-            {
-                _selectedItem = value;
-                RaisePropertyChanged(() => SelectedItem);
-            }
         }
 
         /// <summary>
@@ -90,9 +89,10 @@ namespace Trains.Core.ViewModels
         /// </summary>
         /// <param name="item">Data that describes route.
         /// This parameter is used to transmit the search page trains.</param>
-        private void SelectItem(LastRequest item)
+        private void SelectItem()
         {
-            item.IsCanBeDeleted = !item.IsCanBeDeleted;
+            if (SelectedItem == null) return;
+            SelectedItem.IsCanBeDeleted = !SelectedItem.IsCanBeDeleted;
             //TODO remove and ask how create NotifyChangeProp
             FavoriteRequests = FavoriteRequests.Select(x => x).ToList();
         }

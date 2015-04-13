@@ -103,11 +103,11 @@
     <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
     <Compile Include="Converter\BooleanToBackgroundConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converter\CarriageToImageConverter.cs" />
     <Compile Include="Converter\ColorBrush.cs" />
     <Compile Include="Converter\EnumToImagePathConverter.cs" />
     <Compile Include="Converter\IsPlaceToColorConverter.cs" />
     <Compile Include="Converter\IsPlaceToVisibilityConverter.cs" />
-    <Compile Include="DatePickerCustom.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Services\Serialize.cs" />
@@ -115,6 +115,9 @@
     <Compile Include="Setup.cs" />
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CarriageView.xaml.cs">
+      <DependentUpon>CarriageView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditFavoriteRoutesView.xaml.cs">
       <DependentUpon>EditFavoriteRoutesView.xaml</DependentUpon>
@@ -152,6 +155,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Views\AboutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\CarriageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -238,6 +245,14 @@
     <Content Include="Assets\appbar.information.png" />
     <Content Include="Assets\appbar.settings.png" />
     <Content Include="Assets\appbar.star.png" />
+    <Content Include="Assets\Carriage\CompartmentSleeper.png" />
+    <Content Include="Assets\Carriage\EconomyClassSleeper.png" />
+    <Content Include="Assets\Carriage\FirstClassSleeper.png" />
+    <Content Include="Assets\Carriage\MultipleUnitCars1.png" />
+    <Content Include="Assets\Carriage\MultipleUnitCars2.jpg" />
+    <Content Include="Assets\Carriage\MultipleUnitCoach.png" />
+    <Content Include="Assets\Carriage\SeatingCoaches1.png" />
+    <Content Include="Assets\Carriage\SeatingCoaches2.png" />
     <Content Include="Assets\Cityes.png" />
     <Content Include="Assets\Foreign.png" />
     <Content Include="Assets\HelpPageIcons\GE.png" />

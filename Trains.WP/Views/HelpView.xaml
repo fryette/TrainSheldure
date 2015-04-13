@@ -7,23 +7,34 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
     mc:Ignorable="d"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     Background="{StaticResource BackgroundColorBrush}"
-      RequestedTheme="Dark">
+    RequestedTheme="Dark"
+    d:DataContext="{d:DesignData HelpViewModel}">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Row="0">
-            <TextBlock x:Uid="HelpHeader"
-                       Style="{ThemeResource HeaderTextBlockStyle}" />
-        </Grid>
-        <Grid Row="1">
-            <ListView ItemsSource="{Binding HelpInformation}"
-                      IsItemClickEnabled="True"
-                      ItemTemplate="{StaticResource HelpTemplate}">
-            </ListView>
-        </Grid>
+        <Pivot>
+            <PivotItem Header="Поезда">
+                <ListView ItemsSource="{Binding HelpInformation}"
+                                  ItemTemplate="{StaticResource HelpTemplate}">
+                </ListView>
+            </PivotItem>
+            <PivotItem Header="Вагоны">
+                <ListView ItemsSource="{Binding CarriageInformation}" 
+                          SelectedItem="{Binding SelectedCarriage,Mode=TwoWay}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" FontSize="18" TextWrapping="WrapWholeWords" Margin="0,0,0,10"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Tapped">
+                            <core:InvokeCommandAction Command="{Binding SelectCarriageCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </ListView>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </views:MvxWindowsPage>

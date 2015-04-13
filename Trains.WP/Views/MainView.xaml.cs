@@ -1,8 +1,15 @@
-﻿using Windows.ApplicationModel.Activation;
+﻿using System;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
+using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Automation.Peers;
 using Windows.UI.Xaml.Automation.Provider;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace Trains.WP.Views
 {
@@ -11,7 +18,6 @@ namespace Trains.WP.Views
     /// </summary>
     public sealed partial class MainView
     {
-        private DatePickerCustom datePicker;
         public MainView()
         {
             InitializeComponent();
@@ -39,6 +45,20 @@ namespace Trains.WP.Views
             Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
             Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
         }
+
+
+        //private void KittyPic_ImageOpened(object sender, RoutedEventArgs e)
+        //{
+        //    LoadingPanel.Visibility = Visibility.Collapsed;
+        //}
+
+        //private async void KittyPic_ImageFailed(object sender, ExceptionRoutedEventArgs e)
+        //{
+        //    LoadingPanel.Visibility = Visibility.Collapsed;
+        //    await new MessageDialog("Failed to load the image").ShowAsync();
+        //}
+
+
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

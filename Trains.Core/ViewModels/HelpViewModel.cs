@@ -1,4 +1,5 @@
 using Cirrious.MvvmCross.ViewModels;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using Trains.Core.Interfaces;
 using Trains.Model.Entities;
@@ -11,7 +12,13 @@ namespace Trains.Core.ViewModels
         #region readonlyProperties
 
         private readonly IAppSettings _appSettings;
-        
+
+        #endregion
+
+        #region commands
+
+        public IMvxCommand SelectCarriageCommand { get; private set; }
+
         #endregion
 
         #region ctor
@@ -19,16 +26,32 @@ namespace Trains.Core.ViewModels
         public HelpViewModel(IAppSettings appSettings)
         {
             _appSettings = appSettings;
+
+            SelectCarriageCommand = new MvxCommand(SelectCarriage);
         }
 
         #endregion
 
         #region properties
 
+        CarriageModel _selectedCarriage;
+        public CarriageModel SelectedCarriage
+        {
+            get
+            {
+                return _selectedCarriage;
+            }
+            set
+            {
+                _selectedCarriage = value;
+                RaisePropertyChanged(() => SelectedCarriage);
+            }
+        }
+
         /// <summary>
         /// Used to dispalying informations about belarussian railway icons.
         /// </summary>
-        private static IEnumerable<HelpInformationItem> _helpInformation;
+        private IEnumerable<HelpInformationItem> _helpInformation;
         public IEnumerable<HelpInformationItem> HelpInformation
         {
             get { return _helpInformation; }
@@ -39,8 +62,8 @@ namespace Trains.Core.ViewModels
             }
         }
 
-        private static IEnumerable<CarriageModel> _carriageInformation;
-        public IEnumerable<CarriageModel> CarriageInformation
+        private List<CarriageModel> _carriageInformation;
+        public List<CarriageModel> CarriageInformation
         {
             get { return _carriageInformation; }
             set
@@ -61,6 +84,11 @@ namespace Trains.Core.ViewModels
         {
             HelpInformation = _appSettings.HelpInformation;
             CarriageInformation = _appSettings.CarriageModel;
+        }
+
+        private void SelectCarriage()
+        {
+            ShowViewModel<CarriageViewModel>(new { param = JsonConvert.SerializeObject(SelectedCarriage) });
         }
 
         #endregion
