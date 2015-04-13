@@ -12,6 +12,9 @@ namespace Trains.Resources
         public const string FavoriteRequests = "favoriteRequests";
         public const string LastTrainList = "LastTrainList";
 
+        public const string StopPointsJson = "StopPointsru.json";
+        public const string HelpInformationJson = "HelpInformationRU.json";
+
         public const string DateFormat = "yy-MM-dd";
     }
 }

@@ -456,8 +456,8 @@ namespace Trains.Core.ViewModels
 
         private async Task RestoreData()
         {
-            _appSettings.AutoCompletion = (await _local.GetStopPoints()).SelectMany(dataGroup => dataGroup.Items).ToList();
-            _appSettings.HelpInformation = (await _local.GetHelpInformations()).SelectMany(dataGroup => dataGroup.Items);
+            _appSettings.AutoCompletion = (await _local.GetData<List<CountryStopPointGroup>>(Constants.StopPointsJson)).SelectMany(dataGroup => dataGroup.Items).ToList();
+            _appSettings.HelpInformation = (await _local.GetData<List<HelpInformationGroup>>(Constants.HelpInformationJson)).SelectMany(dataGroup => dataGroup.Items);
             _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
             _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
             _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
