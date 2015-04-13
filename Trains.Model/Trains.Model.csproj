@@ -36,11 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Entities\CountryStopPointGroup.cs" />
     <Compile Include="Entities\CountryStopPointItem.cs" />
     <Compile Include="Entities\Languages.cs" />
     <Compile Include="Entities\LastRequest.cs" />
-    <Compile Include="Entities\HelpInformationGroup.cs" />
     <Compile Include="Entities\HelpInformationItem.cs" />
     <Compile Include="Entities\CarriageModel.cs" />
     <Compile Include="Entities\Enums.cs" />

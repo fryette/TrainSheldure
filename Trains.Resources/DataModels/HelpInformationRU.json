@@ -1,32 +1,26 @@
 ﻿[
     {
-        "UniqueId": "Menu",
-        "Title": "Варианты поиска",
-        "Items": [
-            {
-                "UniqueId": "Menu-International",
-                "Title": "Международные",
-                "ImagePath": "/Assets/HelpPageIcons/IL.png",
-                "Description": "Международные линии — перевозки между Республикой Беларусь и другими государствами."
-            },
-            {
-                "UniqueId": "Menu-Cityes",
-                "Title": "Городские",
-                "ImagePath": "/Assets/HelpPageIcons/GE.png",
-                "Description": "Городские линии — перевозки в пределах города Минска, областного центра и за их пределы, но не далее железнодорожных станций, расположенных в городах-спутниках."
-            },
-            {
-                "UniqueId": "Menu-Interregional",
-                "Title": "Межрегиональные",
-                "ImagePath": "/Assets/HelpPageIcons/IRLB_IRLE.png",
-                "Description": "Межрегиональные линии — перевозки между городом Минском и областными центрами, между областными центрами."
-            },
-            {
-                "UniqueId": "Menu-Regional",
-                "Title": "Региональные",
-                "ImagePath": "/Assets/HelpPageIcons/RLB_RLE.png",
-                "Description": "Региональные линии — перевозки в пределах административных границ области и за ее пределы до железнодорожных станций, расположенных в ближайшем городе областного подчинения смежной области."
-            }
-        ]
+        "UniqueId": "Menu-International",
+        "Title": "Международные",
+        "ImagePath": "/Assets/HelpPageIcons/IL.png",
+        "Description": "Международные линии — перевозки между Республикой Беларусь и другими государствами."
+    },
+    {
+        "UniqueId": "Menu-Cityes",
+        "Title": "Городские",
+        "ImagePath": "/Assets/HelpPageIcons/GE.png",
+        "Description": "Городские линии — перевозки в пределах города Минска, областного центра и за их пределы, но не далее железнодорожных станций, расположенных в городах-спутниках."
+    },
+    {
+        "UniqueId": "Menu-Interregional",
+        "Title": "Межрегиональные",
+        "ImagePath": "/Assets/HelpPageIcons/IRLB_IRLE.png",
+        "Description": "Межрегиональные линии — перевозки между городом Минском и областными центрами, между областными центрами."
+    },
+    {
+        "UniqueId": "Menu-Regional",
+        "Title": "Региональные",
+        "ImagePath": "/Assets/HelpPageIcons/RLB_RLE.png",
+        "Description": "Региональные линии — перевозки в пределах административных границ области и за ее пределы до железнодорожных станций, расположенных в ближайшем городе областного подчинения смежной области."
     }
 ]
