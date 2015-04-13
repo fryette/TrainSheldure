@@ -13,12 +13,6 @@ namespace Trains.Services.Infrastructure
     public class TrainGrabber
     {
         #region constant
-        private const string Pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
-                                       "(?<endTime><div class=\"list_end\">(.+?)</div>)|" +
-                                       "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
-                                       "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
-                                       "<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>|" +
-                                       "(?<internetRegistration><div class=\"b-legend\">([^<]*)<i/?)";
 
         private const string AdditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
 

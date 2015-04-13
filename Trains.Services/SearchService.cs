@@ -21,14 +21,6 @@ namespace Trains.Services.Implementations
                                        "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
                                        "<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>|" +
                                        "(?<internetRegistration><div class=\"b-legend\">(.+?)</div)";
-
-        private const string AdditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
-
-        private const string PlacesAndPricesPattern =
-            "(?<Name><td class=\"places_name\">([^<]+)</td>)|" +
-            "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
-            "(?<Price><td class=\"places_price\">([^<]*))";
-
         #endregion
 
         public readonly IHttpService _httpService;
