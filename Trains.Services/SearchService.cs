@@ -7,6 +7,7 @@ using Trains.Services.Interfaces;
 using Trains.Entities;
 using System;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Trains.Services.Implementations
 {
@@ -40,18 +41,29 @@ namespace Trains.Services.Implementations
         public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, System.DateTimeOffset Datum, string selectedVariant)
         {
             var date = GetDate(Datum, selectedVariant);
-            var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
-            var additionalInformation = TrainGrabber.GetPlaces(data);
-            var links = TrainGrabber.GetLink(data);
+            string data;
 
-            IEnumerable<Train> trains;
-            if (from.Country != "(Беларусь)" && to.Country != "(Беларусь)")
-                trains = TrainGrabber.GetTrainsInformationOnForeignStantion(Parser.ParseData(data, Pattern).ToList(), date);
-            else
-                trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
-                    : TrainGrabber.GetTrainsInformation(Parser.ParseData(data, Pattern).ToList(), date);
+            try
+            {
+                data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
+                var additionalInformation = TrainGrabber.GetPlaces(data);
+                var links = TrainGrabber.GetLink(data);
+                var parameters = Parser.ParseData(data, Pattern).ToList();
+                var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
-            return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
+                IEnumerable<Train> trains;
+                if (from.Country != "(Беларусь)" && to.Country != "(Беларусь)")
+                    trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
+                else
+                    trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
+                        : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
+
+                return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)

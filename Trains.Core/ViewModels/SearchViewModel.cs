@@ -298,32 +298,17 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput(Datum, From, To, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-            List<Train> schedule = null;
-            ExceptionDispatchInfo capturedException = null;
-            try
-            {
-                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
-            }
-            catch (Exception e)
-            {
-                capturedException = ExceptionDispatchInfo.Capture(e);
-            }
-
-            if (capturedException != null)
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
-
+            var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
+            if (schedule == null || !schedule.Any())
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
             else
             {
-                if (!schedule.Any())
-                    await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
-                else
-                {
-                    _appSettings.LastRequestTrain = schedule;
-                    await SerializeDataSearch();
-                    await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
-                    ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
-                }
+                _appSettings.LastRequestTrain = schedule;
+                await SerializeDataSearch();
+                await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
+                ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
+
             IsTaskRun = false;
         }
 

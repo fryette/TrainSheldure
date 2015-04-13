@@ -39,15 +39,13 @@ namespace Trains.Services.Infrastructure
 
         #region action
 
-        public static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date)
+        public static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date, List<bool> isInternetRegistration)
         {
             var dateOfDeparture = DateTime.ParseExact(date, Constants.DateFormat, CultureInfo.InvariantCulture);
             var imagePath = new List<Picture>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - imagePath.Count * 2;
-            var isInternetRegistration = GetInternetRegistrationsInformations(parameters);
-
-
+            
             for (var i = 0; i < step; i += 4)
             {
                 var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
@@ -137,7 +135,7 @@ namespace Trains.Services.Infrastructure
                 });
         }
 
-        private static List<bool> GetInternetRegistrationsInformations(IEnumerable<Match> match)
+        public static List<bool> GetInternetRegistrationsInformations(IEnumerable<Match> match)
         {
             return match.Select(x => x.Groups["internetRegistration"].Value).Where(x => !string.IsNullOrEmpty(x)).Select(m =>
             {

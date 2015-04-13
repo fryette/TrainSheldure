@@ -305,6 +305,11 @@
 																			 Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
                                        HorizontalAlignment="Left"/>
                                     <StackPanel Orientation="Horizontal" Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}">
+                                        <Border BorderBrush="DarkGray" BorderThickness="1" Margin="5,0,0,0" Padding="5,0" 
+                                            Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="ЭР" HorizontalAlignment="Center"
+                                       Style="{StaticResource BasedTextBlockStyle}"/>
+                                        </Border>
                                         <Border BorderBrush="DarkGray" BorderThickness="1" Margin="10,0,0,0" Padding="5,0"
                                             Background="{Binding PlaceClasses.General,Converter={StaticResource BooleanToBackgroundConverter}}">
                                             <TextBlock Text="О" HorizontalAlignment="Center"
@@ -328,11 +333,6 @@
                                         <Border BorderBrush="DarkGray" BorderThickness="1" Padding="5,0" 
                                             Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}">
                                             <TextBlock Text="СВ" HorizontalAlignment="Center"
-                                       Style="{StaticResource BasedTextBlockStyle}"/>
-                                        </Border>
-                                        <Border BorderBrush="DarkGray" BorderThickness="1" Margin="10,0" Padding="5,0" 
-                                            Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                            <TextBlock Text="ЭР" HorizontalAlignment="Center"
                                        Style="{StaticResource BasedTextBlockStyle}"/>
                                         </Border>
                                     </StackPanel>

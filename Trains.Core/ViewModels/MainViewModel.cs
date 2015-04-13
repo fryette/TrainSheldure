@@ -317,23 +317,9 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput(Datum, From, To, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-            List<Train> schedule = null;
-            ExceptionDispatchInfo capturedException = null;
-            try
-            {
-                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
-            }
-            catch (Exception e)
-            {
-                capturedException = ExceptionDispatchInfo.Capture(e);
-            }
+            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
 
-            if (capturedException != null)
-            {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("SearchError"));
-                return;
-            }
-            if (!schedule.Any())
+            if (schedule == null || !schedule.Any())
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
             else
             {
