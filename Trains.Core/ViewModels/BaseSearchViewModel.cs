@@ -48,7 +48,7 @@ namespace Trains.Core.ViewModels
         {
             if (string.IsNullOrEmpty(str)) return null;
             var autoSuggestions = autoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
-            if (autoSuggestions.Count == 1 || autoSuggestions[0] == str) return null;
+            if (autoSuggestions.Count == 1 && autoSuggestions[0] == str) return null;
             return autoSuggestions;
         }
 
