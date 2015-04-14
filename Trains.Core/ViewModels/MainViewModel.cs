@@ -44,7 +44,6 @@ namespace Trains.Core.ViewModels
 
         public IMvxCommand GoToSearchCommand { get; private set; }
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
-        public IMvxCommand GoToNewsCommand { get; private set; }
         public IMvxCommand GoToFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
         public IMvxCommand GoToMarketPlaceCommand { get; private set; }
@@ -71,7 +70,6 @@ namespace Trains.Core.ViewModels
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
-            GoToNewsCommand = new MvxCommand(GoToNews);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             GoToMarketPlaceCommand = new MvxCommand(GoToMarketPlace);
             GoToAboutPageCommand = new MvxCommand(GoToAboutPage);
@@ -368,11 +366,6 @@ namespace Trains.Core.ViewModels
         private void GoToHelpPage()
         {
             ShowViewModel<HelpViewModel>();
-        }
-
-        private async void GoToNews()
-        {
-            //await LaunchUriAsync(new Uri("https://vk.com/belrailway"));
         }
 
         /// <summary>
