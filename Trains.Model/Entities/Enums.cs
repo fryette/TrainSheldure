@@ -28,4 +28,12 @@ namespace Trains.Model.Entities
         MultipleUnitCars2 = 6,
         MultipleUnitCoach = 7
     }
+
+    public enum AboutPicture
+    {
+        Market = 0,
+        Settings = 1,
+        Mail = 2,
+        AboutApp = 3,
+    }
 }

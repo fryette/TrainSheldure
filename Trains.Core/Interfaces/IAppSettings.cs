@@ -15,11 +15,13 @@ namespace Trains.Core.Interfaces
 
         LastRequest UpdatedLastRequest { get; set; }
 
-        IEnumerable<HelpInformationItem> HelpInformation { get; set; }
+        List<HelpInformationItem> HelpInformation { get; set; }
 
         List<Train> LastRequestTrain { get; set; }
 
         List<CarriageModel> CarriageModel { get; set; }
+
+        List<About> About { get; set; }
 
     }
 }

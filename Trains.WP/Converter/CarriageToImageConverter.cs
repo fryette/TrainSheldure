@@ -10,7 +10,7 @@ namespace Trains.WP.Converter
 {
     public class CarriageToImageConverter : Windows.UI.Xaml.Data.IValueConverter
     {
-        Dictionary<Carriage, Uri> openWith =
+       static Dictionary<Carriage, Uri> openWith =
              new Dictionary<Carriage, Uri>()
             {
                 {Carriage.FirstClassSleeper,new Uri(@"ms-appx:///Assets/Carriage/FirstClassSleeper.png")},

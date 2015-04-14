@@ -45,19 +45,15 @@ namespace Trains.Core.ViewModels
 
         #region commands
 
-        public IMvxCommand GoToSearchCommand { get; private set; }
+        public IMvxCommand TappedAboutItemCommand { get; private set; }
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
         public IMvxCommand GoToFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
-        public IMvxCommand GoToMarketPlaceCommand { get; private set; }
-        public IMvxCommand GoToAboutPageCommand { get; private set; }
-        public IMvxCommand GoToSettingsPageCommand { get; private set; }
         public IMvxCommand ClickItemCommand { get; private set; }
         public IMvxCommand SelectFavoriteTrainCommand { get; private set; }
-        public IMvxCommand SentEmailCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand SearchCommand { get; private set; }
-
+        public IMvxCommand GoToSearchCommand { get; private set; }
 
         #endregion
 
@@ -71,16 +67,13 @@ namespace Trains.Core.ViewModels
             _local = local;
             _marketPlace = marketPlace;
 
+            TappedAboutItemCommand = new MvxCommand(ClickAboutItem);
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
-            GoToMarketPlaceCommand = new MvxCommand(GoToMarketPlace);
-            GoToAboutPageCommand = new MvxCommand(GoToAboutPage);
-            GoToSettingsPageCommand = new MvxCommand(GoToSettingsPage);
             ClickItemCommand = new MvxCommand(() => ClickItem(SelectedTrain));
             SelectFavoriteTrainCommand = new MvxCommand(() => SelectFavoriteTrain(SelectedRoute));
-            SentEmailCommand = new MvxCommand(SentEmail);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchCommand = new MvxCommand(Search);
         }
@@ -88,6 +81,8 @@ namespace Trains.Core.ViewModels
         #endregion
 
         #region properties
+
+        public IEnumerable<About> AboutItems { get; set; }
 
         private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
         public DateTimeOffset Datum
@@ -129,6 +124,24 @@ namespace Trains.Core.ViewModels
             {
                 _selectedDate = value;
                 RaisePropertyChanged(() => SelectedVariant);
+            }
+        }
+
+        /// <summary>
+        /// Used to set code behind variant of search.
+        /// </summary> 
+        private About _selectedAboutItem;
+        public About SelectedAboutItem
+        {
+            get
+            {
+                return _selectedAboutItem;
+            }
+
+            set
+            {
+                _selectedAboutItem = value;
+                RaisePropertyChanged(() => SelectedAboutItem);
             }
         }
 
@@ -309,6 +322,7 @@ namespace Trains.Core.ViewModels
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
             Trains = _appSettings.LastRequestTrain;
             FavoriteRequests = _appSettings.FavoriteRequests;
+            AboutItems = _appSettings.About;
             IsDownloadRun = false;
         }
 
@@ -394,34 +408,6 @@ namespace Trains.Core.ViewModels
         }
 
         /// <summary>
-        /// Used to sent email to sampir.fiesta@gmail.com,or whant retain a comment about this App.
-        /// </summary>
-        private void SentEmail()
-        {
-            Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com",
-                  string.Empty,
-                  "Чыгунка/предложения/баги",
-                  String.Empty,
-                  false);
-        }
-
-        /// <summary>
-        /// Used to evaluate the application in the Windows phone store.
-        /// </summary>
-        private void GoToMarketPlace()
-        {
-            _marketPlace.GoToMarket();
-        }
-
-        /// <summary>
-        /// Used to read information about this application.
-        /// </summary>
-        private void GoToAboutPage()
-        {
-            ShowViewModel<AboutViewModel>();
-        }
-
-        /// <summary>
         /// Update last route
         /// </summary>
         private async void UpdateLastRequest()
@@ -445,20 +431,28 @@ namespace Trains.Core.ViewModels
             IsTaskRun = false;
         }
 
-        private void GoToSettingsPage()
+        private void ClickAboutItem()
         {
-            ShowViewModel<SettingsViewModel>();
+            if (SelectedAboutItem.Item == AboutPicture.AboutApp)
+                ShowViewModel<AboutViewModel>();
+            else if (SelectedAboutItem.Item == AboutPicture.Mail)
+                Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com", string.Empty, "Чыгунка/предложения/баги", String.Empty, false);
+            else if (SelectedAboutItem.Item == AboutPicture.Market)
+                _marketPlace.GoToMarket();
+            else
+                ShowViewModel<SettingsViewModel>();
         }
 
         private async Task RestoreData()
         {
-            _appSettings.AutoCompletion = (await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson)).ToList();
-            _appSettings.HelpInformation = (await _local.GetData<List<HelpInformationItem>>(Constants.HelpInformationJson));
+            _appSettings.AutoCompletion = await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson);
+            _appSettings.HelpInformation = await _local.GetData<List<HelpInformationItem>>(Constants.HelpInformationJson);
+            _appSettings.CarriageModel = await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson);
             _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
             _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
             _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
             _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.LastRequests);
-            _appSettings.CarriageModel = (await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson));
+            _appSettings.About = await _local.GetData<List<About>>(Constants.AboutJson);
         }
 
         #endregion
