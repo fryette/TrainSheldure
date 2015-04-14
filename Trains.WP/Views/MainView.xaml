@@ -7,8 +7,8 @@
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       mc:Ignorable="d"
-                     Background="{StaticResource BackgroundColorBrush}"
-      RequestedTheme="Dark"
+                      Background="{StaticResource BackgroundColorBrush}"
+                      RequestedTheme="Dark"
                       d:DataContext="{d:DesignData MainViewModel}">
     <Grid>
         <Grid.Resources>
@@ -51,28 +51,33 @@
                         </Grid>
                     </GridView>
 
-                    <StackPanel Grid.Row="1" Margin="0,20,0,0"
-                          Background="{StaticResource GrayColorBrush}">
-                        <TextBlock Text="Быстрый поиск поезда" FontSize="18"/>
+                    <StackPanel Grid.Row="1"
+                                Margin="0,20,0,0"
+                                Background="{StaticResource GrayColorBrush}">
+                        <TextBlock Text="Быстрый поиск поезда"
+                                   FontSize="18" />
                         <ComboBox ItemsSource="{Binding VariantOfSearch,Mode=TwoWay}"
                                   SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
-                                  SelectionChanged="ComboBox_SelectionChanged"/>
+                                  SelectionChanged="ComboBox_SelectionChanged" />
                         <AutoSuggestBox x:Uid="From"
-                                Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding AutoSuggestions}"
-                                IsEnabled="{Binding IsFildEnabled}"
-                                Style="{StaticResource AutoSuggestBoxStyle}"
-                                FontSize="60"
-                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                                        Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ItemsSource="{Binding AutoSuggestions}"
+                                        IsEnabled="{Binding IsFildEnabled}"
+                                        Style="{StaticResource AutoSuggestBoxStyle}"
+                                        FontSize="60"
+                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
                         <AutoSuggestBox x:Uid="To"
-                                IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
-                                Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                ItemsSource="{Binding AutoSuggestions}"
-                                Style="{StaticResource AutoSuggestBoxStyle}" 
-                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                                        IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
+                                        Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        ItemsSource="{Binding AutoSuggestions}"
+                                        Style="{StaticResource AutoSuggestBoxStyle}"
+                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
 
 
-                        <Button Content="Найти" HorizontalAlignment="Right" Margin="0,0,0,0" Command="{Binding SearchCommand}"/>
+                        <Button Content="Найти"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,0,0"
+                                Command="{Binding SearchCommand}" />
                     </StackPanel>
                 </Grid>
             </PivotItem>
@@ -82,96 +87,88 @@
             <PivotItem x:Uid="RoutesPivot"
                        x:Name="RoutesPivot"
                        ContentTemplate="{StaticResource FavoriteRequestTemplate}" />
-            <PivotItem x:Uid="AboutPivot"
-                        >
+            <PivotItem x:Uid="AboutPivot">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="60" />
-                        <RowDefinition Height="50" />
-                        <RowDefinition Height="50" />
+                        <RowDefinition Height="70" />
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="75" />
+                        <RowDefinition Height="70" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
                     <GridView Grid.Row="0"
-                              IsItemClickEnabled="True">
+                              IsItemClickEnabled="True"
+                              Background="{ThemeResource PhoneAccentBrush}">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ItemClick">
                                 <core:InvokeCommandAction Command="{Binding GoToMarketPlaceCommand}" />
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
-                        <!--micro:Message.Attach="[Event ItemClick] = [Action GoToMarketPlace]"-->
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.star.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="RateTextBlock"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
+                            <Image Width="{StaticResource AboutImageWidth}"
+                                   Source="/Assets/appbar.star.png" />
+                            <Border Background="{StaticResource BackgroundColorBrush}"
+                                    Width="5"
+                                    Height="70" />
+                            <TextBlock x:Uid="RateTextBlock"
+                                       Style="{StaticResource MainAboutTextBlockStyle}" />
                         </StackPanel>
                     </GridView>
                     <GridView Grid.Row="1"
                               Margin="0,5"
-                              IsItemClickEnabled="True">
+                              IsItemClickEnabled="True"
+                              Background="{ThemeResource PhoneAccentBrush}">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ItemClick">
                                 <core:InvokeCommandAction Command="{Binding SentEmailCommand}" />
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
-                        <!--micro:Message.Attach="[Event ItemClick] = [Action SentEmail]"-->
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.email.gmail.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="BugsReport"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
+                            <Image Width="{StaticResource AboutImageWidth}"
+                                   Source="/Assets/appbar.email.gmail.png" />
+                            <Border Background="{StaticResource BackgroundColorBrush}"
+                                    Width="5"
+                                    Height="70" />
+                            <TextBlock x:Uid="BugsReport"
+                                       Style="{StaticResource MainAboutTextBlockStyle}" />
                         </StackPanel>
                     </GridView>
                     <GridView Grid.Row="2"
-                              IsItemClickEnabled="True">
+                              IsItemClickEnabled="True"
+                              Margin="0,0,0,5"
+                              Background="{ThemeResource PhoneAccentBrush}">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ItemClick">
                                 <core:InvokeCommandAction Command="{Binding GoToAboutPageCommand}" />
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
-                        <!--micro:Message.Attach="[Event ItemClick] = [Action GoToAboutPage]"-->
                         <StackPanel Orientation="Horizontal">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.information.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <TextBlock x:Uid="AboutApp"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" />
-                            </StackPanel>
+                            <Image Width="{StaticResource AboutImageWidth}"
+                                   Source="/Assets/appbar.information.png" />
+                            <Border Background="{StaticResource BackgroundColorBrush}"
+                                    Width="5"
+                                    Height="70" />
+                            <TextBlock x:Uid="AboutApp"
+                                       Style="{StaticResource MainAboutTextBlockStyle}" />
                         </StackPanel>
                     </GridView>
                     <GridView Grid.Row="3"
-                              IsItemClickEnabled="True">
+                              IsItemClickEnabled="True"
+                              Background="{ThemeResource PhoneAccentBrush}">
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="ItemClick">
                                 <core:InvokeCommandAction Command="{Binding GoToSettingsPageCommand}" />
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
-                        <!--micro:Message.Attach="[Event ItemClick] = [Action GoToSettingsPage]"-->
-                        <StackPanel Orientation="Horizontal"
-                                    Margin="0,5">
-                            <StackPanel Background="OrangeRed">
-                                <Image Width="50"
-                                       Source="/Assets/appbar.settings.png" />
-                            </StackPanel>
-                            <StackPanel Style="{StaticResource MainAboutStackPanelStyle}">
-                                <StackPanel.Background>
-                                    <SolidColorBrush Color="{ThemeResource PhoneBackgroundColor}"/>
-                                </StackPanel.Background>
-                                <TextBlock x:Uid="Settings"
-                                           Style="{StaticResource MainAboutTextBlockStyle}" SelectionHighlightColor="{ThemeResource PhoneAccentBrush}" Foreground="{ThemeResource PhoneAccentBrush}" />
-                            </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="{StaticResource AboutImageWidth}"
+                                   Source="/Assets/appbar.settings.png" />
+                            <Border Background="{StaticResource BackgroundColorBrush}"
+                                    Width="5"
+                                    Height="70" />
+                            <TextBlock x:Uid="Settings"
+                                       Style="{StaticResource MainAboutTextBlockStyle}" />
                         </StackPanel>
                     </GridView>
                     <GridView Grid.Row="4"
@@ -180,7 +177,8 @@
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Uid="AboutLabel"
                                        FontFamily="Dotum"
-                                       Style="{StaticResource MainLabelTextBlockStyle}" Foreground="{ThemeResource PhoneHighContrastSelectedBackgroundThemeBrush}" SelectionHighlightColor="{x:Null}" />
+                                       Style="{StaticResource MainLabelTextBlockStyle}"
+                                       Foreground="{ThemeResource PhoneHighContrastSelectedBackgroundThemeBrush}" />
                             <Image Style="{StaticResource MainLogoImageStyle}" />
                         </StackPanel>
                     </GridView>
