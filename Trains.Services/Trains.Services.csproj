@@ -51,6 +51,7 @@
     <Compile Include="Infrastructure\TrainGrabber.cs" />
     <Compile Include="Infrastructure\TrainStopGrabber.cs" />
     <Compile Include="Interfaces\IHttpService.cs" />
+    <Compile Include="Interfaces\IMarketPlaceService.cs" />
     <Compile Include="SearchService.cs" />
     <Compile Include="TrainStopService.cs" />
     <Compile Include="Interfaces\ISearchService.cs" />

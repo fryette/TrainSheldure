@@ -25,6 +25,9 @@ namespace Trains.Core.ViewModels
 
         private readonly IAppSettings _appSettings;
 
+        private readonly IMarketPlaceService _marketPlace;
+
+
         private readonly ILocalDataService _local;
 
         /// <summary>
@@ -60,12 +63,13 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, ILocalDataService local)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, ILocalDataService local, IMarketPlaceService marketPlace)
         {
             _serializable = serializable;
             _search = search;
             _appSettings = appSettings;
             _local = local;
+            _marketPlace = marketPlace;
 
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
@@ -404,10 +408,9 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Used to evaluate the application in the Windows phone store.
         /// </summary>
-        private async void GoToMarketPlace()
+        private void GoToMarketPlace()
         {
-            //var uri = new Uri("ms-windows-store:reviewapp?appid=9a0879a6-0764-4e99-87d7-4c1c33f2d78e");
-            //await Launcher.LaunchUriAsync(uri);
+            _marketPlace.GoToMarket();
         }
 
         /// <summary>
