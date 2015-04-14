@@ -10,7 +10,7 @@ namespace Trains.WP.Converter
 {
     public class AboutEnumToImageConverter : Windows.UI.Xaml.Data.IValueConverter
     {
-        static Dictionary<AboutPicture, Uri> openWith =
+        static Dictionary<AboutPicture, Uri> pictures =
             new Dictionary<AboutPicture, Uri>()
             {
                 {AboutPicture.AboutApp,new Uri(@"ms-appx:///Assets/appbar.information.png")},
@@ -21,7 +21,7 @@ namespace Trains.WP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            BitmapImage bmi = new BitmapImage(openWith[(AboutPicture)value]);
+            BitmapImage bmi = new BitmapImage(pictures[(AboutPicture)value]);
             return bmi;
         }
 

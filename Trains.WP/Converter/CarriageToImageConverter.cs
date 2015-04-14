@@ -10,7 +10,7 @@ namespace Trains.WP.Converter
 {
     public class CarriageToImageConverter : Windows.UI.Xaml.Data.IValueConverter
     {
-       static Dictionary<Carriage, Uri> openWith =
+       static Dictionary<Carriage, Uri> pictures =
              new Dictionary<Carriage, Uri>()
             {
                 {Carriage.FirstClassSleeper,new Uri(@"ms-appx:///Assets/Carriage/FirstClassSleeper.png")},
@@ -25,7 +25,7 @@ namespace Trains.WP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            BitmapImage bmi = new BitmapImage(openWith[(Carriage)value]);
+            BitmapImage bmi = new BitmapImage(pictures[(Carriage)value]);
             return bmi;
         }
 
