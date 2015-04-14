@@ -73,7 +73,7 @@ namespace Trains.Core.ViewModels
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             ClickItemCommand = new MvxCommand(() => ClickItem(SelectedTrain));
-            SelectFavoriteTrainCommand = new MvxCommand(() => SelectFavoriteTrain(SelectedRoute));
+            SelectFavoriteTrainCommand = new MvxCommand(() => SelectFavoriteTrain());
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchCommand = new MvxCommand(Search);
         }
@@ -402,9 +402,11 @@ namespace Trains.Core.ViewModels
         /// </summary>
         /// <param name="item">Data that describes route.
         /// This parameter is used to transmit the search page trains.</param>
-        private void SelectFavoriteTrain(LastRequest item)
+        private void SelectFavoriteTrain()
         {
-            ShowViewModel<SearchViewModel>(new { param = JsonConvert.SerializeObject(item) });
+            From = SelectedRoute.From;
+            To = SelectedRoute.To;
+            Search();
         }
 
         /// <summary>
