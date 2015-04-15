@@ -23,6 +23,7 @@
             <converter:IsPlaceToColorConverter x:Key="IsPlaceToColorConverter" />
             <converter:CarriageToImageConverter x:Key="CarriageToImageConverter" />
             <converter:AboutEnumToImageConverter x:Key="AboutEnumToImageConverter" />
+            <converter:SelectionChangedConverter x:Key="SelectionChangedConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>
@@ -493,7 +494,8 @@
                         <interactivity:Interaction.Behaviors>
                             <core:EventTriggerBehavior EventName="Tapped">
                                 <core:InvokeCommandAction Command="{Binding ClickItemCommand}"
-                                                          CommandParameter="{Binding ElementName=LastTrainSearchList, Path=SelectedItem}" />
+                                                          CommandParameter="{Binding ElementName=LastTrainSearchList, Path=SelectedItem}"
+                                                          InputConverter="{StaticResource SelectionChangedConverter}" />
                             </core:EventTriggerBehavior>
                         </interactivity:Interaction.Behaviors>
                     </ListView>

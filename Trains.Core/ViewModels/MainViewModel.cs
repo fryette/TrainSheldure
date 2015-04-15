@@ -75,7 +75,11 @@ namespace Trains.Core.ViewModels
             ClickItemCommand = new MvxCommand<Train>((train) => ClickItem(train));
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchCommand = new MvxCommand(() => Search(From, To));
-            TappedFavoriteCommand = new MvxCommand<LastRequest>((route) => Search(route.From, route.To));
+            TappedFavoriteCommand = new MvxCommand<LastRequest>((route) =>
+            {
+                if (route == null) return;
+                Search(route.From, route.To);
+            });
         }
 
         #endregion
@@ -325,6 +329,7 @@ namespace Trains.Core.ViewModels
         /// <param name="train">Data that describes user-selected train(prices,seats,stop points,and other)</param>
         private void ClickItem(Train train)
         {
+            if (train == null) return;
             ShowViewModel<InformationViewModel>(new { param = JsonConvert.SerializeObject(train) });
         }
 
@@ -381,6 +386,7 @@ namespace Trains.Core.ViewModels
 
         private void ClickAboutItem(About selectedAboutItem)
         {
+            if (selectedAboutItem == null) return;
             if (selectedAboutItem.Item == AboutPicture.AboutApp)
                 ShowViewModel<AboutViewModel>();
             else if (selectedAboutItem.Item == AboutPicture.Mail)

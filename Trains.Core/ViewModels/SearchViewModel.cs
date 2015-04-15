@@ -321,6 +321,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void SetRequest(LastRequest lastRequest)
         {
+            if (lastRequest == null) return;
             From = lastRequest.From;
             To = lastRequest.To;
         }

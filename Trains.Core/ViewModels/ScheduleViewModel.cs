@@ -75,6 +75,7 @@ namespace Trains.Core.ViewModels
         /// <param name="train">Data that describes user-selected train(prices,seats,stop points and other)</param>
         private void ClickItem(Train train)
         {
+            if (train == null) return;
             ShowViewModel<InformationViewModel>(new { param = JsonConvert.SerializeObject(train) });
         }
 

@@ -73,6 +73,7 @@ namespace Trains.Core.ViewModels
 
         private void SelectCarriage(CarriageModel selectedCarriageModel)
         {
+            if (selectedCarriageModel == null) return;
             ShowViewModel<CarriageViewModel>(new { param = JsonConvert.SerializeObject(selectedCarriageModel) });
         }
 

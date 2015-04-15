@@ -91,7 +91,8 @@
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
                             <core:InvokeCommandAction Command="{Binding TappedFavoriteCommand}"
-                                                      CommandParameter="{Binding ElementName=FavoriteRequests, Path=SelectedItem}" />
+                                                      CommandParameter="{Binding ElementName=FavoriteRequests, Path=SelectedItem}"
+                                                      InputConverter="{StaticResource SelectionChangedConverter}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </ListView>
@@ -104,7 +105,8 @@
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
                             <core:InvokeCommandAction Command="{Binding TappedAboutItemCommand}"
-                                                      CommandParameter="{Binding ElementName=AboutItemList, Path=SelectedItem}" />
+                                                      CommandParameter="{Binding ElementName=AboutItemList, Path=SelectedItem}"
+                                                      InputConverter="{StaticResource SelectionChangedConverter}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </ListView>

@@ -21,7 +21,8 @@
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
                             <core:InvokeCommandAction Command="{Binding SelectTrainCommand}"
-                                                      CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
+                                                      CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}"
+                                                      InputConverter="{StaticResource SelectionChangedConverter}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                     <!--<ListView.GroupStyle>
