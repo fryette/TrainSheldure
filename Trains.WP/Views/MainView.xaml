@@ -132,7 +132,7 @@
             <AppBarButton x:Name="ManagedAppBar"
                           x:Uid="ManageAppBar"
                           Icon="Repair"
-                          Command="{Binding GoToFavoriteCommand}" />
+                          Command="{Binding GoToEditFavoriteCommand}" />
             <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
                           Command="{Binding GoToHelpCommand}" />

@@ -47,7 +47,7 @@ namespace Trains.Core.ViewModels
 
         public MvxCommand<About> TappedAboutItemCommand { get; private set; }
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
-        public IMvxCommand GoToFavoriteCommand { get; private set; }
+        public IMvxCommand GoToEditFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
         public MvxCommand<Train> ClickItemCommand { get; private set; }
         public MvxCommand<LastRequest> TappedFavoriteCommand { get; private set; }
@@ -67,15 +67,15 @@ namespace Trains.Core.ViewModels
             _local = local;
             _marketPlace = marketPlace;
 
-            TappedAboutItemCommand = new MvxCommand<About>((aboutItem)=>ClickAboutItem(aboutItem));
+            TappedAboutItemCommand = new MvxCommand<About>((aboutItem) => ClickAboutItem(aboutItem));
             GoToSearchCommand = new MvxCommand(GoToSearch);
-            GoToFavoriteCommand = new MvxCommand(GoToFavorite);
+            GoToEditFavoriteCommand = new MvxCommand(GoToEditFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             ClickItemCommand = new MvxCommand<Train>((train) => ClickItem(train));
-            TappedFavoriteCommand = new MvxCommand<LastRequest>((route) => SelectFavoriteTrain(route));
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
-            SearchCommand = new MvxCommand(Search);
+            SearchCommand = new MvxCommand(() => Search(From, To));
+            TappedFavoriteCommand = new MvxCommand<LastRequest>((route) => Search(route.From, route.To));
         }
 
         #endregion
@@ -287,28 +287,24 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Searches for train schedules at a specified date in the specified mode.
         /// </summary>
-        private async void Search()
+        private async void Search(string from, string to)
         {
-            if (IsTaskRun || await CheckInput(Datum, From, To, _appSettings.AutoCompletion)) return;
+            if (IsTaskRun || await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == From), _appSettings.AutoCompletion.First(x => x.UniqueId == To), Datum, SelectedVariant);
+
+            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from), _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
 
             if (schedule == null || !schedule.Any())
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
             else
             {
                 _appSettings.LastRequestTrain = schedule;
-                await SerializeDataSearch();
+                _appSettings.UpdatedLastRequest = new LastRequest { From = from, To = to, SelectionMode = SelectedVariant, Date = Datum };
+                await _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
                 await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
             IsTaskRun = false;
-        }
-
-        private async Task SerializeDataSearch()
-        {
-            _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
-            await _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
         }
 
         /// <summary>
@@ -347,24 +343,12 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Used to manage user-saved routes.
         /// </summary>
-        private async void GoToFavorite()
+        private async void GoToEditFavorite()
         {
             if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any())
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("EditFavoriteMessageError"));
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();
-        }
-
-        /// <summary>
-        /// Invoked when the user pressed on ListBoxItem.
-        /// </summary>
-        /// <param name="item">Data that describes route.
-        /// This parameter is used to transmit the search page trains.</param>
-        private void SelectFavoriteTrain(LastRequest selectedRoute)
-        {
-            From = selectedRoute.From;
-            To = selectedRoute.To;
-            Search();
         }
 
         /// <summary>
