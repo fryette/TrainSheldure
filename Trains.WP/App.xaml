@@ -423,19 +423,21 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="LastRequestTemplate">
-                <StackPanel Orientation="Horizontal"
-                            Width="400"
-                            MinHeight="40"
-                            Background="{StaticResource OrangeColorBrush}"
-                            Margin="0,5">
-                    <TextBlock Text="{Binding From}"
-                               Style="{StaticResource BasedTextBlockStyle}" />
-                    <TextBlock Text="-"
-                               Style="{StaticResource BasedTextBlockStyle}" />
-                    <TextBlock Text="{Binding To}"
-                               Style="{StaticResource BasedTextBlockStyle}" />
-
-                </StackPanel>
+                <Grid Background="{ThemeResource PhoneAccentBrush}"
+                      Margin="0,5,0,0"
+                      Height="{StaticResource TileWidth}">
+                    <StackPanel Orientation="Horizontal"
+                                Margin="5,0,0,0"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="{Binding From}"
+                                   FontSize="{StaticResource MediumFontSize}" />
+                        <TextBlock Text="-"
+                                   Margin="10,0"
+                                   FontSize="{StaticResource MediumFontSize}" />
+                        <TextBlock Text="{Binding To}"
+                                   FontSize="{StaticResource MediumFontSize}" />
+                    </StackPanel>
+                </Grid>
             </DataTemplate>
             <DataTemplate x:Key="ManageFavoriteRequestTemplate">
                 <StackPanel Orientation="Horizontal"
@@ -478,8 +480,18 @@
                     </StackPanel>
                 </StackPanel>
             </DataTemplate>
-            <DataTemplate x:Key="AboutAppTemplate">
-
+            <DataTemplate x:Key="AboutTemplate">
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,0,0,5"
+                            Background="{ThemeResource PhoneAccentBrush}">
+                    <Image Width="{StaticResource TileWidth}"
+                           Source="{Binding Item,Converter={StaticResource AboutEnumToImageConverter}}" />
+                    <Border Background="{StaticResource BackgroundColorBrush}"
+                            Width="5"
+                            Height="{StaticResource TileWidth}" />
+                    <TextBlock Text="{Binding Text}"
+                               Style="{StaticResource MainAboutTextBlockStyle}" />
+                </StackPanel>
             </DataTemplate>
 
             <DataTemplate x:Key="LastScheduleTemplate">

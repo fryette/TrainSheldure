@@ -9,7 +9,7 @@
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       Background="{StaticResource BackgroundColorBrush}"
-      RequestedTheme="Dark"
+                      RequestedTheme="Dark"
                       d:DataContext="{d:DesignData MainViewModel}">
 
     <Grid Margin="10,0">
@@ -52,27 +52,29 @@
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Style="{StaticResource AutoSuggestBoxStyle}"
                                 FontSize="60"
-                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
 
                 <AutoSuggestBox x:Uid="To"
                                 IsEnabled="{Binding IsFildEnabled}"
                                 Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                 ItemsSource="{Binding AutoSuggestions}"
-                                Style="{StaticResource AutoSuggestBoxStyle}" 
-                                SuggestionChosen="AutoSuggestBox_SuggestionChosen"/>
+                                Style="{StaticResource AutoSuggestBoxStyle}"
+                                SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
 
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Uid="Search" Command="{Binding SearchCommand}"/>
+                    <Button x:Uid="Search"
+                            Command="{Binding SearchCommand}" />
                     <Button x:Uid="Clear"
-                            Margin="5,0,0,0" 
-                            Command="{Binding ClearCommand}"/>
+                            Margin="5,0,0,0"
+                            Command="{Binding ClearCommand}" />
                 </StackPanel>
                 <TextBlock x:Uid="LastRequest"
                            HorizontalAlignment="Left"
                            Style="{ThemeResource TitleTextBlockStyle}" />
                 <ListView ItemsSource="{Binding LastRequests}"
                           SelectedItem="{Binding LastRequest,Mode=TwoWay}"
-                          ItemTemplate="{StaticResource LastRequestTemplate}">
+                          ItemTemplate="{StaticResource LastRequestTemplate}"
+                          ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
                             <core:InvokeCommandAction Command="{Binding SetLastRouteCommand}" />
@@ -86,18 +88,18 @@
         <CommandBar>
             <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           x:Uid="SaveAppBar"
-                          Icon="Favorite" 
-                          Command="{Binding AddToFavoriteCommand}"/>
+                          Icon="Favorite"
+                          Command="{Binding AddToFavoriteCommand}" />
             <AppBarButton x:Uid="Delete"
                           Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           Icon="Unfavorite"
-                          Command="{Binding DeleteInFavoriteCommand}"/>
+                          Command="{Binding DeleteInFavoriteCommand}" />
             <AppBarButton x:Uid="SwapAppBar"
                           Icon="Sort"
-                          Command="{Binding SwapCommand}"/>
+                          Command="{Binding SwapCommand}" />
             <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
-                          Command="{Binding GoToHelpCommand}"/>
+                          Command="{Binding GoToHelpCommand}" />
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>
