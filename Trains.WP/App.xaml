@@ -420,16 +420,14 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="LastRequestTemplate">
-                <Grid Background="{ThemeResource PhoneAccentBrush}"
-                      Margin="0,5,0,0"
-                      Height="{StaticResource TileWidth}">
+                <Grid Height="30">
                     <StackPanel Orientation="Horizontal"
                                 Margin="5,0,0,0"
                                 VerticalAlignment="Center">
                         <TextBlock Text="{Binding From}"
                                    FontSize="{StaticResource MediumFontSize}" />
                         <TextBlock Text="-"
-                                   Margin="10,0"
+                                   Margin="5,0"
                                    FontSize="{StaticResource MediumFontSize}" />
                         <TextBlock Text="{Binding To}"
                                    FontSize="{StaticResource MediumFontSize}" />
@@ -438,11 +436,9 @@
             </DataTemplate>
             <DataTemplate x:Key="ManageFavoriteRequestTemplate">
                 <StackPanel Orientation="Horizontal"
-                            Height="{StaticResource TileWidth}"
-                            Background="{ThemeResource PhoneAccentBrush}"
-                            Margin="5,0,5,5">
+                            Height="20"
+                            Margin="0,0,0,5">
                     <TextBlock Text="{Binding From}"
-                               Margin="5,0"
                                Style="{StaticResource BasedTextBlockStyle}" />
                     <TextBlock Text="-"
                                Margin="5,0"

@@ -272,6 +272,7 @@ namespace Trains.Core.ViewModels
                 From = temp.From;
                 To = temp.To;
             }
+
             SelectedVariant = VariantOfSearch[1];
             LastRequests = _appSettings.LastRequests;
         }
