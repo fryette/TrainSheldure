@@ -92,7 +92,7 @@
                           ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding SelectFavoriteTrainCommand}" />
+                            <core:InvokeCommandAction Command="{Binding TappedFavoriteCommand}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </ListView>

@@ -50,7 +50,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand GoToFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
         public IMvxCommand ClickItemCommand { get; private set; }
-        public IMvxCommand SelectFavoriteTrainCommand { get; private set; }
+        public IMvxCommand TappedFavoriteCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand SearchCommand { get; private set; }
         public IMvxCommand GoToSearchCommand { get; private set; }
@@ -73,7 +73,7 @@ namespace Trains.Core.ViewModels
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             ClickItemCommand = new MvxCommand(() => ClickItem(SelectedTrain));
-            SelectFavoriteTrainCommand = new MvxCommand(() => SelectFavoriteTrain());
+            TappedFavoriteCommand = new MvxCommand(() => SelectFavoriteTrain());
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchCommand = new MvxCommand(Search);
         }

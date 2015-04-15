@@ -14,20 +14,6 @@ namespace Trains.Core.ViewModels
     {
         #region properties
 
-        private LastRequest _selectedItem;
-        public LastRequest SelectedItem
-        {
-            get
-            {
-                return _selectedItem;
-            }
-            set
-            {
-                _selectedItem = value;
-                RaisePropertyChanged(() => SelectedItem);
-            }
-        }
-
         /// <summary>
         /// Used to serialization/deserialization objects.
         /// </summary>
@@ -50,7 +36,7 @@ namespace Trains.Core.ViewModels
         #region command
 
         public IMvxCommand DeleteCommand { get; private set; }
-        public IMvxCommand SelectItemCommand { get; private set; }
+        public MvxCommand<LastRequest> SelectItemCommand { get; private set; }
 
         #endregion
 
@@ -80,7 +66,7 @@ namespace Trains.Core.ViewModels
         {
             FavoriteRequests = _appSettings.FavoriteRequests;
             DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
-            SelectItemCommand = new MvxCommand(() => SelectItem());
+            SelectItemCommand = new MvxCommand<LastRequest>((route) => SelectItem(route));
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("NotifyMessage"));
         }
 
@@ -89,10 +75,10 @@ namespace Trains.Core.ViewModels
         /// </summary>
         /// <param name="item">Data that describes route.
         /// This parameter is used to transmit the search page trains.</param>
-        private void SelectItem()
+        private void SelectItem(LastRequest selectedRoute)
         {
-            if (SelectedItem == null) return;
-            SelectedItem.IsCanBeDeleted = !SelectedItem.IsCanBeDeleted;
+            if (selectedRoute == null) return;
+            selectedRoute.IsCanBeDeleted = !selectedRoute.IsCanBeDeleted;
             //TODO remove and ask how create NotifyChangeProp
             FavoriteRequests = FavoriteRequests.Select(x => x).ToList();
         }
