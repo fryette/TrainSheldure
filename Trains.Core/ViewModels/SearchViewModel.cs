@@ -43,7 +43,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand AddToFavoriteCommand { get; private set; }
         public IMvxCommand DeleteInFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
-        public IMvxCommand SetLastRouteCommand { get; private set; }
+        public MvxCommand<LastRequest> SetLastRouteCommand { get; private set; }
         public IMvxCommand SwapCommand { get; private set; }
 
         #endregion
@@ -69,31 +69,13 @@ namespace Trains.Core.ViewModels
             AddToFavoriteCommand = new MvxCommand(AddToFavorite);
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
-            SetLastRouteCommand = new MvxCommand(() => SetRequest(LastRequest));
+            SetLastRouteCommand = new MvxCommand<LastRequest>((route) => SetRequest(route));
             SwapCommand = new MvxCommand(Swap);
         }
 
         #endregion
 
         #region properties
-
-        /// <summary>
-        /// Used to display favorite icon.
-        /// </summary> 
-        private LastRequest _lastRequest;
-        public LastRequest LastRequest
-        {
-            get
-            {
-                return _lastRequest;
-            }
-
-            set
-            {
-                _lastRequest = value;
-                RaisePropertyChanged(() => LastRequest);
-            }
-        }
 
         /// <summary>
         /// Stores variant of search.

@@ -17,7 +17,7 @@ namespace Trains.Core.ViewModels
 
         #region commands
 
-        public IMvxCommand SelectCarriageCommand { get; private set; }
+        public MvxCommand<CarriageModel> SelectCarriageCommand { get; private set; }
 
         #endregion
 
@@ -26,27 +26,12 @@ namespace Trains.Core.ViewModels
         public HelpViewModel(IAppSettings appSettings)
         {
             _appSettings = appSettings;
-
-            SelectCarriageCommand = new MvxCommand(SelectCarriage);
+            SelectCarriageCommand = new MvxCommand<CarriageModel>((carriage)=>SelectCarriage(carriage));
         }
 
         #endregion
 
         #region properties
-
-        CarriageModel _selectedCarriage;
-        public CarriageModel SelectedCarriage
-        {
-            get
-            {
-                return _selectedCarriage;
-            }
-            set
-            {
-                _selectedCarriage = value;
-                RaisePropertyChanged(() => SelectedCarriage);
-            }
-        }
 
         /// <summary>
         /// Used to dispalying informations about belarussian railway icons.
@@ -86,9 +71,9 @@ namespace Trains.Core.ViewModels
             CarriageInformation = _appSettings.CarriageModel;
         }
 
-        private void SelectCarriage()
+        private void SelectCarriage(CarriageModel selectedCarriageModel)
         {
-            ShowViewModel<CarriageViewModel>(new { param = JsonConvert.SerializeObject(SelectedCarriage) });
+            ShowViewModel<CarriageViewModel>(new { param = JsonConvert.SerializeObject(selectedCarriageModel) });
         }
 
         #endregion

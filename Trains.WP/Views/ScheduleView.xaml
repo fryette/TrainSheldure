@@ -15,12 +15,13 @@
     <Grid Margin="5,0">
         <Pivot>
             <PivotItem Header="{Binding Request}" FontSize="10">
-                <ListView ItemsSource="{Binding Trains}"
-                          SelectedItem="{Binding SelectedTrain,Mode=TwoWay}"
+                <ListView x:Name="TrainList"
+                    ItemsSource="{Binding Trains}"
                           ItemTemplate="{StaticResource ScheduleTemplate}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding SelectTrainCommand}" />
+                            <core:InvokeCommandAction Command="{Binding SelectTrainCommand}"
+                                                      CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                     <!--<ListView.GroupStyle>

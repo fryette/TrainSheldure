@@ -45,12 +45,12 @@ namespace Trains.Core.ViewModels
 
         #region commands
 
-        public IMvxCommand TappedAboutItemCommand { get; private set; }
+        public MvxCommand<About> TappedAboutItemCommand { get; private set; }
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
         public IMvxCommand GoToFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
-        public IMvxCommand ClickItemCommand { get; private set; }
-        public IMvxCommand TappedFavoriteCommand { get; private set; }
+        public MvxCommand<Train> ClickItemCommand { get; private set; }
+        public MvxCommand<LastRequest> TappedFavoriteCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand SearchCommand { get; private set; }
         public IMvxCommand GoToSearchCommand { get; private set; }
@@ -67,13 +67,13 @@ namespace Trains.Core.ViewModels
             _local = local;
             _marketPlace = marketPlace;
 
-            TappedAboutItemCommand = new MvxCommand(ClickAboutItem);
+            TappedAboutItemCommand = new MvxCommand<About>((aboutItem)=>ClickAboutItem(aboutItem));
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToFavoriteCommand = new MvxCommand(GoToFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
-            ClickItemCommand = new MvxCommand(() => ClickItem(SelectedTrain));
-            TappedFavoriteCommand = new MvxCommand(() => SelectFavoriteTrain());
+            ClickItemCommand = new MvxCommand<Train>((train) => ClickItem(train));
+            TappedFavoriteCommand = new MvxCommand<LastRequest>((route) => SelectFavoriteTrain(route));
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchCommand = new MvxCommand(Search);
         }
@@ -128,24 +128,6 @@ namespace Trains.Core.ViewModels
         }
 
         /// <summary>
-        /// Used to set code behind variant of search.
-        /// </summary> 
-        private About _selectedAboutItem;
-        public About SelectedAboutItem
-        {
-            get
-            {
-                return _selectedAboutItem;
-            }
-
-            set
-            {
-                _selectedAboutItem = value;
-                RaisePropertyChanged(() => SelectedAboutItem);
-            }
-        }
-
-        /// <summary>
         /// Contains stopping points satisfying user input.
         /// </summary> 
         private List<string> _autoSuggestions;
@@ -186,30 +168,6 @@ namespace Trains.Core.ViewModels
                 _to = value;
                 RaisePropertyChanged(() => To);
                 AutoSuggestions = UpdateAutoSuggestions(To, _appSettings.AutoCompletion);
-            }
-        }
-
-        private Train _selectedTrain;
-
-        public Train SelectedTrain
-        {
-            get { return _selectedTrain; }
-            set
-            {
-                _selectedTrain = value;
-                RaisePropertyChanged(() => SelectedTrain);
-            }
-        }
-
-        private LastRequest _selectedRoute;
-
-        public LastRequest SelectedRoute
-        {
-            get { return _selectedRoute; }
-            set
-            {
-                _selectedRoute = value;
-                RaisePropertyChanged(() => SelectedRoute);
             }
         }
 
@@ -402,10 +360,10 @@ namespace Trains.Core.ViewModels
         /// </summary>
         /// <param name="item">Data that describes route.
         /// This parameter is used to transmit the search page trains.</param>
-        private void SelectFavoriteTrain()
+        private void SelectFavoriteTrain(LastRequest selectedRoute)
         {
-            From = SelectedRoute.From;
-            To = SelectedRoute.To;
+            From = selectedRoute.From;
+            To = selectedRoute.To;
             Search();
         }
 
@@ -433,13 +391,13 @@ namespace Trains.Core.ViewModels
             IsTaskRun = false;
         }
 
-        private void ClickAboutItem()
+        private void ClickAboutItem(About selectedAboutItem)
         {
-            if (SelectedAboutItem.Item == AboutPicture.AboutApp)
+            if (selectedAboutItem.Item == AboutPicture.AboutApp)
                 ShowViewModel<AboutViewModel>();
-            else if (SelectedAboutItem.Item == AboutPicture.Mail)
+            else if (selectedAboutItem.Item == AboutPicture.Mail)
                 Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com", string.Empty, "Чыгунка/предложения/баги", String.Empty, false);
-            else if (SelectedAboutItem.Item == AboutPicture.Market)
+            else if (selectedAboutItem.Item == AboutPicture.Market)
                 _marketPlace.GoToMarket();
             else
                 ShowViewModel<SettingsViewModel>();

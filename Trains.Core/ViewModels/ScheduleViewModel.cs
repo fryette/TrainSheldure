@@ -24,7 +24,7 @@ namespace Trains.Core.ViewModels
         #region command
 
         public IMvxCommand GoToHelpPageCommand { get; private set; }
-        public IMvxCommand SelectTrainCommand { get; private set; }
+        public MvxCommand<Train> SelectTrainCommand { get; private set; }
 
         #endregion
 
@@ -41,7 +41,7 @@ namespace Trains.Core.ViewModels
             _serializable = serializable;
 
             GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
-            SelectTrainCommand = new MvxCommand(() => ClickItem(SelectedTrain));
+            SelectTrainCommand = new MvxCommand<Train>((train) => ClickItem(train));
         }
 
         #endregion
@@ -55,22 +55,7 @@ namespace Trains.Core.ViewModels
 
         public string Request { get; set; }
 
-        private Train _selectedTrain;
-        public Train SelectedTrain
-        {
-            get
-            {
-                return _selectedTrain;
-            }
-            set
-            {
-                _selectedTrain = value;
-                RaisePropertyChanged(() => SelectedTrain);
-            }
-        }
-
         #endregion
-
 
         #region action
         /// <summary>

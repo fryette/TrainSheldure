@@ -23,7 +23,6 @@
         <Grid Row="1">
             <ListView x:Name="FavoriteRequests"
                       ItemsSource="{Binding FavoriteRequests,Mode=TwoWay}"
-                      SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
                       ItemTemplate="{StaticResource EditFavoriteRequestTemplate}"
                       ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <interactivity:Interaction.Behaviors>

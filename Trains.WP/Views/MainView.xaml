@@ -49,7 +49,6 @@
                             </Grid>
                         </Grid>
                     </GridView>
-
                     <StackPanel Grid.Row="1"
                                 Margin="0,20,0,0"
                                 Background="{StaticResource GrayColorBrush}">
@@ -87,24 +86,25 @@
                        x:Name="RoutesPivot">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
-                          SelectedItem="{Binding SelectedRoute,Mode=TwoWay}"
                           ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding TappedFavoriteCommand}" />
+                            <core:InvokeCommandAction Command="{Binding TappedFavoriteCommand}"
+                                                      CommandParameter="{Binding ElementName=FavoriteRequests, Path=SelectedItem}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </ListView>
             </PivotItem>
             <PivotItem x:Uid="AboutPivot">
-                <ListView ItemsSource="{Binding AboutItems}"
-                          SelectedItem="{Binding SelectedAboutItem,Mode=TwoWay}"
+                <ListView x:Name="AboutItemList"
+                    ItemsSource="{Binding AboutItems}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}"
                           ItemTemplate="{StaticResource AboutTemplate}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding TappedAboutItemCommand}" />
+                            <core:InvokeCommandAction Command="{Binding TappedAboutItemCommand}"
+                                                      CommandParameter="{Binding ElementName=AboutItemList, Path=SelectedItem}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </ListView>
@@ -116,11 +116,11 @@
                          VerticalAlignment="Top" />
         </Grid>
 
-        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
+        <Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
-        </Grid>-->
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
