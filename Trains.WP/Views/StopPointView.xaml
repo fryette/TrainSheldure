@@ -21,6 +21,7 @@
         <Grid Row="1">
             <ListView ItemsSource="{Binding TrainStops}"
                       Margin="5,0"
+                      ItemContainerStyle="{StaticResource ListViewItemStyle}"
                       ItemTemplate="{StaticResource StopPointTemplate}">
             </ListView>
         </Grid>

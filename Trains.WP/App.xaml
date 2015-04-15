@@ -68,12 +68,6 @@
                 <Setter Property="TextWrapping"
                         Value="Wrap" />
             </Style>
-            <Style x:Key="StopPointTextBlockStyle"
-                   TargetType="TextBlock"
-                   BasedOn="{StaticResource BasedTextBlockStyle}">
-                <Setter Property="FontSize"
-                        Value="{StaticResource SmallFontSize}" />
-            </Style>
 
             <Style x:Key="SelectButtonStyle"
                    TargetType="Button">
@@ -162,8 +156,6 @@
                    TargetType="TextBlock">
                 <Setter Property="TextWrapping"
                         Value="Wrap" />
-                <!--<Setter Property="Width"
-                        Value="180" />-->
                 <Setter Property="HorizontalAlignment"
                         Value="Left" />
                 <Setter Property="Margin"
@@ -395,29 +387,27 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="StopPointTemplate">
-                <StackPanel Orientation="Horizontal"
-                            MinWidth="600"
-                            Background="{StaticResource OrangeColorBrush}"
-                            Margin="0,2,0,0">
-                    <StackPanel Orientation="Vertical"
-                                Width="220"
-                                Margin="5,0,0,0">
-                        <TextBlock Text="{Binding Name}"
-                                   MaxWidth="300"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Bottom"
+                <Grid Background="{ThemeResource PhoneAccentBrush}"
+                      Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="200" />
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="{Binding Name}"
+                               Grid.Column="0"
+                               HorizontalAlignment="Left"
+                               Style="{StaticResource BasedTextBlockStyle}"
+                               Margin="5,0,0,0" />
+                    <StackPanel HorizontalAlignment="Left"
+                                Grid.Column="1">
+                        <TextBlock Text="{Binding Arrivals}"
+                                   Style="{StaticResource BasedTextBlockStyle}" />
+                        <TextBlock Text="{Binding Stay}"
+                                   Style="{StaticResource BasedTextBlockStyle}" />
+                        <TextBlock Text="{Binding Departures}"
                                    Style="{StaticResource BasedTextBlockStyle}" />
                     </StackPanel>
-                    <StackPanel Orientation="Vertical"
-                                MinWidth="150">
-                        <TextBlock Text="{Binding Arrivals}"
-                                   Style="{StaticResource StopPointTextBlockStyle}" />
-                        <TextBlock Text="{Binding Stay}"
-                                   Style="{StaticResource StopPointTextBlockStyle}" />
-                        <TextBlock Text="{Binding Departures}"
-                                   Style="{StaticResource StopPointTextBlockStyle}" />
-                    </StackPanel>
-                </StackPanel>
+                </Grid>
             </DataTemplate>
             <DataTemplate x:Key="LastRequestTemplate">
                 <Grid Height="30">
