@@ -89,28 +89,23 @@
                        ContentTemplate="{StaticResource FavoriteRequestTemplate}" />
             <PivotItem x:Uid="AboutPivot">
                 <ListView ItemsSource="{Binding AboutItems}"
-                          SelectedItem="{Binding SelectedAboutItem,Mode=TwoWay}">
+                          SelectedItem="{Binding SelectedAboutItem,Mode=TwoWay}"
+                          ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
                             <core:InvokeCommandAction Command="{Binding TappedAboutItemCommand}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Stretch" />
-                        </Style>
-                    </ListView.ItemContainerStyle>
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
                                         Margin="0,0,0,5"
                                         Background="{ThemeResource PhoneAccentBrush}">
-                                <Image Width="{StaticResource AboutImageWidth}"
+                                <Image Width="{StaticResource TileWidth}"
                                        Source="{Binding Item,Converter={StaticResource AboutEnumToImageConverter}}" />
                                 <Border Background="{StaticResource BackgroundColorBrush}"
                                         Width="5"
-                                        Height="{StaticResource AboutImageWidth}" />
+                                        Height="{StaticResource TileWidth}" />
                                 <TextBlock Text="{Binding Text}"
                                            Style="{StaticResource MainAboutTextBlockStyle}" />
                             </StackPanel>

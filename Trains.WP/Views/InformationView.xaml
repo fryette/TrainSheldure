@@ -1,14 +1,13 @@
-﻿<views:MvxWindowsPage
-    x:Class="Trains.WP.Views.InformationView"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:Trains.WP.Views"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
-    mc:Ignorable="d"
-    Background="{StaticResource BackgroundColorBrush}"
-      RequestedTheme="Dark">
+﻿<views:MvxWindowsPage x:Class="Trains.WP.Views.InformationView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:local="using:Trains.WP.Views"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      mc:Ignorable="d"
+                      Background="{StaticResource BackgroundColorBrush}"
+                      RequestedTheme="Dark">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -28,6 +27,7 @@
         <Grid Row="1">
             <ListView ItemsSource="{Binding AdditionalInformation}"
                       Margin="5,0"
+                      ItemContainerStyle="{StaticResource ListViewItemStyle}"
                       ItemTemplate="{StaticResource InformationTemplate}">
             </ListView>
         </Grid>
