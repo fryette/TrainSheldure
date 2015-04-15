@@ -86,8 +86,11 @@ namespace Trains.Core.ViewModels
             {
                 return new List<string>
                 {
-                    ResourceLoader.Instance.Resource.GetString("OnDay"),
-                    ResourceLoader.Instance.Resource.GetString("OnAllDays")
+                    ResourceLoader.Instance.Resource.GetString("Yesterday"),
+                    ResourceLoader.Instance.Resource.GetString("Today"),
+                    ResourceLoader.Instance.Resource.GetString("Tommorow"),
+                    ResourceLoader.Instance.Resource.GetString("OnAllDays"),
+                    ResourceLoader.Instance.Resource.GetString("OnDay")
                 };
             }
         }
@@ -269,7 +272,7 @@ namespace Trains.Core.ViewModels
                 From = temp.From;
                 To = temp.To;
             }
-            SelectedVariant = VariantOfSearch[0];
+            SelectedVariant = VariantOfSearch[1];
             LastRequests = _appSettings.LastRequests;
         }
 

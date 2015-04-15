@@ -104,7 +104,11 @@ namespace Trains.Core.ViewModels
             {
                 return new List<string>
                 {
-                    "Вчера","Сегодня","Завтра","Все дни","На дату"
+                        ResourceLoader.Instance.Resource.GetString("Yesterday"),
+                    ResourceLoader.Instance.Resource.GetString("Today"),
+                    ResourceLoader.Instance.Resource.GetString("Tommorow"),
+                    ResourceLoader.Instance.Resource.GetString("OnAllDays"),
+                    ResourceLoader.Instance.Resource.GetString("OnDay")
                 };
             }
         }

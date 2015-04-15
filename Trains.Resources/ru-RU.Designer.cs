@@ -404,6 +404,24 @@ namespace Trains.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Сегодня.
+        /// </summary>
+        internal static string Today {
+            get {
+                return ResourceManager.GetString("Today", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Завтра.
+        /// </summary>
+        internal static string tommorow {
+            get {
+                return ResourceManager.GetString("tommorow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Поезда на дату отправления не найдены.
         /// </summary>
         internal static string TrainsNotFound {
@@ -427,6 +445,15 @@ namespace Trains.Resources {
         internal static string Via {
             get {
                 return ResourceManager.GetString("Via", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вчера.
+        /// </summary>
+        internal static string Yesterday {
+            get {
+                return ResourceManager.GetString("Yesterday", resourceCulture);
             }
         }
     }
