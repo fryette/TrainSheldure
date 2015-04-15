@@ -453,16 +453,15 @@
             </DataTemplate>
             <DataTemplate x:Key="EditFavoriteRequestTemplate">
 
-                <Grid Background="{ThemeResource PhoneAccentBrush}"
+                <Grid Background="{Binding IsCanBeDeleted,Converter={StaticResource BooleanToBackgroundConverter}}"
                       Margin="0,5,0,0"
                       Height="{StaticResource TileWidth}">
-                    <StackPanel Orientation="Horizontal"
-                                VerticalAlignment="Center">
-                        <StackPanel Width="37"
+                    <StackPanel Orientation="Horizontal">
+                        <!--<StackPanel Width="37"
                                     Visibility="{Binding IsCanBeDeleted,Converter={StaticResource BooleanToVisibilityConverter}}">
                             <CheckBox IsChecked="True"
                                       Margin="5,0" />
-                        </StackPanel>
+                        </StackPanel>-->
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding From}"
                                        Margin="5,0"
