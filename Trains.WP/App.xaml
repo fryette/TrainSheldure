@@ -62,9 +62,11 @@
             <Style x:Key="BasedTextBlockStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontSize"
-                        Value="{StaticResource NormalFontSize}" />
-                <Setter Property="HorizontalAlignment"
+                        Value="{StaticResource MediumFontSize}" />
+                <Setter Property="VerticalAlignment"
                         Value="Center" />
+                <Setter Property="TextWrapping"
+                        Value="Wrap" />
             </Style>
             <Style x:Key="StopPointTextBlockStyle"
                    TargetType="TextBlock"
@@ -273,33 +275,31 @@
                     </Grid>-->
                     <StackPanel Orientation="Horizontal">
                         <Border Width="10"
-                                Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}"></Border>
+                                Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}"
+                                HorizontalAlignment="Left" />
 
-                        <StackPanel Orientation="Vertical"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    Width="70">
-
+                        <StackPanel Width="70">
                             <TextBlock Text="{Binding StartTime}"
                                        FontSize="{StaticResource BigFontSize}"
-                                       Style="{StaticResource BasedTextBlockStyle}" />
+                                       HorizontalAlignment="Center" />
                             <TextBlock Text="{Binding EndTime}"
                                        FontSize="{StaticResource BigFontSize}"
                                        Foreground="{StaticResource DimGrayColorBrush}"
-                                       Style="{StaticResource BasedTextBlockStyle}" />
+                                       HorizontalAlignment="Center" />
                         </StackPanel>
+
                         <StackPanel Margin="5,0,0,0">
                             <TextBlock Text="{Binding City}"
                                        Style="{StaticResource BasedHeaderTextBlockStyle}"
                                        TextWrapping="WrapWholeWords" />
                             <TextBlock Text="{Binding OnTheWay}"
-                                       Style="{StaticResource BasedTextBlockStyle}"
+                                       FontSize="{StaticResource NormalFontSize}"
                                        HorizontalAlignment="Left" />
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="{Binding IsPlace}"
-                                           Style="{StaticResource BasedTextBlockStyle}"
                                            Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
-                                           HorizontalAlignment="Left" />
+                                           HorizontalAlignment="Left"
+                                           FontSize="{StaticResource NormalFontSize}" />
                                 <StackPanel Orientation="Horizontal"
                                             Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}">
                                     <Border BorderBrush="DarkGray"
@@ -309,7 +309,7 @@
                                             Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="ЭР"
                                                    HorizontalAlignment="Center"
-                                                   Style="{StaticResource BasedTextBlockStyle}" />
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             BorderThickness="1"
@@ -318,7 +318,7 @@
                                             Background="{Binding PlaceClasses.General,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="О"
                                                    HorizontalAlignment="Center"
-                                                   Style="{StaticResource BasedTextBlockStyle}" />
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             BorderThickness="1"
@@ -327,7 +327,7 @@
                                             Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="C"
                                                    HorizontalAlignment="Center"
-                                                   Style="{StaticResource BasedTextBlockStyle}" />
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             BorderThickness="1"
@@ -335,7 +335,7 @@
                                             Background="{Binding PlaceClasses.SecondClass,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="П"
                                                    HorizontalAlignment="Center"
-                                                   Style="{StaticResource BasedTextBlockStyle}" />
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             BorderThickness="1"
@@ -344,7 +344,7 @@
                                             Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="К"
                                                    HorizontalAlignment="Center"
-                                                   Style="{StaticResource BasedTextBlockStyle}" />
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             BorderThickness="1"
@@ -352,7 +352,7 @@
                                             Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="СВ"
                                                    HorizontalAlignment="Center"
-                                                   Style="{StaticResource BasedTextBlockStyle}" />
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                 </StackPanel>
                             </StackPanel>
@@ -382,18 +382,15 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{Binding Name}"
                                Grid.Column="0"
-                               HorizontalAlignment="Left"
-                               VerticalAlignment="Center"
-                               FontSize="{StaticResource MainFontSize}"
-                               TextWrapping="Wrap" />
+                               Style="{StaticResource BasedTextBlockStyle}"
+                               Margin="5,0,0,0" />
                     <StackPanel Grid.Column="1"
                                 HorizontalAlignment="Left"
                                 VerticalAlignment="Center">
                         <TextBlock Text="{Binding Place}"
-                                   FontSize="{StaticResource MediumFontSize}" />
+                                   Style="{StaticResource BasedTextBlockStyle}" />
                         <TextBlock Text="{Binding Price}"
-                                   FontSize="{StaticResource MediumFontSize}"
-                                   TextWrapping="Wrap" />
+                                   Style="{StaticResource BasedTextBlockStyle}" />
                     </StackPanel>
                 </Grid>
             </DataTemplate>
@@ -441,9 +438,8 @@
             </DataTemplate>
             <DataTemplate x:Key="ManageFavoriteRequestTemplate">
                 <StackPanel Orientation="Horizontal"
-                            MinWidth="400"
-                            MinHeight="40"
-                            Background="{StaticResource OrangeColorBrush}"
+                            Height="{StaticResource TileWidth}"
+                            Background="{ThemeResource PhoneAccentBrush}"
                             Margin="5,0,5,5">
                     <TextBlock Text="{Binding From}"
                                Margin="5,0"
@@ -456,29 +452,29 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="EditFavoriteRequestTemplate">
-                <StackPanel Orientation="Horizontal"
-                            MinWidth="400"
-                            MinHeight="60"
-                            Background="{StaticResource OrangeColorBrush}"
-                            Margin="0,0,0,5">
-                    <StackPanel Width="37"
-                                Visibility="{Binding IsCanBeDeleted,Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <CheckBox IsChecked="True"
-                                  Margin="5,0" />
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Center">
+
+                <Grid Background="{ThemeResource PhoneAccentBrush}"
+                      Margin="0,5,0,0"
+                      Height="{StaticResource TileWidth}">
+                    <StackPanel Orientation="Horizontal"
+                                VerticalAlignment="Center">
+                        <StackPanel Width="37"
+                                    Visibility="{Binding IsCanBeDeleted,Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <CheckBox IsChecked="True"
+                                      Margin="5,0" />
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding From}"
-                                       FontSize="20"
+                                       Margin="5,0"
                                        Style="{StaticResource BasedTextBlockStyle}" />
                             <TextBlock Text="-"
+                                       Margin="5,0"
                                        Style="{StaticResource BasedTextBlockStyle}" />
                             <TextBlock Text="{Binding To}"
-                                       FontSize="20"
                                        Style="{StaticResource BasedTextBlockStyle}" />
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                </Grid>
             </DataTemplate>
             <DataTemplate x:Key="AboutTemplate">
                 <StackPanel Orientation="Horizontal"
@@ -516,18 +512,6 @@
                         </interactivity:Interaction.Behaviors>
                     </ListView>
                 </Grid>
-            </DataTemplate>
-            <DataTemplate x:Key="FavoriteRequestTemplate">
-                <ListView x:Name="FavoriteRequests"
-                          ItemsSource="{Binding FavoriteRequests}"
-                          SelectedItem="{Binding SelectedRoute,Mode=TwoWay}"
-                          ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}">
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding SelectFavoriteTrainCommand}" />
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </ListView>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

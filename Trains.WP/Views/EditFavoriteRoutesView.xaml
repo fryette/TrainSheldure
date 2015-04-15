@@ -25,8 +25,8 @@
             <ListView x:Name="FavoriteRequests"
                       ItemsSource="{Binding FavoriteRequests,Mode=TwoWay}"
                       SelectedItem="{Binding SelectedItem,Mode=TwoWay}"
-                      Margin="5,0,0,0"
-                      ItemTemplate="{StaticResource EditFavoriteRequestTemplate}">
+                      ItemTemplate="{StaticResource EditFavoriteRequestTemplate}"
+                      ItemContainerStyle="{StaticResource ListViewItemStyle}">
                 <interactivity:Interaction.Behaviors>
                     <core:EventTriggerBehavior EventName="Tapped">
                         <core:InvokeCommandAction Command="{Binding SelectItemCommand}" />

@@ -33,7 +33,6 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <GridView Grid.Row="0"
-                              IsItemClickEnabled="True"
                               Margin="0,10,0,-10">
                         <Grid>
                             <interactivity:Interaction.Behaviors>
@@ -85,8 +84,19 @@
                        x:Name="LastPivot"
                        ContentTemplate="{StaticResource LastScheduleTemplate}" />
             <PivotItem x:Uid="RoutesPivot"
-                       x:Name="RoutesPivot"
-                       ContentTemplate="{StaticResource FavoriteRequestTemplate}" />
+                       x:Name="RoutesPivot">
+                <ListView x:Name="FavoriteRequests"
+                          ItemsSource="{Binding FavoriteRequests}"
+                          SelectedItem="{Binding SelectedRoute,Mode=TwoWay}"
+                          ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}"
+                          ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Tapped">
+                            <core:InvokeCommandAction Command="{Binding SelectFavoriteTrainCommand}" />
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </ListView>
+            </PivotItem>
             <PivotItem x:Uid="AboutPivot">
                 <ListView ItemsSource="{Binding AboutItems}"
                           SelectedItem="{Binding SelectedAboutItem,Mode=TwoWay}"
