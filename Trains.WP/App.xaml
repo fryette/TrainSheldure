@@ -24,6 +24,8 @@
             <converter:CarriageToImageConverter x:Key="CarriageToImageConverter" />
             <converter:AboutEnumToImageConverter x:Key="AboutEnumToImageConverter" />
             <converter:SelectionChangedConverter x:Key="SelectionChangedConverter" />
+            <converter:ListViewConverter x:Key="ListViewConverter" />
+            <converter:BasicListViewConverter x:Key="BasicListViewConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>
@@ -392,7 +394,7 @@
                       Margin="0,0,0,5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition MinWidth="200" />
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Text="{Binding Name}"
                                Grid.Column="0"
@@ -501,6 +503,141 @@
                     </ListView>
                 </Grid>
             </DataTemplate>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <JumpListItemBackgroundConverter x:Key="JumpListItemBackgroundConverter" />
+            <JumpListItemForegroundConverter x:Key="JumpListItemForegroundConverter" />
+            <Thickness x:Key="JumpListItemBorderThickness">0</Thickness>
+            <Thickness x:Key="JumpListItemTextMargin">9.5,0,0,9.5</Thickness>
+
+
+            <ControlTemplate x:Key="SemantickZoom"
+                             TargetType="SemanticZoom">
+                <Grid>
+                    <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}">
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <ContentPresenter x:Name="ZoomedInPresenter"
+                                              Content="{TemplateBinding ZoomedInView}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                            <Popup x:Name="Popup">
+                                <Popup.ChildTransitions>
+                                    <TransitionCollection>
+                                        <PopupThemeTransition />
+                                    </TransitionCollection>
+                                </Popup.ChildTransitions>
+                                <Grid>
+                                    <Rectangle Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                               Opacity=".67" />
+                                    <Border x:Name="PopupBorder">
+                                        <ContentPresenter x:Name="ZoomedOutPresenter"
+                                                          Content="{TemplateBinding ZoomedOutView}"
+                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                          Margin="19,15,19,0" />
+                                    </Border>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </ControlTemplate>
+
+            <DataTemplate x:Key="GenericGroupHeaderTemplate">
+                <Border>
+                    <TextBlock Text="{Binding Key}"
+                               Foreground="{ThemeResource PhoneAccentBrush}"
+                               FontSize="24"
+                               FontWeight="SemiLight"
+                               OpticalMarginAlignment="TrimSideBearings"
+                               IsTextScaleFactorEnabled="False"
+                               VerticalAlignment="Bottom"
+                               Margin="0,0,0,9.5" />
+                </Border>
+            </DataTemplate>
+            <Style x:Key="JumpListListHeaderContainerStyle"
+                   TargetType="ListViewHeaderItem">
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Stretch" />
+            </Style>
+            <Style x:Key="GenericJumpListPickerStyle"
+                   TargetType="ListView">
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment"
+                                    Value="Stretch" />
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <DataTemplate x:Key="GenericJumpListPickerItemTemplate">
+                <Border Background="{Binding Converter={StaticResource JumpListItemBackgroundConverter}}"
+                        BorderBrush="{Binding Converter={StaticResource JumpListItemForegroundConverter}}"
+                        BorderThickness="{ThemeResource JumpListItemBorderThickness}"
+                        Height="49.5"
+                        Margin="0,0,0,9.5"
+                        HorizontalAlignment="Stretch">
+                    <TextBlock Text="{Binding Group.Key}"
+                               Foreground="{Binding Converter={StaticResource JumpListItemForegroundConverter}}"
+                               FontSize="22"
+                               FontWeight="SemiBold"
+                               TextLineBounds="Tight"
+                               OpticalMarginAlignment="TrimSideBearings"
+                               IsColorFontEnabled="False"
+                               IsTextScaleFactorEnabled="False"
+                               VerticalAlignment="Bottom"
+                               Margin="{ThemeResource JumpListItemTextMargin}" />
+                </Border>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>

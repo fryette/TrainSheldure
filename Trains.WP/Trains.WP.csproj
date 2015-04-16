@@ -106,10 +106,11 @@
     <Compile Include="Converter\BooleanToBackgroundConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\CarriageToImageConverter.cs" />
-    <Compile Include="Converter\ColorBrush.cs" />
     <Compile Include="Converter\EnumToImagePathConverter.cs" />
     <Compile Include="Converter\IsPlaceToColorConverter.cs" />
     <Compile Include="Converter\IsPlaceToVisibilityConverter.cs" />
+    <Compile Include="Converter\ListViewConverter.cs" />
+    <Compile Include="Converter\SelectionChangedConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Services\MarketPlace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
