@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Trains.Services.Infrastructure;
-using Trains.Model.Entities;
-using Trains.Services.Interfaces;
 using Trains.Entities;
-using System;
-using System.Globalization;
-using System.Text.RegularExpressions;
+using Trains.Model.Entities;
+using Trains.Services.Infrastructure;
+using Trains.Services.Interfaces;
 
-namespace Trains.Services.Implementations
+namespace Trains.Services
 {
     public class SearchService : ISearchService
     {
@@ -23,21 +22,20 @@ namespace Trains.Services.Implementations
                                        "(?<internetRegistration><div class=\"b-legend\">(.+?)</div)";
         #endregion
 
-        public readonly IHttpService _httpService;
+        public readonly IHttpService HttpService;
 
         public SearchService(IHttpService httpService)
         {
-            _httpService = httpService;
+            HttpService = httpService;
         }
 
-        public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, System.DateTimeOffset Datum, string selectedVariant)
+        public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
         {
-            var date = GetDate(Datum, selectedVariant);
-            string data;
+            var date = GetDate(datum, selectedVariant);
 
             try
             {
-                data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
+                var data = await HttpService.LoadResponseAsync(GetUrl(@from, to, date));
                 var additionalInformation = TrainGrabber.GetPlaces(data);
                 var links = TrainGrabber.GetLink(data);
                 var parameters = Parser.ParseData(data, Pattern).ToList();
@@ -52,7 +50,7 @@ namespace Trains.Services.Implementations
 
                 return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -66,10 +64,15 @@ namespace Trains.Services.Implementations
 
         private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
-            if (selectedVariantOfSearch == "Завтра") return datum.AddDays(1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
-            if (selectedVariantOfSearch == "Все дни") return "everyday";
-            if (selectedVariantOfSearch == "Вчера")
-                return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+            switch (selectedVariantOfSearch)
+            {
+                case "Завтра":
+                    return datum.AddDays(1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+                case "Все дни":
+                    return "everyday";
+                case "Вчера":
+                    return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+            }
 
             if (datum < DateTime.Now) datum = DateTime.Now;
             return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);

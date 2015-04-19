@@ -1,8 +1,5 @@
-﻿using Microsoft.Phone.Controls;
-using System.Threading;
-using Microsoft.VisualStudio.TestPlatform.Core;
-using vstest_executionengine_platformbridge;
-using Microsoft.VisualStudio.TestPlatform.TestExecutor;
+﻿using System.Threading;
+using Microsoft.Phone.Controls;
 
 namespace Trains.Tests
 {

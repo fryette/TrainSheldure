@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using Trains.Services.Infrastructure;
 using Trains.Model.Entities;
+using Trains.Services.Infrastructure;
 using Trains.Services.Interfaces;
 
-namespace Trains.Services.Implementations
+namespace Trains.Services
 {
     public class TrainStopService : ITrainStopService
     {
@@ -15,11 +15,11 @@ namespace Trains.Services.Implementations
                                        "(?<endTime>class=\"list_end\">(.+?)<\\/?)|" +
                                        "(?<stopTime>class=\"list_stop\">(.+?)<\\/?)";
 
-        public readonly IHttpService _httpService;
+        public readonly IHttpService HttpService;
 
         public TrainStopService(IHttpService httpService)
         {
-            _httpService = httpService;
+            HttpService = httpService;
         }
 
         public async Task<IEnumerable<TrainStop>> GetTrainStop(string link)
@@ -27,7 +27,7 @@ namespace Trains.Services.Implementations
             if (NetworkInterface.GetIsNetworkAvailable())
             {
 				var uri = new Uri("http://rasp.rw.by/m/ru/train/" + link);
-                var data = await _httpService.LoadResponseAsync(uri);
+                var data = await HttpService.LoadResponseAsync(uri);
                 var match = Parser.ParseData(data, Pattern);
 
                 return link.Contains("thread")

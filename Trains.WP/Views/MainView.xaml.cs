@@ -1,15 +1,7 @@
-﻿using System;
-using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Core;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.UI.Popups;
+﻿using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Automation.Peers;
-using Windows.UI.Xaml.Automation.Provider;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace Trains.WP.Views
 {
@@ -42,21 +34,15 @@ namespace Trains.WP.Views
 
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
-            Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
-            Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
+            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
+            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
         }
 
 
-        //private void KittyPic_ImageOpened(object sender, RoutedEventArgs e)
-        //{
-        //    LoadingPanel.Visibility = Visibility.Collapsed;
-        //}
-
-        //private async void KittyPic_ImageFailed(object sender, ExceptionRoutedEventArgs e)
-        //{
-        //    LoadingPanel.Visibility = Visibility.Collapsed;
-        //    await new MessageDialog("Failed to load the image").ShowAsync();
-        //}
+        private void TrainList_OnTapped(object sender, TappedRoutedEventArgs e)
+        {
+            CommandButton.Command.Execute(TrainList.SelectedItem);
+        }
 
 
 

@@ -1,4 +1,5 @@
 using Trains.Model.Entities;
+
 namespace Trains.Entities
 {
     public class Train

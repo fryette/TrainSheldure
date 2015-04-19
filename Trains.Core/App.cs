@@ -1,14 +1,14 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
+using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
-using Trains.Services.Implementations;
-using Trains.Services.Infrastructure;
-using Trains.Services.Interfaces;
+using Trains.Core.ViewModels;
+using Trains.Services;
 using Trains.Services.Interfaces;
 
 namespace Trains.Core
 {
-    public class App : Cirrious.MvvmCross.ViewModels.MvxApplication
+    public class App : MvxApplication
     {
         public override void Initialize()
         {
@@ -17,7 +17,7 @@ namespace Trains.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<ViewModels.MainViewModel>();
+            RegisterAppStart<MainViewModel>();
 
             Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
 

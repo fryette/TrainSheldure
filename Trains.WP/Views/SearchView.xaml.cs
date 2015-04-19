@@ -1,6 +1,6 @@
-﻿// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
-
+﻿using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml.Controls;
+
 namespace Trains.WP.Views
 {
     /// <summary>
@@ -10,12 +10,12 @@ namespace Trains.WP.Views
     {
         public SearchView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
         {
-            Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
-            Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
+            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
+            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
         }
     }
 }

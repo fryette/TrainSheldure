@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Trains.Model.Entities
+﻿namespace Trains.Model.Entities
 {
     public class CountryStopPointItem
     {

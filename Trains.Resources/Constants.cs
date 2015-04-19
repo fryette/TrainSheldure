@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Trains.Resources
+﻿namespace Trains.Resources
 {
     public static class Constants
     {

@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Trains.Model.Entities;
 using Windows.UI;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
+using Trains.Model.Entities;
 
 namespace Trains.WP.Converter
 {
-    class EnumToImagePathConverter : Windows.UI.Xaml.Data.IValueConverter
+    class EnumToImagePathConverter : IValueConverter
     {
         //private static string[] Images = new string[]
         //{
@@ -22,13 +19,13 @@ namespace Trains.WP.Converter
         //    "/Assets/Foreign.png"
         //};
 
-        private static Color[] Images = new Color[]{
+        private static readonly Color[] Images = {
             Colors.Yellow,
             Colors.Green,
             Colors.Green,
             Colors.CadetBlue,
             Colors.CadetBlue,
-            Colors.MediumVioletRed,
+            Colors.MediumVioletRed
         };
 
         public object Convert(object value, Type targetType, object parameter, string language)

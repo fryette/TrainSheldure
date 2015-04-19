@@ -1,10 +1,9 @@
-﻿using Chance.MvvmCross.Plugins.UserInteraction;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
+using Windows.UI.Core;
 using Windows.UI.Popups;
+using Chance.MvvmCross.Plugins.UserInteraction;
 
 namespace Trains.WP.Services
 {
@@ -17,8 +16,8 @@ namespace Trains.WP.Services
 
         public async Task AlertAsync(string message, string title = "", string okButton = "OK")
         {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
-                (Windows.UI.Core.CoreDispatcherPriority.Normal, async () =>
+            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+                (CoreDispatcherPriority.Normal, async () =>
                 {
                     var dialog = new MessageDialog(message);
                     await dialog.ShowAsync();

@@ -1,13 +1,11 @@
-﻿using Chance.MvvmCross.Plugins.UserInteraction;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.ViewModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
-using System.Text;
 using System.Threading.Tasks;
-using Trains.Core.Interfaces;
+using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 using Trains.Model.Entities;
 using Trains.Resources;
 
@@ -15,22 +13,22 @@ namespace Trains.Core.ViewModels
 {
     public abstract class BaseSearchViewModel : MvxViewModel
     {
-        public async Task<bool> CheckInput(DateTimeOffset Datum, string from, string To, List<CountryStopPointItem> autoCompletion)
+        public async Task<bool> CheckInput(DateTimeOffset datum, string from, string to, List<CountryStopPointItem> autoCompletion)
         {
-            if ((Datum.Date - DateTime.Now).Days < 0)
+            if ((datum.Date - DateTime.Now).Days < 0)
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateUpTooLater"));
                 return true;
             }
-            if (Datum.Date > DateTime.Now.AddDays(45))
+            if (datum.Date > DateTime.Now.AddDays(45))
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateTooBig"));
                 return true;
             }
 
-            if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(To) ||
+            if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
                 !(autoCompletion.Any(x => x.UniqueId == from) &&
-                  autoCompletion.Any(x => x.UniqueId == To)))
+                  autoCompletion.Any(x => x.UniqueId == to)))
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("IncorrectInput"));
                 return true;

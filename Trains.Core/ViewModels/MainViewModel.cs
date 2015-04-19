@@ -2,20 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
-using Cirrious.MvvmCross.ViewModels;
-using Trains.Entities;
-using Trains.Model.Entities;
-using Trains.Services.Interfaces;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
-using Newtonsoft.Json;
-using System.Reflection;
-using System.Resources;
-using Trains.Resources;
-using Trains.Core.Interfaces;
 using Cirrious.MvvmCross.Plugins.Email;
-using System.Runtime.ExceptionServices;
+using Cirrious.MvvmCross.ViewModels;
+using Newtonsoft.Json;
+using Trains.Core.Interfaces;
+using Trains.Entities;
+using Trains.Model.Entities;
+using Trains.Resources;
+using Trains.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
 {
@@ -49,7 +45,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
         public IMvxCommand GoToEditFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
-        public MvxCommand<Train> ClickItemCommand { get; private set; }
+        public MvxCommand<Train> SelectTrainCommand { get; private set; }
         public MvxCommand<LastRequest> TappedFavoriteCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand SearchCommand { get; private set; }
@@ -67,15 +63,15 @@ namespace Trains.Core.ViewModels
             _local = local;
             _marketPlace = marketPlace;
 
-            TappedAboutItemCommand = new MvxCommand<About>((aboutItem) => ClickAboutItem(aboutItem));
+            TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
             GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToEditFavoriteCommand = new MvxCommand(GoToEditFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
-            ClickItemCommand = new MvxCommand<Train>((train) => ClickItem(train));
+            SelectTrainCommand = new MvxCommand<Train>(ClickItem);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchCommand = new MvxCommand(() => Search(From, To));
-            TappedFavoriteCommand = new MvxCommand<LastRequest>((route) =>
+            TappedFavoriteCommand = new MvxCommand<LastRequest>(route =>
             {
                 if (route == null) return;
                 Search(route.From, route.To);

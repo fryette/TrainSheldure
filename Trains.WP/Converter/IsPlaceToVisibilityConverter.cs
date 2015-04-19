@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
@@ -14,11 +10,10 @@ namespace Trains.WP.Converter
         {
             if (value != null)
                 return ((string)value).Contains("есть") ? Visibility.Visible : Visibility.Collapsed;
-            else
-                return Visibility.Collapsed;
+            return Visibility.Collapsed;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+       public object ConvertBack(object value, Type targetType, object parameter, string language)
         {
             throw new NotImplementedException();
         }

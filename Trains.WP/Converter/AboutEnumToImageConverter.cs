@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Trains.Model.Entities;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
+using Trains.Model.Entities;
 
 namespace Trains.WP.Converter
 {
-    public class AboutEnumToImageConverter : Windows.UI.Xaml.Data.IValueConverter
+    public class AboutEnumToImageConverter : IValueConverter
     {
-        static Dictionary<AboutPicture, Uri> pictures =
+        static readonly Dictionary<AboutPicture, Uri> Pictures =
             new Dictionary<AboutPicture, Uri>()
             {
                 {AboutPicture.AboutApp,new Uri(@"ms-appx:///Assets/appbar.information.png")},
@@ -21,7 +19,7 @@ namespace Trains.WP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            BitmapImage bmi = new BitmapImage(pictures[(AboutPicture)value]);
+            BitmapImage bmi = new BitmapImage(Pictures[(AboutPicture)value]);
             return bmi;
         }
 

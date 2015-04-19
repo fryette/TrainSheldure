@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Trains.Model;
-using Trains.Resources;
 using Newtonsoft.Json;
+using Trains.Model.Entities;
+using Trains.Resources;
 using Trains.Services.Interfaces;
 
 namespace Trains.Services

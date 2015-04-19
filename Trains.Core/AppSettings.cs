@@ -2,7 +2,6 @@
 using Trains.Core.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
-using Trains.Services.Interfaces;
 
 namespace Trains.Core
 {

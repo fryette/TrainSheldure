@@ -1,6 +1,4 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestPlatform.UnitTestFramework;
-using Trains.Services.Implementations;
 
 namespace Trains.Tests.Trains.Services
 {

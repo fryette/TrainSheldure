@@ -1,6 +1,5 @@
-﻿using System;
-using Trains.Model;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Trains.Model.Entities;
 
 namespace Trains.Services
 {

@@ -3,7 +3,6 @@ using System.Linq;
 using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 using Trains.Resources;
-using Trains.Services.Interfaces;
 
 namespace Trains.Core
 {

@@ -1,12 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Trains.Model.Entities;
 using Trains.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.Services.Interfaces
 {
     public interface ISearchService
     {
-        Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, System.DateTimeOffset Datum, string SelectedVariant);
+        Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string SelectedVariant);
     }
 }

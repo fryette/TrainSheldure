@@ -1,15 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Reflection;
-using System.Resources;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Trains.Core.Interfaces;
-using Trains.Model.Entities;
-using Trains.Services.Interfaces;
+using Trains.Resources;
 
 namespace Trains.Core
 {
@@ -17,18 +11,15 @@ namespace Trains.Core
     {
         private async Task<string> LoadContent(string fileName)
         {
-            var assembly = typeof(Trains.Resources.Constants).GetTypeInfo().Assembly;
+            var assembly = typeof(Constants).GetTypeInfo().Assembly;
             var name = string.Format("Trains.Resources.DataModels.{0}", fileName);
             var stream = assembly.GetManifestResourceStream(name);
 
-            if (stream != null)
+            if (stream == null) return null;
+            using (var reader = new StreamReader(stream))
             {
-                using (var reader = new StreamReader(stream))
-                {
-                    return await reader.ReadToEndAsync();
-                }
+                return await reader.ReadToEndAsync();
             }
-            return null;
         }
 
         public async Task<T> GetData<T>(string fileName) where T : class

@@ -3,7 +3,7 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace System
+namespace Trains.Core.Extensions
 {
 	public static class HttpWebRequestExtensions
 	{

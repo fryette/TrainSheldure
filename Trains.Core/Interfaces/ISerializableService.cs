@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Trains.Model.Entities;
+﻿using System.Threading.Tasks;
 
 namespace Trains.Core.Interfaces
 {

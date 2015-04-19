@@ -1,11 +1,10 @@
-using Cirrious.MvvmCross.ViewModels;
 using System.Collections.Generic;
-using Trains.Model.Entities;
-using Trains.Services.Interfaces;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
+using Trains.Model.Entities;
 using Trains.Resources;
 
 namespace Trains.Core.ViewModels
@@ -25,6 +24,7 @@ namespace Trains.Core.ViewModels
         /// Constructor
         /// </summary>
         /// <param name="favoriteManage">Used to manage favorite routes.</param>
+        /// <param name="appSettings"></param>
         public EditFavoriteRoutesViewModel(IFavoriteManageService favoriteManage, IAppSettings appSettings)
         {
             _favoriteManage = favoriteManage;
@@ -66,15 +66,14 @@ namespace Trains.Core.ViewModels
         {
             FavoriteRequests = _appSettings.FavoriteRequests;
             DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
-            SelectItemCommand = new MvxCommand<LastRequest>((route) => SelectItem(route));
+            SelectItemCommand = new MvxCommand<LastRequest>(route => SelectItem(route));
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("NotifyMessage"));
         }
 
         /// <summary>
         /// Invoked when the user pressed on ListBoxItem.
         /// </summary>
-        /// <param name="item">Data that describes route.
-        /// This parameter is used to transmit the search page trains.</param>
+        /// <param name="selectedRoute"></param>
         private void SelectItem(LastRequest selectedRoute)
         {
             if (selectedRoute == null) return;

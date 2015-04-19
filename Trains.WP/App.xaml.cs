@@ -1,10 +1,13 @@
-﻿using Windows.ApplicationModel;
+﻿using System.Diagnostics;
+using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 
@@ -23,8 +26,8 @@ namespace Trains.WP
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
@@ -37,9 +40,9 @@ namespace Trains.WP
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+            if (Debugger.IsAttached)
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
@@ -69,7 +72,7 @@ namespace Trains.WP
                  var setup = new Setup(rootFrame);
                 setup.Initialize();
 
-                var start = Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>();
+                var start = Mvx.Resolve<IMvxAppStart>();
                 start.Start();
             }
 
@@ -85,8 +88,8 @@ namespace Trains.WP
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
+            rootFrame.ContentTransitions = transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+            rootFrame.Navigated -= RootFrame_FirstNavigated;
         }
 
         /// <summary>

@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Trains.Model.Entities;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
+using Trains.Model.Entities;
 
 namespace Trains.WP.Converter
 {
-    public class CarriageToImageConverter : Windows.UI.Xaml.Data.IValueConverter
+    public class CarriageToImageConverter : IValueConverter
     {
-       static Dictionary<Carriage, Uri> pictures =
+       static readonly Dictionary<Carriage, Uri> Pictures =
              new Dictionary<Carriage, Uri>()
             {
                 {Carriage.FirstClassSleeper,new Uri(@"ms-appx:///Assets/Carriage/FirstClassSleeper.png")},
@@ -25,7 +23,7 @@ namespace Trains.WP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            BitmapImage bmi = new BitmapImage(pictures[(Carriage)value]);
+            BitmapImage bmi = new BitmapImage(Pictures[(Carriage)value]);
             return bmi;
         }
 

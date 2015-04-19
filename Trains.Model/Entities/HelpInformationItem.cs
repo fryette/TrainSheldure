@@ -1,5 +1,3 @@
-using System;
-
 namespace Trains.Model.Entities
 {
     /// <summary>

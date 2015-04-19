@@ -1,9 +1,10 @@
 using Cirrious.CrossCore.Plugins;
+using Cirrious.MvvmCross.Plugins.Network;
 
 namespace Trains.WP.Bootstrap
 {
     public class NetworkPluginBootstrap
-        : MvxPluginBootstrapAction<Cirrious.MvvmCross.Plugins.Network.PluginLoader>
+        : MvxPluginBootstrapAction<PluginLoader>
     {
     }
 }

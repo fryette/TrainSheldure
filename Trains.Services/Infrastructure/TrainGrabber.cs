@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Trains.Model.Entities;
 using Trains.Entities;
+using Trains.Model.Entities;
 using Trains.Resources;
 
 namespace Trains.Services.Infrastructure
@@ -134,7 +133,7 @@ namespace Trains.Services.Infrastructure
             return match.Select(x => x.Groups["internetRegistration"].Value).Where(x => !string.IsNullOrEmpty(x)).Select(m =>
             {
                 if (m.Contains("item")) return true;
-                else return false;
+                return false;
             }).ToList();
         }
 
@@ -155,7 +154,6 @@ namespace Trains.Services.Infrastructure
                     var temp =
                         Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, PlacesAndPricesPattern).ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
-                    var placeClasses = new PlaceClasses();
                     for (var j = 0; j < temp.Count; j += 3)
                     {
                         additionalInformations[j / 3] = new AdditionalInformation

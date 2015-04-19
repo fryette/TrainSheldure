@@ -1,8 +1,7 @@
 using Cirrious.MvvmCross.ViewModels;
+using Newtonsoft.Json;
 using Trains.Entities;
 using Trains.Services.Interfaces;
-using Newtonsoft.Json;
-using System.Linq;
 
 namespace Trains.Core.ViewModels
 {
@@ -42,7 +41,7 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// User-selected train.
         /// </summary>
-        private Train Train;
+        private Train _train;
 
         /// <summary>
         /// Used to dispalying informations about the seats and their prices.
@@ -84,8 +83,8 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
-            Train = JsonConvert.DeserializeObject<Train>(param);
-            AdditionalInformation = Train.AdditionalInformation;
+            _train = JsonConvert.DeserializeObject<Train>(param);
+            AdditionalInformation = _train.AdditionalInformation;
         }
 
         /// <summary>
@@ -95,7 +94,7 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun) return;
             IsTaskRun = true;
-            var stopPointList = (await _trainStop.GetTrainStop(Train.Link));
+            var stopPointList = (await _trainStop.GetTrainStop(_train.Link));
             IsTaskRun = false;
             ShowViewModel<StopPointViewModel>(new { param = JsonConvert.SerializeObject(stopPointList) });
         }

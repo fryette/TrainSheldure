@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Cirrious.MvvmCross.ViewModels;
-using Trains.Model.Entities;
-using Trains.Services.Interfaces;
-using Newtonsoft.Json;
-using System.Net.NetworkInformation;
-using Trains.Resources;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
+using Newtonsoft.Json;
 using Trains.Core.Interfaces;
-using Trains.Entities;
-using System.Runtime.ExceptionServices;
+using Trains.Model.Entities;
+using Trains.Resources;
+using Trains.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
 {
@@ -55,8 +52,8 @@ namespace Trains.Core.ViewModels
         /// </summary>
         /// <param name="search">Used to search train schedule.</param>
         /// <param name="serializable">Used to serialization/deserialization objects.</param>
-        /// <param name="checkTrain">Used to CHeck</param>
         /// <param name="manageFavoriteRequest"></param>
+        /// <param name="appSettings"></param>
         public SearchViewModel(ISearchService search, ISerializableService serializable, IFavoriteManageService manageFavoriteRequest, IAppSettings appSettings)
         {
             _appSettings = appSettings;
@@ -69,7 +66,7 @@ namespace Trains.Core.ViewModels
             AddToFavoriteCommand = new MvxCommand(AddToFavorite);
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
-            SetLastRouteCommand = new MvxCommand<LastRequest>((route) => SetRequest(route));
+            SetLastRouteCommand = new MvxCommand<LastRequest>(SetRequest);
             SwapCommand = new MvxCommand(Swap);
         }
 
@@ -303,7 +300,7 @@ namespace Trains.Core.ViewModels
             _appSettings.UpdatedLastRequest = new LastRequest { From = From, To = To, SelectionMode = SelectedVariant, Date = Datum };
             await _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
             _appSettings.LastRequests = UpdateLastRequests(LastRequests, From, To);
-            await _serializable.SerializeObjectToXml<List<LastRequest>>(LastRequests, Constants.LastRequests);
+            await _serializable.SerializeObjectToXml(LastRequests, Constants.LastRequests);
         }
 
         /// <summary>

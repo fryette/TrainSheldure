@@ -1,13 +1,12 @@
+using Windows.UI.Xaml.Controls;
+using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsCommon.Platform;
-using Windows.UI.Xaml.Controls;
-using Trains.Services.Implementations;
-using Trains.Services.Interfaces;
-using Chance.MvvmCross.Plugins.UserInteraction;
-using Trains.WP.Services;
 using Trains.Core.Interfaces;
+using Trains.Services.Interfaces;
+using Trains.WP.Services;
 
 namespace Trains.WP
 {

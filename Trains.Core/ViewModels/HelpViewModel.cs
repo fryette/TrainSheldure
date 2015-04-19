@@ -1,9 +1,8 @@
+using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using Trains.Core.Interfaces;
 using Trains.Model.Entities;
-using Trains.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
 {
@@ -26,7 +25,7 @@ namespace Trains.Core.ViewModels
         public HelpViewModel(IAppSettings appSettings)
         {
             _appSettings = appSettings;
-            SelectCarriageCommand = new MvxCommand<CarriageModel>((carriage)=>SelectCarriage(carriage));
+            SelectCarriageCommand = new MvxCommand<CarriageModel>(SelectCarriage);
         }
 
         #endregion

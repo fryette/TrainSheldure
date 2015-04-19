@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Trains.Model
+﻿namespace Trains.Model.Entities
 {
     public class ChygunkaSettings
     {

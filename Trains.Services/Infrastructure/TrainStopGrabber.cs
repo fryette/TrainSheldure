@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Trains.Model.Entities;
+using Trains.Resources;
 
 namespace Trains.Services.Infrastructure
 {
@@ -21,9 +22,9 @@ namespace Trains.Services.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = (String.IsNullOrEmpty(arrivals) ? null : Resources.ResourceLoader.Instance.Resource.GetString("Departure") + arrivals.Substring(0, 5)),
-                    Departures = (String.IsNullOrEmpty(departure) ? null : Resources.ResourceLoader.Instance.Resource.GetString("Arrival") + departure),
-                    Stay = String.IsNullOrEmpty(stay) ? null : Resources.ResourceLoader.Instance.Resource.GetString("Stay") + stay
+                    Arrivals = (String.IsNullOrEmpty(arrivals) ? null : ResourceLoader.Instance.Resource.GetString("Departure") + arrivals.Substring(0, 5)),
+                    Departures = (String.IsNullOrEmpty(departure) ? null : ResourceLoader.Instance.Resource.GetString("Arrival") + departure),
+                    Stay = String.IsNullOrEmpty(stay) ? null : ResourceLoader.Instance.Resource.GetString("Stay") + stay
                 });
             }
             return trainStop;
@@ -37,7 +38,7 @@ namespace Trains.Services.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i + 1].Groups[1].Value,
-                    Arrivals = Resources.ResourceLoader.Instance.Resource.GetString("Arrival")+ parameters[i].Groups[2].Value
+                    Arrivals = ResourceLoader.Instance.Resource.GetString("Arrival")+ parameters[i].Groups[2].Value
                 });
             }
             return trainStop;

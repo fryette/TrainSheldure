@@ -80,8 +80,43 @@
                 </Grid>
             </PivotItem>
             <PivotItem x:Uid="LastPivot"
-                       x:Name="LastPivot"
-                       ContentTemplate="{StaticResource LastScheduleTemplate}" />
+                       x:Name="LastPivot">
+                <Grid HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="30" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Text="{Binding LastRoute}"
+                               Style="{StaticResource BasedTextBlockStyle}" />
+                    <SemanticZoom Grid.Row="1"
+                                  x:Name="Root"
+                                  Template="{StaticResource SemantickZoom}"
+                                  DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
+                        <SemanticZoom.ZoomedInView>
+                            <ListView x:Name="TrainList"
+                                      ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
+                                      ItemTemplate="{StaticResource ScheduleTemplate}"
+                                      Tapped="TrainList_OnTapped">
+                                <ListView.GroupStyle>
+                                    <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
+                                                HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
+                                                HidesIfEmpty="True" />
+                                </ListView.GroupStyle>
+                            </ListView>
+                        </SemanticZoom.ZoomedInView>
+                        <SemanticZoom.ZoomedOutView>
+                            <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
+                                      ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
+                                      Style="{StaticResource GenericJumpListPickerStyle}">
+                            </ListView>
+                        </SemanticZoom.ZoomedOutView>
+                    </SemanticZoom>
+                    <Button x:Name="CommandButton"
+                            Visibility="Collapsed"
+                            Command="{Binding SelectTrainCommand}" />
+                </Grid>
+            </PivotItem>
             <PivotItem x:Uid="RoutesPivot"
                        x:Name="RoutesPivot">
                 <ListView x:Name="FavoriteRequests"
@@ -99,7 +134,7 @@
             </PivotItem>
             <PivotItem x:Uid="AboutPivot">
                 <ListView x:Name="AboutItemList"
-                    ItemsSource="{Binding AboutItems}"
+                          ItemsSource="{Binding AboutItems}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}"
                           ItemTemplate="{StaticResource AboutTemplate}">
                     <interactivity:Interaction.Behaviors>

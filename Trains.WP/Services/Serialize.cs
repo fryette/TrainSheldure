@@ -2,9 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Trains.Core.Interfaces;
-using Trains.Services.Interfaces;
 using Windows.Storage;
+using Trains.Core.Interfaces;
 
 namespace Trains.WP.Services
 {

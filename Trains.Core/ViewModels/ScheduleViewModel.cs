@@ -1,21 +1,14 @@
+using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using Trains.Entities;
-using Trains.Services.Interfaces;
-using System.Linq;
 using Trains.Core.Interfaces;
+using Trains.Entities;
 
 namespace Trains.Core.ViewModels
 {
     public class ScheduleViewModel : MvxViewModel
     {
         #region readonlyProperty
-
-        /// <summary>
-        /// Used to serialization/deserialization objects.
-        /// </summary>
-        private readonly ISerializableService _serializable;
 
         private readonly IAppSettings _appSettings;
 
@@ -30,18 +23,12 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="navigationService">Used to navigate between pages.</param>
-        /// <param name="serializable">Used to serialization/deserialization objects.</param>
-        public ScheduleViewModel(ISerializableService serializable, IAppSettings appSettings)
+        public ScheduleViewModel(IAppSettings appSettings)
         {
             _appSettings = appSettings;
-            _serializable = serializable;
 
             GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
-            SelectTrainCommand = new MvxCommand<Train>((train) => ClickItem(train));
+            SelectTrainCommand = new MvxCommand<Train>(ClickItem);
         }
 
         #endregion

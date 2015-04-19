@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Trains.Services.Interfaces;
 using Windows.System;
+using Trains.Services.Interfaces;
 
 namespace Trains.WP.Services
 {

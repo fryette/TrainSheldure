@@ -1,12 +1,9 @@
-﻿using Cirrious.MvvmCross.Plugins.Network.Rest;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Trains.Services.Interfaces;
+using Cirrious.MvvmCross.Plugins.Network.Rest;
 using Trains.Services.Interfaces;
 
 namespace Trains.Core
@@ -15,7 +12,7 @@ namespace Trains.Core
     {
         public async Task<string> LoadResponseAsync(Uri uri, string contentType = "text/html")
         {
-            var request = new MvxRestRequest(uri: uri, accept: contentType);
+            var request = new MvxRestRequest(uri, accept: contentType);
             var httpWebRequest = BuildHttpRequest(request);
             var response = await ExecuteRequestAsync(httpWebRequest);
 
@@ -30,7 +27,7 @@ namespace Trains.Core
 
         public async Task<string> LoadDataResponseAsync(Uri uri, string body = "", string contentType = "application/json")
         {
-            var request = new MvxStringRestRequest(uri: uri, body: body, accept: contentType);
+            var request = new MvxStringRestRequest(uri, body, accept: contentType);
             var httpWebRequest = BuildHttpRequest(request);
             var response = await ExecuteRequestAsync(httpWebRequest);
 

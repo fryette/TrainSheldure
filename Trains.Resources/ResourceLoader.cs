@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Resources;
-using System.Text;
-using System.Threading.Tasks;
 using System.Reflection;
+using System.Resources;
 
 namespace Trains.Resources
 {
     public sealed class ResourceLoader
     {
-        private static volatile ResourceLoader instance;
-        private static object syncRoot = new Object();
+        private static volatile ResourceLoader _instance;
+        private static readonly object SyncRoot = new Object();
 
         public ResourceManager Resource;
 
@@ -25,15 +21,13 @@ namespace Trains.Resources
         {
             get
             {
-                if (instance == null)
+                if (_instance != null) return _instance;
+                lock (SyncRoot)
                 {
-                    lock (syncRoot)
-                    {
-                        if (instance == null)
-                            instance = new ResourceLoader();
-                    }
+                    if (_instance == null)
+                        _instance = new ResourceLoader();
                 }
-                return instance;
+                return _instance;
             }
         }
     }
