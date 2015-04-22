@@ -27,5 +27,11 @@ namespace Trains.WP.Views
             InitializeComponent();
         }
 
+        private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            var c = CommandClick.Command;
+            c.Execute(TrainList.SelectedItem);
+        }
+
     }
 }

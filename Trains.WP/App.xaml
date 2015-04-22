@@ -25,7 +25,6 @@
             <converter:AboutEnumToImageConverter x:Key="AboutEnumToImageConverter" />
             <converter:SelectionChangedConverter x:Key="SelectionChangedConverter" />
             <converter:ListViewConverter x:Key="ListViewConverter" />
-            <converter:BasicListViewConverter x:Key="BasicListViewConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>
