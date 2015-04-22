@@ -3,6 +3,8 @@ using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
 using Trains.Entities;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Trains.Core.ViewModels
 {
@@ -11,6 +13,7 @@ namespace Trains.Core.ViewModels
         #region readonlyProperty
 
         private readonly IAppSettings _appSettings;
+        private readonly IFavoriteManageService _manageFavoriteRequest;
 
         #endregion
 
@@ -18,15 +21,20 @@ namespace Trains.Core.ViewModels
 
         public IMvxCommand GoToHelpPageCommand { get; private set; }
         public MvxCommand<Train> SelectTrainCommand { get; private set; }
+        public IMvxCommand AddToFavoriteCommand { get; private set; }
+        public IMvxCommand DeleteInFavoriteCommand { get; private set; }
 
         #endregion
 
         #region ctor
 
-        public ScheduleViewModel(IAppSettings appSettings)
+        public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest)
         {
+            _manageFavoriteRequest = manageFavoriteRequest;
             _appSettings = appSettings;
 
+            AddToFavoriteCommand = new MvxCommand(AddToFavorite);
+            DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
             GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
             SelectTrainCommand = new MvxCommand<Train>(ClickItem);
         }
@@ -34,6 +42,42 @@ namespace Trains.Core.ViewModels
         #endregion
 
         #region properties
+
+        /// <summary>
+        /// Used to display favorite icon.
+        /// </summary> 
+        private bool _isVisibleFavoriteIcon;
+        public bool IsVisibleFavoriteIcon
+        {
+            get
+            {
+                return _isVisibleFavoriteIcon;
+            }
+
+            set
+            {
+                _isVisibleFavoriteIcon = value;
+                RaisePropertyChanged(() => IsVisibleFavoriteIcon);
+            }
+        }
+
+        /// <summary>
+        /// Used to display unfavorite icon.
+        /// </summary> 
+        private bool _isVisibleUnFavoriteIcon;
+        public bool IsVisibleUnFavoriteIcon
+        {
+            get
+            {
+                return _isVisibleUnFavoriteIcon;
+            }
+
+            set
+            {
+                _isVisibleUnFavoriteIcon = value;
+                RaisePropertyChanged(() => IsVisibleUnFavoriteIcon);
+            }
+        }
 
         /// <summary>
         /// Ñontains information on all trains on the route selected by the user.
@@ -53,6 +97,7 @@ namespace Trains.Core.ViewModels
         {
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
             Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
+            SetManageFavoriteButton();
         }
 
         /// <summary>
@@ -72,6 +117,41 @@ namespace Trains.Core.ViewModels
         private void GoToHelpPage()
         {
             ShowViewModel<HelpViewModel>();
+        }
+
+        private void SetManageFavoriteButton()
+        {
+            if (_appSettings.FavoriteRequests == null) SetVisibilityToFavoriteIcons(true, false);
+            else if (_appSettings.FavoriteRequests.Any(x => x.From == _appSettings.UpdatedLastRequest.From && x.To == _appSettings.UpdatedLastRequest.To))
+                SetVisibilityToFavoriteIcons(false, true);
+            else SetVisibilityToFavoriteIcons(true, false);
+        }
+
+        /// <summary>
+        /// Saves the entered route to favorite.
+        /// </summary>
+        private async void AddToFavorite()
+        {
+            if (await Task.Run(() => _manageFavoriteRequest.AddToFavorite(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To)))
+                SetVisibilityToFavoriteIcons(false, true);
+        }
+
+        /// <summary>
+        /// Deletes the entered route visas favorite.
+        /// </summary>
+        private async void DeleteInFavorite()
+        {
+            if (await Task.Run(() => _manageFavoriteRequest.DeleteRoute(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To)))
+                SetVisibilityToFavoriteIcons(true, false);
+        }
+
+        /// <summary>
+        /// Change visibility of favorite and unfavorite buttons when user add route to favorite or delete this route.
+        /// </summary>
+        private void SetVisibilityToFavoriteIcons(bool favorite, bool unfavorite)
+        {
+            IsVisibleFavoriteIcon = favorite;
+            IsVisibleUnFavoriteIcon = unfavorite;
         }
 
         #endregion

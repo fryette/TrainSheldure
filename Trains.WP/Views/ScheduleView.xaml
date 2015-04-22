@@ -48,6 +48,14 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
+            <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          x:Uid="SaveAppBar"
+                          Icon="Favorite"
+                          Command="{Binding AddToFavoriteCommand}" />
+            <AppBarButton x:Uid="Delete"
+                          Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
+                          Icon="Unfavorite"
+                          Command="{Binding DeleteInFavoriteCommand}" />
             <AppBarButton x:Uid="HelpAppBar"
                           Icon="Help"
                           Command="{Binding GoToHelpCommand}" />
