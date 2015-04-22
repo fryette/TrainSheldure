@@ -12,9 +12,11 @@ namespace Trains.WP.Views
             InitializeComponent();
         }
 
-        private void TrainList_OnTapped(object sender, TappedRoutedEventArgs e)
+        private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            CommandButton.Command.Execute(TrainList.SelectedItem);
+            var c = CommandClick.Command;
+            c.Execute(TrainList.SelectedItem);
         }
+
     }
 }

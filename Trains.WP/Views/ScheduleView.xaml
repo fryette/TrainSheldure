@@ -19,13 +19,14 @@
                         <SemanticZoom.ZoomedInView>
                             <ListView x:Name="TrainList"
                                       ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                                      ItemTemplate="{StaticResource ScheduleTemplate}"
-                                      Tapped="TrainList_OnTapped">
+                                  ItemTemplate="{StaticResource ScheduleTemplate}"
+                                  Tapped="TrainList_Tapped">
                                 <ListView.GroupStyle>
                                     <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
                                                 HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
                                                 HidesIfEmpty="True" />
                                 </ListView.GroupStyle>
+                                <core:EventTriggerBehavior  EventName="Tapped">
                             </ListView>
                         </SemanticZoom.ZoomedInView>
                         <SemanticZoom.ZoomedOutView>
@@ -41,6 +42,10 @@
                 </Grid>
             </PivotItem>
         </Pivot>
+        <Button Visibility="Collapsed"
+                x:Name="CommandClick"
+                Command="{Binding SelectTrainCommand}"
+                CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
