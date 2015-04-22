@@ -318,7 +318,6 @@
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             BorderThickness="1"
-                                            Margin="10,0"
                                             Padding="5,0"
                                             Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="C"
@@ -335,7 +334,6 @@
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             BorderThickness="1"
-                                            Margin="10,0"
                                             Padding="5,0"
                                             Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="К"
