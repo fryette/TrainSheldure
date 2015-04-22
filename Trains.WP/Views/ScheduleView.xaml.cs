@@ -14,8 +14,7 @@ namespace Trains.WP.Views
 
         private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)
         {
-            var c = CommandClick.Command;
-            c.Execute(TrainList.SelectedItem);
+            CommandClick.Command.Execute(TrainList.SelectedItem);
         }
 
     }

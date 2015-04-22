@@ -43,11 +43,5 @@ namespace Trains.WP.Views
         {
             CommandButton.Command.Execute(TrainList.SelectedItem);
         }
-
-
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-        }
     }
 }

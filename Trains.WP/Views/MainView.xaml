@@ -55,8 +55,7 @@
                         <TextBlock Text="Быстрый поиск поезда"
                                    FontSize="18" />
                         <ComboBox ItemsSource="{Binding VariantOfSearch,Mode=TwoWay}"
-                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
-                                  SelectionChanged="ComboBox_SelectionChanged" />
+                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}" />
                         <AutoSuggestBox x:Uid="From"
                                         Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"

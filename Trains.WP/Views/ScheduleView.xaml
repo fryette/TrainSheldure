@@ -26,7 +26,6 @@
                                                 HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
                                                 HidesIfEmpty="True" />
                                 </ListView.GroupStyle>
-                                <core:EventTriggerBehavior  EventName="Tapped">
                             </ListView>
                         </SemanticZoom.ZoomedInView>
                         <SemanticZoom.ZoomedOutView>
