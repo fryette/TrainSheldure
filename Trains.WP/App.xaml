@@ -369,8 +369,7 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="InformationTemplate">
-                <Grid Background="{ThemeResource PhoneAccentBrush}"
-                      Margin="0,5,0,0"
+                <Grid Margin="0,5,0,0"
                       Height="{StaticResource TileWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200" />
@@ -391,27 +390,30 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="StopPointTemplate">
-                <Grid Background="{ThemeResource PhoneAccentBrush}"
-                      Margin="0,0,0,5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition MinWidth="200" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="{Binding Name}"
-                               Grid.Column="0"
-                               HorizontalAlignment="Left"
-                               Style="{StaticResource BasedTextBlockStyle}"
-                               Margin="5,0,0,0" />
-                    <StackPanel HorizontalAlignment="Left"
-                                Grid.Column="1">
-                        <TextBlock Text="{Binding Arrivals}"
-                                   Style="{StaticResource BasedTextBlockStyle}" />
-                        <TextBlock Text="{Binding Stay}"
-                                   Style="{StaticResource BasedTextBlockStyle}" />
-                        <TextBlock Text="{Binding Departures}"
-                                   Style="{StaticResource BasedTextBlockStyle}" />
-                    </StackPanel>
-                </Grid>
+                <Border BorderBrush="Gray"
+                        BorderThickness="0,1,0,1"
+                        Padding="0,10,0,10">
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition MinWidth="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}"
+                                   Grid.Column="0"
+                                   HorizontalAlignment="Left"
+                                   Style="{StaticResource BasedTextBlockStyle}"
+                                   Margin="5,0,0,0" />
+                        <StackPanel HorizontalAlignment="Left"
+                                    Grid.Column="1">
+                            <TextBlock Text="{Binding Arrivals}"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                            <TextBlock Text="{Binding Stay}"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                            <TextBlock Text="{Binding Departures}"
+                                       Style="{StaticResource BasedTextBlockStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
             </DataTemplate>
             <DataTemplate x:Key="LastRequestTemplate">
                 <Grid Height="30">

@@ -10,33 +10,43 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid Row="0">
-            <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock x:Uid="DownloadStopPoints" />
-                <ProgressBar IsIndeterminate="True"
-                             VerticalAlignment="Top" />
-            </Grid>
-            <TextBlock x:Uid="InformationHeader"
-                       Style="{ThemeResource HeaderTextBlockStyle}" />
+            <TextBlock Text="{Binding Train.City}"
+                       Style="{ThemeResource TitleStyle}"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal" />
         </Grid>
         <Grid Row="1">
-            <ListView ItemsSource="{Binding AdditionalInformation}"
-                      Margin="5,0"
-                      ItemContainerStyle="{StaticResource ListViewItemStyle}"
-                      ItemTemplate="{StaticResource InformationTemplate}">
-            </ListView>
+            <ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Margin="0,0,0,30">
+                        <ItemsControl ItemsSource="{Binding Train.AdditionalInformation}"
+                                      Margin="5,0"
+                                      ItemTemplate="{StaticResource InformationTemplate}">
+                        </ItemsControl>
+                    </Grid>
+                    <ItemsControl Grid.Row="1"
+                                  ItemsSource="{Binding StopPointList}"
+                                  Margin="5,0"
+                                  ItemTemplate="{StaticResource StopPointTemplate}" />
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="1"
+              Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
+              VerticalAlignment="Center">
+            <TextBlock x:Uid="DownloadStopPoints" />
+            <ProgressRing IsActive="True" />
         </Grid>
     </Grid>
-    <Page.BottomAppBar>
-        <CommandBar>
-            <AppBarButton x:Uid="StopPointAppBar"
-                          Icon="Document"
-                          Command="{Binding SearchStopPointsCommand}" />
-        </CommandBar>
-    </Page.BottomAppBar>
 
 </views:MvxWindowsPage>

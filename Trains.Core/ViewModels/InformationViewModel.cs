@@ -1,6 +1,9 @@
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Trains.Entities;
+using Trains.Model.Entities;
 using Trains.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
@@ -31,32 +34,27 @@ namespace Trains.Core.ViewModels
         public InformationViewModel(ITrainStopService trainStop)
         {
             _trainStop = trainStop;
-            SearchStopPointsCommand = new MvxCommand(SearchStopPoint);
         }
 
         #endregion
 
         #region properties
 
+        public IEnumerable<TrainStop> _stopPointList;
+        public IEnumerable<TrainStop> StopPointList
+        {
+            get { return _stopPointList; }
+            set
+            {
+                _stopPointList = value;
+                RaisePropertyChanged(() => StopPointList);
+            }
+        }
+
         /// <summary>
         /// User-selected train.
         /// </summary>
-        private Train _train;
-
-        /// <summary>
-        /// Used to dispalying informations about the seats and their prices.
-        /// </summary>
-        private AdditionalInformation[] _additionalInformation;
-
-        public AdditionalInformation[] AdditionalInformation
-        {
-            get { return _additionalInformation; }
-            set
-            {
-                _additionalInformation = value;
-                RaisePropertyChanged(() => AdditionalInformation);
-            }
-        }
+        public Train Train { get; set; }
 
         /// <summary>
         /// Used for process control.
@@ -83,20 +81,18 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
-            _train = JsonConvert.DeserializeObject<Train>(param);
-            AdditionalInformation = _train.AdditionalInformation;
+            IsTaskRun = true;
+            Train = JsonConvert.DeserializeObject<Train>(param);
+            SearchStopPoint();
         }
 
         /// <summary>
         /// Search additional information about user-selected train.
         /// </summary>
-        private async void SearchStopPoint()
+        private async Task SearchStopPoint()
         {
-            if (IsTaskRun) return;
-            IsTaskRun = true;
-            var stopPointList = (await _trainStop.GetTrainStop(_train.Link));
+            StopPointList = (await _trainStop.GetTrainStop(Train.Link));
             IsTaskRun = false;
-            ShowViewModel<StopPointViewModel>(new { param = JsonConvert.SerializeObject(stopPointList) });
         }
 
         #endregion
