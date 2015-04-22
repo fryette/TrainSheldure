@@ -72,6 +72,8 @@ namespace Trains.Services
                     return "everyday";
                 case "Вчера":
                     return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+                case "На дату":
+                    return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
             }
 
             if (datum < DateTime.Now) datum = DateTime.Now;

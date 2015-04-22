@@ -6,8 +6,6 @@ namespace Trains.Core.Interfaces
 {
    public interface IAppSettings
     {
-        List<LastRequest> LastRequests { get; set; }
-
         List<LastRequest> FavoriteRequests { get; set; }
 
         List<CountryStopPointItem> AutoCompletion { get; set; }

@@ -49,7 +49,7 @@ namespace Trains.Core.ViewModels
         public MvxCommand<LastRequest> TappedFavoriteCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand SearchCommand { get; private set; }
-        public IMvxCommand GoToSearchCommand { get; private set; }
+        public IMvxCommand SwapCommand { get; private set; }
 
         #endregion
 
@@ -64,13 +64,13 @@ namespace Trains.Core.ViewModels
             _marketPlace = marketPlace;
 
             TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
-            GoToSearchCommand = new MvxCommand(GoToSearch);
             GoToEditFavoriteCommand = new MvxCommand(GoToEditFavorite);
             GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SelectTrainCommand = new MvxCommand<Train>(ClickItem);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchCommand = new MvxCommand(() => Search(From, To));
+            SwapCommand = new MvxCommand(Swap);
             TappedFavoriteCommand = new MvxCommand<LastRequest>(route =>
             {
                 if (route == null) return;
@@ -104,7 +104,7 @@ namespace Trains.Core.ViewModels
             {
                 return new List<string>
                 {
-                        ResourceLoader.Instance.Resource.GetString("Yesterday"),
+                    ResourceLoader.Instance.Resource.GetString("Yesterday"),
                     ResourceLoader.Instance.Resource.GetString("Today"),
                     ResourceLoader.Instance.Resource.GetString("Tommorow"),
                     ResourceLoader.Instance.Resource.GetString("OnAllDays"),
@@ -127,6 +127,7 @@ namespace Trains.Core.ViewModels
             set
             {
                 _selectedDate = value;
+                IsOnDaySelected = SelectedVariant == "На дату" ? true : false;
                 RaisePropertyChanged(() => SelectedVariant);
             }
         }
@@ -179,7 +180,6 @@ namespace Trains.Core.ViewModels
         /// Used for process control.
         /// </summary>
         private bool _isTaskRun;
-
         public bool IsTaskRun
         {
             get { return _isTaskRun; }
@@ -209,7 +209,6 @@ namespace Trains.Core.ViewModels
         /// Used for process download data control.
         /// </summary>
         private bool _isDownloadRun;
-
         public bool IsDownloadRun
         {
             get { return _isDownloadRun; }
@@ -239,7 +238,6 @@ namespace Trains.Core.ViewModels
         /// Object are stored custom routes.
         /// </summary>
         private IEnumerable<LastRequest> _favoriteRequests;
-
         public IEnumerable<LastRequest> FavoriteRequests
         {
             get { return _favoriteRequests; }
@@ -254,7 +252,6 @@ namespace Trains.Core.ViewModels
         /// Last route
         /// </summary>
         private string _lastRoute;
-
         public string LastRoute
         {
             get { return _lastRoute; }
@@ -262,6 +259,17 @@ namespace Trains.Core.ViewModels
             {
                 _lastRoute = value;
                 RaisePropertyChanged(() => LastRoute);
+            }
+        }
+
+        private bool _isOnDaySelected;
+        public bool IsOnDaySelected
+        {
+            get { return _isOnDaySelected; }
+            set
+            {
+                _isOnDaySelected = value;
+                RaisePropertyChanged(() => IsOnDaySelected);
             }
         }
 
@@ -309,14 +317,6 @@ namespace Trains.Core.ViewModels
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
             IsTaskRun = false;
-        }
-
-        /// <summary>
-        /// Go to page,where user must enter the stopping points.
-        /// </summary>
-        private void GoToSearch()
-        {
-            ShowViewModel<SearchViewModel>();
         }
 
         /// <summary>
@@ -393,6 +393,16 @@ namespace Trains.Core.ViewModels
                 ShowViewModel<SettingsViewModel>();
         }
 
+        /// <summary>
+        /// Swaped From and To properties.
+        /// </summary>
+        private void Swap()
+        {
+            var tmp = From;
+            From = To;
+            To = tmp;
+        }
+
         private async Task RestoreData()
         {
             _appSettings.AutoCompletion = await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson);
@@ -401,7 +411,6 @@ namespace Trains.Core.ViewModels
             _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
             _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
             _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
-            _appSettings.LastRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.LastRequests);
             _appSettings.About = await _local.GetData<List<About>>(Constants.AboutJson);
         }
 

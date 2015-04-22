@@ -26,7 +26,8 @@
         </Grid.Resources>
         <Pivot x:Uid="ApplicationName"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem x:Uid="MainPivot">
+            <PivotItem x:Uid="MainPivot"
+                       x:Name="MainPivot">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="170" />
@@ -35,33 +36,27 @@
                     <GridView Grid.Row="0"
                               Margin="0,10,0,-10">
                         <Grid>
-                            <interactivity:Interaction.Behaviors>
-                                <core:EventTriggerBehavior EventName="Tapped">
-                                    <core:InvokeCommandAction Command="{Binding GoToSearchCommand}" />
-                                </core:EventTriggerBehavior>
-                            </interactivity:Interaction.Behaviors>
                             <Image x:Name="MainImage"
                                    Source="/Assets/MenuIcon/result.jpg"
                                    Style="{StaticResource MainButtonImageStyle}" />
-                            <Grid Style="{StaticResource GridLabelMainStyle}">
-                                <TextBlock x:Uid="SearchLabel"
-                                           Style="{StaticResource MainImageLabelTextBlockStyle}" />
-                            </Grid>
                         </Grid>
                     </GridView>
                     <StackPanel Grid.Row="1"
-                                Margin="0,20,0,0"
                                 Background="{StaticResource GrayColorBrush}">
                         <TextBlock Text="Быстрый поиск поезда"
                                    FontSize="18" />
-                        <ComboBox ItemsSource="{Binding VariantOfSearch,Mode=TwoWay}"
-                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}" />
+                        <ComboBox ItemsSource="{Binding VariantOfSearch}"
+                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}">
+                        </ComboBox>
+                        <DatePicker x:Uid="DateOfDeparture"
+                                    Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                    Visibility="{Binding IsOnDaySelected,Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    Style="{StaticResource DatePickerStyle}" />
                         <AutoSuggestBox x:Uid="From"
                                         Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         IsEnabled="{Binding IsFildEnabled}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
-                                        FontSize="60"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
                         <AutoSuggestBox x:Uid="To"
                                         IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
@@ -69,7 +64,6 @@
                                         ItemsSource="{Binding AutoSuggestions}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-
 
                         <Button Content="Найти"
                                 HorizontalAlignment="Right"
@@ -152,19 +146,22 @@
                          VerticalAlignment="Top" />
         </Grid>
 
-        <Grid Background="{StaticResource BackgroundColorBrush}"
-              Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <!--<Grid Background="{StaticResource BackgroundColorBrush}"-->
+        <!--Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
-        </Grid>
+        </Grid>-->
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="UpdateAppBar"
                           x:Uid="UpdateAppBar"
                           Icon="Sync"
-                          Command="{Binding UpdateLastRequestCommand}">
-            </AppBarButton>
+                          Command="{Binding UpdateLastRequestCommand}" />
+            <AppBarButton x:Name="SwapAppBar"
+                          x:Uid="SwapAppBar"
+                          Icon="Sort"
+                          Command="{Binding SwapCommand}" />
             <AppBarButton x:Name="ManagedAppBar"
                           x:Uid="ManageAppBar"
                           Icon="Repair"

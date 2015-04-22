@@ -18,18 +18,20 @@ namespace Trains.WP.Views
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)
         {
-            if (args.Item == RoutesPivot)
+            if (args.Item == MainPivot) SetAppBarVisibility(false, false, true);
+            else if (args.Item == RoutesPivot)
                 SetAppBarVisibility(false, true);
             else if (args.Item == LastPivot)
-                SetAppBarVisibility(true, false);
+                SetAppBarVisibility(true);
             else
-                SetAppBarVisibility(false, false);
+                SetAppBarVisibility();
         }
 
-        private void SetAppBarVisibility(bool updateAppBar, bool managedAppBar)
+        private void SetAppBarVisibility(bool updateAppBar = false, bool managedAppBar = false, bool swapAppBar = false)
         {
             UpdateAppBar.Visibility = updateAppBar ? Visibility.Visible : Visibility.Collapsed;
             ManagedAppBar.Visibility = managedAppBar ? Visibility.Visible : Visibility.Collapsed;
+            SwapAppBar.Visibility = swapAppBar ? Visibility.Visible : Visibility.Collapsed;
         }
 
         private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
