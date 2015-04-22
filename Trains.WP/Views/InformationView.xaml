@@ -41,11 +41,14 @@
                 </Grid>
             </ScrollViewer>
         </Grid>
-        <Grid Grid.Row="1"
-              Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
-              VerticalAlignment="Center">
-            <TextBlock x:Uid="DownloadStopPoints" />
-            <ProgressRing IsActive="True" />
-        </Grid>
+        <StackPanel Grid.Row="1"
+                    Background="{StaticResource BackgroundColorBrush}"
+                    Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
+                    VerticalAlignment="Center">
+            <TextBlock x:Uid="DownloadStopPoints"
+                       FontSize="{StaticResource BigFontSize}"
+                       HorizontalAlignment="Center" />
+            <ProgressBar IsIndeterminate="True" />
+        </StackPanel>
     </Grid>
 </views:MvxWindowsPage>
