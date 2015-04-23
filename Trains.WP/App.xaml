@@ -277,14 +277,14 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
                                 <TextBlock Text="{Binding StartTime}"
-                                           FontSize="30" />
+                                           FontSize="{StaticResource BigFontSize}" />
                                 <TextBlock Text="{Binding EndTime}"
-                                           FontSize="{StaticResource MainFontSize}"
+                                           FontSize="{StaticResource BigFontSize}"
                                            Foreground="{StaticResource DimGrayColorBrush}" />
                                 <TextBlock Text="{Binding IsPlace}"
                                            Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
                                            HorizontalAlignment="Left"
-                                           FontSize="25" />
+                                           FontSize="{StaticResource BigFontSize}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1"
@@ -292,17 +292,16 @@
                                 <TextBlock Text="{Binding City}"
                                            Style="{StaticResource BasedHeaderTextBlockStyle}"
                                            FontSize="{StaticResource ScheduleFontSize}"
-                                           Margin="0,8,0,0" />
+                                           Margin="0,1.5,0,0" />
                                 <TextBlock Text="{Binding OnTheWay}"
                                            FontSize="{StaticResource ScheduleFontSize}"
-                                           HorizontalAlignment="Left"
-                                           Margin="0,3,0,0" />
+                                           Margin="0,1.5,0,0" />
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Left">
 
                                     <StackPanel Orientation="Horizontal"
                                                 Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}"
-                                                Margin="0,6,0,0">
+                                                Margin="0,9,0,0">
                                         <Border BorderBrush="DarkGray"
                                                 Margin="0,0,10,0"
                                                 Padding="5,0,5,0"
