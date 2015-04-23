@@ -6,6 +6,7 @@
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                      xmlns:appPromo="using:AppPromo"
                       mc:Ignorable="d"
                       Background="{StaticResource BackgroundColorBrush}"
                       RequestedTheme="Dark"
@@ -79,6 +80,7 @@
                         <RowDefinition Height="30" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+                    <appPromo:RateReminder RunsBeforeReminder="5" />
                     <TextBlock Grid.Row="0"
                                Text="{Binding LastRoute}"
                                Style="{StaticResource BasedTextBlockStyle}"

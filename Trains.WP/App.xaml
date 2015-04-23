@@ -229,7 +229,7 @@
             <Style x:Key="AboutAppStyle"
                    TargetType="TextBlock">
                 <Setter Property="FontSize"
-                        Value="{StaticResource SmallFontSize}" />
+                        Value="{StaticResource MediumFontSize}" />
                 <Setter Property="Margin"
                         Value="0,10,0,0" />
                 <Setter Property="TextWrapping"
