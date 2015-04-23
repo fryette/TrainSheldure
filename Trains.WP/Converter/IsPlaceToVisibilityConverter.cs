@@ -9,7 +9,7 @@ namespace Trains.WP.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value != null)
-                return ((string)value).Contains("есть") ? Visibility.Visible : Visibility.Collapsed;
+                return ((string)value).Contains(":") ? Visibility.Visible : Visibility.Collapsed;
             return Visibility.Collapsed;
         }
 

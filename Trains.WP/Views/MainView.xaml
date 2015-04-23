@@ -81,7 +81,9 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
                                Text="{Binding LastRoute}"
-                               Style="{StaticResource BasedTextBlockStyle}" />
+                               Style="{StaticResource BasedTextBlockStyle}"
+                               FontSize="{StaticResource MainFontSize}"
+                               HorizontalAlignment="Center" />
                     <SemanticZoom Grid.Row="1"
                                   x:Name="Root"
                                   Template="{StaticResource SemantickZoom}"

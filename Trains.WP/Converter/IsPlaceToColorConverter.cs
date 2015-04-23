@@ -10,7 +10,7 @@ namespace Trains.WP.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if (value != null)
-                return ((string)value).Contains("есть") ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
+                return ((string)value).Contains(":") ? new SolidColorBrush(Colors.Green) : new SolidColorBrush(Colors.Red);
             return new SolidColorBrush(Colors.White);
         }
 

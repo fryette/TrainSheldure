@@ -277,7 +277,7 @@
     <value>Мест нет</value>
   </data>
   <data name="PlaceYes" xml:space="preserve">
-    <value>Места есть</value>
+    <value>места есть</value>
   </data>
   <data name="PointsIsInCorrect" xml:space="preserve">
     <value>Одна или обе станции не введены</value>

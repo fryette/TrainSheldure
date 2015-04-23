@@ -33,6 +33,7 @@
             <x:Double x:Key="MainFontSize">24</x:Double>
             <x:Double x:Key="HeaderFontSize">40</x:Double>
             <x:Double x:Key="TileWidth">70</x:Double>
+            <x:Double x:Key="ScheduleFontSize">22</x:Double>
             <x:String x:Key="DefaultFontFamily">Segoe WP</x:String>
             <SolidColorBrush x:Key="DarkRedColorBrush">DarkRed</SolidColorBrush>
             <SolidColorBrush x:Key="OrangeColorBrush">#FFFF5D00</SolidColorBrush>
@@ -255,103 +256,107 @@
 
 
             <DataTemplate x:Key="ScheduleTemplate">
-                <Grid Margin="0,0,0,10">
-                    <!--<Grid Background="#FF00398B">
-                        <TextBlock Text="{Binding BeforeDepartureTime}"
-                                   Style="{StaticResource BasedTextBlockStyle}"
-                                   HorizontalAlignment="Left"
-                                   VerticalAlignment="Center"
-                                   TextWrapping="Wrap" />
-                        <TextBlock Text="{Binding IsPlace}"
-                                   Foreground="{StaticResource WhiteSmokeColorBrush}"
-                                   Style="{StaticResource BasedTextBlockStyle}"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Right"
-                                   Margin="0,0,5,0" />
-                    </Grid>-->
-                    <StackPanel Orientation="Horizontal">
-                        <Border Width="10"
-                                Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}"
-                                HorizontalAlignment="Left" />
-
-                        <StackPanel Width="70">
-                            <TextBlock Text="{Binding StartTime}"
-                                       FontSize="{StaticResource BigFontSize}"
-                                       HorizontalAlignment="Center" />
-                            <TextBlock Text="{Binding EndTime}"
-                                       FontSize="{StaticResource BigFontSize}"
-                                       Foreground="{StaticResource DimGrayColorBrush}"
-                                       HorizontalAlignment="Center" />
-                        </StackPanel>
-
-                        <StackPanel Margin="5,0,0,0">
-                            <TextBlock Text="{Binding City}"
-                                       Style="{StaticResource BasedHeaderTextBlockStyle}"
-                                       TextWrapping="WrapWholeWords" />
-                            <TextBlock Text="{Binding OnTheWay}"
-                                       FontSize="{StaticResource NormalFontSize}"
-                                       HorizontalAlignment="Left" />
-                            <StackPanel Orientation="Horizontal">
+                <Grid Margin="0,0,0,10"
+                      Height="Auto">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="15" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0"
+                            Width="10"
+                            Background="{Binding Image,Converter={StaticResource EnumToImageConverter}}"
+                            HorizontalAlignment="Left" />
+                    <Grid Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="{Binding StartTime}"
+                                           FontSize="30" />
+                                <TextBlock Text="{Binding EndTime}"
+                                           FontSize="{StaticResource MainFontSize}"
+                                           Foreground="{StaticResource DimGrayColorBrush}" />
                                 <TextBlock Text="{Binding IsPlace}"
                                            Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
                                            HorizontalAlignment="Left"
-                                           FontSize="{StaticResource NormalFontSize}" />
+                                           FontSize="25" />
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1"
+                                        Margin="5,0,0,0">
+                                <TextBlock Text="{Binding City}"
+                                           Style="{StaticResource BasedHeaderTextBlockStyle}"
+                                           FontSize="{StaticResource ScheduleFontSize}"
+                                           Margin="0,8,0,0" />
+                                <TextBlock Text="{Binding OnTheWay}"
+                                           FontSize="{StaticResource ScheduleFontSize}"
+                                           HorizontalAlignment="Left"
+                                           Margin="0,3,0,0" />
                                 <StackPanel Orientation="Horizontal"
-                                            Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}">
-                                    <Border BorderBrush="DarkGray"
-                                            BorderThickness="1"
-                                            Margin="5,0,0,0"
-                                            Padding="5,0"
-                                            Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                        <TextBlock Text="ЭР"
-                                                   HorizontalAlignment="Center"
-                                                   FontSize="{StaticResource NormalFontSize}" />
-                                    </Border>
-                                    <Border BorderBrush="DarkGray"
-                                            BorderThickness="1"
-                                            Margin="10,0,0,0"
-                                            Padding="5,0"
-                                            Background="{Binding PlaceClasses.General,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                        <TextBlock Text="О"
-                                                   HorizontalAlignment="Center"
-                                                   FontSize="{StaticResource NormalFontSize}" />
-                                    </Border>
-                                    <Border BorderBrush="DarkGray"
-                                            BorderThickness="1"
-                                            Padding="5,0"
-                                            Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                        <TextBlock Text="C"
-                                                   HorizontalAlignment="Center"
-                                                   FontSize="{StaticResource NormalFontSize}" />
-                                    </Border>
-                                    <Border BorderBrush="DarkGray"
-                                            BorderThickness="1"
-                                            Padding="5,0"
-                                            Background="{Binding PlaceClasses.SecondClass,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                        <TextBlock Text="П"
-                                                   HorizontalAlignment="Center"
-                                                   FontSize="{StaticResource NormalFontSize}" />
-                                    </Border>
-                                    <Border BorderBrush="DarkGray"
-                                            BorderThickness="1"
-                                            Padding="5,0"
-                                            Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                        <TextBlock Text="К"
-                                                   HorizontalAlignment="Center"
-                                                   FontSize="{StaticResource NormalFontSize}" />
-                                    </Border>
-                                    <Border BorderBrush="DarkGray"
-                                            BorderThickness="1"
-                                            Padding="5,0"
-                                            Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                        <TextBlock Text="СВ"
-                                                   HorizontalAlignment="Center"
-                                                   FontSize="{StaticResource NormalFontSize}" />
-                                    </Border>
+                                            HorizontalAlignment="Left">
+
+                                    <StackPanel Orientation="Horizontal"
+                                                Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}"
+                                                Margin="0,6,0,0">
+                                        <Border BorderBrush="DarkGray"
+                                                Margin="0,0,10,0"
+                                                Padding="5,0,5,0"
+                                                Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="ЭР"
+                                                       FontSize="{StaticResource NormalFontSize}"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <Border BorderBrush="DarkGray"
+                                                Padding="5,0,5,0"
+                                                Background="{Binding PlaceClasses.General,Converter={StaticResource BooleanToBackgroundConverter}}"
+                                                Margin="0,0,0,0">
+                                            <TextBlock Text="О"
+                                                       HorizontalAlignment="Center"
+                                                       FontSize="{StaticResource NormalFontSize}"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <Border BorderBrush="DarkGray"
+                                                Padding="5,0,5,0"
+                                                Margin="10,0,10,0"
+                                                Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="C"
+                                                       FontSize="{StaticResource NormalFontSize}"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <Border BorderBrush="DarkGray"
+                                                Padding="5,0,5,0"
+                                                Background="{Binding PlaceClasses.SecondClass,Converter={StaticResource BooleanToBackgroundConverter}}"
+                                                Margin="0,0,0,0">
+                                            <TextBlock Text="П"
+                                                       FontSize="{StaticResource NormalFontSize}"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <Border BorderBrush="DarkGray"
+                                                Padding="5,0,5,0"
+                                                Margin="10,0,10,0"
+                                                Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                            <TextBlock Text="К"
+                                                       FontSize="{StaticResource NormalFontSize}"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <Border BorderBrush="DarkGray"
+                                                Padding="5,0,5,0"
+                                                Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}"
+                                                Margin="0,0,0,0">
+                                            <TextBlock Text="СВ"
+                                                       FontSize="{StaticResource NormalFontSize}"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
-                        </StackPanel>
-                    </StackPanel>
+                        </Grid>
+                    </Grid>
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="HelpTemplate">
@@ -391,7 +396,7 @@
                 <Border BorderBrush="Gray"
                         BorderThickness="0,1,0,1"
                         Padding="0,10,0,10">
-                    <Grid >
+                    <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition MinWidth="200" />
                             <ColumnDefinition Width="*" />
@@ -517,7 +522,7 @@
                 <Border>
                     <TextBlock Text="{Binding Key}"
                                Foreground="{ThemeResource PhoneAccentBrush}"
-                               FontSize="24"
+                               FontSize="{StaticResource MainFontSize}"
                                FontWeight="SemiLight"
                                OpticalMarginAlignment="TrimSideBearings"
                                IsTextScaleFactorEnabled="False"
@@ -554,7 +559,7 @@
                         HorizontalAlignment="Stretch">
                     <TextBlock Text="{Binding Group.Key}"
                                Foreground="{Binding Converter={StaticResource JumpListItemForegroundConverter}}"
-                               FontSize="22"
+                               FontSize="{StaticResource MainFontSize}"
                                FontWeight="SemiBold"
                                TextLineBounds="Tight"
                                OpticalMarginAlignment="TrimSideBearings"
@@ -568,3 +573,4 @@
         </ResourceDictionary>
     </Application.Resources>
 </Application>
+    
