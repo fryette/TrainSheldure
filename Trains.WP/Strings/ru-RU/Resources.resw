@@ -192,7 +192,7 @@
   <data name="MainLabelText.Text" xml:space="preserve">
     <value>Мы приветствуем вас в в приложении для поиска железнодорожных билетов. Наше приложение использует сайт rw.by (Белорусской Железной дороги) для поиска поездов и свободных мест. Надеемся на вашу поддержку и будем рады видеть ваши отзывы и пожелания... вместе мы сделаем мир чуточку удобнее!</value>
   </data>
-  <data name="MainPivot.Header" xml:space="preserve">
+  <data name="MainPivotItem.Header" xml:space="preserve">
     <value>Главная</value>
   </data>
   <data name="NewsLabel.Text" xml:space="preserve">

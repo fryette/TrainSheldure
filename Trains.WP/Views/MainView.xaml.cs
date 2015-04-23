@@ -10,15 +10,18 @@ namespace Trains.WP.Views
     /// </summary>
     public sealed partial class MainView
     {
+        static int LastPivotIndex;
         public MainView()
         {
             InitializeComponent();
             MyStoryboard.Begin();
+            MainPivot.SelectedIndex = LastPivotIndex;
         }
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)
         {
-            if (args.Item == MainPivot) SetAppBarVisibility(false, false, true);
+            LastPivotIndex = MainPivot.SelectedIndex;
+            if (args.Item == MainPivotItem) SetAppBarVisibility(false, false, true);
             else if (args.Item == RoutesPivot)
                 SetAppBarVisibility(false, true);
             else if (args.Item == LastPivot)

@@ -12,14 +12,16 @@
                       d:DataContext="{d:DesignData HelpViewModel}">
 
     <Grid>
-        <Pivot>
+        <Pivot x:Name="MainPivot"
+               PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem Header="Поезда">
                 <ListView ItemsSource="{Binding HelpInformation}"
                           ItemTemplate="{StaticResource HelpTemplate}">
                 </ListView>
             </PivotItem>
             <PivotItem Header="Вагоны">
-                <ListView x:Name="CarriageList" ItemsSource="{Binding CarriageInformation}">
+                <ListView x:Name="CarriageList"
+                          ItemsSource="{Binding CarriageInformation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"

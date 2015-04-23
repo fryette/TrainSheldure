@@ -5,9 +5,16 @@
     /// </summary>
     public sealed partial class HelpView
     {
+        static int LastPivotIndex;
         public HelpView()
         {
             InitializeComponent();
+            MainPivot.SelectedIndex = LastPivotIndex;
+        }
+
+        private void Pivot_OnPivotItemLoaded(Windows.UI.Xaml.Controls.Pivot sender, Windows.UI.Xaml.Controls.PivotItemEventArgs args)
+        {
+            LastPivotIndex = MainPivot.SelectedIndex;
         }
     }
 }

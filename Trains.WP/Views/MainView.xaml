@@ -25,9 +25,10 @@
             </Storyboard>
         </Grid.Resources>
         <Pivot x:Uid="ApplicationName"
+               x:Name="MainPivot"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem x:Uid="MainPivot"
-                       x:Name="MainPivot">
+            <PivotItem x:Uid="MainPivotItem"
+                       x:Name="MainPivotItem">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="170" />
