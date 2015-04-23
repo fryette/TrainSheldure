@@ -14,16 +14,38 @@
                     <StackPanel Margin="10,10,0,0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Uid="Version"
-                                       Style="{StaticResource AboutAppStyle}" />
+                                       Style="{StaticResource AboutAppStyle}"
+                                       FontSize="24"
+                                       Foreground="White" />
                         </StackPanel>
-                        <TextBlock x:Uid="Copyright"
-                                   Style="{StaticResource AboutAppStyle}" />
+
                         <TextBlock x:Uid="UsingLibrary"
+                                   FontSize="24"
+                                   Foreground="White"
                                    Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="Caliburn.Micro, JSON.Net, AppPromo, BehaviorsSDK(XAML)"
+                        <TextBlock Text="MvvmCross, Newtonsoft.Json, AppPromo"
+                                   Style="{StaticResource AboutAppStyle}" />
+                        <TextBlock Text="Отдельное спасибо:"
+                                   Style="{StaticResource AboutAppStyle}"
+                                   Foreground="White"
+                                   FontSize="24" />
+                        <TextBlock Text="Пелешенко Александр(логотип)"
                                    Style="{StaticResource AboutAppStyle}" />
                     </StackPanel>
                 </Grid>
+            </PivotItem>
+            <PivotItem x:Uid="Changes">
+                <StackPanel>
+                    <TextBlock x:Uid="CurrentChanges"
+                               Style="{StaticResource AboutAppStyle}"
+                               Foreground="White" />
+                    <TextBlock Text="- Редизайн всего приложения"
+                               Style="{StaticResource AboutAppStyle}" />
+                    <TextBlock Text="- Оптимизация поиска'"
+                               Style="{StaticResource AboutAppStyle}" />
+                    <TextBlock Text="- Исправление мелких багов"
+                               Style="{StaticResource AboutAppStyle}" />
+                </StackPanel>
             </PivotItem>
         </Pivot>
     </Grid>
