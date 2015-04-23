@@ -132,7 +132,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void AddToFavorite()
         {
-            if (await Task.Run(() => _manageFavoriteRequest.AddToFavorite(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To)))
+            if (await _manageFavoriteRequest.AddToFavorite(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
                 SetVisibilityToFavoriteIcons(false, true);
         }
 
@@ -141,7 +141,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void DeleteInFavorite()
         {
-            if (await Task.Run(() => _manageFavoriteRequest.DeleteRoute(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To)))
+            if (await  _manageFavoriteRequest.DeleteRoute(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
                 SetVisibilityToFavoriteIcons(true, false);
         }
 

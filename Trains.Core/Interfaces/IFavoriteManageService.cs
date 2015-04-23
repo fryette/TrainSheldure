@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Trains.Model.Entities;
 
 namespace Trains.Core.Interfaces
@@ -7,8 +8,8 @@ namespace Trains.Core.Interfaces
     {
 		void ManageFavorite(List<LastRequest> favoriteList);
 
-		bool AddToFavorite(string from, string to);
+		Task<bool> AddToFavorite(string from, string to);
 
-		bool DeleteRoute(string from, string to);
+		Task<bool> DeleteRoute(string from, string to);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 using Trains.Resources;
@@ -30,7 +31,7 @@ namespace Trains.Core
             _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
         }
 
-        public bool AddToFavorite(string from, string to)
+        public async Task<bool> AddToFavorite(string from, string to)
         {
             if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to))
             {
@@ -46,17 +47,17 @@ namespace Trains.Core
             }
 
             _appSettings.FavoriteRequests.Add(new LastRequest { From = from, To = to });
-            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
+            await _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsAddedToFavorite"));
             return true;
         }
 
-        public bool DeleteRoute(string from, string to)
+        public async Task<bool> DeleteRoute(string from, string to)
         {
             var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.From == from && x.To == to);
             if (objectToDelete == null) return false;
             _appSettings.FavoriteRequests.Remove(objectToDelete);
-            _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
+            await _serializable.SerializeObjectToXml(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
             return true;
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsIncorect"));
