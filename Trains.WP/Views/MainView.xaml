@@ -67,7 +67,6 @@
 
                         <Button Content="Найти"
                                 HorizontalAlignment="Right"
-                                Margin="0,0,0,0"
                                 Command="{Binding SearchCommand}" />
                     </StackPanel>
                 </Grid>
@@ -146,11 +145,11 @@
                          VerticalAlignment="Top" />
         </Grid>
 
-        <!--<Grid Background="{StaticResource BackgroundColorBrush}"-->
-        <!--Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Background="{StaticResource BackgroundColorBrush}"
+        Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
-        </Grid>-->
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
