@@ -14,6 +14,7 @@ namespace Trains.Core.ViewModels
 
         private readonly IAppSettings _appSettings;
         private readonly IFavoriteManageService _manageFavoriteRequest;
+        private readonly IAnalytics _analytics;
 
         #endregion
 
@@ -28,10 +29,11 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest)
+        public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest,IAnalytics analytics)
         {
             _manageFavoriteRequest = manageFavoriteRequest;
             _appSettings = appSettings;
+            _analytics = analytics;
 
             AddToFavoriteCommand = new MvxCommand(AddToFavorite);
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
@@ -95,6 +97,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
+            _analytics.SentView("ScheduleView");
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
             Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
             SetManageFavoriteButton();

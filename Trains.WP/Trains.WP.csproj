@@ -112,6 +112,7 @@
     <Compile Include="Converter\ListViewConverter.cs" />
     <Compile Include="Converter\SelectionChangedConverter.cs" />
     <Compile Include="DebugTrace.cs" />
+    <Compile Include="Services\Analytics.cs" />
     <Compile Include="Services\MarketPlace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Services\Serialize.cs" />
@@ -186,6 +187,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <None Include="analytics.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
     <PRIResource Include="Strings\be-BY\Resources.resw" />
@@ -233,6 +237,14 @@
     <Reference Include="Cirrious.MvvmCross.WindowsCommon">
       <HintPath>..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.5.0\lib\wpa81\Cirrious.MvvmCross.WindowsCommon.dll</HintPath>
     </Reference>
+    <Reference Include="GoogleAnalytics, Version=1.2.11.29792, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleAnalyticsSDK.1.2.12\lib\wpa81\GoogleAnalytics.winmd</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="GoogleAnalytics.Core, Version=1.2.11.29621, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleAnalyticsSDK.1.2.12\lib\wpa81\GoogleAnalytics.Core.winmd</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Interactions, Version=12.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Microsoft.Xaml.Interactions.dll</HintPath>
@@ -243,6 +255,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="analytics.xml" />
     <Content Include="Assets\appbar.email.gmail.png" />
     <Content Include="Assets\appbar.information.png" />
     <Content Include="Assets\appbar.settings.png" />

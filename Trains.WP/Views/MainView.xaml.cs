@@ -28,6 +28,7 @@ namespace Trains.WP.Views
                 SetAppBarVisibility(true);
             else
                 SetAppBarVisibility();
+            GoogleAnalytics.EasyTracker.GetTracker().SendEvent("Main category", "Sub category 1", "Sub category 2", 0);
         }
 
         private void SetAppBarVisibility(bool updateAppBar = false, bool managedAppBar = false, bool swapAppBar = false)

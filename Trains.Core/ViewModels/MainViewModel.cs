@@ -23,6 +23,7 @@ namespace Trains.Core.ViewModels
 
         private readonly IMarketPlaceService _marketPlace;
 
+        private readonly IAnalytics _analytics;
 
         private readonly ILocalDataService _local;
 
@@ -55,8 +56,9 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, ILocalDataService local, IMarketPlaceService marketPlace)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, ILocalDataService local, IMarketPlaceService marketPlace, IAnalytics analytics)
         {
+            _analytics = analytics;
             _serializable = serializable;
             _search = search;
             _appSettings = appSettings;
@@ -283,6 +285,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public async void Init()
         {
+            _analytics.SentView("MainView");
             SelectedVariant = VariantOfSearch[1];
             IsDownloadRun = true;
             if (_appSettings.AutoCompletion == null)
