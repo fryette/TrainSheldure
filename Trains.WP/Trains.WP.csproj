@@ -113,6 +113,7 @@
     <Compile Include="Converter\SelectionChangedConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Services\Analytics.cs" />
+    <Compile Include="Services\ManageLang.cs" />
     <Compile Include="Services\MarketPlace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Services\Serialize.cs" />
@@ -290,7 +291,9 @@
     <Content Include="Assets\StoreLogo.scale-240.png" />
     <Content Include="Assets\WideLogo.scale-240.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Strings\en-US\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

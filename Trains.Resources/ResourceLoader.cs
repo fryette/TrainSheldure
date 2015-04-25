@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Trains.Resources
 {
@@ -8,7 +9,7 @@ namespace Trains.Resources
         private static volatile ResourceLoader _instance;
         private static readonly object SyncRoot = new Object();
 
-        public Dictionary<string,string> Resource;
+        public Dictionary<string, string> Resource;
 
         private ResourceLoader()
         {
@@ -17,8 +18,7 @@ namespace Trains.Resources
 
         private async void Init()
         {
-            LocalData lk = new LocalData();
-            Resource = await lk.GetData<Dictionary<string, string>>("Resource.json");
+            Resource = await new LocalData().GetData<Dictionary<string, string>>("Resource.json", CultureInfo.CurrentCulture.Name);
         }
 
         public static ResourceLoader Instance

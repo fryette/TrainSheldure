@@ -15,5 +15,8 @@ namespace Trains.Core
 
         public List<CarriageModel> CarriageModel { get; set; }
         public List<About> About { get; set; }
+
+
+        public Language Language { get; set; }
     }
 }

@@ -33,6 +33,7 @@ namespace Trains.WP
             Mvx.LazyConstructAndRegisterSingleton<IUserInteraction, UserInteractionService>();
             Mvx.LazyConstructAndRegisterSingleton<IMarketPlaceService, MarketPlace>();
             Mvx.LazyConstructAndRegisterSingleton<IAnalytics, Analytics>();
+            Mvx.LazyConstructAndRegisterSingleton<IManageLangService, ManageLang>();
 
             base.InitializePlatformServices();
         }

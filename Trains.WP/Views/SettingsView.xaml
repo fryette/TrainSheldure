@@ -9,7 +9,29 @@
     Background="{StaticResource BackgroundColorBrush}"
       RequestedTheme="Dark">
 
-    <Grid>
-
+    <Grid Margin="5,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <ComboBox x:Uid="LangSetting"
+                      ItemsSource="{Binding Languages}"
+                      SelectedItem="{Binding SelectedLanguage,Mode=TwoWay}"
+                      SelectedValue="1"
+                      Margin="10,0">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+        </Grid>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton x:Uid="SaveAppBar"
+                          Icon="Save"
+                          Command="{Binding SaveChangesCommand}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
 </views:MvxWindowsPage>

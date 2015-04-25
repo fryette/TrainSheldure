@@ -8,7 +8,7 @@ namespace Trains.Resources
 {
     public class LocalData : ILocalDataService
     {
-        private async Task<string> LoadContent(string fileName)
+        private async Task<string> LoadContent(string fileName, string lang)
         {
             var assembly = typeof(Constants).GetTypeInfo().Assembly;
             var name = string.Format("Trains.Resources.DataModels.{0}", fileName);
@@ -21,9 +21,9 @@ namespace Trains.Resources
             }
         }
 
-        public async Task<T> GetData<T>(string fileName) where T : class
+        public async Task<T> GetData<T>(string fileName, string lang) where T : class
         {
-            var jsonText = await LoadContent(fileName);
+            var jsonText = await LoadContent(fileName, lang);
             return JsonConvert.DeserializeObject<T>(jsonText);
         }
     }

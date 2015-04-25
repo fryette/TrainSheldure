@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutLabel.Text" xml:space="preserve">
-    <value>Все маршруты в вашем Windows Phone</value>
-  </data>
   <data name="AboutPivot.Header" xml:space="preserve">
     <value>Больше</value>
   </data>
@@ -129,9 +126,6 @@
   <data name="ApplicationName.Title" xml:space="preserve">
     <value>Чыгунка</value>
   </data>
-  <data name="Arrival" xml:space="preserve">
-    <value>Отпр: </value>
-  </data>
   <data name="Clear.Content" xml:space="preserve">
     <value>Очистить</value>
   </data>
@@ -140,9 +134,6 @@
   </data>
   <data name="DateUpTooLater" xml:space="preserve">
     <value>Поиск может производится начиная от текущего времени</value>
-  </data>
-  <data name="DownloadData.Text" xml:space="preserve">
-    <value>Загрузка параметров</value>
   </data>
   <data name="DownloadStopPoints.Text" xml:space="preserve">
     <value>Идет загрузка списка станций</value>
@@ -159,9 +150,6 @@
   <data name="FinalStopPoint" xml:space="preserve">
     <value>конечная</value>
   </data>
-  <data name="FirstMessageStartString" xml:space="preserve">
-    <value>Те кто так долго ждали беларусского языка теперь могут выставить его в настройках! Полный список изменений смотрите в соответствующем разделе. Если вы хотите новых функций и оперативного исправления багов/глюков, оставьте отзыв в маркете. Каждый комментарий приближает выход очередного обновления! Шлите свои предложения по улучшению! Спасибо за внимание.</value>
-  </data>
   <data name="From.PlaceholderText" xml:space="preserve">
     <value>Откуда</value>
   </data>
@@ -170,9 +158,6 @@
   </data>
   <data name="HelpHeader.Text" xml:space="preserve">
     <value>Доп. Информация</value>
-  </data>
-  <data name="InformationHeader.Text" xml:space="preserve">
-    <value>Места/цены</value>
   </data>
   <data name="InternetConnectionError" xml:space="preserve">
     <value>Доступ к интернету отсутствует, проверьте подключение!</value>
@@ -185,9 +170,6 @@
   </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Последние запросы</value>
-  </data>
-  <data name="ListOfPoint.Content" xml:space="preserve">
-    <value>Список остановок</value>
   </data>
   <data name="MainLabelText.Text" xml:space="preserve">
     <value>Мы приветствуем вас в в приложении для поиска железнодорожных билетов. Наше приложение использует сайт rw.by (Белорусской Железной дороги) для поиска поездов и свободных мест. Надеемся на вашу поддержку и будем рады видеть ваши отзывы и пожелания... вместе мы сделаем мир чуточку удобнее!</value>
@@ -204,9 +186,6 @@
   <data name="Search.Content" xml:space="preserve">
     <value>Поиск</value>
   </data>
-  <data name="SearchLabel.Text" xml:space="preserve">
-    <value>Детальный подбор поезда</value>
-  </data>
   <data name="SelectClass.Text" xml:space="preserve">
     <value>Выбор класса</value>
   </data>
@@ -216,20 +195,8 @@
   <data name="StopPointsHeader.Text" xml:space="preserve">
     <value>Ост. Пункты</value>
   </data>
-  <data name="ThisRouteIsPresent" xml:space="preserve">
-    <value>Данный маршрут уже присутствует</value>
-  </data>
   <data name="To.PlaceholderText" xml:space="preserve">
     <value>Куда</value>
-  </data>
-  <data name="Today.Content" xml:space="preserve">
-    <value>Сегодня</value>
-  </data>
-  <data name="Tomorrow.Content" xml:space="preserve">
-    <value>Завтра</value>
-  </data>
-  <data name="Transport.Text" xml:space="preserve">
-    <value>Результат</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
     <value>Идет обновление</value>
@@ -237,20 +204,11 @@
   <data name="UpdateStopPoint.Content" xml:space="preserve">
     <value>Обновить станции</value>
   </data>
-  <data name="Culture" xml:space="preserve">
-    <value>ru</value>
-  </data>
   <data name="AboutUs.Header" xml:space="preserve">
     <value>О Нас</value>
   </data>
-  <data name="Author.Text" xml:space="preserve">
-    <value>Приложение создано: Sampir Yauhen</value>
-  </data>
   <data name="Changes.Header" xml:space="preserve">
     <value>Изменения</value>
-  </data>
-  <data name="Copyright.Text" xml:space="preserve">
-    <value>Логотип БЧ является собственностью белорусской железной дароги.</value>
   </data>
   <data name="CurrentChanges.Text" xml:space="preserve">
     <value>В этой версии:</value>
@@ -278,9 +236,6 @@
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Версия: 1.2.0.16</value>
-  </data>
-  <data name="StopPointAppBar.Label" xml:space="preserve">
-    <value>Остановки</value>
   </data>
   <data name="LangSetting.Header" xml:space="preserve">
     <value>языки</value>

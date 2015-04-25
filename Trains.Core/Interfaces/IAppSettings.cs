@@ -4,7 +4,7 @@ using Trains.Model.Entities;
 
 namespace Trains.Core.Interfaces
 {
-   public interface IAppSettings
+    public interface IAppSettings
     {
         List<LastRequest> FavoriteRequests { get; set; }
 
@@ -19,6 +19,8 @@ namespace Trains.Core.Interfaces
         List<CarriageModel> CarriageModel { get; set; }
 
         List<About> About { get; set; }
+
+        Language Language { get; set; }
 
     }
 }

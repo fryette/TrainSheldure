@@ -51,10 +51,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataModels\Countries.json" />
+    <EmbeddedResource Include="DataModels\be\Countries.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataModels\HelpInformationRU.json" />
+    <EmbeddedResource Include="DataModels\be\HelpInformation.json" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DataModels\Menube.json" />
@@ -63,13 +63,13 @@
     <EmbeddedResource Include="DataModels\StopPointsbe.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataModels\StopPointsru.json" />
+    <EmbeddedResource Include="DataModels\be\StopPoints.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataModels\CarriageModel.json" />
+    <EmbeddedResource Include="DataModels\be\CarriageModel.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataModels\AboutRU.json" />
+    <EmbeddedResource Include="DataModels\be\About.json" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -78,7 +78,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataModels\Resource.json" />
+    <EmbeddedResource Include="DataModels\be\Resource.json" />
+    <EmbeddedResource Include="DataModels\ru\About.json" />
+    <EmbeddedResource Include="DataModels\ru\CarriageModel.json" />
+    <EmbeddedResource Include="DataModels\ru\Countries.json" />
+    <EmbeddedResource Include="DataModels\ru\HelpInformation.json" />
+    <EmbeddedResource Include="DataModels\ru\Resource.json" />
+    <EmbeddedResource Include="DataModels\ru\StopPoints.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

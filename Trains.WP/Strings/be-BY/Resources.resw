@@ -117,12 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutApp.Text" xml:space="preserve">
-    <value>Аб прыкладанні</value>
-  </data>
-  <data name="AboutLabel.Text" xml:space="preserve">
-    <value>Усе маршруты ў вашым Windows Phone</value>
-  </data>
   <data name="AboutPivot.Header" xml:space="preserve">
     <value>Больш</value>
   </data>
@@ -132,29 +126,8 @@
   <data name="AddInformation.Text" xml:space="preserve">
     <value>Дад. Інфармацыя</value>
   </data>
-  <data name="AllDays" xml:space="preserve">
-    <value>На ўсе дні</value>
-  </data>
-  <data name="AllFavoritesDeleted" xml:space="preserve">
-    <value>Спіс вашых маршрутаў цяпер пусты</value>
-  </data>
   <data name="ApplicationName.Title" xml:space="preserve">
     <value>Чыгунка</value>
-  </data>
-  <data name="Arrival" xml:space="preserve">
-    <value>Адпр: </value>
-  </data>
-  <data name="Author.Text" xml:space="preserve">
-    <value>Прыкладанне створана: Sampir Yauhen</value>
-  </data>
-  <data name="BelarusConstString" xml:space="preserve">
-    <value>(Беларусь)</value>
-  </data>
-  <data name="BugsReport.Text" xml:space="preserve">
-    <value>Багі / Супрацоўніцтва</value>
-  </data>
-  <data name="Business" xml:space="preserve">
-    <value>бізнес</value>
   </data>
   <data name="Changes.Header" xml:space="preserve">
     <value>Змены</value>
@@ -162,35 +135,14 @@
   <data name="Clear.Content" xml:space="preserve">
     <value>Ачысціць</value>
   </data>
-  <data name="ConectionError" xml:space="preserve">
-    <value>Праверце падключэнне да інтэрнэту</value>
-  </data>
-  <data name="Copyright.Text" xml:space="preserve">
-    <value>Лагатып БЧ з'яўляецца ўласнасцю беларускай жалезнай дарогі</value>
-  </data>
-  <data name="Culture" xml:space="preserve">
-    <value>be</value>
-  </data>
   <data name="CurrentChanges.Text" xml:space="preserve">
     <value>У гэтай версіі:</value>
   </data>
   <data name="DateOfDeparture.Header" xml:space="preserve">
     <value>Дата адпраўлення</value>
   </data>
-  <data name="DateTooBig" xml:space="preserve">
-    <value>Пошук можа вырабляецца толькі за 45 дзён ад бягучага моманту або выкарыстоўвайце рэжым 'На ўсе дні'</value>
-  </data>
-  <data name="DateUpTooLater" xml:space="preserve">
-    <value>Пошук можа вырабляецца пачынаючы ад бягучага часу</value>
-  </data>
   <data name="DeleteAppBar.Label" xml:space="preserve">
     <value>Выдаліць</value>
-  </data>
-  <data name="Departure" xml:space="preserve">
-    <value>Прыб: </value>
-  </data>
-  <data name="DownloadData.Text" xml:space="preserve">
-    <value>Загрузка параметраў</value>
   </data>
   <data name="DownloadStopPoints.Text" xml:space="preserve">
     <value>Ідзе загрузка спісу станцый</value>
@@ -201,26 +153,11 @@
   <data name="EditFavoriteHeader.Text" xml:space="preserve">
     <value>Кіраванне</value>
   </data>
-  <data name="EditFavoriteMessageError" xml:space="preserve">
-    <value>Захавайце хаця б адзін маршрут, што б мець магчымасць рэдагавання</value>
-  </data>
-  <data name="ErrorUpdate" xml:space="preserve">
-    <value>Не знойдзены апошні запыт, ці адбылася памылка загрузкі</value>
-  </data>
-  <data name="Everyday" xml:space="preserve">
-    <value>everyday</value>
-  </data>
-  <data name="FavoriteListIsEmpthy" xml:space="preserve">
-    <value>Ваш спіс пусты</value>
-  </data>
   <data name="Feedback" xml:space="preserve">
     <value>Чыгунка / прапановы / багі</value>
   </data>
   <data name="FinalStopPoint" xml:space="preserve">
     <value>канчатковая</value>
-  </data>
-  <data name="FirstMessageStartString" xml:space="preserve">
-    <value>Калі вы хочаце новых функцый і аператыўнага выпраўлення багаў / глюкаў, пакіньце водгук у маркеце. Кожны каментар приближайет выхад чарговага абнаўлення! Дасылайце свае прапановы па паляпшэнню! Дзякуй за ўвагу.</value>
   </data>
   <data name="From.PlaceholderText" xml:space="preserve">
     <value>Адкуль</value>
@@ -234,101 +171,20 @@
   <data name="HelpHeader.Text" xml:space="preserve">
     <value>Дад. Інфармацыя</value>
   </data>
-  <data name="Hour" xml:space="preserve">
-    <value> ч. </value>
-  </data>
-  <data name="IncorrectInput" xml:space="preserve">
-    <value>Адзін або абодва пункта не існуе, праверце яшчэ раз ўвод</value>
-  </data>
-  <data name="InformationHeader.Text" xml:space="preserve">
-    <value>Месца / цэны</value>
-  </data>
-  <data name="International" xml:space="preserve">
-    <value>Міжнародныя</value>
-  </data>
-  <data name="InternetConnectionError" xml:space="preserve">
-    <value>Доступ да інтэрнэту адсутнічае, праверце падлучэнне!</value>
-  </data>
-  <data name="Interregional" xml:space="preserve">
-    <value>Міжрэгіянальныя</value>
-  </data>
-  <data name="LanguageChanged" xml:space="preserve">
-    <value>Паспяхова абноўлена мова! Просьба выйсці і зайсці!</value>
-  </data>
   <data name="LastPivot.Header" xml:space="preserve">
     <value>Апошні</value>
   </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Апошнія запыты</value>
   </data>
-  <data name="lastRequests" xml:space="preserve">
-    <value>lastRequests</value>
-  </data>
-  <data name="LastTrainList" xml:space="preserve">
-    <value>LastTrainList</value>
-  </data>
-  <data name="ListOfPoint.Content" xml:space="preserve">
-    <value>Спіс прыпынкаў</value>
-  </data>
   <data name="MainLabelText.Text" xml:space="preserve">
     <value>Чыгунка прынясе вам масу задавальнення, не забывайце пакідаць вашыя водгукі!</value>
-  </data>
-  <data name="MainPivot.Header" xml:space="preserve">
-    <value>Галоўная</value>
   </data>
   <data name="ManageAppBar.Label" xml:space="preserve">
     <value>Кіраваць</value>
   </data>
-  <data name="Min" xml:space="preserve">
-    <value> мін.</value>
-  </data>
   <data name="NewsLabel.Text" xml:space="preserve">
     <value>Навіны. Фота.</value>
-  </data>
-  <data name="No" xml:space="preserve">
-    <value>няма</value>
-  </data>
-  <data name="NoPlace" xml:space="preserve">
-    <value>Месцаў няма. Удакладняйце ў касах.</value>
-  </data>
-  <data name="NotifyMessage" xml:space="preserve">
-    <value>Выберыце пытанні, якія вас станцыі, затым выберыце кнопку выдаліць абраныя</value>
-  </data>
-  <data name="OnDay" xml:space="preserve">
-    <value>На дату</value>
-  </data>
-  <data name="OnEveryDay" xml:space="preserve">
-    <value>На ўсе дні</value>
-  </data>
-  <data name="Place" xml:space="preserve">
-    <value>Месцаў: </value>
-  </data>
-  <data name="PlaceNo" xml:space="preserve">
-    <value>Мест нет</value>
-  </data>
-  <data name="PlaceYes" xml:space="preserve">
-    <value>Месцы ёсць</value>
-  </data>
-  <data name="PointsIsInCorrect" xml:space="preserve">
-    <value>Адна ці абедзве станцыі не ўведзены</value>
-  </data>
-  <data name="Price" xml:space="preserve">
-    <value>цана: </value>
-  </data>
-  <data name="RateTextBlock.Text" xml:space="preserve">
-    <value>Ацаніць</value>
-  </data>
-  <data name="Regional" xml:space="preserve">
-    <value>Рэгіянальныя</value>
-  </data>
-  <data name="RouteIsAddedToFavorite" xml:space="preserve">
-    <value>Маршрут дададзены!</value>
-  </data>
-  <data name="RouteIsDeletedInFavorite" xml:space="preserve">
-    <value>Станцыя выдалена!</value>
-  </data>
-  <data name="RouteIsIncorect" xml:space="preserve">
-    <value>Маршрут не знойдзены, праверце поля ўводу станцый!</value>
   </data>
   <data name="RoutesPivot.Header" xml:space="preserve">
     <value>Маршруты</value>
@@ -339,29 +195,11 @@
   <data name="Search.Content" xml:space="preserve">
     <value>Пошук</value>
   </data>
-  <data name="SearchError" xml:space="preserve">
-    <value>Цягнікі на дату адпраўлення не знойдзены</value>
-  </data>
-  <data name="SearchLabel.Text" xml:space="preserve">
-    <value>Пошук</value>
-  </data>
   <data name="SelectClass.Text" xml:space="preserve">
     <value>Выбар класа</value>
   </data>
   <data name="SelectStantion.Text" xml:space="preserve">
     <value>Выбар станцыі</value>
-  </data>
-  <data name="Sessile" xml:space="preserve">
-    <value>Сідзячыя</value>
-  </data>
-  <data name="Settings.Text" xml:space="preserve">
-    <value>Налады</value>
-  </data>
-  <data name="SpecifyDate" xml:space="preserve">
-    <value>Удакладніце дату для адлюстравання інфармацыі аб месцах</value>
-  </data>
-  <data name="Stay" xml:space="preserve">
-    <value>Стаянка: </value>
   </data>
   <data name="StopPointsHeader.Text" xml:space="preserve">
     <value>Прыпынкі</value>
@@ -369,23 +207,8 @@
   <data name="SwapAppBar.Label" xml:space="preserve">
     <value>Абмен</value>
   </data>
-  <data name="ThisRouteIsPresent" xml:space="preserve">
-    <value>Дадзены маршрут ўжо прысутнічае</value>
-  </data>
   <data name="To.PlaceholderText" xml:space="preserve">
     <value>Куды</value>
-  </data>
-  <data name="Today.Content" xml:space="preserve">
-    <value>Сёння</value>
-  </data>
-  <data name="Tomorrow.Content" xml:space="preserve">
-    <value>Заўтра</value>
-  </data>
-  <data name="Transport.Text" xml:space="preserve">
-    <value>Вынік</value>
-  </data>
-  <data name="Unlimited" xml:space="preserve">
-    <value>Неабмежаваны</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
     <value>Ідзе абнаўленне</value>
@@ -401,12 +224,6 @@
   </data>
   <data name="Version.Text" xml:space="preserve">
     <value>Версія: 1.2.0.16</value>
-  </data>
-  <data name="Via" xml:space="preserve">
-    <value>праз </value>
-  </data>
-  <data name="StopPointAppBar.Label" xml:space="preserve">
-    <value>Прыпынкі</value>
   </data>
   <data name="LangSetting.Header" xml:space="preserve">
     <value>мовы</value>
