@@ -115,14 +115,14 @@ namespace Trains.Services.Infrastructure
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
                 {
-                    if (type.Contains(ResourceLoader.Instance.Resource.GetString("International")))
+                    if (type.Contains(ResourceLoader.Instance.Resource["International"]))
                         return Picture.International;
-                    if (type.Contains(ResourceLoader.Instance.Resource.GetString("Interregional")))
-                        return type.Contains(ResourceLoader.Instance.Resource.GetString("Business"))
+                    if (type.Contains(ResourceLoader.Instance.Resource["Interregional"]))
+                        return type.Contains(ResourceLoader.Instance.Resource["Business"])
                             ? Picture.InterRegionalBusiness
                             : Picture.InterRegionalEconom;
-                    if (type.Contains(ResourceLoader.Instance.Resource.GetString("Regional")))
-                        return type.Contains(ResourceLoader.Instance.Resource.GetString("Business"))
+                    if (type.Contains(ResourceLoader.Instance.Resource["Regional"]))
+                        return type.Contains(ResourceLoader.Instance.Resource["Business"])
                             ? Picture.RegionalBusiness : Picture.RegionalEconom;
                     return Picture.City;
                 });
@@ -147,7 +147,7 @@ namespace Trains.Services.Infrastructure
                     additionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     additionInformation.Add(new[]
                     {
-                        new AdditionalInformation {Name = ResourceLoader.Instance.Resource.GetString("NoPlace")}
+                        new AdditionalInformation {Name = ResourceLoader.Instance.Resource["NoPlace"]}
                     });
                 else
                 {
@@ -159,12 +159,12 @@ namespace Trains.Services.Infrastructure
                         additionalInformations[j / 3] = new AdditionalInformation
                         {
                             Name = temp[j].Groups[1].Value.Length > 18
-                                ? ResourceLoader.Instance.Resource.GetString("Sessile")
+                                ? ResourceLoader.Instance.Resource["Sessile"]
                                 : temp[j].Groups[1].Value,
-                            Place = ResourceLoader.Instance.Resource.GetString("Place") + (temp[j + 1].Groups[2].Value == UnknownStr
-                                ? ResourceLoader.Instance.Resource.GetString("Unlimited")
+                            Place = ResourceLoader.Instance.Resource["Place"] + (temp[j + 1].Groups[2].Value == UnknownStr
+                                ? ResourceLoader.Instance.Resource["Unlimited"]
                                 : temp[j + 1].Groups[2].Value.Replace(UnknownStr, string.Empty)),
-                            Price = ResourceLoader.Instance.Resource.GetString("Price") + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
+                            Price = ResourceLoader.Instance.Resource["Price"] + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
                     additionInformation.Add(additionalInformations);
@@ -178,16 +178,16 @@ namespace Trains.Services.Infrastructure
         {
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D");
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + ResourceLoader.Instance.Resource.GetString("Hour"));
-            return ResourceLoader.Instance.Resource.GetString("Via") + hours + timeSpan.Minutes + ResourceLoader.Instance.Resource.GetString("Min");
+            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + ResourceLoader.Instance.Resource["Hour"]);
+            return ResourceLoader.Instance.Resource["Via"] + hours + timeSpan.Minutes + ResourceLoader.Instance.Resource["Min"];
         }
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
         {
             var time = endTime - startTime;
             if (time.Days == 0)
-                return time.Hours + ResourceLoader.Instance.Resource.GetString("Hour") + time.Minutes + ResourceLoader.Instance.Resource.GetString("Min");
-            return (int)time.TotalHours + ResourceLoader.Instance.Resource.GetString("Hour") + time.Minutes + ResourceLoader.Instance.Resource.GetString("Min");
+                return time.Hours + ResourceLoader.Instance.Resource["Hour"] + time.Minutes + ResourceLoader.Instance.Resource["Min"];
+            return (int)time.TotalHours + ResourceLoader.Instance.Resource["Hour"] + time.Minutes + ResourceLoader.Instance.Resource["Min"];
         }
 
         public static List<string> GetLink(string data)
@@ -204,10 +204,10 @@ namespace Trains.Services.Infrastructure
                 trainsList[i].AdditionalInformation = additionalInformation[i];
                 trainsList[i].Link = linksList[i];
                 if (trainsList[i].DepartureDate != null)
-                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource.GetString("No")) ?
-                        ResourceLoader.Instance.Resource.GetString("PlaceNo") : ResourceLoader.Instance.Resource.GetString("PlaceYes");
+                    trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource["No"]) ?
+                        ResourceLoader.Instance.Resource["PlaceNo"] : ResourceLoader.Instance.Resource["PlaceYes"];
                 else
-                    trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource.GetString("SpecifyDate");
+                    trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource["SpecifyDate"];
                 var placeClasses = new PlaceClasses();
 
                 foreach (var name in additionalInformation[i].Select(x => x.Name))

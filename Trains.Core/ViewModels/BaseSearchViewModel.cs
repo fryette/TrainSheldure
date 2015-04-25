@@ -17,12 +17,12 @@ namespace Trains.Core.ViewModels
         {
             if ((datum.Date - DateTime.Now).Days < 0)
             {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateUpTooLater"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateUpTooLater"]);
                 return true;
             }
             if (datum.Date > DateTime.Now.AddDays(45))
             {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("DateTooBig"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateTooBig"]);
                 return true;
             }
 
@@ -30,12 +30,12 @@ namespace Trains.Core.ViewModels
                 !(autoCompletion.Any(x => x.UniqueId == from) &&
                   autoCompletion.Any(x => x.UniqueId == to)))
             {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("IncorrectInput"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
                 return true;
             }
 
             if (NetworkInterface.GetIsNetworkAvailable()) return false;
-            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("ConectionError"));
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
             return true;
         }
 

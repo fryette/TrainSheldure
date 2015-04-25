@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Reflection;
-using System.Resources;
+using System.Collections.Generic;
 
 namespace Trains.Resources
 {
@@ -9,12 +8,17 @@ namespace Trains.Resources
         private static volatile ResourceLoader _instance;
         private static readonly object SyncRoot = new Object();
 
-        public ResourceManager Resource;
+        public Dictionary<string,string> Resource;
 
         private ResourceLoader()
         {
-            var assembly = typeof(Constants).GetTypeInfo().Assembly;
-            Resource = new ResourceManager(assembly.GetManifestResourceNames()[0].Replace(".resources", String.Empty), assembly);
+            Init();
+        }
+
+        private async void Init()
+        {
+            LocalData lk = new LocalData();
+            Resource = await lk.GetData<Dictionary<string, string>>("Resource.json");
         }
 
         public static ResourceLoader Instance

@@ -67,7 +67,7 @@ namespace Trains.Core.ViewModels
             FavoriteRequests = _appSettings.FavoriteRequests;
             DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
             SelectItemCommand = new MvxCommand<LastRequest>(route => SelectItem(route));
-            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("NotifyMessage"));
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["NotifyMessage"]);
         }
 
         /// <summary>

@@ -2,10 +2,9 @@
 using System.Reflection;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Trains.Core.Interfaces;
-using Trains.Resources;
+using System.Runtime.CompilerServices;
 
-namespace Trains.Core
+namespace Trains.Resources
 {
     public class LocalData : ILocalDataService
     {

@@ -102,17 +102,8 @@ namespace Trains.Core.ViewModels
         /// </summary> 
         public List<string> VariantOfSearch
         {
-            get
-            {
-                return new List<string>
-                {
-                    ResourceLoader.Instance.Resource.GetString("Yesterday"),
-                    ResourceLoader.Instance.Resource.GetString("Today"),
-                    ResourceLoader.Instance.Resource.GetString("Tommorow"),
-                    ResourceLoader.Instance.Resource.GetString("OnAllDays"),
-                    ResourceLoader.Instance.Resource.GetString("OnDay")
-                };
-            }
+            get;
+            set;
         }
 
         /// <summary>
@@ -286,7 +277,6 @@ namespace Trains.Core.ViewModels
         public async void Init()
         {
             _analytics.SentView("MainView");
-            SelectedVariant = VariantOfSearch[1];
             IsDownloadRun = true;
             if (_appSettings.AutoCompletion == null)
                 await RestoreData();
@@ -296,6 +286,7 @@ namespace Trains.Core.ViewModels
             Trains = _appSettings.LastRequestTrain;
             FavoriteRequests = _appSettings.FavoriteRequests;
             AboutItems = _appSettings.About;
+            SelectedVariant = VariantOfSearch[1];
             IsDownloadRun = false;
         }
 
@@ -310,7 +301,7 @@ namespace Trains.Core.ViewModels
             List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from), _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
 
             if (schedule == null || !schedule.Any())
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("TrainsNotFound"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
             else
             {
                 _appSettings.LastRequestTrain = schedule;
@@ -354,7 +345,7 @@ namespace Trains.Core.ViewModels
         private async void GoToEditFavorite()
         {
             if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any())
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("EditFavoriteMessageError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["EditFavoriteMessageError"]);
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();
         }
@@ -373,7 +364,7 @@ namespace Trains.Core.ViewModels
                 _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
             if (trains == null)
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource.GetString("InternetConnectionError"));
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
             else
             {
                 Trains = trains;
@@ -406,8 +397,17 @@ namespace Trains.Core.ViewModels
             To = tmp;
         }
 
+
         private async Task RestoreData()
         {
+            VariantOfSearch = new List<string>
+                {
+                    ResourceLoader.Instance.Resource["Yesterday"],
+                    ResourceLoader.Instance.Resource["Today"],
+                    ResourceLoader.Instance.Resource["Tommorow"],
+                    ResourceLoader.Instance.Resource["OnAllDays"],
+                    ResourceLoader.Instance.Resource["OnDay"]
+                };
             _appSettings.AutoCompletion = await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson);
             _appSettings.HelpInformation = await _local.GetData<List<HelpInformationItem>>(Constants.HelpInformationJson);
             _appSettings.CarriageModel = await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson);
