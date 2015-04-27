@@ -34,8 +34,6 @@ namespace Trains.Services
         {
             var date = GetDate(datum, selectedVariant);
 
-            try
-            {
                 var data = await HttpService.LoadResponseAsync(GetUrl(from, to, date));
                 var additionalInformation = TrainGrabber.GetPlaces(data);
                 var links = TrainGrabber.GetLink(data);
@@ -50,11 +48,6 @@ namespace Trains.Services
                         : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
 
                 return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
-            }
-            catch (Exception)
-            {
-                return null;
-            }
         }
 
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)

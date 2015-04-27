@@ -97,7 +97,6 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
-            _analytics.SentView("ScheduleView");
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
             Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
             SetManageFavoriteButton();

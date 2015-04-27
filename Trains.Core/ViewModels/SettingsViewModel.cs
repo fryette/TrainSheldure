@@ -15,6 +15,7 @@ namespace Trains.Core.ViewModels
 
         private readonly ISerializableService _serialize;
         private readonly IAppSettings _appSettings;
+        private readonly IAnalytics _analytics;
         private readonly IManageLangService _manageLang;
 
         #endregion
@@ -27,10 +28,11 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IManageLangService manageLang)
+        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IManageLangService manageLang, IAnalytics analytics)
         {
             SaveChangesCommand = new MvxCommand(SaveChanges);
 
+            _analytics = analytics;
             _manageLang = manageLang;
             _serialize = serializable;
             _appSettings = appSettings;
@@ -75,6 +77,7 @@ namespace Trains.Core.ViewModels
         #endregion
 
         #region actions
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -87,6 +90,7 @@ namespace Trains.Core.ViewModels
         {
             var result = await Mvx.Resolve<IUserInteraction>().ConfirmAsync(ResourceLoader.Instance.Resource["DeleteDataNotification"], ResourceLoader.Instance.Resource["Warning"]);
             if (!result) return;
+            _analytics.SentEvent("LanguageChanged", SelectedLanguage.Name);
             _manageLang.ChangeAppLanguage(SelectedLanguage.Id);
             await _serialize.SerializeObjectToXml(SelectedLanguage, Constants.CurrentLanguage);
             await _serialize.DeleteFile(Constants.FavoriteRequests);
@@ -95,6 +99,7 @@ namespace Trains.Core.ViewModels
 
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
         }
+
         #endregion
     }
 }

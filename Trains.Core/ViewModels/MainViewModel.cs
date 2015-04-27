@@ -289,7 +289,6 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public async void Init()
         {
-            _analytics.SentView("MainView");
             IsDownloadRun = true;
             if (_appSettings.AutoCompletion == null)
                 await RestoreData();
@@ -310,11 +309,21 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-
-            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from), _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
-
-            if (schedule == null || !schedule.Any())
+            bool exception = false;
+            List<Train> schedule = null;
+            try
+            {
+                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from), _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
+            }
+            catch (Exception e)
+            {
+                _analytics.SentException(e.Message);
+                exception = true;
+            }
+            if (exception)
+            {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
+            }
             else
             {
                 _appSettings.LastRequestTrain = schedule;
@@ -323,6 +332,7 @@ namespace Trains.Core.ViewModels
                 await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
+            _analytics.SentEvent("VariantOfSearch", SelectedVariant);
             IsTaskRun = false;
         }
 

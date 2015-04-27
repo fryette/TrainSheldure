@@ -13,5 +13,15 @@ namespace Trains.WP.Services
         {
             GoogleAnalytics.EasyTracker.GetTracker().SendView(view);
         }
+
+        public void SentEvent(string mainCategory, string subCategory1 = "", string subCategory2 = "", long value = 0)
+        {
+            GoogleAnalytics.EasyTracker.GetTracker().SendEvent(mainCategory, subCategory1, subCategory2, value);
+        }
+
+        public void SentException(string description, bool isFatal = false)
+        {
+            GoogleAnalytics.EasyTracker.GetTracker().SendException(description, isFatal);
+        }
     }
 }
