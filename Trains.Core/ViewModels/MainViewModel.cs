@@ -133,7 +133,7 @@ namespace Trains.Core.ViewModels
             set
             {
                 _selectedDate = value;
-                IsOnDaySelected = SelectedVariant == "На дату" ? true : false;
+                IsOnDaySelected = SelectedVariant == ResourceLoader.Instance.Resource["OnDay"] ? true : false;
                 RaisePropertyChanged(() => SelectedVariant);
             }
         }

@@ -15,6 +15,7 @@ namespace Trains.Core.ViewModels
 
         private readonly ISerializableService _serialize;
         private readonly IAppSettings _appSettings;
+        private readonly IManageLangService _manageLang;
 
         #endregion
 
@@ -26,10 +27,11 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings)
+        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IManageLangService manageLang)
         {
             SaveChangesCommand = new MvxCommand(SaveChanges);
 
+            _manageLang = manageLang;
             _serialize = serializable;
             _appSettings = appSettings;
         }
@@ -83,6 +85,7 @@ namespace Trains.Core.ViewModels
 
         private async void SaveChanges()
         {
+            _manageLang.ChangeAppLanguage(SelectedLanguage.Id);
             await _serialize.SerializeObjectToXml(SelectedLanguage, Constants.CurrentLanguage);
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
         }
