@@ -12,8 +12,7 @@
     <Grid Margin="5,0">
         <appPromo:RateReminder RunsBeforeReminder="10" />
         <Pivot>
-            <PivotItem Header="{Binding Request}"
-                       FontSize="10">
+            <PivotItem Header="{Binding Request}">
                 <Grid>
                     <SemanticZoom x:Name="Root"
                                   Template="{StaticResource SemantickZoom}"

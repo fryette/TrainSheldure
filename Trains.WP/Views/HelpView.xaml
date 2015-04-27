@@ -14,18 +14,18 @@
     <Grid>
         <Pivot x:Name="MainPivot"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem Header="Поезда">
+            <PivotItem x:Uid="Trains">
                 <ListView ItemsSource="{Binding HelpInformation}"
                           ItemTemplate="{StaticResource HelpTemplate}">
                 </ListView>
             </PivotItem>
-            <PivotItem Header="Вагоны">
+            <PivotItem x:Uid="Carriage">
                 <ListView x:Name="CarriageList"
                           ItemsSource="{Binding CarriageInformation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}"
-                                       FontSize="18"
+                                       FontSize="{StaticResource NormalLargeFontSize}"
                                        TextWrapping="WrapWholeWords"
                                        Margin="0,0,0,10" />
                         </DataTemplate>

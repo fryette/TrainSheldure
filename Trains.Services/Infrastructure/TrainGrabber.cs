@@ -24,7 +24,7 @@ namespace Trains.Services.Infrastructure
         private const string TimeFormat = "yy-MM-dd HH:mm";
 
         private const string UnknownStr = "&nbsp;";
-
+        private const string UnknownStr1 = "&nbsp;&mdash;";
         //images and Internet Registrations
         private const int SearchCountParameter = 2;
 
@@ -38,7 +38,7 @@ namespace Trains.Services.Infrastructure
             var imagePath = new List<Picture>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - imagePath.Count * 2;
-            
+
             for (var i = 0; i < step; i += 4)
             {
                 var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
@@ -52,7 +52,7 @@ namespace Trains.Services.Infrastructure
                     parameters[i / 4 + step].Value,
                     GetBeforeDepartureTime(starTime, dateOfDeparture),
                     date,
-                    isInternetRegistration[i/4]));
+                    isInternetRegistration[i / 4]));
             }
             return trainList;
         }
@@ -100,11 +100,11 @@ namespace Trains.Services.Infrastructure
             {
                 StartTime = startTime.ToString("t", CultureInfo.InvariantCulture),
                 EndTime = endTime.ToString("t", CultureInfo.InvariantCulture),
-                City = city.Replace("&nbsp;&mdash;", " - "),
+                City = city.Replace(UnknownStr1, " - "),
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
                 Image = image,
-                OnTheWay = departureDate == null ? null : "едет " + OnTheWay(startTime, endTime),
+                OnTheWay = departureDate == null ? null : ResourceLoader.Instance.Resource["OnWay"] + OnTheWay(startTime, endTime),
                 DepartureDate = departureDate,
                 InternetRegistration = internetRegistration
             };
@@ -159,7 +159,7 @@ namespace Trains.Services.Infrastructure
                         additionalInformations[j / 3] = new AdditionalInformation
                         {
                             Name = temp[j].Groups[1].Value.Length > 18
-                                ? ResourceLoader.Instance.Resource["Sessile"]
+                                ? ResourceLoader.Instance.Resource["Sedentary"]
                                 : temp[j].Groups[1].Value,
                             Place = ResourceLoader.Instance.Resource["Place"] + (temp[j + 1].Groups[2].Value == UnknownStr
                                 ? ResourceLoader.Instance.Resource["Unlimited"]
@@ -192,7 +192,7 @@ namespace Trains.Services.Infrastructure
 
         public static List<string> GetLink(string data)
         {
-            var links = Parser.ParseData(data, "<a href=\"/m/" + "ru" + "/train/(.+?)\"");
+            var links = Parser.ParseData(data, "<a href=\"/m/" + ResourceLoader.Instance.Resource["Language"] + "/train/(.+?)\"");
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
@@ -209,38 +209,16 @@ namespace Trains.Services.Infrastructure
                 else
                     trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource["SpecifyDate"];
                 var placeClasses = new PlaceClasses();
-
                 foreach (var name in additionalInformation[i].Select(x => x.Name))
                 {
-                    switch (name)
-                    {
-                        case "Сидячий":
-                            {
-                                placeClasses.Sedentary = true;
-                                break;
-                            }
-                        case "Общий":
-                            {
-                                placeClasses.General = true;
-                                break;
-                            }
-                        case "Плацкартный":
-                            {
-                                placeClasses.SecondClass = true;
-                                break;
-                            }
-                        case "Купе":
-                            {
-                                placeClasses.Coupe = true;
-                                break;
-                            }
-                        case "СВ":
-                            {
-                                placeClasses.Luxury = true;
-                                break;
-                            }
-                        default: { break; }
-                    }
+                    if (ResourceLoader.Instance.Resource["Sedentary"] == name)
+                        placeClasses.Sedentary = true;
+                    else if (ResourceLoader.Instance.Resource["SecondClass"] == name)
+                        placeClasses.SecondClass = true;
+                    else if (ResourceLoader.Instance.Resource["Coupe"] == name)
+                        placeClasses.Coupe = true;
+                    else if (ResourceLoader.Instance.Resource["Luxury"] == name)
+                        placeClasses.Luxury = true;
                 }
                 trainsList[i].PlaceClasses = placeClasses;
             }

@@ -2,8 +2,6 @@
 {
     public class PlaceClasses
     {
-        //общий
-        public bool General { get; set; }
         //сидячий
         public bool Sedentary { get; set; }
         //плацкартный

@@ -4,6 +4,8 @@ using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.UI.Popups;
 using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace Trains.WP.Services
 {
@@ -16,12 +18,8 @@ namespace Trains.WP.Services
 
         public async Task AlertAsync(string message, string title = "", string okButton = "OK")
         {
-            await CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
-                (CoreDispatcherPriority.Normal, async () =>
-                {
                     var dialog = new MessageDialog(message);
                     await dialog.ShowAsync();
-                });
         }
 
         public void Confirm(string message, Action<bool> answer, string title = null, string okButton = "OK", string cancelButton = "Cancel")
@@ -34,9 +32,14 @@ namespace Trains.WP.Services
             throw new NotImplementedException();
         }
 
-        public Task<bool> ConfirmAsync(string message, string title = "", string okButton = "OK", string cancelButton = "Cancel")
+        public async Task<bool> ConfirmAsync(string message, string title = "", string okButton = "OK", string cancelButton = "Cancel")
         {
-            throw new NotImplementedException();
+            var result = false;
+            var dialog = new MessageDialog(message,title);
+            dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler((c) => result = true)));
+            dialog.Commands.Add(new UICommand("Cancel"));
+            await dialog.ShowAsync();
+            return result;
         }
 
         public void ConfirmThreeButtons(string message, Action<ConfirmThreeButtonsResponse> answer, string title = null, string positive = "Yes", string negative = "No", string neutral = "Maybe")

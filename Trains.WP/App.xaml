@@ -297,61 +297,45 @@
                                            FontSize="{StaticResource ScheduleFontSize}"
                                            Margin="0,1.5,0,0" />
                                 <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Left">
-
-                                    <StackPanel Orientation="Horizontal"
-                                                Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}"
-                                                Margin="0,9,0,0">
-                                        <Border BorderBrush="DarkGray"
-                                                Margin="0,0,10,0"
-                                                Padding="5,0,5,0"
-                                                Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                            <TextBlock Text="ЭР"
-                                                       FontSize="{StaticResource NormalFontSize}"
-                                                       VerticalAlignment="Center" />
-                                        </Border>
-                                        <Border BorderBrush="DarkGray"
-                                                Padding="5,0,5,0"
-                                                Background="{Binding PlaceClasses.General,Converter={StaticResource BooleanToBackgroundConverter}}"
-                                                Margin="0,0,0,0">
-                                            <TextBlock Text="О"
-                                                       HorizontalAlignment="Center"
-                                                       FontSize="{StaticResource NormalFontSize}"
-                                                       VerticalAlignment="Center" />
-                                        </Border>
-                                        <Border BorderBrush="DarkGray"
-                                                Padding="5,0,5,0"
-                                                Margin="10,0,10,0"
-                                                Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                            <TextBlock Text="C"
-                                                       FontSize="{StaticResource NormalFontSize}"
-                                                       VerticalAlignment="Center" />
-                                        </Border>
-                                        <Border BorderBrush="DarkGray"
-                                                Padding="5,0,5,0"
-                                                Background="{Binding PlaceClasses.SecondClass,Converter={StaticResource BooleanToBackgroundConverter}}"
-                                                Margin="0,0,0,0">
-                                            <TextBlock Text="П"
-                                                       FontSize="{StaticResource NormalFontSize}"
-                                                       VerticalAlignment="Center" />
-                                        </Border>
-                                        <Border BorderBrush="DarkGray"
-                                                Padding="5,0,5,0"
-                                                Margin="10,0,10,0"
-                                                Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
-                                            <TextBlock Text="К"
-                                                       FontSize="{StaticResource NormalFontSize}"
-                                                       VerticalAlignment="Center" />
-                                        </Border>
-                                        <Border BorderBrush="DarkGray"
-                                                Padding="5,0,5,0"
-                                                Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}"
-                                                Margin="0,0,0,0">
-                                            <TextBlock Text="СВ"
-                                                       FontSize="{StaticResource NormalFontSize}"
-                                                       VerticalAlignment="Center" />
-                                        </Border>
-                                    </StackPanel>
+                                            HorizontalAlignment="Left"
+                                            Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}"
+                                            Margin="0,14,0,0">
+                                    <Border BorderBrush="DarkGray"
+                                            Margin="0,0,10,0"
+                                            Padding="5,0,5,0"
+                                            Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                        <TextBlock Text="ЭР"
+                                                   FontSize="{StaticResource NormalFontSize}"
+                                                   VerticalAlignment="Bottom" />
+                                    </Border>
+                                    <Border BorderBrush="DarkGray"
+                                            Padding="5,0,5,0"
+                                            Margin="0,0,10,0"
+                                            Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                        <TextBlock Text="C"
+                                                   FontSize="{StaticResource NormalFontSize}" />
+                                    </Border>
+                                    <Border BorderBrush="DarkGray"
+                                            Padding="5,0,5,0"
+                                            Background="{Binding PlaceClasses.SecondClass,Converter={StaticResource BooleanToBackgroundConverter}}"
+                                            Margin="0,0,0,0">
+                                        <TextBlock Text="П"
+                                                   FontSize="{StaticResource NormalFontSize}" />
+                                    </Border>
+                                    <Border BorderBrush="DarkGray"
+                                            Padding="5,0,5,0"
+                                            Margin="10,0,10,0"
+                                            Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                        <TextBlock Text="К"
+                                                   FontSize="{StaticResource NormalFontSize}" />
+                                    </Border>
+                                    <Border BorderBrush="DarkGray"
+                                            Padding="5,0,5,0"
+                                            Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}"
+                                            Margin="0,0,0,0">
+                                        <TextBlock Text="СВ"
+                                                   FontSize="{StaticResource NormalFontSize}" />
+                                    </Border>
                                 </StackPanel>
                             </StackPanel>
                         </Grid>
@@ -371,8 +355,7 @@
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="InformationTemplate">
-                <Grid Margin="0,5,0,0"
-                      Height="{StaticResource TileWidth}">
+                <Grid Height="{StaticResource TileWidth}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="*" />
@@ -397,7 +380,7 @@
                         Padding="0,10,0,10">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition MinWidth="200" />
+                            <ColumnDefinition Width="180" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Name}"

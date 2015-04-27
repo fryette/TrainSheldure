@@ -85,8 +85,14 @@ namespace Trains.Core.ViewModels
 
         private async void SaveChanges()
         {
+            var result = await Mvx.Resolve<IUserInteraction>().ConfirmAsync(ResourceLoader.Instance.Resource["DeleteDataNotification"], ResourceLoader.Instance.Resource["Warning"]);
+            if (!result) return;
             _manageLang.ChangeAppLanguage(SelectedLanguage.Id);
             await _serialize.SerializeObjectToXml(SelectedLanguage, Constants.CurrentLanguage);
+            await _serialize.DeleteFile(Constants.FavoriteRequests);
+            await _serialize.DeleteFile(Constants.LastTrainList);
+            await _serialize.DeleteFile(Constants.UpdateLastRequest);
+
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
         }
         #endregion

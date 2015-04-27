@@ -127,7 +127,7 @@
     <value>Дад. Інфармацыя</value>
   </data>
   <data name="ApplicationName.Title" xml:space="preserve">
-    <value>Чыгунка</value>
+    <value>Чыгунка.by</value>
   </data>
   <data name="Changes.Header" xml:space="preserve">
     <value>Змены</value>
@@ -154,7 +154,7 @@
     <value>Кіраванне</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Чыгунка / прапановы / багі</value>
+    <value>Чыгунка /прапановы/багі</value>
   </data>
   <data name="FinalStopPoint" xml:space="preserve">
     <value>канчатковая</value>
@@ -227,5 +227,17 @@
   </data>
   <data name="LangSetting.Header" xml:space="preserve">
     <value>мовы</value>
+  </data>
+  <data name="Carriage.Header" xml:space="preserve">
+    <value>Вагоны</value>
+  </data>
+  <data name="FastSearchTextBlock.Text" xml:space="preserve">
+    <value>Хуткі пошук цягніка</value>
+  </data>
+  <data name="Trains.Header" xml:space="preserve">
+    <value>Цягнікі</value>
+  </data>
+  <data name="MainPivotItem.Header" xml:space="preserve">
+    <value>Галоўная</value>
   </data>
 </root>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Trains.Entities;
 using Trains.Model.Entities;
+using Trains.Resources;
 using Trains.Services.Infrastructure;
 using Trains.Services.Interfaces;
 
@@ -35,7 +36,7 @@ namespace Trains.Services
 
             try
             {
-                var data = await HttpService.LoadResponseAsync(GetUrl(@from, to, date));
+                var data = await HttpService.LoadResponseAsync(GetUrl(from, to, date));
                 var additionalInformation = TrainGrabber.GetPlaces(data);
                 var links = TrainGrabber.GetLink(data);
                 var parameters = Parser.ParseData(data, Pattern).ToList();
@@ -58,23 +59,20 @@ namespace Trains.Services
 
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
         {
-            return new Uri("http://rasp.rw.by/m/" + "ru" + "/route/?from=" +
+            return new Uri("http://rasp.rw.by/m/" + ResourceLoader.Instance.Resource["Language"] + "/route/?from=" +
                    fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date + "&" + new Random().Next(0, 20));
         }
 
         private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
         {
-            switch (selectedVariantOfSearch)
-            {
-                case "Завтра":
-                    return datum.AddDays(1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
-                case "Все дни":
-                    return "everyday";
-                case "Вчера":
-                    return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
-                case "На дату":
-                    return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
-            }
+            if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Tommorow"])
+                return datum.AddDays(1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+            if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnAllDays"])
+                return "everyday";
+            if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Yesterday"])
+                return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+            if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnDay"])
+                return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
 
             if (datum < DateTime.Now) datum = DateTime.Now;
             return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);

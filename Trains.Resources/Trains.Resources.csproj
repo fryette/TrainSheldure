@@ -57,9 +57,6 @@
     <EmbeddedResource Include="DataModels\be\HelpInformation.json" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataModels\Menube.json" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="DataModels\StopPointsbe.json" />
   </ItemGroup>
   <ItemGroup>

@@ -124,7 +124,7 @@
     <value>Доп.Информация</value>
   </data>
   <data name="ApplicationName.Title" xml:space="preserve">
-    <value>Чыгунка</value>
+    <value>Чыгунка.by</value>
   </data>
   <data name="Clear.Content" xml:space="preserve">
     <value>Очистить</value>
@@ -239,5 +239,14 @@
   </data>
   <data name="LangSetting.Header" xml:space="preserve">
     <value>языки</value>
+  </data>
+  <data name="Carriage.Header" xml:space="preserve">
+    <value>Вагоны</value>
+  </data>
+  <data name="FastSearchTextBlock.Text" xml:space="preserve">
+    <value>Быстрый поиск поезда</value>
+  </data>
+  <data name="Trains.Header" xml:space="preserve">
+    <value>Поезда</value>
   </data>
 </root>

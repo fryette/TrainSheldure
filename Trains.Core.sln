@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Services", "Trains.S
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OldVersion", "OldVersion", "{9B918260-9358-487C-8320-3E23CB78CD4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Tests", "Trains.Tests\Trains.Tests.csproj", "{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.App", "TrainShedule-HubVersion\Trains.App.csproj", "{FFD898BB-0027-441C-AF56-4F4950CE1437}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Droid", "Trains.Droid\Trains.Droid.csproj", "{11CDC8C2-4D23-41EB-A16A-69AEBEE13C43}"
@@ -147,23 +145,6 @@ Global
 		{13FDA41E-D3B2-4A71-808C-AA1489FB628F}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{13FDA41E-D3B2-4A71-808C-AA1489FB628F}.Release|WindowsPhone.ActiveCfg = Release|Any CPU
 		{13FDA41E-D3B2-4A71-808C-AA1489FB628F}.Release|WindowsPhone.Build.0 = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Ad-Hoc|Android.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Ad-Hoc|iPhone.ActiveCfg = Release|x86
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Ad-Hoc|WindowsPhone.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.AppStore|Android.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.AppStore|iPhone.ActiveCfg = Release|x86
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.AppStore|WindowsPhone.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Debug|Android.ActiveCfg = Debug|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Debug|iPhone.ActiveCfg = Debug|x86
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Debug|WindowsPhone.ActiveCfg = Debug|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Release|Android.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Release|iPhone.ActiveCfg = Release|x86
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C}.Release|WindowsPhone.ActiveCfg = Release|Any CPU
 		{FFD898BB-0027-441C-AF56-4F4950CE1437}.Ad-Hoc|Android.ActiveCfg = Release|Any CPU
 		{FFD898BB-0027-441C-AF56-4F4950CE1437}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
 		{FFD898BB-0027-441C-AF56-4F4950CE1437}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
@@ -291,7 +272,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B8E75E5F-81DA-4C27-9E90-2ACC5C253F2C} = {9B918260-9358-487C-8320-3E23CB78CD4F}
 		{FFD898BB-0027-441C-AF56-4F4950CE1437} = {9B918260-9358-487C-8320-3E23CB78CD4F}
 	EndGlobalSection
 EndGlobal

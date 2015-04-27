@@ -44,8 +44,8 @@
                     </GridView>
                     <StackPanel Grid.Row="1"
                                 Background="{StaticResource GrayColorBrush}">
-                        <TextBlock Text="Быстрый поиск поезда"
-                                   FontSize="18" />
+                        <TextBlock x:Uid="FastSearchTextBlock"
+                                   FontSize="{StaticResource NormalLargeFontSize}" />
                         <ComboBox ItemsSource="{Binding VariantOfSearch}"
                                   SelectedItem="{Binding SelectedVariant,Mode=TwoWay}">
                         </ComboBox>

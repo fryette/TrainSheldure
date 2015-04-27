@@ -393,7 +393,7 @@ namespace Trains.Core.ViewModels
             if (selectedAboutItem.Item == AboutPicture.AboutApp)
                 ShowViewModel<AboutViewModel>();
             else if (selectedAboutItem.Item == AboutPicture.Mail)
-                Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com", string.Empty, "Чыгунка/предложения/баги", String.Empty, false);
+                Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com", string.Empty, ResourceLoader.Instance.Resource["Feedback"], String.Empty, false);
             else if (selectedAboutItem.Item == AboutPicture.Market)
                 _marketPlace.GoToMarket();
             else

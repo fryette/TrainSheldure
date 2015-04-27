@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using Trains.Model.Entities;
+using Trains.Resources;
 using Trains.Services.Infrastructure;
 using Trains.Services.Interfaces;
 
@@ -26,7 +27,7 @@ namespace Trains.Services
         {
             if (NetworkInterface.GetIsNetworkAvailable())
             {
-				var uri = new Uri("http://rasp.rw.by/m/ru/train/" + link);
+                var uri = new Uri("http://rasp.rw.by/m/" + ResourceLoader.Instance.Resource["Language"] + "/train/" + link);
                 var data = await HttpService.LoadResponseAsync(uri);
                 var match = Parser.ParseData(data, Pattern);
 
