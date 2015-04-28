@@ -120,92 +120,50 @@
   <data name="AboutPivot.Header" xml:space="preserve">
     <value>больше</value>
   </data>
-  <data name="AddInformation.Text" xml:space="preserve">
-    <value>Доп.Информация</value>
-  </data>
   <data name="ApplicationName.Title" xml:space="preserve">
     <value>Чыгунка.by</value>
   </data>
   <data name="Clear.Content" xml:space="preserve">
-    <value>Очистить</value>
+    <value>очистить</value>
   </data>
   <data name="DateOfDeparture.Header" xml:space="preserve">
     <value>дата отправления</value>
   </data>
-  <data name="DateUpTooLater" xml:space="preserve">
-    <value>Поиск может производится начиная от текущего времени</value>
-  </data>
-  <data name="DownloadStopPoints.Text" xml:space="preserve">
-    <value>Идет загрузка списка станций</value>
-  </data>
-  <data name="DownloadTrain.Text" xml:space="preserve">
-    <value>Идет загрузка списка поездов</value>
-  </data>
   <data name="EditFavoriteHeader.Text" xml:space="preserve">
-    <value>Управление</value>
+    <value>управление</value>
   </data>
   <data name="Feedback" xml:space="preserve">
-    <value>Чыгунка/предложения/баги</value>
+    <value>предложения/баги</value>
   </data>
   <data name="FinalStopPoint" xml:space="preserve">
     <value>конечная</value>
   </data>
   <data name="From.PlaceholderText" xml:space="preserve">
-    <value>Откуда</value>
-  </data>
-  <data name="Header.Text" xml:space="preserve">
-    <value>Быстрое расписание</value>
-  </data>
-  <data name="HelpHeader.Text" xml:space="preserve">
-    <value>Доп. Информация</value>
-  </data>
-  <data name="InternetConnectionError" xml:space="preserve">
-    <value>Доступ к интернету отсутствует, проверьте подключение!</value>
-  </data>
-  <data name="Interregional" xml:space="preserve">
-    <value>Межрегиональные</value>
+    <value>откуда</value>
   </data>
   <data name="LastPivot.Header" xml:space="preserve">
     <value>последний</value>
   </data>
-  <data name="LastRequest.Text" xml:space="preserve">
-    <value>Последние запросы</value>
-  </data>
-  <data name="MainLabelText.Text" xml:space="preserve">
-    <value>Мы приветствуем вас в в приложении для поиска железнодорожных билетов. Наше приложение использует сайт rw.by (Белорусской Железной дороги) для поиска поездов и свободных мест. Надеемся на вашу поддержку и будем рады видеть ваши отзывы и пожелания... вместе мы сделаем мир чуточку удобнее!</value>
-  </data>
   <data name="MainPivotItem.Header" xml:space="preserve">
     <value>главная</value>
-  </data>
-  <data name="NewsLabel.Text" xml:space="preserve">
-    <value>Новости.Фото.</value>
   </data>
   <data name="RoutesPivot.Header" xml:space="preserve">
     <value>маршруты</value>
   </data>
   <data name="Search.Content" xml:space="preserve">
-    <value>Поиск</value>
-  </data>
-  <data name="SelectClass.Text" xml:space="preserve">
-    <value>Выбор класса</value>
-  </data>
-  <data name="SelectStantion.Text" xml:space="preserve">
-    <value>Выбор станции</value>
-  </data>
-  <data name="StopPointsHeader.Text" xml:space="preserve">
-    <value>Ост. Пункты</value>
+    <value>поиск</value>
   </data>
   <data name="To.PlaceholderText" xml:space="preserve">
-    <value>Куда</value>
+    <value>куда</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
-    <value>Идет обновление</value>
+    <value>обновляем</value>
   </data>
   <data name="UpdateStopPoint.Content" xml:space="preserve">
-    <value>Обновить станции</value>
+    <value>обновить станции</value>
   </data>
   <data name="AboutUs.Header" xml:space="preserve">
-    <value>О Нас</value>
+    <value>о нас</value>
   </data>
   <data name="Changes.Header" xml:space="preserve">
     <value>изменения</value>
@@ -214,22 +172,22 @@
     <value>В этой версии:</value>
   </data>
   <data name="DeleteAppBar.Label" xml:space="preserve">
-    <value>Удалить</value>
+    <value>удалить</value>
   </data>
   <data name="HelpAppBar.Label" xml:space="preserve">
-    <value>Справка</value>
+    <value>справка</value>
   </data>
   <data name="ManageAppBar.Label" xml:space="preserve">
-    <value>Управлять</value>
+    <value>управлять</value>
   </data>
   <data name="SaveAppBar.Label" xml:space="preserve">
-    <value>Сохранить</value>
+    <value>сохранить</value>
   </data>
   <data name="SwapAppBar.Label" xml:space="preserve">
-    <value>Обмен</value>
+    <value>обмен</value>
   </data>
   <data name="UpdateAppBar.Label" xml:space="preserve">
-    <value>Обновить</value>
+    <value>обновить</value>
   </data>
   <data name="UsingLibrary.Text" xml:space="preserve">
     <value>Используемые бибилиотеки:</value>
@@ -244,7 +202,7 @@
     <value>вагоны</value>
   </data>
   <data name="FastSearchTextBlock.Text" xml:space="preserve">
-    <value>Быстрый поиск поезда</value>
+    <value>быстрый поиск поезда</value>
   </data>
   <data name="Trains.Header" xml:space="preserve">
     <value>поезда</value>

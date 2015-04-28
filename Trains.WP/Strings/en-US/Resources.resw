@@ -120,32 +120,20 @@
   <data name="AboutPivot.Header" xml:space="preserve">
     <value>more</value>
   </data>
-  <data name="AddInformation.Text" xml:space="preserve">
-    <value>More info</value>
-  </data>
   <data name="ApplicationName.Title" xml:space="preserve">
     <value>Chygunka.by</value>
   </data>
   <data name="Clear.Content" xml:space="preserve">
-    <value>Clear</value>
+    <value>clear</value>
   </data>
   <data name="DateOfDeparture.Header" xml:space="preserve">
     <value>departure Date</value>
   </data>
-  <data name="DateUpTooLater" xml:space="preserve">
-    <value>The search can be performed starting from the current time</value>
-  </data>
-  <data name="DownloadTrain.Text" xml:space="preserve">
-    <value>Loading the list of trains</value>
-  </data>
   <data name="EditFavoriteHeader.Text" xml:space="preserve">
-    <value>Office</value>
+    <value>manage routes</value>
   </data>
   <data name="Feedback" xml:space="preserve">
     <value>Chygunka / suggestions / bugs</value>
-  </data>
-  <data name="FinalStopPoint" xml:space="preserve">
-    <value>end</value>
   </data>
   <data name="From.PlaceholderText" xml:space="preserve">
     <value>whence</value>
@@ -153,14 +141,8 @@
   <data name="HelpHeader.Text" xml:space="preserve">
     <value>Extras. Information</value>
   </data>
-  <data name="InternetConnectionError" xml:space="preserve">
-    <value>Internet access is not available, check the connection!</value>
-  </data>
   <data name="LastPivot.Header" xml:space="preserve">
     <value>last</value>
-  </data>
-  <data name="LastRequest.Text" xml:space="preserve">
-    <value>Last queries</value>
   </data>
   <data name="MainPivotItem.Header" xml:space="preserve">
     <value>home</value>
@@ -171,23 +153,17 @@
   <data name="Search.Content" xml:space="preserve">
     <value>search</value>
   </data>
-  <data name="SelectClass.Text" xml:space="preserve">
-    <value>The choice of class</value>
-  </data>
-  <data name="SelectStantion.Text" xml:space="preserve">
-    <value>Station Select</value>
-  </data>
   <data name="To.PlaceholderText" xml:space="preserve">
     <value>where</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
-    <value>Updating</value>
+    <value>updating</value>
   </data>
   <data name="UpdateStopPoint.Content" xml:space="preserve">
     <value>Update station</value>
   </data>
   <data name="AboutUs.Header" xml:space="preserve">
-    <value>About Us</value>
+    <value>about Us</value>
   </data>
   <data name="Changes.Header" xml:space="preserve">
     <value>changes</value>
@@ -208,7 +184,7 @@
     <value>save</value>
   </data>
   <data name="SwapAppBar.Label" xml:space="preserve">
-    <value>Exchange</value>
+    <value>swap</value>
   </data>
   <data name="UpdateAppBar.Label" xml:space="preserve">
     <value>update</value>
@@ -226,7 +202,7 @@
     <value>cars</value>
   </data>
   <data name="FastSearchTextBlock.Text" xml:space="preserve">
-    <value>Quick search train</value>
+    <value>quick search train</value>
   </data>
   <data name="Trains.Header" xml:space="preserve">
     <value>train</value>

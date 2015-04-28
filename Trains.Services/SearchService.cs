@@ -34,20 +34,20 @@ namespace Trains.Services
         {
             var date = GetDate(datum, selectedVariant);
 
-                var data = await HttpService.LoadResponseAsync(GetUrl(from, to, date));
-                var additionalInformation = TrainGrabber.GetPlaces(data);
-                var links = TrainGrabber.GetLink(data);
-                var parameters = Parser.ParseData(data, Pattern).ToList();
-                var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
+            var data = await HttpService.LoadResponseAsync(GetUrl(from, to, date));
+            var additionalInformation = TrainGrabber.GetPlaces(data);
+            var links = TrainGrabber.GetLink(data);
+            var parameters = Parser.ParseData(data, Pattern).ToList();
+            var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
-                IEnumerable<Train> trains;
-                if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
-                    trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
-                else
-                    trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
-                        : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
-
-                return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
+            IEnumerable<Train> trains;
+            if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
+                trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
+            else
+                trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
+                    : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
+            if (!trains.Any()) throw new ArgumentException("Bad request");
+            return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
         }
 
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
