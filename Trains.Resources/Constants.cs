@@ -15,6 +15,11 @@ namespace Trains.Resources
         public const string CarriageModelJson = "CarriageModel.json";
         public const string AboutJson = "About.json";
 
+        //Analytics cons strings
+        public const string LanguageChanged = "LanguageChanged";
+        public const string AddToFavorite = "AddToFavorite";
+        public const string VariantOfSearch = "VariantOfSearch";
+
         public const string DateFormat = "yy-MM-dd";
     }
 }

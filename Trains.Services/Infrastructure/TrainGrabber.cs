@@ -164,7 +164,8 @@ namespace Trains.Services.Infrastructure
                             Place = ResourceLoader.Instance.Resource["Place"] + (temp[j + 1].Groups[2].Value == UnknownStr
                                 ? ResourceLoader.Instance.Resource["Unlimited"]
                                 : temp[j + 1].Groups[2].Value.Replace(UnknownStr, string.Empty)),
-                            Price = ResourceLoader.Instance.Resource["Price"] + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
+                            Price = temp[j + 2].Groups[3].Value == String.Empty ? ResourceLoader.Instance.Resource["Unknown"]
+                                                                                  : ResourceLoader.Instance.Resource["Price"] + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
                     additionInformation.Add(additionalInformations);

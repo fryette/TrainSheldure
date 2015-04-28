@@ -5,6 +5,7 @@ using Trains.Core.Interfaces;
 using Trains.Entities;
 using System.Linq;
 using System.Threading.Tasks;
+using Trains.Resources;
 
 namespace Trains.Core.ViewModels
 {
@@ -135,7 +136,11 @@ namespace Trains.Core.ViewModels
         private async void AddToFavorite()
         {
             if (await _manageFavoriteRequest.AddToFavorite(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
+            {
                 SetVisibilityToFavoriteIcons(false, true);
+                _analytics.SentEvent(Constants.AddToFavorite);
+
+            }
         }
 
         /// <summary>

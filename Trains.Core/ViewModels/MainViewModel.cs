@@ -332,7 +332,7 @@ namespace Trains.Core.ViewModels
                 await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
-            _analytics.SentEvent("VariantOfSearch", SelectedVariant);
+            _analytics.SentEvent(Constants.VariantOfSearch, SelectedVariant);
             IsTaskRun = false;
         }
 

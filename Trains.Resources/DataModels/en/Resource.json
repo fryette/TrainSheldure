@@ -51,5 +51,6 @@
     "Luxury": "CB",
     "Language": "en",
     "DeleteDataNotification": " All saved data will be deleted (Saved Routes / last request) ",
-    "Warning": " Warning "
+    "Warning": " Warning ",
+    "Unknow": "unknow"
 }
