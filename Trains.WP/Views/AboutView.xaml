@@ -31,6 +31,8 @@
                                    FontSize="24" />
                         <TextBlock Text="Пелешенко Александр(логотип)"
                                    Style="{StaticResource AboutAppStyle}" />
+                        <HyperlinkButton x:Uid="OurSite"
+                                         NavigateUri="http://chygunka.by" />
                     </StackPanel>
                 </Grid>
             </PivotItem>

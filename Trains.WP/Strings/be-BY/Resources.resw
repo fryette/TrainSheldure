@@ -240,4 +240,7 @@
   <data name="MainPivotItem.Header" xml:space="preserve">
     <value>Галоўная</value>
   </data>
+  <data name="OurSite.Content" xml:space="preserve">
+    <value>Наш сайт</value>
+  </data>
 </root>
