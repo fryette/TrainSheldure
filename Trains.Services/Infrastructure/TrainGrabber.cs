@@ -32,7 +32,7 @@ namespace Trains.Services.Infrastructure
 
         #region action
 
-        public static IEnumerable<Train> GetTrainsInformation(IReadOnlyList<Match> parameters, string date, List<bool> isInternetRegistration)
+        public static List<Train> GetTrainsInformation(List<Match> parameters, string date, List<bool> isInternetRegistration)
         {
             var dateOfDeparture = DateTime.ParseExact(date, Constants.DateFormat, CultureInfo.InvariantCulture);
             var imagePath = new List<Picture>(GetImagePath(parameters));
@@ -57,7 +57,7 @@ namespace Trains.Services.Infrastructure
             return trainList;
         }
 
-        public static IEnumerable<Train> GetTrainsInformationOnAllDays(IReadOnlyList<Match> parameters)
+        public static List<Train> GetTrainsInformationOnAllDays(List<Match> parameters)
         {
             var imagePath = new List<Picture>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
@@ -75,7 +75,7 @@ namespace Trains.Services.Infrastructure
             return trainList;
         }
 
-        public static IEnumerable<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
+        public static List<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
         {
             var trainList = new List<Train>(parameters.Count / 6);
 
@@ -110,7 +110,7 @@ namespace Trains.Services.Infrastructure
             };
         }
 
-        public static IEnumerable<Picture> GetImagePath(IEnumerable<Match> match)
+        public static List<Picture> GetImagePath(List<Match> match)
         {
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
@@ -125,7 +125,7 @@ namespace Trains.Services.Infrastructure
                         return type.Contains(ResourceLoader.Instance.Resource["Business"])
                             ? Picture.RegionalBusiness : Picture.RegionalEconom;
                     return Picture.City;
-                });
+                }).ToList();
         }
 
         public static List<bool> GetInternetRegistrationsInformations(IEnumerable<Match> match)

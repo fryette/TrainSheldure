@@ -40,14 +40,15 @@ namespace Trains.Services
             var parameters = Parser.ParseData(data, Pattern).ToList();
             var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
-            IEnumerable<Train> trains;
+            List<Train> trains;
             if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
                 trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
             else
                 trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
                     : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
+            trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
             if (!trains.Any()) throw new ArgumentException("Bad request");
-            return TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
+            return trains;
         }
 
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
