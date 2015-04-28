@@ -41,7 +41,7 @@ namespace Trains.Services
                 var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
                 IEnumerable<Train> trains;
-                if (from.Country != "(Беларусь)" && to.Country != "(Беларусь)")
+                if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
                     trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
                 else
                     trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())

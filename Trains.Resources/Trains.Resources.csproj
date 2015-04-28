@@ -82,6 +82,12 @@
     <EmbeddedResource Include="DataModels\ru\HelpInformation.json" />
     <EmbeddedResource Include="DataModels\ru\Resource.json" />
     <EmbeddedResource Include="DataModels\ru\StopPoints.json" />
+    <EmbeddedResource Include="DataModels\en\About.json" />
+    <EmbeddedResource Include="DataModels\en\CarriageModel.json" />
+    <EmbeddedResource Include="DataModels\en\Countries.json" />
+    <EmbeddedResource Include="DataModels\en\HelpInformation.json" />
+    <EmbeddedResource Include="DataModels\en\Resource.json" />
+    <EmbeddedResource Include="DataModels\en\StopPoints.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

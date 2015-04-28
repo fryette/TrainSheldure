@@ -1,0 +1,42 @@
+﻿[
+            {
+                "Name": "FIRST-CLASS SLEEPER “СВ” (DOUBLE-BED CABINS) — 18 SEATS",
+                "Title": "The location of upper and lower seats in the car: all berths are lower.",
+                "Carriage": "FirstClassSleeper"
+            },
+            {
+                "Name": "COMPARTMENT SLEEPER «К» (FOUR-BERTH COMPARTMENT) — 36 SEATS",
+                "Title": "Each cabin is fitted out with two upper berths (even-numbered) and lower berths (odd-numbered)",
+                "Carriage": "CompartmentSleeper"
+            },
+            {
+                "Name": "ECONOMY CLASS SLEEPER «ПЛ» (OPEN COUPES WITH TWO SIDE BERTHS) — 54 SEATS",
+                "Title": "Each cabin is fitted out with two upper berths (even-numbered) and lower berths (odd-numbered)",
+                "Carriage": "EconomyClassSleeper"
+            },
+            {
+                "Name": "SITTING COACHES «O» — 81 SEATS",
+                "Title": "",
+                "Carriage": "SeatingCoaches1"
+            },
+            {
+                "Name": "SITTING COACHES «С» — 62 SEATS",
+                "Title": "Passenger train carriages operated by the Belarusian Railway accommodate from 30 up to 62 seats each. Coach interior arrangement may differ and depends on the model and indoor equipment.",
+                "Carriage": "SeatingCoaches2"
+            },
+            {
+                "Name": "REGIONAL LINES BUSINESS CLASS MULTIPLE-UNIT CARS (SEATING ARRANGEMENT 2+2)",
+                "Title": "",
+                "Carriage": "MultipleUnitCars1"
+            },
+            {
+                "Name": "REGIONAL LINES BUSINESS CLASS MULTIPLE-UNIT CARS (SEATING ARRANGEMENT 3+2)",
+                "Title": "",
+                "Carriage": "MultipleUnitCars2"
+            },
+            {
+                "Name": "REGIONAL BUSINESS CLASS MULTIPLE-UNIT COACH DP1 (ДП1) — 91 SEATS",
+                "Title": "",
+                "Carriage": "MultipleUnitCoach"
+    }
+]
