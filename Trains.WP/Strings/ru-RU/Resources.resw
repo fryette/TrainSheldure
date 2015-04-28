@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutPivot.Header" xml:space="preserve">
-    <value>Больше</value>
+    <value>больше</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">
     <value>Доп.Информация</value>
@@ -130,7 +130,7 @@
     <value>Очистить</value>
   </data>
   <data name="DateOfDeparture.Header" xml:space="preserve">
-    <value>Дата отправления</value>
+    <value>дата отправления</value>
   </data>
   <data name="DateUpTooLater" xml:space="preserve">
     <value>Поиск может производится начиная от текущего времени</value>
@@ -166,7 +166,7 @@
     <value>Межрегиональные</value>
   </data>
   <data name="LastPivot.Header" xml:space="preserve">
-    <value>Последний</value>
+    <value>последний</value>
   </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Последние запросы</value>
@@ -175,13 +175,13 @@
     <value>Мы приветствуем вас в в приложении для поиска железнодорожных билетов. Наше приложение использует сайт rw.by (Белорусской Железной дороги) для поиска поездов и свободных мест. Надеемся на вашу поддержку и будем рады видеть ваши отзывы и пожелания... вместе мы сделаем мир чуточку удобнее!</value>
   </data>
   <data name="MainPivotItem.Header" xml:space="preserve">
-    <value>Главная</value>
+    <value>главная</value>
   </data>
   <data name="NewsLabel.Text" xml:space="preserve">
     <value>Новости.Фото.</value>
   </data>
   <data name="RoutesPivot.Header" xml:space="preserve">
-    <value>Маршруты</value>
+    <value>маршруты</value>
   </data>
   <data name="Search.Content" xml:space="preserve">
     <value>Поиск</value>
@@ -208,7 +208,7 @@
     <value>О Нас</value>
   </data>
   <data name="Changes.Header" xml:space="preserve">
-    <value>Изменения</value>
+    <value>изменения</value>
   </data>
   <data name="CurrentChanges.Text" xml:space="preserve">
     <value>В этой версии:</value>
@@ -241,13 +241,13 @@
     <value>языки</value>
   </data>
   <data name="Carriage.Header" xml:space="preserve">
-    <value>Вагоны</value>
+    <value>вагоны</value>
   </data>
   <data name="FastSearchTextBlock.Text" xml:space="preserve">
     <value>Быстрый поиск поезда</value>
   </data>
   <data name="Trains.Header" xml:space="preserve">
-    <value>Поезда</value>
+    <value>поезда</value>
   </data>
   <data name="OurSite.Content" xml:space="preserve">
     <value>Наш сайт</value>

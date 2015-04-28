@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AboutPivot.Header" xml:space="preserve">
-    <value>Больш</value>
+    <value>больш</value>
   </data>
   <data name="AboutUs.Header" xml:space="preserve">
-    <value>Аб Нас</value>
+    <value>аб Нас</value>
   </data>
   <data name="AddInformation.Text" xml:space="preserve">
     <value>Дад. Інфармацыя</value>
@@ -130,7 +130,7 @@
     <value>Чыгунка.by</value>
   </data>
   <data name="Changes.Header" xml:space="preserve">
-    <value>Змены</value>
+    <value>змены</value>
   </data>
   <data name="Clear.Content" xml:space="preserve">
     <value>Ачысціць</value>
@@ -139,7 +139,7 @@
     <value>У гэтай версіі:</value>
   </data>
   <data name="DateOfDeparture.Header" xml:space="preserve">
-    <value>Дата адпраўлення</value>
+    <value>дата адпраўлення</value>
   </data>
   <data name="DeleteAppBar.Label" xml:space="preserve">
     <value>Выдаліць</value>
@@ -172,13 +172,10 @@
     <value>Дад. Інфармацыя</value>
   </data>
   <data name="LastPivot.Header" xml:space="preserve">
-    <value>Апошні</value>
+    <value>апошні</value>
   </data>
   <data name="LastRequest.Text" xml:space="preserve">
     <value>Апошнія запыты</value>
-  </data>
-  <data name="MainLabelText.Text" xml:space="preserve">
-    <value>Чыгунка прынясе вам масу задавальнення, не забывайце пакідаць вашыя водгукі!</value>
   </data>
   <data name="ManageAppBar.Label" xml:space="preserve">
     <value>Кіраваць</value>
@@ -187,7 +184,7 @@
     <value>Навіны. Фота.</value>
   </data>
   <data name="RoutesPivot.Header" xml:space="preserve">
-    <value>Маршруты</value>
+    <value>маршруты</value>
   </data>
   <data name="SaveAppBar.Label" xml:space="preserve">
     <value>Захаваць</value>
@@ -229,16 +226,16 @@
     <value>мовы</value>
   </data>
   <data name="Carriage.Header" xml:space="preserve">
-    <value>Вагоны</value>
+    <value>вагоны</value>
   </data>
   <data name="FastSearchTextBlock.Text" xml:space="preserve">
     <value>Хуткі пошук цягніка</value>
   </data>
   <data name="Trains.Header" xml:space="preserve">
-    <value>Цягнікі</value>
+    <value>цягнікі</value>
   </data>
   <data name="MainPivotItem.Header" xml:space="preserve">
-    <value>Галоўная</value>
+    <value>галоўная</value>
   </data>
   <data name="OurSite.Content" xml:space="preserve">
     <value>Наш сайт</value>

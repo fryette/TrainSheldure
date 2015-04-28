@@ -130,13 +130,10 @@
     <value>Clear</value>
   </data>
   <data name="DateOfDeparture.Header" xml:space="preserve">
-    <value>Departure Date</value>
+    <value>departure Date</value>
   </data>
   <data name="DateUpTooLater" xml:space="preserve">
     <value>The search can be performed starting from the current time</value>
-  </data>
-  <data name="DownloadStopPoints.Text" xml:space="preserve">
-    <value>Loading the list of stations</value>
   </data>
   <data name="DownloadTrain.Text" xml:space="preserve">
     <value>Loading the list of trains</value>
@@ -151,19 +148,13 @@
     <value>end</value>
   </data>
   <data name="From.PlaceholderText" xml:space="preserve">
-    <value>Whence</value>
-  </data>
-  <data name="Header.Text" xml:space="preserve">
-    <value>Fast schedule</value>
+    <value>whence</value>
   </data>
   <data name="HelpHeader.Text" xml:space="preserve">
     <value>Extras. Information</value>
   </data>
   <data name="InternetConnectionError" xml:space="preserve">
     <value>Internet access is not available, check the connection!</value>
-  </data>
-  <data name="Interregional" xml:space="preserve">
-    <value>Interregional</value>
   </data>
   <data name="LastPivot.Header" xml:space="preserve">
     <value>last</value>
@@ -178,7 +169,7 @@
     <value>routes</value>
   </data>
   <data name="Search.Content" xml:space="preserve">
-    <value>Search</value>
+    <value>search</value>
   </data>
   <data name="SelectClass.Text" xml:space="preserve">
     <value>The choice of class</value>
@@ -187,7 +178,7 @@
     <value>Station Select</value>
   </data>
   <data name="To.PlaceholderText" xml:space="preserve">
-    <value>Where</value>
+    <value>where</value>
   </data>
   <data name="Update.Text" xml:space="preserve">
     <value>Updating</value>
@@ -199,7 +190,7 @@
     <value>About Us</value>
   </data>
   <data name="Changes.Header" xml:space="preserve">
-    <value>Changes</value>
+    <value>changes</value>
   </data>
   <data name="CurrentChanges.Text" xml:space="preserve">
     <value>In this version:</value>
@@ -208,19 +199,19 @@
     <value>Delete</value>
   </data>
   <data name="HelpAppBar.Label" xml:space="preserve">
-    <value>Help</value>
+    <value>help</value>
   </data>
   <data name="ManageAppBar.Label" xml:space="preserve">
     <value>Manage</value>
   </data>
   <data name="SaveAppBar.Label" xml:space="preserve">
-    <value>Save</value>
+    <value>save</value>
   </data>
   <data name="SwapAppBar.Label" xml:space="preserve">
     <value>Exchange</value>
   </data>
   <data name="UpdateAppBar.Label" xml:space="preserve">
-    <value>Update</value>
+    <value>update</value>
   </data>
   <data name="UsingLibrary.Text" xml:space="preserve">
     <value>Used library:</value>
@@ -229,16 +220,16 @@
     <value>Version: 1.2.0.16</value>
   </data>
   <data name="LangSetting.Header" xml:space="preserve">
-    <value>Language</value>
+    <value>language</value>
   </data>
   <data name="Carriage.Header" xml:space="preserve">
-    <value>Cars</value>
+    <value>cars</value>
   </data>
   <data name="FastSearchTextBlock.Text" xml:space="preserve">
     <value>Quick search train</value>
   </data>
   <data name="Trains.Header" xml:space="preserve">
-    <value>Train</value>
+    <value>train</value>
   </data>
   <data name="OurSite.Content" xml:space="preserve">
     <value>Our site</value>
