@@ -43,14 +43,29 @@
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="BaseHttpService.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Extensions\HttpWebRequest.cs" />
     <Compile Include="FavoriteManage.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\IFavoriteManageService.cs" />
-    <Compile Include="Interfaces\IManageLangService.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceLoader.cs" />
+    <Compile Include="Services\BackendService.cs" />
+    <Compile Include="Services\Interfaces\ILocalDataService.cs" />
+    <Compile Include="Services\Infrastructure\Parser.cs" />
+    <Compile Include="Services\Infrastructure\TrainGrabber.cs" />
+    <Compile Include="Services\Infrastructure\TrainStopGrabber.cs" />
+    <Compile Include="Services\Interfaces\IBackendService.cs" />
+    <Compile Include="Services\Interfaces\IHttpService.cs" />
+    <Compile Include="Services\Interfaces\IMarketPlaceService.cs" />
+    <Compile Include="Services\Interfaces\ISearchService.cs" />
+    <Compile Include="Services\Interfaces\ITrainStopService.cs" />
+    <Compile Include="Services\LocalData.cs" />
+    <Compile Include="Services\SearchService.cs" />
+    <Compile Include="Services\SerializeService.cs" />
+    <Compile Include="Services\TrainStopService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseSearchViewModel.cs" />
     <Compile Include="ViewModels\EditFavoriteRoutesViewModel.cs" />
@@ -92,14 +107,6 @@
     <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
       <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
       <Name>Trains.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Trains.Resources\Trains.Resources.csproj">
-      <Project>{bea17689-0d32-46b2-a216-2c2bd5ad8764}</Project>
-      <Name>Trains.Resources</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Trains.Services\Trains.Services.csproj">
-      <Project>{13FDA41E-D3B2-4A71-808C-AA1489FB628F}</Project>
-      <Name>Trains.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

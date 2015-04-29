@@ -237,10 +237,6 @@
       <Project>{73f82f72-521e-4f11-aa97-9a377e8cbe3e}</Project>
       <Name>Trains.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Trains.Services\Trains.Services.csproj">
-      <Project>{13fda41e-d3b2-4a71-808c-aa1489fb628f}</Project>
-      <Name>Trains.Services</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

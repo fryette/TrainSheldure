@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-namespace Trains.Resources
+namespace Trains.Core
 {
     public static class Constants
     {
@@ -7,6 +7,9 @@ namespace Trains.Resources
         public const string LanguagesUri = "http://chygunka.by/languages/";
 
         public const string SettingsRelativeUri = "settings.json";
+
+        public const string AppSettings = "AppSettings";
+        public const string ResourceLoader = "ResourceLoader";
         public const string UpdateLastRequest = "updateLastRequst";
         public const string FavoriteRequests = "favoriteRequests";
         public const string LastTrainList = "LastTrainList";

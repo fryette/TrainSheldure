@@ -66,7 +66,7 @@
                                         Style="{StaticResource AutoSuggestBoxStyle}"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
 
-                        <Button Content="Найти"
+                        <Button x:Uid="Search"
                                 HorizontalAlignment="Right"
                                 Command="{Binding SearchCommand}" />
                     </StackPanel>

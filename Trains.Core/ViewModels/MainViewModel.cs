@@ -10,9 +10,9 @@ using Newtonsoft.Json;
 using Trains.Core.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
-using Trains.Resources;
-using Trains.Services.Interfaces;
+using Trains.Core;
 using System.Globalization;
+using Trains.Core.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
 {
@@ -20,20 +20,20 @@ namespace Trains.Core.ViewModels
     {
         #region readonlyProperties
 
-        private readonly IAppSettings _appSettings;
+        private readonly IHttpService _httpService;
+
+        private IAppSettings _appSettings;
 
         private readonly IMarketPlaceService _marketPlace;
 
         private readonly IAnalytics _analytics;
 
-        private readonly ILocalDataService _local;
 
         /// <summary>
         /// Used to serialization/deserialization objects.
         /// </summary>
         private readonly ISerializableService _serializable;
 
-        private readonly IManageLangService _manageLang;
 
         /// <summary>
         /// Used to search train schedule.
@@ -59,15 +59,14 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, ILocalDataService local, IMarketPlaceService marketPlace, IAnalytics analytics, IManageLangService manageLang)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IHttpService httpService)
         {
+            _httpService = httpService;
             _analytics = analytics;
             _serializable = serializable;
             _search = search;
             _appSettings = appSettings;
-            _local = local;
             _marketPlace = marketPlace;
-            _manageLang = manageLang;
 
             TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
             GoToEditFavoriteCommand = new MvxCommand(GoToEditFavorite);
@@ -104,18 +103,17 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Stores variant of search.
         /// </summary> 
+        private List<string> _variantOfSearch;
         public List<string> VariantOfSearch
         {
             get
             {
-                return new List<string>
-                {
-                    ResourceLoader.Instance.Resource["Yesterday"],
-                    ResourceLoader.Instance.Resource["Today"],
-                    ResourceLoader.Instance.Resource["Tommorow"],
-                    ResourceLoader.Instance.Resource["OnAllDays"],
-                    ResourceLoader.Instance.Resource["OnDay"]
-                };
+                return _variantOfSearch;
+            }
+            set
+            {
+                _variantOfSearch = value;
+                RaisePropertyChanged(() => VariantOfSearch);
             }
         }
 
@@ -287,11 +285,10 @@ namespace Trains.Core.ViewModels
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
         /// </summary>
-        public async void Init()
+        public void Init()
         {
             IsDownloadRun = true;
-            if (_appSettings.AutoCompletion == null)
-                await RestoreData();
+            RestoreData();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
@@ -328,8 +325,8 @@ namespace Trains.Core.ViewModels
             {
                 _appSettings.LastRequestTrain = schedule;
                 _appSettings.UpdatedLastRequest = new LastRequest { From = from, To = to, SelectionMode = SelectedVariant, Date = Datum };
-                await _serializable.SerializeObjectToXml(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
-                await _serializable.SerializeObjectToXml(schedule, Constants.LastTrainList);
+                 _serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
+                 _serializable.Serialize(schedule, Constants.LastTrainList);
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
             _analytics.SentEvent(Constants.VariantOfSearch, SelectedVariant);
@@ -391,7 +388,7 @@ namespace Trains.Core.ViewModels
             else
             {
                 Trains = trains;
-                await _serializable.SerializeObjectToXml(Trains, Constants.LastTrainList);
+                 _serializable.Serialize(Trains, Constants.LastTrainList);
             }
 
             IsTaskRun = false;
@@ -420,19 +417,23 @@ namespace Trains.Core.ViewModels
             To = tmp;
         }
 
-        private async Task RestoreData()
+        private void RestoreData()
         {
-            var lang = await _serializable.ReadObjectFromXmlFileAsync<Language>(Constants.CurrentLanguage);
-            if (lang == null) _appSettings.Language = new Language { Id = "ru" };
-            else _appSettings.Language = lang;
-            _manageLang.ChangeAppLanguage(_appSettings.Language.Id);
-            _appSettings.AutoCompletion = await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson, CultureInfo.CurrentCulture.Name);
-            _appSettings.HelpInformation = await _local.GetData<List<HelpInformationItem>>(Constants.HelpInformationJson, CultureInfo.CurrentCulture.Name);
-            _appSettings.CarriageModel = await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson, CultureInfo.CurrentCulture.Name);
-            _appSettings.FavoriteRequests = await _serializable.ReadObjectFromXmlFileAsync<List<LastRequest>>(Constants.FavoriteRequests);
-            _appSettings.UpdatedLastRequest = await _serializable.ReadObjectFromXmlFileAsync<LastRequest>(Constants.UpdateLastRequest);
-            _appSettings.LastRequestTrain = await _serializable.ReadObjectFromXmlFileAsync<List<Train>>(Constants.LastTrainList);
-            _appSettings.About = await _local.GetData<List<About>>(Constants.AboutJson, CultureInfo.CurrentCulture.Name);
+            if (_appSettings.AutoCompletion == null)
+            {
+                _appSettings =  _serializable.Desserialize<AppSettings>(Constants.AppSettings);
+                _appSettings.FavoriteRequests =  _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
+                _appSettings.UpdatedLastRequest =  _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
+                _appSettings.LastRequestTrain =  _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
+            }
+            VariantOfSearch = new List<string>
+                {
+                    ResourceLoader.Instance.Resource["Yesterday"],
+                    ResourceLoader.Instance.Resource["Today"],
+                    ResourceLoader.Instance.Resource["Tommorow"],
+                    ResourceLoader.Instance.Resource["OnAllDays"],
+                    ResourceLoader.Instance.Resource["OnDay"]
+                };
         }
 
         #endregion

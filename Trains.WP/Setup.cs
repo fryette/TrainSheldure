@@ -5,8 +5,8 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsCommon.Platform;
 using Trains.Core.Interfaces;
-using Trains.Services.Interfaces;
 using Trains.WP.Services;
+using Trains.Core.Services.Interfaces;
 
 namespace Trains.WP
 {
@@ -29,11 +29,9 @@ namespace Trains.WP
 
         protected override void InitializePlatformServices()
         {
-            Mvx.LazyConstructAndRegisterSingleton<ISerializableService, Serialize>();
             Mvx.LazyConstructAndRegisterSingleton<IUserInteraction, UserInteractionService>();
             Mvx.LazyConstructAndRegisterSingleton<IMarketPlaceService, MarketPlace>();
             Mvx.LazyConstructAndRegisterSingleton<IAnalytics, Analytics>();
-            Mvx.LazyConstructAndRegisterSingleton<IManageLangService, ManageLang>();
 
             base.InitializePlatformServices();
         }

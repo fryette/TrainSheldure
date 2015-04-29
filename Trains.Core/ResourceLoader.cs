@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Threading.Tasks;
+using Trains.Core.Service;
+using Trains.Core;
+using Cirrious.CrossCore;
+using Trains.Core.Interfaces;
 
-namespace Trains.Resources
+namespace Trains.Core
 {
     public sealed class ResourceLoader
     {
@@ -18,7 +23,9 @@ namespace Trains.Resources
 
         private async void Init()
         {
-            Resource = await new LocalData().GetData<Dictionary<string, string>>("Resource.json", CultureInfo.CurrentCulture.Name);
+            Resource = Mvx.Resolve<ISerializableService>().Desserialize<Dictionary<string,string>>(Constants.ResourceLoader);
+            if (Resource == null)
+                Resource = await Mvx.Resolve<ILocalDataService>().GetData<Dictionary<string, string>>(Constants.ResourceJson);
         }
 
         public static ResourceLoader Instance
@@ -29,7 +36,9 @@ namespace Trains.Resources
                 lock (SyncRoot)
                 {
                     if (_instance == null)
+                    {
                         _instance = new ResourceLoader();
+                    }
                 }
                 return _instance;
             }

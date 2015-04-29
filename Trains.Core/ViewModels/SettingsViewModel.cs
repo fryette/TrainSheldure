@@ -4,8 +4,10 @@ using Cirrious.MvvmCross.ViewModels;
 using System.Collections.Generic;
 using Trains.Core.Interfaces;
 using Trains.Model.Entities;
-using Trains.Resources;
+using Trains.Core;
 using System.Linq;
+using System.Threading.Tasks;
+using Cirrious.MvvmCross.Plugins.File;
 
 namespace Trains.Core.ViewModels
 {
@@ -16,7 +18,8 @@ namespace Trains.Core.ViewModels
         private readonly ISerializableService _serialize;
         private readonly IAppSettings _appSettings;
         private readonly IAnalytics _analytics;
-        private readonly IManageLangService _manageLang;
+        private readonly ILocalDataService _local;
+
 
         #endregion
 
@@ -28,12 +31,12 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IManageLangService manageLang, IAnalytics analytics)
+        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings,IAnalytics analytics, ILocalDataService local)
         {
             SaveChangesCommand = new MvxCommand(SaveChanges);
 
+            _local = local;
             _analytics = analytics;
-            _manageLang = manageLang;
             _serialize = serializable;
             _appSettings = appSettings;
         }
@@ -83,21 +86,33 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init()
         {
+            if (_appSettings.Language == null)
+                _appSettings.Language = new Language { Id = "ru" };
             SelectedLanguage = _languagesList.First(x => x.Id == _appSettings.Language.Id);
         }
 
         private async void SaveChanges()
         {
-            var result = await Mvx.Resolve<IUserInteraction>().ConfirmAsync(ResourceLoader.Instance.Resource["DeleteDataNotification"], ResourceLoader.Instance.Resource["Warning"]);
-            if (!result) return;
+            //var result = await Mvx.Resolve<IUserInteraction>().ConfirmAsync(ResourceLoader.Instance.Resource["DeleteDataNotification"], ResourceLoader.Instance.Resource["Warning"]);
+            //if (!result) return;
             _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
-            _manageLang.ChangeAppLanguage(SelectedLanguage.Id);
-            await _serialize.SerializeObjectToXml(SelectedLanguage, Constants.CurrentLanguage);
-            await _serialize.DeleteFile(Constants.FavoriteRequests);
-            await _serialize.DeleteFile(Constants.LastTrainList);
-            await _serialize.DeleteFile(Constants.UpdateLastRequest);
-
+            _serialize.Serialize(SelectedLanguage, Constants.CurrentLanguage);
+            _serialize.Delete(Constants.FavoriteRequests);
+            _serialize.Delete(Constants.LastTrainList);
+            _serialize.Delete(Constants.UpdateLastRequest);
+            await DowloadResources();
+            _serialize.Serialize(_appSettings, Constants.AppSettings);
+            _serialize.Serialize(ResourceLoader.Instance.Resource, Constants.ResourceLoader);
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
+        }
+
+        private async Task DowloadResources()
+        {
+            var initializerResourceLoader = ResourceLoader.Instance;
+            _appSettings.AutoCompletion = await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson);
+            _appSettings.HelpInformation = await _local.GetData<List<HelpInformationItem>>(Constants.HelpInformationJson);
+            _appSettings.CarriageModel = await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson);
+            _appSettings.About = await _local.GetData<List<About>>(Constants.AboutJson);
         }
 
         #endregion

@@ -21,6 +21,5 @@ namespace Trains.Core.Interfaces
         List<About> About { get; set; }
 
         Language Language { get; set; }
-
     }
 }

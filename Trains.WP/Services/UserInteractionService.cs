@@ -18,8 +18,8 @@ namespace Trains.WP.Services
 
         public async Task AlertAsync(string message, string title = "", string okButton = "OK")
         {
-                    var dialog = new MessageDialog(message);
-                    await dialog.ShowAsync();
+            var dialog = new MessageDialog(message);
+            await dialog.ShowAsync();
         }
 
         public void Confirm(string message, Action<bool> answer, string title = null, string okButton = "OK", string cancelButton = "Cancel")
@@ -35,7 +35,7 @@ namespace Trains.WP.Services
         public async Task<bool> ConfirmAsync(string message, string title = "", string okButton = "OK", string cancelButton = "Cancel")
         {
             var result = false;
-            var dialog = new MessageDialog(message,title);
+            var dialog = new MessageDialog(message, title);
             dialog.Commands.Add(new UICommand("OK", new UICommandInvokedHandler((c) => result = true)));
             dialog.Commands.Add(new UICommand("Cancel"));
             await dialog.ShowAsync();

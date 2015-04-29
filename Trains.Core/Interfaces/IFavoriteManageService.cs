@@ -8,8 +8,8 @@ namespace Trains.Core.Interfaces
     {
 		void ManageFavorite(List<LastRequest> favoriteList);
 
-		Task<bool> AddToFavorite(string from, string to);
+		bool AddToFavorite(string from, string to);
 
-		Task<bool> DeleteRoute(string from, string to);
+		bool DeleteRoute(string from, string to);
     }
 }

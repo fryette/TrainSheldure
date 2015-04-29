@@ -138,9 +138,6 @@
   <data name="From.PlaceholderText" xml:space="preserve">
     <value>whence</value>
   </data>
-  <data name="HelpHeader.Text" xml:space="preserve">
-    <value>Extras. Information</value>
-  </data>
   <data name="LastPivot.Header" xml:space="preserve">
     <value>last</value>
   </data>

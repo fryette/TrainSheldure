@@ -5,7 +5,7 @@ using Trains.Core.Interfaces;
 using Trains.Entities;
 using System.Linq;
 using System.Threading.Tasks;
-using Trains.Resources;
+using Trains.Core;
 
 namespace Trains.Core.ViewModels
 {
@@ -133,9 +133,9 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Saves the entered route to favorite.
         /// </summary>
-        private async void AddToFavorite()
+        private void AddToFavorite()
         {
-            if (await _manageFavoriteRequest.AddToFavorite(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
+            if (_manageFavoriteRequest.AddToFavorite(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
             {
                 SetVisibilityToFavoriteIcons(false, true);
                 _analytics.SentEvent(Constants.AddToFavorite);
@@ -146,9 +146,9 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Deletes the entered route visas favorite.
         /// </summary>
-        private async void DeleteInFavorite()
+        private void DeleteInFavorite()
         {
-            if (await  _manageFavoriteRequest.DeleteRoute(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
+            if (_manageFavoriteRequest.DeleteRoute(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
                 SetVisibilityToFavoriteIcons(true, false);
         }
 

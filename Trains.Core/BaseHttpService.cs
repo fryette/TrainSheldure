@@ -4,7 +4,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
-using Trains.Services.Interfaces;
+using Trains.Core.Services.Interfaces;
 
 namespace Trains.Core
 {

@@ -5,7 +5,7 @@ using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
 using Trains.Model.Entities;
-using Trains.Resources;
+using Trains.Core;
 
 namespace Trains.Core.ViewModels
 {

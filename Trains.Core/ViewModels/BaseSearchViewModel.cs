@@ -7,7 +7,7 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Model.Entities;
-using Trains.Resources;
+using Trains.Core;
 
 namespace Trains.Core.ViewModels
 {
