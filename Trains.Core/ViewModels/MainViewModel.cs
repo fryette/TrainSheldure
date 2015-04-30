@@ -28,7 +28,6 @@ namespace Trains.Core.ViewModels
 
         private readonly IAnalytics _analytics;
 
-
         /// <summary>
         /// Used to serialization/deserialization objects.
         /// </summary>

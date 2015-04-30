@@ -23,9 +23,7 @@ namespace Trains.Core
 
         private async void Init()
         {
-            Resource = Mvx.Resolve<ISerializableService>().Desserialize<Dictionary<string,string>>(Constants.ResourceLoader);
-            if (Resource == null)
-                Resource = await Mvx.Resolve<ILocalDataService>().GetData<Dictionary<string, string>>(Constants.ResourceJson);
+            Resource = Mvx.Resolve<ISerializableService>().Desserialize<Dictionary<string, string>>(Constants.ResourceLoader);
         }
 
         public static ResourceLoader Instance

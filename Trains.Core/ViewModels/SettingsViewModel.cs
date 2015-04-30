@@ -31,7 +31,7 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings,IAnalytics analytics, ILocalDataService local)
+        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics, ILocalDataService local)
         {
             SaveChangesCommand = new MvxCommand(SaveChanges);
 
@@ -44,6 +44,20 @@ namespace Trains.Core.ViewModels
         #endregion
 
         #region properties
+
+        private bool _saveRun=false;
+        public bool SaveRun
+        {
+            get
+            {
+                return _saveRun;
+            }
+            set
+            {
+                _saveRun = value;
+                RaisePropertyChanged(() => SaveRun);
+            }
+        }
 
         /// <summary>
         /// Languages
@@ -93,26 +107,33 @@ namespace Trains.Core.ViewModels
 
         private async void SaveChanges()
         {
+            if (SaveRun) return;
+            SaveRun = true;
             //var result = await Mvx.Resolve<IUserInteraction>().ConfirmAsync(ResourceLoader.Instance.Resource["DeleteDataNotification"], ResourceLoader.Instance.Resource["Warning"]);
             //if (!result) return;
             _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
-            _serialize.Serialize(SelectedLanguage, Constants.CurrentLanguage);
-            _serialize.Delete(Constants.FavoriteRequests);
-            _serialize.Delete(Constants.LastTrainList);
-            _serialize.Delete(Constants.UpdateLastRequest);
+            DeleteSaveSettings();
             await DowloadResources();
-            _serialize.Serialize(_appSettings, Constants.AppSettings);
-            _serialize.Serialize(ResourceLoader.Instance.Resource, Constants.ResourceLoader);
+            SaveRun = false;
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
         }
 
         private async Task DowloadResources()
         {
-            var initializerResourceLoader = ResourceLoader.Instance;
+            _serialize.Serialize(await _local.GetData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
             _appSettings.AutoCompletion = await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson);
             _appSettings.HelpInformation = await _local.GetData<List<HelpInformationItem>>(Constants.HelpInformationJson);
             _appSettings.CarriageModel = await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson);
             _appSettings.About = await _local.GetData<List<About>>(Constants.AboutJson);
+            _serialize.Serialize(_appSettings, Constants.AppSettings);
+            _serialize.Serialize(SelectedLanguage, Constants.CurrentLanguage);
+        }
+
+        private void DeleteSaveSettings()
+        {
+            _serialize.Delete(Constants.FavoriteRequests);
+            _serialize.Delete(Constants.LastTrainList);
+            _serialize.Delete(Constants.UpdateLastRequest);
         }
 
         #endregion
