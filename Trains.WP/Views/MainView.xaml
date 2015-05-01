@@ -24,10 +24,10 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Grid.Resources>
-        <Pivot x:Uid="ApplicationName"
-               x:Name="MainPivot"
+        <Pivot x:Name="MainPivot"
+               Title="{Binding ApplicationName}"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem x:Uid="MainPivotItem"
+            <PivotItem Header="{Binding MainPivotItem}"
                        x:Name="MainPivotItem">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -44,35 +44,35 @@
                     </GridView>
                     <StackPanel Grid.Row="1"
                                 Background="{StaticResource GrayColorBrush}">
-                        <TextBlock x:Uid="FastSearchTextBlock"
+                        <TextBlock Text="{Binding FastSearchTextBlock}"
                                    FontSize="{StaticResource NormalLargeFontSize}" />
                         <ComboBox ItemsSource="{Binding VariantOfSearch}"
                                   SelectedItem="{Binding SelectedVariant,Mode=TwoWay}">
                         </ComboBox>
-                        <DatePicker x:Uid="DateOfDeparture"
+                        <DatePicker Header="{Binding DateOfDeparture}"
                                     Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Visibility="{Binding IsOnDaySelected,Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Style="{StaticResource DatePickerStyle}" />
-                        <AutoSuggestBox x:Uid="From"
+                        <AutoSuggestBox PlaceholderText="{Binding FromAutoSuggest}"
                                         Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         IsEnabled="{Binding IsFildEnabled}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-                        <AutoSuggestBox x:Uid="To"
+                        <AutoSuggestBox PlaceholderText="{Binding ToAutoSuggest}"
                                         IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                                         Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
 
-                        <Button x:Uid="Search"
+                        <Button Content="{Binding Search}"
                                 HorizontalAlignment="Right"
-                                Command="{Binding SearchCommand}" />
+                                Command="{Binding SearchTrainCommand}" />
                     </StackPanel>
                 </Grid>
             </PivotItem>
-            <PivotItem x:Uid="LastPivot"
+            <PivotItem Header="{Binding LastSchedulePivotItem}"
                        x:Name="LastPivot">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
@@ -112,7 +112,7 @@
                             Command="{Binding SelectTrainCommand}" />
                 </Grid>
             </PivotItem>
-            <PivotItem x:Uid="RoutesPivot"
+            <PivotItem Header="{Binding RoutesPivotItem}"
                        x:Name="RoutesPivot">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
@@ -127,7 +127,7 @@
                     </interactivity:Interaction.Behaviors>
                 </ListView>
             </PivotItem>
-            <PivotItem x:Uid="AboutPivot">
+            <PivotItem Header="{Binding AboutPivotItem}">
                 <ListView x:Name="AboutItemList"
                           ItemsSource="{Binding AboutItems}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}"
@@ -143,13 +143,13 @@
             </PivotItem>
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock x:Uid="Update" />
+            <TextBlock Text="{Binding Update}" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
 
         <Grid Background="{StaticResource BackgroundColorBrush}"
-        Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+              Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
         </Grid>
@@ -157,18 +157,18 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton x:Name="UpdateAppBar"
-                          x:Uid="UpdateAppBar"
+                          Label="{Binding UpdateAppBar}"
                           Icon="Sync"
                           Command="{Binding UpdateLastRequestCommand}" />
             <AppBarButton x:Name="SwapAppBar"
-                          x:Uid="SwapAppBar"
+                          Label="{Binding SwapAppBar}"
                           Icon="Sort"
                           Command="{Binding SwapCommand}" />
             <AppBarButton x:Name="ManagedAppBar"
-                          x:Uid="ManageAppBar"
+                          Label="{Binding ManageAppBar}"
                           Icon="Repair"
                           Command="{Binding GoToEditFavoriteCommand}" />
-            <AppBarButton x:Uid="HelpAppBar"
+            <AppBarButton Label="{Binding HelpAppBar}"
                           Icon="Help"
                           Command="{Binding GoToHelpCommand}" />
         </CommandBar>

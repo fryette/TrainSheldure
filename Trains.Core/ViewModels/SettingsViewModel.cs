@@ -43,7 +43,7 @@ namespace Trains.Core.ViewModels
 
         #region properties
 
-        private bool _saveRun=false;
+        private bool _saveRun;
         public bool SaveRun
         {
             get
@@ -107,8 +107,6 @@ namespace Trains.Core.ViewModels
         {
             if (SaveRun) return;
             SaveRun = true;
-            //var result = await Mvx.Resolve<IUserInteraction>().ConfirmAsync(ResourceLoader.Instance.Resource["DeleteDataNotification"], ResourceLoader.Instance.Resource["Warning"]);
-            //if (!result) return;
             _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
             DeleteSaveSettings();
             await DowloadResources();
@@ -132,6 +130,7 @@ namespace Trains.Core.ViewModels
             _serialize.Delete(Constants.FavoriteRequests);
             _serialize.Delete(Constants.LastTrainList);
             _serialize.Delete(Constants.UpdateLastRequest);
+            _serialize.Delete(Constants.AppSettings);
         }
 
         #endregion

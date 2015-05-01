@@ -17,9 +17,7 @@ namespace Trains.Core.ViewModels
     {
         #region readonlyProperties
 
-        private readonly IHttpService _httpService;
-
-        private IAppSettings _appSettings;
+        private readonly IAppSettings _appSettings;
 
         private readonly IMarketPlaceService _marketPlace;
 
@@ -48,16 +46,15 @@ namespace Trains.Core.ViewModels
         public MvxCommand<Train> SelectTrainCommand { get; private set; }
         public MvxCommand<LastRequest> TappedFavoriteCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
-        public IMvxCommand SearchCommand { get; private set; }
+        public IMvxCommand SearchTrainCommand { get; private set; }
         public IMvxCommand SwapCommand { get; private set; }
 
         #endregion
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IHttpService httpService)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics)
         {
-            _httpService = httpService;
             _analytics = analytics;
             _serializable = serializable;
             _search = search;
@@ -70,18 +67,38 @@ namespace Trains.Core.ViewModels
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SelectTrainCommand = new MvxCommand<Train>(ClickItem);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
-            SearchCommand = new MvxCommand(() => Search(From, To));
+            SearchTrainCommand = new MvxCommand(() => SearchTrain(From, To));
             SwapCommand = new MvxCommand(Swap);
             TappedFavoriteCommand = new MvxCommand<LastRequest>(route =>
             {
                 if (route == null) return;
-                Search(route.From, route.To);
+                SearchTrain(route.From, route.To);
             });
         }
 
         #endregion
 
         #region properties
+
+        #region UIProperties
+
+        public string ApplicationName { get; set; }
+        public string MainPivotItem { get; set; }
+        public string FastSearchTextBlock { get; set; }
+        public string DateOfDeparture { get; set; }
+        public string FromAutoSuggest { get; set; }
+        public string ToAutoSuggest { get; set; }
+        public string Search { get; set; }
+        public string LastSchedulePivotItem { get; set; }
+        public string RoutesPivotItem { get; set; }
+        public string AboutPivotItem { get; set; }
+        public string Update { get; set; }
+        public string UpdateAppBar { get; set; }
+        public string SwapAppBar { get; set; }
+        public string ManageAppBar { get; set; }
+        public string HelpAppBar { get; set; }
+
+        #endregion
 
         public IEnumerable<About> AboutItems { get; set; }
 
@@ -127,7 +144,7 @@ namespace Trains.Core.ViewModels
             set
             {
                 _selectedDate = value;
-                IsOnDaySelected = SelectedVariant == ResourceLoader.Instance.Resource["OnDay"] ? true : false;
+                IsOnDaySelected = SelectedVariant == ResourceLoader.Instance.Resource["OnDay"];
                 RaisePropertyChanged(() => SelectedVariant);
             }
         }
@@ -284,6 +301,7 @@ namespace Trains.Core.ViewModels
         public void Init()
         {
             IsDownloadRun = true;
+            RestoreUIBinding();
             RestoreData();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
@@ -298,7 +316,7 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Searches for train schedules at a specified date in the specified mode.
         /// </summary>
-        private async void Search(string from, string to)
+        private async void SearchTrain(string from, string to)
         {
             if (IsTaskRun || await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
@@ -437,6 +455,25 @@ namespace Trains.Core.ViewModels
                     ResourceLoader.Instance.Resource["OnAllDays"],
                     ResourceLoader.Instance.Resource["OnDay"]
                 };
+        }
+
+        private void RestoreUIBinding()
+        {
+            ApplicationName = ResourceLoader.Instance.Resource["ApplicationName"];
+            MainPivotItem = ResourceLoader.Instance.Resource["MainPivotItem"];
+            FastSearchTextBlock = ResourceLoader.Instance.Resource["FastSearchTextBlock"];
+            DateOfDeparture = ResourceLoader.Instance.Resource["DateOfDeparture"];
+            FromAutoSuggest = ResourceLoader.Instance.Resource["From"];
+            ToAutoSuggest = ResourceLoader.Instance.Resource["To"];
+            Search = ResourceLoader.Instance.Resource["Search"];
+            LastSchedulePivotItem = ResourceLoader.Instance.Resource["LastSchedulePivotItem"];
+            RoutesPivotItem = ResourceLoader.Instance.Resource["RoutesPivotItem"];
+            AboutPivotItem = ResourceLoader.Instance.Resource["AboutPivotItem"];
+            Update = ResourceLoader.Instance.Resource["Update"];
+            UpdateAppBar = ResourceLoader.Instance.Resource["UpdateAppBar"];
+            SwapAppBar = ResourceLoader.Instance.Resource["SwapAppBar"];
+            ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
+            HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
         }
 
         #endregion
