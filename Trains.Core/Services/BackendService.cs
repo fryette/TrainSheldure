@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Trains.Model.Entities;
-using Trains.Core;
 using Trains.Core.Services.Interfaces;
+using Trains.Model.Entities;
 
 namespace Trains.Core.Services
 {

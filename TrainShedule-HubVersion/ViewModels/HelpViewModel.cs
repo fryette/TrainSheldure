@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
-using Trains.Infrastructure.Infrastructure;
 using Trains.Model.Entities;
 
 namespace Trains.App.ViewModels

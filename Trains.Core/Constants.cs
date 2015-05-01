@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-namespace Trains.Core
+﻿namespace Trains.Core
 {
     public static class Constants
     {

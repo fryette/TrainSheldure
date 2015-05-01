@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Cirrious.CrossCore;
 using Trains.Entities;
 using Trains.Model.Entities;
-using Trains.Core;
-using Trains.Core.Interfaces;
 
 namespace Trains.Core.Services.Infrastructure
 {

@@ -1,4 +1,6 @@
-﻿namespace Trains.WP.Views
+﻿using Windows.UI.Xaml.Controls;
+
+namespace Trains.WP.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -12,7 +14,7 @@
             MainPivot.SelectedIndex = LastPivotIndex;
         }
 
-        private void Pivot_OnPivotItemLoaded(Windows.UI.Xaml.Controls.Pivot sender, Windows.UI.Xaml.Controls.PivotItemEventArgs args)
+        private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)
         {
             LastPivotIndex = MainPivot.SelectedIndex;
         }

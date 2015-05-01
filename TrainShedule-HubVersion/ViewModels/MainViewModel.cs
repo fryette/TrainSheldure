@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Email;
 using Windows.System;
 using Caliburn.Micro;
-using Trains.Model.Entities;
-using Trains.Services.Interfaces;
-using Trains.Services.Tools;
 using Trains.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.App.ViewModels
 {

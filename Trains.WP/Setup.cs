@@ -5,8 +5,8 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsCommon.Platform;
 using Trains.Core.Interfaces;
-using Trains.WP.Services;
 using Trains.Core.Services.Interfaces;
+using Trains.WP.Services;
 
 namespace Trains.WP
 {

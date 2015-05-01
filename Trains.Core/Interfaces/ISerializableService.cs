@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Trains.Core.Interfaces
+﻿namespace Trains.Core.Interfaces
 {
     public interface ISerializableService
     {

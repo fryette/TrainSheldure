@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Caliburn.Micro;
-using Trains.Model.Entities;
-using Trains.Services.Interfaces;
 using Trains.Entities;
 
 namespace Trains.App.ViewModels

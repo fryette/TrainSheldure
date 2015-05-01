@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Email;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
+using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
-using Trains.Core;
-using System.Globalization;
-using Trains.Core.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
 {

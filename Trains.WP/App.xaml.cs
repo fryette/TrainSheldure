@@ -8,8 +8,6 @@ using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
-using System.Globalization;
-using System.Threading;
 
 // The Blank Application template is documented at http://go.microsoft.com/fwlink/?LinkId=391641
 

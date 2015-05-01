@@ -1,12 +1,7 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using System.Runtime.CompilerServices;
-using System;
-using System.Globalization;
 using Trains.Core.Interfaces;
-using Trains.Core;
 
 namespace Trains.Core.Service
 {

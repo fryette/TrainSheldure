@@ -1,5 +1,4 @@
 ﻿using Caliburn.Micro;
-using Trains.Services.Interfaces;
 using Trains.Entities;
 
 namespace Trains.App.ViewModels

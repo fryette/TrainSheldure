@@ -9,10 +9,6 @@ using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Trains.App.ViewModels;
 using Trains.App.Views;
-using Trains.Infrastructure.Infrastructure;
-using Trains.Model.Entities;
-using Trains.Services.Implementations;
-using Trains.Services.Interfaces;
 using Language = Trains.Model.Entities.Language;
 using TrainStop = Trains.Services.Implementations.TrainStop;
 

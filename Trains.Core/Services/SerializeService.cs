@@ -1,11 +1,5 @@
-﻿using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Plugins.File;
+﻿using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Trains.Core.Interfaces;
 
 namespace Trains.Core.Services
