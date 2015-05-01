@@ -6,7 +6,7 @@
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       mc:Ignorable="d"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark">
+                      RequestedTheme="Dark" d:DataContext="{d:DesignData InformationViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -45,7 +45,7 @@
                     Background="{StaticResource BackgroundColorBrush}"
                     Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
                     VerticalAlignment="Center">
-            <TextBlock x:Uid="DownloadStopPoints"
+            <TextBlock Text="{Binding DownloadStopPoints}"
                        FontSize="{StaticResource BigFontSize}"
                        HorizontalAlignment="Center" />
             <ProgressBar IsIndeterminate="True" />

@@ -32,6 +32,12 @@ namespace Trains.Core.ViewModels
 
         #region properties
 
+        #region UIproperties
+
+        public string Carriage { get; set; }
+        public string Trains { get; set; }
+
+        #endregion
         /// <summary>
         /// Used to dispalying informations about belarussian railway icons.
         /// </summary>
@@ -66,6 +72,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init()
         {
+            RestoreUIBindings();
             HelpInformation = _appSettings.HelpInformation;
             CarriageInformation = _appSettings.CarriageModel;
         }
@@ -74,6 +81,12 @@ namespace Trains.Core.ViewModels
         {
             if (selectedCarriageModel == null) return;
             ShowViewModel<CarriageViewModel>(new { param = JsonConvert.SerializeObject(selectedCarriageModel) });
+        }
+
+        private void RestoreUIBindings()
+        {
+            Carriage = ResourceLoader.Instance.Resource["Carriage"];
+            Trains = ResourceLoader.Instance.Resource["Trains"];
         }
 
         #endregion

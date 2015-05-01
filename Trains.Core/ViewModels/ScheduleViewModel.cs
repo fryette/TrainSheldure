@@ -28,7 +28,7 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest,IAnalytics analytics)
+        public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest, IAnalytics analytics)
         {
             _manageFavoriteRequest = manageFavoriteRequest;
             _appSettings = appSettings;
@@ -43,6 +43,14 @@ namespace Trains.Core.ViewModels
         #endregion
 
         #region properties
+
+        #region UIproperties
+
+        public string SaveAppBar { get; set; }
+        public string DeleteAppBar { get; set; }
+        public string HelpAppBar { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Used to display favorite icon.
@@ -96,6 +104,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
+            RestoreUIBinding();
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
             Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
             SetManageFavoriteButton();
@@ -157,6 +166,13 @@ namespace Trains.Core.ViewModels
         {
             IsVisibleFavoriteIcon = favorite;
             IsVisibleUnFavoriteIcon = unfavorite;
+        }
+
+        private void RestoreUIBinding()
+        {
+            SaveAppBar = ResourceLoader.Instance.Resource["SaveAppBar"];
+            DeleteAppBar = ResourceLoader.Instance.Resource["DeleteAppBar"];
+            HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
         }
 
         #endregion

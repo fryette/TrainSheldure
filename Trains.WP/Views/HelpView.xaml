@@ -14,12 +14,12 @@
     <Grid>
         <Pivot x:Name="MainPivot"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem x:Uid="Trains">
+            <PivotItem Header="{Binding Trains}">
                 <ListView ItemsSource="{Binding HelpInformation}"
                           ItemTemplate="{StaticResource HelpTemplate}">
                 </ListView>
             </PivotItem>
-            <PivotItem x:Uid="Carriage">
+            <PivotItem Header="{Binding Carriage}">
                 <ListView x:Name="CarriageList"
                           ItemsSource="{Binding CarriageInformation}">
                     <ListView.ItemTemplate>

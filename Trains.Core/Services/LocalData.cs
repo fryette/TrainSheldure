@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
 
-namespace Trains.Core.Service
+namespace Trains.Core.Services
 {
     public class LocalData : ILocalDataService
     {
-        IAppSettings _appSettings;
+        readonly IAppSettings _appSettings;
         public LocalData(IAppSettings appSettings)
         {
             _appSettings = appSettings;

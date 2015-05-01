@@ -34,6 +34,12 @@ namespace Trains.Core.ViewModels
 
         #region properties
 
+        #region UIproperties
+
+        public string DownloadStopPoints { get; set; }
+        
+        #endregion
+
         public IEnumerable<TrainStop> _stopPointList;
         public IEnumerable<TrainStop> StopPointList
         {
@@ -75,6 +81,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
+            RestoreUIBindings();
             IsTaskRun = true;
             Train = JsonConvert.DeserializeObject<Train>(param);
             SearchStopPoint();
@@ -89,6 +96,10 @@ namespace Trains.Core.ViewModels
             IsTaskRun = false;
         }
 
+        private void RestoreUIBindings()
+        {
+            DownloadStopPoints = ResourceLoader.Instance.Resource["DownloadStopPoints"];
+        }
         #endregion
     }
 }

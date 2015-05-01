@@ -8,7 +8,7 @@
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark">
+                      RequestedTheme="Dark" d:DataContext="{d:DesignData EditFavoriteRoutesViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,7 +16,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Row="0">
-            <TextBlock x:Uid="EditFavoriteHeader"
+            <TextBlock Text="{Binding EditFavoriteHeader}"
                        Style="{ThemeResource HeaderTextBlockStyle}" />
         </Grid>
         <Grid Row="1">
@@ -36,7 +36,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>
-            <AppBarButton x:Uid="DeleteAppBar"
+            <AppBarButton Label="{Binding DeleteAppBar}"
                           Icon="Delete"
                           Command="{Binding DeleteCommand}" />
         </CommandBar>

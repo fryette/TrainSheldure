@@ -108,6 +108,7 @@ namespace Trains.Core.ViewModels
             if (SaveRun) return;
             SaveRun = true;
             _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
+            _appSettings.Language = SelectedLanguage;
             DeleteSaveSettings();
             await DowloadResources();
             SaveRun = false;
@@ -130,7 +131,6 @@ namespace Trains.Core.ViewModels
             _serialize.Delete(Constants.FavoriteRequests);
             _serialize.Delete(Constants.LastTrainList);
             _serialize.Delete(Constants.UpdateLastRequest);
-            _serialize.Delete(Constants.AppSettings);
         }
 
         #endregion

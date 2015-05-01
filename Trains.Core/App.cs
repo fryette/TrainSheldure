@@ -2,7 +2,6 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
-using Trains.Core.Service;
 using Trains.Core.Services;
 using Trains.Core.Services.Interfaces;
 using Trains.Core.ViewModels;

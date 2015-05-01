@@ -6,8 +6,9 @@
                       xmlns:appPromo="using:AppPromo"
                       mc:Ignorable="d"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      xmlns:viewModels="using:Trains.Core.ViewModels"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark">
+                      RequestedTheme="Dark" d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
     <Grid Margin="5,0">
         <appPromo:RateReminder RunsBeforeReminder="10" />
@@ -50,16 +51,16 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          x:Uid="SaveAppBar"
+                          Label="{Binding SaveAppBar}"
                           Icon="Favorite"
                           Command="{Binding AddToFavoriteCommand}" />
-            <AppBarButton x:Uid="Delete"
+            <AppBarButton Label="{Binding DeleteAppBar}"
                           Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           Icon="Unfavorite"
                           Command="{Binding DeleteInFavoriteCommand}" />
-            <AppBarButton x:Uid="HelpAppBar"
+            <AppBarButton Label="{Binding HelpAppBar}"
                           Icon="Help"
-                          Command="{Binding GoToHelpCommand}" />
+                          Command="{Binding GoToHelpPageCommand}" />
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

@@ -10,7 +10,7 @@ namespace Trains.Core.ViewModels
 {
     public class EditFavoriteRoutesViewModel : MvxViewModel
     {
-        #region properties
+        #region readonlyProperties
 
         /// <summary>
         /// Used to serialization/deserialization objects.
@@ -18,17 +18,6 @@ namespace Trains.Core.ViewModels
         private readonly IFavoriteManageService _favoriteManage;
 
         private readonly IAppSettings _appSettings;
-
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="favoriteManage">Used to manage favorite routes.</param>
-        /// <param name="appSettings"></param>
-        public EditFavoriteRoutesViewModel(IFavoriteManageService favoriteManage, IAppSettings appSettings)
-        {
-            _favoriteManage = favoriteManage;
-            _appSettings = appSettings;
-        }
 
         #endregion
 
@@ -40,6 +29,31 @@ namespace Trains.Core.ViewModels
         #endregion
 
         #region ctor
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="favoriteManage">Used to manage favorite routes.</param>
+        /// <param name="appSettings"></param>
+        public EditFavoriteRoutesViewModel(IFavoriteManageService favoriteManage, IAppSettings appSettings)
+        {
+            _favoriteManage = favoriteManage;
+            _appSettings = appSettings;
+
+            DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
+            SelectItemCommand = new MvxCommand<LastRequest>(SelectItem);
+        }
+
+        #endregion
+
+        #region properties
+
+        #region UIproperties
+
+        public string EditFavoriteHeader { get; set; }
+        public string DeleteAppBar { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Object are stored custom routes.
@@ -63,9 +77,8 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public async void Init()
         {
+            RestoreUIBindings();
             FavoriteRequests = _appSettings.FavoriteRequests;
-            DeleteCommand = new MvxCommand(DeleteSelectedFavoriteRoutes);
-            SelectItemCommand = new MvxCommand<LastRequest>(route => SelectItem(route));
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["NotifyMessage"]);
         }
 
@@ -91,6 +104,14 @@ namespace Trains.Core.ViewModels
                 ShowViewModel<MainViewModel>();
             FavoriteRequests = _appSettings.FavoriteRequests;
         }
+
+        private void RestoreUIBindings()
+        {
+            EditFavoriteHeader = ResourceLoader.Instance.Resource["EditFavoriteHeader"];
+            DeleteAppBar = ResourceLoader.Instance.Resource["DeleteAppBar"];
+        }
+
     }
+
         #endregion
 }

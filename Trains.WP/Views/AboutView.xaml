@@ -6,10 +6,11 @@
                       mc:Ignorable="d"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark">
+                      RequestedTheme="Dark"
+                      d:DataContext="{d:DesignData AboutViewModel}">
     <Grid>
-        <Pivot x:Uid="ApplicationName">
-            <PivotItem x:Uid="AboutUs">
+        <Pivot Title="{Binding ApplicationName}">
+            <PivotItem Header="{Binding AboutUs}">
                 <Grid>
                     <StackPanel Margin="10,10,0,0">
                         <StackPanel Orientation="Horizontal">
@@ -19,7 +20,7 @@
                                        Foreground="White" />
                         </StackPanel>
 
-                        <TextBlock x:Uid="UsingLibrary"
+                        <TextBlock Text="{Binding UsingLibrary}"
                                    FontSize="24"
                                    Foreground="White"
                                    Style="{StaticResource AboutAppStyle}" />
@@ -36,9 +37,9 @@
                     </StackPanel>
                 </Grid>
             </PivotItem>
-            <PivotItem x:Uid="Changes">
+            <PivotItem Header="{Binding Changes}">
                 <StackPanel>
-                    <TextBlock x:Uid="CurrentChanges"
+                    <TextBlock Text="{Binding CurrentChanges}"
                                Style="{StaticResource AboutAppStyle}"
                                Foreground="White" />
                     <TextBlock Text="- Редизайн всего приложения"
