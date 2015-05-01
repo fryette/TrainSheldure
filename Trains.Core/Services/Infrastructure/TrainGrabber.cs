@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Cirrious.CrossCore;
 using Trains.Entities;
 using Trains.Model.Entities;
 using Trains.Core;
+using Trains.Core.Interfaces;
 
 namespace Trains.Core.Services.Infrastructure
 {
@@ -90,11 +92,11 @@ namespace Trains.Core.Services.Infrastructure
         private static Train CreateTrain(string time1, string time2, string city, string description, Picture image, string type = null,
              string beforeDepartureTime = null, string departureDate = null, bool internetRegistration = false)
         {
-            DateTime endTime;
+            DateTime endTime=new DateTime();
             DateTime startTime;
             time2 = time2.Replace("<br />", " ");
             startTime = DateTime.ParseExact(time1, TimeFormat, CultureInfo.InvariantCulture);
-            endTime = time2.Length > 10 ? DateTime.Parse(time2, CultureInfo.CurrentCulture)
+            endTime = time2.Length > 10 ? DateTime.Parse(time2, new CultureInfo(ResourceLoader.Instance.Resource["Language"]))
                 : DateTime.ParseExact(departureDate + ' ' + time2, TimeFormat, CultureInfo.InvariantCulture);
             return new Train
             {

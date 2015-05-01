@@ -305,7 +305,7 @@ namespace Trains.Core.ViewModels
         {
             if (IsTaskRun || await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-            bool exception = false;
+            var exception = false;
             List<Train> schedule = null;
             try
             {
@@ -420,11 +420,18 @@ namespace Trains.Core.ViewModels
         {
             if (_appSettings.AutoCompletion == null)
             {
-                _appSettings =  _serializable.Desserialize<AppSettings>(Constants.AppSettings);
+                var appSettings= _serializable.Desserialize<AppSettings>(Constants.AppSettings);
+
+                _appSettings.AutoCompletion = appSettings.AutoCompletion;
+                _appSettings.About = appSettings.About;
+                _appSettings.HelpInformation = appSettings.HelpInformation;
+                _appSettings.CarriageModel = appSettings.CarriageModel;
+
                 _appSettings.FavoriteRequests =  _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
                 _appSettings.UpdatedLastRequest =  _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
                 _appSettings.LastRequestTrain =  _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
             }
+
             VariantOfSearch = new List<string>
                 {
                     ResourceLoader.Instance.Resource["Yesterday"],

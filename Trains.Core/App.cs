@@ -22,6 +22,7 @@ namespace Trains.Core
 
 
             RegisterAppStart<SettingsViewModel>();
+
             Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
 
             Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
