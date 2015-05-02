@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Trains.Core.Resources;
 using Trains.Model.Entities;
 
 namespace Trains.Core.Services.Infrastructure

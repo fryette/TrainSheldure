@@ -1,4 +1,5 @@
 using Cirrious.MvvmCross.ViewModels;
+using Trains.Core.Resources;
 
 namespace Trains.Core.ViewModels
 {

@@ -3,6 +3,7 @@ using System.Linq;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Entities;
 
 namespace Trains.Core.ViewModels

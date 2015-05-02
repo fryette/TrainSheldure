@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Model.Entities;
 
 namespace Trains.Core

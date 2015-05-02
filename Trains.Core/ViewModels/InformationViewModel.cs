@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
+using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
@@ -40,7 +40,7 @@ namespace Trains.Core.ViewModels
         
         #endregion
 
-        public IEnumerable<TrainStop> _stopPointList;
+        private IEnumerable<TrainStop> _stopPointList;
         public IEnumerable<TrainStop> StopPointList
         {
             get { return _stopPointList; }
@@ -90,7 +90,7 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Search additional information about user-selected train.
         /// </summary>
-        private async Task SearchStopPoint()
+        private async void SearchStopPoint()
         {
             StopPointList = (await _trainStop.GetTrainStop(Train.Link));
             IsTaskRun = false;

@@ -6,7 +6,7 @@ namespace Trains.Core.Services
 {
     class SerializeService : ISerializableService
     {
-        IMvxFileStore _fileStore;
+        readonly IMvxFileStore _fileStore;
         public SerializeService(IMvxFileStore fileStore)
         {
             _fileStore = fileStore;
@@ -32,8 +32,7 @@ namespace Trains.Core.Services
         {
             string textJson;
             _fileStore.TryReadTextFile(filename, out textJson);
-            if (textJson == null) return null;
-            return JsonConvert.DeserializeObject<T>(textJson);
+            return textJson == null ? null : JsonConvert.DeserializeObject<T>(textJson);
         }
     }
 }

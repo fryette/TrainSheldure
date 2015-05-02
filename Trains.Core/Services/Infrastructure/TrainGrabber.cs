@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Cirrious.CrossCore;
+using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Entities;
 using Trains.Model.Entities;
 
@@ -11,15 +14,6 @@ namespace Trains.Core.Services.Infrastructure
     public class TrainGrabber
     {
         #region constant
-
-        private const string AdditionParameterPattern = "div class=\"b-places\">(.*?)</div>";
-
-        private const string PlacesAndPricesPattern =
-            "(?<Name><td class=\"places_name\">([^<]+)</td>)|" +
-            "(?<quantity><td class=\"places_qty\">([^<]*)<)|" +
-            "(?<Price><td class=\"places_price\">([^<]*))";
-
-
         private const string TimeFormat = "yy-MM-dd HH:mm";
 
         private const string UnknownStr = "&nbsp;";
@@ -89,7 +83,7 @@ namespace Trains.Core.Services.Infrastructure
         private static Train CreateTrain(string time1, string time2, string city, string description, Picture image, string type = null,
              string beforeDepartureTime = null, string departureDate = null, bool internetRegistration = false)
         {
-            DateTime endTime=new DateTime();
+            DateTime endTime;
             DateTime startTime;
             time2 = time2.Replace("<br />", " ");
             startTime = DateTime.ParseExact(time1, TimeFormat, CultureInfo.InvariantCulture);
@@ -139,7 +133,7 @@ namespace Trains.Core.Services.Infrastructure
         public static List<AdditionalInformation[]> GetPlaces(string data)
         {
             var additionInformation = new List<AdditionalInformation[]>();
-            var additionalParameter = Parser.ParseData(data, AdditionParameterPattern).ToList();
+            var additionalParameter = Parser.ParseData(data, Mvx.Resolve<IPattern>().AdditionParameterPattern).ToList();
             for (var i = 0; i < additionalParameter.Count; i++)
             {
                 if (i + 1 == additionalParameter.Count ||
@@ -151,7 +145,7 @@ namespace Trains.Core.Services.Infrastructure
                 else
                 {
                     var temp =
-                        Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, PlacesAndPricesPattern).ToList();
+                        Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, Mvx.Resolve<IPattern>().PlacesAndPricesPattern).ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
                     for (var j = 0; j < temp.Count; j += 3)
                     {

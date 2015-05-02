@@ -7,6 +7,7 @@ using Cirrious.MvvmCross.Plugins.Email;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
@@ -22,6 +23,8 @@ namespace Trains.Core.ViewModels
         private readonly IMarketPlaceService _marketPlace;
 
         private readonly IAnalytics _analytics;
+
+        private readonly IPattern _patterns;
 
         /// <summary>
         /// Used to serialization/deserialization objects.
@@ -53,13 +56,14 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern)
         {
             _analytics = analytics;
             _serializable = serializable;
             _search = search;
             _appSettings = appSettings;
             _marketPlace = marketPlace;
+            _patterns = pattern;
 
             TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
             GoToEditFavoriteCommand = new MvxCommand(GoToEditFavorite);
@@ -324,7 +328,8 @@ namespace Trains.Core.ViewModels
             List<Train> schedule = null;
             try
             {
-                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from), _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
+                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
+                    _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
             }
             catch (Exception e)
             {
@@ -339,8 +344,8 @@ namespace Trains.Core.ViewModels
             {
                 _appSettings.LastRequestTrain = schedule;
                 _appSettings.UpdatedLastRequest = new LastRequest { From = from, To = to, SelectionMode = SelectedVariant, Date = Datum };
-                 _serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
-                 _serializable.Serialize(schedule, Constants.LastTrainList);
+                _serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
+                _serializable.Serialize(schedule, Constants.LastTrainList);
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
             }
             _analytics.SentEvent(Constants.VariantOfSearch, SelectedVariant);
@@ -402,7 +407,7 @@ namespace Trains.Core.ViewModels
             else
             {
                 Trains = trains;
-                 _serializable.Serialize(Trains, Constants.LastTrainList);
+                _serializable.Serialize(Trains, Constants.LastTrainList);
             }
 
             IsTaskRun = false;
@@ -435,16 +440,23 @@ namespace Trains.Core.ViewModels
         {
             if (_appSettings.AutoCompletion == null)
             {
-                var appSettings= _serializable.Desserialize<AppSettings>(Constants.AppSettings);
+                var appSettings = _serializable.Desserialize<AppSettings>(Constants.AppSettings);
 
                 _appSettings.AutoCompletion = appSettings.AutoCompletion;
                 _appSettings.About = appSettings.About;
                 _appSettings.HelpInformation = appSettings.HelpInformation;
                 _appSettings.CarriageModel = appSettings.CarriageModel;
 
-                _appSettings.FavoriteRequests =  _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
-                _appSettings.UpdatedLastRequest =  _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
-                _appSettings.LastRequestTrain =  _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
+                _appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
+                _appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
+                _appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
+
+                var patterns = _serializable.Desserialize<Patterns>(Constants.Patterns);
+
+                _patterns.AdditionParameterPattern = patterns.AdditionParameterPattern;
+                _patterns.PlacesAndPricesPattern = patterns.PlacesAndPricesPattern;
+                _patterns.TrainPointPAttern = patterns.TrainPointPAttern;
+                _patterns.TrainsPattern = patterns.TrainsPattern;
             }
 
             VariantOfSearch = new List<string>

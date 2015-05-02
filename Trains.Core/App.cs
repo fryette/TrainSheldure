@@ -2,6 +2,7 @@ using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Core.Services;
 using Trains.Core.Services.Interfaces;
 using Trains.Core.ViewModels;
@@ -29,6 +30,7 @@ namespace Trains.Core
             Mvx.LazyConstructAndRegisterSingleton<ITrainStopService, TrainStopService>();
             Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
             Mvx.LazyConstructAndRegisterSingleton<ISerializableService, SerializeService>();
+            Mvx.LazyConstructAndRegisterSingleton<IPattern, Patterns>();
 
             var lang = Mvx.Resolve<ISerializableService>().Desserialize<Language>(Constants.CurrentLanguage);
             if (lang == null)

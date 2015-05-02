@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
 

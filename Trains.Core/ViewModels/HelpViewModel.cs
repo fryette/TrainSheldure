@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels

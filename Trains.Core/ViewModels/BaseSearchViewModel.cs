@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
+using Trains.Core.Resources;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels

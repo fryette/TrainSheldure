@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Cirrious.CrossCore;
 using Trains.Core.Interfaces;
 
-namespace Trains.Core
+namespace Trains.Core.Resources
 {
     public sealed class ResourceLoader
     {
@@ -13,11 +13,6 @@ namespace Trains.Core
         public Dictionary<string, string> Resource;
 
         private ResourceLoader()
-        {
-            Init();
-        }
-
-        private async void Init()
         {
             Resource = Mvx.Resolve<ISerializableService>().Desserialize<Dictionary<string, string>>(Constants.ResourceLoader);
         }

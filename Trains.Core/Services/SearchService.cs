@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Core.Services.Infrastructure;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
@@ -12,21 +14,13 @@ namespace Trains.Core.Services
 {
     public class SearchService : ISearchService
     {
-        #region constant
-
-        private const string Pattern = "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
-                                       "(?<endTime><div class=\"list_end\">(.+?)</div>)|" +
-                                       "(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
-                                       "(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
-                                       "<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>|" +
-                                       "(?<internetRegistration><div class=\"b-legend\">(.+?)</div)";
-        #endregion
-
         public readonly IHttpService HttpService;
+        public readonly IPattern Pattern;
 
-        public SearchService(IHttpService httpService)
+        public SearchService(IHttpService httpService,IPattern pattern)
         {
             HttpService = httpService;
+            Pattern = pattern;
         }
 
         public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
@@ -36,14 +30,14 @@ namespace Trains.Core.Services
             var data = await HttpService.LoadResponseAsync(GetUrl(from, to, date));
             var additionalInformation = TrainGrabber.GetPlaces(data);
             var links = TrainGrabber.GetLink(data);
-            var parameters = Parser.ParseData(data, Pattern).ToList();
+            var parameters = Parser.ParseData(data, Pattern.TrainsPattern).ToList();
             var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
             List<Train> trains;
             if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
                 trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
             else
-                trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern).ToList())
+                trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern.TrainsPattern).ToList())
                     : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
             trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
             if (!trains.Any()) throw new ArgumentException("Bad request");

@@ -5,6 +5,8 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
+using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
@@ -117,11 +119,12 @@ namespace Trains.Core.ViewModels
 
         private async Task DowloadResources()
         {
-            _serialize.Serialize(await _local.GetData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
-            _appSettings.AutoCompletion = await _local.GetData<List<CountryStopPointItem>>(Constants.StopPointsJson);
-            _appSettings.HelpInformation = await _local.GetData<List<HelpInformationItem>>(Constants.HelpInformationJson);
-            _appSettings.CarriageModel = await _local.GetData<List<CarriageModel>>(Constants.CarriageModelJson);
-            _appSettings.About = await _local.GetData<List<About>>(Constants.AboutJson);
+            _serialize.Serialize(await _local.GetPatterns(), Constants.Patterns);
+            _serialize.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
+            _appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Constants.StopPointsJson);
+            _appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Constants.HelpInformationJson);
+            _appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Constants.CarriageModelJson);
+            _appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
             _serialize.Serialize(_appSettings, Constants.AppSettings);
             _serialize.Serialize(SelectedLanguage, Constants.CurrentLanguage);
         }
