@@ -11,10 +11,11 @@ namespace Trains.WP.Converter
         static readonly Dictionary<AboutPicture, Uri> Pictures =
             new Dictionary<AboutPicture, Uri>()
             {
-                {AboutPicture.AboutApp,new Uri(@"ms-appx:///Assets/appbar.information.png")},
-                {AboutPicture.Mail,new Uri(@"ms-appx:///Assets/appbar.email.gmail.png")},
-                {AboutPicture.Market,new Uri(@"ms-appx:///Assets/appbar.star.png")},
-                {AboutPicture.Settings,new Uri(@"ms-appx:///Assets/appbar.settings.png")},
+                {AboutPicture.AboutApp,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.information.png")},
+                {AboutPicture.Mail,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.email.gmail.png")},
+                {AboutPicture.Market,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.star.png")},
+                {AboutPicture.Settings,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.settings.png")},
+                {AboutPicture.Share,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.share.png")}
             };
 
         public object Convert(object value, Type targetType, object parameter, string language)

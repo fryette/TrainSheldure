@@ -29,5 +29,15 @@
         Settings = 1,
         Mail = 2,
         AboutApp = 3,
+        Share=4
+    }
+    public enum ShareSocial
+    {
+        Vkontakte = 0,
+        Facebook = 1,
+        Twitter = 2,
+        LinkedIn = 3,
+        GooglePlus = 4,
+        Odnoklassniki = 5
     }
 }

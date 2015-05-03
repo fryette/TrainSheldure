@@ -77,6 +77,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\ShareViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">

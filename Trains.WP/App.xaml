@@ -23,6 +23,8 @@
             <converter:AboutEnumToImageConverter x:Key="AboutEnumToImageConverter" />
             <converter:SelectionChangedConverter x:Key="SelectionChangedConverter" />
             <converter:ListViewConverter x:Key="ListViewConverter" />
+            <converter:ShareSocialToImageConverter x:Key="ShareSocialToImageConverter" />
+            <converter:ShareSocialToUriConverter x:Key="ShareSocialToUriConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>
@@ -188,17 +190,6 @@
                 <Setter Property="VerticalAlignment"
                         Value="Center" />
             </Style>
-            <Style x:Key="MainLogoImageStyle"
-                   TargetType="Image">
-                <Setter Property="Source"
-                        Value="/Assets/MenuIcon/logo_bch.png" />
-                <Setter Property="Stretch"
-                        Value="Fill" />
-                <Setter Property="Width"
-                        Value="142" />
-                <Setter Property="HorizontalAlignment"
-                        Value="Right" />
-            </Style>
             <Style x:Key="MainButtonImageStyle"
                    TargetType="Image">
                 <Setter Property="Margin"
@@ -327,14 +318,14 @@
                                             Margin="10,0,10,0"
                                             Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
                                         <TextBlock Text="К"
-                                                   FontSize="{StaticResource NormalFontSize}"/>
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                     <Border BorderBrush="DarkGray"
                                             Padding="5,0,5,0"
                                             Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}"
                                             Margin="0,0,0,0">
                                         <TextBlock Text="СВ"
-                                                   FontSize="{StaticResource NormalFontSize}"/>
+                                                   FontSize="{StaticResource NormalFontSize}" />
                                     </Border>
                                 </StackPanel>
                             </StackPanel>
@@ -464,6 +455,13 @@
                     <TextBlock Text="{Binding Text}"
                                Style="{StaticResource MainAboutTextBlockStyle}" />
                 </StackPanel>
+            </DataTemplate>
+            <DataTemplate x:Key="ShareTemplate">
+                <HyperlinkButton NavigateUri="{Binding Converter={StaticResource ShareSocialToUriConverter}}">
+                    <Image Source="{Binding Converter={StaticResource ShareSocialToImageConverter}}"
+                           Width="100"
+                           Height="100" />
+                </HyperlinkButton>
             </DataTemplate>
 
             <ControlTemplate x:Key="SemantickZoom"

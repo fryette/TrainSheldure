@@ -109,6 +109,8 @@
     <Compile Include="Converter\IsPlaceToVisibilityConverter.cs" />
     <Compile Include="Converter\ListViewConverter.cs" />
     <Compile Include="Converter\SelectionChangedConverter.cs" />
+    <Compile Include="Converter\ShareSocialToUriConverter.cs" />
+    <Compile Include="Converter\ShareSocialToImageConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Services\Analytics.cs" />
     <Compile Include="Services\MarketPlace.cs" />
@@ -138,6 +140,9 @@
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShareView.xaml.cs">
+      <DependentUpon>ShareView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -179,6 +184,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShareView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,10 +269,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="analytics.xml" />
-    <Content Include="Assets\appbar.email.gmail.png" />
-    <Content Include="Assets\appbar.information.png" />
-    <Content Include="Assets\appbar.settings.png" />
-    <Content Include="Assets\appbar.star.png" />
+    <Content Include="Assets\AppBarIcons\appbar.email.gmail.png" />
+    <Content Include="Assets\AppBarIcons\appbar.googleplus.png" />
+    <Content Include="Assets\AppBarIcons\appbar.information.png" />
+    <Content Include="Assets\AppBarIcons\appbar.odnoklassniki.png" />
+    <Content Include="Assets\AppBarIcons\appbar.settings.png" />
+    <Content Include="Assets\AppBarIcons\appbar.share.png" />
+    <Content Include="Assets\AppBarIcons\appbar.social.facebook.heart.png" />
+    <Content Include="Assets\AppBarIcons\appbar.social.linkedin.png" />
+    <Content Include="Assets\AppBarIcons\appbar.social.twitter.png" />
+    <Content Include="Assets\AppBarIcons\appbar.star.png" />
+    <Content Include="Assets\AppBarIcons\appbar.vkontakte.png" />
     <Content Include="Assets\Carriage\CompartmentSleeper.png" />
     <Content Include="Assets\Carriage\EconomyClassSleeper.png" />
     <Content Include="Assets\Carriage\FirstClassSleeper.png" />
@@ -283,8 +299,6 @@
     <Content Include="Assets\Interregional_econom.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\MainImage.png" />
-    <Content Include="Assets\MenuIcon\logo_bch.png" />
-    <Content Include="Assets\MenuIcon\logo_tile2.jpg" />
     <Content Include="Assets\MenuIcon\result.jpg" />
     <Content Include="Assets\Regional_biznes.png" />
     <Content Include="Assets\Regional_econom.png" />

@@ -422,8 +422,10 @@ namespace Trains.Core.ViewModels
                 Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com", string.Empty, ResourceLoader.Instance.Resource["Feedback"], String.Empty, false);
             else if (selectedAboutItem.Item == AboutPicture.Market)
                 _marketPlace.GoToMarket();
-            else
+            else if (selectedAboutItem.Item == AboutPicture.Settings)
                 ShowViewModel<SettingsViewModel>();
+            else
+                ShowViewModel<ShareViewModel>();
         }
 
         /// <summary>
