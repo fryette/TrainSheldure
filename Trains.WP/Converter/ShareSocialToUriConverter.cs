@@ -27,7 +27,6 @@ namespace Trains.WP.Converter
                 {ShareSocial.GooglePlus,new Uri(data.GooglePlus)},
                 {ShareSocial.LinkedIn,new Uri(data.Linkedin)},
                 {ShareSocial.Odnoklassniki,new Uri(data.Odnoklassniki)}
-
             };
             }
         }

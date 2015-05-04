@@ -74,7 +74,7 @@
             </PivotItem>
             <PivotItem Header="{Binding LastSchedulePivotItem}"
                        x:Name="LastPivot"
-                       Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}}">
+                       Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter={Binding Trains}}">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -115,7 +115,7 @@
             </PivotItem>
             <PivotItem x:Name="RoutesPivot"
                        Header="{Binding RoutesPivotItem}"
-                       Background="{Binding Converter={StaticResource BackgroundRoutesToImageConverter}}">
+                       Background="{Binding Converter={StaticResource BackgroundRoutesToImageConverter},ConverterParameter={Binding FavoriteRequests}}">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
                           ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}"

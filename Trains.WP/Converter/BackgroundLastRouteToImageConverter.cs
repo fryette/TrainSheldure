@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Trains.Core.Interfaces;
+using Trains.Core.ViewModels;
+using Trains.Entities;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -23,6 +25,7 @@ namespace Trains.WP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (((MainViewModel)value).Trains != null) return null;
             return new ImageBrush
             {
                 ImageSource = new BitmapImage() { UriSource = Pictures[Mvx.Resolve<IAppSettings>().Language.Id] },

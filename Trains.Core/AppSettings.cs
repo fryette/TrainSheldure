@@ -16,8 +16,11 @@ namespace Trains.Core
         public List<HelpInformationItem> HelpInformation { get; set; }
         public List<CarriageModel> CarriageModel { get; set; }
         public List<About> About { get; set; }
+        
+        public bool FirstUpdateRun { get; set; }
 
         public SocialUri SocialUri { get; set; }
         public Language Language { get; set; }
+
     }
 }

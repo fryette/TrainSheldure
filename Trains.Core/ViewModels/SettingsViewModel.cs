@@ -125,8 +125,11 @@ namespace Trains.Core.ViewModels
             if (isException)
                 await Mvx.Resolve<IUserInteraction>().AlertAsync("ѕроизошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
             else
+            {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
-            SaveRun = false;
+                _serialize.Serialize<string>(Constants.IsFirstRun,Constants.IsFirstRun);
+            }
+                SaveRun = false;
         }
 
         private async Task DowloadResources()

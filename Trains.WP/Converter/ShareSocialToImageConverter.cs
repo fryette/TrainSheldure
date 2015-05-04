@@ -24,8 +24,7 @@ namespace Trains.WP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var bmi = new BitmapImage(Pictures[(ShareSocial)value]);
-            return bmi;
+            return new BitmapImage(Pictures[(ShareSocial)value]);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

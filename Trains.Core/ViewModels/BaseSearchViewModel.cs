@@ -27,8 +27,8 @@ namespace Trains.Core.ViewModels
             }
 
             if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
-                !(autoCompletion.Any(x => x.UniqueId == from) &&
-                  autoCompletion.Any(x => x.UniqueId == to)))
+                !(autoCompletion.Any(x => x.UniqueId == from.Trim()) &&
+                  autoCompletion.Any(x => x.UniqueId == to.Trim())))
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
                 return true;

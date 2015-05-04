@@ -8,6 +8,7 @@
 
         public const string SettingsRelativeUri = "settings.json";
 
+        public const string IsFirstRun = "IsFirstRun";
         public const string Social = "SocialUri";
         public const string AppSettings = "AppSettings";
         public const string Patterns = "Patterns";
