@@ -25,6 +25,8 @@
             <converter:ListViewConverter x:Key="ListViewConverter" />
             <converter:ShareSocialToImageConverter x:Key="ShareSocialToImageConverter" />
             <converter:ShareSocialToUriConverter x:Key="ShareSocialToUriConverter" />
+            <converter:BackgroundLastRouteToImageConverter x:Key="BackgroundLastRouteToImageConverter" />
+            <converter:BackgroundRoutesToImageConverter x:Key="BackgroundRoutesToImageConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>

@@ -73,7 +73,8 @@
                 </Grid>
             </PivotItem>
             <PivotItem Header="{Binding LastSchedulePivotItem}"
-                       x:Name="LastPivot">
+                       x:Name="LastPivot"
+                       Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}}">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="30" />
@@ -112,8 +113,9 @@
                             Command="{Binding SelectTrainCommand}" />
                 </Grid>
             </PivotItem>
-            <PivotItem Header="{Binding RoutesPivotItem}"
-                       x:Name="RoutesPivot">
+            <PivotItem x:Name="RoutesPivot"
+                       Header="{Binding RoutesPivotItem}"
+                       Background="{Binding Converter={StaticResource BackgroundRoutesToImageConverter}}">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
                           ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}"
@@ -148,11 +150,11 @@
                          VerticalAlignment="Top" />
         </Grid>
 
-        <Grid Background="{StaticResource BackgroundColorBrush}"
+        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
             <ProgressRing IsActive="True" />
-        </Grid>
+        </Grid>-->
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>

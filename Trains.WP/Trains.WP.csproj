@@ -101,6 +101,8 @@
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
     <Compile Include="Converter\AboutEnumToImageConverter.cs" />
+    <Compile Include="Converter\BackgroundLastRouteToImageConverter.cs" />
+    <Compile Include="Converter\BackgroundRoutesToImageConverter.cs" />
     <Compile Include="Converter\BooleanToBackgroundConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\CarriageToImageConverter.cs" />
@@ -280,6 +282,12 @@
     <Content Include="Assets\AppBarIcons\appbar.social.twitter.png" />
     <Content Include="Assets\AppBarIcons\appbar.star.png" />
     <Content Include="Assets\AppBarIcons\appbar.vkontakte.png" />
+    <Content Include="Assets\Backgrounds\Dlya_Adlyustravannya.png" />
+    <Content Include="Assets\Backgrounds\Dlya_Otobrazhenia.png" />
+    <Content Include="Assets\Backgrounds\Marshrutau_Ne.png" />
+    <Content Include="Assets\Backgrounds\Marshrutov_Ne.png" />
+    <Content Include="Assets\Backgrounds\No_favorites.png" />
+    <Content Include="Assets\Backgrounds\No_history.png" />
     <Content Include="Assets\Carriage\CompartmentSleeper.png" />
     <Content Include="Assets\Carriage\EconomyClassSleeper.png" />
     <Content Include="Assets\Carriage\FirstClassSleeper.png" />
