@@ -8,6 +8,7 @@ using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
+using System;
 
 namespace Trains.Core.ViewModels
 {
@@ -19,7 +20,6 @@ namespace Trains.Core.ViewModels
         private readonly IAppSettings _appSettings;
         private readonly IAnalytics _analytics;
         private readonly ILocalDataService _local;
-
 
         #endregion
 
@@ -111,22 +111,35 @@ namespace Trains.Core.ViewModels
             SaveRun = true;
             _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
             _appSettings.Language = SelectedLanguage;
-            DeleteSaveSettings();
-            await DowloadResources();
+            bool isException = false;
+            try
+            {
+                await DowloadResources();
+                DeleteSaveSettings();
+            }
+            catch (Exception e)
+            {
+                isException = true;
+                _analytics.SentException(e.Message, true);
+            }
+            if (isException)
+                await Mvx.Resolve<IUserInteraction>().AlertAsync("ѕроизошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
+            else
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
             SaveRun = false;
-            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
         }
 
         private async Task DowloadResources()
         {
-            _serialize.Serialize(await _local.GetPatterns(), Constants.Patterns);
-            _serialize.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
             _appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Constants.StopPointsJson);
             _appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Constants.HelpInformationJson);
             _appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Constants.CarriageModelJson);
             _appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
+            _serialize.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
+            _serialize.Serialize(await _local.GetPatterns(), Constants.Patterns);
             _serialize.Serialize(_appSettings, Constants.AppSettings);
             _serialize.Serialize(SelectedLanguage, Constants.CurrentLanguage);
+            _appSettings.AutoCompletion = null;
         }
 
         private void DeleteSaveSettings()

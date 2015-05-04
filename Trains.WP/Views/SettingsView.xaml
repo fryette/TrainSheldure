@@ -7,13 +7,11 @@
                       xmlns:viewModels="using:Trains.Core.ViewModels"
                       mc:Ignorable="d"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark" d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}">
+                      RequestedTheme="Dark"
+                      d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}">
 
     <Grid Margin="5,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid>
             <ComboBox Header="Выберите язык"
                       ItemsSource="{Binding Languages}"
                       SelectedItem="{Binding SelectedLanguage,Mode=TwoWay}"
@@ -26,8 +24,13 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
         </Grid>
-        <ProgressRing Visibility="{Binding SaveRun,Converter={StaticResource BooleanToVisibilityConverter}}"
-                      IsActive="True" />
+        <Grid Visibility="{Binding SaveRun,Converter={StaticResource BooleanToVisibilityConverter}}"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center">
+            <TextBlock Text="Загружаем данные" />
+            <ProgressBar IsIndeterminate="True"
+                         Margin="0,15,0,0" />
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar>

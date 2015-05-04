@@ -8,14 +8,22 @@
                       xmlns:viewModels="using:Trains.Core.ViewModels"
                       mc:Ignorable="d"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark" d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
+                      RequestedTheme="Dark"
+                      d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
 
     <Grid Margin="10">
-        <TextBlock Text="Выберите социальную сеть"
-                   FontSize="25" />
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock Text="Социальные сети:"
+                       FontSize="{StaticResource BigFontSize}"
+                        />
+            <TextBlock Text="Этим вы поддерживаете нас" 
+                       FontSize="15"
+                       HorizontalAlignment="Center" />
+        </StackPanel>
         <GridView Margin="0,80,0,0"
                   ItemsSource="{Binding ShareItems}"
-                  ItemTemplate="{StaticResource ShareTemplate}">
+                  ItemTemplate="{StaticResource ShareTemplate}"
+                  HorizontalAlignment="Center">
         </GridView>
     </Grid>
 </views:MvxWindowsPage>
