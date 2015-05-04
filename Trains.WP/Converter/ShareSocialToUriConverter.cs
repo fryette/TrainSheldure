@@ -14,16 +14,6 @@ namespace Trains.WP.Converter
     public class ShareSocialToUriConverter : IValueConverter
     {
         static Dictionary<ShareSocial, Uri> Pictures;
-        //new Dictionary<ShareSocial, Uri>()
-        //        {
-        //            {ShareSocial.Vkontakte,new Uri(Mvx.Resolve<IAppSettings>().SocialUri.Vkontakte)},
-        //            {ShareSocial.Facebook,new Uri(Mvx.Resolve<IAppSettings>().SocialUri.Facebook)},
-        //            {ShareSocial.Twitter,new Uri(Mvx.Resolve<IAppSettings>().SocialUri.Twitter)},
-        //            {ShareSocial.GooglePlus,new Uri(Mvx.Resolve<IAppSettings>().SocialUri.GooglePlus)},
-        //            {ShareSocial.LinkedIn,new Uri(Mvx.Resolve<IAppSettings>().SocialUri.Linkedin)},
-        //            {ShareSocial.Odnoklassniki,new Uri(Mvx.Resolve<IAppSettings>().SocialUri.Odnoklassniki)}
-
-        //        };
         public ShareSocialToUriConverter()
         {
             if (Pictures == null)
