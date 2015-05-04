@@ -136,7 +136,8 @@ namespace Trains.Core.ViewModels
             _appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Constants.CarriageModelJson);
             _appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
             _serialize.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
-            _serialize.Serialize(await _local.GetPatterns(), Constants.Patterns);
+            _serialize.Serialize(await _local.GetOtherData<Patterns>(Constants.PatternsJson), Constants.Patterns);
+            _appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Constants.SocialJson);
             _serialize.Serialize(_appSettings, Constants.AppSettings);
             _serialize.Serialize(SelectedLanguage, Constants.CurrentLanguage);
             _appSettings.AutoCompletion = null;

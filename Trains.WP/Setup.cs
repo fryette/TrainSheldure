@@ -7,6 +7,7 @@ using Cirrious.MvvmCross.WindowsCommon.Platform;
 using Trains.Core.Interfaces;
 using Trains.Core.Services.Interfaces;
 using Trains.WP.Services;
+using Cirrious.MvvmCross.Plugins.Share;
 
 namespace Trains.WP
 {
@@ -32,6 +33,7 @@ namespace Trains.WP
             Mvx.LazyConstructAndRegisterSingleton<IUserInteraction, UserInteractionService>();
             Mvx.LazyConstructAndRegisterSingleton<IMarketPlaceService, MarketPlace>();
             Mvx.LazyConstructAndRegisterSingleton<IAnalytics, Analytics>();
+            Mvx.RegisterType<IMvxShareTask, MvxShareTask>();
 
             base.InitializePlatformServices();
         }

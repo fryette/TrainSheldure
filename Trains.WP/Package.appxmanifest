@@ -28,6 +28,14 @@
         <Extension Category="windows.protocol">
           <Protocol Name="chygunka" m2:DesiredView="useLess" />
         </Extension>
+        <Extension Category="windows.shareTarget">
+          <ShareTarget m2:Description="Sharing white.">
+            <SupportedFileTypes>
+              <SupportsAnyFileType />
+            </SupportedFileTypes>
+            <DataFormat>Text</DataFormat>
+          </ShareTarget>
+        </Extension>
       </Extensions>
     </Application>
   </Applications>

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Trains.Entities;
 using Trains.Model.Entities;
 
@@ -19,6 +20,8 @@ namespace Trains.Core.Interfaces
         List<CarriageModel> CarriageModel { get; set; }
 
         List<About> About { get; set; }
+
+        SocialUri SocialUri { get; set; }
 
         Language Language { get; set; }
     }

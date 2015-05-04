@@ -32,7 +32,9 @@
                                    FontSize="24" />
                         <TextBlock Text="Пелешенко Александр(логотип)"
                                    Style="{StaticResource AboutAppStyle}" />
-                        <HyperlinkButton x:Uid="OurSite"
+                        <TextBlock Text="Рачковская Полина(заставки)"
+                                   Style="{StaticResource AboutAppStyle}" />
+                        <HyperlinkButton Content="chygunka.by"
                                          NavigateUri="http://chygunka.by" />
                     </StackPanel>
                 </Grid>

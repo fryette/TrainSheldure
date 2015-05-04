@@ -21,10 +21,10 @@ namespace Trains.Core.Services
             return JsonConvert.DeserializeObject<T>(text);
         }
 
-        public async Task<IPattern> GetPatterns()
+        public async Task<T> GetOtherData<T>(string jsonText)
         {
-            var text = (await new BaseHttpService().LoadResponseAsync(new Uri(Constants.PatternsUri + '/' + Constants.PatternsJson)));
-            return JsonConvert.DeserializeObject<Patterns>(text);
+            var text = (await new BaseHttpService().LoadResponseAsync(new Uri(Constants.PatternsUri + '/' + jsonText)));
+            return JsonConvert.DeserializeObject<T>(text);
         }
     }
 }

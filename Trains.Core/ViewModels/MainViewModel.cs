@@ -448,6 +448,7 @@ namespace Trains.Core.ViewModels
                 _appSettings.About = appSettings.About;
                 _appSettings.HelpInformation = appSettings.HelpInformation;
                 _appSettings.CarriageModel = appSettings.CarriageModel;
+                _appSettings.SocialUri = appSettings.SocialUri;
 
                 _appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
                 _appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
@@ -489,7 +490,6 @@ namespace Trains.Core.ViewModels
             ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
             HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
         }
-
         #endregion
     }
 }
