@@ -20,7 +20,7 @@ namespace Trains.Core
                 .RegisterAsLazySingleton();
 
 
-            RegisterAppStart<SettingsViewModel>();
+            RegisterAppStart<MainViewModel>();
 
             Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
 
@@ -32,14 +32,6 @@ namespace Trains.Core
             Mvx.LazyConstructAndRegisterSingleton<ISerializableService, SerializeService>();
             Mvx.LazyConstructAndRegisterSingleton<IPattern, Patterns>();
 
-            var isFirstRun = Mvx.Resolve<ISerializableService>().Desserialize<string>(Constants.IsFirstRun) == null ? true : false;
-            if (isFirstRun)
-                RegisterAppStart<SettingsViewModel>();
-            else
-            {
-                Mvx.Resolve<IAppSettings>().Language = new Language { Id = "ru" };
-                RegisterAppStart<MainViewModel>();
-            }
         }
     }
 }

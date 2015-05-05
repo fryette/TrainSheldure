@@ -11,6 +11,7 @@ using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
+using System.Threading.Tasks;
 
 namespace Trains.Core.ViewModels
 {
@@ -23,6 +24,9 @@ namespace Trains.Core.ViewModels
         private readonly IMarketPlaceService _marketPlace;
 
         private readonly IAnalytics _analytics;
+
+        private readonly ILocalDataService _local;
+
 
         private readonly IPattern _patterns;
 
@@ -56,8 +60,9 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local)
         {
+            _local = local;
             _analytics = analytics;
             _serializable = serializable;
             _search = search;
@@ -302,11 +307,11 @@ namespace Trains.Core.ViewModels
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
         /// </summary>
-        public void Init()
+        public async void Init()
         {
             IsDownloadRun = true;
+            await RestoreData();
             RestoreUIBinding();
-            RestoreData();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
@@ -438,10 +443,12 @@ namespace Trains.Core.ViewModels
             To = tmp;
         }
 
-        private void RestoreData()
+        private async Task RestoreData()
         {
+            await CheckStart();
             if (_appSettings.AutoCompletion == null)
             {
+
                 var appSettings = _serializable.Desserialize<AppSettings>(Constants.AppSettings);
 
                 _appSettings.AutoCompletion = appSettings.AutoCompletion;
@@ -449,6 +456,8 @@ namespace Trains.Core.ViewModels
                 _appSettings.HelpInformation = appSettings.HelpInformation;
                 _appSettings.CarriageModel = appSettings.CarriageModel;
                 _appSettings.SocialUri = appSettings.SocialUri;
+                _appSettings.Language = appSettings.Language;
+
 
                 _appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
                 _appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
@@ -472,6 +481,62 @@ namespace Trains.Core.ViewModels
                 };
         }
 
+        private async Task CheckStart()
+        {
+            if (_serializable.Desserialize<string>(Constants.IsFirstRun) == null ? true : false)
+            {
+                _appSettings.Language = new Language { Id = "ru", Name = "Русский" };
+                _serializable.ClearAll();
+                _serializable.Serialize<string>(Constants.IsFirstRun, Constants.IsFirstRun);
+                _serializable.Serialize<Language>(_appSettings.Language, Constants.AppLanguage);
+            }
+
+            var appLanguage = _serializable.Desserialize<Language>(Constants.AppLanguage);
+            var currLanguage = _serializable.Desserialize<Language>(Constants.CurrentLanguage);
+
+            if (currLanguage == null || currLanguage.Id != appLanguage.Id)
+            {
+                bool isException = false;
+                try
+                {
+                    await DowloadResources(currLanguage == null ? appLanguage : currLanguage);
+                    DeleteSaveSettings();
+                }
+                catch (Exception e)
+                {
+                    isException = true;
+                    _analytics.SentException(e.Message, true);
+                }
+
+                if (isException)
+                    await Mvx.Resolve<IUserInteraction>().AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
+            }
+        }
+
+        private async Task DowloadResources(Language lang)
+        {
+            _appSettings.Language = lang;
+            _appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Constants.StopPointsJson);
+            _appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Constants.HelpInformationJson);
+            _appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Constants.CarriageModelJson);
+            _appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
+            _appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Constants.SocialJson);
+
+            _serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
+            _serializable.Serialize(await _local.GetOtherData<Patterns>(Constants.PatternsJson), Constants.Patterns);
+            _serializable.Serialize(_appSettings, Constants.AppSettings);
+            _serializable.Serialize(_appSettings.Language, Constants.AppLanguage);
+            _serializable.Serialize(_appSettings.Language, Constants.CurrentLanguage);
+
+        }
+
+        private void DeleteSaveSettings()
+        {
+            _serializable.Delete(Constants.FavoriteRequests);
+            _serializable.Delete(Constants.LastTrainList);
+            _serializable.Delete(Constants.UpdateLastRequest);
+        }
+
         private void RestoreUIBinding()
         {
             ApplicationName = ResourceLoader.Instance.Resource["ApplicationName"];
@@ -489,7 +554,10 @@ namespace Trains.Core.ViewModels
             SwapAppBar = ResourceLoader.Instance.Resource["SwapAppBar"];
             ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
             HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
+            RaiseAllPropertiesChanged();
+
         }
+
         #endregion
     }
 }

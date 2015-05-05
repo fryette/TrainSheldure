@@ -9,7 +9,7 @@
                     <SolidColorBrush x:Key="PivotHeaderForegroundUnselectedBrush"
                                      Color="White" />
                     <SolidColorBrush x:Key="PivotHeaderForegroundSelectedBrush"
-                                     Color="#FF00B5D0" />
+                                     Color="#FF107622" />
                     <x:Double x:Key="PivotHeaderItemFontSize">33</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
@@ -27,6 +27,7 @@
             <converter:ShareSocialToUriConverter x:Key="ShareSocialToUriConverter" />
             <converter:BackgroundLastRouteToImageConverter x:Key="BackgroundLastRouteToImageConverter" />
             <converter:BackgroundRoutesToImageConverter x:Key="BackgroundRoutesToImageConverter" />
+            <converter:BooleanInverter x:Key="BooleanInverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>
@@ -235,7 +236,26 @@
                 <Setter Property="HorizontalContentAlignment"
                         Value="Stretch" />
             </Style>
-
+            <Style x:Key="JumpListListHeaderContainerStyle"
+                   TargetType="ListViewHeaderItem">
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Stretch" />
+            </Style>
+            <Style x:Key="GenericJumpListPickerStyle"
+                   TargetType="ListView">
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Stretch" />
+                <Setter Property="ItemContainerStyle">
+                    <Setter.Value>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment"
+                                    Value="Stretch" />
+                        </Style>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             <Style x:Key="AboutPageTextBlockStyle"
                    TargetType="TextBlock">
                 <Setter Property="TextWrapping"
@@ -249,7 +269,7 @@
 
 
             <DataTemplate x:Key="ScheduleTemplate">
-                <Grid Margin="0,0,0,10"
+                <Grid Margin="0,0,24,10"
                       Height="Auto">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15" />
@@ -274,10 +294,6 @@
                                 <TextBlock Text="{Binding EndTime}"
                                            FontSize="{StaticResource BigFontSize}"
                                            Foreground="{StaticResource DimGrayColorBrush}" />
-                                <TextBlock Text="{Binding IsPlace}"
-                                           Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
-                                           HorizontalAlignment="Left"
-                                           FontSize="{StaticResource BigFontSize}" />
                             </StackPanel>
 
                             <StackPanel Grid.Column="1"
@@ -289,6 +305,11 @@
                                 <TextBlock Text="{Binding OnTheWay}"
                                            FontSize="{StaticResource ScheduleFontSize}"
                                            Margin="0,1.5,0,0" />
+                                <TextBlock Text="{Binding IsPlace}"
+                                           Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
+                                           Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}, ConverterParameter=reverse}"
+                                           HorizontalAlignment="Left"
+                                           FontSize="{StaticResource BigFontSize}" />
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Left"
                                             Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}"
@@ -427,11 +448,6 @@
                       Margin="0,5,0,0"
                       Height="{StaticResource TileWidth}">
                     <StackPanel Orientation="Horizontal">
-                        <!--<StackPanel Width="37"
-                                    Visibility="{Binding IsCanBeDeleted,Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <CheckBox IsChecked="True"
-                                      Margin="5,0" />
-                        </StackPanel>-->
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="{Binding From}"
                                        Margin="5,0"
@@ -449,13 +465,15 @@
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,0,5"
                             Background="{ThemeResource PhoneAccentBrush}">
-                    <Image Width="{StaticResource TileWidth}"
+                    <Image Width="60"
                            Source="{Binding Item,Converter={StaticResource AboutEnumToImageConverter}}" />
                     <Border Background="{StaticResource BackgroundColorBrush}"
                             Width="5"
                             Height="{StaticResource TileWidth}" />
                     <TextBlock Text="{Binding Text}"
-                               Style="{StaticResource MainAboutTextBlockStyle}" />
+                               Style="{StaticResource MainAboutTextBlockStyle}" 
+                               FontWeight="Normal"
+                               Margin="10,0,0,0"/>
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="ShareTemplate">
@@ -465,7 +483,6 @@
                            Height="100" />
                 </HyperlinkButton>
             </DataTemplate>
-
             <ControlTemplate x:Key="SemantickZoom"
                              TargetType="SemanticZoom">
                 <Grid>
@@ -499,7 +516,6 @@
                     </Border>
                 </Grid>
             </ControlTemplate>
-
             <DataTemplate x:Key="GenericGroupHeaderTemplate">
                 <Border>
                     <TextBlock Text="{Binding Key}"
@@ -512,26 +528,6 @@
                                Margin="0,0,0,9.5" />
                 </Border>
             </DataTemplate>
-            <Style x:Key="JumpListListHeaderContainerStyle"
-                   TargetType="ListViewHeaderItem">
-                <Setter Property="HorizontalContentAlignment"
-                        Value="Stretch" />
-                <Setter Property="VerticalContentAlignment"
-                        Value="Stretch" />
-            </Style>
-            <Style x:Key="GenericJumpListPickerStyle"
-                   TargetType="ListView">
-                <Setter Property="HorizontalContentAlignment"
-                        Value="Stretch" />
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment"
-                                    Value="Stretch" />
-                        </Style>
-                    </Setter.Value>
-                </Setter>
-            </Style>
             <DataTemplate x:Key="GenericJumpListPickerItemTemplate">
                 <Border Background="{Binding Converter={StaticResource JumpListItemBackgroundConverter}}"
                         BorderBrush="{Binding Converter={StaticResource JumpListItemForegroundConverter}}"

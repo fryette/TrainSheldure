@@ -16,6 +16,7 @@ namespace Trains.WP.Views
             InitializeComponent();
             MyStoryboard.Begin();
             MainPivot.SelectedIndex = LastPivotIndex;
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)

@@ -10,6 +10,7 @@ namespace Trains.WP.Views
         public ScheduleView()
         {
             InitializeComponent();
+            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
 
         private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)

@@ -104,6 +104,7 @@
     <Compile Include="Converter\AboutEnumToImageConverter.cs" />
     <Compile Include="Converter\BackgroundLastRouteToImageConverter.cs" />
     <Compile Include="Converter\BackgroundRoutesToImageConverter.cs" />
+    <Compile Include="Converter\BooleanInverter.cs" />
     <Compile Include="Converter\BooleanToBackgroundConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\CarriageToImageConverter.cs" />

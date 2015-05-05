@@ -16,7 +16,7 @@ namespace Trains.Core.ViewModels
     {
         #region readonlyProperties
 
-        private readonly ISerializableService _serialize;
+        private readonly ISerializableService _serializable;
         private readonly IAppSettings _appSettings;
         private readonly IAnalytics _analytics;
         private readonly ILocalDataService _local;
@@ -25,7 +25,7 @@ namespace Trains.Core.ViewModels
 
         #region command
 
-        public IMvxCommand SaveChangesCommand { get; private set; }
+        public IMvxCommand ResetSettingsCommand { get; private set; }
 
         #endregion
 
@@ -33,11 +33,11 @@ namespace Trains.Core.ViewModels
 
         public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics, ILocalDataService local)
         {
-            SaveChangesCommand = new MvxCommand(SaveChanges);
+            ResetSettingsCommand = new MvxCommand(ResetSetting);
 
             _local = local;
             _analytics = analytics;
-            _serialize = serializable;
+            _serializable = serializable;
             _appSettings = appSettings;
         }
 
@@ -45,19 +45,26 @@ namespace Trains.Core.ViewModels
 
         #region properties
 
-        private bool _saveRun;
-        public bool SaveRun
+        #region UIproperties
+
+        public string Header { get; set; }
+        private string _needReboot { get; set; }
+        public string NeedReboot
         {
             get
             {
-                return _saveRun;
+                return _needReboot;
             }
             set
             {
-                _saveRun = value;
-                RaisePropertyChanged(() => SaveRun);
+                _needReboot = value;
+                RaisePropertyChanged(() => NeedReboot);
             }
         }
+        public string SelectLanguage { get; set; }
+        public string ResetSettings { get; set; }
+
+        #endregion
 
         /// <summary>
         /// Languages
@@ -88,6 +95,7 @@ namespace Trains.Core.ViewModels
             {
                 _selectedLanguage = value;
                 RaisePropertyChanged(() => SelectedLanguage);
+                SaveChanges();
             }
         }
 
@@ -100,57 +108,38 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init()
         {
+            RestoreUI();
             if (_appSettings.Language == null)
                 _appSettings.Language = new Language { Id = "ru" };
             SelectedLanguage = _languagesList.First(x => x.Id == _appSettings.Language.Id);
         }
 
-        private async void SaveChanges()
+        private void SaveChanges()
         {
-            if (SaveRun) return;
-            SaveRun = true;
-            _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
-            _appSettings.Language = SelectedLanguage;
-            bool isException = false;
-            try
+            if (SelectedLanguage.Id != _appSettings.Language.Id)
             {
-                await DowloadResources();
-                DeleteSaveSettings();
+                _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
+                _serializable.Serialize<Language>(SelectedLanguage, Constants.CurrentLanguage);
+                NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
             }
-            catch (Exception e)
-            {
-                isException = true;
-                _analytics.SentException(e.Message, true);
-            }
-            if (isException)
-                await Mvx.Resolve<IUserInteraction>().AlertAsync("ѕроизошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
             else
             {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["LanguageChanged"]);
-                _serialize.Serialize<string>(Constants.IsFirstRun,Constants.IsFirstRun);
+                NeedReboot = String.Empty;
+                _serializable.Serialize<Language>(_appSettings.Language, Constants.CurrentLanguage);
             }
-                SaveRun = false;
         }
 
-        private async Task DowloadResources()
+        private void ResetSetting()
         {
-            _appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Constants.StopPointsJson);
-            _appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Constants.HelpInformationJson);
-            _appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Constants.CarriageModelJson);
-            _appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
-            _serialize.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
-            _serialize.Serialize(await _local.GetOtherData<Patterns>(Constants.PatternsJson), Constants.Patterns);
-            _appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Constants.SocialJson);
-            _serialize.Serialize(_appSettings, Constants.AppSettings);
-            _serialize.Serialize(SelectedLanguage, Constants.CurrentLanguage);
-            _appSettings.AutoCompletion = null;
+            _serializable.Delete(Constants.IsFirstRun);
+            NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
         }
 
-        private void DeleteSaveSettings()
+        private void RestoreUI()
         {
-            _serialize.Delete(Constants.FavoriteRequests);
-            _serialize.Delete(Constants.LastTrainList);
-            _serialize.Delete(Constants.UpdateLastRequest);
+            Header = ResourceLoader.Instance.Resource["Settings"];
+            SelectLanguage = ResourceLoader.Instance.Resource["SelectLanguage"];
+            ResetSettings = ResourceLoader.Instance.Resource["ResetSettings"];
         }
 
         #endregion

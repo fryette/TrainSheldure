@@ -17,6 +17,7 @@
         public const string FavoriteRequests = "favoriteRequests";
         public const string LastTrainList = "LastTrainList";
         public const string CurrentLanguage = "CurrentLanguage";
+        public const string AppLanguage = "AppLanguage";
 
         public const string SocialJson = "SocialUri.json";
         public const string PatternsJson = "Patterns.json";

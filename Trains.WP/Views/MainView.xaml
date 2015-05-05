@@ -25,16 +25,17 @@
             </Storyboard>
         </Grid.Resources>
         <Pivot x:Name="MainPivot"
+               IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}"
                Title="{Binding ApplicationName}"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem Header="{Binding MainPivotItem}"
                        x:Name="MainPivotItem">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="170" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <GridView Grid.Row="0"
+                    <GridView Grid.Row="1"
                               Margin="0,10,0,-10">
                         <Grid>
                             <Image x:Name="MainImage"
@@ -42,7 +43,7 @@
                                    Style="{StaticResource MainButtonImageStyle}" />
                         </Grid>
                     </GridView>
-                    <StackPanel Grid.Row="1"
+                    <StackPanel Grid.Row="0"
                                 Background="{StaticResource GrayColorBrush}">
                         <TextBlock Text="{Binding FastSearchTextBlock}"
                                    FontSize="{StaticResource NormalLargeFontSize}" />
@@ -52,13 +53,15 @@
                         <DatePicker Header="{Binding DateOfDeparture}"
                                     Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Visibility="{Binding IsOnDaySelected,Converter={StaticResource BooleanToVisibilityConverter}}"
-                                    Style="{StaticResource DatePickerStyle}" />
+                                    Style="{StaticResource DatePickerStyle}"
+                                    Margin="0,-5,0,0" />
                         <AutoSuggestBox PlaceholderText="{Binding FromAutoSuggest}"
                                         Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         IsEnabled="{Binding IsFildEnabled}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
-                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
+                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen"
+                                        Margin="0,-5,0,0" />
                         <AutoSuggestBox PlaceholderText="{Binding ToAutoSuggest}"
                                         IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                                         Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -145,19 +148,26 @@
             </PivotItem>
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="{Binding Update}" />
+            <TextBlock Text="{Binding Update}"
+                       Margin="20,0,0,0" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
 
-        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
+        <Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
-            <ProgressRing IsActive="True" />
-        </Grid>-->
+
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,150">
+                <TextBlock Text="Идет загрузка данных, это не займет много времени" />
+                <ProgressBar IsIndeterminate="True" />
+            </StackPanel>
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar>
+        <CommandBar IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
                           Label="{Binding UpdateAppBar}"
                           Icon="Sync"
@@ -165,14 +175,16 @@
             <AppBarButton x:Name="SwapAppBar"
                           Label="{Binding SwapAppBar}"
                           Icon="Sort"
-                          Command="{Binding SwapCommand}" />
+                          Command="{Binding SwapCommand}"
+                          IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
             <AppBarButton x:Name="ManagedAppBar"
                           Label="{Binding ManageAppBar}"
                           Icon="Repair"
                           Command="{Binding GoToEditFavoriteCommand}" />
             <AppBarButton Label="{Binding HelpAppBar}"
                           Icon="Help"
-                          Command="{Binding GoToHelpCommand}" />
+                          Command="{Binding GoToHelpCommand}"
+                          IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}"/>
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

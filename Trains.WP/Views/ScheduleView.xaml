@@ -8,12 +8,14 @@
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       xmlns:viewModels="using:Trains.Core.ViewModels"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark" d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
+                      RequestedTheme="Dark"
+                      d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
-    <Grid Margin="5,0">
+    <Grid Margin="5,0,0,0">
         <appPromo:RateReminder RunsBeforeReminder="10" />
         <Pivot>
-            <PivotItem Header="{Binding Request}">
+            <PivotItem Header="{Binding Request}"
+                       Margin="19,23,0,-0.667">
                 <Grid>
                     <SemanticZoom x:Name="Root"
                                   Template="{StaticResource SemantickZoom}"
@@ -21,8 +23,8 @@
                         <SemanticZoom.ZoomedInView>
                             <ListView x:Name="TrainList"
                                       ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                                  ItemTemplate="{StaticResource ScheduleTemplate}"
-                                  Tapped="TrainList_Tapped">
+                                      ItemTemplate="{StaticResource ScheduleTemplate}"
+                                      Tapped="TrainList_Tapped">
                                 <ListView.GroupStyle>
                                     <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
                                                 HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
@@ -39,7 +41,7 @@
                     </SemanticZoom>
                     <Button x:Name="CommandButton"
                             Visibility="Collapsed"
-                            Command="{Binding SelectTrainCommand}"/>
+                            Command="{Binding SelectTrainCommand}" />
                 </Grid>
             </PivotItem>
         </Pivot>

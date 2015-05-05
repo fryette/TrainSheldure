@@ -1,6 +1,7 @@
 ﻿using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
+using System.Collections.Generic;
 
 namespace Trains.Core.Services
 {
@@ -26,6 +27,7 @@ namespace Trains.Core.Services
         {
             if (Exists(fileName))
                 _fileStore.DeleteFile(fileName);
+
         }
 
         public T Desserialize<T>(string filename) where T : class
@@ -33,6 +35,12 @@ namespace Trains.Core.Services
             string textJson;
             _fileStore.TryReadTextFile(filename, out textJson);
             return textJson == null ? null : JsonConvert.DeserializeObject<T>(textJson);
+        }
+
+        public void ClearAll()
+        {
+            foreach (var file in new List<string>(_fileStore.GetFilesIn("")))
+                Delete(file);
         }
     }
 }
