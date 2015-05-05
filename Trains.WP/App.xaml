@@ -18,7 +18,6 @@
             <converter:EnumToImagePathConverter x:Key="EnumToImageConverter" />
             <converter:BooleanToBackgroundConverter x:Key="BooleanToBackgroundConverter" />
             <converter:IsPlaceToVisibilityConverter x:Key="IsPlaceToVisibilityConverter" />
-            <converter:IsPlaceToColorConverter x:Key="IsPlaceToColorConverter" />
             <converter:CarriageToImageConverter x:Key="CarriageToImageConverter" />
             <converter:AboutEnumToImageConverter x:Key="AboutEnumToImageConverter" />
             <converter:SelectionChangedConverter x:Key="SelectionChangedConverter" />
@@ -28,6 +27,7 @@
             <converter:BackgroundLastRouteToImageConverter x:Key="BackgroundLastRouteToImageConverter" />
             <converter:BackgroundRoutesToImageConverter x:Key="BackgroundRoutesToImageConverter" />
             <converter:BooleanInverter x:Key="BooleanInverter" />
+            <converter:IsPlaceToOpacityConverter x:Key="IsPlaceToOpacityConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>
@@ -37,7 +37,8 @@
             <x:Double x:Key="MediumFontSize">20</x:Double>
             <x:Double x:Key="MainFontSize">24</x:Double>
             <x:Double x:Key="HeaderFontSize">40</x:Double>
-            <x:Double x:Key="TileWidth">70</x:Double>
+            <x:Double x:Key="TitleFontSize">30</x:Double>
+            <x:Double x:Key="TileWidth">60</x:Double>
             <x:Double x:Key="ScheduleFontSize">22</x:Double>
             <x:String x:Key="DefaultFontFamily">Segoe WP</x:String>
             <SolidColorBrush x:Key="DarkRedColorBrush">DarkRed</SolidColorBrush>
@@ -270,7 +271,7 @@
 
             <DataTemplate x:Key="ScheduleTemplate">
                 <Grid Margin="0,0,24,10"
-                      Height="Auto">
+                      Opacity="{Binding IsPlace, Converter={StaticResource IsPlaceToOpacityConverter}}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="15" />
                         <ColumnDefinition Width="*" />
@@ -288,7 +289,8 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0">
+                            <StackPanel Grid.Column="0"
+                                        Margin="5,0">
                                 <TextBlock Text="{Binding StartTime}"
                                            FontSize="{StaticResource BigFontSize}" />
                                 <TextBlock Text="{Binding EndTime}"
@@ -306,10 +308,10 @@
                                            FontSize="{StaticResource ScheduleFontSize}"
                                            Margin="0,1.5,0,0" />
                                 <TextBlock Text="{Binding IsPlace}"
-                                           Foreground="{Binding IsPlace, Converter={StaticResource IsPlaceToColorConverter}}"
+                                           Foreground="Red"
                                            Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}, ConverterParameter=reverse}"
                                            HorizontalAlignment="Left"
-                                           FontSize="{StaticResource BigFontSize}" />
+                                           FontSize="{StaticResource MediumFontSize}" />
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Left"
                                             Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}"
@@ -465,15 +467,15 @@
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,0,5"
                             Background="{ThemeResource PhoneAccentBrush}">
-                    <Image Width="60"
+                    <Image Width="{StaticResource TileWidth}"
                            Source="{Binding Item,Converter={StaticResource AboutEnumToImageConverter}}" />
                     <Border Background="{StaticResource BackgroundColorBrush}"
                             Width="5"
                             Height="{StaticResource TileWidth}" />
                     <TextBlock Text="{Binding Text}"
-                               Style="{StaticResource MainAboutTextBlockStyle}" 
+                               Style="{StaticResource MainAboutTextBlockStyle}"
                                FontWeight="Normal"
-                               Margin="10,0,0,0"/>
+                               Margin="10,0,0,0" />
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="ShareTemplate">

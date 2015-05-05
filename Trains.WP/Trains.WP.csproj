@@ -109,7 +109,7 @@
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\CarriageToImageConverter.cs" />
     <Compile Include="Converter\EnumToImagePathConverter.cs" />
-    <Compile Include="Converter\IsPlaceToColorConverter.cs" />
+    <Compile Include="Converter\IsPlaceToOpacityConverter.cs" />
     <Compile Include="Converter\IsPlaceToVisibilityConverter.cs" />
     <Compile Include="Converter\ListViewConverter.cs" />
     <Compile Include="Converter\SelectionChangedConverter.cs" />

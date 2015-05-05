@@ -11,40 +11,43 @@
                       RequestedTheme="Dark"
                       d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
-    <Grid Margin="5,0,0,0">
+    <Grid Margin="24,0,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
         <appPromo:RateReminder RunsBeforeReminder="10" />
-        <Pivot>
-            <PivotItem Header="{Binding Request}"
-                       Margin="19,23,0,-0.667">
-                <Grid>
-                    <SemanticZoom x:Name="Root"
-                                  Template="{StaticResource SemantickZoom}"
-                                  DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
-                        <SemanticZoom.ZoomedInView>
-                            <ListView x:Name="TrainList"
-                                      ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                                      ItemTemplate="{StaticResource ScheduleTemplate}"
-                                      Tapped="TrainList_Tapped">
-                                <ListView.GroupStyle>
-                                    <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
-                                                HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
-                                                HidesIfEmpty="True" />
-                                </ListView.GroupStyle>
-                            </ListView>
-                        </SemanticZoom.ZoomedInView>
-                        <SemanticZoom.ZoomedOutView>
-                            <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
-                                      ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
-                                      Style="{StaticResource GenericJumpListPickerStyle}">
-                            </ListView>
-                        </SemanticZoom.ZoomedOutView>
-                    </SemanticZoom>
-                    <Button x:Name="CommandButton"
-                            Visibility="Collapsed"
-                            Command="{Binding SelectTrainCommand}" />
-                </Grid>
-            </PivotItem>
-        </Pivot>
+        <TextBlock Grid.Row="0"
+                   Text="{Binding Request}"
+                   FontSize="{StaticResource TitleFontSize}"
+                   HorizontalAlignment="Left" />
+        <Grid Row="1">
+            <SemanticZoom x:Name="Root"
+                          Template="{StaticResource SemantickZoom}"
+                          DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
+                <SemanticZoom.ZoomedInView>
+                    <ListView x:Name="TrainList"
+                              ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
+                              ItemTemplate="{StaticResource ScheduleTemplate}"
+                              Tapped="TrainList_Tapped">
+                        <ListView.GroupStyle>
+                            <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
+                                        HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
+                                        HidesIfEmpty="True" />
+                        </ListView.GroupStyle>
+                    </ListView>
+                </SemanticZoom.ZoomedInView>
+                <SemanticZoom.ZoomedOutView>
+                    <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
+                              ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
+                              Style="{StaticResource GenericJumpListPickerStyle}">
+                    </ListView>
+                </SemanticZoom.ZoomedOutView>
+            </SemanticZoom>
+            <Button x:Name="CommandButton"
+                    Visibility="Collapsed"
+                    Command="{Binding SelectTrainCommand}" />
+        </Grid>
         <Button Visibility="Collapsed"
                 x:Name="CommandClick"
                 Command="{Binding SelectTrainCommand}"
