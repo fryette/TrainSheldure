@@ -139,6 +139,18 @@ namespace Trains.Core.ViewModels
             }
         }
 
+        public string LastUpdateTime
+        {
+            get
+            {
+                if (_appSettings.UpdatedLastRequest == null) return null;
+                var date = (DateTimeOffset.Now - _appSettings.UpdatedLastRequest.Date);
+                return ResourceLoader.Instance.Resource["Updated"] + (date.TotalMinutes > 1 ? (date.Hours > 1 ? (date.Hours + ResourceLoader.Instance.Resource["Hour"]) :
+                    (date.Minutes + ResourceLoader.Instance.Resource["Min"])) + ResourceLoader.Instance.Resource["Ago"]
+                    : ResourceLoader.Instance.Resource["JustNow"]);
+            }
+        }
+
         /// <summary>
         /// Used to set code behind variant of search.
         /// </summary> 
@@ -358,6 +370,33 @@ namespace Trains.Core.ViewModels
         }
 
         /// <summary>
+        /// Update last route
+        /// </summary>
+        private async void UpdateLastRequest()
+        {
+            if (IsTaskRun) return;
+            if (_appSettings.UpdatedLastRequest == null) return;
+            IsTaskRun = true;
+
+            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.From),
+                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To),
+                _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
+
+            if (trains == null)
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
+            else
+            {
+                _appSettings.UpdatedLastRequest.Date = DateTimeOffset.Now;
+                _serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
+                RaisePropertyChanged(() => LastUpdateTime);
+                Trains = trains;
+                _serializable.Serialize(Trains, Constants.LastTrainList);
+            }
+
+            IsTaskRun = false;
+        }
+
+        /// <summary>
         /// Invoked when the user selects his train of interest.
         /// </summary>
         /// <param name="train">Data that describes user-selected train(prices,seats,stop points,and other)</param>
@@ -392,30 +431,6 @@ namespace Trains.Core.ViewModels
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["EditFavoriteMessageError"]);
             else
                 ShowViewModel<EditFavoriteRoutesViewModel>();
-        }
-
-        /// <summary>
-        /// Update last route
-        /// </summary>
-        private async void UpdateLastRequest()
-        {
-            if (IsTaskRun) return;
-            if (_appSettings.UpdatedLastRequest == null) return;
-            IsTaskRun = true;
-
-            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.From),
-                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To),
-                _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
-
-            if (trains == null)
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
-            else
-            {
-                Trains = trains;
-                _serializable.Serialize(Trains, Constants.LastTrainList);
-            }
-
-            IsTaskRun = false;
         }
 
         private void ClickAboutItem(About selectedAboutItem)
@@ -462,13 +477,7 @@ namespace Trains.Core.ViewModels
                 _appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
                 _appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
                 _appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
-
-                var patterns = _serializable.Desserialize<Patterns>(Constants.Patterns);
-
-                _patterns.AdditionParameterPattern = patterns.AdditionParameterPattern;
-                _patterns.PlacesAndPricesPattern = patterns.PlacesAndPricesPattern;
-                _patterns.TrainPointPAttern = patterns.TrainPointPAttern;
-                _patterns.TrainsPattern = patterns.TrainsPattern;
+                SetPatterns();
             }
 
             VariantOfSearch = new List<string>
@@ -527,7 +536,17 @@ namespace Trains.Core.ViewModels
             _serializable.Serialize(_appSettings, Constants.AppSettings);
             _serializable.Serialize(_appSettings.Language, Constants.AppLanguage);
             _serializable.Serialize(_appSettings.Language, Constants.CurrentLanguage);
+            SetPatterns();
+        }
 
+        private void SetPatterns()
+        {
+            var patterns = _serializable.Desserialize<Patterns>(Constants.Patterns);
+
+            _patterns.AdditionParameterPattern = patterns.AdditionParameterPattern;
+            _patterns.PlacesAndPricesPattern = patterns.PlacesAndPricesPattern;
+            _patterns.TrainPointPAttern = patterns.TrainPointPAttern;
+            _patterns.TrainsPattern = patterns.TrainsPattern;
         }
 
         private void DeleteSaveSettings()

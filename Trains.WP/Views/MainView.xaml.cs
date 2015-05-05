@@ -1,4 +1,5 @@
-﻿using Windows.ApplicationModel.Core;
+﻿using Trains.Core.ViewModels;
+using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -29,6 +30,9 @@ namespace Trains.WP.Views
                 SetAppBarVisibility(true);
             else
                 SetAppBarVisibility();
+            ((MainViewModel)ViewModel).RaisePropertyChanged("LastUpdateTime");
+
+            
         }
 
         private void SetAppBarVisibility(bool updateAppBar = false, bool managedAppBar = false, bool swapAppBar = false)

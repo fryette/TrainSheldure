@@ -80,14 +80,20 @@
                        Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter={Binding Trains}}">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0"
-                               Text="{Binding LastRoute}"
-                               Style="{StaticResource BasedTextBlockStyle}"
-                               FontSize="{StaticResource MainFontSize}"
-                               HorizontalAlignment="Center" />
+                    <StackPanel>
+                        <TextBlock Grid.Row="0"
+                                   Text="{Binding LastRoute}"
+                                   Style="{StaticResource BasedTextBlockStyle}"
+                                   FontSize="{StaticResource MainFontSize}" />
+                        <TextBlock Grid.Row="0"
+                                   Text="{Binding LastUpdateTime}"
+                                   Style="{StaticResource BasedTextBlockStyle}"
+                                   FontSize="{StaticResource SmallFontSize}"
+                                   VerticalAlignment="Bottom"/>
+                    </StackPanel>
                     <SemanticZoom Grid.Row="1"
                                   x:Name="Root"
                                   Template="{StaticResource SemantickZoom}"
@@ -184,7 +190,7 @@
             <AppBarButton Label="{Binding HelpAppBar}"
                           Icon="Help"
                           Command="{Binding GoToHelpCommand}"
-                          IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}"/>
+                          IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>
