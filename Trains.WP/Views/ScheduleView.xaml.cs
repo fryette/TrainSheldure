@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Input;
+﻿using Trains.Core.ViewModels;
+using Windows.UI.Xaml.Input;
 
 namespace Trains.WP.Views
 {
@@ -15,6 +16,7 @@ namespace Trains.WP.Views
 
         private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)
         {
+            if (((ScheduleViewModel)ViewModel).IsSearchStart) return;
             CommandClick.Command.Execute(TrainList.SelectedItem);
         }
 

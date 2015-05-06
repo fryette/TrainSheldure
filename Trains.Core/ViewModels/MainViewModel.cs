@@ -567,7 +567,6 @@ namespace Trains.Core.ViewModels
             ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
             HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
             RaiseAllPropertiesChanged();
-
         }
 
         #endregion

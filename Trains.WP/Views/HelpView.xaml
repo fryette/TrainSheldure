@@ -38,9 +38,17 @@
                     </interactivity:Interaction.Behaviors>
                 </ListView>
             </PivotItem>
-            <PivotItem Header="">
-                <ListView ItemsSource="{Binding CarriageInformation}" />
-
+            <PivotItem Header="{Binding Other}">
+                <ListView ItemsSource="{Binding PlaceInformation}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}"
+                                       FontSize="{StaticResource NormalFontSize}"
+                                       Margin="0,0,0,10"
+                                       TextWrapping="WrapWholeWords" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
             </PivotItem>
         </Pivot>
     </Grid>

@@ -9,10 +9,30 @@
                       RequestedTheme="Dark"
                       d:DataContext="{d:DesignData AboutViewModel}">
     <Grid>
+        <Grid.Resources>
+            <Storyboard x:Name="MyStoryboard">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                               AutoReverse="True"
+                                               RepeatBehavior="forever"
+                                               Storyboard.TargetName="MainImage">
+                    <EasingDoubleKeyFrame KeyTime="0"
+                                          Value="100" />
+                    <EasingDoubleKeyFrame KeyTime="0:0:12"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
         <Pivot Title="{Binding ApplicationName}">
             <PivotItem Header="{Binding AboutUs}">
                 <Grid>
-                    <StackPanel Margin="10,10,0,0">
+                    <StackPanel>
+                        <GridView Margin="0">
+                            <Grid>
+                                <Image x:Name="MainImage"
+                                       Source="/Assets/MenuIcon/result.jpg"
+                                       Style="{StaticResource MainButtonImageStyle}" />
+                            </Grid>
+                        </GridView>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock x:Uid="Version"
                                        Style="{StaticResource AboutAppStyle}"
@@ -26,13 +46,13 @@
                                    Style="{StaticResource AboutAppStyle}" />
                         <TextBlock Text="MvvmCross, Newtonsoft.Json, AppPromo"
                                    Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="Отдельное спасибо:"
+                        <TextBlock Text="{Binding SpecialThank}"
                                    Style="{StaticResource AboutAppStyle}"
                                    Foreground="White"
                                    FontSize="24" />
-                        <TextBlock Text="Пелешенко Александр(логотип)"
+                        <TextBlock Text="{Binding FirstDesigner}"
                                    Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="Рачковская Полина(заставки)"
+                        <TextBlock Text="{Binding SecondDesigner}"
                                    Style="{StaticResource AboutAppStyle}" />
                         <HyperlinkButton Content="chygunka.by"
                                          NavigateUri="http://chygunka.by" />

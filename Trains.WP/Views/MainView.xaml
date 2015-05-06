@@ -11,19 +11,6 @@
                       RequestedTheme="Dark"
                       d:DataContext="{d:DesignData MainViewModel}">
     <Grid>
-        <Grid.Resources>
-            <Storyboard x:Name="MyStoryboard">
-                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
-                                               AutoReverse="True"
-                                               RepeatBehavior="forever"
-                                               Storyboard.TargetName="MainImage">
-                    <EasingDoubleKeyFrame KeyTime="0"
-                                          Value="100" />
-                    <EasingDoubleKeyFrame KeyTime="0:0:12"
-                                          Value="0" />
-                </DoubleAnimationUsingKeyFrames>
-            </Storyboard>
-        </Grid.Resources>
         <Pivot x:Name="MainPivot"
                IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}"
                Title="{Binding ApplicationName}"
@@ -35,14 +22,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <GridView Grid.Row="1"
-                              Margin="0,10,0,-10">
-                        <Grid>
-                            <Image x:Name="MainImage"
-                                   Source="/Assets/MenuIcon/result.jpg"
-                                   Style="{StaticResource MainButtonImageStyle}" />
-                        </Grid>
-                    </GridView>
                     <StackPanel Grid.Row="0"
                                 Background="{StaticResource GrayColorBrush}">
                         <TextBlock Text="{Binding FastSearchTextBlock}"

@@ -201,7 +201,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Height"
-                        Value="150" />
+                        Value="100" />
                 <Setter Property="Stretch"
                         Value="Fill" />
             </Style>
@@ -222,8 +222,6 @@
                    TargetType="TextBlock">
                 <Setter Property="FontSize"
                         Value="{StaticResource MediumFontSize}" />
-                <Setter Property="Margin"
-                        Value="0,10,0,0" />
                 <Setter Property="TextWrapping"
                         Value="Wrap" />
                 <Setter Property="Foreground"

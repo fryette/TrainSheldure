@@ -8,6 +8,7 @@
         public AboutView()
         {
             InitializeComponent();
+            MyStoryboard.Begin();
         }
     }
 }

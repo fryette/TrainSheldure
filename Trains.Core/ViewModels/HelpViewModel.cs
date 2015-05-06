@@ -37,6 +37,7 @@ namespace Trains.Core.ViewModels
 
         public string Carriage { get; set; }
         public string Trains { get; set; }
+        public string Other { get; set; }
 
         #endregion
         /// <summary>
@@ -64,6 +65,7 @@ namespace Trains.Core.ViewModels
             }
         }
 
+        public List<PlaceInformation> PlaceInformation { get; set; }
         //public List<string> PlaceInformation
         //{
         //    get { return new List<string>{} }
@@ -81,6 +83,7 @@ namespace Trains.Core.ViewModels
             RestoreUIBindings();
             HelpInformation = _appSettings.HelpInformation;
             CarriageInformation = _appSettings.CarriageModel;
+            PlaceInformation = _appSettings.PlaceInformation;
         }
 
         private void SelectCarriage(CarriageModel selectedCarriageModel)
@@ -91,6 +94,7 @@ namespace Trains.Core.ViewModels
 
         private void RestoreUIBindings()
         {
+            Other = ResourceLoader.Instance.Resource["Other"];
             Carriage = ResourceLoader.Instance.Resource["Carriage"];
             Trains = ResourceLoader.Instance.Resource["Trains"];
         }

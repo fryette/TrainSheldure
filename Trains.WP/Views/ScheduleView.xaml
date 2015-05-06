@@ -25,14 +25,15 @@
                        Margin="0,24,0,0" />
             <Grid Row="1">
                 <SemanticZoom x:Name="Root"
-                              IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}"
                               Template="{StaticResource SemantickZoom}"
                               DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
                     <SemanticZoom.ZoomedInView>
                         <ListView x:Name="TrainList"
+                                  
                                   ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
                                   ItemTemplate="{StaticResource ScheduleTemplate}"
-                                  Tapped="TrainList_Tapped">
+                                  Tapped="TrainList_Tapped"
+                                  >
                             <ListView.GroupStyle>
                                 <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
                                             HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
@@ -42,7 +43,6 @@
                     </SemanticZoom.ZoomedInView>
                     <SemanticZoom.ZoomedOutView>
                         <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
-                                  IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}"
                                   ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
                                   Style="{StaticResource GenericJumpListPickerStyle}">
                         </ListView>
