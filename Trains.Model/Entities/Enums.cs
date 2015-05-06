@@ -8,7 +8,7 @@
         RegionalBusiness = 3,
         RegionalEconom = 4,
         City = 5,
-        Foreign = 6
+        Foreign = 6,
     }
 
     public enum Carriage

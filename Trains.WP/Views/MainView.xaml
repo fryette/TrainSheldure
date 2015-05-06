@@ -187,10 +187,13 @@
                           Label="{Binding ManageAppBar}"
                           Icon="Repair"
                           Command="{Binding GoToEditFavoriteCommand}" />
-            <AppBarButton Label="{Binding HelpAppBar}"
-                          Icon="Help"
-                          Command="{Binding GoToHelpCommand}"
-                          IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
+            <CommandBar.SecondaryCommands>
+                <AppBarButton Label="{Binding HelpAppBar}"
+                              Icon="Help"
+                              Command="{Binding GoToHelpCommand}"
+                              IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
+            </CommandBar.SecondaryCommands>
         </CommandBar>
+
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

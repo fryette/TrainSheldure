@@ -19,6 +19,7 @@
         public const string CurrentLanguage = "CurrentLanguage";
         public const string AppLanguage = "AppLanguage";
 
+        public const string PlaceInformationJson = "PlaceInformation.json";
         public const string SocialJson = "SocialUri.json";
         public const string PatternsJson = "Patterns.json";
         public const string StopPointsJson = "StopPoints.json";

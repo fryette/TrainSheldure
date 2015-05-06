@@ -11,53 +11,56 @@
                       RequestedTheme="Dark"
                       d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
-    <Grid Margin="24,0,0,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <appPromo:RateReminder RunsBeforeReminder="10" />
-        <TextBlock Grid.Row="0"
-                   Text="{Binding Request}"
-                   FontSize="{StaticResource TitleFontSize}"
-                   HorizontalAlignment="Left"
-                   Margin="0,24,0,0" />
-        <Grid Row="1">
-            <SemanticZoom x:Name="Root"
-                          IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}"
-                          Template="{StaticResource SemantickZoom}"
-                          DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
-                <SemanticZoom.ZoomedInView>
-                    <ListView x:Name="TrainList"
-                              ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                              ItemTemplate="{StaticResource ScheduleTemplate}"
-                              Tapped="TrainList_Tapped">
-                        <ListView.GroupStyle>
-                            <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
-                                        HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
-                                        HidesIfEmpty="True" />
-                        </ListView.GroupStyle>
-                    </ListView>
-                </SemanticZoom.ZoomedInView>
-                <SemanticZoom.ZoomedOutView>
-                    <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
-                              ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
-                              Style="{StaticResource GenericJumpListPickerStyle}">
-                    </ListView>
-                </SemanticZoom.ZoomedOutView>
-            </SemanticZoom>
-            <Button x:Name="CommandButton"
-                    Visibility="Collapsed"
-                    Command="{Binding SelectTrainCommand}" />
-        </Grid>
-        <Button Visibility="Collapsed"
-                x:Name="CommandClick"
-                Command="{Binding SelectTrainCommand}"
-                CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
-        <Grid Visibility="{Binding IsSearchStart,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="{Binding Update}" />
-            <ProgressBar IsIndeterminate="True"
-                         VerticalAlignment="Top" />
+    <Grid Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=reverse}">
+        <Grid Margin="24,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <appPromo:RateReminder RunsBeforeReminder="10" />
+            <TextBlock Grid.Row="0"
+                       Text="{Binding Request}"
+                       FontSize="{StaticResource TitleFontSize}"
+                       HorizontalAlignment="Left"
+                       Margin="0,24,0,0" />
+            <Grid Row="1">
+                <SemanticZoom x:Name="Root"
+                              IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}"
+                              Template="{StaticResource SemantickZoom}"
+                              DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
+                    <SemanticZoom.ZoomedInView>
+                        <ListView x:Name="TrainList"
+                                  ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
+                                  ItemTemplate="{StaticResource ScheduleTemplate}"
+                                  Tapped="TrainList_Tapped">
+                            <ListView.GroupStyle>
+                                <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
+                                            HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
+                                            HidesIfEmpty="True" />
+                            </ListView.GroupStyle>
+                        </ListView>
+                    </SemanticZoom.ZoomedInView>
+                    <SemanticZoom.ZoomedOutView>
+                        <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
+                                  IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}"
+                                  ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
+                                  Style="{StaticResource GenericJumpListPickerStyle}">
+                        </ListView>
+                    </SemanticZoom.ZoomedOutView>
+                </SemanticZoom>
+                <Button x:Name="CommandButton"
+                        Visibility="Collapsed"
+                        Command="{Binding SelectTrainCommand}" />
+            </Grid>
+            <Button Visibility="Collapsed"
+                    x:Name="CommandClick"
+                    Command="{Binding SelectTrainCommand}"
+                    CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
+            <Grid Visibility="{Binding IsSearchStart,Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock Text="{Binding Update}" />
+                <ProgressBar IsIndeterminate="True"
+                             VerticalAlignment="Top" />
+            </Grid>
         </Grid>
     </Grid>
     <Page.BottomAppBar>

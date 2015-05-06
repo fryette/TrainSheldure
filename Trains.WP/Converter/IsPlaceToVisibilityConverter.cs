@@ -8,10 +8,9 @@ namespace Trains.WP.Converter
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (value == null) return Visibility.Collapsed;
             if (parameter != null) return ((string)value).Contains(":") ? Visibility.Collapsed : Visibility.Visible;
-            if (value != null)
-                return ((string)value).Contains(":") ? Visibility.Visible : Visibility.Collapsed;
-            return Visibility.Collapsed;
+            return ((string)value).Contains(":") ? Visibility.Visible : Visibility.Collapsed;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

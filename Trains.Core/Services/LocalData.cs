@@ -17,13 +17,13 @@ namespace Trains.Core.Services
 
         public async Task<T> GetLanguageData<T>(string jsonText) where T : class
         {
-            var text = (await new BaseHttpService().LoadResponseAsync(new Uri(Constants.LanguagesUri + _appSettings.Language.Id + '/' + jsonText)));
+            var text = (await new BaseHttpService().LoadResponseAsync(new Uri(Constants.LanguagesUri + _appSettings.Language.Id + '/' + jsonText + "?badHeader=" + new Random().Next(0, 1000))));
             return JsonConvert.DeserializeObject<T>(text);
         }
 
         public async Task<T> GetOtherData<T>(string jsonText)
         {
-            var text = (await new BaseHttpService().LoadResponseAsync(new Uri(Constants.PatternsUri + '/' + jsonText)));
+            var text = (await new BaseHttpService().LoadResponseAsync(new Uri(Constants.PatternsUri + '/' + jsonText + "?badHeader=" + new Random().Next(0, 1000))));
             return JsonConvert.DeserializeObject<T>(text);
         }
     }

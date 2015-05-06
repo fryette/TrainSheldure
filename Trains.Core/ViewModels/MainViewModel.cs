@@ -322,7 +322,7 @@ namespace Trains.Core.ViewModels
         public async void Init()
         {
             IsDownloadRun = true;
-            await RestoreData();
+            if (!await RestoreData()) return;
             RestoreUIBinding();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
@@ -445,7 +445,7 @@ namespace Trains.Core.ViewModels
             To = tmp;
         }
 
-        private async Task RestoreData()
+        private async Task<bool> RestoreData()
         {
             await CheckStart();
             if (_appSettings.AutoCompletion == null)
@@ -453,18 +453,22 @@ namespace Trains.Core.ViewModels
 
                 var appSettings = _serializable.Desserialize<AppSettings>(Constants.AppSettings);
 
+                if (appSettings == null) return false;
+
                 _appSettings.AutoCompletion = appSettings.AutoCompletion;
                 _appSettings.About = appSettings.About;
                 _appSettings.HelpInformation = appSettings.HelpInformation;
                 _appSettings.CarriageModel = appSettings.CarriageModel;
                 _appSettings.SocialUri = appSettings.SocialUri;
                 _appSettings.Language = appSettings.Language;
-
+                _appSettings.PlaceInformation = appSettings.PlaceInformation;
 
                 _appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
                 _appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
                 _appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
                 SetPatterns();
+
+
             }
 
             VariantOfSearch = new List<string>
@@ -475,6 +479,7 @@ namespace Trains.Core.ViewModels
                     ResourceLoader.Instance.Resource["OnAllDays"],
                     ResourceLoader.Instance.Resource["OnDay"]
                 };
+            return true;
         }
 
         private async Task CheckStart()
@@ -517,6 +522,7 @@ namespace Trains.Core.ViewModels
             _appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Constants.CarriageModelJson);
             _appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
             _appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Constants.SocialJson);
+            _appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Constants.PlaceInformationJson);
 
             _serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
             _serializable.Serialize(await _local.GetOtherData<Patterns>(Constants.PatternsJson), Constants.Patterns);

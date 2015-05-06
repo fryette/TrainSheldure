@@ -60,6 +60,9 @@ namespace Trains.Core.ViewModels
 
         #endregion
 
+
+        private string _from { get; set; }
+        private string _to { get; set; }
         /// <summary>
         /// Used to display favorite icon.
         /// </summary> 
@@ -145,6 +148,7 @@ namespace Trains.Core.ViewModels
         #endregion
 
         #region action
+
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// Set the default parameter of some properties.
@@ -153,22 +157,30 @@ namespace Trains.Core.ViewModels
         {
             RestoreUIBinding();
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
-            Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
+            _from = _appSettings.UpdatedLastRequest.From;
+            _to = _appSettings.UpdatedLastRequest.To;
+            Request = _from + " - " + _to;
             SetManageFavoriteButton();
         }
 
         private async void SearchReverseRoute()
         {
             IsSearchStart = true;
-            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To),
-                            _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.From),
+            Trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _to),
+                            _appSettings.AutoCompletion.First(x => x.UniqueId == _from),
                             _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
-            if (trains != null)
-            {
-                Trains = trains;
-                Request = _appSettings.UpdatedLastRequest.To + " - " + _appSettings.UpdatedLastRequest.From;
-            }
+            SwapStopPoint();
+            Request = _from + " - " + _to;
+            SetManageFavoriteButton();
+
             IsSearchStart = false;
+        }
+
+        private void SwapStopPoint()
+        {
+            var temp = _from;
+            _from = _to; ;
+            _to = temp;
         }
 
         /// <summary>
@@ -193,7 +205,7 @@ namespace Trains.Core.ViewModels
         private void SetManageFavoriteButton()
         {
             if (_appSettings.FavoriteRequests == null) SetVisibilityToFavoriteIcons(true, false);
-            else if (_appSettings.FavoriteRequests.Any(x => x.From == _appSettings.UpdatedLastRequest.From && x.To == _appSettings.UpdatedLastRequest.To))
+            else if (_appSettings.FavoriteRequests.Any(x => x.From == _from && x.To == _to))
                 SetVisibilityToFavoriteIcons(false, true);
             else SetVisibilityToFavoriteIcons(true, false);
         }
@@ -203,7 +215,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void AddToFavorite()
         {
-            if (_manageFavoriteRequest.AddToFavorite(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
+            if (_manageFavoriteRequest.AddToFavorite(_from, _to))
             {
                 SetVisibilityToFavoriteIcons(false, true);
                 _analytics.SentEvent(Constants.AddToFavorite);
@@ -216,7 +228,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void DeleteInFavorite()
         {
-            if (_manageFavoriteRequest.DeleteRoute(_appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To))
+            if (_manageFavoriteRequest.DeleteRoute(_from, _to))
                 SetVisibilityToFavoriteIcons(true, false);
         }
 

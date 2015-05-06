@@ -27,9 +27,25 @@ namespace Trains.WP.Converter
                 {"be",new Uri(@"ms-appx:///Assets/backgrounds/Marshrutau_Ne.png")},
                 {"en",new Uri(@"ms-appx:///Assets/backgrounds/No_favorites.png")},
             };
+        static readonly Dictionary<string, Uri> ReverseBacground = new Dictionary<string, Uri>()
+            {
+                {"ru",new Uri(@"ms-appx:///Assets/backgrounds/Obratnyy.png")},
+                {"be",new Uri(@"ms-appx:///Assets/backgrounds/Zvarotny.png")},
+                {"en",new Uri(@"ms-appx:///Assets/backgrounds/Back.png")},
+            };
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if ((string)parameter == "reverse")
+                if (value == null)
+                    return new ImageBrush
+                    {
+                        ImageSource = new BitmapImage
+                        {
+                            UriSource = ReverseBacground[Mvx.Resolve<IAppSettings>().Language.Id]
+                        },
+                        Stretch = Stretch.UniformToFill
+                    };
             return new ImageBrush
             {
                 ImageSource = parameter == null ? (value != null ? null : new BitmapImage() { UriSource = LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id] }) :

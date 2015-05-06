@@ -32,7 +32,7 @@ namespace Trains.WP.Converter
             Colors.Yellow,
             Colors.DarkGreen,
             Colors.Green,
-            Colors.DarkBlue,
+            Colors.RoyalBlue,
             Colors.Blue,
             Colors.Red,
             Colors.WhiteSmoke

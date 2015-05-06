@@ -13,6 +13,7 @@ namespace Trains.WP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (value == null) return 1;
             return ((string)value).Contains(':') ? 1 : 0.5;
         }
 

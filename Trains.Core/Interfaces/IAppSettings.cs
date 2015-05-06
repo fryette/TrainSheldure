@@ -26,5 +26,7 @@ namespace Trains.Core.Interfaces
         SocialUri SocialUri { get; set; }
 
         Language Language { get; set; }
+
+        List<PlaceInformation> PlaceInformation { get; set; }
     }
 }
