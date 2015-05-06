@@ -52,6 +52,7 @@ namespace Trains.Core.ViewModels
 
         #region UIproperties
 
+        public string ReverseAppBar { get; set; }
         public string SaveAppBar { get; set; }
         public string DeleteAppBar { get; set; }
         public string HelpAppBar { get; set; }
@@ -230,6 +231,7 @@ namespace Trains.Core.ViewModels
 
         private void RestoreUIBinding()
         {
+            ReverseAppBar = ResourceLoader.Instance.Resource["ReverseAppBar"];
             Update = ResourceLoader.Instance.Resource["Update"];
             SaveAppBar = ResourceLoader.Instance.Resource["SaveAppBar"];
             DeleteAppBar = ResourceLoader.Instance.Resource["DeleteAppBar"];

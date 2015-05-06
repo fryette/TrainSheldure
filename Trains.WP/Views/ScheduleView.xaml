@@ -62,6 +62,9 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}">
+            <AppBarButton Label="{Binding ReverseAppBar}"
+                          Icon="Sort"
+                          Command="{Binding SearchReverseRouteCommand}" />
             <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           Label="{Binding SaveAppBar}"
                           Icon="Favorite"
@@ -70,9 +73,6 @@
                           Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           Icon="Unfavorite"
                           Command="{Binding DeleteInFavoriteCommand}" />
-            <AppBarButton Label="обратно"
-                          Icon="Sort"
-                          Command="{Binding SearchReverseRouteCommand}" />
             <AppBarButton Label="{Binding HelpAppBar}"
                           Icon="Help"
                           Command="{Binding GoToHelpPageCommand}" />
