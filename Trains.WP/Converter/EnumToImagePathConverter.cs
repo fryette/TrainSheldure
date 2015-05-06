@@ -8,29 +8,20 @@ namespace Trains.WP.Converter
 {
     class EnumToImagePathConverter : IValueConverter
     {
-        //private static string[] Images = new string[]
-        //{
-        //    "/Assets/Inteneshnl.png",
-        //    "/Assets/Interregional_biznes.png",
-        //    "/Assets/Interregional_econom.png",
-        //    "/Assets/Regional_biznes.png",
-        //    "/Assets/Regional_econom.png",
-        //    "/Assets/Cityes.png",
-        //    "/Assets/Foreign.png"
-        //};
-
         private static readonly Color[] Images = {
             Colors.Yellow,
+            Colors.DarkGreen,
             Colors.Green,
-            Colors.Green,
-            Colors.CadetBlue,
-            Colors.CadetBlue,
-            Colors.MediumVioletRed
+            Colors.DarkBlue,
+            Colors.Blue,
+            Colors.Red,
+            Colors.WhiteSmoke
+
         };
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            return new SolidColorBrush(Images[(int)(Picture)value]);
+            return new SolidColorBrush(Images[(int)(TrainClass)value]);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

@@ -1,6 +1,6 @@
 ﻿namespace Trains.Model.Entities
 {
-    public enum Picture
+    public enum TrainClass
     {
         International = 0,
         InterRegionalBusiness = 1,

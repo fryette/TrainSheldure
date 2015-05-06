@@ -10,7 +10,7 @@ namespace Trains.Entities
         public string EndTime { get; set; }
         public string Description { get; set; }
         public string TrainNote { get; set; }
-        public Picture Image { get; set; }
+        public TrainClass Image { get; set; }
         public string Type { get; set; }
         public AdditionalInformation[] AdditionalInformation { get; set; }
         public string OnTheWay { get; set; }

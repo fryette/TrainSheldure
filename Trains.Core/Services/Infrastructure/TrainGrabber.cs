@@ -28,7 +28,7 @@ namespace Trains.Core.Services.Infrastructure
         public static List<Train> GetTrainsInformation(List<Match> parameters, string date, List<bool> isInternetRegistration)
         {
             var dateOfDeparture = DateTime.ParseExact(date, Constants.DateFormat, CultureInfo.InvariantCulture);
-            var imagePath = new List<Picture>(GetImagePath(parameters));
+            var imagePath = new List<TrainClass>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - imagePath.Count * 2;
 
@@ -52,7 +52,7 @@ namespace Trains.Core.Services.Infrastructure
 
         public static List<Train> GetTrainsInformationOnAllDays(List<Match> parameters)
         {
-            var imagePath = new List<Picture>(GetImagePath(parameters));
+            var imagePath = new List<TrainClass>(GetImagePath(parameters));
             var trainList = new List<Train>(parameters.Count / SearchCountParameter);
             var step = parameters.Count - imagePath.Count * 2;
             var dateNow = DateTime.Now.ToString(Constants.DateFormat) + ' ';
@@ -75,12 +75,12 @@ namespace Trains.Core.Services.Infrastructure
             for (var i = 0; i < parameters.Count; i += 4)
             {
                 trainList.Add(CreateTrain(date + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
-                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), Picture.Foreign));
+                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), TrainClass.Foreign));
             }
             return trainList;
         }
 
-        private static Train CreateTrain(string time1, string time2, string city, string description, Picture image, string type = null,
+        private static Train CreateTrain(string time1, string time2, string city, string description, TrainClass image, string type = null,
              string beforeDepartureTime = null, string departureDate = null, bool internetRegistration = false)
         {
             DateTime endTime;
@@ -103,21 +103,21 @@ namespace Trains.Core.Services.Infrastructure
             };
         }
 
-        public static List<Picture> GetImagePath(List<Match> match)
+        public static List<TrainClass> GetImagePath(List<Match> match)
         {
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
                 {
                     if (type.Contains(ResourceLoader.Instance.Resource["International"]))
-                        return Picture.International;
+                        return TrainClass.International;
                     if (type.Contains(ResourceLoader.Instance.Resource["Interregional"]))
                         return type.Contains(ResourceLoader.Instance.Resource["Business"])
-                            ? Picture.InterRegionalBusiness
-                            : Picture.InterRegionalEconom;
+                            ? TrainClass.InterRegionalBusiness
+                            : TrainClass.InterRegionalEconom;
                     if (type.Contains(ResourceLoader.Instance.Resource["Regional"]))
                         return type.Contains(ResourceLoader.Instance.Resource["Business"])
-                            ? Picture.RegionalBusiness : Picture.RegionalEconom;
-                    return Picture.City;
+                            ? TrainClass.RegionalBusiness : TrainClass.RegionalEconom;
+                    return TrainClass.City;
                 }).ToList();
         }
 
