@@ -70,12 +70,13 @@ namespace Trains.Core.Services.Infrastructure
 
         public static List<Train> GetTrainsInformationOnForeignStantion(IReadOnlyList<Match> parameters, string date)
         {
-            var trainList = new List<Train>(parameters.Count / 6);
+            var numberOfTrains = parameters.Count / 5;
+            var trainList = new List<Train>(numberOfTrains);
 
-            for (var i = 0; i < parameters.Count; i += 4)
+            for (var i = 0; i < parameters.Count - numberOfTrains; i += 4)
             {
                 trainList.Add(CreateTrain(date + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
-                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), TrainClass.Foreign));
+                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), TrainClass.Foreign, null, null, date));
             }
             return trainList;
         }
