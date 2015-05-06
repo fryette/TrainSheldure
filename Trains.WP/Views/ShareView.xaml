@@ -13,10 +13,10 @@
 
     <Grid Margin="10">
         <StackPanel HorizontalAlignment="Center">
-            <TextBlock Text="Социальные сети:"
+            <TextBlock Text="{Binding Header}"
                        FontSize="{StaticResource BigFontSize}" />
-            <TextBlock Text="Этим вы поддерживаете нас"
-                       FontSize="15"
+            <TextBlock Text="{Binding Title}"
+                       FontSize="{StaticResource SmallFontSize}"
                        HorizontalAlignment="Center" />
         </StackPanel>
         <GridView Margin="0,80,0,0"
