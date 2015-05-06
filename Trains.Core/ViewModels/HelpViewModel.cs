@@ -64,6 +64,11 @@ namespace Trains.Core.ViewModels
             }
         }
 
+        //public List<string> PlaceInformation
+        //{
+        //    get { return new List<string>{} }
+        //}
+
         #endregion
 
         #region action

@@ -14,16 +14,23 @@
     <Grid Margin="10">
         <StackPanel HorizontalAlignment="Center">
             <TextBlock Text="Социальные сети:"
-                       FontSize="{StaticResource BigFontSize}"
-                        />
-            <TextBlock Text="Этим вы поддерживаете нас" 
+                       FontSize="{StaticResource BigFontSize}" />
+            <TextBlock Text="Этим вы поддерживаете нас"
                        FontSize="15"
                        HorizontalAlignment="Center" />
         </StackPanel>
         <GridView Margin="0,80,0,0"
                   ItemsSource="{Binding ShareItems}"
-                  ItemTemplate="{StaticResource ShareTemplate}"
                   HorizontalAlignment="Center">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <HyperlinkButton NavigateUri="{Binding Converter={StaticResource ShareSocialToUriConverter}}">
+                        <Image Source="{Binding Converter={StaticResource EnumToImageConverter}, ConverterParameter=SocialPicture}"
+                               Width="100"
+                               Height="100" />
+                    </HyperlinkButton>
+                </DataTemplate>
+            </GridView.ItemTemplate>
         </GridView>
     </Grid>
 </views:MvxWindowsPage>

@@ -18,6 +18,7 @@
     <RestorePackages>true</RestorePackages>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -103,18 +104,15 @@
     <Compile Include="Bootstrap\SharePluginBootstrap.cs" />
     <Compile Include="Converter\AboutEnumToImageConverter.cs" />
     <Compile Include="Converter\BackgroundLastRouteToImageConverter.cs" />
-    <Compile Include="Converter\BackgroundRoutesToImageConverter.cs" />
     <Compile Include="Converter\BooleanInverter.cs" />
     <Compile Include="Converter\BooleanToBackgroundConverter.cs" />
     <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
-    <Compile Include="Converter\CarriageToImageConverter.cs" />
     <Compile Include="Converter\EnumToImagePathConverter.cs" />
     <Compile Include="Converter\IsPlaceToOpacityConverter.cs" />
     <Compile Include="Converter\IsPlaceToVisibilityConverter.cs" />
     <Compile Include="Converter\ListViewConverter.cs" />
     <Compile Include="Converter\SelectionChangedConverter.cs" />
     <Compile Include="Converter\ShareSocialToUriConverter.cs" />
-    <Compile Include="Converter\ShareSocialToImageConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="MvxShareTask.cs" />
     <Compile Include="Services\Analytics.cs" />

@@ -44,6 +44,7 @@
     <Compile Include="Entities\CarriageModel.cs" />
     <Compile Include="Entities\Enums.cs" />
     <Compile Include="Entities\PlaceClasses.cs" />
+    <Compile Include="Entities\PlaceInformation.cs" />
     <Compile Include="Entities\SocialUri.cs" />
     <Compile Include="Entities\Train.cs" />
     <Compile Include="Entities\TrainStop.cs" />

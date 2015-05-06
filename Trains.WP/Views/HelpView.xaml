@@ -39,6 +39,10 @@
                     </interactivity:Interaction.Behaviors>
                 </ListView>
             </PivotItem>
+            <PivotItem Header="">
+                <ListView ItemsSource="{Binding CarriageInformation}" />
+
+            </PivotItem>
         </Pivot>
     </Grid>
 </views:MvxWindowsPage>

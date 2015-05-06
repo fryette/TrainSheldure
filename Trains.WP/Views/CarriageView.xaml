@@ -6,7 +6,8 @@
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       mc:Ignorable="d"
                       Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark" d:DataContext="{d:DesignData CarriageViewModel}">
+                      RequestedTheme="Dark"
+                      d:DataContext="{d:DesignData CarriageViewModel}">
 
     <Grid>
         <StackPanel>
@@ -19,7 +20,7 @@
                        TextWrapping="WrapWholeWords" />
         </StackPanel>
         <Image x:Name="CarriagePicture"
-               Source="{Binding CarriageModel.Carriage,Converter={StaticResource CarriageToImageConverter}}" />
+               Source="{Binding CarriageModel.Carriage,Converter={StaticResource EnumToImageConverter},ConverterParameter=Carriage}" />
     </Grid>
 
 </views:MvxWindowsPage>

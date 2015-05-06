@@ -77,7 +77,7 @@
             </PivotItem>
             <PivotItem Header="{Binding LastSchedulePivotItem}"
                        x:Name="LastPivot"
-                       Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter={Binding Trains}}">
+                       Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}}">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -92,7 +92,7 @@
                                    Text="{Binding LastUpdateTime}"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    FontSize="{StaticResource SmallFontSize}"
-                                   VerticalAlignment="Bottom"/>
+                                   VerticalAlignment="Bottom" />
                     </StackPanel>
                     <SemanticZoom Grid.Row="1"
                                   x:Name="Root"
@@ -124,7 +124,7 @@
             </PivotItem>
             <PivotItem x:Name="RoutesPivot"
                        Header="{Binding RoutesPivotItem}"
-                       Background="{Binding Converter={StaticResource BackgroundRoutesToImageConverter},ConverterParameter={Binding FavoriteRequests}}">
+                       Background="{Binding FavoriteRequests, Converter={StaticResource BackgroundLastRouteToImageConverter},ConverterParameter=route}">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
                           ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}"
