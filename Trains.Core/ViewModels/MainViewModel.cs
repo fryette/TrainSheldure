@@ -339,33 +339,21 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void SearchTrain(string from, string to)
         {
-            if (IsTaskRun || await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
+            if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-            var exception = false;
-            List<Train> schedule = null;
-            try
-            {
-                schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
+
+            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
                     _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
-            }
-            catch (Exception e)
-            {
-                _analytics.SentException(e.Message);
-                exception = true;
-            }
-            if (exception)
-            {
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
-            }
-            else
+            if (schedule != null)
             {
                 _appSettings.LastRequestTrain = schedule;
                 _appSettings.UpdatedLastRequest = new LastRequest { From = from, To = to, SelectionMode = SelectedVariant, Date = Datum };
                 _serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
                 _serializable.Serialize(schedule, Constants.LastTrainList);
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
+
+                _analytics.SentEvent(Constants.VariantOfSearch, SelectedVariant);
             }
-            _analytics.SentEvent(Constants.VariantOfSearch, SelectedVariant);
             IsTaskRun = false;
         }
 
@@ -374,7 +362,6 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private async void UpdateLastRequest()
         {
-            if (IsTaskRun) return;
             if (_appSettings.UpdatedLastRequest == null) return;
             IsTaskRun = true;
 

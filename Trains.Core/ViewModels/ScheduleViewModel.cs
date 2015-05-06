@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Entities;
+using Trains.Core.Services.Interfaces;
 
 namespace Trains.Core.ViewModels
 {
@@ -15,6 +16,7 @@ namespace Trains.Core.ViewModels
         private readonly IAppSettings _appSettings;
         private readonly IFavoriteManageService _manageFavoriteRequest;
         private readonly IAnalytics _analytics;
+        private readonly ISearchService _search;
 
         #endregion
 
@@ -22,6 +24,7 @@ namespace Trains.Core.ViewModels
 
         public IMvxCommand GoToHelpPageCommand { get; private set; }
         public MvxCommand<Train> SelectTrainCommand { get; private set; }
+        public IMvxCommand SearchReverseRouteCommand { get; private set; }
         public IMvxCommand AddToFavoriteCommand { get; private set; }
         public IMvxCommand DeleteInFavoriteCommand { get; private set; }
 
@@ -29,12 +32,14 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest, IAnalytics analytics)
+        public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest, IAnalytics analytics, ISearchService search)
         {
             _manageFavoriteRequest = manageFavoriteRequest;
             _appSettings = appSettings;
             _analytics = analytics;
+            _search = search;
 
+            SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
             AddToFavoriteCommand = new MvxCommand(AddToFavorite);
             DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
             GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
@@ -50,6 +55,7 @@ namespace Trains.Core.ViewModels
         public string SaveAppBar { get; set; }
         public string DeleteAppBar { get; set; }
         public string HelpAppBar { get; set; }
+        public string Update { get; set; }
 
         #endregion
 
@@ -68,6 +74,21 @@ namespace Trains.Core.ViewModels
             {
                 _isVisibleFavoriteIcon = value;
                 RaisePropertyChanged(() => IsVisibleFavoriteIcon);
+            }
+        }
+
+        private bool _isSearchStart;
+        public bool IsSearchStart
+        {
+            get
+            {
+                return _isSearchStart;
+            }
+
+            set
+            {
+                _isSearchStart = value;
+                RaisePropertyChanged(() => IsSearchStart);
             }
         }
 
@@ -92,9 +113,33 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Ñontains information on all trains on the route selected by the user.
         /// </summary> 
-        public IEnumerable<Train> Trains { get; set; }
+        private List<Train> _trains;
+        public List<Train> Trains
+        {
+            get
+            {
+                return _trains;
+            }
+            set
+            {
+                _trains = value;
+                RaisePropertyChanged(() => Trains);
+            }
+        }
 
-        public string Request { get; set; }
+        private string _request;
+        public string Request
+        {
+            get
+            {
+                return _request;
+            }
+            set
+            {
+                _request = value;
+                RaisePropertyChanged(() => Request);
+            }
+        }
 
         #endregion
 
@@ -109,6 +154,20 @@ namespace Trains.Core.ViewModels
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
             Request = _appSettings.UpdatedLastRequest.From + " - " + _appSettings.UpdatedLastRequest.To;
             SetManageFavoriteButton();
+        }
+
+        private async void SearchReverseRoute()
+        {
+            IsSearchStart = true;
+            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To),
+                            _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.From),
+                            _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
+            if (trains != null)
+            {
+                Trains = trains;
+                Request = _appSettings.UpdatedLastRequest.To + " - " + _appSettings.UpdatedLastRequest.From;
+            }
+            IsSearchStart = false;
         }
 
         /// <summary>
@@ -171,6 +230,7 @@ namespace Trains.Core.ViewModels
 
         private void RestoreUIBinding()
         {
+            Update = ResourceLoader.Instance.Resource["Update"];
             SaveAppBar = ResourceLoader.Instance.Resource["SaveAppBar"];
             DeleteAppBar = ResourceLoader.Instance.Resource["DeleteAppBar"];
             HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];

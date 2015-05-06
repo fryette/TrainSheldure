@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -14,11 +16,14 @@ namespace Trains.Core.Services
 {
     public class SearchService : ISearchService
     {
-        public readonly IHttpService HttpService;
-        public readonly IPattern Pattern;
+        private readonly IHttpService HttpService;
+        private readonly IPattern Pattern;
+        private readonly IAnalytics Analytics;
 
-        public SearchService(IHttpService httpService,IPattern pattern)
+
+        public SearchService(IHttpService httpService, IPattern pattern, IAnalytics analytics)
         {
+            Analytics = analytics;
             HttpService = httpService;
             Pattern = pattern;
         }
@@ -26,22 +31,31 @@ namespace Trains.Core.Services
         public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
         {
             var date = GetDate(datum, selectedVariant);
+            try
+            {
+                var data = await HttpService.LoadResponseAsync(GetUrl(from, to, date));
 
-            var data = await HttpService.LoadResponseAsync(GetUrl(from, to, date));
-            var additionalInformation = TrainGrabber.GetPlaces(data);
-            var links = TrainGrabber.GetLink(data);
-            var parameters = Parser.ParseData(data, Pattern.TrainsPattern).ToList();
-            var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
+                var additionalInformation = TrainGrabber.GetPlaces(data);
+                var links = TrainGrabber.GetLink(data);
+                var parameters = Parser.ParseData(data, Pattern.TrainsPattern).ToList();
+                var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
-            List<Train> trains;
-            if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
-                trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
-            else
-                trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern.TrainsPattern).ToList())
-                    : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
-            trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
-            if (!trains.Any()) throw new ArgumentException("Bad request");
-            return trains;
+                List<Train> trains;
+                if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
+                    trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
+                else
+                    trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern.TrainsPattern).ToList())
+                        : TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
+                trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
+                if (!trains.Any()) throw new ArgumentException("Bad request");
+                return trains;
+            }
+            catch (Exception e)
+            {
+                Analytics.SentException(e.Message);
+            }
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
+            return null;
         }
 
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)

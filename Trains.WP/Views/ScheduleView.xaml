@@ -20,9 +20,11 @@
         <TextBlock Grid.Row="0"
                    Text="{Binding Request}"
                    FontSize="{StaticResource TitleFontSize}"
-                   HorizontalAlignment="Left" />
+                   HorizontalAlignment="Left"
+                   Margin="0,24,0,0" />
         <Grid Row="1">
             <SemanticZoom x:Name="Root"
+                          IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}"
                           Template="{StaticResource SemantickZoom}"
                           DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
                 <SemanticZoom.ZoomedInView>
@@ -52,9 +54,14 @@
                 x:Name="CommandClick"
                 Command="{Binding SelectTrainCommand}"
                 CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
+        <Grid Visibility="{Binding IsSearchStart,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <TextBlock Text="{Binding Update}" />
+            <ProgressBar IsIndeterminate="True"
+                         VerticalAlignment="Top" />
+        </Grid>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar>
+        <CommandBar IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}">
             <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           Label="{Binding SaveAppBar}"
                           Icon="Favorite"
@@ -63,6 +70,9 @@
                           Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
                           Icon="Unfavorite"
                           Command="{Binding DeleteInFavoriteCommand}" />
+            <AppBarButton Label="обратно"
+                          Icon="Sort"
+                          Command="{Binding SearchReverseRouteCommand}" />
             <AppBarButton Label="{Binding HelpAppBar}"
                           Icon="Help"
                           Command="{Binding GoToHelpPageCommand}" />
