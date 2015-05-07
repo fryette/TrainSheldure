@@ -34,15 +34,16 @@
                                     Visibility="{Binding IsOnDaySelected,Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Style="{StaticResource DatePickerStyle}"
                                     Margin="0,-5,0,0" />
-                        <AutoSuggestBox PlaceholderText="{Binding FromAutoSuggest}"
-                                        Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBlock Text="{Binding FromAutoSuggest}"
+                                   FontSize="{StaticResource BigFontSize}" />
+                        <AutoSuggestBox Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         IsEnabled="{Binding IsFildEnabled}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
-                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen"
-                                        Margin="0,-5,0,0" />
-                        <AutoSuggestBox PlaceholderText="{Binding ToAutoSuggest}"
-                                        IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
+                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
+                        <TextBlock Text="{Binding ToAutoSuggest}"
+                                   FontSize="{StaticResource BigFontSize}" />
+                        <AutoSuggestBox IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                                         Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"

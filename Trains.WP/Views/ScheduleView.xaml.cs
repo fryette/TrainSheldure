@@ -19,6 +19,5 @@ namespace Trains.WP.Views
             if (((ScheduleViewModel)ViewModel).IsSearchStart) return;
             CommandClick.Command.Execute(TrainList.SelectedItem);
         }
-
     }
 }

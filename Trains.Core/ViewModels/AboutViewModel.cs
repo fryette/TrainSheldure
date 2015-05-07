@@ -9,7 +9,7 @@ namespace Trains.Core.ViewModels
 
         public string ApplicationName { get; set; }
         public string AboutUs { get; set; }
-        public string Changes { get; set; }
+        public string Version { get; set; }
         public string UsingLibrary { get; set; }
         public string SpecialThank { get; set; }
         public string SecondDesigner { get; set; }
@@ -23,7 +23,7 @@ namespace Trains.Core.ViewModels
         {
             ApplicationName = ResourceLoader.Instance.Resource["ApplicationName"];
             AboutUs = ResourceLoader.Instance.Resource["AboutUs"];
-            Changes = ResourceLoader.Instance.Resource["Changes"];
+            Version = ResourceLoader.Instance.Resource["Version"];
             UsingLibrary = ResourceLoader.Instance.Resource["UsingLibrary"];
             SpecialThank = ResourceLoader.Instance.Resource["SpecialThank"];
             FirstDesigner = ResourceLoader.Instance.Resource["FirstDesigner"];

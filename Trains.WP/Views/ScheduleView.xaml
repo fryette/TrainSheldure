@@ -23,17 +23,15 @@
                        FontSize="{StaticResource TitleFontSize}"
                        HorizontalAlignment="Left"
                        Margin="0,24,0,0" />
-            <Grid Row="1">
+            <Grid Row="1" >
                 <SemanticZoom x:Name="Root"
                               Template="{StaticResource SemantickZoom}"
                               DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
-                    <SemanticZoom.ZoomedInView>
+                    <SemanticZoom.ZoomedInView >
                         <ListView x:Name="TrainList"
-                                  
                                   ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
                                   ItemTemplate="{StaticResource ScheduleTemplate}"
-                                  Tapped="TrainList_Tapped"
-                                  >
+                                  Tapped="TrainList_Tapped">
                             <ListView.GroupStyle>
                                 <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
                                             HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"

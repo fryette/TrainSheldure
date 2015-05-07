@@ -201,7 +201,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Height"
-                        Value="100" />
+                        Value="130" />
                 <Setter Property="Stretch"
                         Value="Fill" />
             </Style>
@@ -483,7 +483,8 @@
                             <ContentPresenter x:Name="ZoomedInPresenter"
                                               Content="{TemplateBinding ZoomedInView}"
                                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                              IsTapEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}" />
                             <Popup x:Name="Popup">
                                 <Popup.ChildTransitions>
                                     <TransitionCollection>
