@@ -18,6 +18,7 @@
                        Style="{ThemeResource TitleStyle}"
                        HorizontalAlignment="Center"
                        FontWeight="Normal"
+                       Foreground="{ThemeResource PhoneForegroundBrush}"
                        Margin="0,0,0,10" />
         </Grid>
         <Grid Row="1">

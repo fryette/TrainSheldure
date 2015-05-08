@@ -118,8 +118,6 @@
             </Style>
             <Style TargetType="TextBlock"
                    x:Key="BaseTextStyle">
-                <Setter Property="FontFamily"
-                        Value="{StaticResource DefaultFontFamily}" />
                 <Setter Property="TextWrapping"
                         Value="Wrap" />
                 <Setter Property="TextTrimming"

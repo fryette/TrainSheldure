@@ -25,12 +25,19 @@ namespace Trains.Core.Services
         {
             if (!NetworkInterface.GetIsNetworkAvailable()) return null;
             var uri = new Uri("http://rasp.rw.by/m/" + ResourceLoader.Instance.Resource["Language"] + "/train/" + link);
-            var data = await HttpService.LoadResponseAsync(uri);
-            var match = Parser.ParseData(data, Patterns.TrainPointPAttern);
+            try
+            {
+                var data = await HttpService.LoadResponseAsync(uri);
+                var match = Parser.ParseData(data, Patterns.TrainPointPAttern);
 
-            return link.Contains("thread")
-                ? TrainStopGrabber.GetRegionalEconomTrainStops(match)
-                : TrainStopGrabber.GetTrainStops(match);
+                return link.Contains("thread")
+                    ? TrainStopGrabber.GetRegionalEconomTrainStops(match)
+                    : TrainStopGrabber.GetTrainStops(match);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }
