@@ -35,18 +35,18 @@
                             <TextBlock x:Uid="Version"
                                        Style="{StaticResource AboutAppStyle}"
                                        FontSize="24"
-                                       Foreground="White" />
+                                       Foreground="{ThemeResource PhoneForegroundBrush}" />
                         </StackPanel>
 
                         <TextBlock Text="{Binding UsingLibrary}"
                                    FontSize="24"
-                                   Foreground="White"
+                                   Foreground="{ThemeResource PhoneForegroundBrush}"
                                    Style="{StaticResource AboutAppStyle}" />
                         <TextBlock Text="MvvmCross, Newtonsoft.Json, AppPromo"
                                    Style="{StaticResource AboutAppStyle}" />
                         <TextBlock Text="{Binding SpecialThank}"
                                    Style="{StaticResource AboutAppStyle}"
-                                   Foreground="White"
+                                   Foreground="{ThemeResource PhoneForegroundBrush}"
                                    FontSize="24" />
                         <TextBlock Text="{Binding FirstDesigner}"
                                    Style="{StaticResource AboutAppStyle}" />
