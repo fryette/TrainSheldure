@@ -69,7 +69,7 @@ namespace Trains.WP
 
             if (rootFrame.Content == null)
             {
-                 var setup = new Setup(rootFrame);
+                var setup = new Setup(rootFrame);
                 setup.Initialize();
 
                 var start = Mvx.Resolve<IMvxAppStart>();
@@ -132,7 +132,7 @@ namespace Trains.WP
                 //frame.Navigate(typeof(MainPage), uri);
 
                 base.OnActivated(args);
-                
+
                 Window.Current.Content = frame;
 
                 // Ensure the current window is active

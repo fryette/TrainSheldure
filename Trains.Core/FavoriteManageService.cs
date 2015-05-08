@@ -6,12 +6,12 @@ using Trains.Model.Entities;
 
 namespace Trains.Core
 {
-    public class FavoriteManage : IFavoriteManageService
+    public class FavoriteManageService : IFavoriteManageService
     {
         private readonly ISerializableService _serializable;
         private readonly IAppSettings _appSettings;
 
-        public FavoriteManage(ISerializableService serializable, IAppSettings appSettings)
+        public FavoriteManageService(ISerializableService serializable, IAppSettings appSettings)
         {
             _serializable = serializable;
             _appSettings = appSettings;

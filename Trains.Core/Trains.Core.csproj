@@ -45,7 +45,7 @@
     <Compile Include="BaseHttpService.cs" />
     <Compile Include="Resources\Constants.cs" />
     <Compile Include="Extensions\HttpWebRequest.cs" />
-    <Compile Include="FavoriteManage.cs" />
+    <Compile Include="FavoriteManageService.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\IFavoriteManageService.cs" />

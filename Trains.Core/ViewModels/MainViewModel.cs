@@ -21,6 +21,8 @@ namespace Trains.Core.ViewModels
 
         private readonly IAppSettings _appSettings;
 
+        private readonly IMvxComposeEmailTask _email;
+
         private readonly IMarketPlaceService _marketPlace;
 
         private readonly IAnalytics _analytics;
@@ -60,8 +62,9 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email)
         {
+            _email = email;
             _local = local;
             _analytics = analytics;
             _serializable = serializable;
@@ -110,6 +113,7 @@ namespace Trains.Core.ViewModels
         #endregion
 
         public IEnumerable<About> AboutItems { get; set; }
+
 
         private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
         public DateTimeOffset Datum
@@ -324,6 +328,7 @@ namespace Trains.Core.ViewModels
             IsDownloadRun = true;
             if (!await RestoreData()) return;
             RestoreUIBinding();
+            InitAboutItemsActions();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
@@ -422,18 +427,11 @@ namespace Trains.Core.ViewModels
 
         private void ClickAboutItem(About selectedAboutItem)
         {
-            if (selectedAboutItem == null) return;
-            if (selectedAboutItem.Item == AboutPicture.AboutApp)
-                ShowViewModel<AboutViewModel>();
-            else if (selectedAboutItem.Item == AboutPicture.Mail)
-                Mvx.Resolve<IMvxComposeEmailTask>().ComposeEmail("sampir.fiesta@gmail.com", string.Empty, ResourceLoader.Instance.Resource["Feedback"], String.Empty, false);
-            else if (selectedAboutItem.Item == AboutPicture.Market)
-                _marketPlace.GoToMarket();
-            else if (selectedAboutItem.Item == AboutPicture.Settings)
-                ShowViewModel<SettingsViewModel>();
-            else
-                ShowViewModel<ShareViewModel>();
+            if (selectedAboutItem != null)
+                AboutItemsActions[selectedAboutItem.Item]();
         }
+
+        private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
 
         /// <summary>
         /// Swaped From and To properties.
@@ -512,6 +510,18 @@ namespace Trains.Core.ViewModels
                 if (isException)
                     await Mvx.Resolve<IUserInteraction>().AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
             }
+        }
+
+        private void InitAboutItemsActions()
+        {
+            AboutItemsActions = new Dictionary<AboutPicture, Action>
+            {
+            {AboutPicture.AboutApp,new Action(()=>ShowViewModel<AboutViewModel>())},
+            {AboutPicture.Mail,new Action(()=>_email.ComposeEmail("sampir.fiesta@gmail.com", string.Empty, ResourceLoader.Instance.Resource["Feedback"], String.Empty, false))},
+            {AboutPicture.Market,new Action(()=>_marketPlace.GoToMarket())},
+            {AboutPicture.Settings,new Action(()=>ShowViewModel<SettingsViewModel>())},
+            {AboutPicture.Share,new Action(()=>ShowViewModel<ShareViewModel>())}
+            };
         }
 
         private async Task DowloadResources(Language lang)

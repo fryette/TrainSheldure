@@ -23,13 +23,7 @@ namespace Trains.Core
             RegisterAppStart<MainViewModel>();
 
             Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
-
-            Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
-            Mvx.LazyConstructAndRegisterSingleton<ISearchService, SearchService>();
             Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
-            Mvx.LazyConstructAndRegisterSingleton<ITrainStopService, TrainStopService>();
-            Mvx.LazyConstructAndRegisterSingleton<IFavoriteManageService, FavoriteManage>();
-            Mvx.LazyConstructAndRegisterSingleton<ISerializableService, SerializeService>();
             Mvx.LazyConstructAndRegisterSingleton<IPattern, Patterns>();
 
         }
