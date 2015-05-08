@@ -7,8 +7,6 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:viewModels="using:Trains.Core.ViewModels"
                       mc:Ignorable="d"
-                      Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark"
                       d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
 
     <Grid Margin="10">

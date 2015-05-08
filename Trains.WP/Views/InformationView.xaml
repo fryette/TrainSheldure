@@ -5,8 +5,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       mc:Ignorable="d"
-                      Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark" d:DataContext="{d:DesignData InformationViewModel}">
+                      d:DataContext="{d:DesignData InformationViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -43,7 +42,6 @@
             </ScrollViewer>
         </Grid>
         <StackPanel Grid.Row="1"
-                    Background="{StaticResource BackgroundColorBrush}"
                     Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
                     VerticalAlignment="Center">
             <TextBlock Text="{Binding DownloadStopPoints}"

@@ -7,8 +7,7 @@
                       mc:Ignorable="d"
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-                      Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark" d:DataContext="{d:DesignData EditFavoriteRoutesViewModel}">
+                      d:DataContext="{d:DesignData EditFavoriteRoutesViewModel}">
 
     <Grid>
         <Grid.RowDefinitions>

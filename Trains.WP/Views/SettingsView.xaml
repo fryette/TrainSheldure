@@ -6,9 +6,8 @@
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       xmlns:viewModels="using:Trains.Core.ViewModels"
                       mc:Ignorable="d"
-                      Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark"
-                      d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}">
+                      d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
+                      xmlns:WindowsPhone8="using:Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising">
 
     <Grid Margin="10,0">
         <Grid.RowDefinitions>
@@ -18,6 +17,7 @@
         <TextBlock Grid.Row="0"
                    Text="{Binding Header}"
                    FontSize="{StaticResource BigFontSize}"
+                   Foreground="{ThemeResource PhoneForegroundBrush}"
                    HorizontalAlignment="Center" />
         <StackPanel Grid.Row="1">
             <ComboBox Header="{Binding SelectLanguage}"

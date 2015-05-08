@@ -7,8 +7,6 @@
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       mc:Ignorable="d"
-                      Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark"
                       d:DataContext="{d:DesignData MainViewModel}">
     <Grid>
         <Pivot x:Name="MainPivot"
@@ -17,13 +15,12 @@
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem Header="{Binding MainPivotItem}"
                        x:Name="MainPivotItem">
-                <Grid>
+                <Grid Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=main}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0"
-                                Background="{StaticResource GrayColorBrush}">
+                    <StackPanel Grid.Row="0">
                         <TextBlock Text="{Binding FastSearchTextBlock}"
                                    FontSize="{StaticResource NormalLargeFontSize}" />
                         <ComboBox ItemsSource="{Binding VariantOfSearch}"
@@ -35,14 +32,16 @@
                                     Style="{StaticResource DatePickerStyle}"
                                     Margin="0,-5,0,0" />
                         <TextBlock Text="{Binding FromAutoSuggest}"
-                                   FontSize="{StaticResource BigFontSize}" />
+                                   FontSize="{StaticResource NormalLargeFontSize}"
+                                   Foreground="{StaticResource DimGrayColorBrush}" />
                         <AutoSuggestBox Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         IsEnabled="{Binding IsFildEnabled}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
                         <TextBlock Text="{Binding ToAutoSuggest}"
-                                   FontSize="{StaticResource BigFontSize}" />
+                                   FontSize="{StaticResource NormalLargeFontSize}"
+                                   Foreground="{StaticResource DimGrayColorBrush}" />
                         <AutoSuggestBox IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                                         Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
@@ -57,7 +56,7 @@
             </PivotItem>
             <PivotItem Header="{Binding LastSchedulePivotItem}"
                        x:Name="LastPivot"
-                       Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}}">
+                       Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=Last}">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />

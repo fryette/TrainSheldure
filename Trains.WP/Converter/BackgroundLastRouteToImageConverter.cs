@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Trains.Core.Interfaces;
 using Trains.Core.ViewModels;
 using Trains.Entities;
+using Windows.UI;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -15,43 +17,64 @@ namespace Trains.WP.Converter
 {
     public class BackgroundLastRouteToImageConverter : IValueConverter
     {
-        static readonly Dictionary<string, Uri> LastScheduleRoute = new Dictionary<string, Uri>()
+        static readonly Dictionary<string, string> LastScheduleRoute = new Dictionary<string, string>()
             {
-                {"ru",new Uri(@"ms-appx:///Assets/backgrounds/Dlya_Otobrazhenia.png")},
-                {"be",new Uri(@"ms-appx:///Assets/backgrounds/Dlya_Adlyustravannya.png")},
-                {"en",new Uri(@"ms-appx:///Assets/backgrounds/No_history.png")},
+                {"ru","ms-appx:///Assets/backgrounds/Dlya_Otobrazhenia"},
+                {"be","ms-appx:///Assets/backgrounds/Dlya_Adlyustravannya"},
+                {"en","ms-appx:///Assets/backgrounds/No_history"}
             };
-        static readonly Dictionary<string, Uri> RoutesBacground = new Dictionary<string, Uri>()
+        static readonly Dictionary<string, string> RoutesBackground = new Dictionary<string, string>()
             {
-                {"ru",new Uri(@"ms-appx:///Assets/backgrounds/Marshrutov_Ne.png")},
-                {"be",new Uri(@"ms-appx:///Assets/backgrounds/Marshrutau_Ne.png")},
-                {"en",new Uri(@"ms-appx:///Assets/backgrounds/No_favorites.png")},
+                {"ru","ms-appx:///Assets/backgrounds/Marshrutov_Ne"},
+                {"be","ms-appx:///Assets/backgrounds/Marshrutau_Ne"},
+                {"en","ms-appx:///Assets/backgrounds/No_favorites"}
             };
-        static readonly Dictionary<string, Uri> ReverseBacground = new Dictionary<string, Uri>()
+        static readonly Dictionary<string, string> ReverseBackground = new Dictionary<string, string>()
             {
-                {"ru",new Uri(@"ms-appx:///Assets/backgrounds/Obratnyy.png")},
-                {"be",new Uri(@"ms-appx:///Assets/backgrounds/Zvarotny.png")},
-                {"en",new Uri(@"ms-appx:///Assets/backgrounds/Back.png")},
+                {"ru","ms-appx:///Assets/backgrounds/Obratnyy"},
+                {"be","ms-appx:///Assets/backgrounds/Zvarotny"},
+                {"en","ms-appx:///Assets/backgrounds/Back"}
+            };
+
+        static readonly Dictionary<string, string> MainBackground = new Dictionary<string, string>()
+            {
+                {"ru","ms-appx:///Assets/backgrounds/Naydi"},
+                {"be","ms-appx:///Assets/backgrounds/Znaydzi"},
+                {"en","ms-appx:///Assets/backgrounds/Found"}
             };
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if ((string)parameter == "reverse")
-                if (value == null)
-                    return new ImageBrush
+            var color = ((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png";
+
+            string UriSource = null;
+            if ((string)parameter == "main")
+                return new ImageBrush
+                {
+                    ImageSource = new BitmapImage
                     {
-                        ImageSource = new BitmapImage
-                        {
-                            UriSource = ReverseBacground[Mvx.Resolve<IAppSettings>().Language.Id]
-                        },
-                        Stretch = Stretch.UniformToFill
-                    };
-            return new ImageBrush
+                        UriSource = new Uri(MainBackground[Mvx.Resolve<IAppSettings>().Language.Id] + color)
+                    },
+                    Stretch = Stretch.UniformToFill
+                };
+            if (value == null)
             {
-                ImageSource = parameter == null ? (value != null ? null : new BitmapImage() { UriSource = LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id] }) :
-                    (value != null ? null : new BitmapImage() { UriSource = RoutesBacground[Mvx.Resolve<IAppSettings>().Language.Id] }),
-                Stretch = Stretch.UniformToFill
-            };
+                if ((string)parameter == "reverse")
+                    UriSource = ReverseBackground[Mvx.Resolve<IAppSettings>().Language.Id];
+                else if ((string)parameter == "last")
+                    UriSource = LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id];
+                else if ((string)parameter == "route")
+                    UriSource = RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id];
+                return new ImageBrush
+                     {
+                         ImageSource = new BitmapImage
+                         {
+                             UriSource = new Uri(UriSource + color)
+                         },
+                         Stretch = Stretch.UniformToFill
+                     };
+            }
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

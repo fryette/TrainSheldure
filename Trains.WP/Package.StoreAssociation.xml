@@ -184,31 +184,30 @@
     <Language Code="vi-vn" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>225307CA4C4AC.Beta</MainPackageIdentityName>
+    <MainPackageIdentityName>225307CA4C4AC.1389988B25799</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>Чыгунка Beta</ReservedName>
-      <ReservedName>Чыгунка.by</ReservedName>
+      <ReservedName>Чыгунка</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
-    <MainPackageIdentityName>225307CA4C4AC.1389988B25799</MainPackageIdentityName>
+    <MainPackageIdentityName>225307CA4C4AC.11569F3537AC7</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=dd407471-533a-4f77-9197-e0d131c9b9ed">
+  <PackageInfoList LandingUrl="https://dev.windowsphone.com/AppSubmission/AssociationLanding?windowsProductId=59541c53-b7e6-4b24-8cb3-660f3acfb9ee">
     <BundleInfo>
       <PackageInfo>
         <OsMinVersion>6.3.0.0</OsMinVersion>
+        <PackageArchitecture></PackageArchitecture>
+        <PackageMaxArchitectureVersion>1.2.0.17</PackageMaxArchitectureVersion>
+      </PackageInfo>
+      <PackageInfo>
+        <OsMinVersion>6.3.0.0</OsMinVersion>
         <PackageArchitecture>neutral</PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.0.0</PackageMaxArchitectureVersion>
+        <PackageMaxArchitectureVersion>1.2.0.17</PackageMaxArchitectureVersion>
       </PackageInfo>
       <PackageInfo>
         <OsMinVersion>6.3.0.0</OsMinVersion>
         <PackageArchitecture></PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.0.0</PackageMaxArchitectureVersion>
-      </PackageInfo>
-      <PackageInfo>
-        <OsMinVersion>6.3.0.0</OsMinVersion>
-        <PackageArchitecture></PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.0.0</PackageMaxArchitectureVersion>
+        <PackageMaxArchitectureVersion>1.2.0.17</PackageMaxArchitectureVersion>
       </PackageInfo>
     </BundleInfo>
   </PackageInfoList>

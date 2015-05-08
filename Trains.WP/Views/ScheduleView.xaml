@@ -7,8 +7,6 @@
                       mc:Ignorable="d"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       xmlns:viewModels="using:Trains.Core.ViewModels"
-                      Background="{StaticResource BackgroundColorBrush}"
-                      RequestedTheme="Dark"
                       d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
     <Grid Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=reverse}">

@@ -6,10 +6,6 @@
         <ResourceDictionary>
             <ResourceDictionary.ThemeDictionaries>
                 <ResourceDictionary x:Key="Default">
-                    <SolidColorBrush x:Key="PivotHeaderForegroundUnselectedBrush"
-                                     Color="White" />
-                    <SolidColorBrush x:Key="PivotHeaderForegroundSelectedBrush"
-                                     Color="#FF107622" />
                     <x:Double x:Key="PivotHeaderItemFontSize">33</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries>
@@ -64,8 +60,6 @@
                         Value="{StaticResource NormalLargeFontSize}" />
                 <Setter Property="HorizontalAlignment"
                         Value="Center" />
-                <Setter Property="Foreground"
-                        Value="{StaticResource WhiteColorBrush}" />
             </Style>
             <Style x:Key="BasedTextBlockStyle"
                    TargetType="TextBlock">
@@ -464,10 +458,11 @@
                             Background="{ThemeResource PhoneAccentBrush}">
                     <Image Width="{StaticResource TileWidth}"
                            Source="{Binding Item,Converter={StaticResource AboutEnumToImageConverter}}" />
-                    <Border Background="{StaticResource BackgroundColorBrush}"
+                    <Border Background="{ThemeResource PhoneBackgroundBrush}"
                             Width="5"
                             Height="{StaticResource TileWidth}" />
                     <TextBlock Text="{Binding Text}"
+                               Foreground="White"
                                Style="{StaticResource MainAboutTextBlockStyle}"
                                FontWeight="Normal"
                                Margin="10,0,0,0" />

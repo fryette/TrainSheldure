@@ -196,6 +196,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdMediator.config" />
     <None Include="analytics.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -268,6 +269,22 @@
       <HintPath>..\packages\GoogleAnalyticsSDK.1.2.12\lib\wpa81\GoogleAnalytics.Core.winmd</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising, Version=1.0.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising.1.0.13\lib\wpa\Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile.Common, Version=8.1.40505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.Common.winmd</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile.Display, Version=8.1.40505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.Display.winmd</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Advertising.Mobile.UI, Version=8.1.40505.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Advertising.WindowsPhone.Xaml81.8.1.40505.0\lib\wpa81\Microsoft.Advertising.Mobile.UI.winmd</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.Xaml.Interactions, Version=12.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Caliburn.Micro.2.0.1\lib\wpa81\Microsoft.Xaml.Interactions.dll</HintPath>
@@ -294,15 +311,30 @@
     <Content Include="Assets\AppBarIcons\appbar.social.twitter.png" />
     <Content Include="Assets\AppBarIcons\appbar.star.png" />
     <Content Include="Assets\AppBarIcons\appbar.vkontakte.png" />
-    <Content Include="Assets\Backgrounds\Back.png" />
-    <Content Include="Assets\Backgrounds\Dlya_Adlyustravannya.png" />
-    <Content Include="Assets\Backgrounds\Dlya_Otobrazhenia.png" />
-    <Content Include="Assets\Backgrounds\Marshrutau_Ne.png" />
-    <Content Include="Assets\Backgrounds\Marshrutov_Ne.png" />
-    <Content Include="Assets\Backgrounds\No_favorites.png" />
-    <Content Include="Assets\Backgrounds\No_history.png" />
-    <Content Include="Assets\Backgrounds\Obratnyy.png" />
-    <Content Include="Assets\Backgrounds\Zvarotny.png" />
+    <Content Include="Assets\Backgrounds\BackBlack.png" />
+    <Content Include="Assets\Backgrounds\BackWhite.png" />
+    <Content Include="Assets\Backgrounds\Dlya_AdlyustravannyaBlack.png" />
+    <Content Include="Assets\Backgrounds\Dlya_AdlyustravannyaWhite.png" />
+    <Content Include="Assets\Backgrounds\Dlya_OtobrazheniaBlack.png" />
+    <Content Include="Assets\Backgrounds\Dlya_OtobrazheniaWhite.png" />
+    <Content Include="Assets\Backgrounds\FoundBlack.png" />
+    <Content Include="Assets\Backgrounds\FoundWhite.png" />
+    <Content Include="Assets\Backgrounds\Marshrutau_NeBlack.png" />
+    <Content Include="Assets\Backgrounds\Marshrutau_NeWhite.png" />
+    <Content Include="Assets\Backgrounds\Marshrutov_NeBlack.png" />
+    <Content Include="Assets\Backgrounds\Marshrutov_NeWhite.png" />
+    <Content Include="Assets\Backgrounds\NaydiBlack.png" />
+    <Content Include="Assets\Backgrounds\NaydiWhite.png" />
+    <Content Include="Assets\Backgrounds\No_favoritesBlack.png" />
+    <Content Include="Assets\Backgrounds\No_favoritesWhite.png" />
+    <Content Include="Assets\Backgrounds\No_historyBlack.png" />
+    <Content Include="Assets\Backgrounds\No_historyWhite.png" />
+    <Content Include="Assets\Backgrounds\ObratnyyBlack.png" />
+    <Content Include="Assets\Backgrounds\ObratnyyWhite.png" />
+    <Content Include="Assets\Backgrounds\ZnaydziBlack.png" />
+    <Content Include="Assets\Backgrounds\ZnaydziWhite.png" />
+    <Content Include="Assets\Backgrounds\ZvarotnyBlack.png" />
+    <Content Include="Assets\Backgrounds\ZvarotnyWhite.png" />
     <Content Include="Assets\Carriage\CompartmentSleeper.png" />
     <Content Include="Assets\Carriage\EconomyClassSleeper.png" />
     <Content Include="Assets\Carriage\FirstClassSleeper.png" />
@@ -311,20 +343,13 @@
     <Content Include="Assets\Carriage\MultipleUnitCoach.png" />
     <Content Include="Assets\Carriage\SeatingCoaches1.png" />
     <Content Include="Assets\Carriage\SeatingCoaches2.png" />
-    <Content Include="Assets\Cityes.png" />
-    <Content Include="Assets\Foreign.png" />
     <Content Include="Assets\HelpPageIcons\GE.png" />
     <Content Include="Assets\HelpPageIcons\IL.png" />
     <Content Include="Assets\HelpPageIcons\IRLB_IRLE.png" />
     <Content Include="Assets\HelpPageIcons\RLB_RLE.png" />
-    <Content Include="Assets\Inteneshnl.png" />
-    <Content Include="Assets\Interregional_biznes.png" />
-    <Content Include="Assets\Interregional_econom.png" />
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\MainImage.png" />
     <Content Include="Assets\MenuIcon\result.jpg" />
-    <Content Include="Assets\Regional_biznes.png" />
-    <Content Include="Assets\Regional_econom.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />

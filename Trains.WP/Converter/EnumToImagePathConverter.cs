@@ -28,6 +28,7 @@ namespace Trains.WP.Converter
                 {TrainClass.RegionalBusiness,new Uri(@"ms-appx:///Assets/HelpPageIcons/RLB_RLE.png")}
             };
 
+
         private static readonly Color[] Images = {
             Colors.Yellow,
             Colors.DarkGreen,
