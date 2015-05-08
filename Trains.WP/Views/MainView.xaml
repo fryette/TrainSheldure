@@ -56,7 +56,7 @@
             </PivotItem>
             <PivotItem Header="{Binding LastSchedulePivotItem}"
                        x:Name="LastPivot"
-                       Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=Last}">
+                       Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=last}">
                 <Grid HorizontalAlignment="Center">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -152,7 +152,8 @@
         </Grid>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
+        <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}" 
+            IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
                           Label="{Binding UpdateAppBar}"
                           Icon="Sync"

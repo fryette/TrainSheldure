@@ -10,14 +10,14 @@ namespace Trains.WP.Converter
 {
     public class EnumToImagePathConverter : IValueConverter
     {
-        static readonly Dictionary<ShareSocial, Uri> SocialPicture = new Dictionary<ShareSocial, Uri>()
+        static readonly Dictionary<ShareSocial, string> SocialPicture = new Dictionary<ShareSocial, string>()
             {
-                {ShareSocial.Vkontakte,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.vkontakte.png")},
-                {ShareSocial.Facebook,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.social.facebook.heart.png")},
-                {ShareSocial.Twitter,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.social.twitter.png")},
-                {ShareSocial.GooglePlus,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.googleplus.png")},
-                {ShareSocial.LinkedIn,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.social.linkedin.png")},
-                {ShareSocial.Odnoklassniki,new Uri(@"ms-appx:///Assets/AppBarIcons/appbar.odnoklassniki.png")}
+                {ShareSocial.Vkontakte,"ms-appx:///Assets/AppBarIcons/appbar.vkontakte"},
+                {ShareSocial.Facebook,"ms-appx:///Assets/AppBarIcons/appbar.social.facebook.heart"},
+                {ShareSocial.Twitter,"ms-appx:///Assets/AppBarIcons/appbar.social.twitter"},
+                {ShareSocial.GooglePlus,"ms-appx:///Assets/AppBarIcons/appbar.googleplus"},
+                {ShareSocial.LinkedIn,"ms-appx:///Assets/AppBarIcons/appbar.social.linkedin"},
+                {ShareSocial.Odnoklassniki,"ms-appx:///Assets/AppBarIcons/appbar.odnoklassniki"}
             };
 
         static readonly Dictionary<TrainClass, Uri> HelpPicture = new Dictionary<TrainClass, Uri>()
@@ -59,7 +59,9 @@ namespace Trains.WP.Converter
         {
             var param = (string)parameter;
             if (param == "Help") return new BitmapImage(HelpPicture[(TrainClass)value]);
-            if (param == "SocialPicture") return new BitmapImage(SocialPicture[(ShareSocial)value]);
+            if (param == "SocialPicture") 
+                return new BitmapImage(new Uri(SocialPicture[(ShareSocial)value] + 
+                (((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png")));
             if (param == "Carriage") return new BitmapImage(CarriagePictures[(Carriage)value]);
             if (param == "TrainClass") return new SolidColorBrush(Images[(int)(TrainClass)value]);
             return null;
