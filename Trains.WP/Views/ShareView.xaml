@@ -1,0 +1,34 @@
+﻿<views:MvxWindowsPage x:Class="Trains.WP.Views.ShareView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      xmlns:local="using:Trains.WP.Views"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:viewModels="using:Trains.Core.ViewModels"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
+
+    <Grid Margin="10">
+        <StackPanel HorizontalAlignment="Center">
+            <TextBlock Text="{Binding Header}"
+                       FontSize="{StaticResource BigFontSize}" />
+            <TextBlock Text="{Binding Title}"
+                       FontSize="{StaticResource SmallFontSize}"
+                       HorizontalAlignment="Center" />
+        </StackPanel>
+        <GridView Margin="0,80,0,0"
+                  ItemsSource="{Binding ShareItems}"
+                  HorizontalAlignment="Center">
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <HyperlinkButton NavigateUri="{Binding Converter={StaticResource ShareSocialToUriConverter}}">
+                        <Image Source="{Binding Converter={StaticResource EnumToImageConverter}, ConverterParameter=SocialPicture}"
+                               Width="100"
+                               Height="100" />
+                    </HyperlinkButton>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
+    </Grid>
+</views:MvxWindowsPage>

@@ -1,0 +1,54 @@
+﻿<views:MvxWindowsPage x:Class="Trains.WP.Views.InformationView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignData InformationViewModel}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Row="0">
+            <TextBlock Text="{Binding Train.City}"
+                       Style="{ThemeResource TitleStyle}"
+                       HorizontalAlignment="Center"
+                       FontWeight="Normal"
+                       Foreground="{ThemeResource PhoneForegroundBrush}"
+                       Margin="0,0,0,10" />
+        </Grid>
+        <Grid Row="1">
+            <ScrollViewer>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Margin="0,0,0,30">
+                        <ItemsControl ItemsSource="{Binding Train.AdditionalInformation}"
+                                      Margin="5,0"
+                                      ItemTemplate="{StaticResource InformationTemplate}">
+                        </ItemsControl>
+                    </Grid>
+                    <ItemsControl Grid.Row="1"
+                                  ItemsSource="{Binding StopPointList}"
+                                  Margin="5,0"
+                                  ItemTemplate="{StaticResource StopPointTemplate}" />
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+        <StackPanel Grid.Row="1"
+                    Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
+                    VerticalAlignment="Center">
+            <TextBlock Text="{Binding DownloadStopPoints}"
+                       FontSize="{StaticResource BigFontSize}"
+                       HorizontalAlignment="Center" />
+            <ProgressBar IsIndeterminate="True" />
+        </StackPanel>
+    </Grid>
+</views:MvxWindowsPage>

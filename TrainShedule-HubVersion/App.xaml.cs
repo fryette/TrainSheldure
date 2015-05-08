@@ -9,10 +9,6 @@ using Windows.UI.Xaml.Controls;
 using Caliburn.Micro;
 using Trains.App.ViewModels;
 using Trains.App.Views;
-using Trains.Infrastructure.Infrastructure;
-using Trains.Model.Entities;
-using Trains.Services.Implementations;
-using Trains.Services.Interfaces;
 using Language = Trains.Model.Entities.Language;
 using TrainStop = Trains.Services.Implementations.TrainStop;
 
@@ -39,7 +35,7 @@ namespace Trains.App
             MessageBinder.SpecialValues.Add("$clickeditem", c => ((ItemClickEventArgs)c.EventArgs).ClickedItem);
             MessageBinder.SpecialValues.Add("$clickeditem1", c => ((PivotItemEventArgs)c.EventArgs).Item);
 
-            _container.Singleton<ILastRequestTrainService, MainService>();
+            _container.Singleton<ILastRequestTrainService, LastRequestTrain>();
             _container.Singleton<ISearchService, Search>();
             _container.Singleton<ISerializableService, Serializable>();
             _container.Singleton<ITrainStopService, TrainStop>();

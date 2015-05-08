@@ -8,8 +8,6 @@
       Background="{StaticResource BackgroundColorBrush}"
       d:DataContext="{d:DesignData ItemViewModel}"
       RequestedTheme="Dark">
-    <Page.Resources>
-    </Page.Resources>
     <Grid Margin="10,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="80" />

@@ -1,3 +1,5 @@
+using Trains.Model.Entities;
+
 namespace Trains.Entities
 {
     public class Train
@@ -8,13 +10,17 @@ namespace Trains.Entities
         public string EndTime { get; set; }
         public string Description { get; set; }
         public string TrainNote { get; set; }
-        public string ImagePath { get; set; }
+        public TrainClass Image { get; set; }
         public string Type { get; set; }
         public AdditionalInformation[] AdditionalInformation { get; set; }
         public string OnTheWay { get; set; }
         public string DepartureDate { get; set; }
         public string Link { get; set; }
         public string IsPlace { get; set; }
+        public PlaceClasses PlaceClasses { get; set; }
+        
+        public bool InternetRegistration { get; set; }
+
     }
 }
 

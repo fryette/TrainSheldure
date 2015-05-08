@@ -1,0 +1,26 @@
+﻿[
+    {
+        "UniqueId": "Menu-International",
+        "Title": "International",
+        "ImagePath": "/Assets/HelpPageIcons/IL.png",
+        "Description": "International lines means a transportation between the Republic of Belarus and other countries."
+    },
+    {
+        "UniqueId": "Menu-Cityes",
+        "Title": "City",
+        "ImagePath": "/Assets/HelpPageIcons/GE.png",
+        "Description": "City lines — transportation within the city of Minsk, the regional center and beyond, but not beyond the railway stations (local stations) located in the satellite towns."
+    },
+    {
+        "UniqueId": "Menu-Interregional",
+        "Title": "Interregional",
+        "ImagePath": "/Assets/HelpPageIcons/IRLB_IRLE.png",
+        "Description": "Interregional lines means a transportation between the city of Minsk and regional centers, and also between regional centers."
+    },
+    {
+        "UniqueId": "Menu-Regional",
+        "Title": "Regional",
+        "ImagePath": "/Assets/HelpPageIcons/RLB_RLE.png",
+        "Description": "Regional lines means a transportation within the administrative boundaries of the region and beyond to the railway stations (local stations) located in the nearby city of regional subordination related field, but not beyond its regional center."
+    }
+]

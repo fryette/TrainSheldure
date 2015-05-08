@@ -1,0 +1,42 @@
+﻿<views:MvxWindowsPage x:Class="Trains.WP.Views.SettingsView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      xmlns:viewModels="using:Trains.Core.ViewModels"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}"
+                      xmlns:WindowsPhone8="using:Microsoft.AdMediator.WindowsPhone81.MicrosoftAdvertising">
+
+    <Grid Margin="10,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Text="{Binding Header}"
+                   FontSize="{StaticResource BigFontSize}"
+                   Foreground="{ThemeResource PhoneForegroundBrush}"
+                   HorizontalAlignment="Center" />
+        <StackPanel Grid.Row="1">
+            <ComboBox Header="{Binding SelectLanguage}"
+                      ItemsSource="{Binding Languages}"
+                      SelectedItem="{Binding SelectedLanguage,Mode=TwoWay}"
+                      SelectedValue="1">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="{Binding ResetSettings}"
+                    HorizontalAlignment="Stretch" 
+                    Command="{Binding ResetSettingsCommand}"/>
+            <TextBlock Text="{Binding NeedReboot}"
+                       FontSize="15"
+                       Margin="0,-10,0,0"
+                       Foreground="{ThemeResource PhoneAccentBrush}" />
+        </StackPanel>
+    </Grid>
+</views:MvxWindowsPage>

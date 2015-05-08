@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{BEA17689-0D32-46B2-A216-2C2BD5AD8764}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Trains.Core</RootNamespace>
+    <AssemblyName>Trains.Resources</AssemblyName>
+    <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Constants.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\be\Countries.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\be\HelpInformation.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\StopPointsbe.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\be\StopPoints.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\be\CarriageModel.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\be\About.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DataModels\be\Resource.json" />
+    <EmbeddedResource Include="DataModels\ru\About.json" />
+    <EmbeddedResource Include="DataModels\ru\CarriageModel.json" />
+    <EmbeddedResource Include="DataModels\ru\Countries.json" />
+    <EmbeddedResource Include="DataModels\ru\HelpInformation.json" />
+    <EmbeddedResource Include="DataModels\ru\Resource.json" />
+    <EmbeddedResource Include="DataModels\ru\StopPoints.json" />
+    <EmbeddedResource Include="DataModels\en\About.json" />
+    <EmbeddedResource Include="DataModels\en\CarriageModel.json" />
+    <EmbeddedResource Include="DataModels\en\Countries.json" />
+    <EmbeddedResource Include="DataModels\en\HelpInformation.json" />
+    <EmbeddedResource Include="DataModels\en\Resource.json" />
+    <EmbeddedResource Include="DataModels\en\StopPoints.json" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+</Project>
