@@ -39,13 +39,13 @@ namespace Trains.Core
             }
 
             if (_appSettings.FavoriteRequests == null) _appSettings.FavoriteRequests = new List<LastRequest>();
-            if (_appSettings.FavoriteRequests.Any(x => x.From == from && x.To == to))
+            if (_appSettings.FavoriteRequests.Any(x => x.Route.From == from && x.Route.To == to))
             {
                 //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("ThisRouteIsPresent"));
                 return false;
             }
 
-            _appSettings.FavoriteRequests.Add(new LastRequest { From = from, To = to });
+            _appSettings.FavoriteRequests.Add(new LastRequest { Route = new Route { From = from, To = to } });
             _serializable.Serialize(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsAddedToFavorite"));
             return true;
@@ -53,10 +53,10 @@ namespace Trains.Core
 
         public bool DeleteRoute(string from, string to)
         {
-            var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.From == from && x.To == to);
+            var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.Route.From == from && x.Route.To == to);
             if (objectToDelete == null) return false;
             _appSettings.FavoriteRequests.Remove(objectToDelete);
-             _serializable.Serialize(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
+            _serializable.Serialize(_appSettings.FavoriteRequests, Constants.FavoriteRequests);
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsDeletedInFavorite"));
             return true;
             //ToolHelper.ShowMessageBox(_appSettings.ResourceLoader.GetString("RouteIsIncorect"));

@@ -157,8 +157,8 @@ namespace Trains.Core.ViewModels
         {
             RestoreUIBinding();
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
-            _from = _appSettings.UpdatedLastRequest.From;
-            _to = _appSettings.UpdatedLastRequest.To;
+            _from = _appSettings.UpdatedLastRequest.Route.From;
+            _to = _appSettings.UpdatedLastRequest.Route.To;
             Request = _from + " - " + _to;
             SetManageFavoriteButton();
         }
@@ -205,7 +205,7 @@ namespace Trains.Core.ViewModels
         private void SetManageFavoriteButton()
         {
             if (_appSettings.FavoriteRequests == null) SetVisibilityToFavoriteIcons(true, false);
-            else if (_appSettings.FavoriteRequests.Any(x => x.From == _from && x.To == _to))
+            else if (_appSettings.FavoriteRequests.Any(x => x.Route.From == _from && x.Route.To == _to))
                 SetVisibilityToFavoriteIcons(false, true);
             else SetVisibilityToFavoriteIcons(true, false);
         }

@@ -78,10 +78,10 @@ namespace Trains.Core.ViewModels
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchTrainCommand = new MvxCommand(() => SearchTrain(From, To));
             SwapCommand = new MvxCommand(Swap);
-            TappedFavoriteCommand = new MvxCommand<LastRequest>(route =>
+            TappedFavoriteCommand = new MvxCommand<LastRequest>(request =>
             {
-                if (route == null) return;
-                SearchTrain(route.From, route.To);
+                if (request == null) return;
+                SearchTrain(request.Route.From, request.Route.To);
             });
         }
 
@@ -328,7 +328,7 @@ namespace Trains.Core.ViewModels
             InitAboutItemsActions();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
-                LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.From, _appSettings.UpdatedLastRequest.To);
+                LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.Route.From, _appSettings.UpdatedLastRequest.Route.To);
             Trains = _appSettings.LastRequestTrain;
             FavoriteRequests = _appSettings.FavoriteRequests;
             AboutItems = _appSettings.About;
@@ -349,7 +349,7 @@ namespace Trains.Core.ViewModels
             if (schedule != null)
             {
                 _appSettings.LastRequestTrain = schedule;
-                _appSettings.UpdatedLastRequest = new LastRequest { From = from, To = to, SelectionMode = SelectedVariant, Date = Datum };
+                _appSettings.UpdatedLastRequest = new LastRequest { Route = new Route { From = from, To = to }, SelectionMode = SelectedVariant, Date = Datum };
                 _serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
                 _serializable.Serialize(schedule, Constants.LastTrainList);
                 ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
@@ -367,8 +367,8 @@ namespace Trains.Core.ViewModels
             if (_appSettings.UpdatedLastRequest == null) return;
             IsTaskRun = true;
 
-            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.From),
-                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.To),
+            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.Route.From),
+                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.Route.To),
                 _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
             if (trains == null)

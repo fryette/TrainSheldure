@@ -53,16 +53,16 @@ namespace Trains.Core.ViewModels
         public List<LastRequest> UpdateLastRequests(List<LastRequest> lastRequests, string from, string to)
         {
             if (lastRequests == null) lastRequests = new List<LastRequest>(3);
-            if (lastRequests.Any(x => x.From == from && x.To == to)) return lastRequests;
+            if (lastRequests.Any(x => x.Route.From == from && x.Route.To == to)) return lastRequests;
             if (lastRequests.Count == 3)
             {
                 lastRequests[2] = lastRequests[1];
                 lastRequests[1] = lastRequests[0];
-                lastRequests[0] = new LastRequest { From = from, To = to };
+                lastRequests[0] = new LastRequest { Route = new Route { From = from, To = to } };
             }
 
             else
-                lastRequests.Add(new LastRequest { From = from, To = to });
+                lastRequests.Add(new LastRequest { Route = new Route { From = from, To = to } });
 
             return lastRequests;
         }
