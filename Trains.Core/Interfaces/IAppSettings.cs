@@ -21,6 +21,8 @@ namespace Trains.Core.Interfaces
 
         List<About> About { get; set; }
 
+        List<Route> LastRoutes { get; set; }
+
         bool FirstUpdateRun { get; set; }
 
         SocialUri SocialUri { get; set; }

@@ -9,6 +9,8 @@
         public const string SettingsRelativeUri = "settings.json";
 
         public const string IsFirstRun = "IsFirstRun";
+        public const string IsSecondRun = "IsSecondRun";
+
         public const string Social = "SocialUri";
         public const string AppSettings = "AppSettings";
         public const string Patterns = "Patterns";
@@ -18,6 +20,7 @@
         public const string LastTrainList = "LastTrainList";
         public const string CurrentLanguage = "CurrentLanguage";
         public const string AppLanguage = "AppLanguage";
+        public const string LastRoutes = "LastRoutes";
 
         public const string PlaceInformationJson = "PlaceInformation.json";
         public const string SocialJson = "SocialUri.json";

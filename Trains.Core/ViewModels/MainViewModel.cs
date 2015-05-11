@@ -56,6 +56,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand SearchTrainCommand { get; private set; }
         public IMvxCommand SwapCommand { get; private set; }
+        public MvxCommand<Route> TappedRouteCommand { get; private set; }
 
         #endregion
 
@@ -78,6 +79,7 @@ namespace Trains.Core.ViewModels
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
             SearchTrainCommand = new MvxCommand(() => SearchTrain(From, To));
             SwapCommand = new MvxCommand(Swap);
+            TappedRouteCommand = new MvxCommand<Route>(route => SetRoute(route));
             TappedFavoriteCommand = new MvxCommand<LastRequest>(request =>
             {
                 if (request == null) return;
@@ -111,6 +113,19 @@ namespace Trains.Core.ViewModels
 
         public IEnumerable<About> AboutItems { get; set; }
 
+        private List<Route> _lastRoutes;
+        public List<Route> LastRoutes
+        {
+            get
+            {
+                return _lastRoutes;
+            }
+            set
+            {
+                _lastRoutes = value;
+                RaisePropertyChanged(() => LastRoutes);
+            }
+        }
 
         private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
         public DateTimeOffset Datum
@@ -276,8 +291,8 @@ namespace Trains.Core.ViewModels
         /// <summary>
         /// Object are stored custom routes.
         /// </summary>
-        private IEnumerable<LastRequest> _favoriteRequests;
-        public IEnumerable<LastRequest> FavoriteRequests
+        private IEnumerable<Route> _favoriteRequests;
+        public IEnumerable<Route> FavoriteRequests
         {
             get { return _favoriteRequests; }
             set
@@ -330,7 +345,8 @@ namespace Trains.Core.ViewModels
             if (_appSettings.UpdatedLastRequest != null)
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.Route.From, _appSettings.UpdatedLastRequest.Route.To);
             Trains = _appSettings.LastRequestTrain;
-            FavoriteRequests = _appSettings.FavoriteRequests;
+            LastRoutes = _appSettings.LastRoutes;
+            FavoriteRequests = _appSettings.FavoriteRequests.Select(x => x.Route);
             AboutItems = _appSettings.About;
             SelectedVariant = VariantOfSearch[1];
             IsDownloadRun = false;
@@ -343,7 +359,7 @@ namespace Trains.Core.ViewModels
         {
             if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-
+            AddToLastRoutes(new Route { From = From, To = To });
             List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
                     _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
             if (schedule != null)
@@ -421,6 +437,20 @@ namespace Trains.Core.ViewModels
             To = tmp;
         }
 
+        private void AddToLastRoutes(Route route)
+        {
+            var routes = new List<Route>() { route };
+            routes.AddRange(LastRoutes);
+            _appSettings.LastRoutes = LastRoutes = routes.Take(4).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
+            _serializable.Serialize(LastRoutes, Constants.LastRoutes);
+        }
+
+        private void SetRoute(Route route)
+        {
+            From = route.From;
+            To = route.To;
+        }
+
         private async Task<bool> RestoreData()
         {
             await CheckStart();
@@ -442,9 +472,11 @@ namespace Trains.Core.ViewModels
                 _appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
                 _appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
                 _appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
+
+                var routes = _serializable.Desserialize<List<Route>>(Constants.LastRoutes);
+                _appSettings.LastRoutes = routes == null ? new List<Route>() : routes;
+
                 SetPatterns();
-
-
             }
 
             VariantOfSearch = new List<string>
@@ -460,12 +492,19 @@ namespace Trains.Core.ViewModels
 
         private async Task CheckStart()
         {
-            if (_serializable.Desserialize<string>(Constants.IsFirstRun) == null ? true : false)
+            var firstRun = _serializable.Desserialize<string>(Constants.IsFirstRun);
+            if (firstRun == null)
             {
                 _appSettings.Language = new Language { Id = "ru", Name = "Русский" };
                 _serializable.ClearAll();
                 _serializable.Serialize<string>(Constants.IsFirstRun, Constants.IsFirstRun);
                 _serializable.Serialize<Language>(_appSettings.Language, Constants.AppLanguage);
+            }
+
+            if (firstRun != null && _serializable.Desserialize<string>(Constants.IsSecondRun) == null)
+            {
+                _serializable.Delete(Constants.FavoriteRequests);
+                _serializable.Serialize<string>(Constants.IsSecondRun, Constants.IsSecondRun);
             }
 
             var appLanguage = _serializable.Desserialize<Language>(Constants.AppLanguage);

@@ -52,6 +52,19 @@
                                 HorizontalAlignment="Right"
                                 Command="{Binding SearchTrainCommand}" />
                     </StackPanel>
+                    <ListView x:Name="Routes"
+                              Grid.Row="1"
+                              ItemsSource="{Binding LastRoutes}"
+                              ItemTemplate="{StaticResource RoutesTemplate}"
+                              ItemContainerStyle="{StaticResource ListViewItemStyle}">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Tapped">
+                                <core:InvokeCommandAction Command="{Binding TappedRouteCommand}"
+                                                          CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}"
+                                                          InputConverter="{StaticResource SelectionChangedConverter}" />
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </ListView>
                 </Grid>
             </PivotItem>
             <PivotItem Header="{Binding LastSchedulePivotItem}"
@@ -106,7 +119,7 @@
                        Background="{Binding FavoriteRequests, Converter={StaticResource BackgroundLastRouteToImageConverter},ConverterParameter=route}">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
-                          ItemTemplate="{StaticResource ManageFavoriteRequestTemplate}"
+                          ItemTemplate="{StaticResource RoutesTemplate}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">

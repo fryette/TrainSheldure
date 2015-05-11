@@ -42,15 +42,15 @@ namespace Trains.WP.Converter
         {
             var color = ((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png";
             var image = "";
-            if (value == null)
+            if ((string)parameter == "route" && (value == null || !((IEnumerable<Route>)value).Any()))
+                image = RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id];
+            else if (value == null)
             {
                 if ((string)parameter == "reverse")
                     image = ReverseBackground[Mvx.Resolve<IAppSettings>().Language.Id];
                 else if ((string)parameter == "last")
                     image = LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id];
             }
-            else if ((string)parameter == "route" && (value == null || !((List<LastRequest>)value).Any()))
-                image = RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id];
             return new ImageBrush
                  {
                      ImageSource = new BitmapImage
