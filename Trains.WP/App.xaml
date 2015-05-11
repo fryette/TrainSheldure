@@ -358,7 +358,7 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="InformationTemplate">
-                <Grid Height="{StaticResource TileWidth}">
+                <Grid Height="Auto">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="180" />
                         <ColumnDefinition Width="Auto" />

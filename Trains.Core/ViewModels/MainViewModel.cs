@@ -52,7 +52,7 @@ namespace Trains.Core.ViewModels
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
         public MvxCommand<Train> SelectTrainCommand { get; private set; }
-        public MvxCommand<LastRequest> TappedFavoriteCommand { get; private set; }
+        public MvxCommand<Route> TappedFavoriteCommand { get; private set; }
         public IMvxCommand UpdateLastRequestCommand { get; private set; }
         public IMvxCommand SearchTrainCommand { get; private set; }
         public IMvxCommand SwapCommand { get; private set; }
@@ -80,10 +80,10 @@ namespace Trains.Core.ViewModels
             SearchTrainCommand = new MvxCommand(() => SearchTrain(From, To));
             SwapCommand = new MvxCommand(Swap);
             TappedRouteCommand = new MvxCommand<Route>(route => SetRoute(route));
-            TappedFavoriteCommand = new MvxCommand<LastRequest>(request =>
+            TappedFavoriteCommand = new MvxCommand<Route>(route =>
             {
-                if (request == null) return;
-                SearchTrain(request.Route.From, request.Route.To);
+                if (route == null) return;
+                SearchTrain(route.From, route.To);
             });
         }
 
@@ -346,7 +346,7 @@ namespace Trains.Core.ViewModels
                 LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.Route.From, _appSettings.UpdatedLastRequest.Route.To);
             Trains = _appSettings.LastRequestTrain;
             LastRoutes = _appSettings.LastRoutes;
-            FavoriteRequests = _appSettings.FavoriteRequests.Select(x => x.Route);
+            FavoriteRequests = _appSettings.FavoriteRequests == null ? null : _appSettings.FavoriteRequests.Select(x => x.Route);
             AboutItems = _appSettings.About;
             SelectedVariant = VariantOfSearch[1];
             IsDownloadRun = false;
@@ -440,13 +440,15 @@ namespace Trains.Core.ViewModels
         private void AddToLastRoutes(Route route)
         {
             var routes = new List<Route>() { route };
+            if (LastRoutes == null) LastRoutes = new List<Route>();
             routes.AddRange(LastRoutes);
-            _appSettings.LastRoutes = LastRoutes = routes.Take(4).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
+            _appSettings.LastRoutes = LastRoutes = routes.Take(3).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
             _serializable.Serialize(LastRoutes, Constants.LastRoutes);
         }
 
         private void SetRoute(Route route)
         {
+            if (route == null) return;
             From = route.From;
             To = route.To;
         }
