@@ -8,7 +8,7 @@
 
         public const string SettingsRelativeUri = "settings.json";
 
-        public const string IsFirstRun = "IsFirstRun";
+        public const string IsFirstRun = "IsFirstRun1";
         public const string IsSecondRun = "IsSecondRun";
 
         public const string Social = "SocialUri";

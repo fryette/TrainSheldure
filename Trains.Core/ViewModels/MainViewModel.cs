@@ -503,12 +503,6 @@ namespace Trains.Core.ViewModels
                 _serializable.Serialize<Language>(_appSettings.Language, Constants.AppLanguage);
             }
 
-            if (firstRun != null && _serializable.Desserialize<string>(Constants.IsSecondRun) == null)
-            {
-                _serializable.Delete(Constants.FavoriteRequests);
-                _serializable.Serialize<string>(Constants.IsSecondRun, Constants.IsSecondRun);
-            }
-
             var appLanguage = _serializable.Desserialize<Language>(Constants.AppLanguage);
             var currLanguage = _serializable.Desserialize<Language>(Constants.CurrentLanguage);
 
@@ -520,6 +514,7 @@ namespace Trains.Core.ViewModels
                     await DowloadResources(currLanguage == null ? appLanguage : currLanguage);
                     DeleteSaveSettings();
                 }
+
                 catch (Exception e)
                 {
                     isException = true;

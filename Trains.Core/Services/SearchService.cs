@@ -52,7 +52,8 @@ namespace Trains.Core.Services
             }
             catch (Exception e)
             {
-                Analytics.SentException(e.Message + from.UniqueId + '-' + to.UniqueId + ':' + selectedVariant);
+                Analytics.SentException(e.Message);
+                Analytics.SentEvent("exceptions", "Search", e.Message + "---" + from.UniqueId + '-' + to.UniqueId + ':' + selectedVariant);
             }
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
             return null;
