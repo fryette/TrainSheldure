@@ -146,14 +146,15 @@
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
                         Margin="0,0,0,150">
-                <TextBlock Text="Идет загрузка данных, это не займет много времени" />
+                <TextBlock Foreground="{ThemeResource PhoneBackgroundBrush}"
+                           Text="Идет загрузка данных, это не займет много времени" />
                 <ProgressBar IsIndeterminate="True" />
             </StackPanel>
         </Grid>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}" 
-            IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
+        <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
+                    IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
                           Label="{Binding UpdateAppBar}"
                           Icon="Sync"
@@ -163,10 +164,6 @@
                           Icon="Sort"
                           Command="{Binding SwapCommand}"
                           IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
-            <AppBarButton x:Name="ManagedAppBar"
-                          Label="{Binding ManageAppBar}"
-                          Icon="Repair"
-                          Command="{Binding GoToEditFavoriteCommand}" />
             <CommandBar.SecondaryCommands>
                 <AppBarButton Label="{Binding HelpAppBar}"
                               Icon="Help"
@@ -174,6 +171,5 @@
                               IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
             </CommandBar.SecondaryCommands>
         </CommandBar>
-
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

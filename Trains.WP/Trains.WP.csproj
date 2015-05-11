@@ -126,9 +126,6 @@
     <Compile Include="Views\CarriageView.xaml.cs">
       <DependentUpon>CarriageView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\EditFavoriteRoutesView.xaml.cs">
-      <DependentUpon>EditFavoriteRoutesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\HelpView.xaml.cs">
       <DependentUpon>HelpView.xaml</DependentUpon>
     </Compile>
@@ -163,10 +160,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CarriageView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\EditFavoriteRoutesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -323,22 +316,16 @@
     <Content Include="Assets\Backgrounds\Dlya_AdlyustravannyaWhite.png" />
     <Content Include="Assets\Backgrounds\Dlya_OtobrazheniaBlack.png" />
     <Content Include="Assets\Backgrounds\Dlya_OtobrazheniaWhite.png" />
-    <Content Include="Assets\Backgrounds\FoundBlack.png" />
-    <Content Include="Assets\Backgrounds\FoundWhite.png" />
     <Content Include="Assets\Backgrounds\Marshrutau_NeBlack.png" />
     <Content Include="Assets\Backgrounds\Marshrutau_NeWhite.png" />
     <Content Include="Assets\Backgrounds\Marshrutov_NeBlack.png" />
     <Content Include="Assets\Backgrounds\Marshrutov_NeWhite.png" />
-    <Content Include="Assets\Backgrounds\NaydiBlack.png" />
-    <Content Include="Assets\Backgrounds\NaydiWhite.png" />
     <Content Include="Assets\Backgrounds\No_favoritesBlack.png" />
     <Content Include="Assets\Backgrounds\No_favoritesWhite.png" />
     <Content Include="Assets\Backgrounds\No_historyBlack.png" />
     <Content Include="Assets\Backgrounds\No_historyWhite.png" />
     <Content Include="Assets\Backgrounds\ObratnyyBlack.png" />
     <Content Include="Assets\Backgrounds\ObratnyyWhite.png" />
-    <Content Include="Assets\Backgrounds\ZnaydziBlack.png" />
-    <Content Include="Assets\Backgrounds\ZnaydziWhite.png" />
     <Content Include="Assets\Backgrounds\ZvarotnyBlack.png" />
     <Content Include="Assets\Backgrounds\ZvarotnyWhite.png" />
     <Content Include="Assets\Carriage\CompartmentSleeper.png" />

@@ -423,12 +423,12 @@
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,0,5">
                     <TextBlock Text="{Binding From}"
-                               Style="{StaticResource BasedTextBlockStyle}" />
+                               FontSize="{StaticResource MainFontSize}" />
                     <TextBlock Text="-"
                                Margin="5,0"
                                Style="{StaticResource BasedTextBlockStyle}" />
                     <TextBlock Text="{Binding To}"
-                               Style="{StaticResource BasedTextBlockStyle}" />
+                               FontSize="{StaticResource MainFontSize}" />
                 </StackPanel>
             </DataTemplate>
             <DataTemplate x:Key="EditFavoriteRequestTemplate">

@@ -70,7 +70,6 @@
     <Compile Include="Services\TrainStopService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BaseSearchViewModel.cs" />
-    <Compile Include="ViewModels\EditFavoriteRoutesViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\CarriageViewModel.cs" />

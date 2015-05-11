@@ -50,7 +50,6 @@ namespace Trains.Core.ViewModels
 
         public MvxCommand<About> TappedAboutItemCommand { get; private set; }
         public IMvxCommand GoToFavoriteListCommand { get; private set; }
-        public IMvxCommand GoToEditFavoriteCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
         public MvxCommand<Train> SelectTrainCommand { get; private set; }
         public MvxCommand<LastRequest> TappedFavoriteCommand { get; private set; }
@@ -74,8 +73,6 @@ namespace Trains.Core.ViewModels
             _patterns = pattern;
 
             TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
-            GoToEditFavoriteCommand = new MvxCommand(GoToEditFavorite);
-            GoToFavoriteListCommand = new MvxCommand(GoToFavoriteList);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SelectTrainCommand = new MvxCommand<Train>(ClickItem);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
@@ -399,30 +396,11 @@ namespace Trains.Core.ViewModels
         }
 
         /// <summary>
-        /// Go to favorite routes page.
-        /// </summary>
-        private void GoToFavoriteList()
-        {
-            ShowViewModel<EditFavoriteRoutesViewModel>();
-        }
-
-        /// <summary>
         /// Go to saved by user routes page.
         /// </summary>
         private void GoToHelpPage()
         {
             ShowViewModel<HelpViewModel>();
-        }
-
-        /// <summary>
-        /// Used to manage user-saved routes.
-        /// </summary>
-        private async void GoToEditFavorite()
-        {
-            if (_appSettings.FavoriteRequests == null || !_appSettings.FavoriteRequests.Any())
-                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["EditFavoriteMessageError"]);
-            else
-                ShowViewModel<EditFavoriteRoutesViewModel>();
         }
 
         private void ClickAboutItem(About selectedAboutItem)

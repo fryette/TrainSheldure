@@ -24,9 +24,7 @@ namespace Trains.WP.Views
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)
         {
             LastPivotIndex = MainPivot.SelectedIndex;
-            if (args.Item == MainPivotItem) SetAppBarVisibility(false, false, true);
-            else if (args.Item == RoutesPivot)
-                SetAppBarVisibility(false, true);
+            if (args.Item == MainPivotItem) SetAppBarVisibility(false, true);
             else if (args.Item == LastPivot)
                 SetAppBarVisibility(true);
             else
@@ -35,10 +33,9 @@ namespace Trains.WP.Views
             ((MainViewModel)ViewModel).RaisePropertyChanged("LastUpdateTime");
         }
 
-        private void SetAppBarVisibility(bool updateAppBar = false, bool managedAppBar = false, bool swapAppBar = false)
+        private void SetAppBarVisibility(bool updateAppBar = false, bool swapAppBar = false)
         {
             UpdateAppBar.Visibility = updateAppBar ? Visibility.Visible : Visibility.Collapsed;
-            ManagedAppBar.Visibility = managedAppBar ? Visibility.Visible : Visibility.Collapsed;
             SwapAppBar.Visibility = swapAppBar ? Visibility.Visible : Visibility.Collapsed;
         }
 
