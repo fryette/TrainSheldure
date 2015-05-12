@@ -41,7 +41,7 @@ namespace Trains.Core.Services
                 var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
                 List<Train> trains;
-                if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
+                if (!from.label_tail.Contains(ResourceLoader.Instance.Resource["Belarus"].Replace("(", "").Replace(")", "")) && !to.label_tail.Contains(ResourceLoader.Instance.Resource["Belarus"].Replace("(", "").Replace(")", "")))
                     trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
                 else
                     trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, Pattern.TrainsPattern).ToList())
@@ -53,7 +53,7 @@ namespace Trains.Core.Services
             catch (Exception e)
             {
                 Analytics.SentException(e.Message);
-                Analytics.SentEvent("exceptions", "Search", e.Message + "---" + from.UniqueId + '-' + to.UniqueId + ':' + selectedVariant);
+                Analytics.SentEvent("exceptions", "Search", e.Message + "---" + from.value + '-' + to.value + ':' + selectedVariant);
             }
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
             return null;
@@ -62,7 +62,7 @@ namespace Trains.Core.Services
         private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
         {
             return new Uri("http://rasp.rw.by/m/" + ResourceLoader.Instance.Resource["Language"] + "/route/?from=" +
-                   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date + "&" + new Random().Next(0, 20));
+                   fromItem.value.Split('(')[0] + "&from_exp=" + fromItem.exp + "&to=" + toItem.value.Split('(')[0] + "&to_exp=" + toItem.exp + "&date=" + date + "&" + new Random().Next(0, 20));
         }
 
         private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)

@@ -25,7 +25,7 @@
         public const string PlaceInformationJson = "PlaceInformation.json";
         public const string SocialJson = "SocialUri.json";
         public const string PatternsJson = "Patterns.json";
-        public const string StopPointsJson = "StopPoints.json";
+        public const string StopPointsJson = "stopPoints.json";
         public const string HelpInformationJson = "HelpInformation.json";
         public const string CarriageModelJson = "CarriageModel.json";
         public const string AboutJson = "About.json";

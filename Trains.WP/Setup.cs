@@ -34,6 +34,8 @@ namespace Trains.WP
             Mvx.LazyConstructAndRegisterSingleton<IMarketPlaceService, MarketPlace>();
             Mvx.LazyConstructAndRegisterSingleton<IAnalytics, Analytics>();
             Mvx.RegisterType<IMvxShareTask, MvxShareTask>();
+            Mvx.RegisterType<ILocatorService, LocatorService>();
+
 
             base.InitializePlatformServices();
         }

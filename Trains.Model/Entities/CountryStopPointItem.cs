@@ -2,8 +2,11 @@
 {
     public class CountryStopPointItem
     {
-        public string UniqueId { get; set; }
-        public string Country { get; set; }
-        public string Exp { get; set; }
+        public string value { get; set; }
+        public string label_tail { get; set; }
+        public string exp { get; set; }
+        public double lon { get; set; }
+        public double lat { get; set; }
+        public string ecp { get; set; }
     }
 }

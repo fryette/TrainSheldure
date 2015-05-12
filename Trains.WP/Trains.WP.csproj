@@ -116,6 +116,7 @@
     <Compile Include="DebugTrace.cs" />
     <Compile Include="MvxShareTask.cs" />
     <Compile Include="Services\Analytics.cs" />
+    <Compile Include="Services\LocatorService.cs" />
     <Compile Include="Services\MarketPlace.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

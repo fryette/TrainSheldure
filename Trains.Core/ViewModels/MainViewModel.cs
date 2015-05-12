@@ -73,6 +73,7 @@ namespace Trains.Core.ViewModels
             _marketPlace = marketPlace;
             _patterns = pattern;
 
+            coordinates = Mvx.Resolve<ILocatorService>().FindLocation();
             TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SelectTrainCommand = new MvxCommand<Train>(ClickItem);
@@ -211,7 +212,7 @@ namespace Trains.Core.ViewModels
             {
                 _from = value;
                 RaisePropertyChanged(() => From);
-                AutoSuggestions = UpdateAutoSuggestions(From, _appSettings.AutoCompletion);
+                UpdateAutoSuggestions(From);
             }
         }
 
@@ -226,7 +227,7 @@ namespace Trains.Core.ViewModels
             {
                 _to = value;
                 RaisePropertyChanged(() => To);
-                AutoSuggestions = UpdateAutoSuggestions(To, _appSettings.AutoCompletion);
+                UpdateAutoSuggestions(To);
             }
         }
 
@@ -327,6 +328,8 @@ namespace Trains.Core.ViewModels
             }
         }
 
+        Task<Coordinates> coordinates;
+
         #endregion
 
         #region actions
@@ -349,6 +352,7 @@ namespace Trains.Core.ViewModels
             FavoriteRequests = _appSettings.FavoriteRequests == null ? null : _appSettings.FavoriteRequests.Select(x => x.Route);
             AboutItems = _appSettings.About;
             SelectedVariant = VariantOfSearch[1];
+            UpdateAutoSuggestions(null);
             IsDownloadRun = false;
         }
 
@@ -360,8 +364,8 @@ namespace Trains.Core.ViewModels
             if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
             AddToLastRoutes(new Route { From = From, To = To });
-            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
-                    _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
+            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.value == from),
+                    _appSettings.AutoCompletion.First(x => x.value == to), Datum, SelectedVariant);
             if (schedule != null)
             {
                 _appSettings.LastRequestTrain = schedule;
@@ -383,8 +387,8 @@ namespace Trains.Core.ViewModels
             if (_appSettings.UpdatedLastRequest == null) return;
             IsTaskRun = true;
 
-            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.Route.From),
-                _appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.Route.To),
+            var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.value == _appSettings.UpdatedLastRequest.Route.From),
+                _appSettings.AutoCompletion.First(x => x.value == _appSettings.UpdatedLastRequest.Route.To),
                 _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
             if (trains == null)
@@ -452,6 +456,53 @@ namespace Trains.Core.ViewModels
             From = route.From;
             To = route.To;
         }
+
+        /// <summary>
+        /// Update prompts during user input stopping point
+        /// </summary>
+        public async void UpdateAutoSuggestions(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                await coordinates;
+                From = _appSettings.AutoCompletion.Where(x => x.label_tail.Contains("Беларусь") && GetDistance(x.lon, x.lat, coordinates.Result.Lat, coordinates.Result.Lon, x) < 1).Select(x => x).First().value;
+            }
+            else
+            {
+                AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.value.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.value).ToList();
+                if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == str) AutoSuggestions = null;
+            }
+        }
+
+        private double GetDistance(Double lat1, Double lon1, Double lat2, Double lon2, CountryStopPointItem name)
+        {
+            var R = 6372795;
+
+            //перевод коордитат в радианы 
+            lat1 *= Math.PI / 180;
+            lat2 *= Math.PI / 180;
+            lon1 *= Math.PI / 180;
+            lon2 *= Math.PI / 180;
+
+            //вычисление косинусов и синусов широт и разницы долгот 
+            var cl1 = Math.Cos(lat1);
+            var cl2 = Math.Cos(lat2);
+            var sl1 = Math.Sin(lat1);
+            var sl2 = Math.Sin(lat2);
+            var delta = lon2 - lon1;
+            var cdelta = Math.Cos(delta);
+            var sdelta = Math.Sin(delta);
+
+            //вычисления длины большого круга 
+            var y = Math.Sqrt(Math.Pow(cl2 * sdelta, 2) + Math.Pow(cl1 * sl2 - sl1 * cl2 * cdelta, 2));
+            var x = sl1 * sl2 + cl1 * cl2 * cdelta;
+            var ad = Math.Atan2(y, x);
+            var dist = ad * R / 1000; //расстояние между двумя координатами в метрах 
+
+            return dist;
+        }
+
+        #region RestoreData
 
         private async Task<bool> RestoreData()
         {
@@ -592,6 +643,7 @@ namespace Trains.Core.ViewModels
             HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
             RaiseAllPropertiesChanged();
         }
+        #endregion
 
         #endregion
     }

@@ -27,8 +27,8 @@ namespace Trains.Core.ViewModels
             }
 
             if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
-                !(autoCompletion.Any(x => x.UniqueId == from.Trim()) &&
-                  autoCompletion.Any(x => x.UniqueId == to.Trim())))
+                !(autoCompletion.Any(x => x.value == from.Trim()) &&
+                  autoCompletion.Any(x => x.value == to.Trim())))
             {
                 await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
                 return true;
@@ -37,17 +37,6 @@ namespace Trains.Core.ViewModels
             if (NetworkInterface.GetIsNetworkAvailable()) return false;
             await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
             return true;
-        }
-
-        /// <summary>
-        /// Update prompts during user input stopping point
-        /// </summary>
-        public List<string> UpdateAutoSuggestions(string str, List<CountryStopPointItem> autoCompletion)
-        {
-            if (string.IsNullOrEmpty(str)) return null;
-            var autoSuggestions = autoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
-            if (autoSuggestions.Count == 1 && autoSuggestions[0] == str) return null;
-            return autoSuggestions;
         }
 
         public List<LastRequest> UpdateLastRequests(List<LastRequest> lastRequests, string from, string to)
@@ -66,7 +55,5 @@ namespace Trains.Core.ViewModels
 
             return lastRequests;
         }
-
-
     }
 }
