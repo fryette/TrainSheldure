@@ -62,9 +62,10 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email)
+        public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local)
         {
-            _email = email;
+            //, IMvxComposeEmailTask email
+            //_email = email;
             _local = local;
             _analytics = analytics;
             _serializable = serializable;

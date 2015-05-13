@@ -4,6 +4,7 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Droid.Platform;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
+using Trains.Core.Services.Interfaces;
 using Trains.Droid.Services;
 
 namespace Trains.Droid
@@ -26,7 +27,10 @@ namespace Trains.Droid
 
 		protected override void InitializePlatformServices()
 		{
-			Mvx.LazyConstructAndRegisterSingleton<ISerializableService, Serialize>();
+
+
+            Mvx.LazyConstructAndRegisterSingleton<IMarketPlaceService, MarketPlace>();
+            Mvx.LazyConstructAndRegisterSingleton<IAnalytics, Analytics>();
 
 			base.InitializePlatformServices();
 		}

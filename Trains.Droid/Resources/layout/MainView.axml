@@ -4,10 +4,65 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Button
-        android:id="@+id/MyButton"
-        android:layout_width="fill_parent"
+    <TextView
+        android:text="Поиск"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Search"
-        local:MvxBind="Click GoToSearchCommand" />
+        android:id="@+id/textView1"
+        android:gravity="center" />
+    <TextView
+        android:text="Дата отправления"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="09.04.2015"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/SearchDate" />
+        <Button
+            android:text="На дату"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/SearchDate"
+            android:id="@+id/SearchType" />
+    </RelativeLayout>
+    <AutoCompleteTextView
+        local:MvxBind="Text From"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/FromTextView"
+        android:hint="Откуда" />
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ToTextView"
+        android:hint="Куда" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:text="Очистить"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button4" />
+        <Button
+            android:text="Поиск"
+            local:MvxBind="Click SearchTrainCommand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/button4"
+            android:id="@+id/button5" />
+    </RelativeLayout>
+    <TextView
+        android:text="Последние запросы"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 </LinearLayout>
