@@ -1,4 +1,5 @@
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Widget;
 using Cirrious.MvvmCross.Droid.Views;
@@ -8,9 +9,9 @@ using Trains.Core.ViewModels;
 
 namespace Trains.Droid.Views
 {
-    [Activity(Label = "MainView")]
-    public class MainView : MvxActivity
-    {
+	[Activity(Label = "View for MainViewModel")]
+	public class MainView : MvxTabActivity
+	{
         private const string DateFormat = "d";
 
         private Button _searchDateButton;
@@ -18,26 +19,31 @@ namespace Trains.Droid.Views
         private AutoCompleteTextView _fromTextView;
         private AutoCompleteTextView _toTextView;
 
+		private MainViewModel Model
+		{
+			get{ return (MainViewModel)ViewModel;}
+		}
+
         private DateTimeOffset SearchDate
         {
-            get { return ((MainViewModel)ViewModel).Datum; }
-            set { ((MainViewModel)ViewModel).Datum = value; }
+            get { return Model.Datum; }
+            set { Model.Datum = value; }
         }
 
         private List<string> SearchTypes
         {
-            get { return ((MainViewModel)ViewModel).VariantOfSearch; }
+            get { return Model.VariantOfSearch; }
         }
 
         private string SelectedType
         {
-            get { return ((MainViewModel)ViewModel).SelectedVariant; }
-            set { ((MainViewModel)ViewModel).SelectedVariant = value; }
+            get { return Model.SelectedVariant; }
+            set { Model.SelectedVariant = value; }
         }
 
         private List<string> AutoCompletion
         {
-            get { return ((MainViewModel)ViewModel).AutoSuggestions; }
+            get { return Model.AutoSuggestions; }
         }
 
         protected override void OnCreate(Bundle bundle)
@@ -45,13 +51,29 @@ namespace Trains.Droid.Views
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainView);
 
+			TabHost.TabSpec spec;
+
+			spec = TabHost.NewTabSpec("child1");
+			spec.SetIndicator(Model.MainPivotItem);
+            spec.SetContent(Resource.Id.tab1);
+            TabHost.AddTab(spec);
+
+            spec = TabHost.NewTabSpec("child2");
+			spec.SetIndicator(Model.LastSchedulePivotItem);
+            spec.SetContent(Resource.Id.tab2);
+            TabHost.AddTab(spec);
+
+            spec = TabHost.NewTabSpec("child3");
+			spec.SetIndicator(Model.RoutesPivotItem);
+            spec.SetContent(Resource.Id.tab3);
+            TabHost.AddTab(spec);
+
             _searchDateButton = FindViewById<Button>(Resource.Id.SearchDate);
             _searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
             _fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
             _toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
         }
-
-        protected override void OnStart()
+     protected override void OnStart()
         {
             _searchDateButton.Click += searchDateButton_Click;
             _searchDateButton.Text = SearchDate.ToString(DateFormat);

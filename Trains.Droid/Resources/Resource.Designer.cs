@@ -99,6 +99,9 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040006
 			public const int ToTextView = 2130968582;
 			
+			// aapt resource value: 0x7f04000b
+			public const int button2 = 2130968587;
+			
 			// aapt resource value: 0x7f040007
 			public const int button3 = 2130968583;
 			
@@ -106,7 +109,13 @@ namespace Trains.Droid
 			public const int button4 = 2130968584;
 			
 			// aapt resource value: 0x7f040001
-			public const int textView1 = 2130968577;
+			public const int tab1 = 2130968577;
+			
+			// aapt resource value: 0x7f04000a
+			public const int tab2 = 2130968586;
+			
+			// aapt resource value: 0x7f04000c
+			public const int tab3 = 2130968588;
 			
 			// aapt resource value: 0x7f040002
 			public const int textView2 = 2130968578;
