@@ -99,14 +99,11 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040006
 			public const int ToTextView = 2130968582;
 			
-			// aapt resource value: 0x7f04000a
-			public const int button3 = 2130968586;
-			
 			// aapt resource value: 0x7f040007
-			public const int button4 = 2130968583;
+			public const int button3 = 2130968583;
 			
 			// aapt resource value: 0x7f040008
-			public const int button5 = 2130968584;
+			public const int button4 = 2130968584;
 			
 			// aapt resource value: 0x7f040001
 			public const int textView1 = 2130968577;
@@ -152,13 +149,10 @@ namespace Trains.Droid
 			public const int ScheduleView = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int SearchView = 2130903047;
+			public const int SettingsView = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int SettingsView = 2130903048;
-			
-			// aapt resource value: 0x7f030009
-			public const int SplashScreen = 2130903049;
+			public const int SplashScreen = 2130903048;
 			
 			static Layout()
 			{

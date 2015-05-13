@@ -33,31 +33,32 @@
             android:id="@+id/SearchType" />
     </RelativeLayout>
     <AutoCompleteTextView
-        local:MvxBind="Text From"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/FromTextView"
-        android:hint="Откуда" />
+        android:hint="Откуда"
+        local:MvxBind="Text From" />
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/ToTextView"
-        android:hint="Куда" />
+        android:hint="Куда"
+        local:MvxBind="Text To" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
-            android:text="Очистить"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/button4" />
         <Button
             android:text="Поиск"
             local:MvxBind="Click SearchTrainCommand"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/button4"
-            android:id="@+id/button5" />
+            android:id="@+id/button3" />
+        <Button
+            android:text="Очистить"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/button3"
+            android:id="@+id/button4" />
     </RelativeLayout>
     <TextView
         android:text="Последние запросы"

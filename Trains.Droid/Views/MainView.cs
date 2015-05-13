@@ -43,7 +43,7 @@ namespace Trains.Droid.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            SetContentView(Resource.Layout.SearchView);
+            SetContentView(Resource.Layout.MainView);
 
             _searchDateButton = FindViewById<Button>(Resource.Id.SearchDate);
             _searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
@@ -66,13 +66,11 @@ namespace Trains.Droid.Views
 
 		private void fromTextView_TextChange(object sender, EventArgs e)
 		{
-			((MainViewModel)ViewModel).From = ((TextView)sender).Text;
 			_fromTextView.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, AutoCompletion);
 		}
 			
 		private void toTextView_TextChange(object sender, EventArgs e)
 		{
-			((MainViewModel)ViewModel).To = ((TextView)sender).Text;
 			_toTextView.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, AutoCompletion);
 		}
 
