@@ -21,39 +21,45 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
-                        <TextBlock Text="{Binding FastSearchTextBlock}"
-                                   FontSize="{StaticResource NormalLargeFontSize}" />
-                        <ComboBox ItemsSource="{Binding VariantOfSearch}"
-                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}">
-                        </ComboBox>
-                        <DatePicker Header="{Binding DateOfDeparture}"
+                        <ComboBox x:Name="comboBox"
+                                  Header="{Binding FastSearchTextBlock}"
+                                  ItemsSource="{Binding VariantOfSearch}"
+                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
+                                  SelectionChanged="comboBox_SelectionChanged" />
+                        <DatePicker x:Name="DataPicker"
+                                    Header="{Binding DateOfDeparture}"
                                     Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Visibility="{Binding IsOnDaySelected,Converter={StaticResource BooleanToVisibilityConverter}}"
                                     Style="{StaticResource DatePickerStyle}"
                                     Margin="0,-5,0,0" />
-                        <TextBlock Text="{Binding FromAutoSuggest}"
-                                   FontSize="{StaticResource NormalLargeFontSize}"
-                                   Foreground="{StaticResource DimGrayColorBrush}" />
-                        <AutoSuggestBox Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <AutoSuggestBox x:Name="From"
+                                        Header="{Binding FromAutoSuggest}"
+                                        Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         IsEnabled="{Binding IsFildEnabled}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
+                                        GotFocus="AutoSuggestBox_ManipulationStarted"
+                                        LostFocus="AutoSuggestBox_ManipulationCompleted"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-                        <TextBlock Text="{Binding ToAutoSuggest}"
-                                   FontSize="{StaticResource NormalLargeFontSize}"
-                                   Foreground="{StaticResource DimGrayColorBrush}" />
-                        <AutoSuggestBox IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
+                        <AutoSuggestBox x:Name="To"
+                                        Header="{Binding ToAutoSuggest}"
+                                        IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                                         Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         Style="{StaticResource AutoSuggestBoxStyle}"
+                                        GotFocus="AutoSuggestBox_ManipulationStarted"
+                                        LostFocus="AutoSuggestBox_ManipulationCompleted"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-
-                        <Button Content="{Binding Search}"
-                                HorizontalAlignment="Right"
-                                Command="{Binding SearchTrainCommand}" />
+                        <Grid>
+                            
+                            <Button x:Name="SearchButton"
+                                    Content="{Binding Search}"
+                                    HorizontalAlignment="Right"
+                                    Command="{Binding SearchTrainCommand}" />
+                        </Grid>
                     </StackPanel>
                     <ListView x:Name="Routes"
                               Grid.Row="1"
+                              Header="{Binding LastRequests}"
                               ItemsSource="{Binding LastRoutes}"
                               ItemTemplate="{StaticResource RoutesTemplate}"
                               ItemContainerStyle="{StaticResource ListViewItemStyle}">

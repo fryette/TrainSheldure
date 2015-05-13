@@ -109,6 +109,7 @@ namespace Trains.Core.ViewModels
         public string SwapAppBar { get; set; }
         public string ManageAppBar { get; set; }
         public string HelpAppBar { get; set; }
+        public string LastRequests { get; set; }
 
         #endregion
 
@@ -182,7 +183,6 @@ namespace Trains.Core.ViewModels
             set
             {
                 _selectedDate = value;
-                IsOnDaySelected = SelectedVariant == ResourceLoader.Instance.Resource["OnDay"];
                 RaisePropertyChanged(() => SelectedVariant);
             }
         }
@@ -314,17 +314,6 @@ namespace Trains.Core.ViewModels
             {
                 _lastRoute = value;
                 RaisePropertyChanged(() => LastRoute);
-            }
-        }
-
-        private bool _isOnDaySelected;
-        public bool IsOnDaySelected
-        {
-            get { return _isOnDaySelected; }
-            set
-            {
-                _isOnDaySelected = value;
-                RaisePropertyChanged(() => IsOnDaySelected);
             }
         }
 
@@ -630,6 +619,8 @@ namespace Trains.Core.ViewModels
             SwapAppBar = ResourceLoader.Instance.Resource["SwapAppBar"];
             ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
             HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
+            LastRequests = ResourceLoader.Instance.Resource["LastRequests"];
+
             RaiseAllPropertiesChanged();
         }
         #endregion
