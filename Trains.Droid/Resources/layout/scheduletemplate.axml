@@ -4,9 +4,9 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Mvx.MvxListView
+    <TextView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        local:MvxItemTemplate="@layout/scheduletemplate"
-        local:MvxBind="ItemsSource Trains" />
+        android:layout_height="wrap_content"
+        android:textSize="40dp"
+        local:MvxBind="Text City" />
 </LinearLayout>
