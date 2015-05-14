@@ -62,17 +62,66 @@ namespace Trains.Droid
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f07000a
+			public const int black = 2131165194;
+			
+			// aapt resource value: 0x7f070000
+			public const int blue = 2131165184;
+			
+			// aapt resource value: 0x7f070005
+			public const int darkblue = 2131165189;
+			
+			// aapt resource value: 0x7f070007
+			public const int darkgreen = 2131165191;
+			
+			// aapt resource value: 0x7f070008
+			public const int darkorange = 2131165192;
+			
+			// aapt resource value: 0x7f070006
+			public const int darkpurple = 2131165190;
+			
+			// aapt resource value: 0x7f070009
+			public const int darkred = 2131165193;
+			
+			// aapt resource value: 0x7f070002
+			public const int green = 2131165186;
+			
+			// aapt resource value: 0x7f070003
+			public const int orange = 2131165187;
+			
+			// aapt resource value: 0x7f070001
+			public const int purple = 2131165185;
+			
+			// aapt resource value: 0x7f070004
+			public const int red = 2131165188;
+			
+			static Color()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int border = 2130837504;
+			public const int borderDark = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Icon = 2130837505;
+			public const int borderLight = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int splash = 2130837506;
+			public const int Icon = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int splash = 2130837507;
 			
 			static Drawable()
 			{
@@ -209,6 +258,9 @@ namespace Trains.Droid
 		
 		public partial class Style
 		{
+			
+			// aapt resource value: 0x7f050001
+			public const int PlaceClasses = 2131034113;
 			
 			// aapt resource value: 0x7f050000
 			public const int Theme_Splash = 2131034112;

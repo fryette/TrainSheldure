@@ -9,7 +9,7 @@
         android:layout_height="fill_parent"
         android:layout_alignParentLeft="true"
         android:layout_marginRight="5dp"
-        android:background="@android:color/holo_orange_dark" />
+        android:background="@color/green" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,34 +45,55 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="эр"
-                android:background="@drawable/border"
-                android:layout_marginRight="5dip" />
+                style="@style/PlaceClasses"
+                android:background="@drawable/borderLight"
+                local:MvxBind="Visibility Visibility(InternetRegistration,1)" />
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/PlaceClasses"
+                android:text="эр"
+                android:background="@drawable/borderDark"
+                local:MvxBind="Visibility Visibility(InternetRegistration)" />
+            <TextView
+                style="@style/PlaceClasses"
                 android:text="с"
-                android:background="@drawable/border"
-                android:layout_marginRight="5dip" />
+                android:background="@drawable/borderLight"
+                local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary,1)" />
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/PlaceClasses"
+                android:text="с"
+                android:background="@drawable/borderDark"
+                local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary)" />
+            <TextView
+                style="@style/PlaceClasses"
                 android:text="п"
-                android:background="@drawable/border"
-                android:layout_marginRight="5dip" />
+                android:background="@drawable/borderLight"
+                local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass,1)" />
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                style="@style/PlaceClasses"
+                android:text="п"
+                android:background="@drawable/borderDark"
+                local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass)" />
+            <TextView
+                style="@style/PlaceClasses"
                 android:text="к"
-                android:background="@drawable/border"
-                android:layout_marginRight="5dip" />
+                android:background="@drawable/borderLight"
+                local:MvxBind="Visibility Visibility(PlaceClasses.Coupe,1)" />
             <TextView
-                android:background="@drawable/border"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="св" />
+                style="@style/PlaceClasses"
+                android:text="к"
+                android:background="@drawable/borderDark"
+                local:MvxBind="Visibility Visibility(PlaceClasses.Coupe)" />
+            <TextView
+                style="@style/PlaceClasses"
+                android:background="@drawable/borderLight"
+                android:text="св"
+                local:MvxBind="Visibility Visibility(PlaceClasses.Luxury,1)" />
+            <TextView
+                style="@style/PlaceClasses"
+                android:background="@drawable/borderDark"
+                android:text="св"
+                local:MvxBind="Visibility Visibility(PlaceClasses.Luxury)" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
