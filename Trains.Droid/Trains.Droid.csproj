@@ -148,6 +148,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\scheduletemplate.axml" />
     <AndroidResource Include="Resources\drawable\border.xml" />
+    <AndroidResource Include="Resources\layout\lastroutetemplate.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
