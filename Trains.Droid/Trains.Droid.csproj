@@ -147,6 +147,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\scheduletemplate.axml" />
+    <AndroidResource Include="Resources\drawable\border.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />

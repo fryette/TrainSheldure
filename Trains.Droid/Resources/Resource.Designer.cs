@@ -66,10 +66,13 @@ namespace Trains.Droid
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int Icon = 2130837504;
+			public const int border = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int splash = 2130837505;
+			public const int Icon = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int splash = 2130837506;
 			
 			static Drawable()
 			{
@@ -99,9 +102,6 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040006
 			public const int ToTextView = 2130968582;
 			
-			// aapt resource value: 0x7f04000b
-			public const int button2 = 2130968587;
-			
 			// aapt resource value: 0x7f040007
 			public const int button3 = 2130968583;
 			
@@ -114,14 +114,17 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f04000a
 			public const int tab2 = 2130968586;
 			
-			// aapt resource value: 0x7f04000c
-			public const int tab3 = 2130968588;
+			// aapt resource value: 0x7f04000b
+			public const int tab3 = 2130968587;
 			
 			// aapt resource value: 0x7f040002
 			public const int textView2 = 2130968578;
 			
 			// aapt resource value: 0x7f040009
 			public const int textView3 = 2130968585;
+			
+			// aapt resource value: 0x7f04000c
+			public const int vertical_line = 2130968588;
 			
 			static Id()
 			{
