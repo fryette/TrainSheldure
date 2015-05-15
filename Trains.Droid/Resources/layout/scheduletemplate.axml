@@ -1,105 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:paddingLeft="5dip"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <View
-        android:id="@+id/vertical_line"
-        android:layout_width="4dip"
-        android:layout_height="fill_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="5dp"
-        local:MvxBind="BackgroundColor Color(Image)" />
-    <LinearLayout
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:singleLine="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text StartTime" />
-        <TextView
-            android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text EndTime" />
-    </LinearLayout>
+        local:MvxBind="Text BeforeDepartureTime" />
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dip">
-        <TextView
-            android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text City" />
-        <TextView
-            android:singleLine="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            local:MvxBind="Text OnTheWay" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/darkred"
-            local:MvxBind="Text IsPlace; Visibility Visibility(IsPlace,'2')" />
+        android:layout_height="match_parent">
+        <View
+            android:id="@+id/vertical_line"
+            android:layout_width="4dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="5dp"
+            local:MvxBind="BackgroundColor Color(Image)" />
         <LinearLayout
-            local:MvxBind="Visibility Visibility(IsPlace,'3')"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <TextView
-                android:text="эр"
-                style="@style/PlaceClasses"
-                android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(InternetRegistration,'1')" />
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text StartTime" />
             <TextView
-                style="@style/PlaceClasses"
-                android:text="эр"
-                android:background="@drawable/borderDark"
-                local:MvxBind="Visibility Visibility(InternetRegistration)" />
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text EndTime" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="10dip">
             <TextView
-                style="@style/PlaceClasses"
-                android:text="с"
-                android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary,'1')" />
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text City" />
             <TextView
-                style="@style/PlaceClasses"
-                android:text="с"
-                android:background="@drawable/borderDark"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary)" />
+                android:singleLine="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                local:MvxBind="Text OnTheWay" />
             <TextView
-                style="@style/PlaceClasses"
-                android:text="п"
-                android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass,'1')" />
-            <TextView
-                style="@style/PlaceClasses"
-                android:text="п"
-                android:background="@drawable/borderDark"
-                local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass)" />
-            <TextView
-                style="@style/PlaceClasses"
-                android:text="к"
-                android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Coupe,'1')" />
-            <TextView
-                style="@style/PlaceClasses"
-                android:text="к"
-                android:background="@drawable/borderDark"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Coupe)" />
-            <TextView
-                style="@style/PlaceClasses"
-                android:background="@drawable/borderLight"
-                android:text="св"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Luxury,'1')" />
-            <TextView
-                style="@style/PlaceClasses"
-                android:background="@drawable/borderDark"
-                android:text="св"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Luxury)" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/darkred"
+                local:MvxBind="Text IsPlace; Visibility Visibility(IsPlace,'2')" />
+            <LinearLayout
+                local:MvxBind="Visibility Visibility(IsPlace,'3')"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:text="эр"
+                    style="@style/PlaceClasses"
+                    android:background="@drawable/borderLight"
+                    local:MvxBind="Visibility Visibility(InternetRegistration,'1')" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:text="эр"
+                    android:background="@drawable/borderDark"
+                    local:MvxBind="Visibility Visibility(InternetRegistration)" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:text="с"
+                    android:background="@drawable/borderLight"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary,'1')" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:text="с"
+                    android:background="@drawable/borderDark"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary)" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:text="п"
+                    android:background="@drawable/borderLight"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass,'1')" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:text="п"
+                    android:background="@drawable/borderDark"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass)" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:text="к"
+                    android:background="@drawable/borderLight"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.Coupe,'1')" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:text="к"
+                    android:background="@drawable/borderDark"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.Coupe)" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:background="@drawable/borderLight"
+                    android:text="св"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.Luxury,'1')" />
+                <TextView
+                    style="@style/PlaceClasses"
+                    android:background="@drawable/borderDark"
+                    android:text="св"
+                    local:MvxBind="Visibility Visibility(PlaceClasses.Luxury)" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
