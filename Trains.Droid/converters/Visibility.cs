@@ -23,8 +23,14 @@ namespace Trains.Droid
 		{
 			if(parameter==null) 
 				return ((bool)value)?ViewStates.Visible : ViewStates.Gone;
-			return ((bool)value)?ViewStates.Gone:ViewStates.Visible;
-		}
+			if((string)parameter=="1")
+				return ((bool)value)?ViewStates.Gone:ViewStates.Visible;
+			if((string)parameter=="2")
+				return ((string)value).Contains(":") ? ViewStates.Gone : ViewStates.Visible;
+			if((string)parameter=="3")
+				return ((string)value).Contains(":") ? ViewStates.Visible : ViewStates.Gone;
+			return ViewStates.Visible;
+			}
 
 		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
 		{

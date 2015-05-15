@@ -40,7 +40,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             local:MvxBind="Text OnTheWay" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/darkred"
+            local:MvxBind="Text IsPlace; Visibility Visibility(IsPlace,'2')" />
         <LinearLayout
+            local:MvxBind="Visibility Visibility(IsPlace,'3')"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -48,7 +54,7 @@
                 android:text="эр"
                 style="@style/PlaceClasses"
                 android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(InternetRegistration,1)" />
+                local:MvxBind="Visibility Visibility(InternetRegistration,'1')" />
             <TextView
                 style="@style/PlaceClasses"
                 android:text="эр"
@@ -58,7 +64,7 @@
                 style="@style/PlaceClasses"
                 android:text="с"
                 android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary,1)" />
+                local:MvxBind="Visibility Visibility(PlaceClasses.Sedentary,'1')" />
             <TextView
                 style="@style/PlaceClasses"
                 android:text="с"
@@ -68,7 +74,7 @@
                 style="@style/PlaceClasses"
                 android:text="п"
                 android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass,1)" />
+                local:MvxBind="Visibility Visibility(PlaceClasses.SecondClass,'1')" />
             <TextView
                 style="@style/PlaceClasses"
                 android:text="п"
@@ -78,7 +84,7 @@
                 style="@style/PlaceClasses"
                 android:text="к"
                 android:background="@drawable/borderLight"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Coupe,1)" />
+                local:MvxBind="Visibility Visibility(PlaceClasses.Coupe,'1')" />
             <TextView
                 style="@style/PlaceClasses"
                 android:text="к"
@@ -88,7 +94,7 @@
                 style="@style/PlaceClasses"
                 android:background="@drawable/borderLight"
                 android:text="св"
-                local:MvxBind="Visibility Visibility(PlaceClasses.Luxury,1)" />
+                local:MvxBind="Visibility Visibility(PlaceClasses.Luxury,'1')" />
             <TextView
                 style="@style/PlaceClasses"
                 android:background="@drawable/borderDark"
