@@ -78,6 +78,7 @@ namespace Trains.Droid.Views
             _searchDateButton.Click += searchDateButton_Click;
             _searchDateButton.Text = SearchDate.ToString(DateFormat);
 
+			TabHost.TabChanged+=tab_changed;
             _searchTypeButton.Click += searchTypeButton_Click;
             _searchTypeButton.Text = SelectedType;
 			_fromTextView.TextChanged += fromTextView_TextChange;
@@ -85,6 +86,11 @@ namespace Trains.Droid.Views
 
             base.OnStart();
         }
+
+		void tab_changed (object sender, TabHost.TabChangeEventArgs e)
+		{
+			Model.RaisePropertyChanged("LastUpdateTime");
+		}
 
 		private void fromTextView_TextChange(object sender, EventArgs e)
 		{

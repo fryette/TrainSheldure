@@ -83,11 +83,25 @@
             </LinearLayout>
             <LinearLayout xmlns:local="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/tab2"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    local:MvxBind="Text LastRoute"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView3"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    local:MvxBind="Text LastUpdateTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dip"
+                    android:id="@+id/textView3"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
                 <Mvx.MvxListView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     local:MvxItemTemplate="@layout/scheduletemplate"
                     local:MvxBind="ItemsSource Trains" />
             </LinearLayout>
