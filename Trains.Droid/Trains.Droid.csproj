@@ -97,6 +97,12 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Cirrious.MvvmCross.Plugins.Color">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Color.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Color.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Color.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Color.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Color.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
@@ -119,6 +125,8 @@
     <Compile Include="Views\ScheduleView.cs" />
     <Compile Include="Views\SettingsView.cs" />
     <Compile Include="converters\Visibility.cs" />
+    <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
+    <Compile Include="converters\Color.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -171,6 +179,10 @@
     <ProjectReference Include="..\Trains.Core\Trains.Core.csproj">
       <Project>{D5769CED-2D11-4058-8894-ACD18A90CD5A}</Project>
       <Name>Trains.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
+      <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
+      <Name>Trains.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

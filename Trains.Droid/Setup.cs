@@ -31,7 +31,6 @@ namespace Trains.Droid
 
             Mvx.LazyConstructAndRegisterSingleton<IMarketPlaceService, MarketPlace>();
             Mvx.LazyConstructAndRegisterSingleton<IAnalytics, Analytics>();
-
 			base.InitializePlatformServices();
 		}
     }
