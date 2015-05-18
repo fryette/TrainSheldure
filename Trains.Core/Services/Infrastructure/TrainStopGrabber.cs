@@ -29,19 +29,5 @@ namespace Trains.Core.Services.Infrastructure
             }
             return trainStop;
         }
-        public static IEnumerable<TrainStop> GetRegionalEconomTrainStops(IEnumerable<Match> match)
-        {
-            var parameters = match as IList<Match> ?? match.ToList();
-            var trainStop = new List<TrainStop>(parameters.Count / 2);
-            for (var i = 0; i < parameters.Count; i += 2)
-            {
-                trainStop.Add(new TrainStop
-                {
-                    Name = parameters[i + 1].Groups[1].Value,
-                    Arrivals = ResourceLoader.Instance.Resource["Arrival"]+ parameters[i].Groups[2].Value
-                });
-            }
-            return trainStop;
-        }
     }
 }

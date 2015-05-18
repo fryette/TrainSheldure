@@ -30,9 +30,7 @@ namespace Trains.Core.Services
                 var data = await HttpService.LoadResponseAsync(uri);
                 var match = Parser.ParseData(data, Patterns.TrainPointPAttern);
 
-                return link.Contains("thread")
-                    ? TrainStopGrabber.GetRegionalEconomTrainStops(match)
-                    : TrainStopGrabber.GetTrainStops(match);
+                return TrainStopGrabber.GetTrainStops(match);
             }
             catch
             {
