@@ -118,10 +118,16 @@ namespace Trains.Droid
 			public const int borderLight = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Icon = 2130837506;
+			public const int circle_shape = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int splash = 2130837507;
+			public const int circular_progress_bar = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int Icon = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int splash = 2130837509;
 			
 			static Drawable()
 			{
@@ -145,17 +151,17 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040003
 			public const int SearchDate = 2130968579;
 			
+			// aapt resource value: 0x7f040007
+			public const int SearchTrain = 2130968583;
+			
 			// aapt resource value: 0x7f040004
 			public const int SearchType = 2130968580;
 			
 			// aapt resource value: 0x7f040006
 			public const int ToTextView = 2130968582;
 			
-			// aapt resource value: 0x7f040007
-			public const int button3 = 2130968583;
-			
-			// aapt resource value: 0x7f040008
-			public const int button4 = 2130968584;
+			// aapt resource value: 0x7f040009
+			public const int progressBar = 2130968585;
 			
 			// aapt resource value: 0x7f040001
 			public const int tab1 = 2130968577;
@@ -169,8 +175,8 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040002
 			public const int textView2 = 2130968578;
 			
-			// aapt resource value: 0x7f040009
-			public const int textView3 = 2130968585;
+			// aapt resource value: 0x7f040008
+			public const int textView3 = 2130968584;
 			
 			// aapt resource value: 0x7f04000c
 			public const int vertical_line = 2130968588;

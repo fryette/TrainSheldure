@@ -6,6 +6,8 @@ using Cirrious.MvvmCross.Droid.Views;
 using System;
 using System.Collections.Generic;
 using Trains.Core.ViewModels;
+using Android.Views;
+using System.Threading.Tasks;
 
 namespace Trains.Droid.Views
 {
@@ -15,9 +17,11 @@ namespace Trains.Droid.Views
         private const string DateFormat = "d";
 
         private Button _searchDateButton;
+		private Button _searchTrainButton;
         private Button _searchTypeButton;
         private AutoCompleteTextView _fromTextView;
         private AutoCompleteTextView _toTextView;
+		private ProgressBar _progressBar;
 
 		private MainViewModel Model
 		{
@@ -68,6 +72,8 @@ namespace Trains.Droid.Views
             spec.SetContent(Resource.Id.tab3);
             TabHost.AddTab(spec);
 
+			_progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar);
+			_searchTrainButton = FindViewById<Button>(Resource.Id.SearchTrain);
             _searchDateButton = FindViewById<Button>(Resource.Id.SearchDate);
             _searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
             _fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
@@ -79,6 +85,8 @@ namespace Trains.Droid.Views
             _searchDateButton.Text = SearchDate.ToString(DateFormat);
 
 			TabHost.TabChanged+=tab_changed;
+
+			_searchTrainButton.Click += searchTrainButton_Click;
             _searchTypeButton.Click += searchTypeButton_Click;
             _searchTypeButton.Text = SelectedType;
 			_fromTextView.TextChanged += fromTextView_TextChange;
@@ -104,8 +112,36 @@ namespace Trains.Droid.Views
 
         private void searchDateButton_Click(object sender, EventArgs e)
         {
-            ShowDialog((int)DialogTypes.DatePicker);
+			ShowDialog((int)DialogTypes.DatePicker);
         }
+
+		private async void searchTrainButton_Click(object sender, EventArgs e)
+		{
+			if (!Model.IsTaskRun) {
+				Model.SearchTrainCommand.Execute ();
+				Task.Run (async () => {
+					int i = 0;
+					while (Model.IsTaskRun) {
+						i+=10;
+						_progressBar.Progress = i;
+						await Task.Delay(new TimeSpan(800));
+						if (i == 100)
+							i = 0;
+					}
+				});
+			}
+		}
+
+		private async Task setProgress()
+		{
+			int i = 0;
+			while (Model.IsTaskRun) {
+				++i;
+				_progressBar.Progress = i;
+				if (i == 100)
+					i = 0;
+			}
+		}
 
         private void searchTypeButton_Click(object sender, EventArgs e)
         {

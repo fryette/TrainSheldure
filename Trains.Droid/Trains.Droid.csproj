@@ -127,6 +127,7 @@
     <Compile Include="converters\Visibility.cs" />
     <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
     <Compile Include="converters\Color.cs" />
+    <Compile Include="converters\RevertBoolean.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -159,6 +160,8 @@
     <AndroidResource Include="Resources\drawable\borderLight.axml" />
     <AndroidResource Include="Resources\drawable\borderDark.xml" />
     <AndroidResource Include="Resources\values\Styles.axml" />
+    <AndroidResource Include="Resources\drawable\circular_progress_bar.xml" />
+    <AndroidResource Include="Resources\drawable\circle_shape.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
