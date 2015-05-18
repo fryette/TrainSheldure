@@ -162,6 +162,8 @@
     <AndroidResource Include="Resources\values\Styles.axml" />
     <AndroidResource Include="Resources\drawable\circular_progress_bar.xml" />
     <AndroidResource Include="Resources\drawable\circle_shape.xml" />
+    <AndroidResource Include="Resources\layout\stoppointstemplate.axml" />
+    <AndroidResource Include="Resources\layout\informationaltemplate.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
