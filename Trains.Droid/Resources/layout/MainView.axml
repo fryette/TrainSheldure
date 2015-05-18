@@ -38,13 +38,15 @@
                             android:text="09.04.2015"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/SearchDate" />
+                            android:id="@+id/SearchDate"
+                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
                         <Button
                             android:text="На дату"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/SearchDate"
-                            android:id="@+id/SearchType" />
+                            android:id="@+id/SearchType"
+                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
                     </RelativeLayout>
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
