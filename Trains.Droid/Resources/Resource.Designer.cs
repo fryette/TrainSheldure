@@ -142,50 +142,47 @@ namespace Trains.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040007
-			public const int FromTextView = 2130968583;
+			// aapt resource value: 0x7f040006
+			public const int FromTextView = 2130968582;
 			
 			// aapt resource value: 0x7f040000
 			public const int MvxBindingTagUnique = 2130968576;
 			
+			// aapt resource value: 0x7f040004
+			public const int SearchDate = 2130968580;
+			
+			// aapt resource value: 0x7f040008
+			public const int SearchTrain = 2130968584;
+			
 			// aapt resource value: 0x7f040005
-			public const int SearchDate = 2130968581;
-			
-			// aapt resource value: 0x7f040009
-			public const int SearchTrain = 2130968585;
-			
-			// aapt resource value: 0x7f040006
-			public const int SearchType = 2130968582;
+			public const int SearchType = 2130968581;
 			
 			// aapt resource value: 0x7f040001
 			public const int StopPointsListView = 2130968577;
 			
-			// aapt resource value: 0x7f040008
-			public const int ToTextView = 2130968584;
-			
-			// aapt resource value: 0x7f04000b
-			public const int progressBar = 2130968587;
-			
-			// aapt resource value: 0x7f040003
-			public const int tab1 = 2130968579;
-			
-			// aapt resource value: 0x7f04000c
-			public const int tab2 = 2130968588;
-			
-			// aapt resource value: 0x7f04000d
-			public const int tab3 = 2130968589;
-			
-			// aapt resource value: 0x7f040002
-			public const int textView1 = 2130968578;
-			
-			// aapt resource value: 0x7f040004
-			public const int textView2 = 2130968580;
+			// aapt resource value: 0x7f040007
+			public const int ToTextView = 2130968583;
 			
 			// aapt resource value: 0x7f04000a
-			public const int textView3 = 2130968586;
+			public const int progressBar = 2130968586;
 			
-			// aapt resource value: 0x7f04000e
-			public const int vertical_line = 2130968590;
+			// aapt resource value: 0x7f040002
+			public const int tab1 = 2130968578;
+			
+			// aapt resource value: 0x7f04000b
+			public const int tab2 = 2130968587;
+			
+			// aapt resource value: 0x7f04000c
+			public const int tab3 = 2130968588;
+			
+			// aapt resource value: 0x7f040003
+			public const int textView2 = 2130968579;
+			
+			// aapt resource value: 0x7f040009
+			public const int textView3 = 2130968585;
+			
+			// aapt resource value: 0x7f04000d
+			public const int vertical_line = 2130968589;
 			
 			static Id()
 			{

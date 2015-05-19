@@ -24,9 +24,13 @@ namespace Trains.Droid.Views
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.InformationView);
 
-			_listView = FindViewById<MvxListView> (Resource.Id.StopPointsListView);
+			//_listView = FindViewById<MvxListView> (Resource.Id.StopPointsListView);
 		}
 
+		public override bool OnTouchEvent (MotionEvent e)
+		{
+			return false;
+		}
 		protected override void OnStart()
 		{
 			base.OnStart();

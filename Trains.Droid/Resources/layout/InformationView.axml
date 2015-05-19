@@ -2,10 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <Mvx.MvxListView
@@ -16,8 +16,6 @@
             local:MvxItemTemplate="@layout/informationaltemplate"
             local:MvxBind="ItemsSource Train.AdditionalInformation" />
         <Mvx.MvxListView
-            android:scrollbars="none"
-            android:isScrollContainer="false"
             android:layout_marginTop="5dip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,9 +23,4 @@
             local:MvxBind="ItemsSource StopPointList"
             android:id="@+id/StopPointsListView" />
     </LinearLayout>
-    <TextView
-        android:text=" jhgujhgvkjhvkjhvkjhvkjhvkjhvjhvjhvkjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:id="@+id/textView1" />
 </FrameLayout>
