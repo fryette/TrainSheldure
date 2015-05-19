@@ -124,10 +124,16 @@ namespace Trains.Droid
 			public const int circular_progress_bar = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int Icon = 2130837508;
+			public const int ic_action_import_export = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int splash = 2130837509;
+			public const int ic_action_refresh = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int Icon = 2130837510;
+			
+			// aapt resource value: 0x7f020007
+			public const int splash = 2130837511;
 			
 			static Drawable()
 			{
@@ -163,23 +169,35 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040007
 			public const int ToTextView = 2130968583;
 			
-			// aapt resource value: 0x7f04000a
-			public const int progressBar = 2130968586;
+			// aapt resource value: 0x7f040011
+			public const int help = 2130968593;
+			
+			// aapt resource value: 0x7f04000e
+			public const int mainMenu = 2130968590;
+			
+			// aapt resource value: 0x7f04000c
+			public const int progressBar = 2130968588;
+			
+			// aapt resource value: 0x7f040010
+			public const int swap = 2130968592;
 			
 			// aapt resource value: 0x7f040002
 			public const int tab1 = 2130968578;
 			
-			// aapt resource value: 0x7f04000b
-			public const int tab2 = 2130968587;
+			// aapt resource value: 0x7f04000a
+			public const int tab2 = 2130968586;
 			
-			// aapt resource value: 0x7f04000c
-			public const int tab3 = 2130968588;
+			// aapt resource value: 0x7f04000b
+			public const int tab3 = 2130968587;
 			
 			// aapt resource value: 0x7f040003
 			public const int textView2 = 2130968579;
 			
 			// aapt resource value: 0x7f040009
 			public const int textView3 = 2130968585;
+			
+			// aapt resource value: 0x7f04000f
+			public const int update = 2130968591;
 			
 			// aapt resource value: 0x7f04000d
 			public const int vertical_line = 2130968589;
@@ -242,6 +260,22 @@ namespace Trains.Droid
 			}
 			
 			private Layout()
+			{
+			}
+		}
+		
+		public partial class Menu
+		{
+			
+			// aapt resource value: 0x7f080000
+			public const int main_menu = 2131230720;
+			
+			static Menu()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Menu()
 			{
 			}
 		}

@@ -19,6 +19,9 @@ namespace Trains.Droid.Views
         private Button _searchDateButton;
 		private Button _searchTrainButton;
         private Button _searchTypeButton;
+		private IMenuItem _updateMenuItem;
+		private IMenuItem _swapMenuItem;
+
         private AutoCompleteTextView _fromTextView;
         private AutoCompleteTextView _toTextView;
 		private ProgressBar _progressBar;
@@ -57,17 +60,19 @@ namespace Trains.Droid.Views
 
 			TabHost.TabSpec spec;
 
-			spec = TabHost.NewTabSpec("child1");
+
+
+			spec = TabHost.NewTabSpec("main");
 			spec.SetIndicator(Model.MainPivotItem);
             spec.SetContent(Resource.Id.tab1);
             TabHost.AddTab(spec);
 
-            spec = TabHost.NewTabSpec("child2");
+            spec = TabHost.NewTabSpec("lastRoute");
 			spec.SetIndicator(Model.LastSchedulePivotItem);
             spec.SetContent(Resource.Id.tab2);
             TabHost.AddTab(spec);
 
-            spec = TabHost.NewTabSpec("child3");
+            spec = TabHost.NewTabSpec("routes");
 			spec.SetIndicator(Model.RoutesPivotItem);
             spec.SetContent(Resource.Id.tab3);
             TabHost.AddTab(spec);
@@ -78,7 +83,25 @@ namespace Trains.Droid.Views
             _searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
             _fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
             _toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
+
         }
+
+		public override void OnAttachedToWindow()
+		{
+			base.OnAttachedToWindow();
+			Window.SetTitle("Главная");
+		}
+
+		public override bool OnCreateOptionsMenu(IMenu menu)
+		{
+			MenuInflater.Inflate(Resource.Menu.main_menu, menu);
+			_updateMenuItem = menu.FindItem (Resource.Id.update);
+			_swapMenuItem = menu.FindItem(Resource.Id.swap);
+			SetVisibility (false, true);
+
+			return base.OnPrepareOptionsMenu(menu);
+		}
+
      protected override void OnStart()
         {
             _searchDateButton.Click += searchDateButton_Click;
@@ -95,18 +118,60 @@ namespace Trains.Droid.Views
             base.OnStart();
         }
 
+		public override bool OnOptionsItemSelected(IMenuItem item)
+		{
+			switch (item.ItemId)
+			{
+			case Resource.Id.swap:
+				{
+					Model.SwapCommand.Execute ();
+					return true;
+				}
+			case Resource.Id.update:
+				{
+					Model.UpdateLastRequestCommand.Execute ();
+					StartProgressRing ();
+					return true;
+				}
+			case Resource.Id.help:
+				{
+					Model.GoToHelpCommand.Execute ();
+					return true;
+				}
+			}
+			return base.OnOptionsItemSelected(item);
+		}
+
 		void tab_changed (object sender, TabHost.TabChangeEventArgs e)
 		{
-			Model.RaisePropertyChanged("LastUpdateTime");
+			if (e.TabId == "main")
+				SetVisibility (false, true);
+			else if (e.TabId == "lastRoute")
+				SetVisibility (true);
+			else 
+			{
+				SetVisibility ();
+				Model.RaisePropertyChanged ("LastUpdateTime");
+			}
+		}
+
+		private void SetVisibility(bool update=false,bool swap=false)
+		{
+			_updateMenuItem.SetVisible(update);
+			_swapMenuItem.SetVisible(swap);
 		}
 
 		private void fromTextView_TextChange(object sender, EventArgs e)
 		{
+			if (AutoCompletion == null)
+				return;
 			_fromTextView.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, AutoCompletion);
 		}
 			
 		private void toTextView_TextChange(object sender, EventArgs e)
 		{
+			if (AutoCompletion == null)
+				return;
 			_toTextView.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, AutoCompletion);
 		}
 
@@ -119,17 +184,22 @@ namespace Trains.Droid.Views
 		{
 			if (!Model.IsTaskRun) {
 				Model.SearchTrainCommand.Execute ();
-				Task.Run (async () => {
-					int i = 0;
-					while (Model.IsTaskRun) {
-						i+=10;
-						_progressBar.Progress = i;
-						await Task.Delay(new TimeSpan(800));
-						if (i == 100)
-							i = 0;
-					}
-				});
+				StartProgressRing ();
 			}
+		}
+
+		private async Task StartProgressRing()
+		{
+			Task.Run (async () => {
+				int i = 0;
+				while (Model.IsTaskRun) {
+					i+=10;
+					_progressBar.Progress = i;
+					await Task.Delay(new TimeSpan(1000000));
+					if (i == 100)
+						i = 0;
+				}
+			});
 		}
 
 		private async Task setProgress()
