@@ -150,7 +150,6 @@
     <AndroidResource Include="Resources\drawable\borderLight.axml" />
     <AndroidResource Include="Resources\drawable\borderDark.xml" />
     <AndroidResource Include="Resources\values\Styles.axml" />
-    <AndroidResource Include="Resources\drawable\circular_progress_bar.xml" />
     <AndroidResource Include="Resources\drawable\circle_shape.xml" />
     <AndroidResource Include="Resources\layout\stoppointstemplate.axml" />
     <AndroidResource Include="Resources\layout\informationaltemplate.axml" />
@@ -177,6 +176,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_not_important.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_not_important.png" />
     <AndroidResource Include="Resources\layout\routestemplate.axml" />
+    <AndroidResource Include="Resources\drawable\circular_progress_bar.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />

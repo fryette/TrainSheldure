@@ -113,6 +113,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <Mvx.MvxListView
+                    android:id="@+id/routes"
                     android:layout_marginTop="5dip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -123,9 +124,8 @@
                 android:id="@+id/progressBar"
                 android:layout_width="200dip"
                 android:layout_height="200dip"
-                android:indeterminate="false"
+                android:indeterminate="true"
                 android:progressDrawable="@drawable/circular_progress_bar"
-                android:background="@drawable/circle_shape"
                 style="?android:attr/progressBarStyleHorizontal"
                 android:max="100"
                 android:layout_gravity="center"

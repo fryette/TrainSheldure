@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using Trains.Core.ViewModels;
 using Android.Views;
 using System.Threading.Tasks;
+using Cirrious.MvvmCross.Binding.Droid.Views;
+using Cirrious.MvvmCross.ViewModels;
 
 namespace Trains.Droid.Views
 {
@@ -21,7 +23,6 @@ namespace Trains.Droid.Views
         private Button _searchTypeButton;
 		private IMenuItem _updateMenuItem;
 		private IMenuItem _swapMenuItem;
-
         private AutoCompleteTextView _fromTextView;
         private AutoCompleteTextView _toTextView;
 		private ProgressBar _progressBar;
@@ -130,7 +131,6 @@ namespace Trains.Droid.Views
 			case Resource.Id.update:
 				{
 					Model.UpdateLastRequestCommand.Execute ();
-					StartProgressRing ();
 					return true;
 				}
 			case Resource.Id.help:
@@ -184,23 +184,10 @@ namespace Trains.Droid.Views
 		{
 			if (!Model.IsTaskRun) {
 				Model.SearchTrainCommand.Execute ();
-				StartProgressRing ();
 			}
 		}
 
-		private async Task StartProgressRing()
-		{
-			Task.Run (async () => {
-				int i = 0;
-				while (Model.IsTaskRun) {
-					i+=10;
-					_progressBar.Progress = i;
-					await Task.Delay(new TimeSpan(1000000));
-					if (i == 100)
-						i = 0;
-				}
-			});
-		}
+
 
 		private async Task setProgress()
 		{
