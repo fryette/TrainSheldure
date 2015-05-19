@@ -124,16 +124,25 @@ namespace Trains.Droid
 			public const int circular_progress_bar = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int ic_action_import_export = 2130837508;
+			public const int ic_action_about = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int ic_action_refresh = 2130837509;
+			public const int ic_action_import_export = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int Icon = 2130837510;
+			public const int ic_action_important = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int splash = 2130837511;
+			public const int ic_action_not_important = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int ic_action_refresh = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int Icon = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int splash = 2130837514;
 			
 			static Drawable()
 			{
@@ -169,6 +178,9 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040007
 			public const int ToTextView = 2130968583;
 			
+			// aapt resource value: 0x7f040013
+			public const int favorite = 2130968595;
+			
 			// aapt resource value: 0x7f040011
 			public const int help = 2130968593;
 			
@@ -177,6 +189,9 @@ namespace Trains.Droid
 			
 			// aapt resource value: 0x7f04000c
 			public const int progressBar = 2130968588;
+			
+			// aapt resource value: 0x7f040012
+			public const int reverseSearch = 2130968594;
 			
 			// aapt resource value: 0x7f040010
 			public const int swap = 2130968592;
@@ -195,6 +210,9 @@ namespace Trains.Droid
 			
 			// aapt resource value: 0x7f040009
 			public const int textView3 = 2130968585;
+			
+			// aapt resource value: 0x7f040014
+			public const int unFavorite = 2130968596;
 			
 			// aapt resource value: 0x7f04000f
 			public const int update = 2130968591;
@@ -269,6 +287,9 @@ namespace Trains.Droid
 			
 			// aapt resource value: 0x7f080000
 			public const int main_menu = 2131230720;
+			
+			// aapt resource value: 0x7f080001
+			public const int schedule_menu = 2131230721;
 			
 			static Menu()
 			{

@@ -163,6 +163,19 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_action_import_export.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_import_export.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_import_export.png" />
+    <AndroidResource Include="Resources\menu\schedule_menu.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_not_important.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />

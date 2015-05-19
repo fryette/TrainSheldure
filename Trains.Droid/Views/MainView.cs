@@ -97,7 +97,7 @@ namespace Trains.Droid.Views
 			MenuInflater.Inflate(Resource.Menu.main_menu, menu);
 			_updateMenuItem = menu.FindItem (Resource.Id.update);
 			_swapMenuItem = menu.FindItem(Resource.Id.swap);
-			SetVisibility (false, true);
+			SetAppBarVisibility (false, true);
 
 			return base.OnPrepareOptionsMenu(menu);
 		}
@@ -145,17 +145,17 @@ namespace Trains.Droid.Views
 		void tab_changed (object sender, TabHost.TabChangeEventArgs e)
 		{
 			if (e.TabId == "main")
-				SetVisibility (false, true);
+				SetAppBarVisibility (false, true);
 			else if (e.TabId == "lastRoute")
-				SetVisibility (true);
+				SetAppBarVisibility (true);
 			else 
 			{
-				SetVisibility ();
+				SetAppBarVisibility ();
 				Model.RaisePropertyChanged ("LastUpdateTime");
 			}
 		}
 
-		private void SetVisibility(bool update=false,bool swap=false)
+		private void SetAppBarVisibility(bool update=false,bool swap=false)
 		{
 			_updateMenuItem.SetVisible(update);
 			_swapMenuItem.SetVisible(swap);
