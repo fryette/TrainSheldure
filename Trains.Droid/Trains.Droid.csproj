@@ -176,6 +176,7 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_action_not_important.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_action_not_important.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\layout\routestemplate.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
