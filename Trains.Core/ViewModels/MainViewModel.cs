@@ -12,10 +12,11 @@ using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
+using System.Net.NetworkInformation;
 
 namespace Trains.Core.ViewModels
 {
-    public class MainViewModel : BaseSearchViewModel
+    public class MainViewModel : MvxViewModel
     {
         #region readonlyProperties
 
@@ -109,6 +110,7 @@ namespace Trains.Core.ViewModels
         public string SwapAppBar { get; set; }
         public string ManageAppBar { get; set; }
         public string HelpAppBar { get; set; }
+        public string LastRequests { get; set; }
 
         #endregion
 
@@ -182,7 +184,6 @@ namespace Trains.Core.ViewModels
             set
             {
                 _selectedDate = value;
-                IsOnDaySelected = SelectedVariant == ResourceLoader.Instance.Resource["OnDay"];
                 RaisePropertyChanged(() => SelectedVariant);
             }
         }
@@ -212,7 +213,7 @@ namespace Trains.Core.ViewModels
             {
                 _from = value;
                 RaisePropertyChanged(() => From);
-                AutoSuggestions = UpdateAutoSuggestions(From, _appSettings.AutoCompletion);
+                UpdateAutoSuggestions(From);
             }
         }
 
@@ -227,7 +228,7 @@ namespace Trains.Core.ViewModels
             {
                 _to = value;
                 RaisePropertyChanged(() => To);
-                AutoSuggestions = UpdateAutoSuggestions(To, _appSettings.AutoCompletion);
+                UpdateAutoSuggestions(To);
             }
         }
 
@@ -317,17 +318,6 @@ namespace Trains.Core.ViewModels
             }
         }
 
-        private bool _isOnDaySelected;
-        public bool IsOnDaySelected
-        {
-            get { return _isOnDaySelected; }
-            set
-            {
-                _isOnDaySelected = value;
-                RaisePropertyChanged(() => IsOnDaySelected);
-            }
-        }
-
         #endregion
 
         #region actions
@@ -360,7 +350,7 @@ namespace Trains.Core.ViewModels
         {
             if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
-            AddToLastRoutes(new Route { From = From, To = To });
+            AddToLastRoutes(new Route { From = from, To = to });
             List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
                     _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
             if (schedule != null)
@@ -373,6 +363,7 @@ namespace Trains.Core.ViewModels
 
                 _analytics.SentEvent(Constants.VariantOfSearch, SelectedVariant);
             }
+
             IsTaskRun = false;
         }
 
@@ -454,6 +445,45 @@ namespace Trains.Core.ViewModels
             To = route.To;
         }
 
+        /// <summary>
+        /// Update prompts during user input stopping point
+        /// </summary>
+        public void UpdateAutoSuggestions(string str)
+        {
+            if (string.IsNullOrEmpty(str)) AutoSuggestions = null;
+            AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
+            if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == str) AutoSuggestions = null;
+        }
+
+        public async Task<bool> CheckInput(DateTimeOffset datum, string from, string to, List<CountryStopPointItem> autoCompletion)
+        {
+            if ((datum.Date - DateTime.Now).Days < 0)
+            {
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateUpTooLater"]);
+                return true;
+            }
+            if (datum.Date > DateTime.Now.AddDays(45))
+            {
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateTooBig"]);
+                return true;
+            }
+
+            if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
+                !(autoCompletion.Any(x => x.UniqueId == from.Trim()) &&
+                  autoCompletion.Any(x => x.UniqueId == to.Trim())))
+            {
+                await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
+                return true;
+            }
+
+            if (NetworkInterface.GetIsNetworkAvailable()) return false;
+            await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
+            return true;
+        }
+
+        #region restoreResources
+
+
         private async Task<bool> RestoreData()
         {
             await CheckStart();
@@ -492,7 +522,6 @@ namespace Trains.Core.ViewModels
                 };
             return true;
         }
-
         private async Task CheckStart()
         {
             var firstRun = _serializable.Desserialize<string>(Constants.IsFirstRun);
@@ -591,8 +620,11 @@ namespace Trains.Core.ViewModels
             SwapAppBar = ResourceLoader.Instance.Resource["SwapAppBar"];
             ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
             HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
+            LastRequests = ResourceLoader.Instance.Resource["LastRequests"];
+
             RaiseAllPropertiesChanged();
         }
+        #endregion
 
         #endregion
     }
