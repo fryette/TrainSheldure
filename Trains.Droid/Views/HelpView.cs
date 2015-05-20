@@ -39,8 +39,6 @@ namespace Trains.Droid.Views
 
 			TabHost.TabSpec spec;
 
-
-
 			spec = TabHost.NewTabSpec("train");
 			spec.SetIndicator(Model.Trains);
 			spec.SetContent(Resource.Id.tab1);
@@ -70,25 +68,5 @@ namespace Trains.Droid.Views
 			base.OnAttachedToWindow();
 			Window.SetTitle("Главная");
 		}
-			
-		protected override void OnStart()
-		{
-
-			TabHost.TabChanged+=tab_changed;
-			base.OnStart();
-		}
-
-		void tab_changed (object sender, TabHost.TabChangeEventArgs e)
-		{
-			//if (e.TabId == "main")
-			//	SetAppBarVisibility (false, true);
-			//else if (e.TabId == "lastRoute")
-			//	SetAppBarVisibility (true);
-			//else 
-			{
-			//	SetAppBarVisibility ();
-			}
-		}
-
 	}
 }

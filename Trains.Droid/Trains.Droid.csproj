@@ -118,6 +118,7 @@
     <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
     <Compile Include="converters\Color.cs" />
     <Compile Include="converters\RevertBoolean.cs" />
+    <Compile Include="Views\CarriageView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -181,6 +182,16 @@
     <AndroidResource Include="Resources\drawable\IL.png" />
     <AndroidResource Include="Resources\drawable\IRLB_IRLE.png" />
     <AndroidResource Include="Resources\drawable\RLB_RLE.png" />
+    <AndroidResource Include="Resources\layout\placetemplate.axml" />
+    <AndroidResource Include="Resources\layout\CarriageView.axml" />
+    <AndroidResource Include="Resources\drawable\FirstClassSleeper.png" />
+    <AndroidResource Include="Resources\drawable\CompartmentSleeper.png" />
+    <AndroidResource Include="Resources\drawable\EconomyClassSleeper.png" />
+    <AndroidResource Include="Resources\drawable\MultipleUnitCars1.png" />
+    <AndroidResource Include="Resources\drawable\MultipleUnitCars2.jpg" />
+    <AndroidResource Include="Resources\drawable\MultipleUnitCoach.png" />
+    <AndroidResource Include="Resources\drawable\SeatingCoaches1.png" />
+    <AndroidResource Include="Resources\drawable\SeatingCoaches2.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
