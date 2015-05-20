@@ -93,6 +93,12 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Color.Droid">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Color.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Color.Droid.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Email">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Email.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Email.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Email.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Email.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Email.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
@@ -119,6 +125,7 @@
     <Compile Include="converters\Color.cs" />
     <Compile Include="converters\RevertBoolean.cs" />
     <Compile Include="Views\CarriageView.cs" />
+    <Compile Include="Bootstrap\EmailPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
