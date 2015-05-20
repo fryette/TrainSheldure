@@ -124,25 +124,37 @@ namespace Trains.Droid
 			public const int circular_progress_bar = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int ic_action_about = 2130837508;
+			public const int GE = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int ic_action_import_export = 2130837509;
+			public const int ic_action_about = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int ic_action_important = 2130837510;
+			public const int ic_action_import_export = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int ic_action_not_important = 2130837511;
+			public const int ic_action_important = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_action_refresh = 2130837512;
+			public const int ic_action_not_important = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int Icon = 2130837513;
+			public const int ic_action_refresh = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int splash = 2130837514;
+			public const int Icon = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int IL = 2130837515;
+			
+			// aapt resource value: 0x7f02000c
+			public const int IRLB_IRLE = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int RLB_RLE = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int splash = 2130837518;
 			
 			static Drawable()
 			{
@@ -157,26 +169,26 @@ namespace Trains.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040006
-			public const int FromTextView = 2130968582;
+			// aapt resource value: 0x7f040008
+			public const int FromTextView = 2130968584;
 			
 			// aapt resource value: 0x7f040000
 			public const int MvxBindingTagUnique = 2130968576;
 			
-			// aapt resource value: 0x7f040004
-			public const int SearchDate = 2130968580;
+			// aapt resource value: 0x7f040006
+			public const int SearchDate = 2130968582;
 			
-			// aapt resource value: 0x7f040008
-			public const int SearchTrain = 2130968584;
-			
-			// aapt resource value: 0x7f040005
-			public const int SearchType = 2130968581;
-			
-			// aapt resource value: 0x7f040001
-			public const int StopPointsListView = 2130968577;
+			// aapt resource value: 0x7f04000a
+			public const int SearchTrain = 2130968586;
 			
 			// aapt resource value: 0x7f040007
-			public const int ToTextView = 2130968583;
+			public const int SearchType = 2130968583;
+			
+			// aapt resource value: 0x7f040004
+			public const int StopPointsListView = 2130968580;
+			
+			// aapt resource value: 0x7f040009
+			public const int ToTextView = 2130968585;
 			
 			// aapt resource value: 0x7f040014
 			public const int favorite = 2130968596;
@@ -199,20 +211,20 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040011
 			public const int swap = 2130968593;
 			
+			// aapt resource value: 0x7f040001
+			public const int tab1 = 2130968577;
+			
 			// aapt resource value: 0x7f040002
-			public const int tab1 = 2130968578;
-			
-			// aapt resource value: 0x7f04000a
-			public const int tab2 = 2130968586;
-			
-			// aapt resource value: 0x7f04000b
-			public const int tab3 = 2130968587;
+			public const int tab2 = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int textView2 = 2130968579;
+			public const int tab3 = 2130968579;
 			
-			// aapt resource value: 0x7f040009
-			public const int textView3 = 2130968585;
+			// aapt resource value: 0x7f040005
+			public const int textView2 = 2130968581;
+			
+			// aapt resource value: 0x7f04000b
+			public const int textView3 = 2130968587;
 			
 			// aapt resource value: 0x7f040015
 			public const int unFavorite = 2130968597;
@@ -334,6 +346,9 @@ namespace Trains.Droid
 		
 		public partial class Style
 		{
+			
+			// aapt resource value: 0x7f050002
+			public const int HelpTrainImage = 2131034114;
 			
 			// aapt resource value: 0x7f050001
 			public const int PlaceClasses = 2131034113;

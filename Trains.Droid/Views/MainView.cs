@@ -115,7 +115,7 @@ namespace Trains.Droid.Views
             _searchTypeButton.Text = SelectedType;
 			_fromTextView.TextChanged += fromTextView_TextChange;
 			_toTextView.TextChanged += toTextView_TextChange;
-
+			Model.RaiseAllPropertiesChanged ();
             base.OnStart();
         }
 
@@ -184,19 +184,6 @@ namespace Trains.Droid.Views
 		{
 			if (!Model.IsTaskRun) {
 				Model.SearchTrainCommand.Execute ();
-			}
-		}
-
-
-
-		private async Task setProgress()
-		{
-			int i = 0;
-			while (Model.IsTaskRun) {
-				++i;
-				_progressBar.Progress = i;
-				if (i == 100)
-					i = 0;
 			}
 		}
 

@@ -177,6 +177,10 @@
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_not_important.png" />
     <AndroidResource Include="Resources\layout\routestemplate.axml" />
     <AndroidResource Include="Resources\drawable\circular_progress_bar.xml" />
+    <AndroidResource Include="Resources\drawable\GE.png" />
+    <AndroidResource Include="Resources\drawable\IL.png" />
+    <AndroidResource Include="Resources\drawable\IRLB_IRLE.png" />
+    <AndroidResource Include="Resources\drawable\RLB_RLE.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
