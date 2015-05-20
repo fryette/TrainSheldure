@@ -1,135 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:id="@android:id/tabhost"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp" />
-        <FrameLayout
-            android:id="@android:id/tabcontent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TabHost
+        android:id="@android:id/tabhost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:id="@+id/tab1"
-                android:orientation="vertical"
-                android:paddingLeft="5dip"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TabWidget
+                android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-                <TextView
-                    android:text="Дата отправления"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView2" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:text="09.04.2015"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/SearchDate"
-                        local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
-                    <Button
-                        android:text="На дату"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/SearchDate"
-                        android:id="@+id/SearchType"
-                        local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
-                </RelativeLayout>
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/FromTextView"
-                    android:hint="Откуда"
-                    android:singleLine="true"
-                    local:MvxBind="Text From" />
-                <AutoCompleteTextView
-                    android:singleLine="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/ToTextView"
-                    android:hint="Куда"
-                    local:MvxBind="Text To" />
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:text="Поиск"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/SearchTrain"
-                        local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
-                </RelativeLayout>
-                <TextView
-                    android:text="Последние запросы"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView3"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-                <Mvx.MvxListView
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    local:MvxItemTemplate="@layout/lastroutetemplate"
-                    local:MvxBind="ItemsSource LastRoutes; ItemClick TappedRouteCommand" />
-            </LinearLayout>
-            <LinearLayout
-                android:paddingLeft="5dip"
-                android:id="@+id/tab2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    local:MvxBind="Text LastRoute"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/textView3"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-                <TextView
-                    local:MvxBind="Text LastUpdateTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15dip"
-                    android:id="@+id/textView3"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-                <Mvx.MvxListView
-                    android:layout_marginTop="5dip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    local:MvxItemTemplate="@layout/scheduletemplate"
-                    local:MvxBind="ItemsSource Trains; ItemClick SelectTrainCommand" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_marginLeft="10dip"
-                android:id="@+id/tab3"
+                android:layout_height="30dp" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <Mvx.MvxListView
-                    android:id="@+id/routes"
-                    android:layout_marginTop="5dip"
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:orientation="vertical"
+                    android:paddingLeft="5dip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <TextView
+                        android:text="Дата отправления"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView2" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:text="09.04.2015"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/SearchDate"
+                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
+                        <Button
+                            android:text="На дату"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/SearchDate"
+                            android:id="@+id/SearchType"
+                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
+                    </RelativeLayout>
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/FromTextView"
+                        android:hint="Откуда"
+                        android:singleLine="true"
+                        local:MvxBind="Text From" />
+                    <AutoCompleteTextView
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ToTextView"
+                        android:hint="Куда"
+                        local:MvxBind="Text To" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:text="Поиск"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/SearchTrain"
+                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
+                    </RelativeLayout>
+                    <TextView
+                        android:text="Последние запросы"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView3"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <Mvx.MvxListView
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        local:MvxItemTemplate="@layout/lastroutetemplate"
+                        local:MvxBind="ItemsSource LastRoutes; ItemClick TappedRouteCommand" />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingLeft="5dip"
+                    android:id="@+id/tab2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    local:MvxItemTemplate="@layout/lastroutetemplate"
-                    local:MvxBind="ItemsSource FavoriteRequests; ItemClick TappedFavoriteCommand" />
-            </LinearLayout>
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:progressDrawable="@drawable/circular_progress_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:max="100"
-                android:layout_gravity="top"
-                local:MvxBind="Visibility Visibility(IsTaskRun)" />
-        </FrameLayout>
-    </LinearLayout>
-</TabHost>
+                    android:orientation="vertical">
+                    <TextView
+                        local:MvxBind="Text LastRoute"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView3"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <TextView
+                        local:MvxBind="Text LastUpdateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dip"
+                        android:id="@+id/textView3"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <Mvx.MvxListView
+                        android:layout_marginTop="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        local:MvxItemTemplate="@layout/scheduletemplate"
+                        local:MvxBind="ItemsSource Trains; ItemClick SelectTrainCommand" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dip"
+                    android:id="@+id/tab3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <Mvx.MvxListView
+                        android:id="@+id/routes"
+                        android:layout_marginTop="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        local:MvxItemTemplate="@layout/lastroutetemplate"
+                        local:MvxBind="ItemsSource FavoriteRequests; ItemClick TappedFavoriteCommand" />
+                </LinearLayout>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:max="100"
+                    android:layout_gravity="top"
+                    local:MvxBind="Visibility Visibility(IsTaskRun)" />
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+</LinearLayout>

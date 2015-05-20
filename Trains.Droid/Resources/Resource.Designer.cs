@@ -31,6 +31,22 @@ namespace Trains.Droid
 			global::Cirrious.MvvmCross.Plugins.Network.Droid.Resource.String.Hello = global::Trains.Droid.Resource.String.Hello;
 		}
 		
+		public partial class Array
+		{
+			
+			// aapt resource value: 0x7f080000
+			public const int pages_array = 2131230720;
+			
+			static Array()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Array()
+			{
+			}
+		}
+		
 		public partial class Attribute
 		{
 			
@@ -336,11 +352,11 @@ namespace Trains.Droid
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f080000
-			public const int main_menu = 2131230720;
+			// aapt resource value: 0x7f090000
+			public const int main_menu = 2131296256;
 			
-			// aapt resource value: 0x7f080001
-			public const int schedule_menu = 2131230721;
+			// aapt resource value: 0x7f090001
+			public const int schedule_menu = 2131296257;
 			
 			static Menu()
 			{

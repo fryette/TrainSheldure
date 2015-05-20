@@ -85,6 +85,8 @@ namespace Trains.Droid.Views
             _fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
             _toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
 
+
+
         }
 
 		public override void OnAttachedToWindow()
