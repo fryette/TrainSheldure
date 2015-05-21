@@ -75,5 +75,12 @@ namespace Trains.Droid.Views
 			_favoriteMenuItem.SetVisible(Model.IsVisibleFavoriteIcon);
 			_unFavoriteMenuItem.SetVisible(!Model.IsVisibleFavoriteIcon);
 		}
+
+		public override void OnBackPressed()
+		{
+			var intent =	new Intent (this, typeof(MainView));
+			intent.SetFlags (ActivityFlags.ClearTop);
+			StartActivity (intent);
+		}
 	}
 }

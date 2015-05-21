@@ -31,22 +31,6 @@ namespace Trains.Droid
 			global::Cirrious.MvvmCross.Plugins.Network.Droid.Resource.String.Hello = global::Trains.Droid.Resource.String.Hello;
 		}
 		
-		public partial class Array
-		{
-			
-			// aapt resource value: 0x7f080000
-			public const int pages_array = 2131230720;
-			
-			static Array()
-			{
-				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
-			}
-			
-			private Array()
-			{
-			}
-		}
-		
 		public partial class Attribute
 		{
 			
@@ -230,8 +214,11 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f04000a
 			public const int ToTextView = 2130968586;
 			
-			// aapt resource value: 0x7f040015
-			public const int favorite = 2130968597;
+			// aapt resource value: 0x7f040018
+			public const int about = 2130968600;
+			
+			// aapt resource value: 0x7f04001a
+			public const int favorite = 2130968602;
 			
 			// aapt resource value: 0x7f040013
 			public const int help = 2130968595;
@@ -239,17 +226,29 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040001
 			public const int imageview = 2130968577;
 			
+			// aapt resource value: 0x7f040016
+			public const int mail = 2130968598;
+			
 			// aapt resource value: 0x7f040010
 			public const int mainMenu = 2130968592;
 			
 			// aapt resource value: 0x7f04000e
 			public const int progressBar = 2130968590;
 			
-			// aapt resource value: 0x7f040014
-			public const int reverseSearch = 2130968596;
+			// aapt resource value: 0x7f040015
+			public const int rate = 2130968597;
+			
+			// aapt resource value: 0x7f040019
+			public const int reverseSearch = 2130968601;
 			
 			// aapt resource value: 0x7f04000d
 			public const int routes = 2130968589;
+			
+			// aapt resource value: 0x7f040017
+			public const int settings = 2130968599;
+			
+			// aapt resource value: 0x7f040014
+			public const int share = 2130968596;
 			
 			// aapt resource value: 0x7f040012
 			public const int swap = 2130968594;
@@ -269,8 +268,8 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f04000c
 			public const int textView3 = 2130968588;
 			
-			// aapt resource value: 0x7f040016
-			public const int unFavorite = 2130968598;
+			// aapt resource value: 0x7f04001b
+			public const int unFavorite = 2130968603;
 			
 			// aapt resource value: 0x7f040011
 			public const int update = 2130968593;
@@ -352,11 +351,11 @@ namespace Trains.Droid
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f090000
-			public const int main_menu = 2131296256;
+			// aapt resource value: 0x7f080000
+			public const int main_menu = 2131230720;
 			
-			// aapt resource value: 0x7f090001
-			public const int schedule_menu = 2131296257;
+			// aapt resource value: 0x7f080001
+			public const int schedule_menu = 2131230721;
 			
 			static Menu()
 			{

@@ -10,6 +10,7 @@ using Android.Views;
 using System.Threading.Tasks;
 using Cirrious.MvvmCross.Binding.Droid.Views;
 using Cirrious.MvvmCross.ViewModels;
+using Trains.Model.Entities;
 
 namespace Trains.Droid.Views
 {
@@ -26,6 +27,8 @@ namespace Trains.Droid.Views
         private AutoCompleteTextView _fromTextView;
         private AutoCompleteTextView _toTextView;
 		private ProgressBar _progressBar;
+
+		private Dictionary<int,Action> _actionBar;
 
 		private MainViewModel Model
 		{
@@ -61,8 +64,6 @@ namespace Trains.Droid.Views
 
 			TabHost.TabSpec spec;
 
-
-
 			spec = TabHost.NewTabSpec("main");
 			spec.SetIndicator(Model.MainPivotItem);
             spec.SetContent(Resource.Id.tab1);
@@ -84,9 +85,6 @@ namespace Trains.Droid.Views
             _searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
             _fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
             _toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
-
-
-
         }
 
 		public override void OnAttachedToWindow()
@@ -107,6 +105,18 @@ namespace Trains.Droid.Views
 
      protected override void OnStart()
         {
+			_actionBar=new Dictionary<int,Action>()
+			{
+				{Resource.Id.swap,()=>Model.SwapCommand.Execute ()},
+				{Resource.Id.update,()=>Model.UpdateLastRequestCommand.Execute ()},
+				{Resource.Id.help,()=>Model.GoToHelpCommand.Execute ()},
+				{Resource.Id.share,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Share})},
+				{Resource.Id.settings,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Settings})},
+			 	{Resource.Id.rate,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Market})},
+				{Resource.Id.about,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.AboutApp})},
+				{Resource.Id.mail,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Mail})}
+			};
+
             _searchDateButton.Click += searchDateButton_Click;
             _searchDateButton.Text = SearchDate.ToString(DateFormat);
 
@@ -123,25 +133,8 @@ namespace Trains.Droid.Views
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
-			switch (item.ItemId)
-			{
-			case Resource.Id.swap:
-				{
-					Model.SwapCommand.Execute ();
-					return true;
-				}
-			case Resource.Id.update:
-				{
-					Model.UpdateLastRequestCommand.Execute ();
-					return true;
-				}
-			case Resource.Id.help:
-				{
-					Model.GoToHelpCommand.Execute ();
-					return true;
-				}
-			}
-			return base.OnOptionsItemSelected(item);
+			_actionBar [item.ItemId] ();
+			return true;
 		}
 
 		void tab_changed (object sender, TabHost.TabChangeEventArgs e)
