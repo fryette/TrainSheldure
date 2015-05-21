@@ -15,4 +15,11 @@
     <item name="darkorange" type="color">#FFFF8800</item>
     <item name="darkred" type="color">#FFCC0000</item>
  	<color name="black">#505050</color>
+
+    <string-array name="planets_array">
+        <item>Русский</item>
+        <item>Беларускі</item>
+        <item>English</item>
+    </string-array>
+
 </resources>
