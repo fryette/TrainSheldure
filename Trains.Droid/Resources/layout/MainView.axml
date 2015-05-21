@@ -26,7 +26,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent">
                     <TextView
-                        android:text="Дата отправления"
+                        local:MvxBind="Text DateOfDeparture"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -41,36 +41,32 @@
                             android:id="@+id/SearchDate"
                             local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
                         <Button
-                            android:text="На дату"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/SearchDate"
                             android:id="@+id/SearchType"
-                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
+                            local:MvxBind="Enabled RevertBoolean(IsTaskRun); Text VariantOfSearch[4]" />
                     </RelativeLayout>
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/FromTextView"
-                        android:hint="Откуда"
                         android:singleLine="true"
-                        local:MvxBind="Text From" />
+                        local:MvxBind="Text From; Hint FromAutoSuggest" />
                     <AutoCompleteTextView
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/ToTextView"
-                        android:hint="Куда"
-                        local:MvxBind="Text To" />
+                        local:MvxBind="Text To; Hint ToAutoSuggest" />
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
-                            android:text="Поиск"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/SearchTrain"
-                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
+                            local:MvxBind="Enabled RevertBoolean(IsTaskRun); Text Search" />
                     </RelativeLayout>
                     <TextView
                         android:text="Последние запросы"
