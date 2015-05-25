@@ -9,21 +9,14 @@ android:id="@+id/mainMenu">
        	  android:icon="@drawable/ic_action_import_export"
           android:showAsAction="always"/>
      <item android:id="@+id/help"
-       	  android:title="справка"
           android:showAsAction="never"/>
-     <item android:id="@+id/share"
-       	  android:title="Поделится"
-          android:showAsAction="never"/>
+
      <item android:id="@+id/rate"
-       	  android:title="Оценить"
           android:showAsAction="never"/>
           <item android:id="@+id/mail"
-       	  android:title="Сообщить о проблеме"
           android:showAsAction="never"/>
           <item android:id="@+id/settings"
-       	  android:title="Настройки"
           android:showAsAction="never"/>
           <item android:id="@+id/about"
-       	  android:title="О приложении"
           android:showAsAction="never" />
 </menu>

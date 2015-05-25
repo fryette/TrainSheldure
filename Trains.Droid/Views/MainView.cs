@@ -1,5 +1,4 @@
 using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Widget;
 using Cirrious.MvvmCross.Droid.Views;
@@ -7,10 +6,8 @@ using System;
 using System.Collections.Generic;
 using Trains.Core.ViewModels;
 using Android.Views;
-using System.Threading.Tasks;
-using Cirrious.MvvmCross.Binding.Droid.Views;
-using Cirrious.MvvmCross.ViewModels;
 using Trains.Model.Entities;
+using System.Linq;
 
 namespace Trains.Droid.Views
 {
@@ -19,40 +16,40 @@ namespace Trains.Droid.Views
 	{
         private const string DateFormat = "d";
 
-        private Button _searchDateButton;
-		private Button _searchTrainButton;
-        private Button _searchTypeButton;
-		private IMenuItem _updateMenuItem;
-		private IMenuItem _swapMenuItem;
-        private AutoCompleteTextView _fromTextView;
-        private AutoCompleteTextView _toTextView;
-		private ProgressBar _progressBar;
+        Button _searchDateButton;
+		Button _searchTrainButton;
+        Button _searchTypeButton;
+		IMenuItem _updateMenuItem;
+		IMenuItem _swapMenuItem;
+        AutoCompleteTextView _fromTextView;
+        AutoCompleteTextView _toTextView;
+		ProgressBar _progressBar;
 
-		private Dictionary<int,Action> _actionBar;
+		Dictionary<int,Action> _actionBar;
 
-		private MainViewModel Model
+		MainViewModel Model
 		{
 			get{ return (MainViewModel)ViewModel;}
 		}
 
-        private DateTimeOffset SearchDate
+        DateTimeOffset SearchDate
         {
             get { return Model.Datum; }
             set { Model.Datum = value; }
         }
 
-        private List<string> SearchTypes
+        List<string> SearchTypes
         {
             get { return Model.VariantOfSearch; }
         }
 
-        private string SelectedType
+        string SelectedType
         {
             get { return Model.SelectedVariant; }
             set { Model.SelectedVariant = value; }
         }
 
-        private List<string> AutoCompletion
+        List<string> AutoCompletion
         {
             get { return Model.AutoSuggestions; }
         }
@@ -62,35 +59,36 @@ namespace Trains.Droid.Views
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainView);
 
-			TabHost.TabSpec spec;
-
-			spec = TabHost.NewTabSpec("main");
-			spec.SetIndicator(Model.MainPivotItem);
-            spec.SetContent(Resource.Id.tab1);
-            TabHost.AddTab(spec);
-
-            spec = TabHost.NewTabSpec("lastRoute");
-			spec.SetIndicator(Model.LastSchedulePivotItem);
-            spec.SetContent(Resource.Id.tab2);
-            TabHost.AddTab(spec);
-
-            spec = TabHost.NewTabSpec("routes");
-			spec.SetIndicator(Model.RoutesPivotItem);
-            spec.SetContent(Resource.Id.tab3);
-            TabHost.AddTab(spec);
-
 			_progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar);
 			_searchTrainButton = FindViewById<Button>(Resource.Id.SearchTrain);
             _searchDateButton = FindViewById<Button>(Resource.Id.SearchDate);
             _searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
             _fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
             _toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
+
+			TabHost.TabSpec spec;
+
+
+			spec = TabHost.NewTabSpec("main");
+			spec.SetIndicator(Model.MainPivotItem);
+			spec.SetContent(Resource.Id.tab1);
+			TabHost.AddTab(spec);
+
+			spec = TabHost.NewTabSpec("lastRoute");
+			spec.SetIndicator(Model.LastSchedulePivotItem);
+			spec.SetContent(Resource.Id.tab2);
+			TabHost.AddTab(spec);
+
+			spec = TabHost.NewTabSpec("routes");
+			spec.SetIndicator(Model.RoutesPivotItem);
+			spec.SetContent(Resource.Id.tab3);
+			TabHost.AddTab(spec);
         }
 
 		public override void OnAttachedToWindow()
 		{
 			base.OnAttachedToWindow();
-			Window.SetTitle("Главная");
+			Window.SetTitle(Model.MainPivotItem);
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -98,6 +96,13 @@ namespace Trains.Droid.Views
 			MenuInflater.Inflate(Resource.Menu.main_menu, menu);
 			_updateMenuItem = menu.FindItem (Resource.Id.update);
 			_swapMenuItem = menu.FindItem(Resource.Id.swap);
+			var items = Model.AboutItems.ToList ();
+			menu.FindItem (Resource.Id.rate).SetTitle (items [1].Text);
+			menu.FindItem (Resource.Id.mail).SetTitle (items [2].Text);
+			menu.FindItem (Resource.Id.settings).SetTitle (items [3].Text);
+			menu.FindItem (Resource.Id.about).SetTitle (items [4].Text);
+			menu.FindItem (Resource.Id.help).SetTitle (Model.HelpAppBar);
+
 			SetAppBarVisibility (false, true);
 
 			return base.OnPrepareOptionsMenu(menu);
@@ -110,7 +115,6 @@ namespace Trains.Droid.Views
 				{Resource.Id.swap,()=>Model.SwapCommand.Execute ()},
 				{Resource.Id.update,()=>Model.UpdateLastRequestCommand.Execute ()},
 				{Resource.Id.help,()=>Model.GoToHelpCommand.Execute ()},
-				{Resource.Id.share,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Share})},
 				{Resource.Id.settings,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Settings})},
 			 	{Resource.Id.rate,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Market})},
 				{Resource.Id.about,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.AboutApp})},
@@ -127,7 +131,7 @@ namespace Trains.Droid.Views
             _searchTypeButton.Text = SelectedType;
 			_fromTextView.TextChanged += fromTextView_TextChange;
 			_toTextView.TextChanged += toTextView_TextChange;
-			Model.RaiseAllPropertiesChanged ();
+
             base.OnStart();
         }
 
@@ -150,27 +154,27 @@ namespace Trains.Droid.Views
 			}
 		}
 
-		private void SetAppBarVisibility(bool update=false,bool swap=false)
+		void SetAppBarVisibility(bool update=false,bool swap=false)
 		{
 			_updateMenuItem.SetVisible(update);
 			_swapMenuItem.SetVisible(swap);
 		}
 
-		private void fromTextView_TextChange(object sender, EventArgs e)
+		void fromTextView_TextChange(object sender, EventArgs e)
 		{
 			if (AutoCompletion == null)
 				return;
 			_fromTextView.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, AutoCompletion);
 		}
 			
-		private void toTextView_TextChange(object sender, EventArgs e)
+		void toTextView_TextChange(object sender, EventArgs e)
 		{
 			if (AutoCompletion == null)
 				return;
 			_toTextView.Adapter = new ArrayAdapter(this, Android.Resource.Layout.SimpleDropDownItem1Line, AutoCompletion);
 		}
 
-        private void searchDateButton_Click(object sender, EventArgs e)
+        void searchDateButton_Click(object sender, EventArgs e)
         {
 			ShowDialog((int)DialogTypes.DatePicker);
         }

@@ -113,10 +113,8 @@
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\AboutView.cs" />
-    <Compile Include="Views\EditFavoriteRoutesView.cs" />
     <Compile Include="Views\HelpView.cs" />
     <Compile Include="Views\InformationView.cs" />
-    <Compile Include="Views\ItemView.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\ScheduleView.cs" />
     <Compile Include="Views\SettingsView.cs" />
@@ -142,9 +140,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\InformationView.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\layout\ItemView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\ScheduleView.axml">

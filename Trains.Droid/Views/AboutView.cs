@@ -10,6 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Cirrious.MvvmCross.Droid.Views;
+using Trains.Core.ViewModels;
 
 namespace Trains.Droid.Views
 {
@@ -20,6 +21,12 @@ namespace Trains.Droid.Views
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.AboutView);
+		}
+
+		public override void OnAttachedToWindow()
+		{
+			base.OnAttachedToWindow();
+			Window.SetTitle(((AboutViewModel)ViewModel).AboutUs);
 		}
 	}
 }

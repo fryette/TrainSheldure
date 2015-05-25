@@ -66,7 +66,7 @@ namespace Trains.Droid.Views
 		public override void OnAttachedToWindow()
 		{
 			base.OnAttachedToWindow();
-			Window.SetTitle("Главная");
+			Window.SetTitle("");
 		}
 	}
 }

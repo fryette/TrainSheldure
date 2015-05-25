@@ -18,6 +18,11 @@ namespace Trains.Droid.Views
 	[Activity(Label = "CarriageView")]
     public class CarriageView : MvxActivity
 	{
+			CarriageViewModel Model
+			{
+				get{ return (CarriageViewModel)ViewModel;}
+			}
+
 		readonly Dictionary<Carriage, int> CarriagePictures=new Dictionary<Carriage, int>()
 			{
 			{Carriage.FirstClassSleeper,Resource.Drawable.FirstClassSleeper},
@@ -41,6 +46,11 @@ namespace Trains.Droid.Views
 			FindViewById<ImageView>(Resource.Id.imageview)
 				.SetImageResource(CarriagePictures[((CarriageViewModel)ViewModel).CarriageModel.Carriage]);
 			base.OnStart();
+		}
+		public override void OnAttachedToWindow()
+		{
+			base.OnAttachedToWindow();
+			Window.SetTitle("");
 		}
 	}
 }

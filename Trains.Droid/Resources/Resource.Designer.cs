@@ -230,11 +230,11 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f04000a
 			public const int ToTextView = 2130968586;
 			
-			// aapt resource value: 0x7f04001a
-			public const int about = 2130968602;
+			// aapt resource value: 0x7f040019
+			public const int about = 2130968601;
 			
-			// aapt resource value: 0x7f04001c
-			public const int favorite = 2130968604;
+			// aapt resource value: 0x7f04001b
+			public const int favorite = 2130968603;
 			
 			// aapt resource value: 0x7f040015
 			public const int help = 2130968597;
@@ -242,8 +242,8 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040001
 			public const int imageview = 2130968577;
 			
-			// aapt resource value: 0x7f040018
-			public const int mail = 2130968600;
+			// aapt resource value: 0x7f040017
+			public const int mail = 2130968599;
 			
 			// aapt resource value: 0x7f040012
 			public const int mainMenu = 2130968594;
@@ -251,23 +251,20 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f04000e
 			public const int progressBar = 2130968590;
 			
-			// aapt resource value: 0x7f040017
-			public const int rate = 2130968599;
+			// aapt resource value: 0x7f040016
+			public const int rate = 2130968598;
 			
 			// aapt resource value: 0x7f040011
 			public const int resetbutton = 2130968593;
 			
-			// aapt resource value: 0x7f04001b
-			public const int reverseSearch = 2130968603;
+			// aapt resource value: 0x7f04001a
+			public const int reverseSearch = 2130968602;
 			
 			// aapt resource value: 0x7f04000d
 			public const int routes = 2130968589;
 			
-			// aapt resource value: 0x7f040019
-			public const int settings = 2130968601;
-			
-			// aapt resource value: 0x7f040016
-			public const int share = 2130968598;
+			// aapt resource value: 0x7f040018
+			public const int settings = 2130968600;
 			
 			// aapt resource value: 0x7f040010
 			public const int spinner = 2130968592;
@@ -290,8 +287,8 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f04000c
 			public const int textView3 = 2130968588;
 			
-			// aapt resource value: 0x7f04001d
-			public const int unFavorite = 2130968605;
+			// aapt resource value: 0x7f04001c
+			public const int unFavorite = 2130968604;
 			
 			// aapt resource value: 0x7f040013
 			public const int update = 2130968595;
@@ -331,34 +328,31 @@ namespace Trains.Droid
 			public const int InformationView = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int ItemView = 2130903046;
+			public const int lastroutetemplate = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int lastroutetemplate = 2130903047;
+			public const int MainView = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int MainView = 2130903048;
+			public const int placetemplate = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int placetemplate = 2130903049;
+			public const int routestemplate = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int routestemplate = 2130903050;
+			public const int scheduletemplate = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int scheduletemplate = 2130903051;
+			public const int ScheduleView = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int ScheduleView = 2130903052;
+			public const int SettingsView = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int SettingsView = 2130903053;
+			public const int SplashScreen = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int SplashScreen = 2130903054;
-			
-			// aapt resource value: 0x7f03000f
-			public const int stoppointstemplate = 2130903055;
+			public const int stoppointstemplate = 2130903054;
 			
 			static Layout()
 			{

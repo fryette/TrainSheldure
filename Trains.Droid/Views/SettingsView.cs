@@ -48,5 +48,11 @@ namespace Trains.Droid.Views
 		{
 			Toast.MakeText (this, Model.NeedReboot, ToastLength.Long).Show ();
 		}
+
+		public override void OnAttachedToWindow()
+		{
+			base.OnAttachedToWindow();
+			Window.SetTitle(Model.Header);
+		}
 	}
 }

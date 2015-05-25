@@ -37,7 +37,7 @@ namespace Trains.Droid.Views
 			_favoriteMenuItem = menu.FindItem (Resource.Id.favorite);
 			_unFavoriteMenuItem = menu.FindItem(Resource.Id.unFavorite);
 			SetAppBarVisibility ();
-			return base.OnPrepareOptionsMenu(menu);
+			return OnPrepareOptionsMenu (menu);
 		}
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
@@ -81,6 +81,12 @@ namespace Trains.Droid.Views
 			var intent =	new Intent (this, typeof(MainView));
 			intent.SetFlags (ActivityFlags.ClearTop);
 			StartActivity (intent);
+		}
+
+		public override void OnAttachedToWindow()
+		{
+			base.OnAttachedToWindow();
+			Window.SetTitle(Model.Request);
 		}
 	}
 }

@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Binding.Droid.Views;
+using Trains.Core.ViewModels;
 
 namespace Trains.Droid.Views
 {
@@ -23,8 +24,6 @@ namespace Trains.Droid.Views
 		{
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.InformationView);
-
-			//_listView = FindViewById<MvxListView> (Resource.Id.StopPointsListView);
 		}
 
 		public override bool OnTouchEvent (MotionEvent e)
@@ -34,6 +33,12 @@ namespace Trains.Droid.Views
 		protected override void OnStart()
 		{
 			base.OnStart();
+		}
+
+		public override void OnAttachedToWindow()
+		{
+			base.OnAttachedToWindow();
+			Window.SetTitle("");
 		}
 	}
 }
