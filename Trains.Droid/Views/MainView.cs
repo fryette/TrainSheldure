@@ -8,6 +8,8 @@ using Trains.Core.ViewModels;
 using Android.Views;
 using Trains.Model.Entities;
 using System.Linq;
+using System.Threading.Tasks;
+using Cirrious.MvvmCross.Binding.Droid.Views;
 
 namespace Trains.Droid.Views
 {
@@ -24,6 +26,7 @@ namespace Trains.Droid.Views
         AutoCompleteTextView _fromTextView;
         AutoCompleteTextView _toTextView;
 		ProgressBar _progressBar;
+		MvxListView _listview;
 
 		Dictionary<int,Action> _actionBar;
 
@@ -59,6 +62,8 @@ namespace Trains.Droid.Views
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainView);
 
+			_listview = FindViewById<MvxListView> (Resource.Id.trains);
+			_listview.ItemClick = trainItemClick ();
 			_progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar);
 			_searchTrainButton = FindViewById<Button>(Resource.Id.SearchTrain);
             _searchDateButton = FindViewById<Button>(Resource.Id.SearchDate);
@@ -137,21 +142,29 @@ namespace Trains.Droid.Views
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
+			if (!Model.IsTaskRun)
 			_actionBar [item.ItemId] ();
 			return true;
 		}
+
 
 		void tab_changed (object sender, TabHost.TabChangeEventArgs e)
 		{
 			if (e.TabId == "main")
 				SetAppBarVisibility (false, true);
-			else if (e.TabId == "lastRoute")
+			else if (e.TabId == "lastRoute") {
 				SetAppBarVisibility (true);
-			else 
-			{
-				SetAppBarVisibility ();
 				Model.RaisePropertyChanged ("LastUpdateTime");
 			}
+			else 
+				SetAppBarVisibility ();
+		}
+
+		System.Windows.Input.ICommand trainItemClick ()
+		{
+			if(!Model.IsTaskRun)
+				Model.TappedFavoriteCommand.Execute ();
+			return null;
 		}
 
 		void SetAppBarVisibility(bool update=false,bool swap=false)
@@ -181,9 +194,8 @@ namespace Trains.Droid.Views
 
 		private async void searchTrainButton_Click(object sender, EventArgs e)
 		{
-			if (!Model.IsTaskRun) {
+			if (!Model.IsTaskRun) 
 				Model.SearchTrainCommand.Execute ();
-			}
 		}
 
         private void searchTypeButton_Click(object sender, EventArgs e)

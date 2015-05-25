@@ -14,7 +14,9 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
-                android:layout_height="30dp" />
+                android:layout_height="30dp"
+                android:saveEnabled="false"
+                local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
@@ -100,6 +102,7 @@
                         android:id="@+id/textView3"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
                     <Mvx.MvxListView
+                        android:id="@+id/trains"
                         android:layout_marginTop="5dip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -117,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         local:MvxItemTemplate="@layout/lastroutetemplate"
-                        local:MvxBind="ItemsSource FavoriteRequests; ItemClick TappedFavoriteCommand" />
+                        local:MvxBind="ItemsSource FavoriteRequests" />
                 </LinearLayout>
                 <ProgressBar
                     android:id="@+id/progressBar"
