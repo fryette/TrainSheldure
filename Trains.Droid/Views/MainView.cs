@@ -117,6 +117,7 @@ namespace Trains.Droid.Views
 				menu.FindItem (Resource.Id.about).SetTitle (items [4].Text);
 				menu.FindItem (Resource.Id.help).SetTitle (Model.HelpAppBar);
 			}
+
 			SetAppBarVisibility (false, true);
 
 			return base.OnPrepareOptionsMenu(menu);
