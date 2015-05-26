@@ -59,8 +59,8 @@ namespace Trains.Droid.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+			this.RequestWindowFeature (WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.MainView);
-			Model.PropertyChanged += ReCreateActivity;
 
 			_progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar);
 			_searchTrainButton = FindViewById<Button>(Resource.Id.SearchTrain);
@@ -92,6 +92,7 @@ namespace Trains.Droid.Views
 			if (e.PropertyName == "IsDownloadRun")
 			{
 				var intent =	new Intent (this, typeof(MainView));
+				intent.SetFlags (ActivityFlags.ClearTop);
 				FinishActivity (0);
 				StartActivity (intent);
 			}
@@ -124,6 +125,8 @@ namespace Trains.Droid.Views
 
      protected override void OnStart()
         {
+			Model.PropertyChanged += ReCreateActivity;
+
 			_actionBar=new Dictionary<int,Action>()
 			{
 				{Resource.Id.swap,()=>Model.SwapCommand.Execute ()},
