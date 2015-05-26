@@ -23,22 +23,13 @@ namespace Trains.Droid.Views
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
+			RequestWindowFeature (WindowFeatures.NoTitle);
 			SetContentView(Resource.Layout.InformationView);
 		}
 
 		public override bool OnTouchEvent (MotionEvent e)
 		{
 			return false;
-		}
-		protected override void OnStart()
-		{
-			base.OnStart();
-		}
-
-		public override void OnAttachedToWindow()
-		{
-			base.OnAttachedToWindow();
-			Window.SetTitle("");
 		}
 	}
 }

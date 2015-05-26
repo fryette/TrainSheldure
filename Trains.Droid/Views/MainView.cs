@@ -59,7 +59,6 @@ namespace Trains.Droid.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-			this.RequestWindowFeature (WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.MainView);
 
 			_progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar);

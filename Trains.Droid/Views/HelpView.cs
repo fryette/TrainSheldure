@@ -35,6 +35,7 @@ namespace Trains.Droid.Views
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
+			RequestWindowFeature (WindowFeatures.NoTitle);
 			SetContentView(Resource.Layout.HelpView);
 
 			TabHost.TabSpec spec;
@@ -61,12 +62,6 @@ namespace Trains.Droid.Views
 			_fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
 			_toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
 
-		}
-
-		public override void OnAttachedToWindow()
-		{
-			base.OnAttachedToWindow();
-			Window.SetTitle("");
 		}
 	}
 }

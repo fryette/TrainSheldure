@@ -38,6 +38,7 @@ namespace Trains.Droid.Views
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
+			RequestWindowFeature (WindowFeatures.NoTitle);
             SetContentView(Resource.Layout.CarriageView);
 		}
 
@@ -46,11 +47,6 @@ namespace Trains.Droid.Views
 			FindViewById<ImageView>(Resource.Id.imageview)
 				.SetImageResource(CarriagePictures[((CarriageViewModel)ViewModel).CarriageModel.Carriage]);
 			base.OnStart();
-		}
-		public override void OnAttachedToWindow()
-		{
-			base.OnAttachedToWindow();
-			Window.SetTitle("");
 		}
 	}
 }
