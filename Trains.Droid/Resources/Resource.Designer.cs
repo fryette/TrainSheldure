@@ -209,26 +209,26 @@ namespace Trains.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040009
-			public const int FromTextView = 2130968585;
+			// aapt resource value: 0x7f04000a
+			public const int FromTextView = 2130968586;
 			
 			// aapt resource value: 0x7f040000
 			public const int MvxBindingTagUnique = 2130968576;
 			
+			// aapt resource value: 0x7f040008
+			public const int SearchDate = 2130968584;
+			
+			// aapt resource value: 0x7f04000c
+			public const int SearchTrain = 2130968588;
+			
+			// aapt resource value: 0x7f040009
+			public const int SearchType = 2130968585;
+			
 			// aapt resource value: 0x7f040007
-			public const int SearchDate = 2130968583;
+			public const int StopPointsListView = 2130968583;
 			
 			// aapt resource value: 0x7f04000b
-			public const int SearchTrain = 2130968587;
-			
-			// aapt resource value: 0x7f040008
-			public const int SearchType = 2130968584;
-			
-			// aapt resource value: 0x7f040005
-			public const int StopPointsListView = 2130968581;
-			
-			// aapt resource value: 0x7f04000a
-			public const int ToTextView = 2130968586;
+			public const int ToTextView = 2130968587;
 			
 			// aapt resource value: 0x7f040019
 			public const int about = 2130968601;
@@ -248,8 +248,8 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040012
 			public const int mainMenu = 2130968594;
 			
-			// aapt resource value: 0x7f04000e
-			public const int progressBar = 2130968590;
+			// aapt resource value: 0x7f040006
+			public const int progressBar = 2130968582;
 			
 			// aapt resource value: 0x7f040016
 			public const int rate = 2130968598;
@@ -260,8 +260,8 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f04001a
 			public const int reverseSearch = 2130968602;
 			
-			// aapt resource value: 0x7f04000d
-			public const int routes = 2130968589;
+			// aapt resource value: 0x7f04000e
+			public const int routes = 2130968590;
 			
 			// aapt resource value: 0x7f040018
 			public const int settings = 2130968600;
@@ -281,11 +281,11 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f040004
 			public const int tab3 = 2130968580;
 			
-			// aapt resource value: 0x7f040006
-			public const int textView2 = 2130968582;
+			// aapt resource value: 0x7f040005
+			public const int textView2 = 2130968581;
 			
-			// aapt resource value: 0x7f04000c
-			public const int textView3 = 2130968588;
+			// aapt resource value: 0x7f04000d
+			public const int textView3 = 2130968589;
 			
 			// aapt resource value: 0x7f04001c
 			public const int unFavorite = 2130968604;

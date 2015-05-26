@@ -15,6 +15,25 @@
             android:layout_height="wrap_content"
             local:MvxItemTemplate="@layout/informationaltemplate"
             local:MvxBind="ItemsSource Train.AdditionalInformation" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            local:MvxBind="Visibility Visibility(IsTaskRun)"
+            android:orientation="vertical">
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                local:MvxBind="Text DownloadStopPoints" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal" />
+        </LinearLayout>
         <Mvx.MvxListView
             android:layout_marginTop="5dip"
             android:layout_width="wrap_content"

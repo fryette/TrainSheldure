@@ -7,16 +7,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        local:MvxBind="Text From"
-        android:textSize="20dip" />
+        local:MvxBind="Text From" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=" - "
-        android:textSize="20dip" />
+        android:text=" - " />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        local:MvxBind="Text To"
-        android:textSize="20dip" />
+        local:MvxBind="Text To" />
 </LinearLayout>
