@@ -121,9 +121,9 @@
     <Compile Include="converters\Visibility.cs" />
     <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
     <Compile Include="converters\Color.cs" />
-    <Compile Include="converters\RevertBoolean.cs" />
     <Compile Include="Views\CarriageView.cs" />
     <Compile Include="Bootstrap\EmailPluginBootstrap.cs" />
+    <Compile Include="converters\ReverseBoolean.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -4,8 +4,8 @@ using Android.App;
 
 namespace Trains.Droid
 {
-	[Activity (Label = "RevertBoolean")]				
-	public class RevertBoolean : IMvxValueConverter
+	[Activity (Label = "ReverseBoolean")]				
+	public class ReverseBoolean : IMvxValueConverter
 	{
 		public object Convert (object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
 		{

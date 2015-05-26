@@ -16,7 +16,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
                 android:saveEnabled="false"
-                local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
+                local:MvxBind="Enabled ReverseBoolean(IsTaskRun)" />
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="fill_parent"
@@ -42,26 +42,26 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/SearchDate"
-                            local:MvxBind="Enabled RevertBoolean(IsTaskRun)" />
+                            local:MvxBind="Enabled ReverseBoolean(IsTaskRun)" />
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/SearchDate"
                             android:id="@+id/SearchType"
-                            local:MvxBind="Enabled RevertBoolean(IsTaskRun); Text VariantOfSearch[4]" />
+                            local:MvxBind="Enabled ReverseBoolean(IsTaskRun); Text VariantOfSearch[4]" />
                     </RelativeLayout>
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/FromTextView"
                         android:singleLine="true"
-                        local:MvxBind="Text From; Hint FromAutoSuggest" />
+                        local:MvxBind="Text From; Hint FromAutoSuggest; Focusable ReverseBoolean(IsTaskRun)" />
                     <AutoCompleteTextView
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/ToTextView"
-                        local:MvxBind="Text To; Hint ToAutoSuggest" />
+                        local:MvxBind="Text To; Hint ToAutoSuggest; Focusable ReverseBoolean(IsTaskRun)" />
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -69,7 +69,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/SearchTrain"
-                            local:MvxBind="Enabled RevertBoolean(IsTaskRun); Text Search" />
+                            local:MvxBind="Enabled ReverseBoolean(IsTaskRun); Text Search" />
                     </RelativeLayout>
                     <TextView
                         android:layout_marginLeft="5dip"
