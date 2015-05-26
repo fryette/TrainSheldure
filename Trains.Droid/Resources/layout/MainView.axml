@@ -15,7 +15,6 @@
                 android:id="@android:id/tabs"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
-                android:saveEnabled="false"
                 local:MvxBind="Enabled ReverseBoolean(IsTaskRun)" />
             <FrameLayout
                 android:id="@android:id/tabcontent"
@@ -41,27 +40,26 @@
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/SearchDate"
-                            local:MvxBind="Enabled ReverseBoolean(IsTaskRun)" />
+                            android:id="@+id/SearchDate" />
                         <Button
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@id/SearchDate"
                             android:id="@+id/SearchType"
-                            local:MvxBind="Enabled ReverseBoolean(IsTaskRun); Text VariantOfSearch[4]" />
+                            local:MvxBind="Text VariantOfSearch[4]" />
                     </RelativeLayout>
                     <AutoCompleteTextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/FromTextView"
                         android:singleLine="true"
-                        local:MvxBind="Text From; Hint FromAutoSuggest; Focusable ReverseBoolean(IsTaskRun)" />
+                        local:MvxBind="Text From; Hint FromAutoSuggest" />
                     <AutoCompleteTextView
                         android:singleLine="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/ToTextView"
-                        local:MvxBind="Text To; Hint ToAutoSuggest; Focusable ReverseBoolean(IsTaskRun)" />
+                        local:MvxBind="Text To; Hint ToAutoSuggest" />
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
@@ -69,7 +67,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/SearchTrain"
-                            local:MvxBind="Enabled ReverseBoolean(IsTaskRun); Text Search" />
+                            local:MvxBind="Text Search" />
                     </RelativeLayout>
                     <TextView
                         android:layout_marginLeft="5dip"
@@ -88,8 +86,8 @@
                 <LinearLayout
                     android:paddingLeft="5dip"
                     android:id="@+id/tab2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
                     android:orientation="vertical">
                     <TextView
                         local:MvxBind="Text LastRoute"
@@ -114,16 +112,21 @@
                 <LinearLayout
                     android:layout_marginLeft="10dip"
                     android:id="@+id/tab3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
                     <Mvx.MvxListView
                         android:id="@+id/routes"
                         android:layout_marginTop="5dip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         local:MvxItemTemplate="@layout/lastroutetemplate"
-                        local:MvxBind="ItemsSource FavoriteRequests; ItemClick TappedFavoriteCommand;" />
+                        local:MvxBind="ItemsSource FavoriteRequests; ItemClick TappedFavoriteCommand" />
                 </LinearLayout>
+                <Button
+                    local:MvxBind="Visibility Visibility(IsTaskRun)"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:alpha="0.001" />
                 <ProgressBar
                     android:id="@+id/progressBar"
                     android:layout_width="fill_parent"
