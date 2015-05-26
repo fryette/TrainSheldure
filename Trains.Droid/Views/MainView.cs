@@ -9,7 +9,7 @@ using Android.Views;
 using Trains.Model.Entities;
 using System.Linq;
 using System.Threading.Tasks;
-using Cirrious.MvvmCross.Binding.Droid.Views;
+using Android.Content;
 
 namespace Trains.Droid.Views
 {
@@ -26,7 +26,6 @@ namespace Trains.Droid.Views
         AutoCompleteTextView _fromTextView;
         AutoCompleteTextView _toTextView;
 		ProgressBar _progressBar;
-		MvxListView _listview;
 
 		Dictionary<int,Action> _actionBar;
 
@@ -61,9 +60,8 @@ namespace Trains.Droid.Views
         {
             base.OnCreate(bundle);
             SetContentView(Resource.Layout.MainView);
+			Model.PropertyChanged += ReCreateActivity;
 
-			_listview = FindViewById<MvxListView> (Resource.Id.trains);
-			_listview.ItemClick = trainItemClick ();
 			_progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar);
 			_searchTrainButton = FindViewById<Button>(Resource.Id.SearchTrain);
             _searchDateButton = FindViewById<Button>(Resource.Id.SearchDate);
@@ -72,7 +70,6 @@ namespace Trains.Droid.Views
             _toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
 
 			TabHost.TabSpec spec;
-
 
 			spec = TabHost.NewTabSpec("main");
 			spec.SetIndicator(Model.MainPivotItem);
@@ -90,6 +87,16 @@ namespace Trains.Droid.Views
 			TabHost.AddTab(spec);
         }
 
+		void ReCreateActivity (object sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == "IsDownloadRun")
+			{
+				var intent =	new Intent (this, typeof(MainView));
+				FinishActivity (0);
+				StartActivity (intent);
+			}
+		}
+			
 		public override void OnAttachedToWindow()
 		{
 			base.OnAttachedToWindow();
@@ -101,13 +108,15 @@ namespace Trains.Droid.Views
 			MenuInflater.Inflate(Resource.Menu.main_menu, menu);
 			_updateMenuItem = menu.FindItem (Resource.Id.update);
 			_swapMenuItem = menu.FindItem(Resource.Id.swap);
-			var items = Model.AboutItems.ToList ();
-			menu.FindItem (Resource.Id.rate).SetTitle (items [1].Text);
-			menu.FindItem (Resource.Id.mail).SetTitle (items [2].Text);
-			menu.FindItem (Resource.Id.settings).SetTitle (items [3].Text);
-			menu.FindItem (Resource.Id.about).SetTitle (items [4].Text);
-			menu.FindItem (Resource.Id.help).SetTitle (Model.HelpAppBar);
-
+			if (Model.AboutItems != null) 
+			{
+				var items = Model.AboutItems.ToList ();
+				menu.FindItem (Resource.Id.rate).SetTitle (items [1].Text);
+				menu.FindItem (Resource.Id.mail).SetTitle (items [2].Text);
+				menu.FindItem (Resource.Id.settings).SetTitle (items [3].Text);
+				menu.FindItem (Resource.Id.about).SetTitle (items [4].Text);
+				menu.FindItem (Resource.Id.help).SetTitle (Model.HelpAppBar);
+			}
 			SetAppBarVisibility (false, true);
 
 			return base.OnPrepareOptionsMenu(menu);
@@ -147,7 +156,6 @@ namespace Trains.Droid.Views
 			return true;
 		}
 
-
 		void tab_changed (object sender, TabHost.TabChangeEventArgs e)
 		{
 			if (e.TabId == "main")
@@ -158,13 +166,6 @@ namespace Trains.Droid.Views
 			}
 			else 
 				SetAppBarVisibility ();
-		}
-
-		System.Windows.Input.ICommand trainItemClick ()
-		{
-			if(!Model.IsTaskRun)
-				Model.TappedFavoriteCommand.Execute ();
-			return null;
 		}
 
 		void SetAppBarVisibility(bool update=false,bool swap=false)
