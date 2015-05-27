@@ -42,6 +42,8 @@ namespace Trains.Droid.Views
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
+			if (Model.IsSearchStart)
+				return true;
 			switch (item.ItemId)
 			{
 			case Resource.Id.favorite:
