@@ -124,6 +124,7 @@
     <Compile Include="Views\CarriageView.cs" />
     <Compile Include="Bootstrap\EmailPluginBootstrap.cs" />
     <Compile Include="converters\ReverseBoolean.cs" />
+    <Compile Include="Providers\MetricaContentProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -217,6 +218,10 @@
       <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
       <Name>Trains.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Metrica\Metrica.csproj">
+      <Project>{961E4335-FF6F-44D2-B6C8-81010CAE166E}</Project>
+      <Name>Metrica</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -233,5 +238,6 @@
     <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Providers\" />
   </ItemGroup>
 </Project>

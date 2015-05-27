@@ -10,6 +10,7 @@ using Trains.Model.Entities;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
+using Com.Yandex.Metrica;
 
 namespace Trains.Droid.Views
 {
@@ -59,6 +60,7 @@ namespace Trains.Droid.Views
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+			YandexMetrica.Initialize(Application.Context,"45613");
             SetContentView(Resource.Layout.MainView);
 
 			_progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar);
