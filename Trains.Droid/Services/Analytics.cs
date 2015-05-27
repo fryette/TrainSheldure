@@ -15,6 +15,10 @@ namespace Trains.Droid.Services
 {
     public class Analytics : IAnalytics
     {
+		public Analytics ()
+		{
+			YandexMetrica.Initialize(Application.Context,"45613");
+		}
         public void SentView(string view)
         {
             
@@ -22,15 +26,11 @@ namespace Trains.Droid.Services
 
         public void SentEvent(string mainCategory, string subCategory1 = "", string subCategory2 = "", long value = 0)
         {
-			YandexMetrica.Initialize(Application.Context,"45613");
 			YandexMetrica.ReportEvent (mainCategory+":"+subCategory1+":"+subCategory2);
-			YandexMetrica.ReportEvent ("testevent1");
-
         }
 
         public void SentException(string description, bool isFatal = false)
         {
-			YandexMetrica.Initialize(Application.Context,"45613");
 			YandexMetrica.ReportNativeCrash (description);
         }
     }
