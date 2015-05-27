@@ -196,6 +196,9 @@ namespace Trains.Droid
 			// aapt resource value: 0x7f020016
 			public const int splash = 2130837526;
 			
+			// aapt resource value: 0x7f020017
+			public const int train = 2130837527;
+			
 			static Drawable()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

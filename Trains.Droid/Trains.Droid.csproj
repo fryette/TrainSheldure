@@ -196,6 +196,7 @@
     <AndroidResource Include="Resources\drawable\SeatingCoaches1.png" />
     <AndroidResource Include="Resources\drawable\SeatingCoaches2.png" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\drawable\train.jpg" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
