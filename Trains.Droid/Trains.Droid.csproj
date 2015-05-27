@@ -194,15 +194,13 @@
     <AndroidResource Include="Resources\drawable\MultipleUnitCoach.png" />
     <AndroidResource Include="Resources\drawable\SeatingCoaches1.png" />
     <AndroidResource Include="Resources\drawable\SeatingCoaches2.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
