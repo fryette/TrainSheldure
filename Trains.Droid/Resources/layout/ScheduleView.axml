@@ -8,7 +8,8 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:paddingLeft="5dip">
+        android:paddingLeft="5dip"
+        android:id="@+id/schedule">
         <TextView
             android:singleLine="true"
             android:layout_width="wrap_content"

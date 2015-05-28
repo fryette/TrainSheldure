@@ -11,6 +11,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Android.Content;
 using Com.Yandex.Metrica;
+using Cirrious.CrossCore;
+using Trains.Core.Interfaces;
 
 namespace Trains.Droid.Views
 {
@@ -18,6 +20,19 @@ namespace Trains.Droid.Views
 	public class MainView : MvxTabActivity
 	{
         private const string DateFormat = "d";
+
+		readonly Dictionary<string, int> LastScheduleRoute = new Dictionary<string, int>()
+		{
+			{"ru",Resource.Drawable.Dlya_OtobrazheniaWhite},
+			{"be",Resource.Drawable.Dlya_AdlyustravannyaWhite},
+			{"en",Resource.Drawable.No_historyWhite}
+		};
+		readonly Dictionary<string, int> RoutesBackground = new Dictionary<string, int>()
+		{
+			{"ru",Resource.Drawable.Marshrutov_NeWhite},
+			{"be",Resource.Drawable.Marshrutau_NeWhite},
+			{"en",Resource.Drawable.No_favoritesWhite}
+		};
 
         Button _searchDateButton;
 		Button _searchTrainButton;
@@ -69,6 +84,11 @@ namespace Trains.Droid.Views
             _searchTypeButton = FindViewById<Button>(Resource.Id.SearchType);
             _fromTextView = FindViewById<AutoCompleteTextView>(Resource.Id.FromTextView);
             _toTextView = FindViewById<AutoCompleteTextView>(Resource.Id.ToTextView);
+
+			(FindViewById<LinearLayout> (Resource.Id.tab2)).SetBackgroundResource ((Model.Trains == null || !Model.Trains.Any()) ? 
+				LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id] : 0);
+			(FindViewById<LinearLayout> (Resource.Id.tab3)).SetBackgroundResource ((Model.Trains == null || !Model.Trains.Any()) ?
+				RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id] : 0);
 
 			TabHost.TabSpec spec;
 

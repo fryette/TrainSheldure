@@ -11,6 +11,8 @@ using Android.Views;
 using Android.Widget;
 using Cirrious.MvvmCross.Droid.Views;
 using Trains.Core.ViewModels;
+using Cirrious.CrossCore;
+using Trains.Core.Interfaces;
 
 namespace Trains.Droid.Views
 {
@@ -19,7 +21,12 @@ namespace Trains.Droid.Views
 	{
 		private IMenuItem _favoriteMenuItem;
 		private IMenuItem _unFavoriteMenuItem;
-
+		readonly Dictionary<string, int> ReverseBackground = new Dictionary<string, int>()
+		{
+			{"ru",Resource.Drawable.ObratnyyWhite},
+			{"be",Resource.Drawable.ZvarotnyWhite},
+			{"en",Resource.Drawable.BackWhite}
+		};
 		private ScheduleViewModel Model
 		{
 			get{ return (ScheduleViewModel)ViewModel;}
@@ -28,6 +35,8 @@ namespace Trains.Droid.Views
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
+			(FindViewById<LinearLayout> (Resource.Id.schedule)).SetBackgroundResource (Model.Trains==null||!Model.Trains.Any()?
+				ReverseBackground [Mvx.Resolve<IAppSettings> ().Language.Id]:0);
 			SetContentView(Resource.Layout.ScheduleView);
 		}
 

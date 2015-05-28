@@ -200,6 +200,15 @@
     <AndroidResource Include="Resources\drawable\SeatingCoaches2.png" />
     <AndroidResource Include="Resources\drawable\Icon.png" />
     <AndroidResource Include="Resources\drawable\train.jpg" />
+    <AndroidResource Include="Resources\drawable\Dlya_AdlyustravannyaWhite.png" />
+    <AndroidResource Include="Resources\drawable\Dlya_OtobrazheniaWhite.png" />
+    <AndroidResource Include="Resources\drawable\No_favoritesWhite.png" />
+    <AndroidResource Include="Resources\drawable\No_historyWhite.png" />
+    <AndroidResource Include="Resources\drawable\ObratnyyWhite.png" />
+    <AndroidResource Include="Resources\drawable\Marshrutau_NeWhite.png" />
+    <AndroidResource Include="Resources\drawable\Marshrutov_NeWhite.png" />
+    <AndroidResource Include="Resources\drawable\BackWhite.png" />
+    <AndroidResource Include="Resources\drawable\ZvarotnyWhite.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
