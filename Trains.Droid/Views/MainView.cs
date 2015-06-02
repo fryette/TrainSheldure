@@ -87,7 +87,7 @@ namespace Trains.Droid.Views
 
 			(FindViewById<LinearLayout> (Resource.Id.tab2)).SetBackgroundResource ((Model.Trains == null || !Model.Trains.Any()) ? 
 				LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id] : 0);
-			(FindViewById<LinearLayout> (Resource.Id.tab3)).SetBackgroundResource ((Model.Trains == null || !Model.Trains.Any()) ?
+			(FindViewById<LinearLayout> (Resource.Id.tab3)).SetBackgroundResource ((Model.LastRoutes == null || !Model.LastRoutes.Any()) ?
 				RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id] : 0);
 
 			TabHost.TabSpec spec;
@@ -151,7 +151,7 @@ namespace Trains.Droid.Views
 
 			_actionBar=new Dictionary<int,Action>()
 			{
-				{Resource.Id.swap,()=>Model.SwapCommand.Execute ()},
+				{Resource.Id.swap,()=>{if(Model.From!=null && Model.To!=null)Model.SwapCommand.Execute ();}},
 				{Resource.Id.update,()=>Model.UpdateLastRequestCommand.Execute ()},
 				{Resource.Id.help,()=>Model.GoToHelpCommand.Execute ()},
 				{Resource.Id.settings,()=>Model.TappedAboutItemCommand.Execute (new About{Item=AboutPicture.Settings})},

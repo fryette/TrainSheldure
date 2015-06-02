@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -35,8 +33,6 @@ namespace Trains.Droid.Views
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
-			(FindViewById<LinearLayout> (Resource.Id.schedule)).SetBackgroundResource (Model.Trains==null||!Model.Trains.Any()?
-				ReverseBackground [Mvx.Resolve<IAppSettings> ().Language.Id]:0);
 			SetContentView(Resource.Layout.ScheduleView);
 		}
 
@@ -46,6 +42,7 @@ namespace Trains.Droid.Views
 			_favoriteMenuItem = menu.FindItem (Resource.Id.favorite);
 			_unFavoriteMenuItem = menu.FindItem(Resource.Id.unFavorite);
 			SetAppBarVisibility ();
+
 			return OnPrepareOptionsMenu (menu);
 		}
 
@@ -75,6 +72,8 @@ namespace Trains.Droid.Views
 			case Resource.Id.reverseSearch:
 				{
 					Model.SearchReverseRouteCommand.Execute ();
+					(FindViewById<LinearLayout> (Resource.Id.schedule)).SetBackgroundResource (Model.Trains==null||!Model.Trains.Any()?
+						ReverseBackground [Mvx.Resolve<IAppSettings> ().Language.Id]:0);
 					return true;
 				}
 			}
