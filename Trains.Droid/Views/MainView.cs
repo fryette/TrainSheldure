@@ -87,7 +87,7 @@ namespace Trains.Droid.Views
 
 			(FindViewById<LinearLayout> (Resource.Id.tab2)).SetBackgroundResource ((Model.Trains == null || !Model.Trains.Any()) ? 
 				LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id] : 0);
-			(FindViewById<LinearLayout> (Resource.Id.tab3)).SetBackgroundResource ((Model.LastRoutes == null || !Model.LastRoutes.Any()) ?
+			(FindViewById<LinearLayout> (Resource.Id.tab3)).SetBackgroundResource ((Model.LastRequests == null || !Model.LastRequests.Any()) ?
 				RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id] : 0);
 
 			TabHost.TabSpec spec;
