@@ -1,10 +1,13 @@
 using Windows.UI.Xaml.Controls;
+using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
+using Cirrious.MvvmCross.Plugins.Share;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsCommon.Platform;
 using Trains.Core.Interfaces;
 using Trains.Core.Services.Interfaces;
+using Trains.UAP.Services;
 
 namespace Trains.UAP
 {
