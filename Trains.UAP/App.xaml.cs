@@ -40,7 +40,7 @@ namespace Trains.UAP
 #if DEBUG
             if (Debugger.IsAttached)
             {
-                DebugSettings.EnableFrameRateCounter = true;
+               // DebugSettings.EnableFrameRateCounter = true;
             }
 #endif
 
