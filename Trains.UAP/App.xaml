@@ -503,7 +503,7 @@
             <DataTemplate x:Key="GenericGroupHeaderTemplate">
                 <Border>
                     <TextBlock Text="{Binding Key}"
-                               Foreground="white"
+                               Foreground="{ThemeResource  SystemControlForegroundAccentBrush}"
                                FontSize="{StaticResource MainFontSize}"
                                FontWeight="SemiLight"
                                OpticalMarginAlignment="TrimSideBearings"

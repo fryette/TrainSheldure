@@ -61,7 +61,7 @@ namespace Trains.UAP.Converter
             if (param == "Help") return new BitmapImage(HelpPicture[(TrainClass)value]);
             if (param == "SocialPicture") 
                 return new BitmapImage(new Uri(SocialPicture[(ShareSocial)value] + 
-                (((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png")));
+                (((App.Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png")));
             if (param == "Carriage") return new BitmapImage(CarriagePictures[(Carriage)value]);
             if (param == "TrainClass") return new SolidColorBrush(Images[(int)(TrainClass)value]);
             return null;

@@ -9,7 +9,7 @@
                       xmlns:viewModels="using:Trains.Core.ViewModels"
                       d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
-    <Grid Background="white">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid Margin="24,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

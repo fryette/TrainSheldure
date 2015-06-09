@@ -7,7 +7,7 @@
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData CarriageViewModel}">
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel>
             <TextBlock Text="{Binding CarriageModel.Name}"
                        FontSize="20"

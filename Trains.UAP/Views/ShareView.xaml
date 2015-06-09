@@ -8,7 +8,7 @@
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
 
-    <Grid Margin="10">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="10">
         <StackPanel HorizontalAlignment="Center">
             <TextBlock Text="{Binding Header}"
                        FontSize="{StaticResource BigFontSize}" />

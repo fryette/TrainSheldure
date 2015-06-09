@@ -8,7 +8,7 @@
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       d:DataContext="{d:DesignData HelpViewModel}">
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot x:Name="MainPivot"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem Header="{Binding Trains}">
