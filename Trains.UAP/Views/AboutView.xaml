@@ -6,7 +6,7 @@
                       mc:Ignorable="d"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       d:DataContext="{d:DesignData AboutViewModel}">
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.Resources>
             <Storyboard x:Name="MyStoryboard">
                 <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
@@ -20,45 +20,42 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Grid.Resources>
-        <Pivot Title="{Binding ApplicationName}">
-            <PivotItem Header="{Binding AboutUs}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="5,0,0,0">
+            <GridView >
                 <Grid>
-                    <StackPanel>
-                        <GridView Margin="0">
-                            <Grid>
-                                <Image x:Name="MainImage"
-                                       Source="/Assets/MenuIcon/result.jpg"
-                                       Style="{StaticResource MainButtonImageStyle}" />
-                            </Grid>
-                        </GridView>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock x:Uid="Version"
-                                       Style="{StaticResource AboutAppStyle}"
-                                       FontSize="24"
-                                       Foreground="{ThemeResource PhoneForegroundBrush}" />
-                        </StackPanel>
-
-                        <TextBlock Text="{Binding UsingLibrary}"
-                                   FontSize="24"
-                                   Foreground="{ThemeResource PhoneForegroundBrush}"
-                                   Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="MvvmCross, Newtonsoft.Json, AppPromo"
-                                   Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="{Binding SpecialThank}"
-                                   Style="{StaticResource AboutAppStyle}"
-                                   Foreground="{ThemeResource PhoneForegroundBrush}"
-                                   FontSize="24" />
-                        <TextBlock Text="{Binding FirstDesigner}"
-                                   Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="{Binding SecondDesigner}"
-                                   Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="{Binding Version}"
-                                   Style="{StaticResource AboutAppStyle}" />
-                        <HyperlinkButton Content="chygunka.by"
-                                         NavigateUri="http://chygunka.by" />
-                    </StackPanel>
+                    <Image x:Name="MainImage"
+                           Source="/Assets/MenuIcon/result.jpg"
+                           Style="{StaticResource MainButtonImageStyle}" />
                 </Grid>
-            </PivotItem>
-        </Pivot>
+            </GridView>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Uid="Version"
+                           Style="{StaticResource AboutAppStyle}"
+                           FontSize="24"
+                           Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
+            </StackPanel>
+
+            <TextBlock Text="{Binding UsingLibrary}"
+                       FontSize="24"
+                       Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="MvvmCross, Newtonsoft.Json, AppPromo"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="{Binding SpecialThank}"
+                       Style="{StaticResource AboutAppStyle}"
+                       Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                       FontSize="24" />
+            <TextBlock Text="{Binding FirstDesigner}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="{Binding SecondDesigner}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="{Binding Version}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <HyperlinkButton Content="chygunka.by"
+                             NavigateUri="http://chygunka.by" />
+        </StackPanel>
     </Grid>
 </views:MvxWindowsPage>

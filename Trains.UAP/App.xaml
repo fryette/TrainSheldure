@@ -193,7 +193,7 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="Height"
-                        Value="130" />
+                        Value="Auto" />
                 <Setter Property="Stretch"
                         Value="Fill" />
             </Style>
@@ -453,10 +453,10 @@
             <DataTemplate x:Key="AboutTemplate">
                 <StackPanel Orientation="Horizontal"
                             Margin="0,0,0,5"
-                            Background="{ThemeResource PhoneAccentBrush}">
+                            Background="{ThemeResource SystemControlBackgroundAccentBrush}">
                     <Image Width="{StaticResource TileWidth}"
                            Source="{Binding Item,Converter={StaticResource AboutEnumToImageConverter}}" />
-                    <Border Background="{ThemeResource PhoneBackgroundBrush}"
+                    <Border Background="{ThemeResource SystemControlBackgroundAccentBrush}"
                             Width="5"
                             Height="{StaticResource TileWidth}" />
                     <TextBlock Text="{Binding Text}"
