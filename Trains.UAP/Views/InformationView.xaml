@@ -7,7 +7,7 @@
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData InformationViewModel}">
 
-    <Grid>
+    <Grid  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -18,7 +18,7 @@
                        Style="{ThemeResource TitleStyle}"
                        HorizontalAlignment="Center"
                        FontWeight="Normal"
-                       Foreground="{ThemeResource PhoneForegroundBrush}"
+                       Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
                        Margin="0,0,0,10" />
         </Grid>
         <Grid Row="1">
