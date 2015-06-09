@@ -8,149 +8,45 @@
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData MainViewModel}">
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Pivot x:Name="MainPivot"
-               IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}"
-               Title="{Binding ApplicationName}"
-               PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem Header="{Binding MainPivotItem}"
-                       x:Name="MainPivotItem">
-                <Grid Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=main}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
-                        <ComboBox x:Name="comboBox"
-                                  Header="{Binding FastSearchTextBlock}"
-                                  ItemsSource="{Binding VariantOfSearch}"
-                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
-                                  SelectionChanged="comboBox_SelectionChanged" />
-                        <DatePicker x:Name="DataPicker"
-                                    Header="{Binding DateOfDeparture}"
-                                    Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource DatePickerStyle}"
-                                    Margin="0,-5,0,0" />
-                        <AutoSuggestBox x:Name="From"
-                                        Header="{Binding FromAutoSuggest}"
-                                        Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        ItemsSource="{Binding AutoSuggestions}"
-                                        IsEnabled="{Binding IsFildEnabled}"
-                                        Style="{StaticResource AutoSuggestBoxStyle}"
-                                        GotFocus="AutoSuggestBox_ManipulationStarted"
-                                        LostFocus="AutoSuggestBox_ManipulationCompleted"
-                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-                        <AutoSuggestBox x:Name="To"
-                                        Header="{Binding ToAutoSuggest}"
-                                        IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
-                                        Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        ItemsSource="{Binding AutoSuggestions}"
-                                        Style="{StaticResource AutoSuggestBoxStyle}"
-                                        GotFocus="AutoSuggestBox_ManipulationStarted"
-                                        LostFocus="AutoSuggestBox_ManipulationCompleted"
-                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-                        <Grid>
-                            
-                            <Button x:Name="SearchButton"
-                                    Content="{Binding Search}"
-                                    HorizontalAlignment="Right"
-                                    Command="{Binding SearchTrainCommand}" />
-                        </Grid>
-                    </StackPanel>
-                    <ListView x:Name="Routes"
-                              Grid.Row="1"
-                              Header="{Binding LastRequests}"
-                              ItemsSource="{Binding LastRoutes}"
-                              ItemTemplate="{StaticResource RoutesTemplate}"
-                              ItemContainerStyle="{StaticResource ListViewItemStyle}">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Tapped">
-                                <core:InvokeCommandAction Command="{Binding TappedRouteCommand}"
-                                                          CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}"
-                                                          InputConverter="{StaticResource SelectionChangedConverter}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </ListView>
-                </Grid>
-            </PivotItem>
-            <PivotItem Header="{Binding LastSchedulePivotItem}"
-                       x:Name="LastPivot"
-                       Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=last}">
-                <Grid HorizontalAlignment="Center">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel>
-                        <TextBlock Grid.Row="0"
-                                   Text="{Binding LastRoute}"
-                                   Style="{StaticResource BasedTextBlockStyle}"
-                                   FontSize="{StaticResource MainFontSize}" />
-                        <TextBlock Grid.Row="0"
-                                   Text="{Binding LastUpdateTime}"
-                                   Style="{StaticResource BasedTextBlockStyle}"
-                                   FontSize="{StaticResource SmallFontSize}"
-                                   VerticalAlignment="Bottom" />
-                    </StackPanel>
-                    <SemanticZoom Grid.Row="1"
-                                  x:Name="Root"
-                                  Template="{StaticResource SemantickZoom}"
-                                  DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
-                        <SemanticZoom.ZoomedInView>
-                            <ListView x:Name="TrainList"
-                                      ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                                      ItemTemplate="{StaticResource ScheduleTemplate}"
-                                      Tapped="TrainList_OnTapped">
-                                <ListView.GroupStyle>
-                                    <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
-                                                HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
-                                                HidesIfEmpty="True" />
-                                </ListView.GroupStyle>
-                            </ListView>
-                        </SemanticZoom.ZoomedInView>
-                        <SemanticZoom.ZoomedOutView>
-                            <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
-                                      ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
-                                      Style="{StaticResource GenericJumpListPickerStyle}">
-                            </ListView>
-                        </SemanticZoom.ZoomedOutView>
-                    </SemanticZoom>
-                    <Button x:Name="CommandButton"
-                            Visibility="Collapsed"
-                            Command="{Binding SelectTrainCommand}" />
-                </Grid>
-            </PivotItem>
-            <PivotItem x:Name="RoutesPivot"
-                       Header="{Binding RoutesPivotItem}"
-                       Background="{Binding FavoriteRequests, Converter={StaticResource BackgroundLastRouteToImageConverter},ConverterParameter=route}">
-                <ListView x:Name="FavoriteRequests"
-                          ItemsSource="{Binding FavoriteRequests}"
-                          ItemTemplate="{StaticResource RoutesTemplate}"
-                          ItemContainerStyle="{StaticResource ListViewItemStyle}">
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding TappedFavoriteCommand}"
-                                                      CommandParameter="{Binding ElementName=FavoriteRequests, Path=SelectedItem}"
-                                                      InputConverter="{StaticResource SelectionChangedConverter}" />
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </ListView>
-            </PivotItem>
-            <PivotItem Header="{Binding AboutPivotItem}">
-                <ListView x:Name="AboutItemList"
-                          ItemsSource="{Binding AboutItems}"
-                          ItemContainerStyle="{StaticResource ListViewItemStyle}"
-                          ItemTemplate="{StaticResource AboutTemplate}">
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding TappedAboutItemCommand}"
-                                                      CommandParameter="{Binding ElementName=AboutItemList, Path=SelectedItem}"
-                                                      InputConverter="{StaticResource SelectionChangedConverter}" />
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                </ListView>
-            </PivotItem>
-        </Pivot>
+    <Grid>
+        <SplitView x:Name="rootSplitView"
+               Background="Black"
+               OpenPaneLength="240"
+               CompactPaneLength="48"
+               DisplayMode="CompactOverlay"
+               IsPaneOpen="{Binding IsPaneOpen}"
+               PaneBackground="DarkSeaGreen">
+        <SplitView.Pane>
+            <StackPanel x:Name="SplitViewPanePanel">
+                <RadioButton x:Name="BackRadioButton"
+                             Style="{StaticResource NavRadioButtonStyle}"
+                             Tag=""
+                             Background="Green"
+                             GroupName="Back"
+                                 Content="{Binding ApplicationName}"/>
+                <RadioButton x:Name="MyChannelsRadioButton"
+                             Style="{StaticResource NavRadioButtonStyle}"
+                             Tag=""
+                             Content="My Channels" />
+                <RadioButton x:Name="AllChannelsRadioButton"
+                             Style="{StaticResource NavRadioButtonStyle}"
+                             Tag=""
+                             Content="AllChannels"
+                             GroupName="Navigation" />
+                <RadioButton x:Name="SettingsRadioButton"
+                             Style="{StaticResource NavRadioButtonStyle}"
+                             Tag=""
+                             Content="Settings"
+                             GroupName="Navigation" />
+                <RadioButton x:Name="PlayerRadioButton"
+                             Style="{StaticResource NavRadioButtonStyle}"
+                             Tag="&#xEA69;"
+                             Content="Player"
+                             GroupName="Navigation" />
+            </StackPanel>
+        </SplitView.Pane>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Frame x:Name="rootFrame"></Frame>
         <!--<Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="{Binding Update}"
                        Margin="20,0,0,0" />
@@ -170,6 +66,8 @@
                 <ProgressBar IsIndeterminate="True" />
             </StackPanel>
         </Grid>-->
+    </Grid>
+    </SplitView>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"

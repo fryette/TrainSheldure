@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Trains.Core.Resources;
 using Trains.Core.ViewModels;
+using Trains.UAP.Controls;
 
 namespace Trains.UAP.Views
 {
@@ -18,75 +19,12 @@ namespace Trains.UAP.Views
             InitializeComponent();
             //MainPivot.SelectedIndex = LastPivotIndex;
             this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            Loaded += MainView_Loaded;
         }
 
-        private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)
+        private void MainView_Loaded(object sender, RoutedEventArgs e)
         {
-            LastPivotIndex = MainPivot.SelectedIndex;
-            if (args.Item == MainPivotItem) SetAppBarVisibility(false, true);
-            else if (args.Item == LastPivot)
-                SetAppBarVisibility(true);
-            else
-                SetAppBarVisibility();
-
-            ((MainViewModel)ViewModel).RaisePropertyChanged("LastUpdateTime");
-        }
-
-        private void SetAppBarVisibility(bool updateAppBar = false, bool swapAppBar = false)
-        {
-            UpdateAppBar.Visibility = updateAppBar ? Visibility.Visible : Visibility.Collapsed;
-            SwapAppBar.Visibility = swapAppBar ? Visibility.Visible : Visibility.Collapsed;
-        }
-
-        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-        {
-            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
-            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
-            SetVisibility(Visibility.Visible);
-            SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
-        }
-
-
-        private void TrainList_OnTapped(object sender, TappedRoutedEventArgs e)
-        {
-            CommandButton.Command.Execute(TrainList.SelectedItem);
-        }
-
-        private void AutoSuggestBox_ManipulationStarted(object sender, RoutedEventArgs e)
-        {
-            SetVisibility(Visibility.Collapsed);
-            DataPicker.Visibility = Visibility.Collapsed;
-            if ((AutoSuggestBox)sender == From)
-                SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Collapsed);
-            else
-                SetVisibilityAutossugestBox(Visibility.Collapsed, Visibility.Visible);
-
-        }
-
-        private void AutoSuggestBox_ManipulationCompleted(object sender, RoutedEventArgs e)
-        {
-            SetVisibility(Visibility.Visible);
-            SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
-        }
-
-        private void SetVisibility(Visibility visibility)
-        {
-            comboBox.Visibility = visibility;
-            SearchButton.Visibility = visibility;
-            Routes.Visibility = visibility;
-        }
-
-        void SetVisibilityAutossugestBox(Visibility from, Visibility to)
-        {
-            From.Visibility = from;
-            To.Visibility = to;
-        }
-
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DataPicker.Visibility = comboBox.SelectedItem == ResourceLoader.Instance.Resource["OnDay"] ? Visibility.Visible : Visibility.Collapsed;
+            rootFrame.Navigate(typeof(MainControl));
         }
     }
 }
