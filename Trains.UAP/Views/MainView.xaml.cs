@@ -16,7 +16,7 @@ namespace Trains.UAP.Views
         public MainView()
         {
             InitializeComponent();
-            MainPivot.SelectedIndex = LastPivotIndex;
+            //MainPivot.SelectedIndex = LastPivotIndex;
             this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
         }
 

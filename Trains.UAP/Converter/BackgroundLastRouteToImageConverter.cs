@@ -34,7 +34,8 @@ namespace Trains.UAP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var color = ((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png";
+            //TODO:Implementing
+            var color = "White.png;";// ((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png";
             var image = "";
             if ((string)parameter == "route" && (value == null || !((IEnumerable<Route>)value).Any()))
                 image = RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id];

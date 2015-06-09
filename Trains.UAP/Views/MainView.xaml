@@ -8,7 +8,7 @@
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData MainViewModel}">
-    <Grid>
+    <Grid Background="White">
         <Pivot x:Name="MainPivot"
                IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}"
                Title="{Binding ApplicationName}"
@@ -151,25 +151,25 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-        <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <!--<Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="{Binding Update}"
                        Margin="20,0,0,0" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
-        </Grid>
+        </Grid>-->
 
-        <Grid Background="{StaticResource BackgroundColorBrush}"
+        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
 
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
                         Margin="0,0,0,150">
-                <TextBlock Foreground="{ThemeResource PhoneBackgroundBrush}"
+                <TextBlock Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
                            Text="Идет загрузка данных, это не займет много времени" />
                 <ProgressBar IsIndeterminate="True" />
             </StackPanel>
-        </Grid>
+        </Grid>-->
     </Grid>
     <Page.BottomAppBar>
         <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"

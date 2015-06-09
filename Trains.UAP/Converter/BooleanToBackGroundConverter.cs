@@ -10,7 +10,7 @@ namespace Trains.UAP.Converter
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             if ((bool)value)
-                return ((SolidColorBrush)Application.Current.Resources["PhoneAccentBrush"]);
+                return ((SolidColorBrush)Application.Current.Resources["SystemControlBackgroundAccentBrush"]);
             return new SolidColorBrush();
         }
 
