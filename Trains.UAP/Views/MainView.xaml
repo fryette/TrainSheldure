@@ -38,6 +38,7 @@
                     <RadioButton x:Name="SettingsRadioButton"
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
+                                 Click="ButtonFavorite_OnClick"
                                  Content="Settings"
                                  GroupName="Navigation" />
                     <RadioButton x:Name="PlayerRadioButton"

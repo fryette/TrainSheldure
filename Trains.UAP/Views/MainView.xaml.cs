@@ -36,5 +36,10 @@ namespace Trains.UAP.Views
         {
             rootFrame.Navigate(typeof (MainControl));
         }
+
+        private void ButtonFavorite_OnClick(object sender, RoutedEventArgs e)
+        {
+            rootFrame.Navigate(typeof(FavoriteControl));
+        }
     }
 }
