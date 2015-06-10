@@ -475,8 +475,6 @@
                         <Grid Margin="{TemplateBinding Padding}">
                             <ContentPresenter x:Name="ZoomedInPresenter"
                                               Content="{TemplateBinding ZoomedInView}"
-                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                               IsTapEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}" />
                             <Popup x:Name="Popup">
                                 <Popup.ChildTransitions>
@@ -490,8 +488,6 @@
                                     <Border x:Name="PopupBorder">
                                         <ContentPresenter x:Name="ZoomedOutPresenter"
                                                           Content="{TemplateBinding ZoomedOutView}"
-                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                                           Margin="19,15,19,0" />
                                     </Border>
                                 </Grid>
