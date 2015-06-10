@@ -8,10 +8,14 @@
                       d:DataContext="{d:DesignData CarriageViewModel}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
         <StackPanel>
-            <TextBlock Text="{Binding CarriageModel.Name}"
-                       FontSize="20"
-                       TextWrapping="WrapWholeWords" />
+            <RadioButton x:Name="BackRadioButton"
+                         Style="{StaticResource NavRadioButtonStyle}"
+                         Tag=""
+                         Click="ButtonBase_OnClick"
+                         Background="Green"
+                         Content="{Binding CarriageModel.Name}" />
             <TextBlock Text="{Binding CarriageModel.Title}"
                        Margin="0,10,0,0"
                        FontSize="20"

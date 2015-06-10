@@ -1,4 +1,7 @@
-﻿namespace Trains.UAP.Views
+﻿using Windows.UI.Xaml;
+using Trains.Core.ViewModels;
+
+namespace Trains.UAP.Views
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -8,6 +11,11 @@
         public CarriageView()
         {
             InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.GoBack();
         }
     }
 }

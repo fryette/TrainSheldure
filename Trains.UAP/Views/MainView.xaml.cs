@@ -1,9 +1,7 @@
-﻿using Windows.ApplicationModel.Core;
-using Windows.UI.Xaml;
+﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
-using Trains.Core.Resources;
-using Trains.Core.ViewModels;
+using Windows.UI.Xaml.Navigation;
+using Cirrious.MvvmCross.WindowsCommon.Views;
 using Trains.UAP.Controls;
 
 namespace Trains.UAP.Views
@@ -11,15 +9,16 @@ namespace Trains.UAP.Views
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainView
+    public partial class MainView
     {
-        static int LastPivotIndex;
+        public static Frame RootFrame;
+
         public MainView()
         {
             InitializeComponent();
-            //MainPivot.SelectedIndex = LastPivotIndex;
-            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
             Loaded += MainView_Loaded;
+            RootFrame = rootFrame;
         }
 
         private void MainView_Loaded(object sender, RoutedEventArgs e)
@@ -29,12 +28,12 @@ namespace Trains.UAP.Views
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof (ScheduleControl));
+            rootFrame.Navigate(typeof(ScheduleControl));
         }
 
         private void ButtonHome_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof (MainControl));
+            rootFrame.Navigate(typeof(MainControl));
         }
 
         private void ButtonFavorite_OnClick(object sender, RoutedEventArgs e)
@@ -44,7 +43,12 @@ namespace Trains.UAP.Views
 
         private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof (AboutControl));
+            rootFrame.Navigate(typeof(AboutControl));
+        }
+
+        private void ButtonHelp_OnClick(object sender, RoutedEventArgs e)
+        {
+            rootFrame.Navigate(typeof(HelpControl));
         }
     }
 }
