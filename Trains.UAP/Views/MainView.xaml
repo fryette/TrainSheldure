@@ -12,43 +12,39 @@
                    OpenPaneLength="240"
                    CompactPaneLength="48"
                    DisplayMode="CompactOverlay"
-                   IsPaneOpen="{Binding IsPaneOpen}"
                    PaneBackground="{ThemeResource SystemControlBackgroundAccentBrush}">
             <SplitView.Pane>
                 <StackPanel x:Name="SplitViewPanePanel">
-                    <RadioButton x:Name="BackRadioButton"
+                    <RadioButton x:Name="OpenRadioButton"
                                  Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
                                  Background="Green"
-                                 GroupName="Back"
-                                 Content="{Binding ApplicationName}" />
-                    <RadioButton x:Name="MyChannelsRadioButton"
-                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 Click="ButtonOpen_OnClick" />
+                    <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
                                  Click="ButtonHome_OnClick"
-                                 Content="My Channels" />
-                    <RadioButton x:Name="AllChannelsRadioButton"
-                                 Style="{StaticResource NavRadioButtonStyle}"
-                                 Tag=""
+                                 Content="{Binding MainPivotItem}"
+                                 IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
+                    <RadioButton Style="{StaticResource NavRadioButtonStyle}"
+                                 Tag=""
                                  Click="ButtonBase_OnClick"
-                                 Content="AllChannels"
-                                 GroupName="Navigation" />
-                    <RadioButton x:Name="SettingsRadioButton"
-                                 Style="{StaticResource NavRadioButtonStyle}"
-                                 Tag=""
+                                 Content="{Binding LastSchedulePivotItem}"
+                                 IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
+                    <RadioButton Style="{StaticResource NavRadioButtonStyle}"
+                                 Tag=""
                                  Click="ButtonFavorite_OnClick"
-                                 Content="Settings"
-                                 GroupName="Navigation" />
-                    <RadioButton x:Name="PlayerRadioButton"
-                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 Content="{Binding RoutesPivotItem}"
+                                 IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
+                    <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Click="ButtonAbout_OnClick"
-                                 Tag="&#xEA69;"
-                                 Content="Player"
-                                 GroupName="Navigation" />
-                    <AppBarButton Label="{Binding HelpAppBar}"
-                                  Icon="Help"
-                                  Click="ButtonHelp_OnClick"
-                                  IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
+                                 Tag=""
+                                 Content="{Binding AboutPivotItem}"
+                                 IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
+                    <RadioButton Style="{StaticResource NavRadioButtonStyle}"
+                                 Click="ButtonHelp_OnClick"
+                                 Tag=""
+                                 Content="{Binding HelpAppBar}"
+                                 IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                 </StackPanel>
             </SplitView.Pane>
             <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -58,7 +54,7 @@
                                  VerticalAlignment="Top" />
                     <TextBlock Text="{Binding Update}" />
                 </StackPanel>
-                
+
                 <Frame x:Name="rootFrame"
                        Margin="0,20,0,0" />
             </Grid>
@@ -87,12 +83,6 @@
                           Icon="Sort"
                           Command="{Binding SwapCommand}"
                           IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
-            <CommandBar.SecondaryCommands>
-                <AppBarButton Label="{Binding HelpAppBar}"
-                              Icon="Help"
-                              Command="{Binding GoToHelpCommand}"
-                              IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
-            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

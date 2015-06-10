@@ -1,7 +1,11 @@
-﻿using Windows.UI.Xaml;
+﻿using System;
+using Windows.ApplicationModel.Store;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using Cirrious.MvvmCross.WindowsCommon.Views;
+using Microsoft.Xaml.Interactions.Core;
+using Trains.Core.ViewModels;
 using Trains.UAP.Controls;
 
 namespace Trains.UAP.Views
@@ -11,44 +15,60 @@ namespace Trains.UAP.Views
     /// </summary>
     public partial class MainView
     {
-        public static Frame RootFrame;
+        private static Type CurrentPage;
 
         public MainView()
         {
             InitializeComponent();
             NavigationCacheMode = NavigationCacheMode.Enabled;
             Loaded += MainView_Loaded;
-            RootFrame = rootFrame;
         }
 
         private void MainView_Loaded(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(MainControl));
+            NavigateTo(CurrentPage ?? typeof(MainControl));
         }
 
         private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(ScheduleControl));
+            NavigateTo(typeof(ScheduleControl));
         }
 
         private void ButtonHome_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(MainControl));
+            NavigateTo(typeof(MainControl));
         }
 
         private void ButtonFavorite_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(FavoriteControl));
+            NavigateTo(typeof(FavoriteControl));
         }
 
         private void ButtonAbout_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(AboutControl));
+            NavigateTo(typeof(AboutControl));
         }
 
         private void ButtonHelp_OnClick(object sender, RoutedEventArgs e)
         {
-            rootFrame.Navigate(typeof(HelpControl));
+            NavigateTo(typeof(HelpControl));
+        }
+
+        private void NavigateTo(Type page)
+        {
+            rootFrame.Navigate(page);
+            CurrentPage = page;
+            OpenClosePane(false);
+        }
+
+        private void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
+        {
+            OpenClosePane(!rootSplitView.IsPaneOpen);
+        }
+
+        private void OpenClosePane(bool isPaneOpen)
+        {
+            rootSplitView.IsPaneOpen = isPaneOpen;
         }
     }
 }
