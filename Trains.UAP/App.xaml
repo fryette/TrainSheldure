@@ -347,7 +347,7 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="HelpTemplate">
-                <Grid Margin="-13,0,5,0">
+                <Grid Margin="-13,0,0,5">
                     <Image Source="{Binding Image, Converter={StaticResource EnumToImageConverter}, ConverterParameter=Help}"
                            Height="Auto"
                            Width="138"
