@@ -10,12 +10,19 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
         <StackPanel>
-            <RadioButton x:Name="BackRadioButton"
-                         Style="{StaticResource NavRadioButtonStyle}"
-                         Tag=""
-                         Click="ButtonBase_OnClick"
-                         Background="Green"
-                         Content="{Binding CarriageModel.Name}" />
+            <StackPanel Orientation="Horizontal">
+            <Button x:Name="BackRadioButton"
+                    Style="{StaticResource NavRadioButtonStyleShort}"
+                    Tag=""
+                    Click="ButtonBase_OnClick"
+                    Background="Green"
+                    Margin="-5,0,0,0"
+                    HorizontalAlignment="Left" />
+                <TextBlock Text="{Binding CarriageModel.Name}"
+                           Margin="0,10,0,0"
+                           FontSize="20"
+                           TextWrapping="WrapWholeWords" />
+            </StackPanel>
             <TextBlock Text="{Binding CarriageModel.Title}"
                        Margin="0,10,0,0"
                        FontSize="20"
