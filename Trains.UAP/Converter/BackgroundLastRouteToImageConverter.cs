@@ -34,7 +34,6 @@ namespace Trains.UAP.Converter
 
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var color = ((App.Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color).R != 0 ? "Black.png" : "White.png";
             var image = "";
             if ((string)parameter == "route" && (value == null || !((IEnumerable<Route>)value).Any()))
                 image = RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id];
@@ -45,11 +44,12 @@ namespace Trains.UAP.Converter
                 else if ((string)parameter == "last")
                     image = LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id];
             }
+            var color = (App.Current.Resources["SystemControlForegroundAccentBrush"] as SolidColorBrush).Color;
             return new ImageBrush
                  {
                      ImageSource = new BitmapImage
                      {
-                         UriSource = new Uri(UriSource + image + color)
+                         UriSource = new Uri(UriSource + image + ((color.R + color.G + color.B) / 3 > 127 ? "White.png" : "Black.png"))
                      },
                      Stretch = Stretch.UniformToFill
                  };

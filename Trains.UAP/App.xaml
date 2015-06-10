@@ -21,6 +21,7 @@
             <converter:BackgroundLastRouteToImageConverter x:Key="BackgroundLastRouteToImageConverter" />
             <converter:BooleanInverter x:Key="BooleanInverter" />
             <converter:IsPlaceToOpacityConverter x:Key="IsPlaceToOpacityConverter" />
+            <converter:ForegroundConverter x:Key="ForegroundConverter" />
 
             <x:Double x:Key="NormalFontSize">16</x:Double>
             <x:Double x:Key="NormalLargeFontSize">18</x:Double>
@@ -346,11 +347,10 @@
                 </Grid>
             </DataTemplate>
             <DataTemplate x:Key="HelpTemplate">
-                <Grid>
+                <Grid Margin="-13,0,5,0">
                     <Image Source="{Binding Image, Converter={StaticResource EnumToImageConverter}, ConverterParameter=Help}"
-                           Height="138"
+                           Height="Auto"
                            Width="138"
-                           Margin="5,5,5,0"
                            HorizontalAlignment="Left" />
                     <TextBlock Text="{Binding Description}"
                                TextWrapping="WrapWholeWords"

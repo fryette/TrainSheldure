@@ -24,24 +24,29 @@
                                  Tag=""
                                  Click="ButtonHome_OnClick"
                                  Content="{Binding MainPivotItem}"
+                                 Foreground="{Binding Converter={StaticResource ForegroundConverter}}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
                                  Click="ButtonBase_OnClick"
+                                 Foreground="{Binding Converter={StaticResource ForegroundConverter}}"
                                  Content="{Binding LastSchedulePivotItem}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
                                  Click="ButtonFavorite_OnClick"
+                                 Foreground="{Binding Converter={StaticResource ForegroundConverter}}"
                                  Content="{Binding RoutesPivotItem}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Click="ButtonAbout_OnClick"
                                  Tag=""
+                                 Foreground="{Binding Converter={StaticResource ForegroundConverter}}"
                                  Content="{Binding AboutPivotItem}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Click="ButtonHelp_OnClick"
+                                 Foreground="{Binding Converter={StaticResource ForegroundConverter}}"
                                  Tag=""
                                  Content="{Binding HelpAppBar}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
