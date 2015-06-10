@@ -29,7 +29,7 @@ namespace Trains.UAP.Views
             NavigateTo(CurrentPage ?? typeof(MainControl));
         }
 
-        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        private void ButtonSchedule_OnClick(object sender, RoutedEventArgs e)
         {
             NavigateTo(typeof(ScheduleControl));
         }
@@ -59,6 +59,7 @@ namespace Trains.UAP.Views
             rootFrame.Navigate(page);
             CurrentPage = page;
             OpenClosePane(false);
+            ManageVisibilityAppBar();
         }
 
         private void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
@@ -69,6 +70,22 @@ namespace Trains.UAP.Views
         private void OpenClosePane(bool isPaneOpen)
         {
             rootSplitView.IsPaneOpen = isPaneOpen;
+        }
+
+        private void ManageVisibilityAppBar()
+        {
+            if (CurrentPage == typeof(MainControl))
+                SetVisibility(true);
+            else if(CurrentPage==typeof(ScheduleControl))
+                SetVisibility(false,true);
+            else
+                SetVisibility();
+        }
+
+        private void SetVisibility(bool isSwapVisible=false, bool isUpdateVisibile=false)
+        {
+            UpdateAppBar.Visibility = isUpdateVisibile ? Visibility.Visible : Visibility.Collapsed;
+            SwapAppBar.Visibility = isSwapVisible ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

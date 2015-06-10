@@ -28,7 +28,7 @@
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
-                                 Click="ButtonBase_OnClick"
+                                 Click="ButtonSchedule_OnClick"
                                  Foreground="{Binding Converter={StaticResource ForegroundConverter}}"
                                  Content="{Binding LastSchedulePivotItem}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
