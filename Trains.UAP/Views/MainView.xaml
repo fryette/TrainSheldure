@@ -10,51 +10,53 @@
                       d:DataContext="{d:DesignData MainViewModel}">
     <Grid>
         <SplitView x:Name="rootSplitView"
-               Background="Black"
-               OpenPaneLength="240"
-               CompactPaneLength="48"
-               DisplayMode="CompactOverlay"
-               IsPaneOpen="{Binding IsPaneOpen}"
-               PaneBackground="DarkSeaGreen">
-        <SplitView.Pane>
-            <StackPanel x:Name="SplitViewPanePanel">
-                <RadioButton x:Name="BackRadioButton"
-                             Style="{StaticResource NavRadioButtonStyle}"
-                             Tag=""
-                             Background="Green"
-                             GroupName="Back"
-                                 Content="{Binding ApplicationName}"/>
-                <RadioButton x:Name="MyChannelsRadioButton"
-                             Style="{StaticResource NavRadioButtonStyle}"
-                             Tag=""
-                             Content="My Channels" />
-                <RadioButton x:Name="AllChannelsRadioButton"
-                             Style="{StaticResource NavRadioButtonStyle}"
-                             Tag=""
-                             Content="AllChannels"
-                             GroupName="Navigation" />
-                <RadioButton x:Name="SettingsRadioButton"
-                             Style="{StaticResource NavRadioButtonStyle}"
-                             Tag=""
-                             Content="Settings"
-                             GroupName="Navigation" />
-                <RadioButton x:Name="PlayerRadioButton"
-                             Style="{StaticResource NavRadioButtonStyle}"
-                             Tag="&#xEA69;"
-                             Content="Player"
-                             GroupName="Navigation" />
-            </StackPanel>
-        </SplitView.Pane>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Frame x:Name="rootFrame"></Frame>
-        <!--<Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+                   Background="Black"
+                   OpenPaneLength="240"
+                   CompactPaneLength="48"
+                   DisplayMode="CompactOverlay"
+                   IsPaneOpen="{Binding IsPaneOpen}"
+                   PaneBackground="{ThemeResource SystemControlBackgroundAccentBrush}">
+            <SplitView.Pane>
+                <StackPanel x:Name="SplitViewPanePanel">
+                    <RadioButton x:Name="BackRadioButton"
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 Tag=""
+                                 Background="Green"
+                                 GroupName="Back"
+                                 Content="{Binding ApplicationName}" />
+                    <RadioButton x:Name="MyChannelsRadioButton"
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 Tag=""
+                                 Click="ButtonHome_OnClick"
+                                 Content="My Channels" />
+                    <RadioButton x:Name="AllChannelsRadioButton"
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 Tag=""
+                                 Click="ButtonBase_OnClick"
+                                 Content="AllChannels"
+                                 GroupName="Navigation" />
+                    <RadioButton x:Name="SettingsRadioButton"
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 Tag=""
+                                 Content="Settings"
+                                 GroupName="Navigation" />
+                    <RadioButton x:Name="PlayerRadioButton"
+                                 Style="{StaticResource NavRadioButtonStyle}"
+                                 Tag="&#xEA69;"
+                                 Content="Player"
+                                 GroupName="Navigation" />
+                </StackPanel>
+            </SplitView.Pane>
+            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+                <Frame x:Name="rootFrame"></Frame>
+                <!--<Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <TextBlock Text="{Binding Update}"
                        Margin="20,0,0,0" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>-->
 
-        <!--<Grid Background="{StaticResource BackgroundColorBrush}"
+                <!--<Grid Background="{StaticResource BackgroundColorBrush}"
               Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
             <Image Source="/Assets/SplashScreen.png" />
 
@@ -66,8 +68,8 @@
                 <ProgressBar IsIndeterminate="True" />
             </StackPanel>
         </Grid>-->
-    </Grid>
-    </SplitView>
+            </Grid>
+        </SplitView>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"

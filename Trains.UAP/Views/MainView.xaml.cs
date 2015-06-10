@@ -26,5 +26,15 @@ namespace Trains.UAP.Views
         {
             rootFrame.Navigate(typeof(MainControl));
         }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
+            rootFrame.Navigate(typeof (ScheduleControl));
+        }
+
+        private void ButtonHome_OnClick(object sender, RoutedEventArgs e)
+        {
+            rootFrame.Navigate(typeof (MainControl));
+        }
     }
 }
