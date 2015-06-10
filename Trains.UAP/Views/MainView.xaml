@@ -43,6 +43,7 @@
                                  GroupName="Navigation" />
                     <RadioButton x:Name="PlayerRadioButton"
                                  Style="{StaticResource NavRadioButtonStyle}"
+                                 Click="ButtonAbout_OnClick"
                                  Tag="&#xEA69;"
                                  Content="Player"
                                  GroupName="Navigation" />
