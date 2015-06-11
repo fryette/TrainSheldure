@@ -13,11 +13,7 @@
             <StackPanel Orientation="Horizontal">
             <Button x:Name="BackRadioButton"
                     Style="{StaticResource NavRadioButtonStyleShort}"
-                    Tag=""
-                    Click="ButtonBase_OnClick"
-                    Background="Green"
-                    Margin="-5,0,0,0"
-                    HorizontalAlignment="Left" />
+                    Click="ButtonBase_OnClick" />
                 <TextBlock Text="{Binding CarriageModel.Name}"
                            Margin="5,10,0,0"
                            FontSize="20"

@@ -28,7 +28,8 @@
                 <Grid>
                     <Image x:Name="MainImage"
                            Source="/Assets/MenuIcon/result.jpg"
-                           Style="{StaticResource MainButtonImageStyle}" />
+                           Style="{StaticResource MainButtonImageStyle}"
+                           Tapped="ButtonBack_OnClick"/>
                 </Grid>
             </GridView>
             <StackPanel Orientation="Horizontal">

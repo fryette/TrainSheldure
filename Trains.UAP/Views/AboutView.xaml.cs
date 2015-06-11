@@ -10,5 +10,10 @@
             InitializeComponent();
             MyStoryboard.Begin();
         }
+
+        private void ButtonBack_OnClick(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
     }
 }

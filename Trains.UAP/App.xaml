@@ -664,8 +664,14 @@
                    TargetType="Button">
                 <Setter Property="Padding"
                         Value="3" />
+                <Setter Property="Tag"
+                        Value=""/>
+                <Setter Property="Background"
+                        Value="Green" />
+                <Setter Property="Margin"
+                        Value="-5,0,0,0" />
                 <Setter Property="HorizontalAlignment"
-                        Value="Stretch" />
+                        Value="Left" />
                 <Setter Property="VerticalAlignment"
                         Value="Center" />
                 <Setter Property="HorizontalContentAlignment"

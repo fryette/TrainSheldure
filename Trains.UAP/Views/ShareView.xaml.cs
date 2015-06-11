@@ -1,5 +1,4 @@
-﻿// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
-
+﻿
 namespace Trains.UAP.Views
 {
     /// <summary>
@@ -10,6 +9,10 @@ namespace Trains.UAP.Views
         public ShareView()
         {
             this.InitializeComponent();
+        }
+        private void ButtonBack_OnClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Frame.GoBack();
         }
     }
 }

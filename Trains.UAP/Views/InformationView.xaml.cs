@@ -6,5 +6,10 @@
         {
             InitializeComponent();
         }
+
+        private void ButtonBack_OnClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        {
+            Frame.GoBack();
+        }
     }
 }
