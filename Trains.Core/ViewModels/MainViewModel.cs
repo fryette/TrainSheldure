@@ -449,9 +449,10 @@ namespace Trains.Core.ViewModels
 		/// </summary>
 		public void UpdateAutoSuggestions(string str)
 		{
-			if (IsNullOrEmpty(str)) AutoSuggestions = null;
-			AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
-			if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == str) AutoSuggestions = null;
+			var station = str.Trim();
+			if (IsNullOrEmpty(station)) AutoSuggestions = null;
+			AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(station, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
+			if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == station) AutoSuggestions = null;
 		}
 
 		public async Task<bool> CheckInput(DateTimeOffset datum, string from, string to, List<CountryStopPointItem> autoCompletion)
