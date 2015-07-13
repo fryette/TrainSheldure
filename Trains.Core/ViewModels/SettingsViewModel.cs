@@ -1,14 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Chance.MvvmCross.Plugins.UserInteraction;
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
-using System;
 
 namespace Trains.Core.ViewModels
 {

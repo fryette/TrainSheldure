@@ -50,7 +50,6 @@ namespace Trains.Core.ViewModels
         #region commands
 
         public MvxCommand<About> TappedAboutItemCommand { get; private set; }
-        public IMvxCommand GoToFavoriteListCommand { get; private set; }
         public IMvxCommand GoToHelpCommand { get; private set; }
         public MvxCommand<Train> SelectTrainCommand { get; private set; }
         public MvxCommand<Route> TappedFavoriteCommand { get; private set; }
@@ -78,9 +77,9 @@ namespace Trains.Core.ViewModels
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SelectTrainCommand = new MvxCommand<Train>(ClickItem);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
-            SearchTrainCommand = new MvxCommand(() => SearchTrain(From, To));
+            SearchTrainCommand = new MvxCommand(() => SearchTrain(From.Trim(), To.Trim()));
             SwapCommand = new MvxCommand(Swap);
-            TappedRouteCommand = new MvxCommand<Route>(route => SetRoute(route));
+            TappedRouteCommand = new MvxCommand<Route>(SetRoute);
             TappedFavoriteCommand = new MvxCommand<Route>(route =>
             {
                 if (route == null) return;
@@ -329,14 +328,14 @@ namespace Trains.Core.ViewModels
         {
             IsDownloadRun = true;
             if (!await RestoreData()) return;
-            RestoreUIBinding();
+            RestoreUiBinding();
             InitAboutItemsActions();
             IsBarDownloaded = true;
             if (_appSettings.UpdatedLastRequest != null)
-                LastRoute = String.Format("{0} - {1}", _appSettings.UpdatedLastRequest.Route.From, _appSettings.UpdatedLastRequest.Route.To);
+                LastRoute = $"{_appSettings.UpdatedLastRequest.Route.From} - {_appSettings.UpdatedLastRequest.Route.To}";
             Trains = _appSettings.LastRequestTrain;
             LastRoutes = _appSettings.LastRoutes;
-            FavoriteRequests = _appSettings.FavoriteRequests == null ? null : _appSettings.FavoriteRequests.Select(x => x.Route);
+            FavoriteRequests = _appSettings.FavoriteRequests?.Select(x => x.Route);
             AboutItems = _appSettings.About;
             SelectedVariant = VariantOfSearch[1];
             IsDownloadRun = false;
@@ -350,7 +349,7 @@ namespace Trains.Core.ViewModels
             if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
             IsTaskRun = true;
             AddToLastRoutes(new Route { From = from, To = to });
-            List<Train> schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
+            var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
                     _appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
             if (schedule != null)
             {
@@ -506,7 +505,7 @@ namespace Trains.Core.ViewModels
                 _appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
 
                 var routes = _serializable.Desserialize<List<Route>>(Constants.LastRoutes);
-                _appSettings.LastRoutes = routes == null ? new List<Route>() : routes;
+                _appSettings.LastRoutes = routes ?? new List<Route>();
 
                 SetPatterns();
             }
@@ -528,8 +527,8 @@ namespace Trains.Core.ViewModels
             {
                 _appSettings.Language = new Language { Id = "ru", Name = "Русский" };
                 _serializable.ClearAll();
-                _serializable.Serialize<string>(Constants.IsFirstRun, Constants.IsFirstRun);
-                _serializable.Serialize<Language>(_appSettings.Language, Constants.AppLanguage);
+                _serializable.Serialize(Constants.IsFirstRun, Constants.IsFirstRun);
+                _serializable.Serialize(_appSettings.Language, Constants.AppLanguage);
             }
 
             var appLanguage = _serializable.Desserialize<Language>(Constants.AppLanguage);
@@ -540,7 +539,7 @@ namespace Trains.Core.ViewModels
                 bool isException = false;
                 try
                 {
-                    await DowloadResources(currLanguage == null ? appLanguage : currLanguage);
+                    await DowloadResources(currLanguage ?? appLanguage);
                     DeleteSaveSettings();
                 }
 
@@ -559,11 +558,11 @@ namespace Trains.Core.ViewModels
         {
             AboutItemsActions = new Dictionary<AboutPicture, Action>
             {
-            {AboutPicture.AboutApp,new Action(()=>ShowViewModel<AboutViewModel>())},
-            {AboutPicture.Mail,new Action(()=>_email.ComposeEmail("sampir.fiesta@gmail.com", string.Empty, ResourceLoader.Instance.Resource["Feedback"], String.Empty, false))},
-            {AboutPicture.Market,new Action(()=>_marketPlace.GoToMarket())},
-            {AboutPicture.Settings,new Action(()=>ShowViewModel<SettingsViewModel>())},
-            {AboutPicture.Share,new Action(()=>ShowViewModel<ShareViewModel>())}
+            {AboutPicture.AboutApp,()=>ShowViewModel<AboutViewModel>()},
+            {AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", string.Empty, ResourceLoader.Instance.Resource["Feedback"], String.Empty, false)},
+            {AboutPicture.Market,()=>_marketPlace.GoToMarket()},
+            {AboutPicture.Settings,()=>ShowViewModel<SettingsViewModel>()},
+            {AboutPicture.Share,()=>ShowViewModel<ShareViewModel>()}
             };
         }
 
@@ -602,7 +601,7 @@ namespace Trains.Core.ViewModels
             _serializable.Delete(Constants.UpdateLastRequest);
         }
 
-        private void RestoreUIBinding()
+        private void RestoreUiBinding()
         {
             ApplicationName = ResourceLoader.Instance.Resource["ApplicationName"];
             MainPivotItem = ResourceLoader.Instance.Resource["MainPivotItem"];
