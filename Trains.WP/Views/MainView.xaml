@@ -172,7 +172,8 @@
         </Grid>
     </Grid>
     <Page.BottomAppBar>
-        <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
+        <CommandBar x:Name="CommandBar"
+            Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
                     IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
                           Label="{Binding UpdateAppBar}"

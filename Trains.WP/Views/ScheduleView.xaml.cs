@@ -18,7 +18,7 @@ namespace Trains.WP.Views
         private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)
         {
             if (((ScheduleViewModel)ViewModel).IsSearchStart) return;
-            CommandClick.Command.Execute(TrainList.SelectedItem);
+            CommandClick.Command?.Execute(TrainList.SelectedItem);
         }
     }
 }
