@@ -531,6 +531,7 @@ namespace Trains.Core.ViewModels
 				_serializable.ClearAll();
 				_serializable.Serialize(Constants.IsFirstRun, Constants.IsFirstRun);
 				_serializable.Serialize(_appSettings.Language, Constants.AppLanguage);
+				await Mvx.Resolve<IUserInteraction>().AlertAsync(Constants.HiMessage,Constants.HiMessageTitle);
 			}
 
 			var appLanguage = _serializable.Desserialize<Language>(Constants.AppLanguage);

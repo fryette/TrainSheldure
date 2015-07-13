@@ -8,8 +8,7 @@
 
 		public const string SettingsRelativeUri = "settings.json";
 
-		public const string IsFirstRun = "IsFirstRun2";
-		public const string IsSecondRun = "IsSecondRun";
+		public const string IsFirstRun = "IsFirstRun34";
 
 		public const string Social = "SocialUri";
 		public const string AppSettings = "AppSettings";
@@ -38,6 +37,14 @@
 		public const string VariantOfSearch = "VariantOfSearch";
 
 		public const string DateFormat = "yy-MM-dd";
+
+		public const string HiMessageTitle = "Обязательно к прочтению";
+
+		public const string HiMessage =
+			"Мы предупреждаем, все данные берутся с официального сайта rw.by, мы просим не вымещать на нас злость, и в случае ошибки не минусовать, а отправить нам сообщение через приложение.\r\n" +
+			"Мы убедительно просим вас проголосовать в магазине приложений, это дает нам стимул работать дальше.\r\n" +
+			"Все свои пожелания можете отправлять через приложения и мы реализуем их в следующих обновлениях.\r\n" +
+			"Спасибо за то, что вы с нами ;)";
 	}
 }
 

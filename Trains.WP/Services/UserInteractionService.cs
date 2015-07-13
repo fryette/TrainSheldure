@@ -14,7 +14,7 @@ namespace Trains.WP.Services
 
 		public async Task AlertAsync(string message, string title = "", string okButton = "OK")
 		{
-			var dialog = new MessageDialog(message);
+			var dialog = new MessageDialog(message,title);
 			await dialog.ShowAsync();
 		}
 
