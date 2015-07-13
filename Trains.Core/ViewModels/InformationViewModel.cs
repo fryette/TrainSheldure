@@ -8,98 +8,98 @@ using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
 {
-    public class InformationViewModel : MvxViewModel
-    {
-        #region readonlyProperties
+	public class InformationViewModel : MvxViewModel
+	{
+		#region readonlyProperties
 
-        /// <summary>
-        /// Used to grab train stops.
-        /// </summary>
-        private readonly ITrainStopService _trainStop;
+		/// <summary>
+		/// Used to grab train stops.
+		/// </summary>
+		private readonly ITrainStopService _trainStop;
 
-        #endregion
+		#endregion
 
-        #region ctor
+		#region ctor
 
-        /// <summary>
-        /// Constructor
-        /// </summary>
-        /// <param name="trainStop">Used to grab train stops.</param>
-        public InformationViewModel(ITrainStopService trainStop)
-        {
-            _trainStop = trainStop;
-        }
+		/// <summary>
+		/// Constructor
+		/// </summary>
+		/// <param name="trainStop">Used to grab train stops.</param>
+		public InformationViewModel(ITrainStopService trainStop)
+		{
+			_trainStop = trainStop;
+		}
 
-        #endregion
+		#endregion
 
-        #region properties
+		#region properties
 
-        #region UIproperties
+		#region UIproperties
 
-        public string DownloadStopPoints { get; set; }
-        
-        #endregion
+		public string DownloadStopPoints { get; set; }
 
-        private IEnumerable<TrainStop> _stopPointList;
-        public IEnumerable<TrainStop> StopPointList
-        {
-            get { return _stopPointList; }
-            set
-            {
-                _stopPointList = value;
-                RaisePropertyChanged(() => StopPointList);
-            }
-        }
+		#endregion
 
-        /// <summary>
-        /// User-selected train.
-        /// </summary>
-        public Train Train { get; set; }
+		private IEnumerable<TrainStop> _stopPointList;
+		public IEnumerable<TrainStop> StopPointList
+		{
+			get { return _stopPointList; }
+			set
+			{
+				_stopPointList = value;
+				RaisePropertyChanged(() => StopPointList);
+			}
+		}
 
-        /// <summary>
-        /// Used for process control.
-        /// </summary>
-        private bool _isTaskRun;
+		/// <summary>
+		/// User-selected train.
+		/// </summary>
+		public Train Train { get; set; }
 
-        public bool IsTaskRun
-        {
-            get { return _isTaskRun; }
-            set
-            {
-                _isTaskRun = value;
-                RaisePropertyChanged(() => IsTaskRun);
-            }
-        }
+		/// <summary>
+		/// Used for process control.
+		/// </summary>
+		private bool _isTaskRun;
 
-        #endregion
+		public bool IsTaskRun
+		{
+			get { return _isTaskRun; }
+			set
+			{
+				_isTaskRun = value;
+				RaisePropertyChanged(() => IsTaskRun);
+			}
+		}
 
-        #region action
+		#endregion
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// Set the additional informations about user-selected train.
-        /// </summary>
-        public void Init(string param)
-        {
-            RestoreUiBindings();
-            IsTaskRun = true;
-            Train = JsonConvert.DeserializeObject<Train>(param);
-            SearchStopPoint();
-        }
+		#region action
 
-        /// <summary>
-        /// Search additional information about user-selected train.
-        /// </summary>
-        private async void SearchStopPoint()
-        {
-            StopPointList = (await _trainStop.GetTrainStop(Train.Link));
-            IsTaskRun = false;
-        }
+		/// <summary>
+		/// Invoked when this page is about to be displayed in a Frame.
+		/// Set the additional informations about user-selected train.
+		/// </summary>
+		public void Init(string param)
+		{
+			RestoreUiBindings();
+			IsTaskRun = true;
+			Train = JsonConvert.DeserializeObject<Train>(param);
+			SearchStopPoint();
+		}
 
-        private void RestoreUiBindings()
-        {
-            DownloadStopPoints = ResourceLoader.Instance.Resource["DownloadStopPoints"];
-        }
-        #endregion
-    }
+		/// <summary>
+		/// Search additional information about user-selected train.
+		/// </summary>
+		private async void SearchStopPoint()
+		{
+			StopPointList = (await _trainStop.GetTrainStop(Train.Link));
+			IsTaskRun = false;
+		}
+
+		private void RestoreUiBindings()
+		{
+			DownloadStopPoints = ResourceLoader.Instance.Resource["DownloadStopPoints"];
+		}
+		#endregion
+	}
 }

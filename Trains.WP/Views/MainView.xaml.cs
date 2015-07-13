@@ -1,11 +1,10 @@
-﻿using Trains.Core.Resources;
-using Trains.Core.ViewModels;
-using Windows.ApplicationModel.Core;
-using Windows.UI;
+﻿using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using Trains.Core.Resources;
+using Trains.Core.ViewModels;
 
 namespace Trains.WP.Views
 {
@@ -19,7 +18,7 @@ namespace Trains.WP.Views
         {
             InitializeComponent();
             MainPivot.SelectedIndex = LastPivotIndex;
-            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)

@@ -1,9 +1,10 @@
 using Cirrious.CrossCore.Plugins;
+using Cirrious.MvvmCross.Plugins.Share;
 
 namespace Trains.WP.Bootstrap
 {
-    public class SharePluginBootstrap
-        : MvxPluginBootstrapAction<Cirrious.MvvmCross.Plugins.Share.PluginLoader>
-    {
-    }
+	public class SharePluginBootstrap
+		: MvxPluginBootstrapAction<PluginLoader>
+	{
+	}
 }

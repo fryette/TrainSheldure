@@ -1,5 +1,6 @@
-﻿using Trains.Core.ViewModels;
-using Windows.UI.Xaml.Input;
+﻿using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Navigation;
+using Trains.Core.ViewModels;
 
 namespace Trains.WP.Views
 {
@@ -11,7 +12,7 @@ namespace Trains.WP.Views
         public ScheduleView()
         {
             InitializeComponent();
-            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)

@@ -6,22 +6,22 @@ using Trains.Entities;
 
 namespace Trains.WP.Converter
 {
-    public class ListViewConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
-        {
-            if (value == null) return null;
-            CollectionViewSource collection = new CollectionViewSource
-            {
-                Source = ((List<Train>)value).GroupBy(x => x.BeforeDepartureTime),
-                IsSourceGrouped = true
-            };
-            return collection;
-        }
+	public class ListViewConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, string language)
+		{
+			if (value == null) return null;
+			var collection = new CollectionViewSource
+			{
+				Source = ((List<Train>)value).GroupBy(x => x.BeforeDepartureTime),
+				IsSourceGrouped = true
+			};
+			return collection;
+		}
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public object ConvertBack(object value, Type targetType, object parameter, string language)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

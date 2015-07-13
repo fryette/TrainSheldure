@@ -1,9 +1,6 @@
-﻿using Cirrious.MvvmCross.Plugins.Share;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System;
 using Windows.ApplicationModel.DataTransfer;
+using Cirrious.MvvmCross.Plugins.Share;
 
 namespace Trains.WP
 {
@@ -19,7 +16,7 @@ namespace Trains.WP
         {
             DataTransferManager dtManager = DataTransferManager.GetForCurrentView();
             dtManager.DataRequested += dtManager_DataRequested;
-            Windows.ApplicationModel.DataTransfer.DataTransferManager.ShowShareUI();
+            DataTransferManager.ShowShareUI();
         }
 
         private async void dtManager_DataRequested(DataTransferManager sender, DataRequestedEventArgs e)

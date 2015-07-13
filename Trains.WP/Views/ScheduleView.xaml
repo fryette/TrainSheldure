@@ -48,11 +48,12 @@
                         Visibility="Collapsed"
                         Command="{Binding SelectTrainCommand}" />
             </Grid>
-            <Button Visibility="Collapsed"
+            <Button Grid.Row="0" Visibility="Collapsed"
                     x:Name="CommandClick"
                     Command="{Binding SelectTrainCommand}"
                     CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
-            <Grid Visibility="{Binding IsSearchStart,Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Grid Grid.Row="0"
+                  Visibility="{Binding IsSearchStart,Converter={StaticResource BooleanToVisibilityConverter}}">
                 <TextBlock Text="{Binding Update}" />
                 <ProgressBar IsIndeterminate="True"
                              VerticalAlignment="Top" />

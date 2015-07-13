@@ -3,11 +3,9 @@ using Trains.Model.Entities;
 
 namespace Trains.Core.Services.Interfaces
 {
-    public interface IBackendService
-    {
-
-        Task<ChygunkaSettings> GetAppSettings();
-
-    }
+	public interface IBackendService
+	{
+		Task<ChygunkaSettings> GetAppSettings();
+	}
 }
 

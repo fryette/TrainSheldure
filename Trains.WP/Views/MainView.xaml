@@ -82,12 +82,12 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel>
-                        <TextBlock Grid.Row="0"
-                                   Text="{Binding LastRoute}"
+                        <TextBlock
+                            Text="{Binding LastRoute}"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    FontSize="{StaticResource MainFontSize}" />
-                        <TextBlock Grid.Row="0"
-                                   Text="{Binding LastUpdateTime}"
+                        <TextBlock
+                            Text="{Binding LastUpdateTime}"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    FontSize="{StaticResource SmallFontSize}"
                                    VerticalAlignment="Bottom" />
@@ -115,7 +115,7 @@
                             </ListView>
                         </SemanticZoom.ZoomedOutView>
                     </SemanticZoom>
-                    <Button x:Name="CommandButton"
+                    <Button Grid.Row="0" x:Name="CommandButton"
                             Visibility="Collapsed"
                             Command="{Binding SelectTrainCommand}" />
                 </Grid>
