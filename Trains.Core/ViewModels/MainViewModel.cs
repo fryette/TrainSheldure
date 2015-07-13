@@ -537,21 +537,16 @@ namespace Trains.Core.ViewModels
 
             if (currLanguage == null || currLanguage.Id != appLanguage.Id)
             {
-                bool isException = false;
                 try
                 {
                     await DowloadResources(currLanguage ?? appLanguage);
                     DeleteSaveSettings();
                 }
 
-                catch (Exception e)
+                catch (Exception)
                 {
-                    isException = true;
-                    _analytics.SentException(e.Message, true);
-                }
-
-                if (isException)
-                    await Mvx.Resolve<IUserInteraction>().AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
+					await Mvx.Resolve<IUserInteraction>().AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
+				}
             }
         }
 
