@@ -13,14 +13,9 @@
         <ListView x:Name="AboutItemList"
                   ItemsSource="{Binding AboutItems}"
                   ItemContainerStyle="{StaticResource ListViewItemStyle}"
-                  ItemTemplate="{StaticResource AboutTemplate}">
-            <interactivity:Interaction.Behaviors>
-                <core:EventTriggerBehavior EventName="Tapped">
-                    <core:InvokeCommandAction Command="{Binding TappedAboutItemCommand}"
-                                              CommandParameter="{Binding ElementName=AboutItemList, Path=SelectedItem}"
-                                              InputConverter="{StaticResource SelectionChangedConverter}" />
-                </core:EventTriggerBehavior>
-            </interactivity:Interaction.Behaviors>
+                  ItemTemplate="{StaticResource AboutTemplate}"
+                  IsItemClickEnabled="True"
+                  ItemClick="ListViewBase_OnItemClick">
         </ListView>
     </Grid>
 </Page>

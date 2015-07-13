@@ -660,48 +660,13 @@
             </Style>
 
 
-            <Style x:Key="NavRadioButtonStyleShort"
-                   TargetType="Button">
-                <Setter Property="Padding"
-                        Value="3" />
-                <Setter Property="Tag"
-                        Value=""/>
+            <Style x:Key="BackRadioButtonStyle"
+                   TargetType="RadioButton"
+                   BasedOn="{StaticResource NavRadioButtonStyle}">
                 <Setter Property="Background"
                         Value="Green" />
-                <Setter Property="Margin"
-                        Value="-5,0,0,0" />
-                <Setter Property="HorizontalAlignment"
-                        Value="Left" />
-                <Setter Property="VerticalAlignment"
-                        Value="Center" />
-                <Setter Property="HorizontalContentAlignment"
-                        Value="Left" />
-                <Setter Property="VerticalContentAlignment"
-                        Value="Center" />
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border BorderBrush="{TemplateBinding BorderBrush}"
-                                    BorderThickness="{TemplateBinding BorderThickness}"
-                                    Background="{TemplateBinding Background}">
-                                <Grid Name="BackgroundGrid"
-                                      Background="Transparent"
-                                      VerticalAlignment="Stretch">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="48" />
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock FontSize="34"
-                                               Height="38"
-                                               Text="{TemplateBinding Tag}"
-                                               FontFamily="Segoe MDL2 Assets"
-                                               Margin="5,8,5,5"
-                                               VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" />
-                                </Grid>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="Tag"
+                        Value=""/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

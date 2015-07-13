@@ -15,14 +15,9 @@
 
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
-            <Button Style="{StaticResource NavRadioButtonStyleShort}"
-                    Click="ButtonBack_OnClick" />
-            <TextBlock Text="{Binding Train.City}"
-                       Style="{ThemeResource TitleStyle}"
-                       HorizontalAlignment="Center"
-                       FontWeight="Normal"
-                       Foreground="{ThemeResource SystemControlForegroundAccentBrush}"
-                       Margin="0,0,0,10" />
+            <RadioButton Style="{StaticResource BackRadioButtonStyle}"
+                         Click="ButtonBack_OnClick"
+                         Content="{Binding Train.City}" />
         </StackPanel>
         <Grid Row="1">
             <ScrollViewer>

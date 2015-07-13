@@ -9,13 +9,11 @@
                       d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="BackRadioButton"
-                Style="{StaticResource NavRadioButtonStyleShort}"
-                Click="ButtonBack_OnClick"
-                VerticalAlignment="Top" />
-        <StackPanel HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Header}"
-                       FontSize="{StaticResource BigFontSize}" />
+        <StackPanel>
+            <RadioButton x:Name="BackRadioButton"
+                         Style="{StaticResource BackRadioButtonStyle}"
+                         Click="ButtonBack_OnClick"
+                         Content="{Binding Header}"/>
             <TextBlock Text="{Binding Title}"
                        FontSize="{StaticResource SmallFontSize}"
                        HorizontalAlignment="Center" />
