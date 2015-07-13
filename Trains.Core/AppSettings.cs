@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Trains.Core.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;

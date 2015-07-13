@@ -61,8 +61,8 @@ namespace Trains.Core.ViewModels
         #endregion
 
 
-        private string _from { get; set; }
-        private string _to { get; set; }
+        private string From { get; set; }
+        private string To { get; set; }
         /// <summary>
         /// Used to display favorite icon.
         /// </summary> 
@@ -155,22 +155,22 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
-            RestoreUIBinding();
+            RestoreUiBinding();
             Trains = JsonConvert.DeserializeObject<List<Train>>(param);
-            _from = _appSettings.UpdatedLastRequest.Route.From;
-            _to = _appSettings.UpdatedLastRequest.Route.To;
-            Request = _from + " - " + _to;
+            From = _appSettings.UpdatedLastRequest.Route.From;
+            To = _appSettings.UpdatedLastRequest.Route.To;
+            Request = From + " - " + To;
             SetManageFavoriteButton();
         }
 
         private async void SearchReverseRoute()
         {
             IsSearchStart = true;
-            Trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _to),
-                            _appSettings.AutoCompletion.First(x => x.UniqueId == _from),
+            Trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == To),
+                            _appSettings.AutoCompletion.First(x => x.UniqueId == From),
                             _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
             SwapStopPoint();
-            Request = _from + " - " + _to;
+            Request = From + " - " + To;
             SetManageFavoriteButton();
 
             IsSearchStart = false;
@@ -178,9 +178,9 @@ namespace Trains.Core.ViewModels
 
         private void SwapStopPoint()
         {
-            var temp = _from;
-            _from = _to; ;
-            _to = temp;
+            var temp = From;
+            From = To;
+	        To = temp;
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Trains.Core.ViewModels
         private void SetManageFavoriteButton()
         {
             if (_appSettings.FavoriteRequests == null) SetVisibilityToFavoriteIcons(true, false);
-            else if (_appSettings.FavoriteRequests.Any(x => x.Route.From == _from && x.Route.To == _to))
+            else if (_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To))
                 SetVisibilityToFavoriteIcons(false, true);
             else SetVisibilityToFavoriteIcons(true, false);
         }
@@ -215,7 +215,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void AddToFavorite()
         {
-            if (_manageFavoriteRequest.AddToFavorite(_from, _to))
+            if (_manageFavoriteRequest.AddToFavorite(From, To))
             {
                 SetVisibilityToFavoriteIcons(false, true);
                 _analytics.SentEvent(Constants.AddToFavorite);
@@ -228,7 +228,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         private void DeleteInFavorite()
         {
-            if (_manageFavoriteRequest.DeleteRoute(_from, _to))
+            if (_manageFavoriteRequest.DeleteRoute(From, To))
                 SetVisibilityToFavoriteIcons(true, false);
         }
 
@@ -241,7 +241,7 @@ namespace Trains.Core.ViewModels
             IsVisibleUnFavoriteIcon = unfavorite;
         }
 
-        private void RestoreUIBinding()
+        private void RestoreUiBinding()
         {
             ReverseAppBar = ResourceLoader.Instance.Resource["ReverseAppBar"];
             Update = ResourceLoader.Instance.Resource["Update"];

@@ -6,7 +6,6 @@ using Trains.Core.Resources;
 using Trains.Core.Services;
 using Trains.Core.Services.Interfaces;
 using Trains.Core.ViewModels;
-using Trains.Model.Entities;
 
 namespace Trains.Core
 {

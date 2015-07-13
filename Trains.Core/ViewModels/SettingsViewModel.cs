@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
-using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
+using static System.String;
 
 namespace Trains.Core.ViewModels
 {
@@ -16,7 +15,6 @@ namespace Trains.Core.ViewModels
         private readonly ISerializableService _serializable;
         private readonly IAppSettings _appSettings;
         private readonly IAnalytics _analytics;
-        private readonly ILocalDataService _local;
 
         #endregion
 
@@ -28,11 +26,10 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics, ILocalDataService local)
+        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics)
         {
             ResetSettingsCommand = new MvxCommand(ResetSetting);
 
-            _local = local;
             _analytics = analytics;
             _serializable = serializable;
             _appSettings = appSettings;
@@ -45,7 +42,8 @@ namespace Trains.Core.ViewModels
         #region UIproperties
 
         public string Header { get; set; }
-        private string _needReboot { get; set; }
+
+	    private string _needReboot;
         public string NeedReboot
         {
             get
@@ -63,21 +61,14 @@ namespace Trains.Core.ViewModels
 
         #endregion
 
-        /// <summary>
-        /// Languages
-        /// </summary>
-        private readonly List<Language> _languagesList = new List<Language>
+	    public List<Language> Languages { get; } = new List<Language>
         {
-            new Language{Name = "Русский",Id = "ru"},
-            new Language{Name = "Беларускі",Id = "be"},
-            new Language{Name = "English",Id = "en"}
+	        new Language{Name = "Русский",Id = "ru"},
+	        new Language{Name = "Беларускі",Id = "be"},
+	        new Language{Name = "English",Id = "en"}
         };
-        public List<Language> Languages
-        {
-            get { return _languagesList; }
-        }
 
-        /// <summary>
+	    /// <summary>
         /// Used to set code behind variant of search.
         /// </summary> 
         private Language _selectedLanguage;
@@ -105,10 +96,10 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init()
         {
-            RestoreUI();
+            RestoreUiBinding();
             if (_appSettings.Language == null)
                 _appSettings.Language = new Language { Id = "ru" };
-            SelectedLanguage = _languagesList.First(x => x.Id == _appSettings.Language.Id);
+            SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
         }
 
         private void SaveChanges()
@@ -116,13 +107,13 @@ namespace Trains.Core.ViewModels
             if (SelectedLanguage.Id != _appSettings.Language.Id)
             {
                 _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
-                _serializable.Serialize<Language>(SelectedLanguage, Constants.CurrentLanguage);
+                _serializable.Serialize(SelectedLanguage, Constants.CurrentLanguage);
                 NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
             }
             else
             {
-                NeedReboot = String.Empty;
-                _serializable.Serialize<Language>(_appSettings.Language, Constants.CurrentLanguage);
+                NeedReboot = Empty;
+                _serializable.Serialize(_appSettings.Language, Constants.CurrentLanguage);
             }
         }
 
@@ -132,7 +123,7 @@ namespace Trains.Core.ViewModels
             NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
         }
 
-        private void RestoreUI()
+        private void RestoreUiBinding()
         {
             Header = ResourceLoader.Instance.Resource["Settings"];
             SelectLanguage = ResourceLoader.Instance.Resource["SelectLanguage"];

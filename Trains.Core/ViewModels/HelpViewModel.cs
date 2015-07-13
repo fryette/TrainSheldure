@@ -80,7 +80,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init()
         {
-            RestoreUIBindings();
+            RestoreUiBindings();
             HelpInformation = _appSettings.HelpInformation;
             CarriageInformation = _appSettings.CarriageModel;
             PlaceInformation = _appSettings.PlaceInformation;
@@ -92,7 +92,7 @@ namespace Trains.Core.ViewModels
             ShowViewModel<CarriageViewModel>(new { param = JsonConvert.SerializeObject(selectedCarriageModel) });
         }
 
-        private void RestoreUIBindings()
+        private void RestoreUiBindings()
         {
             Other = ResourceLoader.Instance.Resource["Other"];
             Carriage = ResourceLoader.Instance.Resource["Carriage"];

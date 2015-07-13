@@ -13,6 +13,7 @@ using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
+using static System.String;
 
 namespace Trains.Core.ViewModels
 {
@@ -448,7 +449,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void UpdateAutoSuggestions(string str)
         {
-            if (string.IsNullOrEmpty(str)) AutoSuggestions = null;
+            if (IsNullOrEmpty(str)) AutoSuggestions = null;
             AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(str, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
             if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == str) AutoSuggestions = null;
         }
@@ -466,7 +467,7 @@ namespace Trains.Core.ViewModels
                 return true;
             }
 
-            if (String.IsNullOrEmpty(from) || String.IsNullOrEmpty(to) ||
+            if (IsNullOrEmpty(from) || IsNullOrEmpty(to) ||
                 !(autoCompletion.Any(x => x.UniqueId == from.Trim()) &&
                   autoCompletion.Any(x => x.UniqueId == to.Trim())))
             {
@@ -559,7 +560,7 @@ namespace Trains.Core.ViewModels
             AboutItemsActions = new Dictionary<AboutPicture, Action>
             {
             {AboutPicture.AboutApp,()=>ShowViewModel<AboutViewModel>()},
-            {AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", string.Empty, ResourceLoader.Instance.Resource["Feedback"], String.Empty, false)},
+            {AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, ResourceLoader.Instance.Resource["Feedback"], Empty, false)},
             {AboutPicture.Market,()=>_marketPlace.GoToMarket()},
             {AboutPicture.Settings,()=>ShowViewModel<SettingsViewModel>()},
             {AboutPicture.Share,()=>ShowViewModel<ShareViewModel>()}

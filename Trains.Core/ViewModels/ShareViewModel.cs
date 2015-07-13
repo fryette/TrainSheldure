@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Model.Entities;
 using Trains.Core.Resources;
+using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
 {
@@ -21,7 +17,7 @@ namespace Trains.Core.ViewModels
         public IEnumerable<ShareSocial> ShareItems { get; set; }
         public void Init()
         {
-            RestoreUIBinding();
+            RestoreUiBinding();
             ShareItems = new List<ShareSocial>
             {
                 ShareSocial.Vkontakte,
@@ -33,7 +29,7 @@ namespace Trains.Core.ViewModels
             };
         }
 
-        private void RestoreUIBinding()
+        private void RestoreUiBinding()
         {
             Header = ResourceLoader.Instance.Resource["SocialNetworks"];
             Title = ResourceLoader.Instance.Resource["SupportUs"];

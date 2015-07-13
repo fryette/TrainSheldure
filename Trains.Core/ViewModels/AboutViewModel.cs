@@ -28,7 +28,6 @@ namespace Trains.Core.ViewModels
             SpecialThank = ResourceLoader.Instance.Resource["SpecialThank"];
             FirstDesigner = ResourceLoader.Instance.Resource["FirstDesigner"];
             SecondDesigner = ResourceLoader.Instance.Resource["SecondDesigner"];
-
         }
 
         #endregion

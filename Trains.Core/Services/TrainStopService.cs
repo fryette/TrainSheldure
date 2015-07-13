@@ -24,7 +24,7 @@ namespace Trains.Core.Services
         public async Task<IEnumerable<TrainStop>> GetTrainStop(string link)
         {
             if (!NetworkInterface.GetIsNetworkAvailable()) return null;
-            var uri = new Uri("http://rasp.rw.by/m/" + ResourceLoader.Instance.Resource["Language"] + "/train/" + link);
+            var uri = new Uri("http://rasp.rw.by/" + ResourceLoader.Instance.Resource["Language"] + "/train/" + link);
             try
             {
                 var data = await HttpService.LoadResponseAsync(uri);

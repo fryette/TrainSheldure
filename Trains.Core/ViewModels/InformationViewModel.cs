@@ -81,7 +81,7 @@ namespace Trains.Core.ViewModels
         /// </summary>
         public void Init(string param)
         {
-            RestoreUIBindings();
+            RestoreUiBindings();
             IsTaskRun = true;
             Train = JsonConvert.DeserializeObject<Train>(param);
             SearchStopPoint();
@@ -96,7 +96,7 @@ namespace Trains.Core.ViewModels
             IsTaskRun = false;
         }
 
-        private void RestoreUIBindings()
+        private void RestoreUiBindings()
         {
             DownloadStopPoints = ResourceLoader.Instance.Resource["DownloadStopPoints"];
         }

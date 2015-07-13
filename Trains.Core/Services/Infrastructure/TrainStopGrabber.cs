@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Trains.Core.Resources;
@@ -22,9 +21,9 @@ namespace Trains.Core.Services.Infrastructure
                 trainStop.Add(new TrainStop
                 {
                     Name = parameters[i].Groups[1].Value,
-                    Arrivals = (String.IsNullOrEmpty(arrivals) ? null : ResourceLoader.Instance.Resource["Departure"] + arrivals.Substring(0, 5)),
-                    Departures = (String.IsNullOrEmpty(departure) ? null : ResourceLoader.Instance.Resource["Arrival"] + departure),
-                    Stay = String.IsNullOrEmpty(stay) ? null : ResourceLoader.Instance.Resource["Stay"] + stay
+                    Arrivals = (string.IsNullOrEmpty(arrivals) ? null : ResourceLoader.Instance.Resource["Departure"] + arrivals.Substring(0, 5)),
+                    Departures = (string.IsNullOrEmpty(departure) ? null : ResourceLoader.Instance.Resource["Arrival"] + departure),
+                    Stay = string.IsNullOrEmpty(stay) ? null : ResourceLoader.Instance.Resource["Stay"] + stay
                 });
             }
             return trainStop;
