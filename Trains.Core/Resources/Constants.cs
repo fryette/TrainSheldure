@@ -2,11 +2,8 @@
 {
 	public static class Constants
 	{
-		public const string BaseAppUri = "http://chygunka.by/";
 		public const string LanguagesUri = "http://chygunka.by/languages/";
 		public const string PatternsUri = "http://chygunka.by/otherData/";
-
-		public const string SettingsRelativeUri = "settings.json";
 
 		public const string IsFirstRun = "IsFirstRun34";
 
