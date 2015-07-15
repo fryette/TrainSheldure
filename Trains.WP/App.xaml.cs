@@ -28,7 +28,6 @@ namespace Trains.WP
         {
             InitializeComponent();
             Suspending += OnSuspending;
-            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
         /// <summary>
@@ -105,14 +104,6 @@ namespace Trains.WP
 
             // TODO: Save application state and stop any background activity
             deferral.Complete();
-        }
-        private static void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
-        {
-            var frame = Window.Current.Content as Frame;
-            if (frame == null) return;
-            if (!frame.CanGoBack) return;
-            frame.GoBack();
-            e.Handled = true;
         }
 
         protected override void OnActivated(IActivatedEventArgs args)
