@@ -41,7 +41,8 @@ namespace Trains.Core.Services
 				var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
 				List<Train> trains;
-				if (from.Country != ResourceLoader.Instance.Resource["Belarus"] && to.Country != ResourceLoader.Instance.Resource["Belarus"])
+				var country = ResourceLoader.Instance.Resource["Belarus"];
+				if (from.Label.Contains(country) && to.Label.Contains(country))
 					trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
 				else
 					trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, _pattern.TrainsPattern).ToList())
@@ -53,19 +54,19 @@ namespace Trains.Core.Services
 			catch (Exception e)
 			{
 				_analytics.SentException(e.Message);
-				_analytics.SentEvent("exceptions", "Search", e.Message + "---" + from.UniqueId + '-' + to.UniqueId + ':' + selectedVariant);
+				_analytics.SentEvent("exceptions", "Search", e.Message + "---" + from.Value + '-' + to.Value + ':' + selectedVariant);
 			}
 			await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
 			return null;
 		}
 
-		private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
+		private static Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
 		{
 			return new Uri("http://rasp.rw.by/m/" + ResourceLoader.Instance.Resource["Language"] + "/route/?from=" +
-				   fromItem.UniqueId.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.UniqueId.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date + "&" + new Random().Next(0, 20));
+				   fromItem.Value.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.Value.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date + "&" + new Random().Next(0, 20));
 		}
 
-		private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
+		private static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
 		{
 			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Tommorow"])
 				return datum.AddDays(1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
@@ -75,8 +76,8 @@ namespace Trains.Core.Services
 				return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
 			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnDay"])
 				return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
-
 			if (datum < DateTime.Now) datum = DateTime.Now;
+
 			return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
 		}
 	}

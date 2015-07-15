@@ -166,8 +166,8 @@ namespace Trains.Core.ViewModels
 		private async void SearchReverseRoute()
 		{
 			IsSearchStart = true;
-			Trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == To),
-							_appSettings.AutoCompletion.First(x => x.UniqueId == From),
+			Trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == To),
+							_appSettings.AutoCompletion.First(x => x.Value == From),
 							_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 			SwapStopPoint();
 			Request = From + " - " + To;

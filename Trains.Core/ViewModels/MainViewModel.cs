@@ -350,8 +350,8 @@ namespace Trains.Core.ViewModels
 			if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
 			IsTaskRun = true;
 			AddToLastRoutes(new Route { From = from, To = to });
-			var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == from),
-					_appSettings.AutoCompletion.First(x => x.UniqueId == to), Datum, SelectedVariant);
+			var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == from),
+					_appSettings.AutoCompletion.First(x => x.Value == to), Datum, SelectedVariant);
 			if (schedule != null)
 			{
 				_appSettings.LastRequestTrain = schedule;
@@ -374,8 +374,8 @@ namespace Trains.Core.ViewModels
 			if (_appSettings.UpdatedLastRequest == null) return;
 			IsTaskRun = true;
 
-			var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.Route.From),
-				_appSettings.AutoCompletion.First(x => x.UniqueId == _appSettings.UpdatedLastRequest.Route.To),
+			var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == _appSettings.UpdatedLastRequest.Route.From),
+				_appSettings.AutoCompletion.First(x => x.Value == _appSettings.UpdatedLastRequest.Route.To),
 				_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
 			if (trains == null)
@@ -451,7 +451,7 @@ namespace Trains.Core.ViewModels
 		{
 			var station = str.Trim();
 			if (IsNullOrEmpty(station)) AutoSuggestions = null;
-			AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.UniqueId.IndexOf(station, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.UniqueId).ToList();
+			AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.Value.IndexOf(station, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.Value).ToList();
 			if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == station) AutoSuggestions = null;
 		}
 
@@ -469,8 +469,8 @@ namespace Trains.Core.ViewModels
 			}
 
 			if (IsNullOrEmpty(from) || IsNullOrEmpty(to) ||
-				!(autoCompletion.Any(x => x.UniqueId == from.Trim()) &&
-				  autoCompletion.Any(x => x.UniqueId == to.Trim())))
+				!(autoCompletion.Any(x => x.Value == from.Trim()) &&
+				  autoCompletion.Any(x => x.Value == to.Trim())))
 			{
 				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
 				return true;
