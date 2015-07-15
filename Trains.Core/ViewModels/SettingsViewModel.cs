@@ -89,6 +89,21 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
+		private List<Country> _countries;
+		public List<Country> Countries
+		{
+			get
+			{
+				return _countries;
+			}
+
+			set
+			{
+				_countries = value;
+				RaisePropertyChanged(() => Countries);
+			}
+		}
+
 		#endregion
 
 		#region actions
@@ -102,6 +117,7 @@ namespace Trains.Core.ViewModels
 			if (_appSettings.Language == null)
 				_appSettings.Language = new Language { Id = "ru" };
 			SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
+			Countries = _appSettings.Countries;
 		}
 
 		private void SaveChanges()

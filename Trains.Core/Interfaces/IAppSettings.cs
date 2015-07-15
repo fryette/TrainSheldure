@@ -30,5 +30,7 @@ namespace Trains.Core.Interfaces
 		Language Language { get; set; }
 
 		List<PlaceInformation> PlaceInformation { get; set; }
+
+		List<Country> Countries { get; set; } 
 	}
 }

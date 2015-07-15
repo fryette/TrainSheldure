@@ -22,6 +22,7 @@
 		public const string SocialJson = "SocialUri.json";
 		public const string PatternsJson = "Patterns.json";
 		public const string StopPointsJson = "Countries/Беларусь.json";
+		public const string Countries = "Countries.json";
 		public const string HelpInformationJson = "HelpInformation.json";
 		public const string CarriageModelJson = "CarriageModel.json";
 		public const string AboutJson = "About.json";
