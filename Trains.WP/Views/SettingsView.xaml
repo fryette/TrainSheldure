@@ -38,7 +38,7 @@
                        Foreground="{ThemeResource PhoneAccentBrush}" />
             <ComboBox Header="Выберите страну для загрузки доп. станций"
                       ItemsSource="{Binding Countries}"
-                      SelectedIndex="1">
+                      SelectedValue="{Binding SelectedCountry,Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />

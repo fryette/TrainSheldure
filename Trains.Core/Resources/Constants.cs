@@ -27,6 +27,7 @@
 		public const string CarriageModelJson = "CarriageModel.json";
 		public const string AboutJson = "About.json";
 		public const string ResourceJson = "Resource.json";
+		public const string CountriesFolder = "Countries/";
 
 
 		//Analytics cons strings

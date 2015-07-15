@@ -501,7 +501,7 @@ namespace Trains.Core.ViewModels
 				_appSettings.SocialUri = appSettings.SocialUri;
 				_appSettings.Language = appSettings.Language;
 				_appSettings.PlaceInformation = appSettings.PlaceInformation;
-
+				_appSettings.Countries = appSettings.Countries;
 				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
 				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
 				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);

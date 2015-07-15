@@ -1,8 +1,12 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
+using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
 using static System.String;
 
@@ -15,6 +19,8 @@ namespace Trains.Core.ViewModels
 		private readonly ISerializableService _serializable;
 		private readonly IAppSettings _appSettings;
 		private readonly IAnalytics _analytics;
+		private readonly ILocalDataService _local;
+
 
 		#endregion
 
@@ -26,13 +32,14 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics)
+		public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics, ILocalDataService local)
 		{
 			ResetSettingsCommand = new MvxCommand(ResetSetting);
 
 			_analytics = analytics;
 			_serializable = serializable;
 			_appSettings = appSettings;
+			_local = local;
 		}
 
 		#endregion
@@ -89,6 +96,21 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
+		private bool _isStationsDownloading;
+		public bool IsStationsDownloading
+		{
+			get
+			{
+				return _isStationsDownloading;
+			}
+
+			set
+			{
+				_isStationsDownloading = value;
+				RaisePropertyChanged(() => IsStationsDownloading);
+			}
+		}
+
 		private List<Country> _countries;
 		public List<Country> Countries
 		{
@@ -104,6 +126,21 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
+		private Country _selectedCountry;
+		public Country SelectedCountry
+		{
+			get
+			{
+				return _selectedCountry;
+			}
+
+			set
+			{
+				_selectedCountry = value;
+				RaisePropertyChanged(() => SelectedCountry);
+			}
+		}
+
 		#endregion
 
 		#region actions
@@ -116,8 +153,15 @@ namespace Trains.Core.ViewModels
 			RestoreUiBinding();
 			if (_appSettings.Language == null)
 				_appSettings.Language = new Language { Id = "ru" };
+
+			Countries = _appSettings.Countries.Where(x=>
+			{
+				return !_appSettings.AutoCompletion.Any(item => item.Label.Contains(x.Name));
+			}).ToList();
+
 			SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
-			Countries = _appSettings.Countries;
+
+			//Countries = _appSettings.Countries;
 		}
 
 		private void SaveChanges()
@@ -139,6 +183,22 @@ namespace Trains.Core.ViewModels
 		{
 			_serializable.Delete(Constants.IsFirstRun);
 			NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
+		}
+
+		private async void DownloadCountryStopPoint()
+		{
+			if (_appSettings.AutoCompletion.Any(x => x.Label.Contains(SelectLanguage)))
+				await Mvx.Resolve<IUserInteraction>().AlertAsync("Уже загружена");
+
+			IsStationsDownloading = true;
+			var countryStopPoints = await _local.GetLanguageData<List<CountryStopPointItem>>(Constants.CountriesFolder + SelectLanguage + ".json");
+
+			foreach (var countryStopPoint in countryStopPoints)
+			{
+				_appSettings.AutoCompletion.Add(countryStopPoint);
+			}
+			
+			IsStationsDownloading = false;
 		}
 
 		private void RestoreUiBinding()
