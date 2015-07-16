@@ -8,7 +8,7 @@ using Cirrious.CrossCore;
 using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 
-namespace Trains.WP.Converter
+namespace Trains.WP.Converters
 {
 	public class BackgroundLastRouteToImageConverter : IValueConverter
 	{

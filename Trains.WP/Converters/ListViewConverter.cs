@@ -4,7 +4,7 @@ using System.Linq;
 using Windows.UI.Xaml.Data;
 using Trains.Entities;
 
-namespace Trains.WP.Converter
+namespace Trains.WP.Converters
 {
 	public class ListViewConverter : IValueConverter
 	{
