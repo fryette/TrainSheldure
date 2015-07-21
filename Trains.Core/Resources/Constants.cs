@@ -22,10 +22,12 @@
 		public const string SocialJson = "SocialUri.json";
 		public const string PatternsJson = "Patterns.json";
 		public const string StopPointsJson = "Countries/Беларусь.json";
+		public const string Countries = "Countries.json";
 		public const string HelpInformationJson = "HelpInformation.json";
 		public const string CarriageModelJson = "CarriageModel.json";
 		public const string AboutJson = "About.json";
 		public const string ResourceJson = "Resource.json";
+		public const string CountriesFolder = "Countries/";
 
 
 		//Analytics cons strings
@@ -42,6 +44,8 @@
 			"Мы убедительно просим вас проголосовать в магазине приложений, это дает нам стимул работать дальше.\r\n" +
 			"Все свои пожелания можете отправлять через приложения и мы реализуем их в следующих обновлениях.\r\n" +
 			"Спасибо за то, что вы с нами ;)";
+
+		public const int NumberOfBelarussianStopPoints = 956;
 	}
 }
 

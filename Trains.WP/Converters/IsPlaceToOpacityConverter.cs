@@ -2,7 +2,7 @@
 using System.Linq;
 using Windows.UI.Xaml.Data;
 
-namespace Trains.WP.Converter
+namespace Trains.WP.Converters
 {
 	public class IsPlaceToOpacityConverter : IValueConverter
 	{

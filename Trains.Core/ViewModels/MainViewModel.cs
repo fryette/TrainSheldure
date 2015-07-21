@@ -501,7 +501,7 @@ namespace Trains.Core.ViewModels
 				_appSettings.SocialUri = appSettings.SocialUri;
 				_appSettings.Language = appSettings.Language;
 				_appSettings.PlaceInformation = appSettings.PlaceInformation;
-
+				_appSettings.Countries = appSettings.Countries;
 				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
 				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
 				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
@@ -573,6 +573,7 @@ namespace Trains.Core.ViewModels
 			_appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
 			_appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Constants.SocialJson);
 			_appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Constants.PlaceInformationJson);
+			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Constants.Countries);
 
 			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
 			_serializable.Serialize(await _local.GetOtherData<Patterns>(Constants.PatternsJson), Constants.Patterns);

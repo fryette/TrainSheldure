@@ -13,6 +13,7 @@ namespace Trains.Core
 
 		public List<CountryStopPointItem> AutoCompletion { get; set; }
 		public List<PlaceInformation> PlaceInformation { get; set; }
+		public List<Country> Countries { get; set; }
 		public List<HelpInformationItem> HelpInformation { get; set; }
 		public List<CarriageModel> CarriageModel { get; set; }
 		public List<About> About { get; set; }

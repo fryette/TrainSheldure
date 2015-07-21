@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\About.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\CountryStopPointItem.cs" />
     <Compile Include="Entities\Languages.cs" />
     <Compile Include="Entities\LastRequest.cs" />

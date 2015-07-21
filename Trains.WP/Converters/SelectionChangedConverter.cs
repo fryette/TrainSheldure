@@ -1,17 +1,13 @@
 ﻿using System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
 
-namespace Trains.WP.Converter
+namespace Trains.WP.Converters
 {
-	public class BooleanToBackgroundConverter : IValueConverter
+	public class SelectionChangedConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			if ((bool)value)
-				return ((SolidColorBrush)Application.Current.Resources["PhoneAccentBrush"]);
-			return new SolidColorBrush();
+			return null;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)

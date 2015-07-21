@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Trains.Model.Entities;
 
-namespace Trains.WP.Converter
+namespace Trains.WP.Converters
 {
 	public class EnumToImagePathConverter : IValueConverter
 	{
