@@ -14,6 +14,7 @@ namespace Trains.Core
 		{
 			var request = new MvxRestRequest(uri, accept: contentType);
 			var httpWebRequest = BuildHttpRequest(request);
+
 			var response = await ExecuteRequestAsync(httpWebRequest);
 
 			using (var stream = response.GetResponseStream())
