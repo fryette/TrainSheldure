@@ -360,7 +360,7 @@ namespace Trains.Core.ViewModels
 				_serializable.Serialize(schedule, Constants.LastTrainList);
 				ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
 
-				_analytics.SentEvent(Constants.VariantOfSearch, SelectedVariant);
+				_analytics.SentEvent(Constants.Analytics.VariantOfSearch, SelectedVariant);
 			}
 
 			IsTaskRun = false;

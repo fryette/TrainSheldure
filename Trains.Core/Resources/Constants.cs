@@ -27,13 +27,9 @@
 		public const string CarriageModelJson = "CarriageModel.json";
 		public const string AboutJson = "About.json";
 		public const string ResourceJson = "Resource.json";
+
 		public const string CountriesFolder = "Countries/";
 
-
-		//Analytics cons strings
-		public const string LanguageChanged = "LanguageChanged";
-		public const string AddToFavorite = "AddToFavorite";
-		public const string VariantOfSearch = "VariantOfSearch";
 
 		public const string DateFormat = "yy-MM-dd";
 
@@ -46,6 +42,13 @@
 			"Спасибо за то, что вы с нами ;)";
 
 		public const int NumberOfBelarussianStopPoints = 956;
+
+		public class Analytics
+		{
+			public const string LanguageChanged = "LanguageChanged";
+			public const string AddToFavorite = "AddToFavorite";
+			public const string VariantOfSearch = "VariantOfSearch";
+		}
 	}
 }
 

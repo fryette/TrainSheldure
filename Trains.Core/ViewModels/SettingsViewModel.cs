@@ -188,7 +188,7 @@ namespace Trains.Core.ViewModels
 		{
 			if (SelectedLanguage.Id != _appSettings.Language.Id)
 			{
-				_analytics.SentEvent(LanguageChanged, SelectedLanguage.Name);
+				_analytics.SentEvent(Analytics.LanguageChanged, SelectedLanguage.Name);
 				_serializable.Serialize(SelectedLanguage, CurrentLanguage);
 				NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
 			}

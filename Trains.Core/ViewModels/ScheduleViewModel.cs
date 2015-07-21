@@ -218,7 +218,7 @@ namespace Trains.Core.ViewModels
 			if (_manageFavoriteRequest.AddToFavorite(From, To))
 			{
 				SetVisibilityToFavoriteIcons(false, true);
-				_analytics.SentEvent(Constants.AddToFavorite);
+				_analytics.SentEvent(Constants.Analytics.AddToFavorite);
 
 			}
 		}
