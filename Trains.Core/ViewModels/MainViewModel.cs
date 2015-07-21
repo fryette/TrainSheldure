@@ -356,11 +356,11 @@ namespace Trains.Core.ViewModels
 			{
 				_appSettings.LastRequestTrain = schedule;
 				_appSettings.UpdatedLastRequest = new LastRequest { Route = new Route { From = from, To = to }, SelectionMode = SelectedVariant, Date = Datum };
-				_serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
-				_serializable.Serialize(schedule, Constants.LastTrainList);
+				_serializable.Serialize(_appSettings.UpdatedLastRequest, Defines.UpdateLastRequest);
+				_serializable.Serialize(schedule, Defines.LastTrainList);
 				ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
 
-				_analytics.SentEvent(Constants.Analytics.VariantOfSearch, SelectedVariant);
+				_analytics.SentEvent(Defines.Analytics.VariantOfSearch, SelectedVariant);
 			}
 
 			IsTaskRun = false;
@@ -383,10 +383,10 @@ namespace Trains.Core.ViewModels
 			else
 			{
 				_appSettings.UpdatedLastRequest.Date = DateTimeOffset.Now;
-				_serializable.Serialize(_appSettings.UpdatedLastRequest, Constants.UpdateLastRequest);
+				_serializable.Serialize(_appSettings.UpdatedLastRequest, Defines.UpdateLastRequest);
 				RaisePropertyChanged(() => LastUpdateTime);
 				Trains = trains;
-				_serializable.Serialize(Trains, Constants.LastTrainList);
+				_serializable.Serialize(Trains, Defines.LastTrainList);
 			}
 
 			IsTaskRun = false;
@@ -434,7 +434,7 @@ namespace Trains.Core.ViewModels
 			if (LastRoutes == null) LastRoutes = new List<Route>();
 			routes.AddRange(LastRoutes);
 			_appSettings.LastRoutes = LastRoutes = routes.Take(3).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
-			_serializable.Serialize(LastRoutes, Constants.LastRoutes);
+			_serializable.Serialize(LastRoutes, Defines.LastRoutes);
 		}
 
 		private void SetRoute(Route route)
@@ -490,7 +490,7 @@ namespace Trains.Core.ViewModels
 			if (_appSettings.AutoCompletion == null)
 			{
 
-				var appSettings = _serializable.Desserialize<AppSettings>(Constants.AppSettings);
+				var appSettings = _serializable.Desserialize<AppSettings>(Defines.AppSettings);
 
 				if (appSettings == null) return false;
 
@@ -502,11 +502,11 @@ namespace Trains.Core.ViewModels
 				_appSettings.Language = appSettings.Language;
 				_appSettings.PlaceInformation = appSettings.PlaceInformation;
 				_appSettings.Countries = appSettings.Countries;
-				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Constants.FavoriteRequests);
-				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Constants.UpdateLastRequest);
-				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Constants.LastTrainList);
+				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.FavoriteRequests);
+				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.UpdateLastRequest);
+				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.LastTrainList);
 
-				var routes = _serializable.Desserialize<List<Route>>(Constants.LastRoutes);
+				var routes = _serializable.Desserialize<List<Route>>(Defines.LastRoutes);
 				_appSettings.LastRoutes = routes ?? new List<Route>();
 
 				SetPatterns();
@@ -524,18 +524,18 @@ namespace Trains.Core.ViewModels
 		}
 		private async Task CheckStart()
 		{
-			var firstRun = _serializable.Desserialize<string>(Constants.IsFirstRun);
+			var firstRun = _serializable.Desserialize<string>(Defines.IsFirstRun);
 			if (firstRun == null)
 			{
 				_appSettings.Language = new Language { Id = "ru", Name = "Русский" };
 				_serializable.ClearAll();
-				_serializable.Serialize(Constants.IsFirstRun, Constants.IsFirstRun);
-				_serializable.Serialize(_appSettings.Language, Constants.AppLanguage);
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(Constants.HiMessage,Constants.HiMessageTitle);
+				_serializable.Serialize(Defines.IsFirstRun, Defines.IsFirstRun);
+				_serializable.Serialize(_appSettings.Language, Defines.AppLanguage);
+				await Mvx.Resolve<IUserInteraction>().AlertAsync(Defines.HiMessage,Defines.HiMessageTitle);
 			}
 
-			var appLanguage = _serializable.Desserialize<Language>(Constants.AppLanguage);
-			var currLanguage = _serializable.Desserialize<Language>(Constants.CurrentLanguage);
+			var appLanguage = _serializable.Desserialize<Language>(Defines.AppLanguage);
+			var currLanguage = _serializable.Desserialize<Language>(Defines.CurrentLanguage);
 
 			if (currLanguage == null || currLanguage.Id != appLanguage.Id)
 			{
@@ -567,25 +567,25 @@ namespace Trains.Core.ViewModels
 		private async Task DowloadResources(Language lang)
 		{
 			_appSettings.Language = lang;
-			_appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Constants.StopPointsJson);
-			_appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Constants.HelpInformationJson);
-			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Constants.CarriageModelJson);
-			_appSettings.About = await _local.GetLanguageData<List<About>>(Constants.AboutJson);
-			_appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Constants.SocialJson);
-			_appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Constants.PlaceInformationJson);
-			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Constants.Countries);
+			_appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Defines.StopPointsJson);
+			_appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Defines.HelpInformationJson);
+			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Defines.CarriageModelJson);
+			_appSettings.About = await _local.GetLanguageData<List<About>>(Defines.AboutJson);
+			_appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Defines.SocialJson);
+			_appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Defines.PlaceInformationJson);
+			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.Countries);
 
-			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Constants.ResourceJson), Constants.ResourceLoader);
-			_serializable.Serialize(await _local.GetOtherData<Patterns>(Constants.PatternsJson), Constants.Patterns);
-			_serializable.Serialize(_appSettings, Constants.AppSettings);
-			_serializable.Serialize(_appSettings.Language, Constants.AppLanguage);
-			_serializable.Serialize(_appSettings.Language, Constants.CurrentLanguage);
+			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Defines.ResourceJson), Defines.ResourceLoader);
+			_serializable.Serialize(await _local.GetOtherData<Patterns>(Defines.PatternsJson), Defines.Patterns);
+			_serializable.Serialize(_appSettings, Defines.AppSettings);
+			_serializable.Serialize(_appSettings.Language, Defines.AppLanguage);
+			_serializable.Serialize(_appSettings.Language, Defines.CurrentLanguage);
 			SetPatterns();
 		}
 
 		private void SetPatterns()
 		{
-			var patterns = _serializable.Desserialize<Patterns>(Constants.Patterns);
+			var patterns = _serializable.Desserialize<Patterns>(Defines.Patterns);
 
 			_patterns.AdditionParameterPattern = patterns.AdditionParameterPattern;
 			_patterns.PlacesAndPricesPattern = patterns.PlacesAndPricesPattern;
@@ -595,9 +595,9 @@ namespace Trains.Core.ViewModels
 
 		private void DeleteSaveSettings()
 		{
-			_serializable.Delete(Constants.FavoriteRequests);
-			_serializable.Delete(Constants.LastTrainList);
-			_serializable.Delete(Constants.UpdateLastRequest);
+			_serializable.Delete(Defines.FavoriteRequests);
+			_serializable.Delete(Defines.LastTrainList);
+			_serializable.Delete(Defines.UpdateLastRequest);
 		}
 
 		private void RestoreUiBinding()

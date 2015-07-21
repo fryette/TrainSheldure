@@ -27,7 +27,7 @@ namespace Trains.Core.Services.Infrastructure
 
 		public static List<Train> GetTrainsInformation(List<Match> parameters, string date, List<bool> isInternetRegistration)
 		{
-			var dateOfDeparture = DateTime.ParseExact(date, Constants.DateFormat, CultureInfo.InvariantCulture);
+			var dateOfDeparture = DateTime.ParseExact(date, Defines.DateFormat, CultureInfo.InvariantCulture);
 			var imagePath = new List<TrainClass>(GetImagePath(parameters));
 			var trainList = new List<Train>(parameters.Count / SearchCountParameter);
 			var step = parameters.Count - imagePath.Count * 2;
@@ -55,7 +55,7 @@ namespace Trains.Core.Services.Infrastructure
 			var imagePath = new List<TrainClass>(GetImagePath(parameters));
 			var trainList = new List<Train>(parameters.Count / SearchCountParameter);
 			var step = parameters.Count - imagePath.Count * 2;
-			var dateNow = DateTime.Now.ToString(Constants.DateFormat) + ' ';
+			var dateNow = DateTime.Now.ToString(Defines.DateFormat) + ' ';
 			for (var i = 0; i < step; i += 4)
 			{
 				trainList.Add(CreateTrain(dateNow + parameters[i].Groups[1].Value,

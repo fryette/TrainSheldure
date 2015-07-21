@@ -7,7 +7,7 @@ using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
 using static System.String;
-using static Trains.Core.Resources.Constants;
+using static Trains.Core.Resources.Defines;
 using ResourceLoader = Trains.Core.Resources.ResourceLoader;
 
 namespace Trains.Core.ViewModels
@@ -216,7 +216,7 @@ namespace Trains.Core.ViewModels
 			{
 				foreach (var countryStopPoint in countryStopPoints)
 					_appSettings.AutoCompletion.Add(countryStopPoint);
-				_serializable.Serialize(_appSettings, Constants.AppSettings);
+				_serializable.Serialize(_appSettings, Defines.AppSettings);
 				Countries.Remove(SelectedCountry);
 				await _userInteraction.AlertAsync(
 					$"{SelectedCountry.Name}{' '}{ResourceLoader.Instance.Resource["CountrySuccessfullyAdded"]}");

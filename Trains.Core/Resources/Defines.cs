@@ -1,6 +1,6 @@
 ﻿namespace Trains.Core.Resources
 {
-	public static class Constants
+	public static class Defines
 	{
 		public const string LanguagesUri = "http://chygunka.by/languages/";
 		public const string PatternsUri = "http://chygunka.by/otherData/";
