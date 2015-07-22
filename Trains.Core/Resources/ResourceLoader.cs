@@ -14,7 +14,7 @@ namespace Trains.Core.Resources
 
 		private ResourceLoader()
 		{
-			Resource = Mvx.Resolve<ISerializableService>().Desserialize<Dictionary<string, string>>(Defines.ResourceLoader);
+			Resource = Mvx.Resolve<ISerializableService>().Desserialize<Dictionary<string, string>>(Defines.Restoring.ResourceLoader);
 		}
 
 		public static ResourceLoader Instance

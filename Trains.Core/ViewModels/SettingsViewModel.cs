@@ -176,8 +176,8 @@ namespace Trains.Core.ViewModels
 			if (_appSettings.Language == null)
 				_appSettings.Language = new Language { Id = "ru" };
 			SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
-			Countries = _appSettings.AutoCompletion.Skip(NumberOfBelarussianStopPoints).Any() ?
-				new List<Country>(_appSettings.Countries.Except(_appSettings.AutoCompletion.Skip(NumberOfBelarussianStopPoints).GroupBy(x => x.LabelTail).First().Select(x => new Country { Name = x.LabelTail }))) :
+			Countries = _appSettings.AutoCompletion.Skip(Common.NumberOfBelarussianStopPoints).Any() ?
+				new List<Country>(_appSettings.Countries.Except(_appSettings.AutoCompletion.Skip(Common.NumberOfBelarussianStopPoints).GroupBy(x => x.LabelTail).First().Select(x => new Country { Name = x.LabelTail }))) :
 				_appSettings.Countries;
 			SelectedCountry = Countries.FirstOrDefault();
 
@@ -189,19 +189,19 @@ namespace Trains.Core.ViewModels
 			if (SelectedLanguage.Id != _appSettings.Language.Id)
 			{
 				_analytics.SentEvent(Analytics.LanguageChanged, SelectedLanguage.Name);
-				_serializable.Serialize(SelectedLanguage, CurrentLanguage);
+				_serializable.Serialize(SelectedLanguage, Restoring.CurrentLanguage);
 				NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
 			}
 			else
 			{
 				NeedReboot = Empty;
-				_serializable.Serialize(_appSettings.Language, CurrentLanguage);
+				_serializable.Serialize(_appSettings.Language, Restoring.CurrentLanguage);
 			}
 		}
 
 		private void ResetSetting()
 		{
-			_serializable.Delete(IsFirstRun);
+			_serializable.Delete(Common.IsFirstRun);
 			NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
 		}
 
@@ -211,12 +211,12 @@ namespace Trains.Core.ViewModels
 				return;
 			IsStationsDownloading = true;
 
-			var countryStopPoints = await _local.GetLanguageData<List<CountryStopPointItem>>($"{CountriesFolder}{SelectedCountry.Name}.json");
+			var countryStopPoints = await _local.GetLanguageData<List<CountryStopPointItem>>($"{Uri.CountriesFolder}{SelectedCountry.Name}.json");
 			if (countryStopPoints.Any())
 			{
 				foreach (var countryStopPoint in countryStopPoints)
 					_appSettings.AutoCompletion.Add(countryStopPoint);
-				_serializable.Serialize(_appSettings, Defines.AppSettings);
+				_serializable.Serialize(_appSettings, Restoring.AppSettings);
 				Countries.Remove(SelectedCountry);
 				await _userInteraction.AlertAsync(
 					$"{SelectedCountry.Name}{' '}{ResourceLoader.Instance.Resource["CountrySuccessfullyAdded"]}");
