@@ -11,6 +11,7 @@ using Trains.Core.Services.Infrastructure;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
+using static Trains.Core.Resources.Defines.Common;
 
 namespace Trains.Core.Services
 {
@@ -54,7 +55,7 @@ namespace Trains.Core.Services
 			catch (Exception e)
 			{
 				_analytics.SentException(e.Message);
-				_analytics.SentEvent("exceptions", "Search", e.Message + "---" + from.Value + '-' + to.Value + ':' + selectedVariant);
+				_analytics.SentEvent("exceptions", "Search", $"{e.Message}---{@from.Value}{'-'}{to.Value}{':'}{selectedVariant}");
 			}
 			await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
 			return null;
@@ -62,23 +63,23 @@ namespace Trains.Core.Services
 
 		private static Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
 		{
-			return new Uri("http://rasp.rw.by/m/" + ResourceLoader.Instance.Resource["Language"] + "/route/?from=" +
-				   fromItem.Value.Split('(')[0] + "&from_exp=" + fromItem.Exp + "&to=" + toItem.Value.Split('(')[0] + "&to_exp=" + toItem.Exp + "&date=" + date + "&" + new Random().Next(0, 20));
+			return new Uri(
+				$"http://rasp.rw.by/m/{ResourceLoader.Instance.Resource["Language"]}/route/?from={fromItem.Value}&from_exp={fromItem.Exp}&from_esr = {fromItem.Ecp}&to={toItem.Value}&to_exp={toItem.Exp}&to_esr = {toItem.Ecp}&date={date}&{new Random().Next(0, 20)}");
 		}
 
 		private static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
 		{
 			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Tommorow"])
-				return datum.AddDays(1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+				return datum.AddDays(1).ToString(DateFormat, CultureInfo.CurrentCulture);
 			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnAllDays"])
 				return "everyday";
 			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Yesterday"])
-				return datum.AddDays(-1).ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+				return datum.AddDays(-1).ToString(DateFormat, CultureInfo.CurrentCulture);
 			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnDay"])
-				return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+				return datum.ToString(DateFormat, CultureInfo.CurrentCulture);
 			if (datum < DateTime.Now) datum = DateTime.Now;
 
-			return datum.ToString("yy-MM-dd", CultureInfo.CurrentCulture);
+			return datum.ToString(DateFormat, CultureInfo.CurrentCulture);
 		}
 	}
 }
