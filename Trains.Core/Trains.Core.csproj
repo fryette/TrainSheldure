@@ -43,7 +43,7 @@
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="BaseHttpService.cs" />
-    <Compile Include="Resources\Constants.cs" />
+    <Compile Include="Resources\Defines.cs" />
     <Compile Include="Extensions\HttpWebRequest.cs" />
     <Compile Include="FavoriteManageService.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
