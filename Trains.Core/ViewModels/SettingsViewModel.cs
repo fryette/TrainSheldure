@@ -212,7 +212,7 @@ namespace Trains.Core.ViewModels
 			IsStationsDownloading = true;
 
 			var countryStopPoints = await _local.GetLanguageData<List<CountryStopPointItem>>($"{Uri.CountriesFolder}{SelectedCountry.Name}.json");
-			if (countryStopPoints.Any())
+			if (countryStopPoints != null && countryStopPoints.Any() )
 			{
 				foreach (var countryStopPoint in countryStopPoints)
 					_appSettings.AutoCompletion.Add(countryStopPoint);

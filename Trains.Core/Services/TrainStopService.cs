@@ -28,6 +28,8 @@ namespace Trains.Core.Services
 			try
 			{
 				var data = await HttpService.LoadResponseAsync(uri);
+				if (data == null)
+					return null;
 				var match = Parser.ParseData(data, Patterns.TrainPointPAttern);
 
 				return TrainStopGrabber.GetTrainStops(match);

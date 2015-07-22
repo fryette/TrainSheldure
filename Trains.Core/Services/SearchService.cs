@@ -35,6 +35,8 @@ namespace Trains.Core.Services
 			try
 			{
 				var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
+				if (data == null)
+					return null;
 
 				var additionalInformation = TrainGrabber.GetPlaces(data);
 				var links = TrainGrabber.GetLink(data);
