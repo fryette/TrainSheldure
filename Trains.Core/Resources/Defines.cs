@@ -39,7 +39,7 @@
 			public const string PlaceInformation = "PlaceInformation.json";
 			public const string Social = "SocialUri.json";
 			public const string Patterns = "Patterns.json";
-			public const string StopPoints = "Countries/Беларусь.json";
+			public const string StopPoints = "Countries/Belarus.json";
 			public const string Countries = "Countries.json";
 			public const string HelpInformation = "HelpInformation.json";
 			public const string CarriageModel = "CarriageModel.json";
