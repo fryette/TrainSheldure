@@ -54,7 +54,7 @@
             </SplitView.Pane>
             <Grid Background="#DDDDDD">
                 <Frame x:Name="rootFrame"
-                       Margin="20,170,20,0" />
+                       Margin="20,155,20,0" />
             </Grid>
         </SplitView>
         <Grid Background="{StaticResource BackgroundColorBrush}"

@@ -32,7 +32,6 @@
                             ItemsSource="{Binding AutoSuggestions}"
                             IsEnabled="{Binding IsFildEnabled}"
                             Style="{StaticResource AutoSuggestBoxStyle}"
-                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"
                             RelativePanel.Below="DataPicker" />
             <AutoSuggestBox x:Name="To"
                             Width="{Binding Width, ElementName=RootPanel}"
@@ -41,9 +40,9 @@
                             Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             ItemsSource="{Binding AutoSuggestions}"
                             Style="{StaticResource AutoSuggestBoxStyle}"
-                            SuggestionChosen="AutoSuggestBox_SuggestionChosen"
                             RelativePanel.Below="From" />
             <Button x:Name="SearchButton"
+                    Margin="0,5,0,0"
                     Content="{Binding Search}"
                     Command="{Binding SearchTrainCommand}"
                     RelativePanel.Below="To"
