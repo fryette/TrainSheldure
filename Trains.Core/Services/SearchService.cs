@@ -45,7 +45,7 @@ namespace Trains.Core.Services
 
 				List<Train> trains;
 				var country = ResourceLoader.Instance.Resource["Belarus"];
-				if (from.Label.Contains(country) && to.Label.Contains(country))
+				if (!from.Label.Contains(country.Replace("(",string.Empty).Replace(")", string.Empty)) && !to.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)))
 					trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
 				else
 					trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, _pattern.TrainsPattern).ToList())
