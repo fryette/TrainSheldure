@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=last}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />

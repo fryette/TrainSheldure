@@ -1,21 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-using Cirrious.CrossCore;
 using Trains.Core.Resources;
-using Trains.Core.ViewModels;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -30,14 +16,7 @@ namespace Trains.UAP.Controls
 		{
 			this.InitializeComponent();
 			SizeChanged += MainControl_SizeChanged;
-			Loaded += MainControl_Loaded;
-		}
-
-		private void MainControl_Loaded(object sender, RoutedEventArgs e)
-		{
-			//Frame.Width -= 1;
-			//Frame.Width += 1;
-
+			Loaded += OnLoaded;
 		}
 
 		private void MainControl_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -49,24 +28,6 @@ namespace Trains.UAP.Controls
 		{
 			CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
 			CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
-			SetVisibility(Visibility.Visible);
-			SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-			comboBox_SelectionChanged(null, null);
-		}
-
-		private void AutoSuggestBox_ManipulationStarted(object sender, RoutedEventArgs e)
-		{
-			SetVisibility(Visibility.Collapsed);
-			DataPicker.Visibility = Visibility.Collapsed;
-			if ((AutoSuggestBox)sender == From)
-				SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Collapsed);
-			else
-				SetVisibilityAutossugestBox(Visibility.Collapsed, Visibility.Visible);
-
-		}
-
-		private void AutoSuggestBox_ManipulationCompleted(object sender, RoutedEventArgs e)
-		{
 			SetVisibility(Visibility.Visible);
 			SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
 			comboBox_SelectionChanged(null, null);
@@ -88,6 +49,14 @@ namespace Trains.UAP.Controls
 		private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			DataPicker.Visibility = comboBox.SelectedItem == ResourceLoader.Instance.Resource["OnDay"] ? Visibility.Visible : Visibility.Collapsed;
+		}
+
+		private void OnLoaded(object sender, RoutedEventArgs e)
+		{
+			To.IsSuggestionListOpen = false;
+			To.IsSuggestionListOpen = true;
+			From.IsSuggestionListOpen = false;
+			From.IsSuggestionListOpen = true;
 		}
 	}
 }

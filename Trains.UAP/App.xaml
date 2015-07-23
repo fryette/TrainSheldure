@@ -664,57 +664,14 @@
             <Style x:Key="BackRadioButtonStyle"
                    TargetType="Button">
                 <Setter Property="Background"
-                        Value="Green" />
+                        Value="Transparent" />
                 <Setter Property="Template">
                     <Setter.Value>
-                        <ControlTemplate TargetType="RadioButton">
+                        <ControlTemplate TargetType="Button">
                             <Border BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
                                     Background="{TemplateBinding Background}">
-                                <VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup x:Name="CommonStates">
-                                        <VisualState x:Name="Normal" />
-                                        <VisualState x:Name="PointerOver">
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
-                                                                               Storyboard.TargetName="BackgroundGrid">
-                                                    <DiscreteObjectKeyFrame KeyTime="0"
-                                                                            Value="{StaticResource NavButtonHoverBackgroundBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Pressed">
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
-                                                                               Storyboard.TargetName="BackgroundGrid">
-                                                    <DiscreteObjectKeyFrame KeyTime="0"
-                                                                            Value="{StaticResource NavButtonPressedBackgroundBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Disabled" />
-                                    </VisualStateGroup>
-                                    <VisualStateGroup x:Name="CheckStates">
-                                        <VisualState x:Name="Checked">
-                                            <Storyboard>
-                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
-                                                                               Storyboard.TargetName="BackgroundGrid">
-                                                    <DiscreteObjectKeyFrame KeyTime="0"
-                                                                            Value="{StaticResource NavButtonCheckedBackgroundBrush}" />
-                                                </ObjectAnimationUsingKeyFrames>
-                                            </Storyboard>
-                                        </VisualState>
-                                        <VisualState x:Name="Unchecked" />
-                                        <VisualState x:Name="Indeterminate" />
-                                    </VisualStateGroup>
-                                    <VisualStateGroup x:Name="FocusStates">
-                                        <VisualState x:Name="Focused" />
-                                        <VisualState x:Name="Unfocused" />
-                                        <VisualState x:Name="PointerFocused" />
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
                                 <Grid Name="BackgroundGrid"
-                                      Background="Transparent"
                                       VerticalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="48" />
@@ -722,6 +679,7 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock FontSize="34"
                                                Height="38"
+                                               Foreground="Black"
                                                Text="{TemplateBinding Tag}"
                                                FontFamily="Segoe MDL2 Assets"
                                                Margin="5,8,5,5"

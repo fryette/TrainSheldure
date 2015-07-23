@@ -9,7 +9,7 @@
       mc:Ignorable="d"
       d:DataContext="{d:DesignData MainViewModel}">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
         <Grid Background="{Binding FavoriteRequests, Converter={StaticResource BackgroundLastRouteToImageConverter},ConverterParameter=route}">
             <ListView x:Name="FavoriteRequests"
                       ItemsSource="{Binding FavoriteRequests}"
