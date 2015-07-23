@@ -571,7 +571,7 @@
             <Style x:Key="NavRadioButtonStyle"
                    TargetType="RadioButton">
                 <Setter Property="Padding"
-                        Value="3" />
+                        Value="80,0,0,0" />
                 <Setter Property="HorizontalAlignment"
                         Value="Stretch" />
                 <Setter Property="VerticalAlignment"
@@ -580,6 +580,91 @@
                         Value="Left" />
                 <Setter Property="VerticalContentAlignment"
                         Value="Center" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="RadioButton">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup x:Name="CommonStates">
+                                        <VisualState x:Name="Normal" />
+                                        <VisualState x:Name="PointerOver">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+                                                                               Storyboard.TargetName="BackgroundGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0"
+                                                                            Value="{StaticResource NavButtonHoverBackgroundBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Pressed">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+                                                                               Storyboard.TargetName="BackgroundGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0"
+                                                                            Value="{StaticResource NavButtonPressedBackgroundBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Disabled" />
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="CheckStates">
+                                        <VisualState x:Name="Checked">
+                                            <Storyboard>
+                                                <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+                                                                               Storyboard.TargetName="BackgroundGrid">
+                                                    <DiscreteObjectKeyFrame KeyTime="0"
+                                                                            Value="{StaticResource NavButtonCheckedBackgroundBrush}" />
+                                                </ObjectAnimationUsingKeyFrames>
+                                            </Storyboard>
+                                        </VisualState>
+                                        <VisualState x:Name="Unchecked" />
+                                        <VisualState x:Name="Indeterminate" />
+                                    </VisualStateGroup>
+                                    <VisualStateGroup x:Name="FocusStates">
+                                        <VisualState x:Name="Focused" />
+                                        <VisualState x:Name="Unfocused" />
+                                        <VisualState x:Name="PointerFocused" />
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                                <Grid Name="BackgroundGrid"
+                                      Background="Transparent"
+                                      VerticalAlignment="Stretch"
+                                      Padding="35,0,0,0"
+                                      Margin="0,40,0,0"
+                                      Height="70">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock FontSize="38"
+                                               Text="{TemplateBinding Tag}"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" />
+                                    <ContentPresenter x:Name="ContentPresenter"
+                                                      AutomationProperties.AccessibilityView="Raw"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                      Content="{TemplateBinding Content}"
+                                                      Grid.Column="1"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      Margin="{TemplateBinding Padding}"
+                                                      TextWrapping="Wrap"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="BackRadioButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Background"
+                        Value="Green" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="RadioButton">
@@ -657,16 +742,7 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
 
-
-            <Style x:Key="BackRadioButtonStyle"
-                   TargetType="RadioButton"
-                   BasedOn="{StaticResource NavRadioButtonStyle}">
-                <Setter Property="Background"
-                        Value="Green" />
-                <Setter Property="Tag"
-                        Value=""/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

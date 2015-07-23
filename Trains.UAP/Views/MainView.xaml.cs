@@ -84,8 +84,8 @@ namespace Trains.UAP.Views
 
         private void SetVisibility(bool isSwapVisible=false, bool isUpdateVisibile=false)
         {
-            UpdateAppBar.Visibility = isUpdateVisibile ? Visibility.Visible : Visibility.Collapsed;
-            SwapAppBar.Visibility = isSwapVisible ? Visibility.Visible : Visibility.Collapsed;
+            //UpdateAppBar.Visibility = isUpdateVisibile ? Visibility.Visible : Visibility.Collapsed;
+            //SwapAppBar.Visibility = isSwapVisible ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
