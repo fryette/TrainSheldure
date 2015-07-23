@@ -1,3 +1,3 @@
-MainPackage=D:\Git\TrainSchedule\Trains.WP\bin\Release\Trains.WP_2.2.5.1_AnyCPU.appx
-SymbolPackage=D:\Git\TrainSchedule\Trains.WP\AppPackages\Trains.WP_2.2.5.1_Test\Trains.WP_2.2.5.1_AnyCPU.appxsym
-ResourcePack=D:\Git\TrainSchedule\Trains.WP\bin\Release\Trains.WP_2.2.5.1_language-ru.appx
+MainPackage=D:\Git\TrainSchedule\Trains.WP\bin\Release\Trains.WP_2015.520.1010.5035_AnyCPU.appx
+SymbolPackage=D:\Git\TrainSchedule\Trains.WP\AppPackages\Trains.WP_2015.520.1010.5035_Test\Trains.WP_2015.520.1010.5035_AnyCPU.appxsym
+ResourcePack=D:\Git\TrainSchedule\Trains.WP\bin\Release\Trains.WP_2015.520.1010.5035_language-ru.appx
