@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <MvxSpinner
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:padding="2dp"
+        local:MvxBind="ItemsSource AutoSuggestions; SelectedItem From"
+        android:id="@+id/spinner1" />
+    <EditText
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        local:MvxBind="Text InventoryNumber" />
+    <AutoCompleteTextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        local:MvxBind="Text AutoSuggestions; completionHint From" />
+</LinearLayout>

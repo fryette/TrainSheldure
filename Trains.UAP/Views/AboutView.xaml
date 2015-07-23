@@ -1,0 +1,62 @@
+﻿<views:MvxWindowsPage x:Class="Trains.UAP.Views.AboutView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      d:DataContext="{d:DesignData AboutViewModel}">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.Resources>
+            <Storyboard x:Name="MyStoryboard">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateX)"
+                                               AutoReverse="True"
+                                               RepeatBehavior="forever"
+                                               Storyboard.TargetName="MainImage">
+                    <EasingDoubleKeyFrame KeyTime="0"
+                                          Value="100" />
+                    <EasingDoubleKeyFrame KeyTime="0:0:12"
+                                          Value="0" />
+                </DoubleAnimationUsingKeyFrames>
+            </Storyboard>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="5,0,0,0">
+            <GridView >
+                <Grid>
+                    <Image x:Name="MainImage"
+                           Source="/Assets/MenuIcon/result.jpg"
+                           Style="{StaticResource MainButtonImageStyle}"
+                           Tapped="ButtonBack_OnClick"/>
+                </Grid>
+            </GridView>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Uid="Version"
+                           Style="{StaticResource AboutAppStyle}"
+                           FontSize="24"
+                           Foreground="{ThemeResource SystemControlBackgroundAccentBrush}" />
+            </StackPanel>
+
+            <TextBlock Text="{Binding UsingLibrary}"
+                       FontSize="24"
+                       Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="MvvmCross, Newtonsoft.Json, AppPromo"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="{Binding SpecialThank}"
+                       Style="{StaticResource AboutAppStyle}"
+                       Foreground="{ThemeResource SystemControlBackgroundAccentBrush}"
+                       FontSize="24" />
+            <TextBlock Text="{Binding FirstDesigner}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="{Binding SecondDesigner}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <TextBlock Text="{Binding Version}"
+                       Style="{StaticResource AboutAppStyle}" />
+            <HyperlinkButton Content="chygunka.by"
+                             NavigateUri="http://chygunka.by" />
+        </StackPanel>
+    </Grid>
+</views:MvxWindowsPage>

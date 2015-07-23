@@ -1,0 +1,28 @@
+﻿<views:MvxWindowsPage x:Class="Trains.UAP.Views.CarriageView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      mc:Ignorable="d"
+                      d:DataContext="{d:DesignData CarriageViewModel}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <RadioButton x:Name="BackRadioButton"
+                             Style="{StaticResource BackRadioButtonStyle}"
+                             Click="ButtonBase_OnClick"
+                             Content="{Binding CarriageModel.Name}" />
+            </StackPanel>
+            <TextBlock Text="{Binding CarriageModel.Title}"
+                       Margin="0,10,0,0"
+                       FontSize="20"
+                       TextWrapping="WrapWholeWords" />
+        </StackPanel>
+        <Image x:Name="CarriagePicture"
+               Source="{Binding CarriageModel.Carriage,Converter={StaticResource EnumToImageConverter},ConverterParameter=Carriage}" />
+    </Grid>
+
+</views:MvxWindowsPage>

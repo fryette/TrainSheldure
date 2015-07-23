@@ -18,7 +18,7 @@ namespace Trains.WP
     /// </summary>
     public sealed partial class App : Application
     {
-        private TransitionCollection transitions;
+        private TransitionCollection _transitions;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -53,12 +53,11 @@ namespace Trains.WP
             if (rootFrame == null)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+	            rootFrame = new Frame {CacheSize = 1};
 
-                // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
+	            // TODO: change this value to a cache size that is appropriate for your application
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+	            if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     // TODO: Load state from previously suspended application
                 }
@@ -69,7 +68,7 @@ namespace Trains.WP
 
             if (rootFrame.Content == null)
             {
-                 var setup = new Setup(rootFrame);
+                var setup = new Setup(rootFrame);
                 setup.Initialize();
 
                 var start = Mvx.Resolve<IMvxAppStart>();
@@ -88,8 +87,9 @@ namespace Trains.WP
         private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
         {
             var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= RootFrame_FirstNavigated;
+	        if (rootFrame == null) return;
+	        rootFrame.ContentTransitions = _transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
+	        rootFrame.Navigated -= RootFrame_FirstNavigated;
         }
 
         /// <summary>
@@ -119,20 +119,14 @@ namespace Trains.WP
         {
             if (args.Kind == ActivationKind.Protocol)
             {
-                // Retrieves the activation Uri.
-                var protocolArgs = (ProtocolActivatedEventArgs)args;
-                var uri = protocolArgs.Uri;
 
-                var frame = Window.Current.Content as Frame;
+	            var frame = Window.Current.Content as Frame ?? new Frame();
 
-                if (frame == null)
-                    frame = new Frame();
-
-                // Navigates to MainPage, passing the Uri to it.
+	            // Navigates to MainPage, passing the Uri to it.
                 //frame.Navigate(typeof(MainPage), uri);
 
                 base.OnActivated(args);
-                
+
                 Window.Current.Content = frame;
 
                 // Ensure the current window is active

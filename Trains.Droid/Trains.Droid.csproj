@@ -17,7 +17,8 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkVersion>v4.4</TargetFrameworkVersion>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,30 +28,21 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidLinkMode>None</AndroidLinkMode>
-    <AndroidLinkSkip>
-    </AndroidLinkSkip>
     <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
-    <AndroidSupportedAbis>armeabi,armeabi-v7a,x86</AndroidSupportedAbis>
-    <AndroidStoreUncompressedFileExtensions>
-    </AndroidStoreUncompressedFileExtensions>
-    <MandroidI18n>
-    </MandroidI18n>
-    <JavaMaximumHeapSize>
-    </JavaMaximumHeapSize>
-    <JavaOptions>
-    </JavaOptions>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
     <MonoDroidExtraArgs>
     </MonoDroidExtraArgs>
+    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidSupportedAbis>armeabi;armeabi-v7a;x86</AndroidSupportedAbis>
+    <NoStdLib>true</NoStdLib>
+    <DebugType>full</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">
@@ -98,6 +90,18 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Cirrious.MvvmCross.Plugins.Color">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Color.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Color.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Color.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Color.3.5.1\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Color.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Email">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Email.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Email.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Email.Droid">
+      <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Email.3.5.0\lib\MonoAndroid\Cirrious.MvvmCross.Plugins.Email.Droid.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
@@ -107,18 +111,23 @@
     <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Serialize.cs" />
+    <Compile Include="Services\Analytics.cs" />
+    <Compile Include="Services\MarketPlace.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="SplashScreen.cs" />
     <Compile Include="Views\AboutView.cs" />
-    <Compile Include="Views\EditFavoriteRoutesView.cs" />
     <Compile Include="Views\HelpView.cs" />
     <Compile Include="Views\InformationView.cs" />
-    <Compile Include="Views\ItemView.cs" />
     <Compile Include="Views\MainView.cs" />
     <Compile Include="Views\ScheduleView.cs" />
-    <Compile Include="Views\SearchView.cs" />
     <Compile Include="Views\SettingsView.cs" />
+    <Compile Include="converters\Visibility.cs" />
+    <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
+    <Compile Include="converters\Color.cs" />
+    <Compile Include="Views\CarriageView.cs" />
+    <Compile Include="Bootstrap\EmailPluginBootstrap.cs" />
+    <Compile Include="converters\ReverseBoolean.cs" />
+    <Compile Include="Providers\MetricaContentProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -137,27 +146,75 @@
     <AndroidResource Include="Resources\layout\InformationView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\ItemView.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\layout\ScheduleView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\SettingsView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\SearchView.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
+    <AndroidResource Include="Resources\layout\scheduletemplate.axml" />
+    <AndroidResource Include="Resources\layout\lastroutetemplate.axml" />
+    <AndroidResource Include="Resources\drawable\borderLight.axml" />
+    <AndroidResource Include="Resources\drawable\borderDark.xml" />
+    <AndroidResource Include="Resources\values\Styles.axml" />
+    <AndroidResource Include="Resources\drawable\circle_shape.xml" />
+    <AndroidResource Include="Resources\layout\stoppointstemplate.axml" />
+    <AndroidResource Include="Resources\layout\informationaltemplate.axml" />
+    <AndroidResource Include="Resources\menu\main_menu.xml" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_refresh.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_import_export.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_import_export.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_import_export.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_import_export.png" />
+    <AndroidResource Include="Resources\menu\schedule_menu.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_about.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_important.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_action_not_important.png" />
+    <AndroidResource Include="Resources\layout\routestemplate.axml" />
+    <AndroidResource Include="Resources\drawable\circular_progress_bar.xml" />
+    <AndroidResource Include="Resources\drawable\GE.png" />
+    <AndroidResource Include="Resources\drawable\IL.png" />
+    <AndroidResource Include="Resources\drawable\IRLB_IRLE.png" />
+    <AndroidResource Include="Resources\drawable\RLB_RLE.png" />
+    <AndroidResource Include="Resources\layout\placetemplate.axml" />
+    <AndroidResource Include="Resources\layout\CarriageView.axml" />
+    <AndroidResource Include="Resources\drawable\FirstClassSleeper.png" />
+    <AndroidResource Include="Resources\drawable\CompartmentSleeper.png" />
+    <AndroidResource Include="Resources\drawable\EconomyClassSleeper.png" />
+    <AndroidResource Include="Resources\drawable\MultipleUnitCars1.png" />
+    <AndroidResource Include="Resources\drawable\MultipleUnitCars2.jpg" />
+    <AndroidResource Include="Resources\drawable\MultipleUnitCoach.png" />
+    <AndroidResource Include="Resources\drawable\SeatingCoaches1.png" />
+    <AndroidResource Include="Resources\drawable\SeatingCoaches2.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\drawable\train.jpg" />
+    <AndroidResource Include="Resources\drawable\Dlya_AdlyustravannyaWhite.png" />
+    <AndroidResource Include="Resources\drawable\Dlya_OtobrazheniaWhite.png" />
+    <AndroidResource Include="Resources\drawable\No_favoritesWhite.png" />
+    <AndroidResource Include="Resources\drawable\No_historyWhite.png" />
+    <AndroidResource Include="Resources\drawable\ObratnyyWhite.png" />
+    <AndroidResource Include="Resources\drawable\Marshrutau_NeWhite.png" />
+    <AndroidResource Include="Resources\drawable\Marshrutov_NeWhite.png" />
+    <AndroidResource Include="Resources\drawable\BackWhite.png" />
+    <AndroidResource Include="Resources\drawable\ZvarotnyWhite.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\MainView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
@@ -170,6 +227,14 @@
       <Project>{D5769CED-2D11-4058-8894-ACD18A90CD5A}</Project>
       <Name>Trains.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
+      <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
+      <Name>Trains.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Metrica\Metrica.csproj">
+      <Project>{961E4335-FF6F-44D2-B6C8-81010CAE166E}</Project>
+      <Name>Metrica</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -179,4 +244,13 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="converters\" />
+    <Folder Include="Resources\menu\" />
+    <Folder Include="Resources\drawable-hdpi\" />
+    <Folder Include="Resources\drawable-mdpi\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
+    <Folder Include="Resources\drawable-xxhdpi\" />
+    <Folder Include="Providers\" />
+  </ItemGroup>
 </Project>

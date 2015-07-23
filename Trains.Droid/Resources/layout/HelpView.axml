@@ -1,7 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-</LinearLayout>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:id="@android:id/tabhost"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="30dp" />
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:id="@+id/tab1"
+                android:orientation="vertical"
+                android:paddingLeft="5dip"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        style="@style/HelpTrainImage"
+                        android:src="@drawable/IL" />
+                    <TextView
+                        android:layout_marginLeft="5dip"
+                        local:MvxBind="Text HelpInformation[0].Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="5dip"
+                    android:layout_marginBottom="5dip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        style="@style/HelpTrainImage"
+                        android:src="@drawable/GE" />
+                    <TextView
+                        android:layout_marginLeft="5dip"
+                        local:MvxBind="Text HelpInformation[1].Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginBottom="5dip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        style="@style/HelpTrainImage"
+                        android:src="@drawable/IRLB_IRLE" />
+                    <TextView
+                        android:layout_marginLeft="5dip"
+                        local:MvxBind="Text HelpInformation[2].Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        style="@style/HelpTrainImage"
+                        android:src="@drawable/RLB_RLE" />
+                    <TextView
+                        android:layout_marginLeft="5dip"
+                        local:MvxBind="Text HelpInformation[3].Description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:paddingLeft="5dip"
+                android:id="@+id/tab2"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+                <Mvx.MvxListView
+                    android:layout_marginTop="5dip"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    local:MvxItemTemplate="@layout/placetemplate"
+                    local:MvxBind="ItemsSource CarriageInformation; ItemClick SelectCarriageCommand" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="10dip"
+                android:id="@+id/tab3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Mvx.MvxListView
+                    android:layout_marginTop="5dip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    local:MvxItemTemplate="@layout/placetemplate"
+                    local:MvxBind="ItemsSource PlaceInformation" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</TabHost>

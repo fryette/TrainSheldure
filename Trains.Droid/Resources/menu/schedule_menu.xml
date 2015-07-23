@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:local="http://schemas.android.com/apk/res-auto"
+android:id="@+id/mainMenu">
+    <item android:id="@+id/reverseSearch"
+       	  android:icon="@drawable/ic_action_import_export"
+          android:showAsAction="always" />
+    <item android:id="@+id/favorite"
+       	  android:icon="@drawable/ic_action_not_important"
+          android:showAsAction="always" />
+    <item android:id="@+id/unFavorite"
+     	  android:icon="@drawable/ic_action_important"
+          android:showAsAction="always" />
+    <item android:id="@+id/help"
+       	  android:title="справка"
+       	  android:icon="@drawable/ic_action_about"
+          android:showAsAction="always"/>
+</menu>

@@ -5,7 +5,7 @@ using Cirrious.MvvmCross.Droid.Views;
 namespace Trains.Droid
 {
     [Activity(
-		Label = "Trains.Droid"
+		Label = "Чыгунка.by"
 		, MainLauncher = true
 		, Icon = "@drawable/icon"
 		, Theme = "@style/Theme.Splash"

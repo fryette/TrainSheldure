@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Android.App;
 using Android.Views;
 using Android.Widget;
+using System.Diagnostics;
 
 namespace Trains.Droid
 {
@@ -22,7 +23,7 @@ namespace Trains.Droid
         
         public void Include(Switch @switch)
         {
-            @switch.CheckedChange += (sender, args) => @switch.Checked = !@switch.Checked;
+            //@switch.CheckedChange += (sender, args) => @switch.Checked = !@switch.Checked;
         }
 
         public void Include(View view)

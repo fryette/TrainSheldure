@@ -1,13 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:local="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <Button
-        android:id="@+id/MyButton"
+    <TabHost
+        android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/Search"
-        local:MvxBind="Click GoToSearchCommand" />
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="fill_parent"
+                android:layout_height="30dp"
+                local:MvxBind="Enabled ReverseBoolean(IsTaskRun)" />
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                <LinearLayout
+                    android:id="@+id/tab1"
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <TextView
+                        local:MvxBind="Text DateOfDeparture"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView2"
+                        android:layout_marginLeft="5dip" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true">
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/SearchDate" />
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/SearchDate"
+                            android:id="@+id/SearchType"
+                            local:MvxBind="Text VariantOfSearch[4]" />
+                    </RelativeLayout>
+                    <AutoCompleteTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/FromTextView"
+                        android:singleLine="true"
+                        local:MvxBind="Text From; Hint FromAutoSuggest" />
+                    <AutoCompleteTextView
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/ToTextView"
+                        local:MvxBind="Text To; Hint ToAutoSuggest" />
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/SearchTrain"
+                            local:MvxBind="Text Search" />
+                    </RelativeLayout>
+                    <TextView
+                        android:layout_marginLeft="5dip"
+                        android:text="Последние запросы"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView3"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <Mvx.MvxListView
+                        android:layout_marginLeft="5dip"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        local:MvxItemTemplate="@layout/lastroutetemplate"
+                        local:MvxBind="ItemsSource LastRoutes; ItemClick TappedRouteCommand" />
+                </LinearLayout>
+                <LinearLayout
+                    android:paddingLeft="5dip"
+                    android:id="@+id/tab2"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:orientation="vertical">
+                    <TextView
+                        local:MvxBind="Text LastRoute"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView3"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <TextView
+                        local:MvxBind="Text LastUpdateTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dip"
+                        android:id="@+id/textView3"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+                    <Mvx.MvxListView
+                        android:layout_marginTop="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        local:MvxItemTemplate="@layout/scheduletemplate"
+                        local:MvxBind="ItemsSource Trains; ItemClick SelectTrainCommand" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginLeft="10dip"
+                    android:id="@+id/tab3"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+                    <Mvx.MvxListView
+                        android:id="@+id/routes"
+                        android:layout_marginTop="5dip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        local:MvxItemTemplate="@layout/lastroutetemplate"
+                        local:MvxBind="ItemsSource FavoriteRequests; ItemClick TappedFavoriteCommand" />
+                </LinearLayout>
+                <Button
+                    local:MvxBind="Visibility Visibility(IsTaskRun)"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:alpha="0.001" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_gravity="top"
+                    local:MvxBind="Visibility Visibility(IsTaskRun)" />
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            local:MvxBind="Visibility Visibility(IsDownloadRun)">
+            <LinearLayout
+                android:background="@drawable/splash"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                local:MvxBind="Visibility Visibility(IsDownloadRun)"
+                android:orientation="vertical">
+                <TextView
+                    android:text="Идет загрузка, это не продлится слишком долго"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textView2" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:progressDrawable="@drawable/circular_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_gravity="center" />
+            </LinearLayout>
+        </LinearLayout>
+    </TabHost>
 </LinearLayout>

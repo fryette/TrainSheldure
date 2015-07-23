@@ -1,0 +1,54 @@
+﻿<Page x:Class="Trains.UAP.Controls.ScheduleControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="using:Trains.UAP.Controls"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:viewModels="using:Trains.Core.ViewModels"
+      mc:Ignorable="d"
+      d:DataContext="{d:DesignInstance viewModels:MainViewModel}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=last}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0">
+                <TextBlock Text="{Binding LastRoute}"
+                           Style="{StaticResource BasedTextBlockStyle}"
+                           FontSize="{StaticResource MainFontSize}" />
+                <TextBlock Text="{Binding LastUpdateTime}"
+                           Style="{StaticResource BasedTextBlockStyle}"
+                           FontSize="{StaticResource SmallFontSize}"
+                           VerticalAlignment="Bottom" />
+            </StackPanel>
+            <SemanticZoom Grid.Row="1"
+                          x:Name="Root"
+                          Template="{StaticResource SemantickZoom}"
+                          DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
+                <SemanticZoom.ZoomedInView>
+                    <ListView x:Name="TrainList"
+                              ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
+                              ItemTemplate="{StaticResource ScheduleTemplate}"
+                              Tapped="TrainList_OnTapped">
+                        <ListView.GroupStyle>
+                            <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
+                                        HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
+                                        HidesIfEmpty="True" />
+                        </ListView.GroupStyle>
+                    </ListView>
+                </SemanticZoom.ZoomedInView>
+                <SemanticZoom.ZoomedOutView>
+                    <ListView ItemsSource="{Binding ElementName=Root,Path=DataContext.View.CollectionGroups}"
+                              ItemTemplate="{StaticResource GenericJumpListPickerItemTemplate}"
+                              Style="{StaticResource GenericJumpListPickerStyle}">
+                    </ListView>
+                </SemanticZoom.ZoomedOutView>
+            </SemanticZoom>
+            <Button x:Name="CommandButton"
+                    Visibility="Collapsed"
+                    Command="{Binding SelectTrainCommand}" />
+        </Grid>
+    </Grid>
+</Page>

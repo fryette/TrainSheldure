@@ -7,16 +7,16 @@ namespace Trains.WP.Views
     /// </summary>
     public sealed partial class HelpView
     {
-        static int LastPivotIndex;
+        static int _lastPivotIndex;
         public HelpView()
         {
             InitializeComponent();
-            MainPivot.SelectedIndex = LastPivotIndex;
+            MainPivot.SelectedIndex = _lastPivotIndex;
         }
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)
         {
-            LastPivotIndex = MainPivot.SelectedIndex;
+            _lastPivotIndex = MainPivot.SelectedIndex;
         }
     }
 }

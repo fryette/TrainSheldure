@@ -1,7 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-</LinearLayout>
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <Mvx.MvxListView
+            android:scrollbars="none"
+            android:layout_marginTop="5dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            local:MvxItemTemplate="@layout/informationaltemplate"
+            local:MvxBind="ItemsSource Train.AdditionalInformation" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            local:MvxBind="Visibility Visibility(IsTaskRun)"
+            android:orientation="vertical">
+            <TextView
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                local:MvxBind="Text DownloadStopPoints" />
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:progressDrawable="@drawable/circular_progress_bar"
+                style="?android:attr/progressBarStyleHorizontal" />
+        </LinearLayout>
+        <Mvx.MvxListView
+            android:layout_marginTop="5dip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            local:MvxItemTemplate="@layout/stoppointstemplate"
+            local:MvxBind="ItemsSource StopPointList"
+            android:id="@+id/StopPointsListView" />
+    </LinearLayout>
+</FrameLayout>

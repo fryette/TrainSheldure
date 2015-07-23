@@ -1,7 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
+    android:id="@android:id/tabcontent"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-
-</LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:paddingLeft="5dip"
+        android:id="@+id/schedule">
+        <TextView
+            android:singleLine="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            local:MvxBind="Text Request"
+            android:textSize="20dip"
+            android:gravity="center" />
+        <Mvx.MvxListView
+            android:layout_marginTop="5dip"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            local:MvxItemTemplate="@layout/scheduletemplate"
+            local:MvxBind="ItemsSource Trains; ItemClick SelectTrainCommand" />
+    </LinearLayout>
+    <Button
+        local:MvxBind="Visibility Visibility(IsSearchStart)"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:alpha="0.001" />
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"
+        android:layout_gravity="top"
+        local:MvxBind="Visibility Visibility(IsSearchStart)" />
+</FrameLayout>

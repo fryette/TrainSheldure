@@ -1,147 +1,255 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
-using System;
+using static System.String;
+using static Trains.Core.Resources.Defines;
+using ResourceLoader = Trains.Core.Resources.ResourceLoader;
 
 namespace Trains.Core.ViewModels
 {
-    public class SettingsViewModel : MvxViewModel
-    {
-        #region readonlyProperties
+	public class SettingsViewModel : MvxViewModel
+	{
+		#region readonlyProperties
 
-        private readonly ISerializableService _serializable;
-        private readonly IAppSettings _appSettings;
-        private readonly IAnalytics _analytics;
-        private readonly ILocalDataService _local;
+		private readonly ISerializableService _serializable;
+		private readonly IAppSettings _appSettings;
+		private readonly IAnalytics _analytics;
+		private readonly ILocalDataService _local;
+		private readonly IUserInteraction _userInteraction;
 
-        #endregion
 
-        #region command
+		#endregion
 
-        public IMvxCommand ResetSettingsCommand { get; private set; }
+		#region command
 
-        #endregion
+		public IMvxCommand ResetSettingsCommand { get; private set; }
+		public IMvxCommand DownloadSelectedCountryStopPointsCommand { get; private set; }
 
-        #region ctor
+		#endregion
 
-        public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics, ILocalDataService local)
-        {
-            ResetSettingsCommand = new MvxCommand(ResetSetting);
+		#region ctor
 
-            _local = local;
-            _analytics = analytics;
-            _serializable = serializable;
-            _appSettings = appSettings;
-        }
+		public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics, ILocalDataService local, IUserInteraction userInteraction)
+		{
+			ResetSettingsCommand = new MvxCommand(ResetSetting);
+			DownloadSelectedCountryStopPointsCommand = new MvxCommand(DownloadCountryStopPoint);
+			_analytics = analytics;
+			_serializable = serializable;
+			_appSettings = appSettings;
+			_local = local;
+			_userInteraction = userInteraction;
+		}
 
-        #endregion
+		#endregion
 
-        #region properties
+		#region properties
 
-        #region UIproperties
+		#region UIproperties
 
-        public string Header { get; set; }
-        private string _needReboot { get; set; }
-        public string NeedReboot
-        {
-            get
-            {
-                return _needReboot;
-            }
-            set
-            {
-                _needReboot = value;
-                RaisePropertyChanged(() => NeedReboot);
-            }
-        }
-        public string SelectLanguage { get; set; }
-        public string ResetSettings { get; set; }
+		public string Header { get; set; }
+		public string SelectCountries { get; set; }
+		public string DownloadSelectCountry { get; set; }
 
-        #endregion
+		private string _needReboot;
+		public string NeedReboot
+		{
+			get
+			{
+				return _needReboot;
+			}
+			set
+			{
+				_needReboot = value;
+				RaisePropertyChanged(() => NeedReboot);
+			}
+		}
+		public string SelectLanguage { get; set; }
+		public string ResetSettings { get; set; }
 
-        /// <summary>
-        /// Languages
-        /// </summary>
-        private readonly List<Language> _languagesList = new List<Language>
-        {
-            new Language{Name = "Русский",Id = "ru"},
-            new Language{Name = "Беларускі",Id = "be"},
-            new Language{Name = "English",Id = "en"}
-        };
-        public List<Language> Languages
-        {
-            get { return _languagesList; }
-        }
+		#endregion
 
-        /// <summary>
-        /// Used to set code behind variant of search.
-        /// </summary> 
-        private Language _selectedLanguage;
-        public Language SelectedLanguage
-        {
-            get
-            {
-                return _selectedLanguage;
-            }
+		public List<Language> Languages
+		{ get; }
+		= new List<Language>
+		{
+			new Language{Name = "Русский",Id = "ru"},
+			new Language{Name = "Беларускі",Id = "be"},
+			new Language{Name = "English",Id = "en"}
+		};
 
-            set
-            {
-                _selectedLanguage = value;
-                RaisePropertyChanged(() => SelectedLanguage);
-                SaveChanges();
-            }
-        }
+		/// <summary>
+		/// Used to set code behind variant of search.
+		/// </summary> 
+		private Language _selectedLanguage;
+		public Language SelectedLanguage
+		{
+			get
+			{
+				return _selectedLanguage;
+			}
 
-        #endregion
+			set
+			{
+				_selectedLanguage = value;
+				RaisePropertyChanged(() => SelectedLanguage);
+				SaveChanges();
+			}
+		}
 
-        #region actions
+		private bool _isStationsDownloading;
+		public bool IsStationsDownloading
+		{
+			get
+			{
+				return _isStationsDownloading;
+			}
 
-        /// <summary>
-        /// Invoked when this page is about to be displayed in a Frame.
-        /// </summary>
-        public void Init()
-        {
-            RestoreUI();
-            if (_appSettings.Language == null)
-                _appSettings.Language = new Language { Id = "ru" };
-            SelectedLanguage = _languagesList.First(x => x.Id == _appSettings.Language.Id);
-        }
+			set
+			{
+				_isStationsDownloading = value;
+				RaisePropertyChanged(() => IsStationsDownloading);
+			}
+		}
 
-        private void SaveChanges()
-        {
-            if (SelectedLanguage.Id != _appSettings.Language.Id)
-            {
-                _analytics.SentEvent(Constants.LanguageChanged, SelectedLanguage.Name);
-                _serializable.Serialize<Language>(SelectedLanguage, Constants.CurrentLanguage);
-                NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
-            }
-            else
-            {
-                NeedReboot = String.Empty;
-                _serializable.Serialize<Language>(_appSettings.Language, Constants.CurrentLanguage);
-            }
-        }
+		private List<Country> _countries;
+		public List<Country> Countries
+		{
+			get
+			{
+				return _countries;
+			}
 
-        private void ResetSetting()
-        {
-            _serializable.Delete(Constants.IsFirstRun);
-            NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
-        }
+			set
+			{
+				_countries = value;
+				RaisePropertyChanged(() => Countries);
+			}
+		}
 
-        private void RestoreUI()
-        {
-            Header = ResourceLoader.Instance.Resource["Settings"];
-            SelectLanguage = ResourceLoader.Instance.Resource["SelectLanguage"];
-            ResetSettings = ResourceLoader.Instance.Resource["ResetSettings"];
-        }
+		private Country _selectedCountry;
 
-        #endregion
-    }
+		public Country SelectedCountry
+		{
+			get
+			{
+				return _selectedCountry;
+			}
+
+			set
+			{
+				_selectedCountry = value;
+				RaisePropertyChanged(() => SelectedCountry);
+			}
+		}
+
+		private bool _isAllCountriesDownloaded;
+
+		public bool IsAllCountriesDownloaded
+		{
+			get
+			{
+				return _isAllCountriesDownloaded;
+			}
+
+			set
+			{
+				_isAllCountriesDownloaded = value;
+				RaisePropertyChanged(() => IsAllCountriesDownloaded);
+			}
+		}
+
+		#endregion
+
+		#region actions
+
+		/// <summary>
+		/// Invoked when this page is about to be displayed in a Frame.
+		/// </summary>
+		public void Init()
+		{
+			RestoreUiBinding();
+			if (_appSettings.Language == null)
+				_appSettings.Language = new Language { Id = "ru" };
+			SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
+			Countries = _appSettings.AutoCompletion.Skip(Common.NumberOfBelarussianStopPoints).Any() ?
+				new List<Country>(_appSettings.Countries.Except(_appSettings.AutoCompletion.Skip(Common.NumberOfBelarussianStopPoints).GroupBy(x => x.LabelTail).First().Select(x => new Country { Name = x.LabelTail }))) :
+				_appSettings.Countries;
+			SelectedCountry = Countries.FirstOrDefault();
+
+			CheckIsAllCountriesDownloaded();
+		}
+
+		private void SaveChanges()
+		{
+			if (SelectedLanguage.Id != _appSettings.Language.Id)
+			{
+				_analytics.SentEvent(Analytics.LanguageChanged, SelectedLanguage.Name);
+				_serializable.Serialize(SelectedLanguage, Restoring.CurrentLanguage);
+				NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
+			}
+			else
+			{
+				NeedReboot = Empty;
+				_serializable.Serialize(_appSettings.Language, Restoring.CurrentLanguage);
+			}
+		}
+
+		private void ResetSetting()
+		{
+			_serializable.Delete(Common.IsFirstRun);
+			NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
+		}
+
+		private async void DownloadCountryStopPoint()
+		{
+			if (SelectedCountry == null)
+				return;
+			IsStationsDownloading = true;
+
+			var countryStopPoints = await _local.GetLanguageData<List<CountryStopPointItem>>($"{Uri.CountriesFolder}{SelectedCountry.Name}.json");
+			if (countryStopPoints != null && countryStopPoints.Any() )
+			{
+				foreach (var countryStopPoint in countryStopPoints)
+					_appSettings.AutoCompletion.Add(countryStopPoint);
+				_serializable.Serialize(_appSettings, Restoring.AppSettings);
+				Countries.Remove(SelectedCountry);
+				await _userInteraction.AlertAsync(
+					$"{SelectedCountry.Name}{' '}{ResourceLoader.Instance.Resource["CountrySuccessfullyAdded"]}");
+
+				CheckIsAllCountriesDownloaded();
+
+				SelectedCountry = Countries.FirstOrDefault();
+			}
+
+			else
+			{
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["CountryCanNotDownloaded"]);
+				_analytics.SentEvent("exception", "Contries", SelectedCountry.Name);
+			}
+
+			IsStationsDownloading = false;
+		}
+
+		private void CheckIsAllCountriesDownloaded()
+		{
+			if (!Countries.Any())
+				IsAllCountriesDownloaded = true;
+		}
+
+		private void RestoreUiBinding()
+		{
+			Header = ResourceLoader.Instance.Resource["Settings"];
+			SelectLanguage = ResourceLoader.Instance.Resource["SelectLanguage"];
+			ResetSettings = ResourceLoader.Instance.Resource["ResetSettings"];
+			SelectCountries = ResourceLoader.Instance.Resource["SelectCountries"];
+			DownloadSelectCountry = ResourceLoader.Instance.Resource["DownloadSelectCountry"];
+		}
+
+		#endregion
+	}
 }

@@ -6,6 +6,7 @@ using Android.App;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
+[assembly:Application(Label="Чыгунка.by")]
 [assembly: AssemblyTitle("Trains.Droid")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
