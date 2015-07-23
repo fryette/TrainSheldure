@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Entities\About.cs" />
+    <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\CountryStopPointItem.cs" />
     <Compile Include="Entities\Languages.cs" />
     <Compile Include="Entities\LastRequest.cs" />
@@ -51,7 +52,6 @@
     <Compile Include="Entities\TrainStop.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entities\ChygunkaSettings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -9,7 +9,7 @@ namespace Trains.WP.Views
     {
         public ShareView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
     }
 }

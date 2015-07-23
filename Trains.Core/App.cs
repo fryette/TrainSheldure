@@ -6,26 +6,25 @@ using Trains.Core.Resources;
 using Trains.Core.Services;
 using Trains.Core.Services.Interfaces;
 using Trains.Core.ViewModels;
-using Trains.Model.Entities;
 
 namespace Trains.Core
 {
-    public class App : MvxApplication
-    {
-        public override void Initialize()
-        {
-            CreatableTypes()
-                .EndingWith("Service")
-                .AsInterfaces()
-                .RegisterAsLazySingleton();
+	public class App : MvxApplication
+	{
+		public override void Initialize()
+		{
+			CreatableTypes()
+				.EndingWith("Service")
+				.AsInterfaces()
+				.RegisterAsLazySingleton();
 
 
-            RegisterAppStart<MainViewModel>();
+			RegisterAppStart<MainViewModel>();
 
-            Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
-            Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
-            Mvx.LazyConstructAndRegisterSingleton<IPattern, Patterns>();
+			Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
+			Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
+			Mvx.LazyConstructAndRegisterSingleton<IPattern, Patterns>();
 
-        }
-    }
+		}
+	}
 }

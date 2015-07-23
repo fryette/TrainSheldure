@@ -1,11 +1,10 @@
-﻿using Trains.Core.Resources;
-using Trains.Core.ViewModels;
-using Windows.ApplicationModel.Core;
-using Windows.UI;
+﻿using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
+using Trains.Core.Resources;
+using Trains.Core.ViewModels;
 
 namespace Trains.WP.Views
 {
@@ -14,17 +13,17 @@ namespace Trains.WP.Views
     /// </summary>
     public sealed partial class MainView
     {
-        static int LastPivotIndex;
+        static int _lastPivotIndex;
         public MainView()
         {
             InitializeComponent();
-            MainPivot.SelectedIndex = LastPivotIndex;
-            this.NavigationCacheMode = Windows.UI.Xaml.Navigation.NavigationCacheMode.Enabled;
+            MainPivot.SelectedIndex = _lastPivotIndex;
+            NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
         private void Pivot_OnPivotItemLoaded(Pivot sender, PivotItemEventArgs args)
         {
-            LastPivotIndex = MainPivot.SelectedIndex;
+            _lastPivotIndex = MainPivot.SelectedIndex;
             if (args.Item == MainPivotItem) SetAppBarVisibility(false, true);
             else if (args.Item == LastPivot)
                 SetAppBarVisibility(true);
@@ -52,14 +51,14 @@ namespace Trains.WP.Views
 
         private void TrainList_OnTapped(object sender, TappedRoutedEventArgs e)
         {
-            CommandButton.Command.Execute(TrainList.SelectedItem);
+            CommandButton.Command?.Execute(TrainList.SelectedItem);
         }
 
         private void AutoSuggestBox_ManipulationStarted(object sender, RoutedEventArgs e)
         {
             SetVisibility(Visibility.Collapsed);
             DataPicker.Visibility = Visibility.Collapsed;
-            if ((AutoSuggestBox)sender == From)
+            if (sender as AutoSuggestBox == From)
                 SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Collapsed);
             else
                 SetVisibilityAutossugestBox(Visibility.Collapsed, Visibility.Visible);
@@ -78,6 +77,7 @@ namespace Trains.WP.Views
             comboBox.Visibility = visibility;
             SearchButton.Visibility = visibility;
             Routes.Visibility = visibility;
+	        CommandBar.Visibility = visibility;
         }
 
         void SetVisibilityAutossugestBox(Visibility from, Visibility to)
@@ -88,7 +88,7 @@ namespace Trains.WP.Views
 
         private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataPicker.Visibility = comboBox.SelectedItem == ResourceLoader.Instance.Resource["OnDay"] ? Visibility.Visible : Visibility.Collapsed;
+            DataPicker.Visibility = ReferenceEquals(comboBox.SelectedItem, ResourceLoader.Instance.Resource["OnDay"]) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }

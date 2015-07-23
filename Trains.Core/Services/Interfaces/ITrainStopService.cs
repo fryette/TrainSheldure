@@ -4,8 +4,8 @@ using Trains.Model.Entities;
 
 namespace Trains.Core.Services.Interfaces
 {
-    public interface ITrainStopService
-    {
-        Task<IEnumerable<TrainStop>> GetTrainStop(string link);
-    }
+	public interface ITrainStopService
+	{
+		Task<IEnumerable<TrainStop>> GetTrainStop(string link);
+	}
 }
