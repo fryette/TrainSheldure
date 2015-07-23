@@ -41,12 +41,20 @@
                             ItemsSource="{Binding AutoSuggestions}"
                             Style="{StaticResource AutoSuggestBoxStyle}"
                             RelativePanel.Below="From" />
-            <Button x:Name="SearchButton"
-                    Margin="0,5,0,0"
-                    Content="{Binding Search}"
-                    Command="{Binding SearchTrainCommand}"
-                    RelativePanel.Below="To"
-                    RelativePanel.AlignLeftWith="To" />
+            <StackPanel Orientation="Horizontal"
+                        Margin="0,5,0,0"
+                        x:Name="SearchButton"
+                        RelativePanel.Below="To"
+                        RelativePanel.AlignLeftWith="To">
+                <Button 
+                        Content="{Binding Search}"
+                        Command="{Binding SearchTrainCommand}"
+                         />
+                <Button x:Name="SwapAppBar"
+                        Margin="5,0,0,0"
+                        Content="{Binding SwapAppBar}"
+                        Command="{Binding SwapCommand}" />
+            </StackPanel>
             <ListView x:Name="Routes"
                       Header="{Binding LastRequests}"
                       ItemsSource="{Binding LastRoutes}"
@@ -71,15 +79,5 @@
                           HorizontalAlignment="Center" />
         </RelativePanel>
     </Grid>
-    <Page.BottomAppBar>
-        <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
-                    IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
-            <AppBarButton x:Name="SwapAppBar"
-                          Label="{Binding SwapAppBar}"
-                          Icon="Sort"
-                          Command="{Binding SwapCommand}"
-                          IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
-        </CommandBar>
-    </Page.BottomAppBar>
 </Page>
 

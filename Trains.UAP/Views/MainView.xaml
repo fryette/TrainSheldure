@@ -53,6 +53,8 @@
                 </StackPanel>
             </SplitView.Pane>
             <Grid Background="#DDDDDD">
+                <Image Source="/Assets/WideLogo1.png"
+                       VerticalAlignment="Top" />
                 <Frame x:Name="rootFrame"
                        Margin="20,155,20,0" />
             </Grid>
