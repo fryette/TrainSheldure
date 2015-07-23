@@ -6,7 +6,7 @@
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData MainViewModel}">
-    <Grid>
+    <Grid Background="#DDDDDD">
         <SplitView x:Name="rootSplitView"
                    Background="Black"
                    OpenPaneLength="240"
@@ -19,7 +19,7 @@
                            Width="60"
                            Height="100"
                            HorizontalAlignment="Left"
-                           Margin="35,65,0,30" />
+                           Margin="35,10,0,0" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
                                  Click="ButtonHome_OnClick"
@@ -52,16 +52,9 @@
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                 </StackPanel>
             </SplitView.Pane>
-            <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                  Padding="5,0">
-                <StackPanel Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <ProgressBar IsIndeterminate="True"
-                                 VerticalAlignment="Top" />
-                    <TextBlock Text="{Binding Update}" />
-                </StackPanel>
-
+            <Grid Background="#DDDDDD">
                 <Frame x:Name="rootFrame"
-                       Margin="0,20,0,0" />
+                       Margin="20,170,20,0" />
             </Grid>
         </SplitView>
         <Grid Background="{StaticResource BackgroundColorBrush}"

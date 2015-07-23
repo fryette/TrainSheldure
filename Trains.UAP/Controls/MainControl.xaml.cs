@@ -21,59 +21,73 @@ using Trains.Core.ViewModels;
 
 namespace Trains.UAP.Controls
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class MainControl
-    {
-        public MainControl()
-        {
-            this.InitializeComponent();
-        }
+	/// <summary>
+	/// An empty page that can be used on its own or navigated to within a Frame.
+	/// </summary>
+	public sealed partial class MainControl
+	{
+		public MainControl()
+		{
+			this.InitializeComponent();
+			SizeChanged += MainControl_SizeChanged;
+			Loaded += MainControl_Loaded;
+		}
 
-        private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-        {
-            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
-            CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
-            SetVisibility(Visibility.Visible);
-            SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
-        }
+		private void MainControl_Loaded(object sender, RoutedEventArgs e)
+		{
+			//Frame.Width -= 1;
+			//Frame.Width += 1;
 
-        private void AutoSuggestBox_ManipulationStarted(object sender, RoutedEventArgs e)
-        {
-            SetVisibility(Visibility.Collapsed);
-            DataPicker.Visibility = Visibility.Collapsed;
-            if ((AutoSuggestBox)sender == From)
-                SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Collapsed);
-            else
-                SetVisibilityAutossugestBox(Visibility.Collapsed, Visibility.Visible);
+		}
 
-        }
+		private void MainControl_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			RootPanel.Width = e.NewSize.Width > 720 ? (e.NewSize.Width-40) * 0.6 : e.NewSize.Width-40;
+		}
 
-        private void AutoSuggestBox_ManipulationCompleted(object sender, RoutedEventArgs e)
-        {
-            SetVisibility(Visibility.Visible);
-            SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
-        }
+		private void AutoSuggestBox_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+		{
+			CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = false;
+			CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
+			SetVisibility(Visibility.Visible);
+			SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
+			comboBox_SelectionChanged(null, null);
+		}
 
-        private void SetVisibility(Visibility visibility)
-        {
-            comboBox.Visibility = visibility;
-            SearchButton.Visibility = visibility;
-            Routes.Visibility = visibility;
-        }
+		private void AutoSuggestBox_ManipulationStarted(object sender, RoutedEventArgs e)
+		{
+			SetVisibility(Visibility.Collapsed);
+			DataPicker.Visibility = Visibility.Collapsed;
+			if ((AutoSuggestBox)sender == From)
+				SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Collapsed);
+			else
+				SetVisibilityAutossugestBox(Visibility.Collapsed, Visibility.Visible);
 
-        void SetVisibilityAutossugestBox(Visibility from, Visibility to)
-        {
-            From.Visibility = from;
-            To.Visibility = to;
-        }
+		}
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            DataPicker.Visibility = comboBox.SelectedItem == ResourceLoader.Instance.Resource["OnDay"] ? Visibility.Visible : Visibility.Collapsed;
-        }
-    }
+		private void AutoSuggestBox_ManipulationCompleted(object sender, RoutedEventArgs e)
+		{
+			SetVisibility(Visibility.Visible);
+			SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
+			comboBox_SelectionChanged(null, null);
+		}
+
+		private void SetVisibility(Visibility visibility)
+		{
+			comboBox.Visibility = visibility;
+			SearchButton.Visibility = visibility;
+			Routes.Visibility = visibility;
+		}
+
+		void SetVisibilityAutossugestBox(Visibility from, Visibility to)
+		{
+			From.Visibility = from;
+			To.Visibility = to;
+		}
+
+		private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			DataPicker.Visibility = comboBox.SelectedItem == ResourceLoader.Instance.Resource["OnDay"] ? Visibility.Visible : Visibility.Collapsed;
+		}
+	}
 }
