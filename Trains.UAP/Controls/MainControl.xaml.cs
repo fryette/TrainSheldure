@@ -30,14 +30,6 @@ namespace Trains.UAP.Controls
 		{
 			this.InitializeComponent();
 			SizeChanged += MainControl_SizeChanged;
-			Loaded += MainControl_Loaded;
-		}
-
-		private void MainControl_Loaded(object sender, RoutedEventArgs e)
-		{
-			//Frame.Width -= 1;
-			//Frame.Width += 1;
-
 		}
 
 		private void MainControl_SizeChanged(object sender, SizeChangedEventArgs e)
