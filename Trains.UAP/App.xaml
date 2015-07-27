@@ -677,14 +677,20 @@
                                         <ColumnDefinition Width="48" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock FontSize="34"
+                                    <!--<TextBlock FontSize="34"
                                                Height="38"
                                                Foreground="Black"
-                                               Text="{TemplateBinding Tag}"
+                                               Text=""
                                                FontFamily="Segoe MDL2 Assets"
                                                Margin="5,8,5,5"
                                                VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" />
+                                               HorizontalAlignment="Center" />-->
+                                    <Image Source="/Assets/backbutton.png"
+                                           Margin="5,8,5,5"
+                                           Height="38"
+                                           Width="38"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
                                     <ContentPresenter x:Name="ContentPresenter"
                                                       AutomationProperties.AccessibilityView="Raw"
                                                       ContentTemplate="{TemplateBinding ContentTemplate}"

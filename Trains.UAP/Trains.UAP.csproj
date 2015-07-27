@@ -188,6 +188,7 @@
     <Content Include="Assets\AppBarIcons\appbar.star.png" />
     <Content Include="Assets\AppBarIcons\appbar.vkontakteBlack.png" />
     <Content Include="Assets\AppBarIcons\appbar.vkontakteWhite.png" />
+    <Content Include="Assets\backbutton.png" />
     <Content Include="Assets\Backgrounds\BackBlack.png" />
     <Content Include="Assets\Backgrounds\BackWhite.png" />
     <Content Include="Assets\Backgrounds\Dlya_AdlyustravannyaBlack.png" />
