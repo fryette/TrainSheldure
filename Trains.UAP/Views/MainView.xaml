@@ -4,12 +4,14 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      xmlns:views1="using:Trains.UAP.Views"
+                      xmlns:triggers="using:Trains.UAP.Triggers"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData MainViewModel}">
     <Grid Background="#DDDDDD">
         <SplitView x:Name="rootSplitView"
                    Background="Black"
-                   OpenPaneLength="240"
+                   OpenPaneLength="340"
                    CompactPaneLength="110"
                    DisplayMode="CompactOverlay"
                    PaneBackground="#202020">
@@ -22,24 +24,28 @@
                            Margin="35,10,0,0" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
+                                 x:Name="MainButton"
                                  Click="ButtonHome_OnClick"
                                  Content="{Binding MainPivotItem}"
                                  Foreground="#666666"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
+                                 x:Name="ScheduleButton"
                                  Click="ButtonSchedule_OnClick"
                                  Foreground="#666666"
                                  Content="{Binding LastSchedulePivotItem}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Tag=""
+                                 x:Name="FavoriteButton"
                                  Click="ButtonFavorite_OnClick"
                                  Foreground="#666666"
                                  Content="{Binding RoutesPivotItem}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Click="ButtonAbout_OnClick"
+                                 x:Name="AboutButton"
                                  Tag=""
                                  Foreground="#666666"
                                  Content="{Binding AboutPivotItem}"
@@ -47,6 +53,7 @@
                     <RadioButton Style="{StaticResource NavRadioButtonStyle}"
                                  Click="ButtonHelp_OnClick"
                                  Foreground="#666666"
+                                 x:Name="HelpButton"
                                  Tag=""
                                  Content="{Binding HelpAppBar}"
                                  IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}" />
@@ -70,6 +77,29 @@
                 <ProgressBar IsIndeterminate="True" />
             </StackPanel>
         </Grid>
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="InFullScreen">
+                    <VisualState.StateTriggers>
+                        <triggers:IsFullScreenModeTrigger />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="rootSplitView.CompactPaneLength"
+                                Value="200" />
+                        <Setter Target="MainButton.Padding"
+                                Value="10,0,0,0" />
+                        <Setter Target="ScheduleButton.Padding"
+                                Value="10,0,0,0" />
+                        <Setter Target="FavoriteButton.Padding"
+                                Value="10,0,0,0" />
+                        <Setter Target="HelpButton.Padding"
+                                Value="10,0,0,0" />
+                        <Setter Target="AboutButton.Padding"
+                                Value="10,0,0,0" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
     <!--<Page.BottomAppBar>
         <CommandBar Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
@@ -85,4 +115,5 @@
                           IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
         </CommandBar>
     </Page.BottomAppBar>-->
+    
 </views:MvxWindowsPage>

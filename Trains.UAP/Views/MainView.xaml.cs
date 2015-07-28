@@ -1,5 +1,7 @@
 ﻿using System;
 using Windows.ApplicationModel.Store;
+using Windows.UI.Notifications;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -24,12 +26,12 @@ namespace Trains.UAP.Views
             Loaded += MainView_Loaded;
         }
 
-        private void MainView_Loaded(object sender, RoutedEventArgs e)
+		private void MainView_Loaded(object sender, RoutedEventArgs e)
         {
             NavigateTo(CurrentPage ?? typeof(MainControl));
-        }
+		}
 
-        private void ButtonSchedule_OnClick(object sender, RoutedEventArgs e)
+		private void ButtonSchedule_OnClick(object sender, RoutedEventArgs e)
         {
             NavigateTo(typeof(ScheduleControl));
         }

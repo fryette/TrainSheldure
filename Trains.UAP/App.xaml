@@ -649,6 +649,7 @@
                                                       ContentTransitions="{TemplateBinding ContentTransitions}"
                                                       Content="{TemplateBinding Content}"
                                                       Grid.Column="1"
+                                                      FontSize="19"
                                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                                       Margin="{TemplateBinding Padding}"
                                                       TextWrapping="Wrap"
