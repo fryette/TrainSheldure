@@ -2,6 +2,7 @@
 using Trains.Core.Interfaces;
 using Trains.Core.Services.Interfaces;
 using Trains.Core.ViewModels;
+using Trains.UAP.Services;
 
 namespace Trains.UAP.Views
 {
@@ -17,7 +18,7 @@ namespace Trains.UAP.Views
         }
         private void InitViewModel()
         {
-            var model = new SettingsViewModel(Mvx.Resolve<ISerializableService>(), Mvx.Resolve<IAppSettings>(), Mvx.Resolve<IAnalytics>(), Mvx.Resolve<ILocalDataService>());
+            var model = new SettingsViewModel(Mvx.Resolve<ISerializableService>(), Mvx.Resolve<IAppSettings>(), Mvx.Resolve<IAnalytics>(), Mvx.Resolve<ILocalDataService>(),new UserInteractionService());
             model.Init();
             DataContext = model;
         }

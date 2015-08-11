@@ -15,9 +15,9 @@
 
         <StackPanel Grid.Row="0"
                     Orientation="Horizontal">
-            <RadioButton Style="{StaticResource BackRadioButtonStyle}"
-                         Click="ButtonBack_OnClick"
-                         Content="{Binding Train.City}" />
+            <Button Style="{StaticResource BackRadioButtonStyle}"
+                    Click="ButtonBack_OnClick"
+                    Content="{Binding Train.City}" />
         </StackPanel>
         <Grid Row="1">
             <ScrollViewer>

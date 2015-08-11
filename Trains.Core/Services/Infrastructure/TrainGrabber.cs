@@ -198,11 +198,14 @@ namespace Trains.Core.Services.Infrastructure
 			{
 				trainsList[i].AdditionalInformation = additionalInformation[i];
 				trainsList[i].Link = linksList[i];
-				if (trainsList[i].DepartureDate != null)
-					trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource["No"]) ?
-						ResourceLoader.Instance.Resource["PlaceNo"] : ResourceLoader.Instance.Resource["PlaceYes"];
-				else
-					trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource["SpecifyDate"];
+
+				if (additionalInformation[i].Any())
+					if (trainsList[i].DepartureDate != null)
+						trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource["No"]) ?
+							ResourceLoader.Instance.Resource["PlaceNo"] : ResourceLoader.Instance.Resource["PlaceYes"];
+					else
+						trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource["SpecifyDate"];
+
 				var placeClasses = new PlaceClasses();
 				foreach (var name in additionalInformation[i].Select(x => x.Name))
 				{

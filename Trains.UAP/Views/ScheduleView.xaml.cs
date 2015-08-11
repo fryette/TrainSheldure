@@ -19,5 +19,10 @@ namespace Trains.UAP.Views
             if (((ScheduleViewModel)ViewModel).IsSearchStart) return;
             CommandClick.Command.Execute(TrainList.SelectedItem);
         }
-    }
+
+		private void ButtonBack_OnClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+		{
+			Frame.GoBack();
+		}
+	}
 }
