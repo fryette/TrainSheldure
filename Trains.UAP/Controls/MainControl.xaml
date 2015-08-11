@@ -1,83 +1,70 @@
-﻿<Page x:Class="Trains.UAP.Controls.MainControl"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="using:Trains.UAP.Controls"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      mc:Ignorable="d"
-      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
-      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
-      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
-      d:DataContext="{d:DesignData MainViewModel}">
-    <Grid HorizontalAlignment="Stretch"
-          Padding="20">
-        <RelativePanel x:Name="RootPanel"
-                       HorizontalAlignment="Center">
+﻿<Page
+    x:Class="Trains.UAP.Controls.MainControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Trains.UAP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+                      xmlns:core="using:Microsoft.Xaml.Interactions.Core">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0">
             <ComboBox x:Name="comboBox"
                       Header="{Binding FastSearchTextBlock}"
                       ItemsSource="{Binding VariantOfSearch}"
                       SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
-                      Width="{Binding Width, ElementName=RootPanel}"
                       SelectionChanged="comboBox_SelectionChanged" />
             <DatePicker x:Name="DataPicker"
                         Header="{Binding DateOfDeparture}"
                         Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource DatePickerStyle}"
-                        Width="{Binding Width, ElementName=RootPanel}"
-                        RelativePanel.Below="comboBox" />
+                        Margin="0,-5,0,0" />
             <AutoSuggestBox x:Name="From"
-                            Width="{Binding Width, ElementName=RootPanel}"
                             Header="{Binding FromAutoSuggest}"
                             Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             ItemsSource="{Binding AutoSuggestions}"
                             IsEnabled="{Binding IsFildEnabled}"
                             Style="{StaticResource AutoSuggestBoxStyle}"
-                            RelativePanel.Below="DataPicker" />
+                            GotFocus="AutoSuggestBox_ManipulationStarted"
+                            LostFocus="AutoSuggestBox_ManipulationCompleted"
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
             <AutoSuggestBox x:Name="To"
-                            Width="{Binding Width, ElementName=RootPanel}"
                             Header="{Binding ToAutoSuggest}"
                             IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                             Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                             ItemsSource="{Binding AutoSuggestions}"
                             Style="{StaticResource AutoSuggestBoxStyle}"
-                            RelativePanel.Below="From" />
-            <StackPanel Orientation="Horizontal"
-                        Margin="0,5,0,0"
-                        x:Name="SearchButton"
-                        RelativePanel.Below="To"
-                        RelativePanel.AlignLeftWith="To">
-                <Button 
+                            GotFocus="AutoSuggestBox_ManipulationStarted"
+                            LostFocus="AutoSuggestBox_ManipulationCompleted"
+                            SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
+            <Grid>
+
+                <Button x:Name="SearchButton"
                         Content="{Binding Search}"
-                        Command="{Binding SearchTrainCommand}"
-                         />
-                <Button x:Name="SwapAppBar"
-                        Margin="5,0,0,0"
-                        Content="{Binding SwapAppBar}"
-                        Command="{Binding SwapCommand}" />
-            </StackPanel>
-            <ListView x:Name="Routes"
-                      Header="{Binding LastRequests}"
-                      ItemsSource="{Binding LastRoutes}"
-                      ItemTemplate="{StaticResource RoutesTemplate}"
-                      ItemContainerStyle="{StaticResource ListViewItemStyle}"
-                      RelativePanel.Below="SearchButton">
-                <interactivity:Interaction.Behaviors>
-                    <core:EventTriggerBehavior EventName="Tapped">
-                        <core:InvokeCommandAction Command="{Binding TappedRouteCommand}"
-                                                  CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}"
-                                                  InputConverter="{StaticResource SelectionChangedConverter}" />
-                    </core:EventTriggerBehavior>
-                </interactivity:Interaction.Behaviors>
-            </ListView>
-            <ProgressRing IsActive="True"
-                          RelativePanel.AlignHorizontalCenterWith="From"
-                          RelativePanel.AlignHorizontalCenterWithPanel="True"
-                          RelativePanel.AlignVerticalCenterWithPanel="True"
-                          Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          Height="70"
-                          Width="70"
-                          HorizontalAlignment="Center" />
-        </RelativePanel>
+                        HorizontalAlignment="Right"
+                        Command="{Binding SearchTrainCommand}" />
+            </Grid>
+        </StackPanel>
+        <ListView x:Name="Routes"
+                  Grid.Row="1"
+                  Header="{Binding LastRequests}"
+                  ItemsSource="{Binding LastRoutes}"
+                  ItemTemplate="{StaticResource RoutesTemplate}"
+                  ItemContainerStyle="{StaticResource ListViewItemStyle}">
+            <interactivity:Interaction.Behaviors>
+                <core:EventTriggerBehavior EventName="Tapped">
+                    <core:InvokeCommandAction Command="{Binding TappedRouteCommand}"
+                                              CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}"
+                                              InputConverter="{StaticResource SelectionChangedConverter}" />
+                </core:EventTriggerBehavior>
+            </interactivity:Interaction.Behaviors>
+        </ListView>
     </Grid>
 </Page>
 

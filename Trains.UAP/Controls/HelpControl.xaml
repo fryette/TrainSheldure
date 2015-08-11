@@ -10,7 +10,7 @@
     xmlns:viewModels="using:Trains.Core.ViewModels"
     mc:Ignorable="d" d:DataContext="{d:DesignInstance viewModels:HelpViewModel}">
 
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Pivot x:Name="MainPivot"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem Header="{Binding Trains}">

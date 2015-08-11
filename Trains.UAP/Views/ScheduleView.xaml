@@ -16,21 +16,16 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <appPromo:RateReminder RunsBeforeReminder="10" />
-            <StackPanel Grid.Row="0"
-                        Orientation="Horizontal">
-                <Button Style="{StaticResource BackRadioButtonStyle}"
-                        Click="ButtonBack_OnClick" />
-                <TextBlock Text="{Binding Request}"
-                           FontSize="{StaticResource TitleFontSize}"
-                           HorizontalAlignment="Left"
-                           Margin="0,24,0,0" />
-            </StackPanel>
-
-            <Grid Row="1">
+            <TextBlock Grid.Row="0"
+                       Text="{Binding Request}"
+                       FontSize="{StaticResource TitleFontSize}"
+                       HorizontalAlignment="Left"
+                       Margin="0,24,0,0" />
+            <Grid Row="1" >
                 <SemanticZoom x:Name="Root"
                               Template="{StaticResource SemantickZoom}"
                               DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
-                    <SemanticZoom.ZoomedInView>
+                    <SemanticZoom.ZoomedInView >
                         <ListView x:Name="TrainList"
                                   ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
                                   ItemTemplate="{StaticResource ScheduleTemplate}"
