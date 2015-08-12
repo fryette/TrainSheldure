@@ -67,7 +67,7 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email,INotificationService notificationService)
+		public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email, INotificationService notificationService)
 		{
 			_email = email;
 			_local = local;
@@ -118,6 +118,7 @@ namespace Trains.Core.ViewModels
 		public string HelpAppBar { get; set; }
 		public string LastRequests { get; set; }
 		public string DeleteRoute { get; set; }
+		public string AddToCalendar { get; set; }
 
 		#endregion
 
@@ -335,7 +336,7 @@ namespace Trains.Core.ViewModels
 				LastRoute = $"{_appSettings.UpdatedLastRequest.Route.From} - {_appSettings.UpdatedLastRequest.Route.To}";
 			Trains = _appSettings.LastRequestTrain;
 			LastRoutes = _appSettings.LastRoutes;
-			FavoriteRequests = new ObservableCollection<Route>(_appSettings.FavoriteRequests?.Select(x => x.Route));
+			FavoriteRequests = _appSettings.FavoriteRequests == null ? null : new ObservableCollection<Route>(_appSettings.FavoriteRequests?.Select(x => x.Route));
 			AboutItems = _appSettings.About;
 			SelectedVariant = VariantOfSearch[1];
 			IsDownloadRun = false;
@@ -482,7 +483,7 @@ namespace Trains.Core.ViewModels
 
 		public void DeleteFavoriteRoute(Route route)
 		{
-			var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.Route==route);
+			var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.Route == route);
 			if (objectToDelete == null) return;
 			_appSettings.FavoriteRequests.Remove(objectToDelete);
 			_serializable.Serialize(_appSettings.FavoriteRequests, Defines.Restoring.FavoriteRequests);
@@ -631,6 +632,7 @@ namespace Trains.Core.ViewModels
 			HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
 			LastRequests = ResourceLoader.Instance.Resource["LastRequests"];
 			DeleteRoute = ResourceLoader.Instance.Resource["DeleteAppBar"];
+			AddToCalendar = ResourceLoader.Instance.Resource["AddToCalendar"];
 
 			RaiseAllPropertiesChanged();
 		}

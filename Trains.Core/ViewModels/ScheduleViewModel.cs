@@ -17,7 +17,8 @@ namespace Trains.Core.ViewModels
 		private readonly IAppSettings _appSettings;
 		private readonly IAnalytics _analytics;
 		private readonly ISearchService _search;
-		private ISerializableService _serializable;
+		private readonly ISerializableService _serializable;
+		private readonly INotificationService _notificationService;
 
 		#endregion
 
@@ -32,12 +33,13 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search)
+		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService)
 		{
 			_serializable = serializableService;
 			_appSettings = appSettings;
 			_analytics = analytics;
 			_search = search;
+			_notificationService = notificationService;
 
 			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
 			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
@@ -64,7 +66,7 @@ namespace Trains.Core.ViewModels
 		/// <summary>
 		/// Used to display favorite icon.
 		/// </summary> 
-		private bool _isVisibleFavoriteIcon;
+		private bool _isVisibleFavoriteIcon = true;
 		public bool IsVisibleFavoriteIcon
 		{
 			get
@@ -185,7 +187,8 @@ namespace Trains.Core.ViewModels
 
 		private void ManageFavoriteButton()
 		{
-			IsVisibleFavoriteIcon = !_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To);
+			if (_appSettings.FavoriteRequests != null)
+				IsVisibleFavoriteIcon = !_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To);
 		}
 
 		/// <summary>
@@ -203,6 +206,11 @@ namespace Trains.Core.ViewModels
 			IsVisibleFavoriteIcon = false;
 
 			_analytics.SentEvent(Defines.Analytics.AddToFavorite);
+		}
+
+		public async void NotifyAboutSelectedTrain(Train train)
+		{
+			await _notificationService.AddTrainToNotification(train);
 		}
 
 		private void RestoreUiBinding()

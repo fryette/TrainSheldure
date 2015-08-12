@@ -46,7 +46,7 @@ namespace Trains.WP.Views
             CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
             SetVisibility(Visibility.Visible);
             SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
+            ComboBox_SelectionChanged(null, null);
         }
 
 
@@ -70,7 +70,7 @@ namespace Trains.WP.Views
         {
             SetVisibility(Visibility.Visible);
             SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
+            ComboBox_SelectionChanged(null, null);
         }
 
         private void SetVisibility(Visibility visibility)
@@ -87,7 +87,7 @@ namespace Trains.WP.Views
             To.Visibility = to;
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataPicker.Visibility = ReferenceEquals(comboBox.SelectedItem, ResourceLoader.Instance.Resource["OnDay"]) ? Visibility.Visible : Visibility.Collapsed;
         }
