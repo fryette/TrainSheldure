@@ -16,24 +16,23 @@ namespace Trains.WP.Services
 
 		public async Task AddTrainToNotification(Train train)
 		{
-			//if (_currentAppCalendar == null)
-			//{
-			//	var appointmentStore = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
-			//	_currentAppCalendar = (await appointmentStore.FindAppointmentCalendarsAsync(FindAppointmentCalendarsOptions.IncludeHidden))[0];
-			//}
+			if (_currentAppCalendar == null)
+			{
+				var appointmentStore = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
+				_currentAppCalendar = (await appointmentStore.FindAppointmentCalendarsAsync(FindAppointmentCalendarsOptions.IncludeHidden))[0];
+			}
 
-			//var newAppointment = new Appointment
-			//{
-			//	Subject = train.City,
-			//	StartTime = DateTimeOffset.Parse(train.StartTime),
-			//	Duration = TimeSpan.FromSeconds(10),
-			//	Reminder = TimeSpan.FromMinutes(10),
-			//	Location = "Minsk",
-			//	RoamingId = "TestId"
-			//};
-			
-			////save appointment to calendar
-			//await _currentAppCalendar.SaveAppointmentAsync(newAppointment);
+			var newAppointment = new Appointment
+			{
+				Subject = train.City,
+				StartTime = train.StartTime,
+				Duration = train.EndTime - train.StartTime,
+				Reminder = TimeSpan.FromHours(1),
+				Location = train.City,
+				RoamingId = train.City
+			};
+
+			await _currentAppCalendar.SaveAppointmentAsync(newAppointment);
 		}
 	}
 }
