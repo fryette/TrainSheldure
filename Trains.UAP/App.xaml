@@ -571,7 +571,7 @@
             <Style x:Key="NavRadioButtonStyle"
                    TargetType="RadioButton">
                 <Setter Property="Padding"
-                        Value="3" />
+                        Value="80,0,0,0" />
                 <Setter Property="HorizontalAlignment"
                         Value="Stretch" />
                 <Setter Property="VerticalAlignment"
@@ -630,18 +630,68 @@
                                 </VisualStateManager.VisualStateGroups>
                                 <Grid Name="BackgroundGrid"
                                       Background="Transparent"
+                                      VerticalAlignment="Stretch"
+                                      Padding="35,0,0,0"
+                                      Margin="0,40,0,0"
+                                      Height="70">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock FontSize="38"
+                                               Text="{TemplateBinding Tag}"
+                                               FontFamily="Segoe MDL2 Assets"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center" />
+                                    <ContentPresenter x:Name="ContentPresenter"
+                                                      AutomationProperties.AccessibilityView="Raw"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      ContentTransitions="{TemplateBinding ContentTransitions}"
+                                                      Content="{TemplateBinding Content}"
+                                                      Grid.Column="1"
+                                                      FontSize="19"
+                                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                      Margin="{TemplateBinding Padding}"
+                                                      TextWrapping="Wrap"
+                                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="BackRadioButtonStyle"
+                   TargetType="Button">
+                <Setter Property="Background"
+                        Value="Transparent" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Background="{TemplateBinding Background}">
+                                <Grid Name="BackgroundGrid"
                                       VerticalAlignment="Stretch">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="48" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock FontSize="34"
+                                    <!--<TextBlock FontSize="34"
                                                Height="38"
-                                               Text="{TemplateBinding Tag}"
+                                               Foreground="Black"
+                                               Text=""
                                                FontFamily="Segoe MDL2 Assets"
                                                Margin="5,8,5,5"
                                                VerticalAlignment="Center"
-                                               HorizontalAlignment="Center" />
+                                               HorizontalAlignment="Center" />-->
+                                    <Image Source="/Assets/backbutton.png"
+                                           Margin="5,8,5,5"
+                                           Height="38"
+                                           Width="38"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
                                     <ContentPresenter x:Name="ContentPresenter"
                                                       AutomationProperties.AccessibilityView="Raw"
                                                       ContentTemplate="{TemplateBinding ContentTemplate}"
@@ -657,16 +707,7 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-            </Style>
 
-
-            <Style x:Key="BackRadioButtonStyle"
-                   TargetType="RadioButton"
-                   BasedOn="{StaticResource NavRadioButtonStyle}">
-                <Setter Property="Background"
-                        Value="Green" />
-                <Setter Property="Tag"
-                        Value=""/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

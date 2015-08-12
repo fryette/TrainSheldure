@@ -78,7 +78,7 @@ namespace Trains.Core.ViewModels
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
 			UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
-			SearchTrainCommand = new MvxCommand(() => SearchTrain(From.Trim(), To.Trim()));
+			SearchTrainCommand = new MvxCommand(() => SearchTrain(From?.Trim(), To?.Trim()));
 			SwapCommand = new MvxCommand(Swap);
 			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
 			TappedFavoriteCommand = new MvxCommand<Route>(route =>
@@ -531,7 +531,7 @@ namespace Trains.Core.ViewModels
 				_serializable.ClearAll();
 				_serializable.Serialize(Defines.Common.IsFirstRun, Defines.Common.IsFirstRun);
 				_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(Defines.Common.HiMessage,Defines.Common.HiMessageTitle);
+				await Mvx.Resolve<IUserInteraction>().AlertAsync(Defines.Common.HiMessage, Defines.Common.HiMessageTitle);
 			}
 
 			var appLanguage = _serializable.Desserialize<Language>(Defines.Restoring.AppLanguage);
