@@ -491,7 +491,7 @@ namespace Trains.Core.ViewModels
 		}
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
-			await _notificationService.AddTrainToNotification(train);
+			await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
 		}
 
 		#region restoreResources

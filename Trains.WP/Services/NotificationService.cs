@@ -21,13 +21,12 @@ namespace Trains.WP.Services
 				var appointmentStore = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
 				_currentAppCalendar = (await appointmentStore.FindAppointmentCalendarsAsync(FindAppointmentCalendarsOptions.IncludeHidden))[0];
 			}
-
 			var newAppointment = new Appointment
 			{
 				Subject = train.City,
 				StartTime = train.StartTime,
 				Duration = train.EndTime - train.StartTime,
-				Reminder = reminder,
+				Reminder = reminder.Minutes == 0 ? TimeSpan.FromHours(1) : reminder,
 				Location = train.City,
 				RoamingId = train.City
 			};
