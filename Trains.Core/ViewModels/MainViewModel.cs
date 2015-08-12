@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
@@ -58,7 +59,7 @@ namespace Trains.Core.ViewModels
 		public IMvxCommand SearchTrainCommand { get; private set; }
 		public IMvxCommand SwapCommand { get; private set; }
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
-
+		public MvxCommand<Route> DeleteFavoriteRouteCommand { get; private set; }
 		#endregion
 
 		#region ctor
@@ -86,6 +87,7 @@ namespace Trains.Core.ViewModels
 				if (route == null) return;
 				SearchTrain(route.From, route.To);
 			});
+			DeleteFavoriteRouteCommand = new MvxCommand<Route>(DeleteFavoriteRoute);
 		}
 
 		#endregion
@@ -110,6 +112,7 @@ namespace Trains.Core.ViewModels
 		public string ManageAppBar { get; set; }
 		public string HelpAppBar { get; set; }
 		public string LastRequests { get; set; }
+		public string DeleteRoute { get; set; }
 
 		#endregion
 
@@ -292,16 +295,7 @@ namespace Trains.Core.ViewModels
 		/// <summary>
 		/// Object are stored custom routes.
 		/// </summary>
-		private IEnumerable<Route> _favoriteRequests;
-		public IEnumerable<Route> FavoriteRequests
-		{
-			get { return _favoriteRequests; }
-			set
-			{
-				_favoriteRequests = value;
-				RaisePropertyChanged(() => FavoriteRequests);
-			}
-		}
+		public ObservableCollection<Route> FavoriteRequests { get; set; }
 
 		/// <summary>
 		/// Last route
@@ -336,7 +330,7 @@ namespace Trains.Core.ViewModels
 				LastRoute = $"{_appSettings.UpdatedLastRequest.Route.From} - {_appSettings.UpdatedLastRequest.Route.To}";
 			Trains = _appSettings.LastRequestTrain;
 			LastRoutes = _appSettings.LastRoutes;
-			FavoriteRequests = _appSettings.FavoriteRequests?.Select(x => x.Route);
+			FavoriteRequests = new ObservableCollection<Route>(_appSettings.FavoriteRequests?.Select(x => x.Route));
 			AboutItems = _appSettings.About;
 			SelectedVariant = VariantOfSearch[1];
 			IsDownloadRun = false;
@@ -481,6 +475,15 @@ namespace Trains.Core.ViewModels
 			return true;
 		}
 
+		public void DeleteFavoriteRoute(Route route)
+		{
+			var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.Route==route);
+			if (objectToDelete == null) return;
+			_appSettings.FavoriteRequests.Remove(objectToDelete);
+			_serializable.Serialize(_appSettings.FavoriteRequests, Defines.Restoring.FavoriteRequests);
+			FavoriteRequests.Remove(route);
+		}
+
 		#region restoreResources
 
 
@@ -618,6 +621,7 @@ namespace Trains.Core.ViewModels
 			ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
 			HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
 			LastRequests = ResourceLoader.Instance.Resource["LastRequests"];
+			DeleteRoute = ResourceLoader.Instance.Resource["DeleteAppBar"];
 
 			RaiseAllPropertiesChanged();
 		}

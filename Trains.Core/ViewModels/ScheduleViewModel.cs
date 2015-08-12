@@ -6,6 +6,7 @@ using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Entities;
 using Trains.Core.Services.Interfaces;
+using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
 {
@@ -14,9 +15,9 @@ namespace Trains.Core.ViewModels
 		#region readonlyProperty
 
 		private readonly IAppSettings _appSettings;
-		private readonly IFavoriteManageService _manageFavoriteRequest;
 		private readonly IAnalytics _analytics;
 		private readonly ISearchService _search;
+		private ISerializableService _serializable;
 
 		#endregion
 
@@ -26,22 +27,20 @@ namespace Trains.Core.ViewModels
 		public MvxCommand<Train> SelectTrainCommand { get; private set; }
 		public IMvxCommand SearchReverseRouteCommand { get; private set; }
 		public IMvxCommand AddToFavoriteCommand { get; private set; }
-		public IMvxCommand DeleteInFavoriteCommand { get; private set; }
 
 		#endregion
 
 		#region ctor
 
-		public ScheduleViewModel(IAppSettings appSettings, IFavoriteManageService manageFavoriteRequest, IAnalytics analytics, ISearchService search)
+		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search)
 		{
-			_manageFavoriteRequest = manageFavoriteRequest;
+			_serializable = serializableService;
 			_appSettings = appSettings;
 			_analytics = analytics;
 			_search = search;
 
 			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
 			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
-			DeleteInFavoriteCommand = new MvxCommand(DeleteInFavorite);
 			GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
 		}
@@ -54,7 +53,6 @@ namespace Trains.Core.ViewModels
 
 		public string ReverseAppBar { get; set; }
 		public string SaveAppBar { get; set; }
-		public string DeleteAppBar { get; set; }
 		public string HelpAppBar { get; set; }
 		public string Update { get; set; }
 
@@ -97,24 +95,6 @@ namespace Trains.Core.ViewModels
 		}
 
 		/// <summary>
-		/// Used to display unfavorite icon.
-		/// </summary> 
-		private bool _isVisibleUnFavoriteIcon;
-		public bool IsVisibleUnFavoriteIcon
-		{
-			get
-			{
-				return _isVisibleUnFavoriteIcon;
-			}
-
-			set
-			{
-				_isVisibleUnFavoriteIcon = value;
-				RaisePropertyChanged(() => IsVisibleUnFavoriteIcon);
-			}
-		}
-
-		/// <summary>
 		/// Ñontains information on all trains on the route selected by the user.
 		/// </summary> 
 		private List<Train> _trains;
@@ -132,6 +112,7 @@ namespace Trains.Core.ViewModels
 		}
 
 		private string _request;
+
 		public string Request
 		{
 			get
@@ -160,7 +141,7 @@ namespace Trains.Core.ViewModels
 			From = _appSettings.UpdatedLastRequest.Route.From;
 			To = _appSettings.UpdatedLastRequest.Route.To;
 			Request = From + " - " + To;
-			SetManageFavoriteButton();
+			ManageFavoriteButton();
 		}
 
 		private async void SearchReverseRoute()
@@ -171,7 +152,7 @@ namespace Trains.Core.ViewModels
 							_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 			SwapStopPoint();
 			Request = From + " - " + To;
-			SetManageFavoriteButton();
+			ManageFavoriteButton();
 
 			IsSearchStart = false;
 		}
@@ -202,12 +183,9 @@ namespace Trains.Core.ViewModels
 			ShowViewModel<HelpViewModel>();
 		}
 
-		private void SetManageFavoriteButton()
+		private void ManageFavoriteButton()
 		{
-			if (_appSettings.FavoriteRequests == null) SetVisibilityToFavoriteIcons(true, false);
-			else if (_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To))
-				SetVisibilityToFavoriteIcons(false, true);
-			else SetVisibilityToFavoriteIcons(true, false);
+			IsVisibleFavoriteIcon = !_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To);
 		}
 
 		/// <summary>
@@ -215,30 +193,16 @@ namespace Trains.Core.ViewModels
 		/// </summary>
 		private void AddToFavorite()
 		{
-			if (_manageFavoriteRequest.AddToFavorite(From, To))
-			{
-				SetVisibilityToFavoriteIcons(false, true);
-				_analytics.SentEvent(Defines.Analytics.AddToFavorite);
+			if (_appSettings.FavoriteRequests == null) _appSettings.FavoriteRequests = new List<LastRequest>();
+			if (_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To))
+				return;
 
-			}
-		}
+			_appSettings.FavoriteRequests.Add(new LastRequest { Route = new Route { From = From, To = To } });
+			_serializable.Serialize(_appSettings.FavoriteRequests, Defines.Restoring.FavoriteRequests);
 
-		/// <summary>
-		/// Deletes the entered route visas favorite.
-		/// </summary>
-		private void DeleteInFavorite()
-		{
-			if (_manageFavoriteRequest.DeleteRoute(From, To))
-				SetVisibilityToFavoriteIcons(true, false);
-		}
+			IsVisibleFavoriteIcon = false;
 
-		/// <summary>
-		/// Change visibility of favorite and unfavorite buttons when user add route to favorite or delete this route.
-		/// </summary>
-		private void SetVisibilityToFavoriteIcons(bool favorite, bool unfavorite)
-		{
-			IsVisibleFavoriteIcon = favorite;
-			IsVisibleUnFavoriteIcon = unfavorite;
+			_analytics.SentEvent(Defines.Analytics.AddToFavorite);
 		}
 
 		private void RestoreUiBinding()
@@ -246,7 +210,6 @@ namespace Trains.Core.ViewModels
 			ReverseAppBar = ResourceLoader.Instance.Resource["ReverseAppBar"];
 			Update = ResourceLoader.Instance.Resource["Update"];
 			SaveAppBar = ResourceLoader.Instance.Resource["SaveAppBar"];
-			DeleteAppBar = ResourceLoader.Instance.Resource["DeleteAppBar"];
 			HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
 		}
 

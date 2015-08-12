@@ -69,10 +69,6 @@
                           Label="{Binding SaveAppBar}"
                           Icon="Favorite"
                           Command="{Binding AddToFavoriteCommand}" />
-            <AppBarButton Label="{Binding DeleteAppBar}"
-                          Visibility="{Binding IsVisibleUnFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          Icon="Unfavorite"
-                          Command="{Binding DeleteInFavoriteCommand}" />
             <AppBarButton Label="{Binding HelpAppBar}"
                           Icon="Help"
                           Command="{Binding GoToHelpPageCommand}" />

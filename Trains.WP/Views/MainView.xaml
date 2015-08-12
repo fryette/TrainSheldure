@@ -50,7 +50,6 @@
                                         LostFocus="AutoSuggestBox_ManipulationCompleted"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
                         <Grid>
-                            
                             <Button x:Name="SearchButton"
                                     Content="{Binding Search}"
                                     HorizontalAlignment="Right"
@@ -82,12 +81,10 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel>
-                        <TextBlock
-                            Text="{Binding LastRoute}"
+                        <TextBlock Text="{Binding LastRoute}"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    FontSize="{StaticResource MainFontSize}" />
-                        <TextBlock
-                            Text="{Binding LastUpdateTime}"
+                        <TextBlock Text="{Binding LastUpdateTime}"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    FontSize="{StaticResource SmallFontSize}"
                                    VerticalAlignment="Bottom" />
@@ -115,7 +112,8 @@
                             </ListView>
                         </SemanticZoom.ZoomedOutView>
                     </SemanticZoom>
-                    <Button Grid.Row="0" x:Name="CommandButton"
+                    <Button Grid.Row="0"
+                            x:Name="CommandButton"
                             Visibility="Collapsed"
                             Command="{Binding SelectTrainCommand}" />
                 </Grid>
@@ -125,7 +123,6 @@
                        Background="{Binding FavoriteRequests, Converter={StaticResource BackgroundLastRouteToImageConverter},ConverterParameter=route}">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
-                          ItemTemplate="{StaticResource RoutesTemplate}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}">
                     <interactivity:Interaction.Behaviors>
                         <core:EventTriggerBehavior EventName="Tapped">
@@ -134,6 +131,31 @@
                                                       InputConverter="{StaticResource SelectionChangedConverter}" />
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Holding="Grid_Holding"
+                                  VerticalAlignment="Stretch">
+                                <FlyoutBase.AttachedFlyout>
+                                    <MenuFlyout>
+                                        <MenuFlyoutItem x:Name="DeleteButton"
+                                                        Text="{Binding ElementName=FavoriteRequests, Path=DataContext.DeleteRoute}"
+                                                        Command="{Binding ElementName=FavoriteRequests, Path=DataContext.DeleteFavoriteRouteCommand}"
+                                                        CommandParameter="{Binding}" />
+                                    </MenuFlyout>
+                                </FlyoutBase.AttachedFlyout>
+                                <StackPanel Orientation="Horizontal"
+                                            Margin="0,0,0,5">
+                                    <TextBlock Text="{Binding From}"
+                                               FontSize="{StaticResource MainFontSize}" />
+                                    <TextBlock Text="-"
+                                               Margin="5,0"
+                                               Style="{StaticResource BasedTextBlockStyle}" />
+                                    <TextBlock Text="{Binding To}"
+                                               FontSize="{StaticResource MainFontSize}" />
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
             <PivotItem Header="{Binding AboutPivotItem}">
@@ -173,7 +195,7 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar x:Name="CommandBar"
-            Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
+                    Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
                     IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
                           Label="{Binding UpdateAppBar}"
