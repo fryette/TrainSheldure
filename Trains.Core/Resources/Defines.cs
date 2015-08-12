@@ -6,6 +6,7 @@
 		{
 			public const string IsFirstRun = "IsFirstRun34";
 			public const string DateFormat = "yy-MM-dd";
+			public const string TimeFormat = "yy-MM-dd HH:mm";
 			public const string HiMessageTitle = "Обязательно к прочтению";
 			public const string HiMessage =
 				"Мы предупреждаем, все данные берутся с официального сайта rw.by, мы просим не вымещать на нас злость, и в случае ошибки не минусовать, а отправить нам сообщение через приложение.\r\n" +
