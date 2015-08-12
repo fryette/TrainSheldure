@@ -272,7 +272,7 @@
                                         Margin="5,0">
                                 <TextBlock Text="{Binding StartTime,Converter={StaticResource TimeToStringConverter}}"
                                            FontSize="{StaticResource BigFontSize}" />
-                                <TextBlock Text="{Binding EndTime,Converter={StaticResource TimeToStringConverter}}"
+                                <TextBlock Text="{Binding EndTime}"
                                            FontSize="{StaticResource BigFontSize}"
                                            Foreground="{StaticResource DimGrayColorBrush}" />
                             </StackPanel>

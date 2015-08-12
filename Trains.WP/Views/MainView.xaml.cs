@@ -95,8 +95,6 @@ namespace Trains.WP.Views
 		private void Grid_Holding(object sender, HoldingRoutedEventArgs e)
 		{
 			var senderElement = sender as FrameworkElement;
-			// If you need the clicked element:
-			// Item whichOne = senderElement.DataContext as Item;
 			var flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
 			flyoutBase.ShowAt(senderElement);
 		}

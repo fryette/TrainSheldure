@@ -46,6 +46,8 @@ namespace Trains.Core.ViewModels
 		/// </summary>
 		private readonly ISearchService _search;
 
+		private readonly INotificationService _notificationService;
+
 
 		#endregion
 
@@ -60,11 +62,12 @@ namespace Trains.Core.ViewModels
 		public IMvxCommand SwapCommand { get; private set; }
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
 		public MvxCommand<Route> DeleteFavoriteRouteCommand { get; private set; }
+		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; private set; }
 		#endregion
 
 		#region ctor
 
-		public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email)
+		public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email,INotificationService notificationService)
 		{
 			_email = email;
 			_local = local;
@@ -74,6 +77,7 @@ namespace Trains.Core.ViewModels
 			_appSettings = appSettings;
 			_marketPlace = marketPlace;
 			_patterns = pattern;
+			_notificationService = notificationService;
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
@@ -88,6 +92,7 @@ namespace Trains.Core.ViewModels
 				SearchTrain(route.From, route.To);
 			});
 			DeleteFavoriteRouteCommand = new MvxCommand<Route>(DeleteFavoriteRoute);
+			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
 		}
 
 		#endregion
@@ -482,6 +487,10 @@ namespace Trains.Core.ViewModels
 			_appSettings.FavoriteRequests.Remove(objectToDelete);
 			_serializable.Serialize(_appSettings.FavoriteRequests, Defines.Restoring.FavoriteRequests);
 			FavoriteRequests.Remove(route);
+		}
+		public async void NotifyAboutSelectedTrain(Train train)
+		{
+			await _notificationService.AddTrainToNotification(train);
 		}
 
 		#region restoreResources
