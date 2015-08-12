@@ -14,7 +14,7 @@ namespace Trains.WP.Services
 	{
 		private AppointmentCalendar _currentAppCalendar;
 
-		public async Task AddTrainToNotification(Train train)
+		public async Task AddTrainToNotification(Train train, TimeSpan reminder)
 		{
 			if (_currentAppCalendar == null)
 			{
@@ -27,7 +27,7 @@ namespace Trains.WP.Services
 				Subject = train.City,
 				StartTime = train.StartTime,
 				Duration = train.EndTime - train.StartTime,
-				Reminder = TimeSpan.FromHours(1),
+				Reminder = reminder,
 				Location = train.City,
 				RoamingId = train.City
 			};
