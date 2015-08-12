@@ -1,6 +1,7 @@
 ﻿using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Trains.Core.Resources;
@@ -90,5 +91,14 @@ namespace Trains.WP.Views
         {
             DataPicker.Visibility = ReferenceEquals(comboBox.SelectedItem, ResourceLoader.Instance.Resource["OnDay"]) ? Visibility.Visible : Visibility.Collapsed;
         }
-    }
+
+		private void Grid_Holding(object sender, HoldingRoutedEventArgs e)
+		{
+			var senderElement = sender as FrameworkElement;
+			// If you need the clicked element:
+			// Item whichOne = senderElement.DataContext as Item;
+			var flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+			flyoutBase.ShowAt(senderElement);
+		}
+	}
 }

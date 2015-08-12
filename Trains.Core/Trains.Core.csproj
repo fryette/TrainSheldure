@@ -45,10 +45,8 @@
     <Compile Include="BaseHttpService.cs" />
     <Compile Include="Resources\Defines.cs" />
     <Compile Include="Extensions\HttpWebRequest.cs" />
-    <Compile Include="FavoriteManageService.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
-    <Compile Include="Interfaces\IFavoriteManageService.cs" />
     <Compile Include="Interfaces\IPattern.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
