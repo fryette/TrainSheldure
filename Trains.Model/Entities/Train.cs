@@ -1,3 +1,4 @@
+using System;
 using Trains.Model.Entities;
 
 namespace Trains.Entities
@@ -6,8 +7,8 @@ namespace Trains.Entities
     {
         public string City { get; set; }
         public string BeforeDepartureTime { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public string Description { get; set; }
         public string TrainNote { get; set; }
         public TrainClass Image { get; set; }
