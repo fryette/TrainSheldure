@@ -28,6 +28,7 @@ namespace Trains.Core.ViewModels
 		public MvxCommand<Train> SelectTrainCommand { get; private set; }
 		public IMvxCommand SearchReverseRouteCommand { get; private set; }
 		public IMvxCommand AddToFavoriteCommand { get; private set; }
+		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; set; }
 
 		#endregion
 
@@ -45,6 +46,8 @@ namespace Trains.Core.ViewModels
 			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
 			GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
+			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
+
 		}
 
 		#endregion
@@ -57,9 +60,9 @@ namespace Trains.Core.ViewModels
 		public string SaveAppBar { get; set; }
 		public string HelpAppBar { get; set; }
 		public string Update { get; set; }
+		public string AddToCalendar { get; set; }
 
 		#endregion
-
 
 		private string From { get; set; }
 		private string To { get; set; }
@@ -219,6 +222,8 @@ namespace Trains.Core.ViewModels
 			Update = ResourceLoader.Instance.Resource["Update"];
 			SaveAppBar = ResourceLoader.Instance.Resource["SaveAppBar"];
 			HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
+			AddToCalendar = ResourceLoader.Instance.Resource["AddToCalendar"];
+
 		}
 
 		#endregion
