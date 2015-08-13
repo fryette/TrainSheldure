@@ -48,7 +48,7 @@
                         HorizontalAlignment="Stretch"
                         Command="{Binding DownloadSelectedCountryStopPointsCommand}"
                         IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}" />
-                <TimePicker Header="Время уведомления до отправления"
+                <TimePicker Header="{Binding TimeNotification}"
                             Time="{Binding TimeOfNotify,Mode=TwoWay}" />
             </StackPanel>
             <Button Content="{Binding ResetSettings}"

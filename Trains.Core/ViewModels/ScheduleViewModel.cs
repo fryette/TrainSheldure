@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Interfaces;
@@ -19,6 +21,7 @@ namespace Trains.Core.ViewModels
 		private readonly ISearchService _search;
 		private readonly ISerializableService _serializable;
 		private readonly INotificationService _notificationService;
+		private readonly IUserInteraction _userInteraction;
 
 		#endregion
 
@@ -34,13 +37,14 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService)
+		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction)
 		{
 			_serializable = serializableService;
 			_appSettings = appSettings;
 			_analytics = analytics;
 			_search = search;
 			_notificationService = notificationService;
+			_userInteraction = userInteraction;
 
 			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
 			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
@@ -214,6 +218,8 @@ namespace Trains.Core.ViewModels
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
 			await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
+			await _userInteraction.AlertAsync(string.Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], _appSettings.Reminder));
+
 		}
 
 		private void RestoreUiBinding()

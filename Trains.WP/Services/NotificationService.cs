@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Appointments;
 using Trains.Core.Interfaces;
@@ -26,7 +22,7 @@ namespace Trains.WP.Services
 				Subject = train.City,
 				StartTime = train.StartTime,
 				Duration = train.EndTime - train.StartTime,
-				Reminder = reminder.Minutes == 0 ? TimeSpan.FromHours(1) : reminder,
+				Reminder = reminder,
 				Location = train.City,
 				RoamingId = train.City
 			};

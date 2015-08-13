@@ -47,6 +47,7 @@ namespace Trains.Core.ViewModels
 
 		private readonly INotificationService _notificationService;
 
+		private IUserInteraction _userInteraction;
 
 		#endregion
 
@@ -67,13 +68,14 @@ namespace Trains.Core.ViewModels
 		#region ctor
 
 		public MainViewModel(ISerializableService serializable,
-			ISearchService search, 
-			IAppSettings appSettings, 
-			IMarketPlaceService marketPlace, 
-			IAnalytics analytics, 
-			ILocalDataService local, 
-			IMvxComposeEmailTask email, 
-			INotificationService notificationService)
+			ISearchService search,
+			IAppSettings appSettings,
+			IMarketPlaceService marketPlace,
+			IAnalytics analytics,
+			ILocalDataService local,
+			IMvxComposeEmailTask email,
+			INotificationService notificationService,
+			IUserInteraction userInteraction1)
 		{
 			_email = email;
 			_local = local;
@@ -83,6 +85,7 @@ namespace Trains.Core.ViewModels
 			_appSettings = appSettings;
 			_marketPlace = marketPlace;
 			_notificationService = notificationService;
+			this._userInteraction = userInteraction1;
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
@@ -383,7 +386,7 @@ namespace Trains.Core.ViewModels
 				_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
 			if (trains == null)
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
 			else
 			{
 				_appSettings.UpdatedLastRequest.Date = DateTimeOffset.Now;
@@ -463,12 +466,12 @@ namespace Trains.Core.ViewModels
 		{
 			if ((datum.Date - DateTime.Now).Days < 0)
 			{
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateUpTooLater"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["DateUpTooLater"]);
 				return true;
 			}
 			if (datum.Date > DateTime.Now.AddDays(45))
 			{
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateTooBig"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["DateTooBig"]);
 				return true;
 			}
 
@@ -476,12 +479,12 @@ namespace Trains.Core.ViewModels
 				!(autoCompletion.Any(x => x.Value == from.Trim()) &&
 				  autoCompletion.Any(x => x.Value == to.Trim())))
 			{
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
 				return true;
 			}
 
 			if (NetworkInterface.GetIsNetworkAvailable()) return false;
-			await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
+			await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
 			return true;
 		}
 
@@ -496,6 +499,7 @@ namespace Trains.Core.ViewModels
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
 			await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
+			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], _appSettings.Reminder));
 		}
 
 		#region restoreResources
@@ -531,7 +535,7 @@ namespace Trains.Core.ViewModels
 				_serializable.Serialize(Defines.Common.IsFirstRun, Defines.Common.IsFirstRun);
 				_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
 
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(Defines.Common.HiMessage, Defines.Common.HiMessageTitle);
+				await _userInteraction.AlertAsync(Defines.Common.HiMessage, Defines.Common.HiMessageTitle);
 			}
 
 			var appLanguage = _serializable.Desserialize<Language>(Defines.Restoring.AppLanguage);
@@ -547,7 +551,7 @@ namespace Trains.Core.ViewModels
 
 				catch (Exception)
 				{
-					await Mvx.Resolve<IUserInteraction>().AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
+					await _userInteraction.AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
 				}
 			}
 		}
@@ -565,6 +569,9 @@ namespace Trains.Core.ViewModels
 			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
 
 			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Defines.DownloadJson.Resource), Defines.Restoring.ResourceLoader);
+
+			if (_appSettings.Reminder.Seconds == 0)
+				_appSettings.Reminder = new TimeSpan(1, 0, 0);
 
 			_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
 			_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
