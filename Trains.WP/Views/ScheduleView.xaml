@@ -9,7 +9,8 @@
                       xmlns:viewModels="using:Trains.Core.ViewModels"
                       d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
-    <Grid Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=reverse}">
+    <Grid x:Name="RootGrid"
+          Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=reverse}">
         <Grid Margin="24,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -21,15 +22,114 @@
                        FontSize="{StaticResource TitleFontSize}"
                        HorizontalAlignment="Left"
                        Margin="0,24,0,0" />
-            <Grid Row="1" >
+            <Grid Row="1">
                 <SemanticZoom x:Name="Root"
                               Template="{StaticResource SemantickZoom}"
                               DataContext="{Binding Trains,Converter={StaticResource ListViewConverter}}">
-                    <SemanticZoom.ZoomedInView >
+                    <SemanticZoom.ZoomedInView>
                         <ListView x:Name="TrainList"
                                   ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                                  ItemTemplate="{StaticResource ScheduleTemplate}"
                                   Tapped="TrainList_Tapped">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,24,10"
+                                          Holding="Grid_Holding"
+                                          Opacity="{Binding IsPlace, Converter={StaticResource IsPlaceToOpacityConverter}}">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="15" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <FlyoutBase.AttachedFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem x:Name="DeleteButton"
+                                                                Text="{Binding ElementName=RootGrid,Path=DataContext.AddToCalendar}"
+                                                                Command="{Binding ElementName=RootGrid, Path=DataContext.NotifyAboutSelectedTrainCommand}"
+                                                                CommandParameter="{Binding}" />
+                                            </MenuFlyout>
+                                        </FlyoutBase.AttachedFlyout>
+                                        <Border Grid.Column="0"
+                                                Width="10"
+                                                Background="{Binding Image,Converter={StaticResource EnumToImageConverter},ConverterParameter=TrainClass}"
+                                                HorizontalAlignment="Left" />
+                                        <Grid Grid.Column="1">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Grid Row="0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Grid.Column="0"
+                                                            Margin="5,0">
+                                                    <TextBlock Text="{Binding StartTime,Converter={StaticResource TimeToStringConverter}}"
+                                                               FontSize="{StaticResource BigFontSize}" />
+                                                    <TextBlock Text="{Binding EndTime,Converter={StaticResource TimeToStringConverter}}"
+                                                               FontSize="{StaticResource BigFontSize}"
+                                                               Foreground="{StaticResource DimGrayColorBrush}" />
+                                                </StackPanel>
+
+                                                <StackPanel Grid.Column="1"
+                                                            Margin="5,0,0,0">
+                                                    <TextBlock Text="{Binding City}"
+                                                               Style="{StaticResource BasedHeaderTextBlockStyle}"
+                                                               FontSize="{StaticResource ScheduleFontSize}"
+                                                               Margin="0,1.5,0,0" />
+                                                    <TextBlock Text="{Binding OnTheWay}"
+                                                               FontSize="{StaticResource ScheduleFontSize}"
+                                                               Margin="0,1.5,0,0" />
+                                                    <TextBlock Text="{Binding IsPlace}"
+                                                               Foreground="Red"
+                                                               Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}, ConverterParameter=reverse}"
+                                                               HorizontalAlignment="Left"
+                                                               FontSize="{StaticResource MediumFontSize}" />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Left"
+                                                                Visibility="{Binding IsPlace,Converter={StaticResource IsPlaceToVisibilityConverter}}"
+                                                                Margin="0,13,0,0">
+                                                        <Border BorderBrush="DarkGray"
+                                                                Margin="0,0,10,0"
+                                                                Padding="5,0,5,0"
+                                                                Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                                            <TextBlock Text="ЭР"
+                                                                       FontSize="{StaticResource NormalFontSize}"
+                                                                       VerticalAlignment="Bottom" />
+                                                        </Border>
+                                                        <Border BorderBrush="DarkGray"
+                                                                Padding="5,0,5,0"
+                                                                Margin="0,0,10,0"
+                                                                Background="{Binding PlaceClasses.Sedentary,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                                            <TextBlock Text="C"
+                                                                       FontSize="{StaticResource NormalFontSize}" />
+                                                        </Border>
+                                                        <Border BorderBrush="DarkGray"
+                                                                Padding="5,0,5,0"
+                                                                Background="{Binding PlaceClasses.SecondClass,Converter={StaticResource BooleanToBackgroundConverter}}"
+                                                                Margin="0,0,0,0">
+                                                            <TextBlock Text="П"
+                                                                       FontSize="{StaticResource NormalFontSize}" />
+                                                        </Border>
+                                                        <Border BorderBrush="DarkGray"
+                                                                Padding="5,0,5,0"
+                                                                Margin="10,0,10,0"
+                                                                Background="{Binding PlaceClasses.Coupe,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                                            <TextBlock Text="К"
+                                                                       FontSize="{StaticResource NormalFontSize}" />
+                                                        </Border>
+                                                        <Border BorderBrush="DarkGray"
+                                                                Padding="5,0,5,0"
+                                                                Background="{Binding PlaceClasses.Luxury,Converter={StaticResource BooleanToBackgroundConverter}}"
+                                                                Margin="0,0,0,0">
+                                                            <TextBlock Text="СВ"
+                                                                       FontSize="{StaticResource NormalFontSize}" />
+                                                        </Border>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
                             <ListView.GroupStyle>
                                 <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
                                             HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
@@ -48,7 +148,8 @@
                         Visibility="Collapsed"
                         Command="{Binding SelectTrainCommand}" />
             </Grid>
-            <Button Grid.Row="0" Visibility="Collapsed"
+            <Button Grid.Row="0"
+                    Visibility="Collapsed"
                     x:Name="CommandClick"
                     Command="{Binding SelectTrainCommand}"
                     CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />

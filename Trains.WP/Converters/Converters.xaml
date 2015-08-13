@@ -14,5 +14,5 @@
     <local:BackgroundLastRouteToImageConverter x:Key="BackgroundLastRouteToImageConverter" />
     <local:BooleanInverter x:Key="BooleanInverter" />
     <local:IsPlaceToOpacityConverter x:Key="IsPlaceToOpacityConverter" />
-    
+    <local:TimeToStringConverter x:Key="TimeToStringConverter"/>
 </ResourceDictionary>

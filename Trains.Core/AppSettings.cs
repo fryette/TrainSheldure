@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Trains.Core.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
@@ -23,6 +24,7 @@ namespace Trains.Core
 
 		public SocialUri SocialUri { get; set; }
 		public Language Language { get; set; }
+		public TimeSpan Reminder { get; set; }
 
 	}
 }

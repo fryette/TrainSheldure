@@ -31,6 +31,9 @@ namespace Trains.Core.Interfaces
 
 		List<PlaceInformation> PlaceInformation { get; set; }
 
-		List<Country> Countries { get; set; } 
+		List<Country> Countries { get; set; }
+
+		TimeSpan Reminder { get; set; }
+
 	}
 }

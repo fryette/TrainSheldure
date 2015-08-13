@@ -17,7 +17,8 @@ namespace Trains.Core.ViewModels
 		private readonly IAppSettings _appSettings;
 		private readonly IAnalytics _analytics;
 		private readonly ISearchService _search;
-		private ISerializableService _serializable;
+		private readonly ISerializableService _serializable;
+		private readonly INotificationService _notificationService;
 
 		#endregion
 
@@ -27,22 +28,26 @@ namespace Trains.Core.ViewModels
 		public MvxCommand<Train> SelectTrainCommand { get; private set; }
 		public IMvxCommand SearchReverseRouteCommand { get; private set; }
 		public IMvxCommand AddToFavoriteCommand { get; private set; }
+		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; set; }
 
 		#endregion
 
 		#region ctor
 
-		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search)
+		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService)
 		{
 			_serializable = serializableService;
 			_appSettings = appSettings;
 			_analytics = analytics;
 			_search = search;
+			_notificationService = notificationService;
 
 			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
 			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
 			GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
+			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
+
 		}
 
 		#endregion
@@ -55,16 +60,16 @@ namespace Trains.Core.ViewModels
 		public string SaveAppBar { get; set; }
 		public string HelpAppBar { get; set; }
 		public string Update { get; set; }
+		public string AddToCalendar { get; set; }
 
 		#endregion
-
 
 		private string From { get; set; }
 		private string To { get; set; }
 		/// <summary>
 		/// Used to display favorite icon.
 		/// </summary> 
-		private bool _isVisibleFavoriteIcon;
+		private bool _isVisibleFavoriteIcon = true;
 		public bool IsVisibleFavoriteIcon
 		{
 			get
@@ -185,7 +190,8 @@ namespace Trains.Core.ViewModels
 
 		private void ManageFavoriteButton()
 		{
-			IsVisibleFavoriteIcon = !_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To);
+			if (_appSettings.FavoriteRequests != null)
+				IsVisibleFavoriteIcon = !_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To);
 		}
 
 		/// <summary>
@@ -205,12 +211,19 @@ namespace Trains.Core.ViewModels
 			_analytics.SentEvent(Defines.Analytics.AddToFavorite);
 		}
 
+		public async void NotifyAboutSelectedTrain(Train train)
+		{
+			await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
+		}
+
 		private void RestoreUiBinding()
 		{
 			ReverseAppBar = ResourceLoader.Instance.Resource["ReverseAppBar"];
 			Update = ResourceLoader.Instance.Resource["Update"];
 			SaveAppBar = ResourceLoader.Instance.Resource["SaveAppBar"];
 			HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
+			AddToCalendar = ResourceLoader.Instance.Resource["AddToCalendar"];
+
 		}
 
 		#endregion

@@ -113,10 +113,12 @@
     <Compile Include="Converters\ListViewConverter.cs" />
     <Compile Include="Converters\SelectionChangedConverter.cs" />
     <Compile Include="Converters\ShareSocialToUriConverter.cs" />
+    <Compile Include="Converters\TimeToStringConverter.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="MvxShareTask.cs" />
     <Compile Include="Services\Analytics.cs" />
     <Compile Include="Services\MarketPlace.cs" />
+    <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup.cs" />
