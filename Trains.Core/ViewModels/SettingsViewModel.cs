@@ -91,9 +91,7 @@ namespace Trains.Core.ViewModels
 
 		#endregion
 
-		public List<Language> Languages
-		{ get; }
-		= new List<Language>
+		public List<Language> Languages { get; } = new List<Language>
 		{
 			new Language{Name = "Русский",Id = "ru"},
 			new Language{Name = "Беларускі",Id = "be"},

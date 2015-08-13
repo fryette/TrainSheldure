@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
-using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Core.Services.Infrastructure;
 using Trains.Core.Services.Interfaces;
@@ -13,12 +12,10 @@ namespace Trains.Core.Services
 	public class TrainStopService : ITrainStopService
 	{
 		public readonly IHttpService HttpService;
-		public readonly IPattern Patterns;
 
-		public TrainStopService(IHttpService httpService, IPattern pattern)
+		public TrainStopService(IHttpService httpService)
 		{
 			HttpService = httpService;
-			Patterns = pattern;
 		}
 
 		public async Task<IEnumerable<TrainStop>> GetTrainStop(string link)
@@ -30,7 +27,7 @@ namespace Trains.Core.Services
 				var data = await HttpService.LoadResponseAsync(uri);
 				if (data == null)
 					return null;
-				var match = Parser.ParseData(data, Patterns.TrainPointPAttern);
+				var match = Parser.ParseData(data, ResourceLoader.Instance.Resource["TrainPointPattern"]);
 
 				return TrainStopGrabber.GetTrainStops(match);
 			}

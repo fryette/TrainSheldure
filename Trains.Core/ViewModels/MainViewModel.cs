@@ -34,8 +34,6 @@ namespace Trains.Core.ViewModels
 		private readonly ILocalDataService _local;
 
 
-		private readonly IPattern _patterns;
-
 		/// <summary>
 		/// Used to serialization/deserialization objects.
 		/// </summary>
@@ -68,7 +66,14 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email, INotificationService notificationService)
+		public MainViewModel(ISerializableService serializable,
+			ISearchService search, 
+			IAppSettings appSettings, 
+			IMarketPlaceService marketPlace, 
+			IAnalytics analytics, 
+			ILocalDataService local, 
+			IMvxComposeEmailTask email, 
+			INotificationService notificationService)
 		{
 			_email = email;
 			_local = local;
@@ -77,7 +82,6 @@ namespace Trains.Core.ViewModels
 			_search = search;
 			_appSettings = appSettings;
 			_marketPlace = marketPlace;
-			_patterns = pattern;
 			_notificationService = notificationService;
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
@@ -331,7 +335,6 @@ namespace Trains.Core.ViewModels
 			IsDownloadRun = true;
 			await RestoreData();
 			RestoreUiBinding();
-			InitAboutItemsActions();
 			IsBarDownloaded = true;
 			if (_appSettings.UpdatedLastRequest != null)
 				LastRoute = $"{_appSettings.UpdatedLastRequest.Route.From} - {_appSettings.UpdatedLastRequest.Route.To}";
@@ -505,21 +508,29 @@ namespace Trains.Core.ViewModels
 			{
 				var appSettings = _serializable.Desserialize<AppSettings>(Defines.Restoring.AppSettings);
 				if (appSettings == null) return;
+
 				appSettings.CopyProperties(_appSettings);
+				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.Restoring.FavoriteRequests);
+				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
+				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
+
 				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
 				_appSettings.LastRoutes = routes ?? new List<Route>();
-				SetPatterns();
 			}
 		}
+
 		private async Task CheckStart()
 		{
 			var firstRun = _serializable.Desserialize<string>(Defines.Common.IsFirstRun);
 			if (firstRun == null)
 			{
 				_appSettings.Language = new Language { Id = "ru", Name = "Русский" };
+
 				_serializable.ClearAll();
+
 				_serializable.Serialize(Defines.Common.IsFirstRun, Defines.Common.IsFirstRun);
 				_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
+
 				await Mvx.Resolve<IUserInteraction>().AlertAsync(Defines.Common.HiMessage, Defines.Common.HiMessageTitle);
 			}
 
@@ -541,21 +552,10 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		private void InitAboutItemsActions()
-		{
-			AboutItemsActions = new Dictionary<AboutPicture, Action>
-			{
-			{AboutPicture.AboutApp,()=>ShowViewModel<AboutViewModel>()},
-			{AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, ResourceLoader.Instance.Resource["Feedback"], Empty, false)},
-			{AboutPicture.Market,()=>_marketPlace.GoToMarket()},
-			{AboutPicture.Settings,()=>ShowViewModel<SettingsViewModel>()},
-			{AboutPicture.Share,()=>ShowViewModel<ShareViewModel>()}
-			};
-		}
-
 		private async Task DowloadResources(Language lang)
 		{
 			_appSettings.Language = lang;
+
 			_appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Defines.DownloadJson.StopPoints);
 			_appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Defines.DownloadJson.HelpInformation);
 			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Defines.DownloadJson.CarriageModel);
@@ -565,21 +565,10 @@ namespace Trains.Core.ViewModels
 			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
 
 			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Defines.DownloadJson.Resource), Defines.Restoring.ResourceLoader);
-			_serializable.Serialize(await _local.GetOtherData<Patterns>(Defines.DownloadJson.Patterns), Defines.Restoring.Patterns);
+
 			_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
 			_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
 			_serializable.Serialize(_appSettings.Language, Defines.Restoring.CurrentLanguage);
-			SetPatterns();
-		}
-
-		private void SetPatterns()
-		{
-			var patterns = _serializable.Desserialize<Patterns>(Defines.Restoring.Patterns);
-
-			_patterns.AdditionParameterPattern = patterns.AdditionParameterPattern;
-			_patterns.PlacesAndPricesPattern = patterns.PlacesAndPricesPattern;
-			_patterns.TrainPointPAttern = patterns.TrainPointPAttern;
-			_patterns.TrainsPattern = patterns.TrainsPattern;
 		}
 
 		private void DeleteSaveSettings()
@@ -618,6 +607,15 @@ namespace Trains.Core.ViewModels
 					ResourceLoader.Instance.Resource["OnAllDays"],
 					ResourceLoader.Instance.Resource["OnDay"]
 				};
+
+			AboutItemsActions = new Dictionary<AboutPicture, Action>
+			{
+			{AboutPicture.AboutApp,()=>ShowViewModel<AboutViewModel>()},
+			{AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, ResourceLoader.Instance.Resource["Feedback"], Empty, false)},
+			{AboutPicture.Market,()=>_marketPlace.GoToMarket()},
+			{AboutPicture.Settings,()=>ShowViewModel<SettingsViewModel>()},
+			{AboutPicture.Share,()=>ShowViewModel<ShareViewModel>()}
+			};
 
 			RaiseAllPropertiesChanged();
 		}

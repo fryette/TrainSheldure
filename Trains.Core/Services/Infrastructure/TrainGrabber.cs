@@ -133,7 +133,7 @@ namespace Trains.Core.Services.Infrastructure
 		public static List<AdditionalInformation[]> GetPlaces(string data)
 		{
 			var additionInformation = new List<AdditionalInformation[]>();
-			var additionalParameter = Parser.ParseData(data, Mvx.Resolve<IPattern>().AdditionParameterPattern).ToList();
+			var additionalParameter = Parser.ParseData(data, ResourceLoader.Instance.Resource["AdditionParameterPattern"]).ToList();
 			for (var i = 0; i < additionalParameter.Count; i++)
 			{
 				if (i + 1 == additionalParameter.Count ||
@@ -145,7 +145,7 @@ namespace Trains.Core.Services.Infrastructure
 				else
 				{
 					var temp =
-						Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, Mvx.Resolve<IPattern>().PlacesAndPricesPattern).ToList();
+						Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, ResourceLoader.Instance.Resource["PlacesAndPricesPattern"]).ToList();
 					var additionalInformations = new AdditionalInformation[temp.Count / 3];
 					for (var j = 0; j < temp.Count; j += 3)
 					{

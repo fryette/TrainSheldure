@@ -48,10 +48,8 @@
     <Compile Include="Extensions\HttpWebRequest.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
-    <Compile Include="Interfaces\IPattern.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\Patterns.cs" />
     <Compile Include="Resources\ResourceLoader.cs" />
     <Compile Include="Services\Interfaces\ILocalDataService.cs" />
     <Compile Include="Services\Infrastructure\Parser.cs" />
