@@ -58,6 +58,7 @@ namespace Trains.Core.ViewModels
 		public string DownloadSelectCountry { get; set; }
 		public string SelectLanguage { get; set; }
 		public string ResetSettings { get; set; }
+		public string TimeNotification { get; set; }
 
 		private string _needReboot;
 		public string NeedReboot
@@ -91,9 +92,7 @@ namespace Trains.Core.ViewModels
 
 		#endregion
 
-		public List<Language> Languages
-		{ get; }
-		= new List<Language>
+		public List<Language> Languages { get; } = new List<Language>
 		{
 			new Language{Name = "Русский",Id = "ru"},
 			new Language{Name = "Беларускі",Id = "be"},
@@ -268,6 +267,7 @@ namespace Trains.Core.ViewModels
 		private void RestoreUiBinding()
 		{
 			Header = ResourceLoader.Instance.Resource["Settings"];
+			TimeNotification = ResourceLoader.Instance.Resource["TimeNotification"];
 			SelectLanguage = ResourceLoader.Instance.Resource["SelectLanguage"];
 			ResetSettings = ResourceLoader.Instance.Resource["ResetSettings"];
 			SelectCountries = ResourceLoader.Instance.Resource["SelectCountries"];

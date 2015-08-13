@@ -45,19 +45,20 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
                 <Button Content="{Binding DownloadSelectCountry}"
-                    HorizontalAlignment="Stretch" 
-                    Command="{Binding DownloadSelectedCountryStopPointsCommand}"
-                    IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}"/>
+                        HorizontalAlignment="Stretch"
+                        Command="{Binding DownloadSelectedCountryStopPointsCommand}"
+                        IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}" />
+                <TimePicker Header="{Binding TimeNotification}"
+                            Time="{Binding TimeOfNotify,Mode=TwoWay}" />
             </StackPanel>
             <Button Content="{Binding ResetSettings}"
-                    HorizontalAlignment="Stretch" 
+                    HorizontalAlignment="Stretch"
                     Command="{Binding ResetSettingsCommand}"
-                    IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}"/>
+                    IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}" />
             <TextBlock Text="{Binding NeedReboot}"
                        FontSize="15"
                        Margin="0,-10,0,0"
                        Foreground="{ThemeResource PhoneAccentBrush}" />
-            <TimePicker Time="{Binding TimeOfNotify,Mode=TwoWay}" />
         </StackPanel>
     </Grid>
 </views:MvxWindowsPage>
