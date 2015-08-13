@@ -14,6 +14,7 @@ using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
+using Trains.Core.Services;
 using static System.String;
 
 namespace Trains.Core.ViewModels
@@ -328,7 +329,7 @@ namespace Trains.Core.ViewModels
 		public async void Init()
 		{
 			IsDownloadRun = true;
-			if (!await RestoreData()) return;
+			await RestoreData();
 			RestoreUiBinding();
 			InitAboutItemsActions();
 			IsBarDownloaded = true;
@@ -497,44 +498,18 @@ namespace Trains.Core.ViewModels
 		#region restoreResources
 
 
-		private async Task<bool> RestoreData()
+		private async Task RestoreData()
 		{
 			await CheckStart();
 			if (_appSettings.AutoCompletion == null)
 			{
-
 				var appSettings = _serializable.Desserialize<AppSettings>(Defines.Restoring.AppSettings);
-
-				if (appSettings == null) return false;
-
-				_appSettings.AutoCompletion = appSettings.AutoCompletion;
-				_appSettings.About = appSettings.About;
-				_appSettings.HelpInformation = appSettings.HelpInformation;
-				_appSettings.CarriageModel = appSettings.CarriageModel;
-				_appSettings.SocialUri = appSettings.SocialUri;
-				_appSettings.Language = appSettings.Language;
-				_appSettings.PlaceInformation = appSettings.PlaceInformation;
-				_appSettings.Countries = appSettings.Countries;
-				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.Restoring.FavoriteRequests);
-				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
-				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
-				_appSettings.Reminder = appSettings.Reminder;
-
+				if (appSettings == null) return;
+				appSettings.CopyProperties(_appSettings);
 				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
 				_appSettings.LastRoutes = routes ?? new List<Route>();
-
 				SetPatterns();
 			}
-
-			VariantOfSearch = new List<string>
-				{
-					ResourceLoader.Instance.Resource["Yesterday"],
-					ResourceLoader.Instance.Resource["Today"],
-					ResourceLoader.Instance.Resource["Tommorow"],
-					ResourceLoader.Instance.Resource["OnAllDays"],
-					ResourceLoader.Instance.Resource["OnDay"]
-				};
-			return true;
 		}
 		private async Task CheckStart()
 		{
@@ -634,6 +609,15 @@ namespace Trains.Core.ViewModels
 			LastRequests = ResourceLoader.Instance.Resource["LastRequests"];
 			DeleteRoute = ResourceLoader.Instance.Resource["DeleteAppBar"];
 			AddToCalendar = ResourceLoader.Instance.Resource["AddToCalendar"];
+
+			VariantOfSearch = new List<string>
+				{
+					ResourceLoader.Instance.Resource["Yesterday"],
+					ResourceLoader.Instance.Resource["Today"],
+					ResourceLoader.Instance.Resource["Tommorow"],
+					ResourceLoader.Instance.Resource["OnAllDays"],
+					ResourceLoader.Instance.Resource["OnDay"]
+				};
 
 			RaiseAllPropertiesChanged();
 		}
