@@ -270,7 +270,7 @@
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0"
                                         Margin="5,0">
-                                <TextBlock Text="{Binding StartTime}"
+                                <TextBlock Text="{Binding StartTime,Converter={StaticResource TimeToStringConverter}}"
                                            FontSize="{StaticResource BigFontSize}" />
                                 <TextBlock Text="{Binding EndTime}"
                                            FontSize="{StaticResource BigFontSize}"

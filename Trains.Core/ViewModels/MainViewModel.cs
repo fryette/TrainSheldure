@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
@@ -13,6 +14,7 @@ using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
+using Trains.Core.Services;
 using static System.String;
 
 namespace Trains.Core.ViewModels
@@ -32,8 +34,6 @@ namespace Trains.Core.ViewModels
 		private readonly ILocalDataService _local;
 
 
-		private readonly IPattern _patterns;
-
 		/// <summary>
 		/// Used to serialization/deserialization objects.
 		/// </summary>
@@ -45,6 +45,9 @@ namespace Trains.Core.ViewModels
 		/// </summary>
 		private readonly ISearchService _search;
 
+		private readonly INotificationService _notificationService;
+
+		private IUserInteraction _userInteraction;
 
 		#endregion
 
@@ -58,12 +61,21 @@ namespace Trains.Core.ViewModels
 		public IMvxCommand SearchTrainCommand { get; private set; }
 		public IMvxCommand SwapCommand { get; private set; }
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
-
+		public MvxCommand<Route> DeleteFavoriteRouteCommand { get; private set; }
+		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; private set; }
 		#endregion
 
 		#region ctor
 
-		public MainViewModel(ISerializableService serializable, ISearchService search, IAppSettings appSettings, IMarketPlaceService marketPlace, IAnalytics analytics, IPattern pattern, ILocalDataService local, IMvxComposeEmailTask email)
+		public MainViewModel(ISerializableService serializable,
+			ISearchService search,
+			IAppSettings appSettings,
+			IMarketPlaceService marketPlace,
+			IAnalytics analytics,
+			ILocalDataService local,
+			IMvxComposeEmailTask email,
+			INotificationService notificationService,
+			IUserInteraction userInteraction1)
 		{
 			_email = email;
 			_local = local;
@@ -72,13 +84,14 @@ namespace Trains.Core.ViewModels
 			_search = search;
 			_appSettings = appSettings;
 			_marketPlace = marketPlace;
-			_patterns = pattern;
+			_notificationService = notificationService;
+			this._userInteraction = userInteraction1;
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
 			UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
-			SearchTrainCommand = new MvxCommand(() => SearchTrain(From.Trim(), To.Trim()));
+			SearchTrainCommand = new MvxCommand(() => SearchTrain(From?.Trim(), To?.Trim()));
 			SwapCommand = new MvxCommand(Swap);
 			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
 			TappedFavoriteCommand = new MvxCommand<Route>(route =>
@@ -86,6 +99,8 @@ namespace Trains.Core.ViewModels
 				if (route == null) return;
 				SearchTrain(route.From, route.To);
 			});
+			DeleteFavoriteRouteCommand = new MvxCommand<Route>(DeleteFavoriteRoute);
+			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
 		}
 
 		#endregion
@@ -110,6 +125,8 @@ namespace Trains.Core.ViewModels
 		public string ManageAppBar { get; set; }
 		public string HelpAppBar { get; set; }
 		public string LastRequests { get; set; }
+		public string DeleteRoute { get; set; }
+		public string AddToCalendar { get; set; }
 
 		#endregion
 
@@ -292,16 +309,7 @@ namespace Trains.Core.ViewModels
 		/// <summary>
 		/// Object are stored custom routes.
 		/// </summary>
-		private IEnumerable<Route> _favoriteRequests;
-		public IEnumerable<Route> FavoriteRequests
-		{
-			get { return _favoriteRequests; }
-			set
-			{
-				_favoriteRequests = value;
-				RaisePropertyChanged(() => FavoriteRequests);
-			}
-		}
+		public ObservableCollection<Route> FavoriteRequests { get; set; }
 
 		/// <summary>
 		/// Last route
@@ -328,15 +336,14 @@ namespace Trains.Core.ViewModels
 		public async void Init()
 		{
 			IsDownloadRun = true;
-			if (!await RestoreData()) return;
+			await RestoreData();
 			RestoreUiBinding();
-			InitAboutItemsActions();
 			IsBarDownloaded = true;
 			if (_appSettings.UpdatedLastRequest != null)
 				LastRoute = $"{_appSettings.UpdatedLastRequest.Route.From} - {_appSettings.UpdatedLastRequest.Route.To}";
 			Trains = _appSettings.LastRequestTrain;
 			LastRoutes = _appSettings.LastRoutes;
-			FavoriteRequests = _appSettings.FavoriteRequests?.Select(x => x.Route);
+			FavoriteRequests = _appSettings.FavoriteRequests == null ? null : new ObservableCollection<Route>(_appSettings.FavoriteRequests?.Select(x => x.Route));
 			AboutItems = _appSettings.About;
 			SelectedVariant = VariantOfSearch[1];
 			IsDownloadRun = false;
@@ -379,7 +386,7 @@ namespace Trains.Core.ViewModels
 				_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
 			if (trains == null)
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
 			else
 			{
 				_appSettings.UpdatedLastRequest.Date = DateTimeOffset.Now;
@@ -459,12 +466,12 @@ namespace Trains.Core.ViewModels
 		{
 			if ((datum.Date - DateTime.Now).Days < 0)
 			{
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateUpTooLater"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["DateUpTooLater"]);
 				return true;
 			}
 			if (datum.Date > DateTime.Now.AddDays(45))
 			{
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["DateTooBig"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["DateTooBig"]);
 				return true;
 			}
 
@@ -472,66 +479,63 @@ namespace Trains.Core.ViewModels
 				!(autoCompletion.Any(x => x.Value == from.Trim()) &&
 				  autoCompletion.Any(x => x.Value == to.Trim())))
 			{
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
+				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
 				return true;
 			}
 
 			if (NetworkInterface.GetIsNetworkAvailable()) return false;
-			await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
+			await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
 			return true;
+		}
+
+		public void DeleteFavoriteRoute(Route route)
+		{
+			var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.Route == route);
+			if (objectToDelete == null) return;
+			_appSettings.FavoriteRequests.Remove(objectToDelete);
+			_serializable.Serialize(_appSettings.FavoriteRequests, Defines.Restoring.FavoriteRequests);
+			FavoriteRequests.Remove(route);
+		}
+		public async void NotifyAboutSelectedTrain(Train train)
+		{
+			await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
+			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], _appSettings.Reminder));
 		}
 
 		#region restoreResources
 
 
-		private async Task<bool> RestoreData()
+		private async Task RestoreData()
 		{
 			await CheckStart();
 			if (_appSettings.AutoCompletion == null)
 			{
-
 				var appSettings = _serializable.Desserialize<AppSettings>(Defines.Restoring.AppSettings);
+				if (appSettings == null) return;
 
-				if (appSettings == null) return false;
-
-				_appSettings.AutoCompletion = appSettings.AutoCompletion;
-				_appSettings.About = appSettings.About;
-				_appSettings.HelpInformation = appSettings.HelpInformation;
-				_appSettings.CarriageModel = appSettings.CarriageModel;
-				_appSettings.SocialUri = appSettings.SocialUri;
-				_appSettings.Language = appSettings.Language;
-				_appSettings.PlaceInformation = appSettings.PlaceInformation;
-				_appSettings.Countries = appSettings.Countries;
+				appSettings.CopyProperties(_appSettings);
 				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.Restoring.FavoriteRequests);
 				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
 				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
 
 				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
 				_appSettings.LastRoutes = routes ?? new List<Route>();
-
-				SetPatterns();
 			}
-
-			VariantOfSearch = new List<string>
-				{
-					ResourceLoader.Instance.Resource["Yesterday"],
-					ResourceLoader.Instance.Resource["Today"],
-					ResourceLoader.Instance.Resource["Tommorow"],
-					ResourceLoader.Instance.Resource["OnAllDays"],
-					ResourceLoader.Instance.Resource["OnDay"]
-				};
-			return true;
 		}
+
 		private async Task CheckStart()
 		{
 			var firstRun = _serializable.Desserialize<string>(Defines.Common.IsFirstRun);
 			if (firstRun == null)
 			{
 				_appSettings.Language = new Language { Id = "ru", Name = "Русский" };
+
 				_serializable.ClearAll();
+
 				_serializable.Serialize(Defines.Common.IsFirstRun, Defines.Common.IsFirstRun);
 				_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
-				await Mvx.Resolve<IUserInteraction>().AlertAsync(Defines.Common.HiMessage,Defines.Common.HiMessageTitle);
+
+				await _userInteraction.AlertAsync(Defines.Common.HiMessage, Defines.Common.HiMessageTitle);
 			}
 
 			var appLanguage = _serializable.Desserialize<Language>(Defines.Restoring.AppLanguage);
@@ -547,26 +551,15 @@ namespace Trains.Core.ViewModels
 
 				catch (Exception)
 				{
-					await Mvx.Resolve<IUserInteraction>().AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
+					await _userInteraction.AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
 				}
 			}
-		}
-
-		private void InitAboutItemsActions()
-		{
-			AboutItemsActions = new Dictionary<AboutPicture, Action>
-			{
-			{AboutPicture.AboutApp,()=>ShowViewModel<AboutViewModel>()},
-			{AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, ResourceLoader.Instance.Resource["Feedback"], Empty, false)},
-			{AboutPicture.Market,()=>_marketPlace.GoToMarket()},
-			{AboutPicture.Settings,()=>ShowViewModel<SettingsViewModel>()},
-			{AboutPicture.Share,()=>ShowViewModel<ShareViewModel>()}
-			};
 		}
 
 		private async Task DowloadResources(Language lang)
 		{
 			_appSettings.Language = lang;
+
 			_appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Defines.DownloadJson.StopPoints);
 			_appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Defines.DownloadJson.HelpInformation);
 			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Defines.DownloadJson.CarriageModel);
@@ -576,21 +569,13 @@ namespace Trains.Core.ViewModels
 			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
 
 			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Defines.DownloadJson.Resource), Defines.Restoring.ResourceLoader);
-			_serializable.Serialize(await _local.GetOtherData<Patterns>(Defines.DownloadJson.Patterns), Defines.Restoring.Patterns);
+
+			if (_appSettings.Reminder.Seconds == 0)
+				_appSettings.Reminder = new TimeSpan(1, 0, 0);
+
 			_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
 			_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
 			_serializable.Serialize(_appSettings.Language, Defines.Restoring.CurrentLanguage);
-			SetPatterns();
-		}
-
-		private void SetPatterns()
-		{
-			var patterns = _serializable.Desserialize<Patterns>(Defines.Restoring.Patterns);
-
-			_patterns.AdditionParameterPattern = patterns.AdditionParameterPattern;
-			_patterns.PlacesAndPricesPattern = patterns.PlacesAndPricesPattern;
-			_patterns.TrainPointPAttern = patterns.TrainPointPAttern;
-			_patterns.TrainsPattern = patterns.TrainsPattern;
 		}
 
 		private void DeleteSaveSettings()
@@ -618,6 +603,26 @@ namespace Trains.Core.ViewModels
 			ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
 			HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
 			LastRequests = ResourceLoader.Instance.Resource["LastRequests"];
+			DeleteRoute = ResourceLoader.Instance.Resource["DeleteAppBar"];
+			AddToCalendar = ResourceLoader.Instance.Resource["AddToCalendar"];
+
+			VariantOfSearch = new List<string>
+				{
+					ResourceLoader.Instance.Resource["Yesterday"],
+					ResourceLoader.Instance.Resource["Today"],
+					ResourceLoader.Instance.Resource["Tommorow"],
+					ResourceLoader.Instance.Resource["OnAllDays"],
+					ResourceLoader.Instance.Resource["OnDay"]
+				};
+
+			AboutItemsActions = new Dictionary<AboutPicture, Action>
+			{
+			{AboutPicture.AboutApp,()=>ShowViewModel<AboutViewModel>()},
+			{AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, ResourceLoader.Instance.Resource["Feedback"], Empty, false)},
+			{AboutPicture.Market,()=>_marketPlace.GoToMarket()},
+			{AboutPicture.Settings,()=>ShowViewModel<SettingsViewModel>()},
+			{AboutPicture.Share,()=>ShowViewModel<ShareViewModel>()}
+			};
 
 			RaiseAllPropertiesChanged();
 		}

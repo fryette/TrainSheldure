@@ -18,15 +18,13 @@ namespace Trains.Core.Services
 	public class SearchService : ISearchService
 	{
 		private readonly IHttpService _httpService;
-		private readonly IPattern _pattern;
 		private readonly IAnalytics _analytics;
 
 
-		public SearchService(IHttpService httpService, IPattern pattern, IAnalytics analytics)
+		public SearchService(IHttpService httpService, IAnalytics analytics)
 		{
 			_analytics = analytics;
 			_httpService = httpService;
-			_pattern = pattern;
 		}
 
 		public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
@@ -40,7 +38,7 @@ namespace Trains.Core.Services
 
 				var additionalInformation = TrainGrabber.GetPlaces(data);
 				var links = TrainGrabber.GetLink(data);
-				var parameters = Parser.ParseData(data, _pattern.TrainsPattern).ToList();
+				var parameters = Parser.ParseData(data, ResourceLoader.Instance.Resource["TrainsPattern"]).ToList();
 				var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
 				List<Train> trains;
@@ -48,7 +46,7 @@ namespace Trains.Core.Services
 				if (!from.Label.Contains(country.Replace("(",string.Empty).Replace(")", string.Empty)) && !to.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)))
 					trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
 				else
-					trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, _pattern.TrainsPattern).ToList())
+					trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, ResourceLoader.Instance.Resource["TrainsPattern"]).ToList())
 						: TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
 				trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
 				if (!trains.Any()) throw new ArgumentException("Bad request");

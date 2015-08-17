@@ -1,6 +1,7 @@
 ﻿using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Trains.Core.Resources;
@@ -45,7 +46,7 @@ namespace Trains.WP.Views
             CoreApplication.GetCurrentView().CoreWindow.IsInputEnabled = true;
             SetVisibility(Visibility.Visible);
             SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
+            ComboBox_SelectionChanged(null, null);
         }
 
 
@@ -69,7 +70,7 @@ namespace Trains.WP.Views
         {
             SetVisibility(Visibility.Visible);
             SetVisibilityAutossugestBox(Visibility.Visible, Visibility.Visible);
-            comboBox_SelectionChanged(null, null);
+            ComboBox_SelectionChanged(null, null);
         }
 
         private void SetVisibility(Visibility visibility)
@@ -86,9 +87,16 @@ namespace Trains.WP.Views
             To.Visibility = to;
         }
 
-        private void comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataPicker.Visibility = ReferenceEquals(comboBox.SelectedItem, ResourceLoader.Instance.Resource["OnDay"]) ? Visibility.Visible : Visibility.Collapsed;
         }
-    }
+
+		private void Grid_Holding(object sender, HoldingRoutedEventArgs e)
+		{
+			var senderElement = sender as FrameworkElement;
+			var flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+			flyoutBase.ShowAt(senderElement);
+		}
+	}
 }

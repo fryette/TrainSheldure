@@ -14,7 +14,6 @@ namespace Trains.Core.Services.Infrastructure
 	public class TrainGrabber
 	{
 		#region constant
-		private const string TimeFormat = "yy-MM-dd HH:mm";
 
 		private const string UnknownStr = "&nbsp;";
 		private const string UnknownStr1 = "&nbsp;&mdash;";
@@ -87,13 +86,13 @@ namespace Trains.Core.Services.Infrastructure
 			DateTime endTime;
 			DateTime startTime;
 			time2 = time2.Replace("<br />", " ");
-			startTime = DateTime.ParseExact(time1, TimeFormat, CultureInfo.InvariantCulture);
+			startTime = DateTime.ParseExact(time1, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
 			endTime = time2.Length > 10 ? DateTime.Parse(time2, new CultureInfo(ResourceLoader.Instance.Resource["Language"]))
-				: DateTime.ParseExact(departureDate + ' ' + time2, TimeFormat, CultureInfo.InvariantCulture);
+				: DateTime.ParseExact(departureDate + ' ' + time2, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
 			return new Train
 			{
-				StartTime = startTime.ToString("t", CultureInfo.InvariantCulture),
-				EndTime = endTime.ToString("t", CultureInfo.InvariantCulture),
+				StartTime = startTime,
+				EndTime = endTime,
 				City = city.Replace(UnknownStr1, " - "),
 				BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
 				Type = type,
@@ -134,7 +133,7 @@ namespace Trains.Core.Services.Infrastructure
 		public static List<AdditionalInformation[]> GetPlaces(string data)
 		{
 			var additionInformation = new List<AdditionalInformation[]>();
-			var additionalParameter = Parser.ParseData(data, Mvx.Resolve<IPattern>().AdditionParameterPattern).ToList();
+			var additionalParameter = Parser.ParseData(data, ResourceLoader.Instance.Resource["AdditionParameterPattern"]).ToList();
 			for (var i = 0; i < additionalParameter.Count; i++)
 			{
 				if (i + 1 == additionalParameter.Count ||
@@ -146,7 +145,7 @@ namespace Trains.Core.Services.Infrastructure
 				else
 				{
 					var temp =
-						Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, Mvx.Resolve<IPattern>().PlacesAndPricesPattern).ToList();
+						Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, ResourceLoader.Instance.Resource["PlacesAndPricesPattern"]).ToList();
 					var additionalInformations = new AdditionalInformation[temp.Count / 3];
 					for (var j = 0; j < temp.Count; j += 3)
 					{

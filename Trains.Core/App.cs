@@ -23,7 +23,6 @@ namespace Trains.Core
 
 			Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
 			Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
-			Mvx.LazyConstructAndRegisterSingleton<IPattern, Patterns>();
 
 		}
 	}
