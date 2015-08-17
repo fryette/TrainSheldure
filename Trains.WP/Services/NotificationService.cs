@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Appointments;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Entities;
 
 namespace Trains.WP.Services
@@ -14,8 +18,8 @@ namespace Trains.WP.Services
 		{
 			if (_currentAppCalendar == null)
 			{
-				var appointmentStore = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
-				_currentAppCalendar = (await appointmentStore.FindAppointmentCalendarsAsync(FindAppointmentCalendarsOptions.IncludeHidden))[0];
+
+				await CheckForAndCreateAppointmentCalendars();
 			}
 			var newAppointment = new Appointment
 			{
@@ -28,6 +32,35 @@ namespace Trains.WP.Services
 			};
 
 			await _currentAppCalendar.SaveAppointmentAsync(newAppointment);
+		}
+
+		async public Task CheckForAndCreateAppointmentCalendars()
+		{
+			var appointmentStore = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
+			var appCalendars =
+				await appointmentStore.FindAppointmentCalendarsAsync(FindAppointmentCalendarsOptions.IncludeHidden);
+
+			AppointmentCalendar appCalendar = null;
+
+			// Apps can create multiple calendars. This example creates only one.
+			if (appCalendars.Count == 0)
+			{
+				appCalendar = await appointmentStore.CreateAppointmentCalendarAsync(Defines.Common.Name);
+			}
+			else
+			{
+				appCalendar = appCalendars[0];
+			}
+
+			appCalendar.OtherAppReadAccess = AppointmentCalendarOtherAppReadAccess.Full;
+			appCalendar.OtherAppWriteAccess = AppointmentCalendarOtherAppWriteAccess.SystemOnly;
+
+			// This app will show the details for the appointment. Use System to let the system show the details.
+			appCalendar.SummaryCardView = AppointmentSummaryCardView.App;
+
+			await appCalendar.SaveAsync();
+
+			_currentAppCalendar = appCalendar;
 		}
 	}
 }

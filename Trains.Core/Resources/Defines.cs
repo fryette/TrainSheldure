@@ -14,6 +14,7 @@
 				"Все свои пожелания можете отправлять через приложения и мы реализуем их в следующих обновлениях.\r\n" +
 				"Спасибо за то, что вы с нами ;)";
 			public const int NumberOfBelarussianStopPoints = 956;
+			public static string Name = "Chygunka";
 		}
 
 		public class Uri
