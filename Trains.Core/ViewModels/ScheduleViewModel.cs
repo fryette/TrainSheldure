@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
@@ -9,6 +8,7 @@ using Trains.Core.Resources;
 using Trains.Entities;
 using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
+using static System.String;
 
 namespace Trains.Core.ViewModels
 {
@@ -217,9 +217,8 @@ namespace Trains.Core.ViewModels
 
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
-			await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
-			await _userInteraction.AlertAsync(string.Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], _appSettings.Reminder));
-
+			var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
+			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
 		}
 
 		private void RestoreUiBinding()

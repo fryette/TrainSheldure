@@ -14,24 +14,27 @@ namespace Trains.WP.Services
 	{
 		private AppointmentCalendar _currentAppCalendar;
 
-		public async Task AddTrainToNotification(Train train, TimeSpan reminder)
+		public async Task<TimeSpan> AddTrainToNotification(Train train, TimeSpan reminder)
 		{
 			if (_currentAppCalendar == null)
-			{
-
 				await CheckForAndCreateAppointmentCalendars();
-			}
+
+			var tempTime = train.StartTime - DateTime.Now;
+			var timeToNotify = tempTime < reminder ? new TimeSpan(tempTime.Ticks / 2) : reminder;
+
 			var newAppointment = new Appointment
 			{
 				Subject = train.City,
 				StartTime = train.StartTime,
 				Duration = train.EndTime - train.StartTime,
-				Reminder = reminder,
+				Reminder = timeToNotify,
 				Location = train.City,
 				RoamingId = train.City
 			};
 
 			await _currentAppCalendar.SaveAppointmentAsync(newAppointment);
+
+			return timeToNotify;
 		}
 
 		async public Task CheckForAndCreateAppointmentCalendars()
@@ -42,7 +45,6 @@ namespace Trains.WP.Services
 
 			AppointmentCalendar appCalendar = null;
 
-			// Apps can create multiple calendars. This example creates only one.
 			if (appCalendars.Count == 0)
 			{
 				appCalendar = await appointmentStore.CreateAppointmentCalendarAsync(Defines.Common.Name);
@@ -55,7 +57,6 @@ namespace Trains.WP.Services
 			appCalendar.OtherAppReadAccess = AppointmentCalendarOtherAppReadAccess.Full;
 			appCalendar.OtherAppWriteAccess = AppointmentCalendarOtherAppWriteAccess.SystemOnly;
 
-			// This app will show the details for the appointment. Use System to let the system show the details.
 			appCalendar.SummaryCardView = AppointmentSummaryCardView.App;
 
 			await appCalendar.SaveAsync();

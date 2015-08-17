@@ -498,8 +498,8 @@ namespace Trains.Core.ViewModels
 		}
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
-			await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
-			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], _appSettings.Reminder));
+			var reminder=await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
+			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
 		}
 
 		#region restoreResources
