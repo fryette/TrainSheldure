@@ -47,7 +47,7 @@ namespace Trains.Core.ViewModels
 
 		private readonly INotificationService _notificationService;
 
-		private IUserInteraction _userInteraction;
+		private readonly IUserInteraction _userInteraction;
 
 		#endregion
 
@@ -63,6 +63,8 @@ namespace Trains.Core.ViewModels
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
 		public MvxCommand<Route> DeleteFavoriteRouteCommand { get; private set; }
 		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; private set; }
+		public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
+
 		#endregion
 
 		#region ctor
@@ -101,6 +103,7 @@ namespace Trains.Core.ViewModels
 			});
 			DeleteFavoriteRouteCommand = new MvxCommand<Route>(DeleteFavoriteRoute);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
+			BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
 		}
 
 		#endregion
@@ -501,6 +504,11 @@ namespace Trains.Core.ViewModels
 			var reminder=await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
 			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
 		}
+
+        public async void BookingSelectedTrain(Train train)
+        {
+            ShowViewModel<BookingViewModel>();
+        }
 
 		#region restoreResources
 
