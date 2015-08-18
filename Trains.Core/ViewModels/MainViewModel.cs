@@ -77,7 +77,7 @@ namespace Trains.Core.ViewModels
 			ILocalDataService local,
 			IMvxComposeEmailTask email,
 			INotificationService notificationService,
-			IUserInteraction userInteraction1)
+			IUserInteraction userInteraction)
 		{
 			_email = email;
 			_local = local;
@@ -87,7 +87,7 @@ namespace Trains.Core.ViewModels
 			_appSettings = appSettings;
 			_marketPlace = marketPlace;
 			_notificationService = notificationService;
-			this._userInteraction = userInteraction1;
+			_userInteraction = userInteraction;
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
@@ -221,9 +221,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Used to read and set start stop point.
-		/// </summary> 
 		private string _from;
 		public string From
 		{
@@ -236,9 +233,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Used to read and set start end point.
-		/// </summary> 
 		private string _to;
 		public string To
 		{
@@ -505,9 +499,9 @@ namespace Trains.Core.ViewModels
 			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
 		}
 
-        public async void BookingSelectedTrain(Train train)
+        public void BookingSelectedTrain(Train train)
         {
-            ShowViewModel<BookingViewModel>();
+            ShowViewModel<BookingViewModel>(new { param = JsonConvert.SerializeObject(train) });
         }
 
 		#region restoreResources
