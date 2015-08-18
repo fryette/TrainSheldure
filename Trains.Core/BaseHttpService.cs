@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
@@ -78,6 +80,36 @@ namespace Trains.Core
 			var req = await request.GetResponseAsync();
 			return req;
 		}
+        public async Task<String> Post(string url, Dictionary<string, string> headers = null, string body = "", string contentType = "application/json")
+        {
+            HttpClientHandler handler = new HttpClientHandler();
+            var httpClient = new HttpClient(handler);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
 
-	}
+            // add headers
+            if (headers != null)
+            {
+                foreach (var header in headers)
+                {
+                    request.Headers.Add(header.Key, header.Value);
+                    httpClient.DefaultRequestHeaders.Add(header.Key, header.Value);
+                }
+            }
+            // set the content
+            request.Content = new StringContent(body, Encoding.UTF8, contentType);
+            // set the content length
+            request.Content.Headers.ContentLength = body.Length;
+
+            // set transfer-enconding 
+            //if (handler.SupportsTransferEncodingChunked())
+            //{
+            //    bool chuncked = false;
+            //    request.Headers.TransferEncodingChunked = chuncked;
+            //    httpClient.DefaultRequestHeaders.TransferEncodingChunked = chuncked;
+            //}
+            // await and return response
+            HttpResponseMessage response = await httpClient.SendAsync(request);
+            return await response.Content.ReadAsStringAsync();
+        }
+    }
 }
