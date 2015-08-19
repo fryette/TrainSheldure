@@ -44,6 +44,7 @@
     <Compile Include="Entities\HelpInformationItem.cs" />
     <Compile Include="Entities\CarriageModel.cs" />
     <Compile Include="Entities\Enums.cs" />
+    <Compile Include="Entities\PersonalInformation.cs" />
     <Compile Include="Entities\PlaceClasses.cs" />
     <Compile Include="Entities\PlaceInformation.cs" />
     <Compile Include="Entities\Route.cs" />
