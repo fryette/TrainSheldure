@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Extensions;
 using Trains.Core.Interfaces;
+using Trains.Core.Resources;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
@@ -21,6 +22,7 @@ namespace Trains.Core.ViewModels
         private readonly IAppSettings _appSettings;
         private readonly IHttpService _httpService;
         private readonly IUserInteraction _userInteraction;
+        private readonly ISerializableService _serializableService;
         #endregion
 
         #region command
@@ -31,11 +33,12 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public BookingViewModel(IAppSettings appSettings, IHttpService httpService, IUserInteraction userInteraction)
+        public BookingViewModel(IAppSettings appSettings, IHttpService httpService, IUserInteraction userInteraction, ISerializableService serializableService)
         {
             _appSettings = appSettings;
             _httpService = httpService;
             _userInteraction = userInteraction;
+            _serializableService = serializableService;
 
             SendTicketRequestCommand = new MvxCommand(SendTicketRequest);
         }
@@ -166,7 +169,7 @@ namespace Trains.Core.ViewModels
         public List<int> NumberOfTickets { get; } = new List<int>
         {
                 1,2,3,4
-        }; 
+        };
 
         private int _selectedNumberOfTickets;
         public int SelectedNumberOfTickets
@@ -192,13 +195,25 @@ namespace Trains.Core.ViewModels
             DepartureTime = train.StartTime;
             SelectedTypeOfPlace = TypeOfPlace.FirstOrDefault();
             SelectedNumberOfTickets = NumberOfTickets.FirstOrDefault();
-            Cityes = new List<string>(_appSettings.Tickets.Select(x=>x.Name));
-            SelectedCity = Cityes.FirstOrDefault();
+            Cityes = new List<string>(_appSettings.Tickets.Select(x => x.Name));
+            if (_appSettings.PersonalInformation != null)
+            {
+                Email = _appSettings.PersonalInformation.Email;
+                PhoneNumber = _appSettings.PersonalInformation.PhoneNumber;
+                SelectedCity = _appSettings.PersonalInformation.City;
+                FullName = _appSettings.PersonalInformation.FullName;
+            }
+            else
+            {
+                SelectedCity = Cityes.First();
+            }
         }
 
         public async void SendTicketRequest()
         {
             if (!await CheckInput()) return;
+            SavePersonalInformation();
+
             var values = new List<KeyValuePair<string, string>>
             {
                 new KeyValuePair<string, string>("textValue(kodd)",""),
@@ -220,7 +235,7 @@ namespace Trains.Core.ViewModels
                 new KeyValuePair<string, string>("textValue(tip_vag)", SelectedTypeOfPlace.Split(' ')[0])
             };
 
-            var responseString = await _httpService.Post(new Uri("http://www.brestrw.by/zpdbrnv/zayavka.do"), values,
+            var responseString = await _httpService.Post(_appSettings.Tickets.First(x => x.Name == SelectedCity).Url, values,
                 new Windows1251());
         }
 
@@ -257,6 +272,19 @@ namespace Trains.Core.ViewModels
             var isMatch = Regex.Match(Email, pattern, RegexOptions.IgnoreCase);
 
             return isMatch.Success;
+        }
+
+        public void SavePersonalInformation()
+        {
+            _appSettings.PersonalInformation = new PersonalInformation
+            {
+                FullName = FullName,
+                City = SelectedCity,
+                Email = Email,
+                PhoneNumber = PhoneNumber
+            };
+
+            _serializableService.Serialize(_appSettings, Defines.Restoring.AppSettings);
         }
     }
 }
