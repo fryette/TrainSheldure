@@ -26,5 +26,6 @@ namespace Trains.Core
 		public Language Language { get; set; }
 		public TimeSpan Reminder { get; set; }
 	    public List<Ticket> Tickets { get; set; }
+	    public PersonalInformation PersonalInformation { get; set; }
 	}
 }
