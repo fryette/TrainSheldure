@@ -123,25 +123,25 @@
                      Header="Номер поезда"
                      Text="{Binding TrainNumber}"
                      Style="{StaticResource BookingTextBoxStyle}" />
-
+            <ComboBox Header="Количество билетов"
+                      SelectedValue="1"
+                      ItemsSource="{Binding NumberOfTickets}"
+                      SelectedItem="{Binding SelectedNumberOfTickets,Mode=TwoWay}" />
             <ComboBox Header="Тип вагона"
-                      SelectedIndex="0">
-                <x:String>Л - 2-местный</x:String>
-                <x:String>Лу - 2-местный с услугами</x:String>
-                <x:String>М - мягкий</x:String>
-                <x:String>К - купейный</x:String>
-                <x:String>Ку - купейный с услугами</x:String>
-                <x:String>П - плацкартный</x:String>
-                <x:String>Пу - плацкартный с услугами</x:String>
-                <x:String>О - общий</x:String>
-                <x:String>С - межобластной, сидячий</x:String>
-            </ComboBox>
+                      SelectedValue="1"
+                      ItemsSource="{Binding TypeOfPlace}"
+                      SelectedItem="{Binding SelectedTypeOfPlace,Mode=TwoWay}" />
             <DatePicker Header="Дата отправления"
                         Date="{Binding DepartureDate}"
                         IsEnabled="False" />
-            <TextBox Header="ФИО пассажира" />
-            <TextBox Header="Ваш email" />
-            <TextBox Header="Контактный городской телефон" />
+            <TextBox Header="ФИО пассажира"
+                     Text="{Binding FullName,Mode=TwoWay}" />
+            <TextBox Header="Ваш email"
+                     Text="{Binding Email,Mode=TwoWay}" />
+            <TextBox Header="Контактный городской телефон"
+                     Text="{Binding PhoneNumber,Mode=TwoWay}" />
+            <Button Content="Отправить заявку"
+                    Command="{Binding SendTicketRequestCommand}" />
         </StackPanel>
     </ScrollViewer>
 </views:MvxWindowsPage>
