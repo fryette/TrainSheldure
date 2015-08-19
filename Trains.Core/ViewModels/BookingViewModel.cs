@@ -10,6 +10,7 @@ using Trains.Core.Extensions;
 using Trains.Core.Interfaces;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
+using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
 {
@@ -145,10 +146,27 @@ namespace Trains.Core.ViewModels
                 RaisePropertyChanged(() => SelectedTypeOfPlace);
             }
         }
+        public List<string> Cityes { get; set; }
+
+        private string _selectedCity;
+        public string SelectedCity
+        {
+            get
+            {
+                return _selectedCity;
+            }
+
+            set
+            {
+                _selectedCity = value;
+                RaisePropertyChanged(() => SelectedCity);
+            }
+        }
+
         public List<int> NumberOfTickets { get; } = new List<int>
         {
                 1,2,3,4
-        };
+        }; 
 
         private int _selectedNumberOfTickets;
         public int SelectedNumberOfTickets
@@ -174,6 +192,8 @@ namespace Trains.Core.ViewModels
             DepartureTime = train.StartTime;
             SelectedTypeOfPlace = TypeOfPlace.FirstOrDefault();
             SelectedNumberOfTickets = NumberOfTickets.FirstOrDefault();
+            Cityes = new List<string>(_appSettings.Tickets.Select(x=>x.Name));
+            SelectedCity = Cityes.FirstOrDefault();
         }
 
         public async void SendTicketRequest()
@@ -233,11 +253,10 @@ namespace Trains.Core.ViewModels
         }
         public bool IsEmailValid()
         {
-            var pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
+            const string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
             var isMatch = Regex.Match(Email, pattern, RegexOptions.IgnoreCase);
 
             return isMatch.Success;
         }
     }
-
 }

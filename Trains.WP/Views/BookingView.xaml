@@ -110,7 +110,11 @@
     </views:MvxWindowsPage.Resources>
 
     <ScrollViewer>
-        <StackPanel>
+        <StackPanel Margin="10,0">
+            <ComboBox Header="Город"
+                      SelectedValue="1"
+                      ItemsSource="{Binding Cityes}"
+                      SelectedItem="{Binding SelectedCity,Mode=TwoWay}" />
             <TextBox x:Name="From"
                      Header="Откуда"
                      Text="{Binding From}"

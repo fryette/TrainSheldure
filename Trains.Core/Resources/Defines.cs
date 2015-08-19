@@ -47,6 +47,7 @@
 			public const string CarriageModel = "CarriageModel.json";
 			public const string About = "About.json";
 			public const string Resource = "Resource.json";
+			public const string Tickets = "Tickets.json";
 		}
 		public class Analytics
 		{

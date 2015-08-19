@@ -35,5 +35,7 @@ namespace Trains.Core.Interfaces
 
 		TimeSpan Reminder { get; set; }
 
+        List<Ticket> Tickets { get; set; } 
+
 	}
 }

@@ -519,6 +519,7 @@ namespace Trains.Core.ViewModels
 				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.Restoring.FavoriteRequests);
 				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
 				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
+			    _appSettings.Tickets = appSettings.Tickets;
 
 				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
 				_appSettings.LastRoutes = routes ?? new List<Route>();
@@ -567,6 +568,7 @@ namespace Trains.Core.ViewModels
 			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Defines.DownloadJson.CarriageModel);
 			_appSettings.About = await _local.GetLanguageData<List<About>>(Defines.DownloadJson.About);
 			_appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Defines.DownloadJson.Social);
+			_appSettings.Tickets = await _local.GetOtherData<List<Ticket>>(Defines.DownloadJson.Tickets);
 			_appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Defines.DownloadJson.PlaceInformation);
 			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
 
