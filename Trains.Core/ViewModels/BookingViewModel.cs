@@ -78,8 +78,8 @@ namespace Trains.Core.ViewModels
             }
         }
 
-        private DateTime _departureTime;
-        public DateTime DepartureTime
+        private DateTimeOffset _departureTime;
+        public DateTimeOffset DepartureTime
         {
             get { return _departureTime; }
             set
@@ -225,13 +225,13 @@ namespace Trains.Core.ViewModels
                 new KeyValuePair<string, string>("textValue(hid)","-1"),
                 new KeyValuePair<string, string>("textValue(dostavka)","0"),
                 new KeyValuePair<string, string>("textValue(kol_mest)",SelectedNumberOfTickets.ToString()),
-                new KeyValuePair<string, string>("textValue(dat_o)", DepartureTime.ToString("dd.mm.yyyy ")),
+                new KeyValuePair<string, string>("textValue(dat_o)", DepartureTime.ToString("dd.MM.yyyy")),
                 new KeyValuePair<string, string>("textValue(poezd)", TrainNumber),
                 new KeyValuePair<string, string>("textValue(email)", Email),
                 new KeyValuePair<string, string>("textValue(f_zakaz)", FullName),
                 new KeyValuePair<string, string>("textValue(nsto)", From),
                 new KeyValuePair<string, string>("textValue(nstn)", To),
-                new KeyValuePair<string, string>("send_z1", "Отправить заявку"),
+                new KeyValuePair<string, string>("send_z", "Отправить заявку"),
                 new KeyValuePair<string, string>("textValue(tip_vag)", SelectedTypeOfPlace.Split(' ')[0])
             };
 
