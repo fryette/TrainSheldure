@@ -231,7 +231,7 @@ namespace Trains.Core.ViewModels
                 new KeyValuePair<string, string>("textValue(f_zakaz)", FullName),
                 new KeyValuePair<string, string>("textValue(nsto)", From),
                 new KeyValuePair<string, string>("textValue(nstn)", To),
-                new KeyValuePair<string, string>("send_z", "Отправить заявку"),
+                new KeyValuePair<string, string>("send_z1", "Отправить заявку"),
                 new KeyValuePair<string, string>("textValue(tip_vag)", SelectedTypeOfPlace.Split(' ')[0])
             };
 
@@ -241,7 +241,7 @@ namespace Trains.Core.ViewModels
 
         private async Task<bool> CheckInput()
         {
-            if (DepartureTime < DateTime.Now)
+            if (DepartureTime < DateTime.Now.AddDays(3))
             {
                 await _userInteraction.AlertAsync("Поезд уехал с указаной вами станции.");
                 return false;
