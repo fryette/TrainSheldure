@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Trains.Model.Entities
+﻿namespace Trains.Model.Entities
 {
     public class PersonalInformation
     {
@@ -12,5 +6,6 @@ namespace Trains.Model.Entities
         public string PhoneNumber { get; set; }
         public string Email { get; set; }
         public string City { get; set; }
+        public string LastCode { get; set; }
     }
 }

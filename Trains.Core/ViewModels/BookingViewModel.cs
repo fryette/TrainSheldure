@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
@@ -212,7 +213,6 @@ namespace Trains.Core.ViewModels
         public async void SendTicketRequest()
         {
             if (!await CheckInput()) return;
-            SavePersonalInformation();
 
             var values = new List<KeyValuePair<string, string>>
             {
@@ -237,8 +237,18 @@ namespace Trains.Core.ViewModels
 
             var responseString = await _httpService.Post(_appSettings.Tickets.First(x => x.Name == SelectedCity).Url, values,
                 new Windows1251());
-        }
 
+            var code = GetCode(responseString);
+            if (code == null)
+            {
+                await _userInteraction.AlertAsync("Произошла ошибка, просим уведомить нас через обратную связь");
+                return;
+            }
+
+            SavePersonalInformation(code);
+            await _userInteraction.AlertAsync($"Ваш заказ успешно принят. Ваш код для проверки на сайте: {code}");
+
+        }
         private async Task<bool> CheckInput()
         {
             if (DepartureTime < DateTime.Now.AddDays(3))
@@ -274,17 +284,25 @@ namespace Trains.Core.ViewModels
             return isMatch.Success;
         }
 
-        public void SavePersonalInformation()
+        public void SavePersonalInformation(string code)
         {
             _appSettings.PersonalInformation = new PersonalInformation
             {
                 FullName = FullName,
                 City = SelectedCity,
                 Email = Email,
-                PhoneNumber = PhoneNumber
+                PhoneNumber = PhoneNumber,
+                LastCode = code
             };
 
             _serializableService.Serialize(_appSettings, Defines.Restoring.AppSettings);
+        }
+
+        public string GetCode(string html)
+        {
+            html += @"<input type=""hidden"" name=""textValue(kodd)"" value=""SCA24235300"">";
+            var pattern = @"(?<TicketNumber>textValue\(kodd\)"" value=""(.+?)"")";
+            return new Regex(pattern, RegexOptions.IgnoreCase).Matches(html).Cast<Match>().Select(m => m.Groups[1].Value).FirstOrDefault();
         }
     }
 }

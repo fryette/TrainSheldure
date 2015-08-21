@@ -109,42 +109,76 @@
         </Style>
     </views:MvxWindowsPage.Resources>
 
-    <ScrollViewer>
-        <StackPanel Margin="10,0">
-            <ComboBox Header="Город"
-                      SelectedValue="1"
-                      ItemsSource="{Binding Cityes}"
-                      SelectedItem="{Binding SelectedCity,Mode=TwoWay}" />
-            <TextBox x:Name="From"
-                     Header="Откуда"
-                     Text="{Binding From}"
-                     Style="{StaticResource BookingTextBoxStyle}" />
-            <TextBox x:Name="To"
-                     Header="Куда"
-                     Text="{Binding To}"
-                     Style="{StaticResource BookingTextBoxStyle}" />
-            <TextBox x:Name="Number"
-                     Header="Номер поезда"
-                     Text="{Binding TrainNumber}"
-                     Style="{StaticResource BookingTextBoxStyle}" />
-            <ComboBox Header="Количество билетов"
-                      SelectedValue="1"
-                      ItemsSource="{Binding NumberOfTickets}"
-                      SelectedItem="{Binding SelectedNumberOfTickets,Mode=TwoWay}" />
-            <ComboBox Header="Тип вагона"
-                      SelectedValue="1"
-                      ItemsSource="{Binding TypeOfPlace}"
-                      SelectedItem="{Binding SelectedTypeOfPlace,Mode=TwoWay}" />
-            <DatePicker Header="Дата отправления"
-                        Date="{Binding DepartureTime,Mode=TwoWay}"/>
-            <TextBox Header="ФИО пассажира"
-                     Text="{Binding FullName,Mode=TwoWay}" />
-            <TextBox Header="Ваш email"
-                     Text="{Binding Email,Mode=TwoWay}" />
-            <TextBox Header="Контактный городской телефон"
-                     Text="{Binding PhoneNumber,Mode=TwoWay}" />
-            <Button Content="Отправить заявку"
-                    Command="{Binding SendTicketRequestCommand}" />
-        </StackPanel>
-    </ScrollViewer>
+    <Pivot>
+        <PivotItem Header="основные">
+            <ScrollViewer>
+                <StackPanel>
+                    <ComboBox Header="Город"
+                              SelectedValue="1"
+                              ItemsSource="{Binding Cityes}"
+                              SelectedItem="{Binding SelectedCity,Mode=TwoWay}" />
+                    <TextBox x:Name="From"
+                             Header="Откуда"
+                             Text="{Binding From}"
+                             Style="{StaticResource BookingTextBoxStyle}" />
+                    <TextBox x:Name="To"
+                             Header="Куда"
+                             Text="{Binding To}"
+                             Style="{StaticResource BookingTextBoxStyle}" />
+                    <TextBox x:Name="Number"
+                             Header="Номер поезда"
+                             Text="{Binding TrainNumber}"
+                             Style="{StaticResource BookingTextBoxStyle}" />
+                    <ComboBox Header="Количество билетов"
+                              SelectedValue="1"
+                              ItemsSource="{Binding NumberOfTickets}"
+                              SelectedItem="{Binding SelectedNumberOfTickets,Mode=TwoWay}" />
+                    <ComboBox Header="Тип вагона"
+                              SelectedValue="1"
+                              ItemsSource="{Binding TypeOfPlace}"
+                              SelectedItem="{Binding SelectedTypeOfPlace,Mode=TwoWay}" />
+                    <DatePicker Header="Дата отправления"
+                                Date="{Binding DepartureTime,Mode=TwoWay}" />
+                    <TextBox Header="ФИО пассажира"
+                             Text="{Binding FullName,Mode=TwoWay}" />
+                    <TextBox Header="Ваш email"
+                             Text="{Binding Email,Mode=TwoWay}" />
+                    <TextBox Header="Контактный городской телефон"
+                             Text="{Binding PhoneNumber,Mode=TwoWay}" />
+                    <Button Content="Отправить заявку"
+                            Command="{Binding SendTicketRequestCommand}" />
+                </StackPanel>
+            </ScrollViewer>
+        </PivotItem>
+        <PivotItem Header="дополнительные">
+            <StackPanel>
+                <CheckBox Click="ButtonBase_OnClick">
+                    <TextBlock Text="Кроме боковых мест" />
+                </CheckBox>
+                <CheckBox>
+                    <TextBlock Text="В начале и конце вагона не предлагать"
+                               TextWrapping="Wrap" />
+                </CheckBox>
+                <CheckBox>
+                    <TextBlock Text="В разных купе не предлагать"
+                               TextWrapping="Wrap" />
+                </CheckBox>
+                <CheckBox>
+                    <TextBlock Text="При отсутствии плацкартных мест предложить купейные"
+                               TextWrapping="Wrap" />
+                </CheckBox>
+                <CheckBox>
+                    <TextBlock Text="При отсутствии купейных мест предложить плацкартные"
+                               TextWrapping="Wrap" />
+                </CheckBox>
+                <CheckBox>
+                    <TextBlock Text="Хотя бы одно нижнее" />
+                </CheckBox>
+                <CheckBox>
+                    <TextBlock Text="При отсутствии мест на данный поезд предложить другой"
+                               TextWrapping="Wrap" />
+                </CheckBox>
+            </StackPanel>
+        </PivotItem>
+    </Pivot>
 </views:MvxWindowsPage>

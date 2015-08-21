@@ -1,4 +1,5 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkID=390556
 
@@ -12,6 +13,10 @@ namespace Trains.WP.Views
         public BookingView()
         {
             this.InitializeComponent();
+        }
+
+        private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
