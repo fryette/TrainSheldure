@@ -29,6 +29,7 @@ namespace Trains.Core.ViewModels
         #region command
 
         public IMvxCommand SendTicketRequestCommand { get; private set; }
+        public MvxCommand<AdditionalTicketParameter> AdditionalParameterSelectedCommand { get; private set; }
 
         #endregion
 
@@ -41,10 +42,24 @@ namespace Trains.Core.ViewModels
             _userInteraction = userInteraction;
             _serializableService = serializableService;
 
+            AdditionalParameterSelectedCommand=new MvxCommand<AdditionalTicketParameter>(AdditionalParameterSelected);
             SendTicketRequestCommand = new MvxCommand(SendTicketRequest);
         }
 
         #endregion
+
+        #region propertyes
+
+        private List<AdditionalTicketParameter> _additionalTicketParameter;
+        public List<AdditionalTicketParameter> AdditionalTicketParameters
+        {
+            get { return _additionalTicketParameter; }
+            set
+            {
+                _additionalTicketParameter = value;
+                RaisePropertyChanged(() => AdditionalTicketParameters);
+            }
+        }
 
         private string _from;
         public string From
@@ -187,6 +202,8 @@ namespace Trains.Core.ViewModels
             }
         }
 
+        #endregion
+
         public void Init(string param)
         {
             var train = JsonConvert.DeserializeObject<Train>(param);
@@ -197,6 +214,17 @@ namespace Trains.Core.ViewModels
             SelectedTypeOfPlace = TypeOfPlace.FirstOrDefault();
             SelectedNumberOfTickets = NumberOfTickets.FirstOrDefault();
             Cityes = new List<string>(_appSettings.Tickets.Select(x => x.Name));
+            AdditionalTicketParameters = new List<AdditionalTicketParameter>
+            {
+                new AdditionalTicketParameter {Parameter = "Кроме боковых мест"},
+                new AdditionalTicketParameter {Parameter = "В начале и конце вагона не предлагать"},
+                new AdditionalTicketParameter {Parameter = "В разных купе не предлагать"},
+                new AdditionalTicketParameter {Parameter = "При отсутствии плацкартных мест предложить купейные"},
+                new AdditionalTicketParameter {Parameter = "При отсутствии купейных мест предложить плацкартные"},
+                new AdditionalTicketParameter {Parameter = "Хотя бы одно нижнее"},
+                new AdditionalTicketParameter {Parameter = "При отсутствии мест на данный поезд предложить другой"}
+            };
+
             if (_appSettings.PersonalInformation != null)
             {
                 Email = _appSettings.PersonalInformation.Email;
@@ -209,7 +237,6 @@ namespace Trains.Core.ViewModels
                 SelectedCity = Cityes.First();
             }
         }
-
         public async void SendTicketRequest()
         {
             if (!await CheckInput()) return;
@@ -231,9 +258,11 @@ namespace Trains.Core.ViewModels
                 new KeyValuePair<string, string>("textValue(f_zakaz)", FullName),
                 new KeyValuePair<string, string>("textValue(nsto)", From),
                 new KeyValuePair<string, string>("textValue(nstn)", To),
-                new KeyValuePair<string, string>("send_z1", "Отправить заявку"),
+                new KeyValuePair<string, string>("send_z", "Отправить заявку"),
                 new KeyValuePair<string, string>("textValue(tip_vag)", SelectedTypeOfPlace.Split(' ')[0])
             };
+
+            values.AddRange(AdditionalTicketParameters.Where(x => x.IsSelected).Select(additionalTicketParameter => new KeyValuePair<string, string>("o_usl1", additionalTicketParameter.Parameter)));
 
             var responseString = await _httpService.Post(_appSettings.Tickets.First(x => x.Name == SelectedCity).Url, values,
                 new Windows1251());
@@ -241,7 +270,7 @@ namespace Trains.Core.ViewModels
             var code = GetCode(responseString);
             if (code == null)
             {
-                await _userInteraction.AlertAsync("Произошла ошибка, просим уведомить нас через обратную связь");
+                await _userInteraction.AlertAsync("Произошла ошибка, убедитесь, что вы ввели все правильно, в случае повтора просим уведомить нас через обратную связь");
                 return;
             }
 
@@ -276,7 +305,8 @@ namespace Trains.Core.ViewModels
 
             return true;
         }
-        public bool IsEmailValid()
+
+        private bool IsEmailValid()
         {
             const string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
             var isMatch = Regex.Match(Email, pattern, RegexOptions.IgnoreCase);
@@ -284,7 +314,7 @@ namespace Trains.Core.ViewModels
             return isMatch.Success;
         }
 
-        public void SavePersonalInformation(string code)
+        private void SavePersonalInformation(string code)
         {
             _appSettings.PersonalInformation = new PersonalInformation
             {
@@ -298,11 +328,15 @@ namespace Trains.Core.ViewModels
             _serializableService.Serialize(_appSettings, Defines.Restoring.AppSettings);
         }
 
-        public string GetCode(string html)
+        private string GetCode(string html)
         {
-            html += @"<input type=""hidden"" name=""textValue(kodd)"" value=""SCA24235300"">";
             var pattern = @"(?<TicketNumber>textValue\(kodd\)"" value=""(.+?)"")";
             return new Regex(pattern, RegexOptions.IgnoreCase).Matches(html).Cast<Match>().Select(m => m.Groups[1].Value).FirstOrDefault();
+        }
+
+        private void AdditionalParameterSelected(AdditionalTicketParameter x)
+        {
+            x.IsSelected = !x.IsSelected;
         }
     }
 }

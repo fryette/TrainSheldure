@@ -109,7 +109,7 @@
         </Style>
     </views:MvxWindowsPage.Resources>
 
-    <Pivot>
+    <Pivot x:Name="RootPivot">
         <PivotItem Header="основные">
             <ScrollViewer>
                 <StackPanel>
@@ -145,40 +145,28 @@
                              Text="{Binding Email,Mode=TwoWay}" />
                     <TextBox Header="Контактный городской телефон"
                              Text="{Binding PhoneNumber,Mode=TwoWay}" />
-                    <Button Content="Отправить заявку"
-                            Command="{Binding SendTicketRequestCommand}" />
                 </StackPanel>
             </ScrollViewer>
         </PivotItem>
         <PivotItem Header="дополнительные">
-            <StackPanel>
-                <CheckBox Click="ButtonBase_OnClick">
-                    <TextBlock Text="Кроме боковых мест" />
-                </CheckBox>
-                <CheckBox>
-                    <TextBlock Text="В начале и конце вагона не предлагать"
-                               TextWrapping="Wrap" />
-                </CheckBox>
-                <CheckBox>
-                    <TextBlock Text="В разных купе не предлагать"
-                               TextWrapping="Wrap" />
-                </CheckBox>
-                <CheckBox>
-                    <TextBlock Text="При отсутствии плацкартных мест предложить купейные"
-                               TextWrapping="Wrap" />
-                </CheckBox>
-                <CheckBox>
-                    <TextBlock Text="При отсутствии купейных мест предложить плацкартные"
-                               TextWrapping="Wrap" />
-                </CheckBox>
-                <CheckBox>
-                    <TextBlock Text="Хотя бы одно нижнее" />
-                </CheckBox>
-                <CheckBox>
-                    <TextBlock Text="При отсутствии мест на данный поезд предложить другой"
-                               TextWrapping="Wrap" />
-                </CheckBox>
-            </StackPanel>
+            <ScrollViewer>
+                <StackPanel>
+                    <ItemsControl ItemsSource="{Binding AdditionalTicketParameters}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsSelected}"
+                                          Command="{Binding ElementName=RootPivot, Path=DataContext.AdditionalParameterSelectedCommand}"
+                                          CommandParameter="{Binding}">
+                                    <TextBlock Text="{Binding Parameter}"
+                                               TextWrapping="WrapWholeWords" />
+                                </CheckBox>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <Button Content="Отправить заявку"
+                            Command="{Binding SendTicketRequestCommand}" />
+                </StackPanel>
+            </ScrollViewer>
         </PivotItem>
     </Pivot>
 </views:MvxWindowsPage>
