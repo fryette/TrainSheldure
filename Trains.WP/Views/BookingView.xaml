@@ -138,7 +138,7 @@
                               ItemsSource="{Binding TypeOfPlace}"
                               SelectedItem="{Binding SelectedTypeOfPlace,Mode=TwoWay}" />
                     <DatePicker Header="Дата отправления"
-                                Date="{Binding DepartureTime,Mode=TwoWay}" />
+                                Date="{Binding DepartureDate,Mode=TwoWay}" />
                     <TextBox Header="ФИО пассажира"
                              Text="{Binding FullName,Mode=TwoWay}" />
                     <TextBox Header="Ваш email"

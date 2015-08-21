@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
@@ -42,7 +41,7 @@ namespace Trains.Core.ViewModels
             _userInteraction = userInteraction;
             _serializableService = serializableService;
 
-            AdditionalParameterSelectedCommand=new MvxCommand<AdditionalTicketParameter>(AdditionalParameterSelected);
+            AdditionalParameterSelectedCommand = new MvxCommand<AdditionalTicketParameter>(AdditionalParameterSelected);
             SendTicketRequestCommand = new MvxCommand(SendTicketRequest);
         }
 
@@ -94,14 +93,14 @@ namespace Trains.Core.ViewModels
             }
         }
 
-        private DateTimeOffset _departureTime;
-        public DateTimeOffset DepartureTime
+        private DateTimeOffset _departureDate;
+        public DateTimeOffset DepartureDate
         {
-            get { return _departureTime; }
+            get { return _departureDate; }
             set
             {
-                _departureTime = value;
-                RaisePropertyChanged(() => DepartureTime);
+                _departureDate = value;
+                RaisePropertyChanged(() => DepartureDate);
             }
         }
 
@@ -210,7 +209,7 @@ namespace Trains.Core.ViewModels
             From = _appSettings.UpdatedLastRequest.Route.From;
             To = _appSettings.UpdatedLastRequest.Route.To;
             TrainNumber = train.City.Split(' ')[0].Substring(0, 3);
-            DepartureTime = train.StartTime;
+            DepartureDate = train.StartTime;
             SelectedTypeOfPlace = TypeOfPlace.FirstOrDefault();
             SelectedNumberOfTickets = NumberOfTickets.FirstOrDefault();
             Cityes = new List<string>(_appSettings.Tickets.Select(x => x.Name));
@@ -237,32 +236,34 @@ namespace Trains.Core.ViewModels
                 SelectedCity = Cityes.First();
             }
         }
+
         public async void SendTicketRequest()
         {
             if (!await CheckInput()) return;
 
             var values = new List<KeyValuePair<string, string>>
             {
-                new KeyValuePair<string, string>("textValue(kodd)",""),
-                new KeyValuePair<string, string>("textValue(poezd_ii)",""),
-                new KeyValuePair<string, string>("textValue(tip_vag_ii)",""),
-                new KeyValuePair<string, string>("textValue(kol_m_ii)",""),
-                new KeyValuePair<string, string>("textValue(dat_o_ii)",""),
-                new KeyValuePair<string, string>("textValue(tel)",PhoneNumber),
-                new KeyValuePair<string, string>("textValue(hid)","-1"),
-                new KeyValuePair<string, string>("textValue(dostavka)","0"),
-                new KeyValuePair<string, string>("textValue(kol_mest)",SelectedNumberOfTickets.ToString()),
-                new KeyValuePair<string, string>("textValue(dat_o)", DepartureTime.ToString("dd.MM.yyyy")),
-                new KeyValuePair<string, string>("textValue(poezd)", TrainNumber),
-                new KeyValuePair<string, string>("textValue(email)", Email),
-                new KeyValuePair<string, string>("textValue(f_zakaz)", FullName),
-                new KeyValuePair<string, string>("textValue(nsto)", From),
-                new KeyValuePair<string, string>("textValue(nstn)", To),
-                new KeyValuePair<string, string>("send_z", "Отправить заявку"),
-                new KeyValuePair<string, string>("textValue(tip_vag)", SelectedTypeOfPlace.Split(' ')[0])
+                new KeyValuePair<string, string>(Defines.Ticket.Kodd,string.Empty),
+                new KeyValuePair<string, string>(Defines.Ticket.TrainBack,string.Empty),
+                new KeyValuePair<string, string>(Defines.Ticket.TypeOfCarriageBack,string.Empty),
+                new KeyValuePair<string, string>(Defines.Ticket.NumberOfSeatsBack,string.Empty),
+                new KeyValuePair<string, string>(Defines.Ticket.DepartureDateBack,string.Empty),
+                new KeyValuePair<string, string>(Defines.Ticket.PhoneNumber,PhoneNumber),
+                new KeyValuePair<string, string>(Defines.Ticket.Hid,Defines.Ticket.HidValue),
+                new KeyValuePair<string, string>(Defines.Ticket.Delivery,Defines.Ticket.DeliveryValue),
+                new KeyValuePair<string, string>(Defines.Ticket.NumberOfTickets,SelectedNumberOfTickets.ToString()),
+                new KeyValuePair<string, string>(Defines.Ticket.DepartureDate, DepartureDate.ToString(Defines.Ticket.DateFormat)),
+                new KeyValuePair<string, string>(Defines.Ticket.TrainNumber, TrainNumber),
+                new KeyValuePair<string, string>(Defines.Ticket.Email, Email),
+                new KeyValuePair<string, string>(Defines.Ticket.FullName, FullName),
+                new KeyValuePair<string, string>(Defines.Ticket.From, From),
+                new KeyValuePair<string, string>(Defines.Ticket.To, To),
+                new KeyValuePair<string, string>(Defines.Ticket.SendRequest, Defines.Ticket.SendRequestValue),
+                new KeyValuePair<string, string>(Defines.Ticket.TypeOfCarriage, SelectedTypeOfPlace.Split(' ')[0])
             };
 
-            values.AddRange(AdditionalTicketParameters.Where(x => x.IsSelected).Select(additionalTicketParameter => new KeyValuePair<string, string>("o_usl1", additionalTicketParameter.Parameter)));
+            values.AddRange(AdditionalTicketParameters.Where(x => x.IsSelected).Select(additionalTicketParameter =>
+            new KeyValuePair<string, string>(Defines.Ticket.Additional, additionalTicketParameter.Parameter)));
 
             var responseString = await _httpService.Post(_appSettings.Tickets.First(x => x.Name == SelectedCity).Url, values,
                 new Windows1251());
@@ -270,48 +271,43 @@ namespace Trains.Core.ViewModels
             var code = GetCode(responseString);
             if (code == null)
             {
-                await _userInteraction.AlertAsync("Произошла ошибка, убедитесь, что вы ввели все правильно, в случае повтора просим уведомить нас через обратную связь");
+                await _userInteraction.AlertAsync(Defines.Ticket.ErrorRequest);
                 return;
             }
 
             SavePersonalInformation(code);
-            await _userInteraction.AlertAsync($"Ваш заказ успешно принят. Ваш код для проверки на сайте: {code}");
-
+            await _userInteraction.AlertAsync(string.Format(Defines.Ticket.SuccsessfullyRequest, code));
         }
         private async Task<bool> CheckInput()
         {
-            if (DepartureTime < DateTime.Now.AddDays(3))
+            var differenceDays = DepartureDate.DayOfYear - DateTime.Now.DayOfYear;
+            if (differenceDays < 3)
             {
-                await _userInteraction.AlertAsync("Поезд уехал с указаной вами станции.");
-                return false;
+                if (differenceDays > 0 || Math.Abs(differenceDays) > 362)
+                {
+                    await _userInteraction.AlertAsync(Defines.Ticket.DateError);
+                    return false;
+                }
             }
 
             if (FullName == null || FullName.Split(' ').Count() < 3)
             {
-                await _userInteraction.AlertAsync("Проверьте ввод поля \"ФИО пассажира\"");
+                await _userInteraction.AlertAsync(Defines.Ticket.FullNameError);
                 return false;
             }
-            if (Email == null || !IsEmailValid())
+            if (Email == null || !Regex.Match(Email, Defines.Ticket.EmailPattern, RegexOptions.IgnoreCase).Success)
             {
-                await _userInteraction.AlertAsync("Проверьте правильность email");
+                await _userInteraction.AlertAsync(Defines.Ticket.EmailError);
                 return false;
             }
 
             if (PhoneNumber == null || PhoneNumber.Length < 5)
             {
-                await _userInteraction.AlertAsync("Проверьте правильность телефона");
+                await _userInteraction.AlertAsync(Defines.Ticket.PhoneNumberError);
                 return false;
             }
 
             return true;
-        }
-
-        private bool IsEmailValid()
-        {
-            const string pattern = "[.\\-_a-z0-9]+@([a-z0-9][\\-a-z0-9]+\\.)+[a-z]{2,6}";
-            var isMatch = Regex.Match(Email, pattern, RegexOptions.IgnoreCase);
-
-            return isMatch.Success;
         }
 
         private void SavePersonalInformation(string code)
@@ -330,8 +326,7 @@ namespace Trains.Core.ViewModels
 
         private string GetCode(string html)
         {
-            var pattern = @"(?<TicketNumber>textValue\(kodd\)"" value=""(.+?)"")";
-            return new Regex(pattern, RegexOptions.IgnoreCase).Matches(html).Cast<Match>().Select(m => m.Groups[1].Value).FirstOrDefault();
+            return new Regex(Defines.Ticket.CodePattern, RegexOptions.IgnoreCase).Matches(html).Cast<Match>().Select(m => m.Groups[1].Value).FirstOrDefault();
         }
 
         private void AdditionalParameterSelected(AdditionalTicketParameter x)
