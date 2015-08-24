@@ -40,6 +40,7 @@
     <Compile Include="Entities\AdditionalTicketParameter.cs" />
     <Compile Include="Entities\Country.cs" />
     <Compile Include="Entities\CountryStopPointItem.cs" />
+    <Compile Include="Entities\ImageFeature.cs" />
     <Compile Include="Entities\Languages.cs" />
     <Compile Include="Entities\LastRequest.cs" />
     <Compile Include="Entities\HelpInformationItem.cs" />
