@@ -9,7 +9,7 @@
                       d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
 
     <Grid Margin="10">
-        <StackPanel HorizontalAlignment="Center">
+        <!--<StackPanel HorizontalAlignment="Center">
             <TextBlock Text="{Binding Header}"
                        FontSize="{StaticResource BigFontSize}" />
             <TextBlock Text="{Binding Title}"
@@ -28,6 +28,38 @@
                     </HyperlinkButton>
                 </DataTemplate>
             </GridView.ItemTemplate>
-        </GridView>
+        </GridView>-->
+        <FlipView x:Name="flipViewVertical"
+                  Width="Auto"
+                  Height="Auto"
+                  BorderBrush="Black"
+                  BorderThickness="1"
+                  ItemsSource="{Binding ImageFeatures}">
+            <!-- Use a vertical stack panel for vertical flipping. -->
+            <FlipView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel Orientation="Vertical" />
+                </ItemsPanelTemplate>
+            </FlipView.ItemsPanel>
+
+            <FlipView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Image Source="{Binding Path}"
+                               Stretch="UniformToFill" />
+                        <Border Background="#A5000000"
+                                Height="80"
+                                VerticalAlignment="Bottom">
+                            <TextBlock Text="{Binding Description}"
+                                       FontFamily="Segoe UI"
+                                       FontSize="26.667"
+                                       Foreground="#CCFFFFFF"
+                                       Padding="15,20" />
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+
+        </FlipView>
     </Grid>
 </views:MvxWindowsPage>
