@@ -113,6 +113,10 @@
                                             </Grid.ColumnDefinitions>
                                             <FlyoutBase.AttachedFlyout>
                                                 <MenuFlyout>
+                                                    <MenuFlyoutItem x:Name="BookingButton"
+                                                                    Text="Забронировать билет"
+                                                                    Command="{Binding ElementName=MainPivot, Path=DataContext.BookingSelectedTrainCommand}"
+                                                                    CommandParameter="{Binding}" /> 
                                                     <MenuFlyoutItem x:Name="DeleteButton"
                                                                     Text="{Binding ElementName=MainPivot,Path=DataContext.AddToCalendar}"
                                                                     Command="{Binding ElementName=MainPivot, Path=DataContext.NotifyAboutSelectedTrainCommand}"

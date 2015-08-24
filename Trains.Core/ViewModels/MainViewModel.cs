@@ -47,7 +47,7 @@ namespace Trains.Core.ViewModels
 
 		private readonly INotificationService _notificationService;
 
-		private IUserInteraction _userInteraction;
+		private readonly IUserInteraction _userInteraction;
 
 		#endregion
 
@@ -63,6 +63,8 @@ namespace Trains.Core.ViewModels
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
 		public MvxCommand<Route> DeleteFavoriteRouteCommand { get; private set; }
 		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; private set; }
+		public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
+
 		#endregion
 
 		#region ctor
@@ -75,7 +77,7 @@ namespace Trains.Core.ViewModels
 			ILocalDataService local,
 			IMvxComposeEmailTask email,
 			INotificationService notificationService,
-			IUserInteraction userInteraction1)
+			IUserInteraction userInteraction)
 		{
 			_email = email;
 			_local = local;
@@ -85,7 +87,7 @@ namespace Trains.Core.ViewModels
 			_appSettings = appSettings;
 			_marketPlace = marketPlace;
 			_notificationService = notificationService;
-			this._userInteraction = userInteraction1;
+			_userInteraction = userInteraction;
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
@@ -101,6 +103,7 @@ namespace Trains.Core.ViewModels
 			});
 			DeleteFavoriteRouteCommand = new MvxCommand<Route>(DeleteFavoriteRoute);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
+			BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
 		}
 
 		#endregion
@@ -218,9 +221,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Used to read and set start stop point.
-		/// </summary> 
 		private string _from;
 		public string From
 		{
@@ -233,9 +233,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Used to read and set start end point.
-		/// </summary> 
 		private string _to;
 		public string To
 		{
@@ -502,6 +499,11 @@ namespace Trains.Core.ViewModels
 			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
 		}
 
+        public void BookingSelectedTrain(Train train)
+        {
+            ShowViewModel<BookingViewModel>(new { param = JsonConvert.SerializeObject(train) });
+        }
+
 		#region restoreResources
 
 
@@ -517,6 +519,7 @@ namespace Trains.Core.ViewModels
 				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.Restoring.FavoriteRequests);
 				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
 				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
+			    _appSettings.Tickets = appSettings.Tickets;
 
 				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
 				_appSettings.LastRoutes = routes ?? new List<Route>();
@@ -565,6 +568,7 @@ namespace Trains.Core.ViewModels
 			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Defines.DownloadJson.CarriageModel);
 			_appSettings.About = await _local.GetLanguageData<List<About>>(Defines.DownloadJson.About);
 			_appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Defines.DownloadJson.Social);
+			_appSettings.Tickets = await _local.GetOtherData<List<Ticket>>(Defines.DownloadJson.Tickets);
 			_appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Defines.DownloadJson.PlaceInformation);
 			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
 

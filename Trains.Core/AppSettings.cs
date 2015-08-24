@@ -25,6 +25,7 @@ namespace Trains.Core
 		public SocialUri SocialUri { get; set; }
 		public Language Language { get; set; }
 		public TimeSpan Reminder { get; set; }
-
+	    public List<Ticket> Tickets { get; set; }
+	    public PersonalInformation PersonalInformation { get; set; }
 	}
 }

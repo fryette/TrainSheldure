@@ -65,6 +65,8 @@
     <Compile Include="Services\SerializeService.cs" />
     <Compile Include="Services\TrainStopService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
+    <Compile Include="ViewModels\BookingViewModel.cs" />
+    <Compile Include="Extensions\FormUrlEncodedContent.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\InformationViewModel.cs" />
     <Compile Include="ViewModels\CarriageViewModel.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShareViewModel.cs" />
+    <Compile Include="Extensions\WIndows1251.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">

@@ -99,9 +99,6 @@ namespace Trains.Core.ViewModels
 			new Language{Name = "English",Id = "en"}
 		};
 
-		/// <summary>
-		/// Used to set code behind variant of search.
-		/// </summary> 
 		private Language _selectedLanguage;
 		public Language SelectedLanguage
 		{
