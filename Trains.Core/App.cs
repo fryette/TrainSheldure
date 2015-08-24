@@ -9,21 +9,25 @@ using Trains.Core.ViewModels;
 
 namespace Trains.Core
 {
-	public class App : MvxApplication
-	{
-		public override void Initialize()
-		{
-			CreatableTypes()
-				.EndingWith("Service")
-				.AsInterfaces()
-				.RegisterAsLazySingleton();
+    public class App : MvxApplication
+    {
+        public override void Initialize()
+        {
+            CreatableTypes()
+                .EndingWith("Service")
+                .AsInterfaces()
+                .RegisterAsLazySingleton();
+
+            var isFirstRun = Mvx.GetSingleton<ISerializableService>().Desserialize<string>(Defines.Common.IsFirstRun);
+            if (isFirstRun == null || isFirstRun != Defines.Common.IsFirstRun)
+                RegisterAppStart<FeaturesViewModel>();
+            else
+                RegisterAppStart<MainViewModel>();
 
 
-			RegisterAppStart<MainViewModel>();
+            Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
+            Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
 
-			Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
-			Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
-
-		}
-	}
+        }
+    }
 }

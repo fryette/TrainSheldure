@@ -16,18 +16,6 @@ namespace Trains.Core.ViewModels
         #endregion
         public IEnumerable<ShareSocial> ShareItems { get; set; }
 
-        private List<ImageFeature> _imageFeatures;
-        public List<ImageFeature> ImageFeatures
-        {
-            get { return _imageFeatures; }
-            set
-            {
-                _imageFeatures = value;
-                RaisePropertyChanged(() => ImageFeatures);
-
-            }
-        }
-
         public void Init()
         {
             RestoreUiBinding();
@@ -39,16 +27,6 @@ namespace Trains.Core.ViewModels
                 ShareSocial.GooglePlus,
                 ShareSocial.LinkedIn,
                 ShareSocial.Odnoklassniki
-            };
-
-            ImageFeatures = new List<ImageFeature>
-            {
-                new ImageFeature {Path = "ms-appx:///Assets/Screenshots/1.png",Description = "New Featuer/1"},
-                new ImageFeature {Path = "ms-appx:///Assets/Screenshots/2.png",Description = "New Featuer/2"},
-                new ImageFeature {Path = "ms-appx:///Assets/Screenshots/3.png",Description = "New Featuer/3"},
-                new ImageFeature {Path = "ms-appx:///Assets/Screenshots/4.png",Description = "New Featuer/4"},
-                new ImageFeature {Path = "ms-appx:///Assets/Screenshots/5.png",Description = "New Featuer/5"},
-                new ImageFeature {Path = "ms-appx:///Assets/Screenshots/6.png",Description = "New Featuer/6"},
             };
         }
 
