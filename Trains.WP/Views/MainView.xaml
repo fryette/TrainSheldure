@@ -25,7 +25,7 @@
                                   Header="{Binding FastSearchTextBlock}"
                                   ItemsSource="{Binding VariantOfSearch}"
                                   SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
-                                  SelectionChanged="ComboBox_SelectionChanged" />
+                                  SelectionChanged="ComboBoxSelectionChanged" />
                         <DatePicker x:Name="DataPicker"
                                     Header="{Binding DateOfDeparture}"
                                     Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
