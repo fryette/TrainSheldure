@@ -32,12 +32,13 @@ namespace Trains.Core.ViewModels
 		public IMvxCommand SearchReverseRouteCommand { get; private set; }
 		public IMvxCommand AddToFavoriteCommand { get; private set; }
 		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; set; }
+        public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
 
-		#endregion
+        #endregion
 
-		#region ctor
+        #region ctor
 
-		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction)
+        public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction)
 		{
 			_serializable = serializableService;
 			_appSettings = appSettings;
@@ -52,15 +53,18 @@ namespace Trains.Core.ViewModels
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
 
-		}
+            BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
 
-		#endregion
 
-		#region properties
+        }
 
-		#region UIproperties
+        #endregion
 
-		public string ReverseAppBar { get; set; }
+        #region properties
+
+        #region UIproperties
+
+        public string ReverseAppBar { get; set; }
 		public string SaveAppBar { get; set; }
 		public string HelpAppBar { get; set; }
 		public string Update { get; set; }
@@ -221,7 +225,12 @@ namespace Trains.Core.ViewModels
 			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
 		}
 
-		private void RestoreUiBinding()
+        public void BookingSelectedTrain(Train train)
+        {
+            ShowViewModel<BookingViewModel>(new { param = JsonConvert.SerializeObject(train) });
+        }
+
+        private void RestoreUiBinding()
 		{
 			ReverseAppBar = ResourceLoader.Instance.Resource["ReverseAppBar"];
 			Update = ResourceLoader.Instance.Resource["Update"];
