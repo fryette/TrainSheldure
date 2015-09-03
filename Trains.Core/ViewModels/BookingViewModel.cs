@@ -283,7 +283,7 @@ namespace Trains.Core.ViewModels
             var differenceDays = DepartureDate.DayOfYear - DateTime.Now.DayOfYear;
             if (differenceDays < 3)
             {
-                if (differenceDays > 0 || Math.Abs(differenceDays) > 362)
+                if (differenceDays >= 0 || Math.Abs(differenceDays) > 362)
                 {
                     await _userInteraction.AlertAsync(Defines.Ticket.DateError);
                     return false;
