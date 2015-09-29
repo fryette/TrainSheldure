@@ -193,18 +193,19 @@
   <AccountPackageIdentityNames>
     <MainPackageIdentityName>225307CA4C4AC.Horizon-BETA</MainPackageIdentityName>
     <MainPackageIdentityName>225307CA4C4AC.11569F3537AC7</MainPackageIdentityName>
+    <MainPackageIdentityName>225307CA4C4AC.194915EDF5A05</MainPackageIdentityName>
     <MainPackageIdentityName>225307CA4C4AC.-BETA</MainPackageIdentityName>
   </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://dev.windows.com/dashboard/Application?appId=9NBLGGGZPGL5">
     <PackageInfo>
       <OsMinVersion>6.3.1.0</OsMinVersion>
       <PackageArchitecture>Neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>2015.722.1637.0</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>2015.733.0.0</PackageMaxArchitectureVersion>
     </PackageInfo>
     <PackageInfo>
       <OsMinVersion>6.3.1.0</OsMinVersion>
       <PackageArchitecture>Neutral</PackageArchitecture>
-      <PackageMaxArchitectureVersion>2015.722.1637.0</PackageMaxArchitectureVersion>
+      <PackageMaxArchitectureVersion>2015.733.0.0</PackageMaxArchitectureVersion>
     </PackageInfo>
   </PackageInfoList>
 </StoreAssociation>

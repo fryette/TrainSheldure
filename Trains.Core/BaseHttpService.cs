@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
+using Trains.Core.Extensions;
 using Trains.Core.Services.Interfaces;
 
 namespace Trains.Core
@@ -79,5 +82,13 @@ namespace Trains.Core
 			return req;
 		}
 
-	}
+        public async Task<string> Post(Uri url, List<KeyValuePair<string, string>> values,  Encoding encoding)
+        {
+            var content = new Extensions.FormUrlEncodedContent(values);
+            var httpClient = new HttpClient(new HttpClientHandler());
+            var response = await httpClient.PostAsync(url, content);
+            var temp = await response.Content.ReadAsByteArrayAsync();
+            return encoding.GetString(temp, 0, temp.Length - 1);
+        }
+    }
 }

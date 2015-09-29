@@ -25,7 +25,7 @@
                                   Header="{Binding FastSearchTextBlock}"
                                   ItemsSource="{Binding VariantOfSearch}"
                                   SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
-                                  SelectionChanged="ComboBox_SelectionChanged" />
+                                  SelectionChanged="ComboBoxSelectionChanged" />
                         <DatePicker x:Name="DataPicker"
                                     Header="{Binding DateOfDeparture}"
                                     Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -113,6 +113,10 @@
                                             </Grid.ColumnDefinitions>
                                             <FlyoutBase.AttachedFlyout>
                                                 <MenuFlyout>
+                                                    <MenuFlyoutItem x:Name="BookingButton"
+                                                                    Text="Забронировать билет"
+                                                                    Command="{Binding ElementName=MainPivot, Path=DataContext.BookingSelectedTrainCommand}"
+                                                                    CommandParameter="{Binding}" />
                                                     <MenuFlyoutItem x:Name="DeleteButton"
                                                                     Text="{Binding ElementName=MainPivot,Path=DataContext.AddToCalendar}"
                                                                     Command="{Binding ElementName=MainPivot, Path=DataContext.NotifyAboutSelectedTrainCommand}"

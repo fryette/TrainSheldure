@@ -6,6 +6,6 @@ namespace Trains.Core.Interfaces
 {
 	public interface INotificationService
 	{
-		Task AddTrainToNotification(Train train, TimeSpan reminder);
+		Task<TimeSpan> AddTrainToNotification(Train train, TimeSpan reminder);
 	}
 }

@@ -125,6 +125,9 @@
     <Compile Include="Views\AboutView.xaml.cs">
       <DependentUpon>AboutView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\BookingView.xaml.cs">
+      <DependentUpon>BookingView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CarriageView.xaml.cs">
       <DependentUpon>CarriageView.xaml</DependentUpon>
     </Compile>
@@ -139,6 +142,9 @@
     </Compile>
     <Compile Include="Views\ScheduleView.xaml.cs">
       <DependentUpon>ScheduleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FeaturesView.xaml.cs">
+      <DependentUpon>FeaturesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
@@ -166,6 +172,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\BookingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CarriageView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -185,6 +195,10 @@
     <Page Include="Views\ScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\FeaturesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
@@ -350,6 +364,12 @@
     <Content Include="Assets\Logo.scale-240.png" />
     <Content Include="Assets\MainImage.png" />
     <Content Include="Assets\MenuIcon\result.jpg" />
+    <Content Include="Assets\Screenshots\1.png" />
+    <Content Include="Assets\Screenshots\2.png" />
+    <Content Include="Assets\Screenshots\3.png" />
+    <Content Include="Assets\Screenshots\4.png" />
+    <Content Include="Assets\Screenshots\5.png" />
+    <Content Include="Assets\Screenshots\6.png" />
     <Content Include="Assets\SmallLogo.scale-240.png" />
     <Content Include="Assets\SplashScreen.scale-240.png" />
     <Content Include="Assets\Square71x71Logo.scale-240.png" />

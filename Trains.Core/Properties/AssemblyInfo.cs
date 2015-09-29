@@ -18,7 +18,7 @@ using System.Resources;
 //
 //      Major Version
 //      Minor Version 
-//      Build Number
+//      Build TrainNumber
 //      Revision
 //
 // You can specify all the values or you can default the Build and Revision Numbers 
