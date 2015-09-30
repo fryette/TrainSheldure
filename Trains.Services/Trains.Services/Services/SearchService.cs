@@ -15,7 +15,6 @@ namespace Trains.Services.Services
 		private readonly IHttpService _httpService;
 		//private readonly IAnalytics _analytics;
 
-
 		public SearchService(IHttpService httpService)
 		{
 			//_analytics = analytics;

@@ -1,0 +1,23 @@
+﻿[
+
+    {
+        "Text": "Поделиться",
+        "Item": "Share"
+    },
+    {
+        "Text": "Оценить",
+        "Item": "Market"
+    },
+    {
+        "Text": "Сообщить о проблеме",
+        "Item": "Mail"
+    },
+    {
+        "Text": "Настройки",
+        "Item": "Settings"
+    },
+    {
+        "Text": "О приложении",
+        "Item": "AboutApp"
+    }
+]
