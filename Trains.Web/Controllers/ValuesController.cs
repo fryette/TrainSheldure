@@ -4,11 +4,18 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Ninject;
+using Trains.Infrastructure.Interfaces;
 
 namespace Trains.Web.Controllers
 {
 	public class ValuesController : ApiController
 	{
+
+		public ValuesController(IAppSettings appSettings)
+		{
+			var a = appSettings;
+		}
 		// GET api/values
 		public IEnumerable<string> Get()
 		{
