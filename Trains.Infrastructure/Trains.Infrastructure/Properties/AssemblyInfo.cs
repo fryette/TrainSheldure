@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Trains.Models")]
+[assembly: AssemblyTitle("Trains.Infrastructure")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("EPAM Systems")]
-[assembly: AssemblyProduct("Trains.Models")]
+[assembly: AssemblyProduct("Trains.Infrastructure")]
 [assembly: AssemblyCopyright("Copyright © EPAM Systems 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("38875bd5-290b-4773-b8e4-dd656ca3f549")]
+[assembly: Guid("61a2f3a2-3bec-4a33-aa35-e42d6291565b")]
 
 // Version information for an assembly consists of the following four values:
 //

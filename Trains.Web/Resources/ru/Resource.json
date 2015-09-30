@@ -1,8 +1,4 @@
 ﻿{
-   "TrainsPattern": "(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|(?<endTime><div class=\"list_end\">(.+?)</div>)|(?<city><div class=\"list_text\">(.+?)<\\/?)|(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>|(?<internetRegistration><div class=\"b-legend\">(.+?)</div)",
-    "PlacesAndPricesPattern": "(?<Name><td class=\"places_name\">([^<]+)</td>)|(?<quantity><td class=\"places_qty\">([^<]*)<)|(?<Price><td class=\"places_price\">([^<]*))",
-    "AdditionParameterPattern": "div class=\"b-places\">(.*?)</div>",
-    "TrainPointPattern": "(?<name>class=\"train_name -map train_text\">([^<]*)<\\/?)|(?<startTime>class=\"train_end-time\">(.+?)<\\/?)|(?<endTime>class=\"train_start-time\">(.+?)<\\/?)|(?<stopTime>class=\"train_stop-time\">(.+?)<\\/?)",
     "AllFavoritesDeleted": "Список ваших маршрутов теперь пуст",
     "Arrival": "Отправление: ",
     "Belarus": "(Беларусь)",
@@ -15,7 +11,6 @@
     "ErrorUpdate": "Не найден последний запрос, или произошла ошибка загрузки",
     "Everyday": "everyday",
     "FavoriteListIsEmpthy": "Ваш список пуст",
-    "Feedback": "Чыгунка/предложения/баги",
     "Hour": " ч. ",
     "IncorrectInput": "Один или оба пункта не существует, проверьте еще раз ввод",
     "International": "Международные",

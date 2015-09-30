@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{38875BD5-290B-4773-B8E4-DD656CA3F549}</ProjectGuid>
+    <ProjectGuid>{61A2F3A2-3BEC-4A33-AA35-E42D6291565B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Trains.Models</RootNamespace>
-    <AssemblyName>Trains.Models</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <RootNamespace>Trains.Infrastructure</RootNamespace>
+    <AssemblyName>Trains.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,25 +45,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="About.cs" />
-    <Compile Include="AdditionalTicketParameter.cs" />
-    <Compile Include="CarriageModel.cs" />
-    <Compile Include="Country.cs" />
-    <Compile Include="CountryStopPointItem.cs" />
-    <Compile Include="Enums.cs" />
-    <Compile Include="HelpInformationItem.cs" />
-    <Compile Include="ImageFeature.cs" />
-    <Compile Include="Languages.cs" />
-    <Compile Include="LastRequest.cs" />
-    <Compile Include="PersonalInformation.cs" />
-    <Compile Include="PlaceClasses.cs" />
-    <Compile Include="PlaceInformation.cs" />
+    <Compile Include="AppSettings.cs" />
+    <Compile Include="BaseHttpService.cs" />
+    <Compile Include="Defines.cs" />
+    <Compile Include="Interfaces\IAnalytics.cs" />
+    <Compile Include="Interfaces\IAppSettings.cs" />
+    <Compile Include="Interfaces\IHttpService.cs" />
+    <Compile Include="Interfaces\ILocalDataService.cs" />
+    <Compile Include="Interfaces\IMarketPlaceService.cs" />
+    <Compile Include="Interfaces\INotificationService.cs" />
+    <Compile Include="Interfaces\ISearchService.cs" />
+    <Compile Include="Interfaces\ISerializableService.cs" />
+    <Compile Include="Interfaces\ITrainStopService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Route.cs" />
-    <Compile Include="SocialUri.cs" />
-    <Compile Include="Ticket.cs" />
-    <Compile Include="Train.cs" />
-    <Compile Include="TrainStop.cs" />
+    <Compile Include="ResourceLoader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Trains.Models\Trains.Models.csproj">
+      <Project>{38875bd5-290b-4773-b8e4-dd656ca3f549}</Project>
+      <Name>Trains.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

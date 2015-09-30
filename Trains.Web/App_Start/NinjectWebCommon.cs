@@ -1,5 +1,6 @@
 using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
+using Trains.Services.Services;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Trains.Web.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Trains.Web.App_Start.NinjectWebCommon), "Stop")]
@@ -64,7 +65,9 @@ namespace Trains.Web.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-	        kernel.Bind<IAppSettings>().To<AppSettings>();
+			kernel.Bind<ISearchService>().To<SearchService>();
+			kernel.Bind<IAppSettings>().To<AppSettings>();
+			kernel.Bind<IHttpService>().To<BaseHttpService>();
         }        
     }
 }

@@ -11,7 +11,7 @@ namespace Trains.Models
 		public string Description { get; set; }
 		public string TrainNote { get; set; }
 		public TrainClass Image { get; set; }
-		public string Type { get; set; }
+		public TrainClass Type { get; set; }
 		public AdditionalInformation[] AdditionalInformation { get; set; }
 		public string OnTheWay { get; set; }
 		public string DepartureDate { get; set; }

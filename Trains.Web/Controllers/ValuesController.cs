@@ -1,25 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
-using Ninject;
+using Newtonsoft.Json;
 using Trains.Infrastructure.Interfaces;
+using Trains.Models;
 
 namespace Trains.Web.Controllers
 {
 	public class ValuesController : ApiController
 	{
-
-		public ValuesController(IAppSettings appSettings)
+		private readonly ISearchService _searchService;
+		private IAppSettings _appSettings;
+		public ValuesController(ISearchService searchService1)
 		{
-			var a = appSettings;
+			_searchService = searchService1;
 		}
+
 		// GET api/values
-		public IEnumerable<string> Get()
+		public async Task<HttpResponseMessage> Get()
 		{
-			return new string[] { "value1", "value2" };
+			string line = "";
+			using (var sr = new StreamReader(@"D:\Git\TrainsMobile\Trains.Web\Resources\ru\Countries\Belarus.json"))
+			{
+				// Read the stream to a string, and write the string to the console.
+				line = sr.ReadToEnd();
+			}
+			var list = JsonConvert.DeserializeObject<List<CountryStopPointItem>>(line);
+			var result =
+				await
+					_searchService.GetTrainSchedule(list.First(x => x.Value == "Берёза-Город"), list.First(x => x.Value == "Брест"),
+						DateTimeOffset.Now, "1");
+			return new HttpResponseMessage()
+			{
+				Content = new StringContent(JsonConvert.SerializeObject(result), System.Text.Encoding.UTF8, "text/html")
+			};
 		}
 
 		// GET api/values/5
