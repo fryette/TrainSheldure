@@ -39,6 +39,27 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Services", "Trains.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Trains.Models", "Trains.Models\Trains.Models.csproj", "{38875BD5-290B-4773-B8E4-DD656CA3F549}"
 EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Trains.FrontendApp", "Trains.FrontendApp\", "{E244284E-5A08-43FC-B816-D13EE1983791}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_19018"
+		Debug.AspNetCompiler.PhysicalPath = "Trains.FrontendApp\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_19018\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_19018"
+		Release.AspNetCompiler.PhysicalPath = "Trains.FrontendApp\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_19018\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "19018"
+		SlnRelativePath = "Trains.FrontendApp\"
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Android = Ad-Hoc|Android
