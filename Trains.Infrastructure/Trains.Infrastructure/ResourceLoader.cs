@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Web;
 using Newtonsoft.Json;
 using Trains.Infrastructure.Interfaces;
 
@@ -15,7 +16,7 @@ namespace Trains.Infrastructure
 
 		private ResourceLoader()
 		{
-			using (var sr = new StreamReader(@"D:\Git\TrainsMobile\Trains.Web\Resources\ru\Resource.json"))
+			using (var sr = new StreamReader(HttpContext.Current.Server.MapPath(@"\Resources\ru\Resource.json")))
 			{
 				// Read the stream to a string, and write the string to the console.
 				Resource = JsonConvert.DeserializeObject<Dictionary<string, string>>(sr.ReadToEnd());

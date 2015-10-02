@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using Newtonsoft.Json;
 using Trains.Infrastructure.Interfaces;
@@ -24,7 +25,7 @@ namespace Trains.Web.Controllers
 		public async Task<HttpResponseMessage> Get()
 		{
 			string line = "";
-			using (var sr = new StreamReader(@"D:\Git\TrainsMobile\Trains.Web\Resources\ru\Countries\Belarus.json"))
+			using (var sr = new StreamReader(HttpContext.Current.Server.MapPath("/Resources/ru/Countries/Belarus.json")))
 			{
 				// Read the stream to a string, and write the string to the console.
 				line = sr.ReadToEnd();

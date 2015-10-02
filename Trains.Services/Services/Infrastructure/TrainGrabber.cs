@@ -80,13 +80,11 @@ namespace Trains.Services.Services.Infrastructure
         private static Train CreateTrain(string time1, string time2, string city, string description, TrainClass image, string type = null,
              string beforeDepartureTime = null, string departureDate = null, bool internetRegistration = false)
         {
-            DateTime endTime;
-            DateTime startTime;
-            time2 = time2.Replace("<br />", " ");
-            startTime = DateTime.ParseExact(time1, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
+	        time2 = time2.Replace("<br />", " ");
+            var startTime = DateTime.ParseExact(time1, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
 
-            endTime = time2.Length > 10 ? DateTime.Parse(time2.Length == 12 ? time2 : time2.Remove(time2.Length - 1), new CultureInfo(ResourceLoader.Instance.Resource["Language"]))
-                : DateTime.ParseExact(departureDate + ' ' + time2, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
+            var endTime = time2.Length > 10 ? DateTime.Parse(time2.Length == 12 ? time2 : time2.Remove(time2.Length - 1), new CultureInfo(ResourceLoader.Instance.Resource["Language"]))
+	            : DateTime.ParseExact(departureDate + ' ' + time2, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
             return new Train
             {
                 StartTime = startTime,
