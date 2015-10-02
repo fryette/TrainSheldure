@@ -22,7 +22,7 @@ namespace Trains.Web.Controllers
 		}
 
 		// GET api/values
-		public async Task<HttpResponseMessage> Get()
+		public async Task<HttpResponseMessage> Get(string from,string to,string lang)
 		{
 			string line = "";
 			using (var sr = new StreamReader(HttpContext.Current.Server.MapPath("/Resources/ru/Countries/Belarus.json")))
