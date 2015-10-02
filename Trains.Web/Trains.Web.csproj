@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Trains.Web</RootNamespace>
     <AssemblyName>Trains.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,15 +50,39 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.MVC3.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.WebApi.WebHost, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Web.WebApi.WebHost.3.2.4.0\lib\net45-full\Ninject.Web.WebApi.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
@@ -67,9 +92,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -111,13 +133,18 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="WebGrease">
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime">
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -127,13 +154,16 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="IResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
@@ -141,6 +171,283 @@
     <Content Include="wwwroot\auto-bundle.js" />
     <Content Include="wwwroot\index.html" />
     <None Include="Properties\PublishProfiles\Chygunka.pubxml" />
+    <Content Include="Resources\be\About.json" />
+    <Content Include="Resources\be\CarriageModel.json" />
+    <Content Include="Resources\be\Countries.json" />
+    <Content Include="Resources\be\HelpInformation.json" />
+    <Content Include="Resources\be\PlaceInformation.json" />
+    <Content Include="Resources\be\Resource.json" />
+    <Content Include="Resources\be\StopPoints.json" />
+    <Content Include="Resources\be\Countries\Belarus.json" />
+    <Content Include="Resources\be\Countries\Іран.json" />
+    <Content Include="Resources\be\Countries\Італія.json" />
+    <Content Include="Resources\be\Countries\Аўстрыя.json" />
+    <Content Include="Resources\be\Countries\Абхазія.json" />
+    <Content Include="Resources\be\Countries\Азербайджан.json" />
+    <Content Include="Resources\be\Countries\Арменія.json" />
+    <Content Include="Resources\be\Countries\Балгарыя.json" />
+    <Content Include="Resources\be\Countries\Бельгія.json" />
+    <Content Include="Resources\be\Countries\Боснія і Герцагав.json" />
+    <Content Include="Resources\be\Countries\Велікабрытанія.json" />
+    <Content Include="Resources\be\Countries\Венгрыя.json" />
+    <Content Include="Resources\be\Countries\Вьетнам.json" />
+    <Content Include="Resources\be\Countries\Германія.json" />
+    <Content Include="Resources\be\Countries\Грузія.json" />
+    <Content Include="Resources\be\Countries\Грэцыя.json" />
+    <Content Include="Resources\be\Countries\Данія.json" />
+    <Content Include="Resources\be\Countries\Кіргізія.json" />
+    <Content Include="Resources\be\Countries\Кітай.json" />
+    <Content Include="Resources\be\Countries\Казахстан.json" />
+    <Content Include="Resources\be\Countries\Карэя.json" />
+    <Content Include="Resources\be\Countries\Літва.json" />
+    <Content Include="Resources\be\Countries\Латвія.json" />
+    <Content Include="Resources\be\Countries\Люксембург.json" />
+    <Content Include="Resources\be\Countries\Македонія.json" />
+    <Content Include="Resources\be\Countries\Малдова.json" />
+    <Content Include="Resources\be\Countries\Манголія.json" />
+    <Content Include="Resources\be\Countries\Нарвегія.json" />
+    <Content Include="Resources\be\Countries\Нидэрланды.json" />
+    <Content Include="Resources\be\Countries\Польшча.json" />
+    <Content Include="Resources\be\Countries\Расія.json" />
+    <Content Include="Resources\be\Countries\Румынія.json" />
+    <Content Include="Resources\be\Countries\Славакія.json" />
+    <Content Include="Resources\be\Countries\Славенія.json" />
+    <Content Include="Resources\be\Countries\Сэрбія.json" />
+    <Content Include="Resources\be\Countries\Таджыкістан.json" />
+    <Content Include="Resources\be\Countries\Туркменія.json" />
+    <Content Include="Resources\be\Countries\Турцыя.json" />
+    <Content Include="Resources\be\Countries\Узбекістан.json" />
+    <Content Include="Resources\be\Countries\Украіна.json" />
+    <Content Include="Resources\be\Countries\Фінляндыя.json" />
+    <Content Include="Resources\be\Countries\Францыя.json" />
+    <Content Include="Resources\be\Countries\Харватыя.json" />
+    <Content Include="Resources\be\Countries\Чарнагорыя.json" />
+    <Content Include="Resources\be\Countries\Чэхія.json" />
+    <Content Include="Resources\be\Countries\Швейцарыя.json" />
+    <Content Include="Resources\be\Countries\Швецыя.json" />
+    <Content Include="Resources\be\Countries\Эстонія.json" />
+    <Content Include="Resources\en\About.json" />
+    <Content Include="Resources\en\CarriageModel.json" />
+    <Content Include="Resources\en\Countries.json" />
+    <Content Include="Resources\en\HelpInformation.json" />
+    <Content Include="Resources\en\PlaceInformation.json" />
+    <Content Include="Resources\en\Resource.json" />
+    <Content Include="Resources\en\StopPoints.json" />
+    <Content Include="Resources\en\Countries\Abkhazia.json" />
+    <Content Include="Resources\en\Countries\Armenia.json" />
+    <Content Include="Resources\en\Countries\Austria.json" />
+    <Content Include="Resources\en\Countries\Azerbaijan.json" />
+    <Content Include="Resources\en\Countries\Belarus.json" />
+    <Content Include="Resources\en\Countries\Belgium.json" />
+    <Content Include="Resources\en\Countries\Bosnia and Herzeg..json" />
+    <Content Include="Resources\en\Countries\Bulgaria.json" />
+    <Content Include="Resources\en\Countries\China.json" />
+    <Content Include="Resources\en\Countries\Croatia.json" />
+    <Content Include="Resources\en\Countries\Czech Republic.json" />
+    <Content Include="Resources\en\Countries\Denmark.json" />
+    <Content Include="Resources\en\Countries\Estonia.json" />
+    <Content Include="Resources\en\Countries\Finland.json" />
+    <Content Include="Resources\en\Countries\France.json" />
+    <Content Include="Resources\en\Countries\Georgia.json" />
+    <Content Include="Resources\en\Countries\Germany.json" />
+    <Content Include="Resources\en\Countries\Great Britain.json" />
+    <Content Include="Resources\en\Countries\Greece.json" />
+    <Content Include="Resources\en\Countries\Hungary.json" />
+    <Content Include="Resources\en\Countries\Iran.json" />
+    <Content Include="Resources\en\Countries\Italy.json" />
+    <Content Include="Resources\en\Countries\Kazakhstan.json" />
+    <Content Include="Resources\en\Countries\Kyrgyzstan.json" />
+    <Content Include="Resources\en\Countries\Latvia.json" />
+    <Content Include="Resources\en\Countries\Lithuania.json" />
+    <Content Include="Resources\en\Countries\Luxemburg.json" />
+    <Content Include="Resources\en\Countries\Macedonia.json" />
+    <Content Include="Resources\en\Countries\Moldova.json" />
+    <Content Include="Resources\en\Countries\Mongolia.json" />
+    <Content Include="Resources\en\Countries\Montenegro.json" />
+    <Content Include="Resources\en\Countries\Netherlands.json" />
+    <Content Include="Resources\en\Countries\North Korea.json" />
+    <Content Include="Resources\en\Countries\Norway.json" />
+    <Content Include="Resources\en\Countries\Poland.json" />
+    <Content Include="Resources\en\Countries\Romania.json" />
+    <Content Include="Resources\en\Countries\Russia.json" />
+    <Content Include="Resources\en\Countries\Serbia.json" />
+    <Content Include="Resources\en\Countries\Slovakia.json" />
+    <Content Include="Resources\en\Countries\Slovenia.json" />
+    <Content Include="Resources\en\Countries\Sweden.json" />
+    <Content Include="Resources\en\Countries\Switzerland.json" />
+    <Content Include="Resources\en\Countries\Tajikistan.json" />
+    <Content Include="Resources\en\Countries\Turkey.json" />
+    <Content Include="Resources\en\Countries\Turkmenistan.json" />
+    <Content Include="Resources\en\Countries\Ukraine.json" />
+    <Content Include="Resources\en\Countries\Uzbekistan.json" />
+    <Content Include="Resources\en\Countries\Vietnam.json" />
+    <Content Include="Resources\ru\About.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\CarriageModel.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\HelpInformation.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\PlaceInformation.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Resource.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\StopPoints.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\SocialUri.json" />
+    <Content Include="Resources\Tickets.json" />
+    <Content Include="Resources\ru\Countries\Belarus.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Абхазия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Австрия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Азербайджан.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Армения.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Бельгия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Болгария.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Босния и Герцегов..json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Великобритания.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Венгрия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Вьетнам.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Германия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Греция.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Грузия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Дания.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Иран.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Италия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Казахстан.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Китай.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Корея.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Кыргизия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Латвия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Литва.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Люксембург.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Македония.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Молдова.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Монголия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Нидерланды.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Норвегия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Польша.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Россия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Румыния.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Сербия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Словакия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Словения.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Таджикистан.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Туркмения.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Турция.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Узбекистан.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Украина.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Финляндия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Франция.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Хорватия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Черногория.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Чехия.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Швейцария.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Швеция.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\ru\Countries\Эстония.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -152,6 +459,20 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Trains.Infrastructure\Trains.Infrastructure\Trains.Infrastructure.csproj">
+      <Project>{61a2f3a2-3bec-4a33-aa35-e42d6291565b}</Project>
+      <Name>Trains.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trains.Models\Trains.Models.csproj">
+      <Project>{38875BD5-290B-4773-B8E4-DD656CA3F549}</Project>
+      <Name>Trains.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trains.Services\Trains.Services.csproj">
+      <Project>{26142a16-f44e-46e1-aa00-d4f7386bfcc3}</Project>
+      <Name>Trains.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,34 @@
+﻿[
+  {
+    "Name": "Минск",
+    "Url": "http://brestrw.by/zpd/zayavka.do"
+  },
+  {
+    "Name": "Брест",
+    "Url": "http://www.brestrw.by/zpdbrest/zayavka.do"
+  },
+  {
+    "Name": "Гомель",
+    "Url": "http://www.brestrw.by/zpdgomel/zayavka.do"
+  },
+  {
+    "Name": "Могилев",
+    "Url": "http://www.brestrw.by/zpdmogilev/zayavka.do"
+  },
+  {
+    "Name": "Витебск",
+    "Url": "http://www.brestrw.by/zpdvitebsk/zayavka.do"
+  },
+  {
+    "Name": "Орша",
+    "Url": "http://www.brestrw.by/zpdorsha/zayavka.do"
+  },
+  {
+    "Name": "Барановичи",
+    "Url": "http://www.brestrw.by/zpdbrnv/zayavka.do"
+  },
+  {
+    "Name": "Гродно",
+    "Url": "http://www.brestrw.by/zpdgrodno/zayavka.do"
+  },
+]

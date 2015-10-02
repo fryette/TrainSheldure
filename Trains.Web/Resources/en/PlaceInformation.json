@@ -1,0 +1,24 @@
+[
+
+    {
+        "Name": "ЭР – available electronic registration",
+        "Id": "ЭР"
+    },
+    {
+        "Name": "С - Seats/general with seats (no beds)",
+        "Id": "С"
+    },
+    {
+        "Name": "К – the compartment with a 4-seater coupe",
+        "Id": "К"
+    },
+    {
+        "Name": "П  – not compartment with beds (second-class)",
+        "Id": "П"
+    },
+    
+    {
+        "Name": "СВ – soft with a 2-berth compartments",
+        "Id": "СВ"
+    }
+]

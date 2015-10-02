@@ -1,0 +1,22 @@
+[
+    {
+        "Text": "Share",
+        "Item": "Share"
+    },
+    {
+        "Text": "Rate",
+        "Item": "Market"
+    },
+    {
+        "Text": "Report a problem",
+        "Item": "Mail"
+    },
+    {
+        "Text": "Settings",
+        "Item": "Settings"
+    },
+    {
+        "Text": "About",
+        "Item": "AboutApp"
+    }
+]
