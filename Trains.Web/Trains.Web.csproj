@@ -120,7 +120,10 @@
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -136,19 +139,6 @@
     <Content Include="Global.asax" />
     <Content Include="wwwroot\auto-bundle.css" />
     <Content Include="wwwroot\auto-bundle.js" />
-    <Content Include="wwwroot\fonts\fontawesome-webfont.svg" />
-    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="wwwroot\images\bg.jpg" />
-    <Content Include="wwwroot\images\favicon.ico" />
-    <Content Include="wwwroot\images\layers-2x.png" />
-    <Content Include="wwwroot\images\layers.png" />
-    <Content Include="wwwroot\images\marker-icon-2x.png" />
-    <Content Include="wwwroot\images\marker-icon.png" />
-    <Content Include="wwwroot\images\marker-shadow.png" />
-    <Content Include="wwwroot\images\select2.png" />
-    <Content Include="wwwroot\images\Spinner.gif" />
-    <Content Include="wwwroot\images\spritesheet-2x.png" />
-    <Content Include="wwwroot\images\spritesheet.png" />
     <Content Include="wwwroot\index.html" />
     <None Include="Properties\PublishProfiles\Chygunka.pubxml" />
     <Content Include="Web.config" />
@@ -158,16 +148,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="wwwroot\web.config" />
-    <Content Include="wwwroot\fonts\fontawesome-webfont.eot" />
-    <Content Include="wwwroot\fonts\fontawesome-webfont.ttf" />
-    <Content Include="wwwroot\fonts\fontawesome-webfont.woff" />
-    <Content Include="wwwroot\fonts\fontawesome-webfont.woff2" />
-    <Content Include="wwwroot\fonts\FontAwesome.otf" />
-    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
