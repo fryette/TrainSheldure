@@ -164,13 +164,16 @@
     </Compile>
     <Compile Include="IResource.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="wwwroot\auto-bundle.css" />
+    <Content Include="wwwroot\auto-bundle.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\auto-bundle.js" />
-    <Content Include="wwwroot\index.html" />
+    <Content Include="wwwroot\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\PublishProfiles\Chygunka.pubxml" />
     <Content Include="Resources\be\About.json" />
     <Content Include="Resources\be\CarriageModel.json" />
@@ -456,7 +459,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
