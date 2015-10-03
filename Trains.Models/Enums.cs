@@ -1,6 +1,10 @@
-﻿namespace Trains.Models
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace Trains.Models
 {
-    public enum TrainClass
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum TrainClass
     {
         International = 0,
         InterRegionalBusiness = 1,
@@ -11,7 +15,8 @@
         Foreign = 6,
     }
 
-    public enum Carriage
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum Carriage
     {
         FirstClassSleeper = 0,
         CompartmentSleeper = 1,
@@ -23,7 +28,8 @@
         MultipleUnitCoach = 7
     }
 
-    public enum AboutPicture
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum AboutPicture
     {
         Market = 0,
         Settings = 1,
@@ -31,7 +37,18 @@
         AboutApp = 3,
         Share=4
     }
-    public enum ShareSocial
+
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum Seats
+    {
+		Sedentary = 0,
+		SecondClass = 1,
+		Coupe = 2,
+		Luxury = 3,
+    }
+
+	[JsonConverter(typeof(StringEnumConverter))]
+	public enum ShareSocial
     {
         Vkontakte = 0,
         Facebook = 1,

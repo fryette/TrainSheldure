@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
@@ -21,14 +22,17 @@ namespace Trains.Services.Services
 			_httpService = httpService;
 		}
 
-		public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
+		public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, string datum)
 		{
-			var date = datum.AddDays(1).ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
+			var date = GetDate(datum);
 			try
 			{
-				var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
+				var data = await _httpService.LoadResponseAsync(new Uri(
+				$"http://rasp.rw.by/m/ru/route/?from={from.Value}&from_exp={from.Exp}&from_esr = {from.Ecp}&to={to.Value}&to_exp={to.Exp}&to_esr = {to.Ecp}&date={date}&{new Random().Next(0, 20)}"));
 				if (data == null)
 					return null;
+
+				data = WebUtility.HtmlDecode(data);
 
 				var additionalInformation = TrainGrabber.GetPlaces(data);
 				var links = TrainGrabber.GetLink(data);
@@ -36,7 +40,7 @@ namespace Trains.Services.Services
 				var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
 				List<Train> trains;
-				var country = "Беларусь";
+				var country = ResourceLoader.Instance.Resource["Belarus"];
 				if (!from.Label.Contains(country) && !to.Label.Contains(country))
 					trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
 				else
@@ -55,25 +59,16 @@ namespace Trains.Services.Services
 			return null;
 		}
 
-		private static Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
+		private static string GetDate(string date)
 		{
-			return new Uri(
-				$"http://rasp.rw.by/m/ru/route/?from={fromItem.Value}&from_exp={fromItem.Exp}&from_esr = {fromItem.Ecp}&to={toItem.Value}&to_exp={toItem.Exp}&to_esr = {toItem.Ecp}&date={date}&{new Random().Next(0, 20)}");
+			if (date == ResourceLoader.Instance.Resource["OnAllDays"])
+				return "everyday";
+
+			var datum = DateTimeOffset.Parse(date);
+
+			return datum < DateTimeOffset.Now
+				? DateTimeOffset.Now.ToString(Defines.Common.DateFormat) :
+				datum.ToString(Defines.Common.DateFormat);
 		}
-
-		//private static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
-		//{
-		//	if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Tommorow"])
-		//		return datum.AddDays(1).ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
-		//	if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnAllDays"])
-		//		return "everyday";
-		//	if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Yesterday"])
-		//		return datum.AddDays(-1).ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
-		//	if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnDay"])
-		//		return datum.ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
-		//	if (datum < DateTime.Now) datum = DateTime.Now;
-
-		//	return datum.ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
-		//}
 	}
 }

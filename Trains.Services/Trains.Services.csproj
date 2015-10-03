@@ -50,7 +50,6 @@
     <Compile Include="Services\Infrastructure\TrainGrabber.cs" />
     <Compile Include="Services\Infrastructure\TrainStopGrabber.cs" />
     <Compile Include="Services\LocalData.cs" />
-    <Compile Include="Services\Reflection.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\SerializeService.cs" />
     <Compile Include="Services\TrainStopService.cs" />

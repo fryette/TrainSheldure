@@ -7,6 +7,6 @@ namespace Trains.Infrastructure.Interfaces
 {
 	public interface ISearchService
 	{
-		Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string SelectedVariant);
+		Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, string datum);
 	}
 }

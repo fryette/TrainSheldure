@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AppSettings.cs" />
     <Compile Include="BaseHttpService.cs" />
+    <Compile Include="Countries.cs" />
     <Compile Include="Defines.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Interfaces\IAppSettings.cs" />
