@@ -12,8 +12,6 @@ namespace Trains.Services.Services.Infrastructure
 	{
 		#region constant
 
-		private const string UnknownStr = "&nbsp;";
-		private const string UnknownStr1 = "&nbsp;&mdash;";
 		//images and Internet Registrations
 		private const int SearchCountParameter = 2;
 
@@ -23,14 +21,12 @@ namespace Trains.Services.Services.Infrastructure
 
 		public static List<Train> GetTrainsInformation(List<Match> parameters, string date, List<bool> isInternetRegistration)
 		{
-			var dateOfDeparture = DateTime.ParseExact(date, Defines.Common.DateFormat, CultureInfo.InvariantCulture);
 			var imagePath = new List<TrainClass>(GetImagePath(parameters));
 			var trainList = new List<Train>(parameters.Count / SearchCountParameter);
 			var step = parameters.Count - imagePath.Count * 2;
 
 			for (var i = 0; i < step; i += 4)
 			{
-				var starTime = DateTime.Parse(parameters[i].Groups[1].Value);
 				trainList.Add(
 					CreateTrain(
 					date + ' ' + parameters[i].Groups[1].Value,
@@ -85,10 +81,9 @@ namespace Trains.Services.Services.Infrastructure
 			{
 				StartTime = startTime,
 				EndTime = endTime,
-				City = city.Replace(UnknownStr1, " - "),
+				City = city,
 				Type = GetTrainType(type),
 				Image = image,
-				OnTheWay = departureDate == null ? null : ResourceLoader.Instance.Resource["OnWay"] + OnTheWay(startTime, endTime),
 				DepartureDate = departureDate,
 				InternetRegistration = internetRegistration
 			};
@@ -140,39 +135,24 @@ namespace Trains.Services.Services.Infrastructure
 			var additionalParameter = Parser.ParseData(data, Defines.Common.AdditionParameterPattern).ToList();
 			for (var i = 0; i < additionalParameter.Count; i++)
 			{
-				if (i + 1 != additionalParameter.Count &&
-					!additionalParameter[i + 1].Groups[1].Value.Contains("href")) 
+				if (i + 1 == additionalParameter.Count || additionalParameter[i + 1].Groups[1].Value.Contains("href")) continue;
+				var temp =
+					Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, Defines.Common.PlacesAndPricesPattern)
+						.ToList();
+				var additionalInformations = new AdditionalInformation[temp.Count/3];
+				for (var j = 0; j < temp.Count; j += 3)
 				{
-					var temp =
-						Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, Defines.Common.PlacesAndPricesPattern)
-							.ToList();
-					var additionalInformations = new AdditionalInformation[temp.Count/3];
-					for (var j = 0; j < temp.Count; j += 3)
+					additionalInformations[j/3] = new AdditionalInformation
 					{
-						additionalInformations[j/3] = new AdditionalInformation
-						{
-							Name = GetSeatType(temp[j].Groups[1].Value),
-							Place = ResourceLoader.Instance.Resource["Place"] + (temp[j + 1].Groups[2].Value == UnknownStr
-								? ResourceLoader.Instance.Resource["Unlimited"]
-								: temp[j + 1].Groups[2].Value.Replace(UnknownStr, string.Empty)),
-							Price = temp[j + 2].Groups[3].Value == string.Empty
-								? ResourceLoader.Instance.Resource["Unknown"]
-								: ResourceLoader.Instance.Resource["Price"] + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
-						};
-					}
-					additionInformation.Add(additionalInformations);
-					++i;
+						Name = GetSeatType(temp[j].Groups[1].Value),
+						Place = temp[j + 1].Groups[2].Value.Trim(),
+						Price = temp[j + 2].Groups[3].Value
+					};
 				}
+				additionInformation.Add(additionalInformations);
+				++i;
 			}
 			return additionInformation;
-		}
-
-		private static string OnTheWay(DateTime startTime, DateTime endTime)
-		{
-			var time = endTime - startTime;
-			if (time.Days == 0)
-				return time.Hours + ResourceLoader.Instance.Resource["Hour"] + time.Minutes + ResourceLoader.Instance.Resource["Min"];
-			return (int)time.TotalHours + ResourceLoader.Instance.Resource["Hour"] + time.Minutes + ResourceLoader.Instance.Resource["Min"];
 		}
 
 		public static List<string> GetLink(string data)

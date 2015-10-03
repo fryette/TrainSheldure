@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
@@ -30,6 +31,8 @@ namespace Trains.Services.Services
 				$"http://rasp.rw.by/m/ru/route/?from={from.Value}&from_exp={from.Exp}&from_esr = {from.Ecp}&to={to.Value}&to_exp={to.Exp}&to_esr = {to.Ecp}&date={date}&{new Random().Next(0, 20)}"));
 				if (data == null)
 					return null;
+
+				data = WebUtility.HtmlDecode(data);
 
 				var additionalInformation = TrainGrabber.GetPlaces(data);
 				var links = TrainGrabber.GetLink(data);
@@ -64,8 +67,8 @@ namespace Trains.Services.Services
 			var datum = DateTimeOffset.Parse(date);
 
 			return datum < DateTimeOffset.Now
-				? datum.ToString(Defines.Common.DateFormat)
-				: DateTimeOffset.Now.ToString(Defines.Common.DateFormat);
+				? DateTimeOffset.Now.ToString(Defines.Common.DateFormat) :
+				datum.ToString(Defines.Common.DateFormat);
 		}
 	}
 }

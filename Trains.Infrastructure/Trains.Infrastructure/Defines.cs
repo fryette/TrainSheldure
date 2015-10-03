@@ -17,7 +17,12 @@
 			public static string Name = "Chygunka";
 
 			public static string TrainsPattern =
-				"(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|(?<endTime><div class=\"list_end\">(.+?)</div>)|(?<city><div class=\"list_text\">(.+?)<\\/?)|(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>|(?<internetRegistration><div class=\"b-legend\">(.+?)</div)";
+				"(?<startTime><div class=\"list_start\">([^<]*)<\\/?)|" +
+				"(?<endTime><div class=\"list_end\">(.+?)</div>)|" +
+				"(?<city><div class=\"list_text\">(.+?)<\\/?)|" +
+				"(?<trainDescription><span class=\"list_text_small\">(.+?)<\\/?)|" +
+				"<div class=\"train_type\">.+?>(?<type>[^<>]+)<\\/div>|" +
+				"(?<internetRegistration><div class=\"b-legend\">(.+?)</div)";
 			public static string PlacesAndPricesPattern =
 				"(?<Name><td class=\"places_name\">([^<]+)</td>)|(?<quantity><td class=\"places_qty\">([^<]*)<)|(?<Price><td class=\"places_price\">([^<]*))";
 			public static string AdditionParameterPattern = "div class=\"b-places\">(.*?)</div>";

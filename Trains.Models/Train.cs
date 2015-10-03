@@ -10,7 +10,6 @@ namespace Trains.Models
 		public TrainClass Image { get; set; }
 		public TrainClass Type { get; set; }
 		public AdditionalInformation[] AdditionalInformation { get; set; }
-		public string OnTheWay { get; set; }
 		public string DepartureDate { get; set; }
 		public string Link { get; set; }
 		public bool IsPlace { get; set; }
