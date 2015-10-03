@@ -10,7 +10,7 @@ namespace Trains.Infrastructure
 	public sealed class ResourceLoader
 	{
 		private static volatile ResourceLoader _instance;
-		private static readonly object SyncRoot = new Object();
+		private static readonly object SyncRoot = new object();
 
 		public Dictionary<string, string> Resource;
 

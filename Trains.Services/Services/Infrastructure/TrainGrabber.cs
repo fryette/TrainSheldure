@@ -36,10 +36,8 @@ namespace Trains.Services.Services.Infrastructure
                     date + ' ' + parameters[i].Groups[1].Value,
                     parameters[i + 1].Groups[2].Value,
                     parameters[i + 2].Groups[3].Value,
-                    parameters[i + 3].Groups[4].Value.Replace(UnknownStr, " "),
                     imagePath[i / 4],
                     parameters[i / 4 + step].Value,
-                    GetBeforeDepartureTime(starTime, dateOfDeparture),
                     date,
                     isInternetRegistration[i / 4]));
             }
@@ -57,7 +55,6 @@ namespace Trains.Services.Services.Infrastructure
                 trainList.Add(CreateTrain(dateNow + parameters[i].Groups[1].Value,
                     dateNow + parameters[i + 1].Groups[2].Value,
                     parameters[i + 2].Groups[3].Value,
-                    parameters[i + 3].Groups[4].Value,
                     imagePath[i / 4],
                     parameters[i / 4 + step].Value));
             }
@@ -72,13 +69,12 @@ namespace Trains.Services.Services.Infrastructure
             for (var i = 0; i < parameters.Count - numberOfTrains; i += 4)
             {
                 trainList.Add(CreateTrain(date + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
-                    parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), TrainClass.Foreign, null, null, date));
+                    parameters[i + 2].Groups[3].Value, TrainClass.Foreign, null, date));
             }
             return trainList;
         }
 
-        private static Train CreateTrain(string time1, string time2, string city, string description, TrainClass image, string type = null,
-             string beforeDepartureTime = null, string departureDate = null, bool internetRegistration = false)
+        private static Train CreateTrain(string time1, string time2, string city, TrainClass image, string type = null, string departureDate = null, bool internetRegistration = false)
         {
 	        time2 = time2.Replace("<br />", " ");
             var startTime = DateTime.ParseExact(time1, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
@@ -90,7 +86,6 @@ namespace Trains.Services.Services.Infrastructure
                 StartTime = startTime,
                 EndTime = endTime,
                 City = city.Replace(UnknownStr1, " - "),
-                BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = GetType(type),
                 Image = image,
                 OnTheWay = departureDate == null ? null : ResourceLoader.Instance.Resource["OnWay"] + OnTheWay(startTime, endTime),
@@ -166,14 +161,6 @@ namespace Trains.Services.Services.Infrastructure
             return additionInformation;
         }
 
-        private static string GetBeforeDepartureTime(DateTime time, DateTime dateToDeparture)
-        {
-            if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D");
-            var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + ResourceLoader.Instance.Resource["Hour"]);
-            return ResourceLoader.Instance.Resource["Via"] + hours + timeSpan.Minutes + ResourceLoader.Instance.Resource["Min"];
-        }
-
         private static string OnTheWay(DateTime startTime, DateTime endTime)
         {
             var time = endTime - startTime;
@@ -198,8 +185,7 @@ namespace Trains.Services.Services.Infrastructure
 
                 if (additionalInformation[i].Any())
                     if (trainsList[i].DepartureDate != null)
-                        trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource["No"]) ?
-                            ResourceLoader.Instance.Resource["PlaceNo"] : ResourceLoader.Instance.Resource["PlaceYes"];
+                        trainsList[i].IsPlace = !additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource["No"]);
                     else
                         trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource["SpecifyDate"];
 
@@ -217,7 +203,7 @@ namespace Trains.Services.Services.Infrastructure
                 }
                 trainsList[i].PlaceClasses = placeClasses;
             }
-            return trainsList.Where(x => !x.BeforeDepartureTime.Contains("-"));
+            return trainsList;
         }
 
         #endregion
