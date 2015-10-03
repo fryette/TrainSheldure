@@ -21,7 +21,7 @@ namespace Trains.Web.Controllers
 		{
 			var result =
 				await
-					_searchService.GetTrainSchedule(Countries.CountriesList.First(x => x.Ecp == fromEcp), Countries.CountriesList.First(x => x.Ecp == fromEcp),
+					_searchService.GetTrainSchedule(Countries.CountriesList.First(x => x.Ecp == fromEcp), Countries.CountriesList.First(x => x.Ecp == toEcp),
 						date);
 			return new HttpResponseMessage
 			{

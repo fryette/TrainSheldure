@@ -14,15 +14,13 @@ namespace Trains.Models
 		public string DepartureDate { get; set; }
 		public string Link { get; set; }
 		public bool IsPlace { get; set; }
-		public PlaceClasses PlaceClasses { get; set; }
-        
 		public bool InternetRegistration { get; set; }
 
 	}
 
 	public class AdditionalInformation
 	{
-		public string Name { get; set; }
+		public Seats Name { get; set; }
 		public string Price { get; set; }
 		public string Place { get; set; }
 	}
