@@ -1,5 +1,17 @@
-﻿var starter = angular.module('starter', []);
+﻿var starter = angular.module('starter', ["ui.router"]);
 
-starter.controller("test", function test($scope) {
-    $scope.gretting = "Hello, World!";
-})
+starter.config(
+  ["$stateProvider", "$urlRouterProvider", "$locationProvider",
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
+
+      $urlRouterProvider.otherwise("/home");
+
+      $stateProvider
+        .state('home', {
+          url: '/home',
+          controller: 'homeController',
+          templateUrl: 'pages/home/home.html'
+        })
+
+      //$locationProvider.html5Mode(true);
+    }]);

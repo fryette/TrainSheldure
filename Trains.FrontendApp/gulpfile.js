@@ -38,7 +38,8 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
   var bower = gulp.src([
     'bower_components/jquery/dist/jquery.min.js',    
-    'bower_components/angular/angular.min.js'    
+    'bower_components/angular/angular.min.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
   ]);
 
   var templates = gulp.src('src/**/*.html')
