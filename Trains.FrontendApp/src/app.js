@@ -1,4 +1,4 @@
-﻿var starter = angular.module('starter', ["ui.router"]);
+﻿var starter = angular.module('starter', ["ui.router", "templates"]);
 
 starter.config(
   ["$stateProvider", "$urlRouterProvider", "$locationProvider",
@@ -13,5 +13,5 @@ starter.config(
           templateUrl: 'pages/home/home.html'
         })
 
-      //$locationProvider.html5Mode(true);
+      $locationProvider.html5Mode(true);
     }]);
