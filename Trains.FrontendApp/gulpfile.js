@@ -29,7 +29,9 @@ gulp.task('index.html', function () {
 });
 
 gulp.task('styles', function () {
-  return gulp.src([    
+  return gulp.src([
+    'bower_components/bootstrap/dist/css/bootstrap.min.css',
+    'bower_components/font-awesome/css/font-awesome.min.css',
     'src/**/*.css'
   ]).pipe(concat('auto-bundle.css'))
     .pipe(gulp.dest(wwwroot));
@@ -37,19 +39,25 @@ gulp.task('styles', function () {
 
 gulp.task('scripts', function () {
   var bower = gulp.src([
-    'bower_components/jquery/dist/jquery.min.js',    
+    'bower_components/jquery/dist/jquery.min.js',
     'bower_components/angular/angular.min.js',
     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+    'bower_components/jquery/dist/jquery.min.js',
+    'bower_components/bootstrap/dist/js/bootstrap.min.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
+    'bower_components/angular-animate/angular-animate.min.js',
   ]);
 
-  var templates = gulp.src('src/**/*.html')
-      .pipe(minifyHTML({ empty: true, quotes: true }))
-      .pipe(templateCache({
-        standalone: true
-      }));
+  var templates = gulp.src([
+    'src/**/*.html',
+  ])
+    .pipe(minifyHTML({ empty: true, quotes: true }))
+    .pipe(templateCache({
+      standalone: true
+    }));
 
   var src = gulp.src([
-    'src/app.js',    
+    'src/app.js',
     'src/**/*.js'
   ]);
 
@@ -58,19 +66,21 @@ gulp.task('scripts', function () {
 });
 
 gulp.task('images', function () {
-  return gulp.src([    
+  return gulp.src([
     'src/images/*'
   ]).pipe(gulp.dest(path.join(wwwroot, 'images')));
 });
 
 gulp.task('fonts', ['main-fonts'], function () {
-  return gulp.src([    
-  ]).pipe(gulp.dest(wwwroot));
+  return gulp.src([
+  ]).pipe(gulp.dest("../WebApi/"));
 });
 
 gulp.task('main-fonts', function () {
-  return gulp.src([    
-  ]).pipe(gulp.dest(path.join(wwwroot, 'fonts')));
+  return gulp.src([
+    'bower_components/bootstrap/fonts/*',
+    'bower_components/font-awesome/fonts/*',
+  ]).pipe(gulp.dest(path.join("../Trains.Web/", 'fonts')));
 });
 
 gulp.task('browser-sync', function (done) {

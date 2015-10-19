@@ -1,4 +1,4 @@
-﻿var starter = angular.module('starter', ["ui.router", "templates"]);
+﻿var starter = angular.module('starter', ["ui.router", "templates", "ngAnimate", "ui.bootstrap"]);
 
 starter.config(
   ["$stateProvider", "$urlRouterProvider", "$locationProvider",

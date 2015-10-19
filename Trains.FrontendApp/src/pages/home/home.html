@@ -1,3 +1,35 @@
-﻿<div class="center-text">
-    {{result}}
+﻿<div class="background"></div>
+
+<div class="home">
+    <div class="title">
+        <b>
+            Чыгунка
+            <span>Поезда под рукой</span>
+        </b>
+    </div>
+
+    <div class="panel-body">
+        <form ng-submit="find()" accept-charset="UTF-8" role="form">
+            <fieldset>
+                <div>
+                    <input ng-model="from" class="form-control from" placeholder="Откуда" name="from" type="text">
+                </div>
+
+                <div class="to-div">
+                    <input ng-model="to" class="form-control to" placeholder="Куда" name="to" type="password">
+                </div>
+
+                <div class="calendar">
+                    <p class="input-group">
+                        <input type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+
+                <input class="btn btn-success btn-block" type="submit" value="Поиск">
+            </fieldset>
+        </form>
+    </div>
 </div>

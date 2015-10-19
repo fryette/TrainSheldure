@@ -3,13 +3,15 @@
 ["$http", "$q",
   function ($http, $q) {
 
-    function findTrains(from, to, data) {
+    function findTrains(fromEcp, toEcp, date) {
       var defered = $q.defer();
 
       var config = {
-        from: from,
-        to: to,
-        date: data
+        params: {
+          fromEcp: fromEcp,
+          toEcp: toEcp,
+          date: date
+        }
       };
 
       $http.get('/api/Train', config).then(function (data) {

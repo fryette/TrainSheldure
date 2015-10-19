@@ -3,6 +3,10 @@
   "private": true,
   "dependencies": {
     "angular": "~1.4.4",
-    "angular-ui-router": "~0.2.15"
+    "angular-ui-router": "~0.2.15",
+    "bootstrap": "~3.3.5",
+    "angular-ui-bootstrap-bower": "~0.14.2",
+    "font-awesome": "~4.4.0",
+    "angular-animate": "~1.4.7"
   }
 }
