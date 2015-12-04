@@ -12,24 +12,54 @@
         <form ng-submit="find()" accept-charset="UTF-8" role="form">
             <fieldset>
                 <div>
-                    <input ng-model="from" class="form-control from" placeholder="Откуда" name="from" type="text">
+                    <md-autocomplete md-selected-item="fromItem"
+                                     md-search-text="fromText"
+                                     md-items="fromItem in getMatches(fromText)"
+                                     md-item-text="fromItem.Value"
+                                     md-min-length="2"
+                                     placeholder="Откуда"
+                                     class="md from">
+                        <md-item-template>
+                            <span md-highlight-text="fromText" md-highlight-flags="^i">{{fromItem.Value}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No states matching "{{fromText}}" were found.
+                        </md-not-found>
+                    </md-autocomplete>
                 </div>
 
-                <div class="to-div">
-                    <input ng-model="to" class="form-control to" placeholder="Куда" name="to" type="password">
+                <div>
+                    <md-autocomplete md-selected-item="toItem"
+                                     md-search-text="toText"
+                                     md-items="toItem in getMatches(toText)"
+                                     md-item-text="toItem.Value"
+                                     md-min-length="2"
+                                     placeholder="Куда"
+                                     class="md to">
+                        <md-item-template>
+                            <span md-highlight-text="toText" md-highlight-flags="^i">{{toItem.Value}}</span>
+                        </md-item-template>
+                        <md-not-found>
+                            No states matching "{{toText}}" were found.
+                        </md-not-found>
+                    </md-autocomplete>
                 </div>
 
                 <div class="calendar">
                     <p class="input-group">
-                        <input type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" min-date="minDate" max-date="maxDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" />
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-                        </span>
+                        <input type="date" class="form-control" uib-datepicker-popup ng-model="dt" is-open="status.opened" date-disabled="disabled(date)" ng-required="true" />
                     </p>
                 </div>
-
                 <input class="btn btn-success btn-block" type="submit" value="Поиск">
             </fieldset>
         </form>
+    </div>
+
+    <div>
+        <ul ng-show="trains.length">
+            <li ng-repeat="train in trains">
+                {{train}}
+            </li>
+        </ul>
     </div>
 </div>

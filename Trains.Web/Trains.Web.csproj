@@ -458,6 +458,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="wwwroot\stations.json" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

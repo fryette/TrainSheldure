@@ -8,6 +8,7 @@ var templateCache = require('gulp-angular-templatecache');
 var minifyHTML = require('gulp-minify-html');
 var streamqueue = require('streamqueue');
 var path = require('path');
+var jsoncombine = require("gulp-jsoncombine");
 
 var wwwroot = '../Trains.Web/wwwroot/';
 
@@ -21,15 +22,24 @@ gulp.task('clean', function (done) {
   del([path.join(wwwroot, '**/*.js'), path.join(wwwroot, '**/*.css')], { force: true }, done);
 });
 
-gulp.task('build', ['scripts', 'styles', 'images', 'fonts', 'index.html']);
+gulp.task('build', ['scripts', 'styles', 'images', 'fonts', 'index.html', 'json']);
 
 gulp.task('index.html', function () {
   return gulp.src('src/index.html')
       .pipe(gulp.dest(wwwroot));
 });
 
+gulp.task('json', function () {
+  return gulp.src("src/Json/*.json")
+    .pipe(jsoncombine("stations.json", function (data) {
+      return new Buffer(JSON.stringify(data))
+    }))
+    .pipe(gulp.dest(wwwroot));
+});
+
 gulp.task('styles', function () {
   return gulp.src([
+    'bower_components/angular-material/angular-material.min.css',
     'bower_components/bootstrap/dist/css/bootstrap.min.css',
     'bower_components/font-awesome/css/font-awesome.min.css',
     'src/**/*.css'
@@ -40,12 +50,14 @@ gulp.task('styles', function () {
 gulp.task('scripts', function () {
   var bower = gulp.src([
     'bower_components/jquery/dist/jquery.min.js',
+
     'bower_components/angular/angular.min.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/bootstrap/dist/js/bootstrap.min.js',
-    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
     'bower_components/angular-animate/angular-animate.min.js',
+    'bower_components/angular-aria/angular-aria.min.js',
+    'bower_components/angular-material/angular-material.min.js',
+    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
+    'bower_components/bootstrap/dist/js/bootstrap.min.js',
   ]);
 
   var templates = gulp.src([

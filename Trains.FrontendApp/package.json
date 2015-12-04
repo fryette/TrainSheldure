@@ -9,6 +9,7 @@
     "gulp": "^3.9.0",
     "gulp-angular-templatecache": "^1.7.0",
     "gulp-concat": "^2.6.0",
+    "gulp-jsoncombine": "^1.0.3",
     "gulp-minify-html": "^1.0.4",
     "run-sequence": "^1.1.2",
     "streamqueue": "^1.1.0"

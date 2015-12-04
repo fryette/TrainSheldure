@@ -1,75 +1,36 @@
 ﻿starter.controller("homeController",
-["$scope", "dataService",
-function homeController($scope) {
-  $scope.today = function () {
-    $scope.dt = new Date();
-  };
-  $scope.today();
+["$scope", "dataService", "stations",
+function homeController($scope, dataService, stations) {
+  var today = new Date();
+  $scope.dt = today;
+  $scope.stations = stations;
+  $scope.trains = [];
 
-  $scope.clear = function () {
-    $scope.dt = null;
-  };
-
-  // Disable weekend selection
-  $scope.disabled = function (date, mode) {
-    return (mode === 'day' && (date.getDay() === 0 || date.getDay() === 6));
+  // Disable selection
+  $scope.disabled = function (date) {
+    return date < today;
   };
 
-  $scope.toggleMin = function () {
-    $scope.minDate = $scope.minDate ? null : new Date();
-  };
-  $scope.toggleMin();
-  $scope.maxDate = new Date(2020, 5, 22);
+  $scope.find = find;
+  $scope.getMatches = getMatches;
 
-  $scope.open = function ($event) {
-    $scope.status.opened = true;
-  };
+  function find() {
+    var fromItem = $scope.fromItem
+      , toItem = $scope.toItem
+      , date = $scope.dt;
+    if (!fromItem || !toItem) return;
+    dataService.findTrains(fromItem.Ecp, toItem.Ecp, date).then(function (data) {
+      $scope.trains = data.data.map(function (train) {
+        return JSON.stringify(train);
+      });
+    });
+  }
 
-  $scope.setDate = function (year, month, day) {
-    $scope.dt = new Date(year, month, day);
-  };
-
-  $scope.dateOptions = {
-    formatYear: 'yy',
-    startingDay: 1
-  };
-
-  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
-  $scope.format = $scope.formats[0];
-
-  $scope.status = {
-    opened: false
-  };
-
-  var tomorrow = new Date();
-  tomorrow.setDate(tomorrow.getDate() + 1);
-  var afterTomorrow = new Date();
-  afterTomorrow.setDate(tomorrow.getDate() + 2);
-  $scope.events =
-    [
-      {
-        date: tomorrow,
-        status: 'full'
-      },
-      {
-        date: afterTomorrow,
-        status: 'partially'
-      }
-    ];
-
-  $scope.getDayClass = function (date, mode) {
-    if (mode === 'day') {
-      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-      for (var i = 0; i < $scope.events.length; i++) {
-        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-        if (dayToCheck === currentDay) {
-          return $scope.events[i].status;
-        }
-      }
-    }
-
-    return '';
-  };
+  function getMatches(text) {
+    return text ? stations.filter(function (station) {
+      var lowercaseText = angular.lowercase(text)
+        , lowercaseStationName = angular.lowercase(station.Value);
+      return lowercaseStationName.indexOf(lowercaseText) === 0;
+    }) : stations;
+  }
 }]);
