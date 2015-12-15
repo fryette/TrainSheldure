@@ -1,11 +1,7 @@
 ﻿.home {
     width: 100%;
     height: 100%;
-    position: absolute;
     display: table;
-    top: 0;
-    left: 0;
-    z-index: 1;
 }
 
 .background {
@@ -32,6 +28,7 @@
     }
 
 .title {
+    position: relative;
     text-align: center;
     color: white;
     margin: 0 auto;
@@ -47,10 +44,11 @@
     }
 
 .panel-body {
+    position: relative;
     margin: 100px auto;
     background-color: #CAC5C5;
     width: 30%;
-    min-width: 270px;
+    min-width: 220px;
 }
 
 .md {
@@ -61,10 +59,11 @@
 
     .md.from {
         float: left;
+        margin-right: 10%;
     }
 
     .md.to {
-        float: right;
+        float: left;
     }
 
 .calendar {

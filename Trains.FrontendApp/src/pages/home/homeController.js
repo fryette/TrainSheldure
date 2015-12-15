@@ -21,7 +21,7 @@ function homeController($scope, dataService, stations) {
     if (!fromItem || !toItem) return;
     dataService.findTrains(fromItem.Ecp, toItem.Ecp, date).then(function (data) {
       $scope.trains = data.data.map(function (train) {
-        return JSON.stringify(train);
+        return train;
       });
     });
   }

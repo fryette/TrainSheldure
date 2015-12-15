@@ -53,13 +53,25 @@
                 <input class="btn btn-success btn-block" type="submit" value="Поиск">
             </fieldset>
         </form>
-    </div>
 
-    <div>
-        <ul ng-show="trains.length">
-            <li ng-repeat="train in trains">
-                {{train}}
-            </li>
-        </ul>
+        <div class="results">
+            <ul class="list_items">
+                <li ng-repeat="train in trains" class="list_item">
+                    <div class="list_time">
+                        <div class="list_start">{{train.StartTime}}</div>
+                        <div class="list_end">{{train.EndTime}}</div>
+                        <i class="b-pic pic regional_economy" data-src="/media/mobile/i/city.png"></i>
+                    </div>
+                    <div class="list_main">
+                        <div class="list_content">
+                            <div class="list_text">{{train.City}}</div>
+                            <span class="list_text_small">{{train.DepartureDate}}</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
+
+
