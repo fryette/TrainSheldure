@@ -5,6 +5,7 @@ function homeController($scope, dataService, stations) {
   $scope.dt = today;
   $scope.stations = stations;
   $scope.trains = [];
+  $scope.isLoading = false;
 
   // Disable selection
   $scope.disabled = function (date) {
@@ -18,11 +19,22 @@ function homeController($scope, dataService, stations) {
     var fromItem = $scope.fromItem
       , toItem = $scope.toItem
       , date = $scope.dt;
-    if (!fromItem || !toItem) return;
+
+    if (!fromItem || !toItem) {
+      console.log('station error')
+      return;
+    }
+
+    $scope.trains = [];
+    $scope.isLoading = true;
+
     dataService.findTrains(fromItem.Ecp, toItem.Ecp, date).then(function (data) {
-      $scope.trains = data.data.map(function (train) {
-        return train;
+      $scope.trains = data.data.filter(function (train) {
+        var startTime = new Date(train.StartTime);
+        var now = Date.now();
+        return startTime > now;
       });
+      $scope.isLoading = false;
     });
   }
 

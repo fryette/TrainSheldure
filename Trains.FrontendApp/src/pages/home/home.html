@@ -51,15 +51,16 @@
                     </p>
                 </div>
                 <input class="btn btn-success btn-block" type="submit" value="Поиск">
+                <div class="loader" ng-show="isLoading"></div>
             </fieldset>
         </form>
 
-        <div class="results">
+        <div class="results" ng-hide="isLoading">
             <ul class="list_items">
                 <li ng-repeat="train in trains" class="list_item">
                     <div class="list_time">
-                        <div class="list_start">{{train.StartTime}}</div>
-                        <div class="list_end">{{train.EndTime}}</div>
+                        <div class="list_start">{{train.StartTime | timeFilter}}</div>
+                        <div class="list_end">{{train.EndTime | timeFilter}}</div>
                         <i class="b-pic pic regional_economy" data-src="/media/mobile/i/city.png"></i>
                     </div>
                     <div class="list_main">
