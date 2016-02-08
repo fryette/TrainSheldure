@@ -1,13 +1,20 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Trains.Core.Resources;
+using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 
 namespace Trains.Core.Services.Infrastructure
 {
 	public class TrainStopGrabber
 	{
+		private static ILocalizationService _localizationService;
+
+		public TrainStopGrabber()
+		{
+			_localizationService = Dependencies.LocalizationService;
+		}
+
 		private const string Tag = "</b>";
 
 		public static IEnumerable<TrainStop> GetTrainStops(IEnumerable<Match> match)
@@ -23,9 +30,9 @@ namespace Trains.Core.Services.Infrastructure
 				trainStop.Add(new TrainStop
 				{
 					Name = parameters[i].Groups[1].Value,
-					Arrivals = (string.IsNullOrEmpty(arrivals) || arrivals.Contains(Tag) ? null : ResourceLoader.Instance.Resource["Departure"] + arrivals.Substring(0, 5)),
-					Departures = (string.IsNullOrEmpty(departure) || departure == Tag ? null : ResourceLoader.Instance.Resource["Arrival"] + departure),
-					Stay = string.IsNullOrEmpty(stay) || stay == Tag ? null : ResourceLoader.Instance.Resource["Stay"] + stay
+					Arrivals = (string.IsNullOrEmpty(arrivals) || arrivals.Contains(Tag) ? null : _localizationService.GetString("Departure") + arrivals.Substring(0, 5)),
+					Departures = (string.IsNullOrEmpty(departure) || departure == Tag ? null : _localizationService.GetString("Arrival") + departure),
+					Stay = string.IsNullOrEmpty(stay) || stay == Tag ? null : _localizationService.GetString("Stay") + stay
 				});
 			}
 

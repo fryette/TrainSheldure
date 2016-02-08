@@ -7,16 +7,16 @@
                       mc:Ignorable="d"
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                      xmlns:extensions="using:Trains.WP.Extensions"
                       d:DataContext="{d:DesignData HelpViewModel}">
     <Grid>
         <Pivot x:Name="MainPivot"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem Header="{Binding Trains}">
+            <PivotItem extensions:XamlElementExtensions.Resource="Trains">
                 <ListView ItemsSource="{Binding HelpInformation}"
-                          ItemTemplate="{StaticResource HelpTemplate}">
-                </ListView>
+                          ItemTemplate="{StaticResource HelpTemplate}" />
             </PivotItem>
-            <PivotItem Header="{Binding Carriage}">
+            <PivotItem extensions:XamlElementExtensions.Resource="Carriage">
                 <ListView x:Name="CarriageList"
                           ItemsSource="{Binding CarriageInformation}">
                     <ListView.ItemTemplate>
@@ -36,7 +36,7 @@
                     </interactivity:Interaction.Behaviors>
                 </ListView>
             </PivotItem>
-            <PivotItem Header="{Binding Other}">
+            <PivotItem extensions:XamlElementExtensions.Resource="Other">
                 <ListView ItemsSource="{Binding PlaceInformation}">
                     <ListView.ItemTemplate>
                         <DataTemplate>

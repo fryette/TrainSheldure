@@ -17,9 +17,6 @@
         <Thickness x:Key="TextControlThemePadding">7,0.8,8,0</Thickness>
         <Thickness x:Key="TextControlMarginThemeThickness">0,9.5,0,9.5</Thickness>
         <Thickness x:Key="TextControlHeaderMarginThemeThickness">0,0,0,4.8</Thickness>
-        <SolidColorBrush x:Key="TextBoxDisabledBackgroundThemeBrush"
-                         Color="Transparent" />
-        <x:Double x:Key="TextControlBorderThemeOpacity">0.8</x:Double>
         <Style x:Key="BookingTextBoxStyle"
                TargetType="TextBox">
             <Setter Property="IsEnabled"

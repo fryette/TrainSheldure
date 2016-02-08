@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
-using Trains.Core.Resources;
+using Trains.Core.Interfaces;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
 using Trains.Model.Entities;
@@ -17,17 +17,16 @@ namespace Trains.Core.ViewModels
 		/// </summary>
 		private readonly ITrainStopService _trainStop;
 
+		private readonly ILocalizationService _localizationService;
+
 		#endregion
 
 		#region ctor
 
-		/// <summary>
-		/// Constructor
-		/// </summary>
-		/// <param name="trainStop">Used to grab train stops.</param>
-		public InformationViewModel(ITrainStopService trainStop)
+		public InformationViewModel(ITrainStopService trainStop,ILocalizationService localizationService)
 		{
 			_trainStop = trainStop;
+			_localizationService = localizationService;
 		}
 
 		#endregion
@@ -75,10 +74,6 @@ namespace Trains.Core.ViewModels
 
 		#region action
 
-		/// <summary>
-		/// Invoked when this page is about to be displayed in a Frame.
-		/// Set the additional informations about user-selected train.
-		/// </summary>
 		public void Init(string param)
 		{
 			RestoreUiBindings();
@@ -87,18 +82,15 @@ namespace Trains.Core.ViewModels
 			SearchStopPoint();
 		}
 
-		/// <summary>
-		/// Search additional information about user-selected train.
-		/// </summary>
 		private async void SearchStopPoint()
 		{
-			StopPointList = (await _trainStop.GetTrainStop(Train.Link));
+			StopPointList = await _trainStop.GetTrainStop(Train.Link);
 			IsTaskRun = false;
 		}
 
 		private void RestoreUiBindings()
 		{
-			DownloadStopPoints = ResourceLoader.Instance.Resource["DownloadStopPoints"];
+			DownloadStopPoints = _localizationService.GetString("DownloadStopPoints");
 		}
 		#endregion
 	}

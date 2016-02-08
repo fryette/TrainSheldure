@@ -22,6 +22,7 @@ namespace Trains.Core.ViewModels
 		private readonly ISerializableService _serializable;
 		private readonly INotificationService _notificationService;
 		private readonly IUserInteraction _userInteraction;
+		private readonly ILocalizationService _localizationService;
 
 		#endregion
 
@@ -38,7 +39,7 @@ namespace Trains.Core.ViewModels
 
         #region ctor
 
-        public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction)
+        public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction, ILocalizationService localizationService)
 		{
 			_serializable = serializableService;
 			_appSettings = appSettings;
@@ -46,8 +47,9 @@ namespace Trains.Core.ViewModels
 			_search = search;
 			_notificationService = notificationService;
 			_userInteraction = userInteraction;
+	        _localizationService = localizationService;
 
-			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
+	        SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
 			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
 			GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
@@ -222,7 +224,7 @@ namespace Trains.Core.ViewModels
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
 			var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
-			await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
+			await _userInteraction.AlertAsync(Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
 		}
 
         public void BookingSelectedTrain(Train train)
@@ -232,11 +234,11 @@ namespace Trains.Core.ViewModels
 
         private void RestoreUiBinding()
 		{
-			ReverseAppBar = ResourceLoader.Instance.Resource["ReverseAppBar"];
-			Update = ResourceLoader.Instance.Resource["Update"];
-			SaveAppBar = ResourceLoader.Instance.Resource["SaveAppBar"];
-			HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
-			AddToCalendar = ResourceLoader.Instance.Resource["AddToCalendar"];
+			ReverseAppBar = _localizationService.GetString("ReverseAppBar");
+			Update = _localizationService.GetString("Update");
+			SaveAppBar = _localizationService.GetString("SaveAppBar");
+			HelpAppBar = _localizationService.GetString("HelpAppBar");
+			AddToCalendar = _localizationService.GetString("AddToCalendar");
 
 		}
 

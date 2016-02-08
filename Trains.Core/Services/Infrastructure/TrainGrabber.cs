@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Cirrious.CrossCore;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Entities;
@@ -13,7 +12,14 @@ namespace Trains.Core.Services.Infrastructure
 {
     public class TrainGrabber
     {
-        #region constant
+		private static ILocalizationService _localizationService;
+
+		public TrainGrabber()
+		{
+			_localizationService = Dependencies.LocalizationService;
+		}
+
+	    #region constant
 
         private const string UnknownStr = "&nbsp;";
         private const string UnknownStr1 = "&nbsp;&mdash;";
@@ -88,7 +94,7 @@ namespace Trains.Core.Services.Infrastructure
             time2 = time2.Replace("<br />", " ");
             startTime = DateTime.ParseExact(time1, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
 
-            endTime = time2.Length > 10 ? DateTime.Parse(time2.Length == 12 ? time2 : time2.Remove(time2.Length - 1), new CultureInfo(ResourceLoader.Instance.Resource["Language"]))
+            endTime = time2.Length > 10 ? DateTime.Parse(time2.Length == 12 ? time2 : time2.Remove(time2.Length - 1), new CultureInfo(_localizationService.GetString("Language")))
                 : DateTime.ParseExact(departureDate + ' ' + time2, Defines.Common.TimeFormat, CultureInfo.InvariantCulture);
             return new Train
             {
@@ -98,7 +104,7 @@ namespace Trains.Core.Services.Infrastructure
                 BeforeDepartureTime = beforeDepartureTime ?? description.Replace(UnknownStr, " "),
                 Type = type,
                 Image = image,
-                OnTheWay = departureDate == null ? null : ResourceLoader.Instance.Resource["OnWay"] + OnTheWay(startTime, endTime),
+                OnTheWay = departureDate == null ? null : _localizationService.GetString("OnWay") + OnTheWay(startTime, endTime),
                 DepartureDate = departureDate,
                 InternetRegistration = internetRegistration
             };
@@ -109,14 +115,14 @@ namespace Trains.Core.Services.Infrastructure
             return match.Select(x => x.Groups["type"].Value)
                 .Where(x => !string.IsNullOrEmpty(x)).Select(type =>
                 {
-                    if (type.Contains(ResourceLoader.Instance.Resource["International"]))
+                    if (type.Contains(_localizationService.GetString("International")))
                         return TrainClass.International;
-                    if (type.Contains(ResourceLoader.Instance.Resource["Interregional"]))
-                        return type.Contains(ResourceLoader.Instance.Resource["Business"])
+                    if (type.Contains(_localizationService.GetString("Interregional")))
+                        return type.Contains(_localizationService.GetString("Business"))
                             ? TrainClass.InterRegionalBusiness
                             : TrainClass.InterRegionalEconom;
-                    if (type.Contains(ResourceLoader.Instance.Resource["Regional"]))
-                        return type.Contains(ResourceLoader.Instance.Resource["Business"])
+                    if (type.Contains(_localizationService.GetString("Regional")))
+                        return type.Contains(_localizationService.GetString("Business"))
                             ? TrainClass.RegionalBusiness : TrainClass.RegionalEconom;
                     return TrainClass.City;
                 }).ToList();
@@ -134,32 +140,32 @@ namespace Trains.Core.Services.Infrastructure
         public static List<AdditionalInformation[]> GetPlaces(string data)
         {
             var additionInformation = new List<AdditionalInformation[]>();
-            var additionalParameter = Parser.ParseData(data, ResourceLoader.Instance.Resource["AdditionParameterPattern"]).ToList();
+            var additionalParameter = Parser.ParseData(data, _localizationService.GetString("AdditionParameterPattern")).ToList();
             for (var i = 0; i < additionalParameter.Count; i++)
             {
                 if (i + 1 == additionalParameter.Count ||
                     additionalParameter[i + 1].Groups[1].Value.Contains("href"))
                     additionInformation.Add(new[]
                     {
-                        new AdditionalInformation {Name = ResourceLoader.Instance.Resource["NoPlace"]}
+                        new AdditionalInformation {Name = _localizationService.GetString("NoPlace")}
                     });
                 else
                 {
                     var temp =
-                        Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, ResourceLoader.Instance.Resource["PlacesAndPricesPattern"]).ToList();
+                        Parser.ParseData(additionalParameter[i + 1].Groups[1].Value, _localizationService.GetString("PlacesAndPricesPattern")).ToList();
                     var additionalInformations = new AdditionalInformation[temp.Count / 3];
                     for (var j = 0; j < temp.Count; j += 3)
                     {
                         additionalInformations[j / 3] = new AdditionalInformation
                         {
                             Name = temp[j].Groups[1].Value.Length > 18
-                                ? ResourceLoader.Instance.Resource["Sedentary"]
+                                ? _localizationService.GetString("Sedentary")
                                 : temp[j].Groups[1].Value,
-                            Place = ResourceLoader.Instance.Resource["Place"] + (temp[j + 1].Groups[2].Value == UnknownStr
-                                ? ResourceLoader.Instance.Resource["Unlimited"]
+                            Place = _localizationService.GetString("Place") + (temp[j + 1].Groups[2].Value == UnknownStr
+                                ? _localizationService.GetString("Unlimited")
                                 : temp[j + 1].Groups[2].Value.Replace(UnknownStr, string.Empty)),
-                            Price = temp[j + 2].Groups[3].Value == String.Empty ? ResourceLoader.Instance.Resource["Unknown"]
-                                                                                  : ResourceLoader.Instance.Resource["Price"] + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
+                            Price = temp[j + 2].Groups[3].Value == String.Empty ? _localizationService.GetString("Unknown")
+                                                                                  : _localizationService.GetString("Price") + temp[j + 2].Groups[3].Value.Replace(UnknownStr, " ")
                         };
                     }
                     additionInformation.Add(additionalInformations);
@@ -173,21 +179,21 @@ namespace Trains.Core.Services.Infrastructure
         {
             if (dateToDeparture >= DateTime.Now) return dateToDeparture.ToString("D");
             var timeSpan = (time.TimeOfDay - DateTime.Now.TimeOfDay);
-            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + ResourceLoader.Instance.Resource["Hour"]);
-            return ResourceLoader.Instance.Resource["Via"] + hours + timeSpan.Minutes + ResourceLoader.Instance.Resource["Min"];
+            var hours = timeSpan.Hours == 0 ? String.Empty : (timeSpan.Hours + _localizationService.GetString("Hour"));
+            return _localizationService.GetString("Via") + hours + timeSpan.Minutes + _localizationService.GetString("Min");
         }
 
         private static string OnTheWay(DateTime startTime, DateTime endTime)
         {
             var time = endTime - startTime;
             if (time.Days == 0)
-                return time.Hours + ResourceLoader.Instance.Resource["Hour"] + time.Minutes + ResourceLoader.Instance.Resource["Min"];
-            return (int)time.TotalHours + ResourceLoader.Instance.Resource["Hour"] + time.Minutes + ResourceLoader.Instance.Resource["Min"];
+                return time.Hours + _localizationService.GetString("Hour") + time.Minutes + _localizationService.GetString("Min");
+            return (int)time.TotalHours + _localizationService.GetString("Hour") + time.Minutes + _localizationService.GetString("Min");
         }
 
         public static List<string> GetLink(string data)
         {
-            var links = Parser.ParseData(data, "<a href=\"/m/" + ResourceLoader.Instance.Resource["Language"] + "/train/(.+?)\"");
+            var links = Parser.ParseData(data, "<a href=\"/m/" + _localizationService.GetString("Language") + "/train/(.+?)\"");
             return links.Select(x => x.Groups[1].Value).ToList();
         }
 
@@ -201,21 +207,21 @@ namespace Trains.Core.Services.Infrastructure
 
                 if (additionalInformation[i].Any())
                     if (trainsList[i].DepartureDate != null)
-                        trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(ResourceLoader.Instance.Resource["No"]) ?
-                            ResourceLoader.Instance.Resource["PlaceNo"] : ResourceLoader.Instance.Resource["PlaceYes"];
+                        trainsList[i].IsPlace = additionalInformation[i].First().Name.Contains(_localizationService.GetString("No")) ?
+                            _localizationService.GetString("PlaceNo") : _localizationService.GetString("PlaceYes");
                     else
-                        trainsList[i].AdditionalInformation.First().Name = ResourceLoader.Instance.Resource["SpecifyDate"];
+                        trainsList[i].AdditionalInformation.First().Name = _localizationService.GetString("SpecifyDate");
 
                 var placeClasses = new PlaceClasses();
                 foreach (var name in additionalInformation[i].Select(x => x.Name))
                 {
-                    if (ResourceLoader.Instance.Resource["Sedentary"] == name)
+                    if (_localizationService.GetString("Sedentary") == name)
                         placeClasses.Sedentary = true;
-                    else if (ResourceLoader.Instance.Resource["SecondClass"] == name)
+                    else if (_localizationService.GetString("SecondClass") == name)
                         placeClasses.SecondClass = true;
-                    else if (ResourceLoader.Instance.Resource["Coupe"] == name)
+                    else if (_localizationService.GetString("Coupe") == name)
                         placeClasses.Coupe = true;
-                    else if (ResourceLoader.Instance.Resource["Luxury"] == name)
+                    else if (_localizationService.GetString("Luxury") == name)
                         placeClasses.Luxury = true;
                 }
                 trainsList[i].PlaceClasses = placeClasses;

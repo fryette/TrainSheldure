@@ -9,7 +9,6 @@ using Trains.Core.Services.Interfaces;
 using Trains.Model.Entities;
 using static System.String;
 using static Trains.Core.Resources.Defines;
-using ResourceLoader = Trains.Core.Resources.ResourceLoader;
 
 namespace Trains.Core.ViewModels
 {
@@ -22,7 +21,7 @@ namespace Trains.Core.ViewModels
 		private readonly IAnalytics _analytics;
 		private readonly ILocalDataService _local;
 		private readonly IUserInteraction _userInteraction;
-
+		private readonly ILocalizationService _localizationService;
 
 		#endregion
 
@@ -35,13 +34,19 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public SettingsViewModel(ISerializableService serializable, IAppSettings appSettings, IAnalytics analytics, ILocalDataService local, IUserInteraction userInteraction)
+		public SettingsViewModel(ISerializableService serializable,
+			IAppSettings appSettings,
+			IAnalytics analytics,
+			ILocalDataService local,
+			IUserInteraction userInteraction,
+			ILocalizationService localizationService)
 		{
 			_analytics = analytics;
 			_serializable = serializable;
 			_appSettings = appSettings;
 			_local = local;
 			_userInteraction = userInteraction;
+			_localizationService = localizationService;
 
 			ResetSettingsCommand = new MvxCommand(ResetSetting);
 			DownloadSelectedCountryStopPointsCommand = new MvxCommand(DownloadCountryStopPoint);
@@ -204,7 +209,7 @@ namespace Trains.Core.ViewModels
 			{
 				_analytics.SentEvent(Analytics.LanguageChanged, SelectedLanguage.Name);
 				_serializable.Serialize(SelectedLanguage, Restoring.CurrentLanguage);
-				NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
+				NeedReboot = _localizationService.GetString("NeedReboot");
 			}
 			else
 			{
@@ -216,7 +221,7 @@ namespace Trains.Core.ViewModels
 		private void ResetSetting()
 		{
 			_serializable.Delete(Common.IsFirstRun);
-			NeedReboot = ResourceLoader.Instance.Resource["NeedReboot"];
+			NeedReboot = _localizationService.GetString("NeedReboot");
 		}
 
 		private async void DownloadCountryStopPoint()
@@ -233,7 +238,7 @@ namespace Trains.Core.ViewModels
 				_serializable.Serialize(_appSettings, Restoring.AppSettings);
 				Countries.Remove(SelectedCountry);
 				await _userInteraction.AlertAsync(
-					$"{SelectedCountry.Name}{' '}{ResourceLoader.Instance.Resource["CountrySuccessfullyAdded"]}");
+					$"{SelectedCountry.Name}{' '}{_localizationService.GetString("CountrySuccessfullyAdded")}");
 
 				CheckIsAllCountriesDownloaded();
 
@@ -242,7 +247,7 @@ namespace Trains.Core.ViewModels
 
 			else
 			{
-				await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["CountryCanNotDownloaded"]);
+				await _userInteraction.AlertAsync(_localizationService.GetString("CountryCanNotDownloaded"));
 				_analytics.SentEvent("exception", "Contries", SelectedCountry.Name);
 			}
 
@@ -263,12 +268,12 @@ namespace Trains.Core.ViewModels
 
 		private void RestoreUiBinding()
 		{
-			Header = ResourceLoader.Instance.Resource["Settings"];
-			TimeNotification = ResourceLoader.Instance.Resource["TimeNotification"];
-			SelectLanguage = ResourceLoader.Instance.Resource["SelectLanguage"];
-			ResetSettings = ResourceLoader.Instance.Resource["ResetSettings"];
-			SelectCountries = ResourceLoader.Instance.Resource["SelectCountries"];
-			DownloadSelectCountry = ResourceLoader.Instance.Resource["DownloadSelectCountry"];
+			Header = _localizationService.GetString("Settings");
+			TimeNotification = _localizationService.GetString("TimeNotification");
+			SelectLanguage = _localizationService.GetString("SelectLanguage");
+			ResetSettings = _localizationService.GetString("ResetSettings");
+			SelectCountries = _localizationService.GetString("SelectCountries");
+			DownloadSelectCountry = _localizationService.GetString("DownloadSelectCountry");
 		}
 
 		#endregion

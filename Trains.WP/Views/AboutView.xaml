@@ -5,6 +5,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       mc:Ignorable="d"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      xmlns:extensions="using:Trains.WP.Extensions"
                       d:DataContext="{d:DesignData AboutViewModel}">
     <Grid>
         <Grid.Resources>
@@ -20,8 +21,8 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Grid.Resources>
-        <Pivot Title="{Binding ApplicationName}">
-            <PivotItem Header="{Binding AboutUs}">
+        <Pivot extensions:XamlElementExtensions.Resource="ApplicationName">
+            <PivotItem extensions:XamlElementExtensions.Resource="AboutUs">
                 <Grid>
                     <StackPanel>
                         <GridView Margin="0">
@@ -38,21 +39,21 @@
                                        Foreground="{ThemeResource PhoneForegroundBrush}" />
                         </StackPanel>
 
-                        <TextBlock Text="{Binding UsingLibrary}"
+                        <TextBlock extensions:XamlElementExtensions.Resource="UsingLibrary"
                                    FontSize="24"
                                    Foreground="{ThemeResource PhoneForegroundBrush}"
                                    Style="{StaticResource AboutAppStyle}" />
                         <TextBlock Text="MvvmCross, Newtonsoft.Json, AppPromo"
                                    Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="{Binding SpecialThank}"
+                        <TextBlock extensions:XamlElementExtensions.Resource="SpecialThank"
                                    Style="{StaticResource AboutAppStyle}"
                                    Foreground="{ThemeResource PhoneForegroundBrush}"
                                    FontSize="24" />
-                        <TextBlock Text="{Binding FirstDesigner}"
+                        <TextBlock extensions:XamlElementExtensions.Resource="FirstDesigner"
                                    Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="{Binding SecondDesigner}"
+                        <TextBlock extensions:XamlElementExtensions.Resource="SecondDesigner"
                                    Style="{StaticResource AboutAppStyle}" />
-                        <TextBlock Text="{Binding Version}"
+                        <TextBlock extensions:XamlElementExtensions.Resource="Version"
                                    Style="{StaticResource AboutAppStyle}" />
                         <HyperlinkButton Content="chygunka.by"
                                          NavigateUri="http://chygunka.by" />

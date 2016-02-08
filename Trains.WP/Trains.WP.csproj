@@ -115,8 +115,10 @@
     <Compile Include="Converters\ShareSocialToUriConverter.cs" />
     <Compile Include="Converters\TimeToStringConverter.cs" />
     <Compile Include="DebugTrace.cs" />
+    <Compile Include="Extensions\XamlElementExtensions.cs" />
     <Compile Include="MvxShareTask.cs" />
     <Compile Include="Services\Analytics.cs" />
+    <Compile Include="Services\LocalizationService.cs" />
     <Compile Include="Services\MarketPlace.cs" />
     <Compile Include="Services\NotificationService.cs" />
     <Compile Include="Services\UserInteractionService.cs" />
@@ -215,11 +217,7 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
-    <PRIResource Include="Strings\en-US\Resources.resw" />
-    <PRIResource Include="Strings\ru-RU\Resources.resw">
-      <SubType>Designer</SubType>
-    </PRIResource>
-    <PRIResource Include="Strings\be-BY\Resources.resw" />
+    <PRIResource Include="Resources\ru-RU\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AppPromo, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -377,7 +375,10 @@
     <Content Include="Assets\WideLogo.scale-240.png" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PRIResource Include="Resources\be-BY\Resources.resw" />
+    <PRIResource Include="Resources\en-US\Resources.resw" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

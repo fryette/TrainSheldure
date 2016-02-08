@@ -1,14 +1,15 @@
 ﻿using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Core.Resources;
+using Trains.Core.Interfaces;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
 {
     public class ShareViewModel : MvxViewModel
     {
+	    private ILocalizationService _localizationService;
 
-        #region UIproperties
+	    #region UIproperties
 
         public string Header { get; set; }
         public string Title { get; set; }
@@ -30,10 +31,15 @@ namespace Trains.Core.ViewModels
             };
         }
 
+	    public ShareViewModel(ILocalizationService localizationService)
+	    {
+		    _localizationService = localizationService;
+	    }
+
         private void RestoreUiBinding()
         {
-            Header = ResourceLoader.Instance.Resource["SocialNetworks"];
-            Title = ResourceLoader.Instance.Resource["SupportUs"];
+            Header = _localizationService.GetString("SocialNetworks");
+            Title = _localizationService.GetString("SupportUs");
         }
     }
 }

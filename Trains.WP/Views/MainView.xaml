@@ -6,14 +6,15 @@
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
                       xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+                      xmlns:extensions="using:Trains.WP.Extensions"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData MainViewModel}">
     <Grid>
         <Pivot x:Name="MainPivot"
                IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}"
-               Title="{Binding ApplicationName}"
+               extensions:XamlElementExtensions.Resource="ApplicationName"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
-            <PivotItem Header="{Binding MainPivotItem}"
+            <PivotItem extensions:XamlElementExtensions.Resource="MainPivotItem"
                        x:Name="MainPivotItem">
                 <Grid Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=main}">
                     <Grid.RowDefinitions>
@@ -22,17 +23,17 @@
                     </Grid.RowDefinitions>
                     <StackPanel Grid.Row="0">
                         <ComboBox x:Name="comboBox"
-                                  Header="{Binding FastSearchTextBlock}"
+                                  extensions:XamlElementExtensions.Resource="FastSearchTextBlock"
                                   ItemsSource="{Binding VariantOfSearch}"
                                   SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
                                   SelectionChanged="ComboBoxSelectionChanged" />
                         <DatePicker x:Name="DataPicker"
-                                    Header="{Binding DateOfDeparture}"
+                                    extensions:XamlElementExtensions.Resource="DateOfDeparture"
                                     Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                     Style="{StaticResource DatePickerStyle}"
                                     Margin="0,-5,0,0" />
                         <AutoSuggestBox x:Name="From"
-                                        Header="{Binding FromAutoSuggest}"
+                                        extensions:XamlElementExtensions.Resource="From"
                                         Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
                                         IsEnabled="{Binding IsFildEnabled}"
@@ -41,7 +42,7 @@
                                         LostFocus="AutoSuggestBox_ManipulationCompleted"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
                         <AutoSuggestBox x:Name="To"
-                                        Header="{Binding ToAutoSuggest}"
+                                        extensions:XamlElementExtensions.Resource="To}"
                                         IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                                         Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"
@@ -51,14 +52,14 @@
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
                         <Grid>
                             <Button x:Name="SearchButton"
-                                    Content="{Binding Search}"
+                                    extensions:XamlElementExtensions.Resource="Search"
                                     HorizontalAlignment="Right"
                                     Command="{Binding SearchTrainCommand}" />
                         </Grid>
                     </StackPanel>
                     <ListView x:Name="Routes"
                               Grid.Row="1"
-                              Header="{Binding LastRequests}"
+                              extensions:XamlElementExtensions.Resource="LastRequests"
                               ItemsSource="{Binding LastRoutes}"
                               ItemTemplate="{StaticResource RoutesTemplate}"
                               ItemContainerStyle="{StaticResource ListViewItemStyle}">
@@ -72,7 +73,7 @@
                     </ListView>
                 </Grid>
             </PivotItem>
-            <PivotItem Header="{Binding LastSchedulePivotItem}"
+            <PivotItem extensions:XamlElementExtensions.Resource="LastSchedulePivotItem"
                        x:Name="LastPivot"
                        Background="{Binding Trains, Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=last}">
                 <Grid HorizontalAlignment="Center">
@@ -81,10 +82,10 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <StackPanel>
-                        <TextBlock Text="{Binding LastRoute}"
+                        <TextBlock extensions:XamlElementExtensions.Resource="LastRoute"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    FontSize="{StaticResource MainFontSize}" />
-                        <TextBlock Text="{Binding LastUpdateTime}"
+                        <TextBlock extensions:XamlElementExtensions.Resource="LastUpdateTime"
                                    Style="{StaticResource BasedTextBlockStyle}"
                                    FontSize="{StaticResource SmallFontSize}"
                                    VerticalAlignment="Bottom" />
@@ -118,7 +119,7 @@
                                                                     Command="{Binding ElementName=MainPivot, Path=DataContext.BookingSelectedTrainCommand}"
                                                                     CommandParameter="{Binding}" />
                                                     <MenuFlyoutItem x:Name="DeleteButton"
-                                                                    Text="{Binding ElementName=MainPivot,Path=DataContext.AddToCalendar}"
+                                                                    extensions:XamlElementExtensions.Resource="AddToCalendar"
                                                                     Command="{Binding ElementName=MainPivot, Path=DataContext.NotifyAboutSelectedTrainCommand}"
                                                                     CommandParameter="{Binding}" />
                                                 </MenuFlyout>
@@ -222,7 +223,7 @@
                 </Grid>
             </PivotItem>
             <PivotItem x:Name="RoutesPivot"
-                       Header="{Binding RoutesPivotItem}"
+                       extensions:XamlElementExtensions.Resource="RoutesPivotItem"
                        Background="{Binding FavoriteRequests, Converter={StaticResource BackgroundLastRouteToImageConverter},ConverterParameter=route}">
                 <ListView x:Name="FavoriteRequests"
                           ItemsSource="{Binding FavoriteRequests}"
@@ -261,7 +262,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </PivotItem>
-            <PivotItem Header="{Binding AboutPivotItem}">
+            <PivotItem extensions:XamlElementExtensions.Resource="AboutPivotItem">
                 <ListView x:Name="AboutItemList"
                           ItemsSource="{Binding AboutItems}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}"
@@ -277,7 +278,7 @@
             </PivotItem>
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <TextBlock Text="{Binding Update}"
+            <TextBlock extensions:XamlElementExtensions.Resource="Update"
                        Margin="20,0,0,0" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
@@ -301,16 +302,16 @@
                     Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
                     IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
-                          Label="{Binding UpdateAppBar}"
+                          extensions:XamlElementExtensions.Resource="UpdateAppBar"
                           Icon="Sync"
                           Command="{Binding UpdateLastRequestCommand}" />
             <AppBarButton x:Name="SwapAppBar"
-                          Label="{Binding SwapAppBar}"
+                          extensions:XamlElementExtensions.Resource="SwapAppBar"
                           Icon="Sort"
                           Command="{Binding SwapCommand}"
                           IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
             <CommandBar.SecondaryCommands>
-                <AppBarButton Label="{Binding HelpAppBar}"
+                <AppBarButton extensions:XamlElementExtensions.Resource="HelpAppBar"
                               Icon="Help"
                               Command="{Binding GoToHelpCommand}"
                               IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />

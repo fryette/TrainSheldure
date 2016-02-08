@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AllFavoritesDeleted" xml:space="preserve"><value>Your route is now empty</value></data>
+  <data name="Arrival" xml:space="preserve"><value>Arrival: </value></data>
+  <data name="Belarus" xml:space="preserve"><value>(Belarus)</value></data>
+  <data name="Business" xml:space="preserve"><value>business</value></data>
+  <data name="ConectionError" xml:space="preserve"><value>Check the connection Internet</value></data>
+  <data name="DateTooBig" xml:space="preserve"><value>Search can be made only for 45 days from now, or use the mode 'all the days'</value></data>
+  <data name="DateUpTooLater " xml:space="preserve"><value>The search can be performed starting from the current time </value></data>
+  <data name="Departure" xml:space="preserve"><value>Departure: </value></data>
+  <data name="EditFavoriteMessageError " xml:space="preserve"><value>Keep at least one route that would be able to edit</value></data>
+  <data name="ErrorUpdate" xml:space="preserve"><value>not found the last request, or there was an error loading</value></data>
+  <data name="Everyday" xml:space="preserve"><value>everyday</value></data>
+  <data name="FavoriteListIsEmpthy" xml:space="preserve"><value>Your list is empty</value></data>
+  <data name="Feedback" xml:space="preserve"><value>Chygunka / suggestions / bugs</value></data>
+  <data name="Hour" xml:space="preserve"><value> h. </value></data>
+  <data name="IncorrectInput" xml:space="preserve"><value>One or both of the item does not exist, recheck the input</value></data>
+  <data name="International" xml:space="preserve"><value>International</value></data>
+  <data name="InternetConnectionError" xml:space="preserve"><value>Access to the Internet, check the connection!</value></data>
+  <data name="Interregional" xml:space="preserve"><value>Interregional</value></data>
+  <data name="LanguageChanged" xml:space="preserve"><value>Successfully updated language! Please log onto the app! </value></data>
+  <data name="Min" xml:space="preserve"><value> min. </value></data>
+  <data name="No" xml:space="preserve"><value> no </value></data>
+  <data name="NoPlace" xml:space="preserve"><value>No place. Specify the box office</value></data>
+  <data name="NotifyMessage" xml:space="preserve"><value>Please select your desired station, and then click the button to delete the selected</value></data>
+  <data name="OnAllDays" xml:space="preserve"><value>all days</value></data>
+  <data name="OnDay" xml:space="preserve"><value>the date</value></data>
+  <data name="OnWay" xml:space="preserve"><value>on the way </value></data>
+  <data name="Place" xml:space="preserve"><value>Places: </value></data>
+  <data name="PlaceNo" xml:space="preserve"><value>no place </value></data>
+  <data name="PlaceYes" xml:space="preserve"><value>place: </value></data>
+  <data name="PointsIsInCorrect" xml:space="preserve"><value>One or both stations are not introduced</value></data>
+  <data name="Price" xml:space="preserve"><value>Price: </value></data>
+  <data name="Regional" xml:space="preserve"><value>Regional</value></data>
+  <data name="RouteIsAddedToFavorite" xml:space="preserve"><value>The route is added!</value></data>
+  <data name="RouteIsDeletedInFavorite" xml:space="preserve"><value>The station is removed!</value></data>
+  <data name="RouteIsIncorect" xml:space="preserve"><value>The route is not found, check the input field stations!</value></data>
+  <data name="SearchError" xml:space="preserve"><value>A problem has occurred while loading data on prolonged failure, please notify us or reset the settings in the 'Settings'</value></data>
+  <data name="SpecifyDate" xml:space="preserve"><value>Check the date to display information about the places </value></data>
+  <data name="Stay" xml:space="preserve"><value>Stop: </value></data>
+  <data name="ThisRouteIsPresent" xml:space="preserve"><value> This route is already present </value></data>
+  <data name="Today" xml:space="preserve"><value>today</value></data>
+  <data name="Tommorow" xml:space="preserve"><value>tomorrow</value></data>
+  <data name="Yesterday" xml:space="preserve"><value>yesterday</value></data>
+  <data name="TrainsNotFound" xml:space="preserve"><value> Trains on the date of origin is not found </value></data>
+  <data name="Unlimited" xml:space="preserve"><value> unlimited </value></data>
+  <data name="Via" xml:space="preserve"><value>Through </value></data>
+  <data name="Sedentary" xml:space="preserve"><value>Sedentary</value></data>
+  <data name="General" xml:space="preserve"><value>General</value></data>
+  <data name="SecondClass" xml:space="preserve"><value>Second-class</value></data>
+  <data name="Coupe" xml:space="preserve"><value>Coupe</value></data>
+  <data name="Luxury" xml:space="preserve"><value>CB</value></data>
+  <data name="Language" xml:space="preserve"><value>en</value></data>
+  <data name="DeleteDataNotification" xml:space="preserve"><value> All saved data will be deleted (Saved Routes / last request) </value></data>
+  <data name="Warning" xml:space="preserve"><value> Warning </value></data>
+  <data name="Unknow" xml:space="preserve"><value>unknow</value></data>
+  <data name="AboutPivotItem" xml:space="preserve"><value>more</value></data>
+  <data name="ApplicationName" xml:space="preserve"><value>Chygunka.by</value></data>
+  <data name="Clear" xml:space="preserve"><value>clear</value></data>
+  <data name="DateOfDeparture" xml:space="preserve"><value>departure Date</value></data>
+  <data name="EditFavoriteHeader" xml:space="preserve"><value>manage routes</value></data>
+  <data name="From" xml:space="preserve"><value>whence</value></data>
+  <data name="LastSchedulePivotItem" xml:space="preserve"><value>last</value></data>
+  <data name="MainPivotItem" xml:space="preserve"><value>home</value></data>
+  <data name="RoutesPivotItem" xml:space="preserve"><value>routes</value></data>
+  <data name="Search" xml:space="preserve"><value>search</value></data>
+  <data name="To" xml:space="preserve"><value>where</value></data>
+  <data name="Update" xml:space="preserve"><value>updating</value></data>
+  <data name="UpdateStopPoint" xml:space="preserve"><value>Update station</value></data>
+  <data name="AboutUs" xml:space="preserve"><value>about Us</value></data>
+  <data name="Changes" xml:space="preserve"><value>changes</value></data>
+  <data name="CurrentChanges" xml:space="preserve"><value>In this version:</value></data>
+  <data name="DeleteAppBar" xml:space="preserve"><value>Delete</value></data>
+  <data name="HelpAppBar" xml:space="preserve"><value>help</value></data>
+  <data name="ManageAppBar" xml:space="preserve"><value>manage</value></data>
+  <data name="SaveAppBar" xml:space="preserve"><value>save</value></data>
+  <data name="SwapAppBar" xml:space="preserve"><value>swap</value></data>
+  <data name="UpdateAppBar" xml:space="preserve"><value>update</value></data>
+  <data name="UsingLibrary" xml:space="preserve"><value>Used library:</value></data>
+  <data name="Version" xml:space="preserve"><value>Version: 1.2.0.16</value></data>
+  <data name="LangSetting" xml:space="preserve"><value>language</value></data>
+  <data name="Carriage" xml:space="preserve"><value>cars</value></data>
+  <data name="FastSearchTextBlock" xml:space="preserve"><value>quick search train</value></data>
+  <data name="Trains" xml:space="preserve"><value>train</value></data>
+  <data name="OurSite" xml:space="preserve"><value>Our site</value></data>
+  <data name="DownloadStopPoints" xml:space="preserve"><value>Loading list of stops</value></data>
+  <data name="Settings" xml:space="preserve"><value>Settings</value></data>
+  <data name="NeedReboot" xml:space="preserve"><value>need reboot</value></data>
+  <data name="SelectLanguage" xml:space="preserve"><value>select language</value></data>
+  <data name="ResetSettings" xml:space="preserve"><value>reset settings</value></data>
+  <data name="Updated" xml:space="preserve"><value>updated </value></data>
+  <data name="Ago" xml:space="preserve"><value>ago</value></data>
+  <data name="JustNow" xml:space="preserve"><value>just now</value></data>
+  <data name="ReverseAppBar" xml:space="preserve"><value>reverse</value></data>
+  <data name="SocialNetworks" xml:space="preserve"><value>Social networks:</value></data>
+  <data name="SupportUs" xml:space="preserve"><value>this will support us</value></data>
+  <data name="Other" xml:space="preserve"><value>seats</value></data>
+  <data name="SpecialThank" xml:space="preserve"><value>Special thank to:</value></data>
+  <data name="FirstDesigner" xml:space="preserve"><value>Peleshenko Alexander (logo)</value></data>
+  <data name="SecondDesigner" xml:space="preserve"><value>Rachkovskaya Polina (screensaver)</value></data>
+  <data name="LastRequests" xml:space="preserve"><value>history:</value></data>
+  <data name="SelectCountries" xml:space="preserve"><value>Select your country to download additional stations</value></data>
+  <data name="DownloadSelectCountry" xml:space="preserve"><value>Download selected station</value></data>
+  <data name="CountrySuccessfullyAdded" xml:space="preserve"><value>successfully added</value></data>
+  <data name="CountryCanNotDownloaded" xml:space="preserve"><value>An error has occurred while loading, try again later</value></data>
+  <data name="AddToCalendar" xml:space="preserve"><value>Add reminder</value></data>
+  <data name="TimeNotification" xml:space="preserve"><value>Time notification before departure</value></data>
+  <data name="NotifyTrainMessage" xml:space="preserve"><value>You will be notified of the {0} before train departure</value></data>
+</root>

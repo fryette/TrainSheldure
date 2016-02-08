@@ -6,7 +6,6 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Trains.Core.Interfaces;
-using Trains.Core.Resources;
 using Trains.Core.Services.Infrastructure;
 using Trains.Core.Services.Interfaces;
 using Trains.Entities;
@@ -19,12 +18,14 @@ namespace Trains.Core.Services
 	{
 		private readonly IHttpService _httpService;
 		private readonly IAnalytics _analytics;
+		private static ILocalizationService _localizationService;
 
 
 		public SearchService(IHttpService httpService, IAnalytics analytics)
 		{
 			_analytics = analytics;
 			_httpService = httpService;
+			_localizationService = Dependencies.LocalizationService;
 		}
 
 		public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
@@ -38,15 +39,15 @@ namespace Trains.Core.Services
 
 				var additionalInformation = TrainGrabber.GetPlaces(data);
 				var links = TrainGrabber.GetLink(data);
-				var parameters = Parser.ParseData(data, ResourceLoader.Instance.Resource["TrainsPattern"]).ToList();
+				var parameters = Parser.ParseData(data, _localizationService.GetString("TrainsPattern")).ToList();
 				var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
 				List<Train> trains;
-				var country = ResourceLoader.Instance.Resource["Belarus"];
+				var country = _localizationService.GetString("Belarus");
 				if (!from.Label.Contains(country.Replace("(",string.Empty).Replace(")", string.Empty)) && !to.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)))
 					trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
 				else
-					trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, ResourceLoader.Instance.Resource["TrainsPattern"]).ToList())
+					trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(Parser.ParseData(data, _localizationService.GetString("TrainsPattern")).ToList())
 						: TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
 				trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
 				if (!trains.Any()) throw new ArgumentException("Bad request");
@@ -57,25 +58,25 @@ namespace Trains.Core.Services
 				_analytics.SentException(e.Message);
 				_analytics.SentEvent("exceptions", "Search", $"{e.Message}---{@from.Value}{'-'}{to.Value}{':'}{selectedVariant}");
 			}
-			await Mvx.Resolve<IUserInteraction>().AlertAsync(ResourceLoader.Instance.Resource["TrainsNotFound"]);
+			await Mvx.Resolve<IUserInteraction>().AlertAsync(_localizationService.GetString("TrainsNotFound"));
 			return null;
 		}
 
 		private static Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)
 		{
 			return new Uri(
-				$"http://rasp.rw.by/m/{ResourceLoader.Instance.Resource["Language"]}/route/?from={fromItem.Value}&from_exp={fromItem.Exp}&from_esr = {fromItem.Ecp}&to={toItem.Value}&to_exp={toItem.Exp}&to_esr = {toItem.Ecp}&date={date}&{new Random().Next(0, 20)}");
+				$"http://rasp.rw.by/m/{_localizationService.GetString("Language")}/route/?from={fromItem.Value}&from_exp={fromItem.Exp}&from_esr = {fromItem.Ecp}&to={toItem.Value}&to_exp={toItem.Exp}&to_esr = {toItem.Ecp}&date={date}&{new Random().Next(0, 20)}");
 		}
 
 		private static string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
 		{
-			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Tommorow"])
+			if (selectedVariantOfSearch == _localizationService.GetString("Tommorow"))
 				return datum.AddDays(1).ToString(DateFormat, CultureInfo.CurrentCulture);
-			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnAllDays"])
+			if (selectedVariantOfSearch == _localizationService.GetString("OnAllDays"))
 				return "everyday";
-			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["Yesterday"])
+			if (selectedVariantOfSearch == _localizationService.GetString("Yesterday"))
 				return datum.AddDays(-1).ToString(DateFormat, CultureInfo.CurrentCulture);
-			if (selectedVariantOfSearch == ResourceLoader.Instance.Resource["OnDay"])
+			if (selectedVariantOfSearch == _localizationService.GetString("OnDay"))
 				return datum.ToString(DateFormat, CultureInfo.CurrentCulture);
 			if (datum < DateTime.Now) datum = DateTime.Now;
 

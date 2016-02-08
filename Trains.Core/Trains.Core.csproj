@@ -43,6 +43,8 @@
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="BaseHttpService.cs" />
+    <Compile Include="Dependencies.cs" />
+    <Compile Include="Interfaces\ILocalizationService.cs" />
     <Compile Include="Interfaces\INotificationService.cs" />
     <Compile Include="Resources\Defines.cs" />
     <Compile Include="Extensions\HttpWebRequest.cs" />
@@ -50,7 +52,6 @@
     <Compile Include="Interfaces\IAppSettings.cs" />
     <Compile Include="Interfaces\ISerializableService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\ResourceLoader.cs" />
     <Compile Include="Services\Interfaces\ILocalDataService.cs" />
     <Compile Include="Services\Infrastructure\Parser.cs" />
     <Compile Include="Services\Infrastructure\TrainGrabber.cs" />

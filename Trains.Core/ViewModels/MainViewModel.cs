@@ -48,8 +48,9 @@ namespace Trains.Core.ViewModels
         private readonly INotificationService _notificationService;
 
         private readonly IUserInteraction _userInteraction;
+	    private readonly ILocalizationService _localizationService;
 
-        #endregion
+	    #endregion
 
         #region commands
 
@@ -77,7 +78,8 @@ namespace Trains.Core.ViewModels
             ILocalDataService local,
             IMvxComposeEmailTask email,
             INotificationService notificationService,
-            IUserInteraction userInteraction)
+            IUserInteraction userInteraction,
+			ILocalizationService localizationService)
         {
             _email = email;
             _local = local;
@@ -88,8 +90,9 @@ namespace Trains.Core.ViewModels
             _marketPlace = marketPlace;
             _notificationService = notificationService;
             _userInteraction = userInteraction;
+	        _localizationService = localizationService;
 
-            TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
+	        TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
             GoToHelpCommand = new MvxCommand(GoToHelpPage);
             SelectTrainCommand = new MvxCommand<Train>(ClickItem);
             UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
@@ -110,28 +113,6 @@ namespace Trains.Core.ViewModels
 
         #region properties
 
-        #region UIProperties
-
-        public string ApplicationName { get; set; }
-        public string MainPivotItem { get; set; }
-        public string FastSearchTextBlock { get; set; }
-        public string DateOfDeparture { get; set; }
-        public string FromAutoSuggest { get; set; }
-        public string ToAutoSuggest { get; set; }
-        public string Search { get; set; }
-        public string LastSchedulePivotItem { get; set; }
-        public string RoutesPivotItem { get; set; }
-        public string AboutPivotItem { get; set; }
-        public string Update { get; set; }
-        public string UpdateAppBar { get; set; }
-        public string SwapAppBar { get; set; }
-        public string ManageAppBar { get; set; }
-        public string HelpAppBar { get; set; }
-        public string LastRequests { get; set; }
-        public string DeleteRoute { get; set; }
-        public string AddToCalendar { get; set; }
-
-        #endregion
         public IEnumerable<About> AboutItems { get; set; }
 
         private List<Route> _lastRoutes;
@@ -182,9 +163,9 @@ namespace Trains.Core.ViewModels
             {
                 if (_appSettings.UpdatedLastRequest == null) return null;
                 var date = (DateTimeOffset.Now - _appSettings.UpdatedLastRequest.Date);
-                return ResourceLoader.Instance.Resource["Updated"] + (date.TotalMinutes > 1 ? (date.Hours > 1 ? (date.Hours + ResourceLoader.Instance.Resource["Hour"]) :
-                    (date.Minutes + ResourceLoader.Instance.Resource["Min"])) + ResourceLoader.Instance.Resource["Ago"]
-                    : ResourceLoader.Instance.Resource["JustNow"]);
+                return _localizationService.GetString("Updated") + (date.TotalMinutes > 1 ? (date.Hours > 1 ? date.Hours + _localizationService.GetString("Hour") :
+                    date.Minutes + _localizationService.GetString("Min")) + _localizationService.GetString("Ago")
+                    : _localizationService.GetString("JustNow"));
             }
         }
 
@@ -382,7 +363,7 @@ namespace Trains.Core.ViewModels
                 _appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
             if (trains == null)
-                await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["InternetConnectionError"]);
+                await _userInteraction.AlertAsync(_localizationService.GetString("InternetConnectionError"));
             else
             {
                 _appSettings.UpdatedLastRequest.Date = DateTimeOffset.Now;
@@ -462,12 +443,12 @@ namespace Trains.Core.ViewModels
         {
             if ((datum.Date - DateTime.Now).Days < 0)
             {
-                await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["DateUpTooLater"]);
+                await _userInteraction.AlertAsync(_localizationService.GetString("DateUpTooLater"));
                 return true;
             }
             if (datum.Date > DateTime.Now.AddDays(45))
             {
-                await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["DateTooBig"]);
+                await _userInteraction.AlertAsync(_localizationService.GetString("DateTooBig"));
                 return true;
             }
 
@@ -475,12 +456,12 @@ namespace Trains.Core.ViewModels
                 !(autoCompletion.Any(x => x.Value == from.Trim()) &&
                   autoCompletion.Any(x => x.Value == to.Trim())))
             {
-                await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["IncorrectInput"]);
+                await _userInteraction.AlertAsync(_localizationService.GetString("IncorrectInput"));
                 return true;
             }
 
             if (NetworkInterface.GetIsNetworkAvailable()) return false;
-            await _userInteraction.AlertAsync(ResourceLoader.Instance.Resource["ConectionError"]);
+            await _userInteraction.AlertAsync(_localizationService.GetString("ConectionError"));
             return true;
         }
 
@@ -495,7 +476,7 @@ namespace Trains.Core.ViewModels
         public async void NotifyAboutSelectedTrain(Train train)
         {
             var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
-            await _userInteraction.AlertAsync(Format(ResourceLoader.Instance.Resource["NotifyTrainMessage"], reminder));
+            await _userInteraction.AlertAsync(Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
         }
 
         public void BookingSelectedTrain(Train train)
@@ -590,38 +571,19 @@ namespace Trains.Core.ViewModels
 
         private void RestoreUiBinding()
         {
-            ApplicationName = ResourceLoader.Instance.Resource["ApplicationName"];
-            MainPivotItem = ResourceLoader.Instance.Resource["MainPivotItem"];
-            FastSearchTextBlock = ResourceLoader.Instance.Resource["FastSearchTextBlock"];
-            DateOfDeparture = ResourceLoader.Instance.Resource["DateOfDeparture"];
-            FromAutoSuggest = ResourceLoader.Instance.Resource["From"];
-            ToAutoSuggest = ResourceLoader.Instance.Resource["To"];
-            Search = ResourceLoader.Instance.Resource["Search"];
-            LastSchedulePivotItem = ResourceLoader.Instance.Resource["LastSchedulePivotItem"];
-            RoutesPivotItem = ResourceLoader.Instance.Resource["RoutesPivotItem"];
-            AboutPivotItem = ResourceLoader.Instance.Resource["AboutPivotItem"];
-            Update = ResourceLoader.Instance.Resource["Update"];
-            UpdateAppBar = ResourceLoader.Instance.Resource["UpdateAppBar"];
-            SwapAppBar = ResourceLoader.Instance.Resource["SwapAppBar"];
-            ManageAppBar = ResourceLoader.Instance.Resource["ManageAppBar"];
-            HelpAppBar = ResourceLoader.Instance.Resource["HelpAppBar"];
-            LastRequests = ResourceLoader.Instance.Resource["LastRequests"];
-            DeleteRoute = ResourceLoader.Instance.Resource["DeleteAppBar"];
-            AddToCalendar = ResourceLoader.Instance.Resource["AddToCalendar"];
-
             VariantOfSearch = new List<string>
                 {
-                    ResourceLoader.Instance.Resource["Yesterday"],
-                    ResourceLoader.Instance.Resource["Today"],
-                    ResourceLoader.Instance.Resource["Tommorow"],
-                    ResourceLoader.Instance.Resource["OnAllDays"],
-                    ResourceLoader.Instance.Resource["OnDay"]
+                    _localizationService.GetString("Yesterday"),
+                    _localizationService.GetString("Today"),
+                    _localizationService.GetString("Tommorow"),
+                    _localizationService.GetString("OnAllDays"),
+                    _localizationService.GetString("OnDay")
                 };
 
             AboutItemsActions = new Dictionary<AboutPicture, Action>
             {
             {AboutPicture.AboutApp,()=>ShowViewModel<AboutViewModel>()},
-            {AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, ResourceLoader.Instance.Resource["Feedback"], Empty, false)},
+            {AboutPicture.Mail,()=>_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, _localizationService.GetString("Feedback"), Empty, false)},
             {AboutPicture.Market,()=>_marketPlace.GoToMarket()},
             {AboutPicture.Settings,()=>ShowViewModel<SettingsViewModel>()},
             {AboutPicture.Share,()=>ShowViewModel<ShareViewModel>()}

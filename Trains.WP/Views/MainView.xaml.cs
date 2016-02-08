@@ -4,6 +4,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using Trains.Core;
 using Trains.Core.Resources;
 using Trains.Core.ViewModels;
 
@@ -96,7 +97,7 @@ namespace Trains.WP.Views
 
         private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DataPicker.Visibility = ReferenceEquals(comboBox.SelectedItem, ResourceLoader.Instance.Resource["OnDay"]) ? Visibility.Visible : Visibility.Collapsed;
+            DataPicker.Visibility = ReferenceEquals(comboBox.SelectedItem, Dependencies.LocalizationService.GetString("OnDay")) ? Visibility.Visible : Visibility.Collapsed;
         }
     }
 }
