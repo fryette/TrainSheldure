@@ -7,9 +7,11 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using Trains.Core.Extensions;
-using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Entities;
+using Trains.Infrastructure;
+using Trains.Infrastructure.Interfaces;
+using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 

@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Appointments;
-using Trains.Core.Interfaces;
-using Trains.Core.Resources;
 using Trains.Entities;
+using Trains.Infrastructure;
+using Trains.Infrastructure.Interfaces.Platform;
 
 namespace Trains.WP.Services
 {
@@ -37,7 +34,7 @@ namespace Trains.WP.Services
 			return timeToNotify;
 		}
 
-		async public Task CheckForAndCreateAppointmentCalendars()
+		public async Task CheckForAndCreateAppointmentCalendars()
 		{
 			var appointmentStore = await AppointmentManager.RequestStoreAsync(AppointmentStoreAccessType.AppCalendarsReadWrite);
 			var appCalendars =

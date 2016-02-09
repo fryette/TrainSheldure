@@ -1,5 +1,5 @@
 ﻿using Cirrious.CrossCore;
-using Trains.Core.Interfaces;
+using Trains.Infrastructure.Interfaces;
 
 namespace Trains.Core
 {

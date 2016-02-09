@@ -1,4 +1,4 @@
-﻿namespace Trains.Core.Resources
+﻿namespace Trains.Infrastructure
 {
 	public static class Defines
 	{

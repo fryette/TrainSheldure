@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Trains.Entities;
 
-namespace Trains.Core.Interfaces
+namespace Trains.Infrastructure.Interfaces.Platform
 {
 	public interface INotificationService
 	{

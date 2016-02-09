@@ -1,7 +1,7 @@
 ﻿using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
-using Trains.Core.Interfaces;
 using System.Collections.Generic;
+using Trains.Infrastructure.Interfaces;
 
 namespace Trains.Core.Services
 {

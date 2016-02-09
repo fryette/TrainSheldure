@@ -1,4 +1,4 @@
-﻿namespace Trains.Core.Interfaces
+﻿namespace Trains.Infrastructure.Interfaces
 {
 	public interface ISerializableService
 	{

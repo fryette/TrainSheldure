@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Trains.Core.Interfaces;
 using Trains.Entities;
+using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Model.Entities;
 
 namespace Trains.Core

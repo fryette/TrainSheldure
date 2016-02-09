@@ -1,5 +1,5 @@
 ﻿using GoogleAnalytics;
-using Trains.Core.Interfaces;
+using Trains.Infrastructure.Interfaces;
 
 namespace Trains.WP.Services
 {

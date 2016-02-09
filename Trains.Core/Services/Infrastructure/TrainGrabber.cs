@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Entities;
 using Trains.Infrastructure.Extensions;
+using Trains.Infrastructure.Interfaces;
 using Trains.Model.Entities;
 
 namespace Trains.Core.Services.Infrastructure

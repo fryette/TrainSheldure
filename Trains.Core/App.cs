@@ -1,10 +1,11 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Core.Interfaces;
-using Trains.Core.Resources;
 using Trains.Core.Services;
 using Trains.Core.ViewModels;
+using Trains.Infrastructure;
+using Trains.Infrastructure.Interfaces;
+using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
 
 namespace Trains.Core

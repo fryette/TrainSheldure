@@ -5,7 +5,8 @@ using Cirrious.CrossCore.Platform;
 using Cirrious.MvvmCross.Plugins.Share;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsCommon.Platform;
-using Trains.Core.Interfaces;
+using Trains.Infrastructure.Interfaces;
+using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
 using Trains.WP.Services;
 

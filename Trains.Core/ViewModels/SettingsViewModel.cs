@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Core.Interfaces;
-using Trains.Core.Resources;
+using Trains.Infrastructure;
+using Trains.Infrastructure.Interfaces;
+using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 using static System.String;
-using static Trains.Core.Resources.Defines;
 
 namespace Trains.Core.ViewModels
 {
@@ -179,8 +179,8 @@ namespace Trains.Core.ViewModels
 			if (_appSettings.Language == null)
 				_appSettings.Language = new Language { Id = "ru" };
 			SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
-			Countries = _appSettings.AutoCompletion.Skip(Common.NumberOfBelarussianStopPoints).Any() ?
-				new List<Country>(_appSettings.Countries.Except(_appSettings.AutoCompletion.Skip(Common.NumberOfBelarussianStopPoints).GroupBy(x => x.LabelTail).First().Select(x => new Country { Name = x.LabelTail }))) :
+			Countries = _appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints).Any() ?
+				new List<Country>(_appSettings.Countries.Except(_appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints).GroupBy(x => x.LabelTail).First().Select(x => new Country { Name = x.LabelTail }))) :
 				_appSettings.Countries;
 			SelectedCountry = Countries.FirstOrDefault();
 			_timeOfNotify = _appSettings.Reminder;
@@ -191,20 +191,20 @@ namespace Trains.Core.ViewModels
 		{
 			if (SelectedLanguage.Id != _appSettings.Language.Id)
 			{
-				_analytics.SentEvent(Analytics.LanguageChanged, SelectedLanguage.Name);
-				_serializable.Serialize(SelectedLanguage, Restoring.CurrentLanguage);
+				_analytics.SentEvent(Defines.Analytics.LanguageChanged, SelectedLanguage.Name);
+				_serializable.Serialize(SelectedLanguage, Defines.Restoring.CurrentLanguage);
 				NeedReboot = _localizationService.GetString("NeedReboot");
 			}
 			else
 			{
 				NeedReboot = Empty;
-				_serializable.Serialize(_appSettings.Language, Restoring.CurrentLanguage);
+				_serializable.Serialize(_appSettings.Language, Defines.Restoring.CurrentLanguage);
 			}
 		}
 
 		private void ResetSetting()
 		{
-			_serializable.Delete(Common.IsFirstRun);
+			_serializable.Delete(Defines.Common.IsFirstRun);
 			NeedReboot = _localizationService.GetString("NeedReboot");
 		}
 
@@ -219,7 +219,7 @@ namespace Trains.Core.ViewModels
 			{
 				foreach (var countryStopPoint in countryStopPoints)
 					_appSettings.AutoCompletion.Add(countryStopPoint);
-				_serializable.Serialize(_appSettings, Restoring.AppSettings);
+				_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
 				Countries.Remove(SelectedCountry);
 				await _userInteraction.AlertAsync(
 					$"{SelectedCountry.Name}{' '}{_localizationService.GetString("CountrySuccessfullyAdded")}");
@@ -246,7 +246,7 @@ namespace Trains.Core.ViewModels
 		private void TimeChanged()
 		{
 			_appSettings.Reminder = TimeOfNotify;
-			_serializable.Serialize(_appSettings, Restoring.AppSettings);
+			_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
 		}
 		#endregion
 	}

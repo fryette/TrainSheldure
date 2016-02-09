@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Windows.UI.Xaml.Data;
 using Cirrious.CrossCore;
-using Trains.Core.Interfaces;
+using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Model.Entities;
 
 namespace Trains.WP.Converters

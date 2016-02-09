@@ -1,8 +1,8 @@
 ﻿﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Trains.Core.Interfaces;
-using Trains.Core.Resources;
+﻿using Trains.Core.Resources;
+﻿using Trains.Infrastructure.Interfaces.Platform;
 ﻿using Trains.Infrastructure.Interfaces.Services;
 
 namespace Trains.Core.Services

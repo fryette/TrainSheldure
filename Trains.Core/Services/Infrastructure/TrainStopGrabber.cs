@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Trains.Core.Interfaces;
+using Trains.Infrastructure.Interfaces;
 using Trains.Model.Entities;
 
 namespace Trains.Core.Services.Infrastructure

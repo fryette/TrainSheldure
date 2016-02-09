@@ -5,7 +5,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Cirrious.CrossCore;
-using Trains.Core.Interfaces;
+using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Model.Entities;
 
 namespace Trains.WP.Converters

@@ -1,6 +1,6 @@
 ﻿using System;
 using Windows.ApplicationModel.Resources;
-using Trains.Core.Interfaces;
+using Trains.Infrastructure.Interfaces;
 
 namespace Trains.WP.Services
 {
