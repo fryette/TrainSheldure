@@ -5,7 +5,7 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
-using Trains.Core.Services.Interfaces;
+using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 using static System.String;
 using static Trains.Core.Resources.Defines;

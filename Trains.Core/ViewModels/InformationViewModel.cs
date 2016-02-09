@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
-using Trains.Core.Interfaces;
-using Trains.Core.Services.Interfaces;
 using Trains.Entities;
+using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
@@ -12,21 +11,15 @@ namespace Trains.Core.ViewModels
 	{
 		#region readonlyProperties
 
-		/// <summary>
-		/// Used to grab train stops.
-		/// </summary>
 		private readonly ITrainStopService _trainStop;
-
-		private readonly ILocalizationService _localizationService;
 
 		#endregion
 
 		#region ctor
 
-		public InformationViewModel(ITrainStopService trainStop,ILocalizationService localizationService)
+		public InformationViewModel(ITrainStopService trainStop)
 		{
 			_trainStop = trainStop;
-			_localizationService = localizationService;
 		}
 
 		#endregion

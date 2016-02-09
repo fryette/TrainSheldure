@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
 using Trains.Entities;
-using Trains.Core.Services.Interfaces;
+using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 using static System.String;
 

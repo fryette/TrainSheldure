@@ -6,8 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
-using Trains.Core.Extensions;
-using Trains.Core.Services.Interfaces;
+using Trains.Infrastructure.Interfaces.Services;
 
 namespace Trains.Core
 {

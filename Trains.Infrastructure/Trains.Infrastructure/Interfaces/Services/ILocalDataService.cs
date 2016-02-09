@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using Trains.Core.Interfaces;
 
-namespace Trains.Core.Services.Interfaces
+namespace Trains.Infrastructure.Interfaces.Services
 {
 	public interface ILocalDataService
 	{

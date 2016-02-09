@@ -9,8 +9,8 @@ using Newtonsoft.Json;
 using Trains.Core.Extensions;
 using Trains.Core.Interfaces;
 using Trains.Core.Resources;
-using Trains.Core.Services.Interfaces;
 using Trains.Entities;
+using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels

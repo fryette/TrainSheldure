@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Trains.Model.Entities;
 
-namespace Trains.Core.Services.Interfaces
+namespace Trains.Infrastructure.Interfaces.Services
 {
 	public interface ITrainStopService
 	{

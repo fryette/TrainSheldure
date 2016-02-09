@@ -1,4 +1,4 @@
-﻿namespace Trains.Core.Services.Interfaces
+﻿namespace Trains.Infrastructure.Interfaces.Services
 {
 	public interface IMarketPlaceService
 	{
