@@ -2,7 +2,7 @@
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Documents;
 using Trains.Core;
-using Trains.Core.Resources;
+using Trains.Infrastructure;
 
 namespace Trains.WP.Extensions
 {

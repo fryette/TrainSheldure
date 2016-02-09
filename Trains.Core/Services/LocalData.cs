@@ -1,7 +1,7 @@
 ﻿﻿using System;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-﻿using Trains.Core.Resources;
+﻿using Trains.Infrastructure;
 ﻿using Trains.Infrastructure.Interfaces.Platform;
 ﻿using Trains.Infrastructure.Interfaces.Services;
 

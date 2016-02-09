@@ -7,11 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Trains.Core.Services.Infrastructure;
 using Trains.Entities;
+using Trains.Infrastructure;
 using Trains.Infrastructure.Extensions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
-using static Trains.Core.Resources.Defines.Common;
 
 namespace Trains.Core.Services
 {
@@ -71,16 +71,16 @@ namespace Trains.Core.Services
 		private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
 		{
 			if (selectedVariantOfSearch == _localizationService.GetString("Tommorow"))
-				return datum.AddDays(1).ToString(DateFormat, CultureInfo.CurrentCulture);
+				return datum.AddDays(1).ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
 			if (selectedVariantOfSearch == _localizationService.GetString("OnAllDays"))
 				return "everyday";
 			if (selectedVariantOfSearch == _localizationService.GetString("Yesterday"))
-				return datum.AddDays(-1).ToString(DateFormat, CultureInfo.CurrentCulture);
+				return datum.AddDays(-1).ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
 			if (selectedVariantOfSearch == _localizationService.GetString("OnDay"))
-				return datum.ToString(DateFormat, CultureInfo.CurrentCulture);
+				return datum.ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
 			if (datum < DateTime.Now) datum = DateTime.Now;
 
-			return datum.ToString(DateFormat, CultureInfo.CurrentCulture);
+			return datum.ToString(Defines.Common.DateFormat, CultureInfo.CurrentCulture);
 		}
 	}
 }

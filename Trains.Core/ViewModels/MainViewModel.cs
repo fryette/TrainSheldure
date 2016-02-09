@@ -6,7 +6,6 @@ using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.Plugins.Email;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
-using Trains.Core.Resources;
 using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
