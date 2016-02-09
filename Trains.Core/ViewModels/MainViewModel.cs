@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Email;
 using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
@@ -13,6 +12,7 @@ using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
+using Trains.Core.Services;
 using Trains.Infrastructure.Interfaces.Services;
 using static System.String;
 
