@@ -22,6 +22,8 @@ namespace Trains.WP.Extensions
 		{
 			if (dependencyObject is TextBlock)
 				((TextBlock)dependencyObject).Text = str;
+			else if (dependencyObject is AppBarButton)
+				((AppBarButton)dependencyObject).Label = str;
 			else if (dependencyObject is Run)
 				((Run)dependencyObject).Text = str;
 			else if (dependencyObject is Button)
@@ -36,8 +38,11 @@ namespace Trains.WP.Extensions
 				((PivotItem)dependencyObject).Header = str;
 			else if (dependencyObject is AutoSuggestBox)
 				((AutoSuggestBox)dependencyObject).Header = str;
-			else if (dependencyObject is AppBarButton)
-				((AppBarButton)dependencyObject).Label = str;
+			else if (dependencyObject is ListView)
+				((ListView)dependencyObject).Header = str;
+			else if (dependencyObject is TimePicker)
+				((TimePicker)dependencyObject).Header = str;
+
 		}
 	}
 }

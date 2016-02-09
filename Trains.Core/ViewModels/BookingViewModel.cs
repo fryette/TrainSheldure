@@ -47,7 +47,7 @@ namespace Trains.Core.ViewModels
 
         #endregion
 
-        #region propertyes
+        #region properties
 
         private List<AdditionalTicketParameter> _additionalTicketParameter;
         public List<AdditionalTicketParameter> AdditionalTicketParameters

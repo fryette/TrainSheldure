@@ -5,14 +5,15 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:viewModels="using:Trains.Core.ViewModels"
+                      xmlns:extensions="using:Trains.WP.Extensions"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance viewModels:ShareViewModel}">
 
     <Grid Margin="10">
         <StackPanel HorizontalAlignment="Center">
-            <TextBlock Text="{Binding Header}"
+            <TextBlock extensions:XamlElementExtensions.Resource="SocialNetworks"
                        FontSize="{StaticResource BigFontSize}" />
-            <TextBlock Text="{Binding Title}"
+            <TextBlock extensions:XamlElementExtensions.Resource="SupportUs"
                        FontSize="{StaticResource SmallFontSize}"
                        HorizontalAlignment="Center" />
         </StackPanel>

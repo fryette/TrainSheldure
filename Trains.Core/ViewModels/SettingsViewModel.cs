@@ -56,15 +56,6 @@ namespace Trains.Core.ViewModels
 
 		#region properties
 
-		#region UIproperties
-
-		public string Header { get; set; }
-		public string SelectCountries { get; set; }
-		public string DownloadSelectCountry { get; set; }
-		public string SelectLanguage { get; set; }
-		public string ResetSettings { get; set; }
-		public string TimeNotification { get; set; }
-
 		private string _needReboot;
 		public string NeedReboot
 		{
@@ -94,8 +85,6 @@ namespace Trains.Core.ViewModels
 				RaisePropertyChanged(() => TimeOfNotify);
 			}
 		}
-
-		#endregion
 
 		public List<Language> Languages { get; } = new List<Language>
 		{
@@ -185,13 +174,8 @@ namespace Trains.Core.ViewModels
 		#endregion
 
 		#region actions
-
-		/// <summary>
-		/// Invoked when this page is about to be displayed in a Frame.
-		/// </summary>
 		public void Init()
 		{
-			RestoreUiBinding();
 			if (_appSettings.Language == null)
 				_appSettings.Language = new Language { Id = "ru" };
 			SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
@@ -244,7 +228,6 @@ namespace Trains.Core.ViewModels
 
 				SelectedCountry = Countries.FirstOrDefault();
 			}
-
 			else
 			{
 				await _userInteraction.AlertAsync(_localizationService.GetString("CountryCanNotDownloaded"));
@@ -265,17 +248,6 @@ namespace Trains.Core.ViewModels
 			_appSettings.Reminder = TimeOfNotify;
 			_serializable.Serialize(_appSettings, Restoring.AppSettings);
 		}
-
-		private void RestoreUiBinding()
-		{
-			Header = _localizationService.GetString("Settings");
-			TimeNotification = _localizationService.GetString("TimeNotification");
-			SelectLanguage = _localizationService.GetString("SelectLanguage");
-			ResetSettings = _localizationService.GetString("ResetSettings");
-			SelectCountries = _localizationService.GetString("SelectCountries");
-			DownloadSelectCountry = _localizationService.GetString("DownloadSelectCountry");
-		}
-
 		#endregion
 	}
 }

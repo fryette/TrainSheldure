@@ -5,6 +5,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       xmlns:viewModels="using:Trains.Core.ViewModels"
+                      xmlns:extensions="using:Trains.WP.Extensions"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignInstance viewModels:SettingsViewModel}">
 
@@ -14,7 +15,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
-                   Text="{Binding Header}"
+                   extensions:XamlElementExtensions.Resource="Settings"
                    FontSize="{StaticResource BigFontSize}"
                    Foreground="{ThemeResource PhoneForegroundBrush}"
                    HorizontalAlignment="Center" />
@@ -22,7 +23,7 @@
             <ProgressBar Visibility="{Binding IsStationsDownloading, Converter={StaticResource BooleanToVisibilityConverter}}"
                          IsIndeterminate="True"
                          VerticalAlignment="Top" />
-            <ComboBox Header="{Binding SelectLanguage}"
+            <ComboBox extensions:XamlElementExtensions.Resource="SelectLanguage"
                       ItemsSource="{Binding Languages}"
                       SelectedItem="{Binding SelectedLanguage,Mode=TwoWay}"
                       IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}"
@@ -34,7 +35,7 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
             <StackPanel Visibility="{Binding IsAllCountriesDownloaded,Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=invert}">
-                <ComboBox Header="{Binding SelectCountries}"
+                <ComboBox extensions:XamlElementExtensions.Resource="SelectLanguage"
                           ItemsSource="{Binding Countries}"
                           SelectedValue="{Binding SelectedCountry,Mode=TwoWay}"
                           IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}">
@@ -44,14 +45,14 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <Button Content="{Binding DownloadSelectCountry}"
+                <Button extensions:XamlElementExtensions.Resource="DownloadSelectCountry"
                         HorizontalAlignment="Stretch"
                         Command="{Binding DownloadSelectedCountryStopPointsCommand}"
                         IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}" />
-                <TimePicker Header="{Binding TimeNotification}"
+                <TimePicker extensions:XamlElementExtensions.Resource="TimeNotification"
                             Time="{Binding TimeOfNotify,Mode=TwoWay}" />
             </StackPanel>
-            <Button Content="{Binding ResetSettings}"
+            <Button extensions:XamlElementExtensions.Resource="ResetSettings"
                     HorizontalAlignment="Stretch"
                     Command="{Binding ResetSettingsCommand}"
                     IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}" />

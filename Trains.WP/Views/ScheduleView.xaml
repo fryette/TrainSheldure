@@ -7,6 +7,7 @@
                       mc:Ignorable="d"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
                       xmlns:viewModels="using:Trains.Core.ViewModels"
+                      xmlns:extensions="using:Trains.WP.Extensions"
                       d:DataContext="{d:DesignInstance viewModels:ScheduleViewModel}">
 
     <Grid x:Name="RootGrid"
@@ -46,7 +47,7 @@
                                                                 Command="{Binding ElementName=RootGrid, Path=DataContext.BookingSelectedTrainCommand}"
                                                                 CommandParameter="{Binding}" />
                                                 <MenuFlyoutItem x:Name="DeleteButton"
-                                                                Text="{Binding ElementName=RootGrid,Path=DataContext.AddToCalendar}"
+                                                                extensions:XamlElementExtensions.Resource="AddToCalendar"
                                                                 Command="{Binding ElementName=RootGrid, Path=DataContext.NotifyAboutSelectedTrainCommand}"
                                                                 CommandParameter="{Binding}" />
                                             </MenuFlyout>
@@ -159,7 +160,7 @@
                     CommandParameter="{Binding ElementName=TrainList, Path=SelectedItem}" />
             <Grid Grid.Row="0"
                   Visibility="{Binding IsSearchStart,Converter={StaticResource BooleanToVisibilityConverter}}">
-                <TextBlock Text="{Binding Update}" />
+                <TextBlock extensions:XamlElementExtensions.Resource="Update" />
                 <ProgressBar IsIndeterminate="True"
                              VerticalAlignment="Top" />
             </Grid>
@@ -167,14 +168,14 @@
     </Grid>
     <Page.BottomAppBar>
         <CommandBar IsEnabled="{Binding IsSearchStart, Converter={StaticResource BooleanInverter}}">
-            <AppBarButton Label="{Binding ReverseAppBar}"
+            <AppBarButton extensions:XamlElementExtensions.Resource="ReverseAppBar"
                           Icon="Sort"
                           Command="{Binding SearchReverseRouteCommand}" />
             <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BooleanToVisibilityConverter}}"
-                          Label="{Binding SaveAppBar}"
+                          extensions:XamlElementExtensions.Resource="SaveAppBar"
                           Icon="Favorite"
                           Command="{Binding AddToFavoriteCommand}" />
-            <AppBarButton Label="{Binding HelpAppBar}"
+            <AppBarButton extensions:XamlElementExtensions.Resource="HelpAppBar"
                           Icon="Help"
                           Command="{Binding GoToHelpPageCommand}" />
         </CommandBar>

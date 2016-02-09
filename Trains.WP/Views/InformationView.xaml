@@ -4,6 +4,7 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                       xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      xmlns:extensions="using:Trains.WP.Extensions"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData InformationViewModel}">
 
@@ -45,7 +46,7 @@
         <StackPanel Grid.Row="1"
                     Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}"
                     VerticalAlignment="Center">
-            <TextBlock Text="{Binding DownloadStopPoints}"
+            <TextBlock extensions:XamlElementExtensions.Resource="DownloadStopPoints"
                        FontSize="{StaticResource BigFontSize}"
                        HorizontalAlignment="Center" />
             <ProgressBar IsIndeterminate="True" />

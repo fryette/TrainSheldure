@@ -42,7 +42,7 @@
                                         LostFocus="AutoSuggestBox_ManipulationCompleted"
                                         SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
                         <AutoSuggestBox x:Name="To"
-                                        extensions:XamlElementExtensions.Resource="To}"
+                                        extensions:XamlElementExtensions.Resource="To"
                                         IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
                                         Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                         ItemsSource="{Binding AutoSuggestions}"

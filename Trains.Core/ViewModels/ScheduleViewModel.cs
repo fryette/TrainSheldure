@@ -64,16 +64,6 @@ namespace Trains.Core.ViewModels
 
         #region properties
 
-        #region UIproperties
-
-        public string ReverseAppBar { get; set; }
-		public string SaveAppBar { get; set; }
-		public string HelpAppBar { get; set; }
-		public string Update { get; set; }
-		public string AddToCalendar { get; set; }
-
-		#endregion
-
 		private string From { get; set; }
 		private string To { get; set; }
 		/// <summary>
@@ -151,7 +141,6 @@ namespace Trains.Core.ViewModels
 		/// </summary>
 		public void Init(string param)
 		{
-			RestoreUiBinding();
 			Trains = JsonConvert.DeserializeObject<List<Train>>(param);
 			From = _appSettings.UpdatedLastRequest.Route.From;
 			To = _appSettings.UpdatedLastRequest.Route.To;
@@ -231,17 +220,7 @@ namespace Trains.Core.ViewModels
         {
             ShowViewModel<BookingViewModel>(new { param = JsonConvert.SerializeObject(train) });
         }
-
-        private void RestoreUiBinding()
-		{
-			ReverseAppBar = _localizationService.GetString("ReverseAppBar");
-			Update = _localizationService.GetString("Update");
-			SaveAppBar = _localizationService.GetString("SaveAppBar");
-			HelpAppBar = _localizationService.GetString("HelpAppBar");
-			AddToCalendar = _localizationService.GetString("AddToCalendar");
-
-		}
-
+		
 		#endregion
 	}
 }
