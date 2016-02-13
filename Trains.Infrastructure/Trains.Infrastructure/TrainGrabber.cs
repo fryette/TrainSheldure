@@ -81,7 +81,7 @@ namespace Trains.Infrastructure
 			for (var i = 0; i < parameters.Count - numberOfTrains; i += 4)
 			{
 				trainList.Add(CreateTrain(date + ' ' + parameters[i].Groups[1].Value, parameters[i + 1].Groups[2].Value,
-					parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), TrainClass.Foreign, null, null, date));
+					parameters[i + 2].Groups[3].Value, parameters[i + 3].Groups[4].Value.Replace(UnknownStr, string.Empty), TrainClass.FOREIGN, null, null, date));
 			}
 			return trainList;
 		}
@@ -116,15 +116,15 @@ namespace Trains.Infrastructure
 				.Where(x => !string.IsNullOrEmpty(x)).Select(type =>
 				{
 					if (type.Contains(_localizationService.GetString("International")))
-						return TrainClass.International;
+						return TrainClass.INTERNATIONAL;
 					if (type.Contains(_localizationService.GetString("Interregional")))
 						return type.Contains(_localizationService.GetString("Business"))
-							? TrainClass.InterRegionalBusiness
-							: TrainClass.InterRegionalEconom;
+							? TrainClass.INTER_REGIONAL_BUSINESS
+							: TrainClass.INTER_REGIONAL_ECONOM;
 					if (type.Contains(_localizationService.GetString("Regional")))
 						return type.Contains(_localizationService.GetString("Business"))
-							? TrainClass.RegionalBusiness : TrainClass.RegionalEconom;
-					return TrainClass.City;
+							? TrainClass.REGIONAL_BUSINESS : TrainClass.REGIONAL_ECONOM;
+					return TrainClass.CITY;
 				}).ToList();
 		}
 

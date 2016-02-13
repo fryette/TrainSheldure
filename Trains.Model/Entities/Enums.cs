@@ -1,43 +1,43 @@
 ﻿namespace Trains.Model.Entities
 {
-    public enum TrainClass
-    {
-        International = 0,
-        InterRegionalBusiness = 1,
-        InterRegionalEconom = 2,
-        RegionalBusiness = 3,
-        RegionalEconom = 4,
-        City = 5,
-        Foreign = 6,
-    }
+	public enum TrainClass
+	{
+		INTERNATIONAL = 0,
+		INTER_REGIONAL_BUSINESS = 1,
+		INTER_REGIONAL_ECONOM = 2,
+		REGIONAL_BUSINESS = 3,
+		REGIONAL_ECONOM = 4,
+		CITY = 5,
+		FOREIGN = 6,
+	}
 
-    public enum Carriage
-    {
-        FirstClassSleeper = 0,
-        CompartmentSleeper = 1,
-        EconomyClassSleeper = 2,
-        SeatingCoaches1 = 3,
-        SeatingCoaches2 = 4,
-        MultipleUnitCars1 = 5,
-        MultipleUnitCars2 = 6,
-        MultipleUnitCoach = 7
-    }
+	public enum Carriage
+	{
+		FIRST_CLASS_SLEEPER = 0,
+		COMPARTMENT_SLEEPER = 1,
+		ECONOMY_CLASS_SLEEPER = 2,
+		SEATING_COACHES1 = 3,
+		SEATING_COACHES2 = 4,
+		MULTIPLE_UNIT_CARS1 = 5,
+		MULTIPLE_UNIT_CARS2 = 6,
+		MULTIPLE_UNIT_COACH = 7
+	}
 
-    public enum AboutPicture
-    {
-        Market = 0,
-        Settings = 1,
-        Mail = 2,
-        AboutApp = 3,
-        Share=4
-    }
-    public enum ShareSocial
-    {
-        Vkontakte = 0,
-        Facebook = 1,
-        Twitter = 2,
-        LinkedIn = 3,
-        GooglePlus = 4,
-        Odnoklassniki = 5
-    }
+	public enum AboutPicture
+	{
+		MARKET = 0,
+		SETTINGS = 1,
+		MAIL = 2,
+		ABOUT_APP = 3,
+		SHARE = 4
+	}
+	public enum ShareSocial
+	{
+		VKONTAKTE = 0,
+		FACEBOOK = 1,
+		TWITTER = 2,
+		LINKED_IN = 3,
+		GOOGLE_PLUS = 4,
+		ODNOKLASSNIKI = 5
+	}
 }

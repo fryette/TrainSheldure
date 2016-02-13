@@ -18,12 +18,12 @@ namespace Trains.WP.Converters
 			{
 				_pictures = new Dictionary<ShareSocial, Uri>()
 			{
-				{ShareSocial.Vkontakte,new Uri(data.SocialUri.Vkontakte)},
-				{ShareSocial.Facebook,new Uri(data.SocialUri.Facebook)},
-				{ShareSocial.Twitter,new Uri(data.SocialUri.Twitter)},
-				{ShareSocial.GooglePlus,new Uri(data.SocialUri.GooglePlus)},
-				{ShareSocial.LinkedIn,new Uri(data.SocialUri.Linkedin)},
-				{ShareSocial.Odnoklassniki,new Uri(data.SocialUri.Odnoklassniki)}
+				{ShareSocial.VKONTAKTE,new Uri(data.SocialUri.Vkontakte)},
+				{ShareSocial.FACEBOOK,new Uri(data.SocialUri.Facebook)},
+				{ShareSocial.TWITTER,new Uri(data.SocialUri.Twitter)},
+				{ShareSocial.GOOGLE_PLUS,new Uri(data.SocialUri.GooglePlus)},
+				{ShareSocial.LINKED_IN,new Uri(data.SocialUri.Linkedin)},
+				{ShareSocial.ODNOKLASSNIKI,new Uri(data.SocialUri.Odnoklassniki)}
 			};
 			}
 		}

@@ -12,12 +12,12 @@ namespace Trains.Core.ViewModels
         {
             ShareItems = new List<ShareSocial>
             {
-                ShareSocial.Vkontakte,
-                ShareSocial.Facebook,
-                ShareSocial.Twitter,
-                ShareSocial.GooglePlus,
-                ShareSocial.LinkedIn,
-                ShareSocial.Odnoklassniki
+                ShareSocial.VKONTAKTE,
+                ShareSocial.FACEBOOK,
+                ShareSocial.TWITTER,
+                ShareSocial.GOOGLE_PLUS,
+                ShareSocial.LINKED_IN,
+                ShareSocial.ODNOKLASSNIKI
             };
         }
     }
