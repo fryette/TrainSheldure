@@ -277,29 +277,16 @@
                 </ListView>
             </PivotItem>
         </Pivot>
-        <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BooleanToVisibilityConverter}}">
+        <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock extensions:XamlElementExtensions.Resource="Update"
                        Margin="20,0,0,0" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>
-
-        <Grid Background="{StaticResource BackgroundColorBrush}"
-              Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}}">
-            <Image Source="/Assets/SplashScreen.png" />
-
-            <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Bottom"
-                        Margin="0,0,0,150">
-                <TextBlock Foreground="{ThemeResource PhoneBackgroundBrush}"
-                           Text="Идет загрузка данных, это не займет много времени" />
-                <ProgressBar IsIndeterminate="True" />
-            </StackPanel>
-        </Grid>
     </Grid>
     <Page.BottomAppBar>
         <CommandBar x:Name="CommandBar"
-                    Visibility="{Binding IsDownloadRun,Converter={StaticResource BooleanToVisibilityConverter}, ConverterParameter=invert}"
+                    Visibility="{Binding IsDownloadRun,Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}"
                     IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
                           extensions:XamlElementExtensions.Resource="UpdateAppBar"

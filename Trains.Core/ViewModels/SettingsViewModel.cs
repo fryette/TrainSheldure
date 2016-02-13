@@ -86,29 +86,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		public List<Language> Languages { get; } = new List<Language>
-		{
-			new Language{Name = "Русский",Id = "ru"},
-			new Language{Name = "Беларускі",Id = "be"},
-			new Language{Name = "English",Id = "en"}
-		};
-
-		private Language _selectedLanguage;
-		public Language SelectedLanguage
-		{
-			get
-			{
-				return _selectedLanguage;
-			}
-
-			set
-			{
-				_selectedLanguage = value;
-				RaisePropertyChanged(() => SelectedLanguage);
-				SaveChanges();
-			}
-		}
-
 		private bool _isStationsDownloading;
 		public bool IsStationsDownloading
 		{
@@ -140,7 +117,6 @@ namespace Trains.Core.ViewModels
 		}
 
 		private Country _selectedCountry;
-
 		public Country SelectedCountry
 		{
 			get
@@ -156,7 +132,6 @@ namespace Trains.Core.ViewModels
 		}
 
 		private bool _isAllCountriesDownloaded;
-
 		public bool IsAllCountriesDownloaded
 		{
 			get
@@ -176,9 +151,6 @@ namespace Trains.Core.ViewModels
 		#region actions
 		public void Init()
 		{
-			if (_appSettings.Language == null)
-				_appSettings.Language = new Language { Id = "ru" };
-			SelectedLanguage = Languages.First(x => x.Id == _appSettings.Language.Id);
 			Countries = _appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints).Any() ?
 				new List<Country>(_appSettings.Countries.Except(_appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints).GroupBy(x => x.LabelTail).First().Select(x => new Country { Name = x.LabelTail }))) :
 				_appSettings.Countries;
@@ -187,24 +159,9 @@ namespace Trains.Core.ViewModels
 			CheckIsAllCountriesDownloaded();
 		}
 
-		private void SaveChanges()
-		{
-			if (SelectedLanguage.Id != _appSettings.Language.Id)
-			{
-				_analytics.SentEvent(Defines.Analytics.LanguageChanged, SelectedLanguage.Name);
-				_serializable.Serialize(SelectedLanguage, Defines.Restoring.CurrentLanguage);
-				NeedReboot = _localizationService.GetString("NeedReboot");
-			}
-			else
-			{
-				NeedReboot = Empty;
-				_serializable.Serialize(_appSettings.Language, Defines.Restoring.CurrentLanguage);
-			}
-		}
-
 		private void ResetSetting()
 		{
-			_serializable.Delete(Defines.Common.IsFirstRun);
+			_serializable.Delete(Defines.Restoring.AppLanguage);
 			NeedReboot = _localizationService.GetString("NeedReboot");
 		}
 

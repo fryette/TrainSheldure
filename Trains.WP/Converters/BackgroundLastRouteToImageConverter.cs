@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Cirrious.CrossCore;
+using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Model.Entities;
 
@@ -37,13 +38,13 @@ namespace Trains.WP.Converters
 			var color = ((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png";
 			var image = "";
 			if ((string)parameter == "route" && (value == null || !((IEnumerable<Route>)value).Any()))
-				image = RoutesBackground[Mvx.Resolve<IAppSettings>().Language.Id];
+				image = RoutesBackground[Mvx.Resolve<ILocalizationService>().CurrentLanguageId];
 			else if (value == null)
 			{
 				if ((string)parameter == "reverse")
-					image = ReverseBackground[Mvx.Resolve<IAppSettings>().Language.Id];
+					image = ReverseBackground[Mvx.Resolve<ILocalizationService>().CurrentLanguageId];
 				else if ((string)parameter == "last")
-					image = LastScheduleRoute[Mvx.Resolve<IAppSettings>().Language.Id];
+					image = LastScheduleRoute[Mvx.Resolve<ILocalizationService>().CurrentLanguageId];
 			}
 			return new ImageBrush
 			{

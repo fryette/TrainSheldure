@@ -9,18 +9,18 @@ namespace Trains.Services
 {
 	public class LocalData : ILocalDataService
 	{
-		private readonly IAppSettings _appSettings;
+		private readonly ILocalizationService _localizationService;
 		private readonly IJsonConverter _jsonConverter;
 
-		public LocalData(IAppSettings appSettings, IJsonConverter jsonConverter)
+		public LocalData(ILocalizationService localizationService, IJsonConverter jsonConverter)
 		{
-			_appSettings = appSettings;
+			_localizationService = localizationService;
 			_jsonConverter = jsonConverter;
 		}
 
 		public async Task<T> GetLanguageData<T>(string jsonText) where T : class
 		{
-			var text = await new BaseHttpService().LoadResponseAsync(new Uri(Defines.Uri.LanguagesUri + _appSettings.Language.Id + '/' + jsonText + "?badHeader=" + new Random().Next(0, 1000)));
+			var text = await new BaseHttpService().LoadResponseAsync(new Uri(Defines.Uri.LanguagesUri + _localizationService.CurrentLanguageId + '/' + jsonText + "?badHeader=" + new Random().Next(0, 1000)));
 			return text == null ? null : _jsonConverter.Deserialize<T>(text);
 		}
 

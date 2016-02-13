@@ -20,21 +20,10 @@
                    Foreground="{ThemeResource PhoneForegroundBrush}"
                    HorizontalAlignment="Center" />
         <StackPanel Grid.Row="1">
-            <ProgressBar Visibility="{Binding IsStationsDownloading, Converter={StaticResource BooleanToVisibilityConverter}}"
+            <ProgressBar Visibility="{Binding IsStationsDownloading, Converter={StaticResource BoolToVisibilityConverter}}"
                          IsIndeterminate="True"
                          VerticalAlignment="Top" />
-            <ComboBox extensions:XamlElementExtensions.Resource="SelectLanguage"
-                      ItemsSource="{Binding Languages}"
-                      SelectedItem="{Binding SelectedLanguage,Mode=TwoWay}"
-                      IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}"
-                      SelectedValue="1">
-                <ComboBox.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Name}" />
-                    </DataTemplate>
-                </ComboBox.ItemTemplate>
-            </ComboBox>
-            <StackPanel Visibility="{Binding IsAllCountriesDownloaded,Converter={StaticResource BooleanToVisibilityConverter},ConverterParameter=invert}">
+            <StackPanel Visibility="{Binding IsAllCountriesDownloaded,Converter={StaticResource BoolToVisibilityConverter},ConverterParameter=invert}">
                 <ComboBox extensions:XamlElementExtensions.Resource="SelectLanguage"
                           ItemsSource="{Binding Countries}"
                           SelectedValue="{Binding SelectedCountry,Mode=TwoWay}"

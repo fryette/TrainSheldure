@@ -21,8 +21,8 @@ namespace Trains.WP.Converters
 				{ShareSocial.VKONTAKTE,new Uri(data.SocialUri.Vkontakte)},
 				{ShareSocial.FACEBOOK,new Uri(data.SocialUri.Facebook)},
 				{ShareSocial.TWITTER,new Uri(data.SocialUri.Twitter)},
-				{ShareSocial.GOOGLE_PLUS,new Uri(data.SocialUri.GooglePlus)},
-				{ShareSocial.LINKED_IN,new Uri(data.SocialUri.Linkedin)},
+				{ShareSocial.GOOGLEPLUS,new Uri(data.SocialUri.GooglePlus)},
+				{ShareSocial.LINKEDIN,new Uri(data.SocialUri.Linkedin)},
 				{ShareSocial.ODNOKLASSNIKI,new Uri(data.SocialUri.Odnoklassniki)}
 			};
 			}

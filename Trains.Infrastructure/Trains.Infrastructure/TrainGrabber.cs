@@ -119,11 +119,11 @@ namespace Trains.Infrastructure
 						return TrainClass.INTERNATIONAL;
 					if (type.Contains(_localizationService.GetString("Interregional")))
 						return type.Contains(_localizationService.GetString("Business"))
-							? TrainClass.INTER_REGIONAL_BUSINESS
-							: TrainClass.INTER_REGIONAL_ECONOM;
+							? TrainClass.INTERREGIONALBUSINESS
+							: TrainClass.INTERREGIONALECONOM;
 					if (type.Contains(_localizationService.GetString("Regional")))
 						return type.Contains(_localizationService.GetString("Business"))
-							? TrainClass.REGIONAL_BUSINESS : TrainClass.REGIONAL_ECONOM;
+							? TrainClass.REGIONALBUSINESS : TrainClass.REGIONALECONOM;
 					return TrainClass.CITY;
 				}).ToList();
 		}

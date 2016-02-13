@@ -59,6 +59,9 @@
     <Compile Include="Interfaces\Services\ITrainStopService.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Json\NewtonsoftJsonConverter.cs" />
+    <EmbeddedResource Include="Settings\countries.json" />
+    <Compile Include="Interfaces\Providers\IConfigurationProvider.cs" />
+    <Compile Include="Providers\JsonFileBasedConfigurationProvider.cs" />
     <Compile Include="TrainGrabber.cs" />
     <Compile Include="TrainStopGrabber.cs" />
   </ItemGroup>

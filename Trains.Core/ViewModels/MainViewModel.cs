@@ -10,7 +10,6 @@ using Trains.Model.Entities;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
 using Trains.Infrastructure;
-using Trains.Infrastructure.Extensions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
@@ -30,8 +29,6 @@ namespace Trains.Core.ViewModels
 
 		private readonly IAnalytics _analytics;
 
-		private readonly ILocalDataService _local;
-
 		private readonly ISerializableService _serializable;
 
 		private readonly ISearchService _search;
@@ -39,7 +36,9 @@ namespace Trains.Core.ViewModels
 		private readonly INotificationService _notificationService;
 
 		private readonly IUserInteraction _userInteraction;
+
 		private readonly ILocalizationService _localizationService;
+
 		private readonly IJsonConverter _jsonConverter;
 
 		#endregion
@@ -67,14 +66,12 @@ namespace Trains.Core.ViewModels
 			IAppSettings appSettings,
 			IMarketPlaceService marketPlace,
 			IAnalytics analytics,
-			ILocalDataService local,
 			IMvxComposeEmailTask email,
 			INotificationService notificationService,
 			IUserInteraction userInteraction,
 			ILocalizationService localizationService, IJsonConverter jsonConverter)
 		{
 			_email = email;
-			_local = local;
 			_analytics = analytics;
 			_serializable = serializable;
 			_search = search;
@@ -90,6 +87,7 @@ namespace Trains.Core.ViewModels
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
 			UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
 			SearchTrainCommand = new MvxCommand(() => SearchTrain(From?.Trim(), To?.Trim()));
+
 			SwapCommand = new MvxCommand(Swap);
 			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
 			TappedFavoriteCommand = new MvxCommand<Route>(route =>
@@ -105,6 +103,8 @@ namespace Trains.Core.ViewModels
 		#endregion
 
 		#region properties
+
+		private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
 
 		public IEnumerable<About> AboutItems { get; set; }
 
@@ -133,9 +133,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Stores variant of search.
-		/// </summary> 
 		private List<string> _variantOfSearch;
 		public List<string> VariantOfSearch
 		{
@@ -162,9 +159,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Used to set code behind variant of search.
-		/// </summary> 
 		private string _selectedDate;
 		public string SelectedVariant
 		{
@@ -180,9 +174,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Contains stopping points satisfying user input.
-		/// </summary> 
 		private List<string> _autoSuggestions;
 		public List<string> AutoSuggestions
 		{
@@ -218,9 +209,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Used for process control.
-		/// </summary>
 		private bool _isTaskRun;
 		public bool IsTaskRun
 		{
@@ -231,10 +219,6 @@ namespace Trains.Core.ViewModels
 				RaisePropertyChanged(() => IsTaskRun);
 			}
 		}
-
-		/// <summary>
-		/// Used for process control.
-		/// </summary>
 		private bool _isBarDownloaded;
 
 		public bool IsBarDownloaded
@@ -247,23 +231,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Used for process download data control.
-		/// </summary>
-		private bool _isDownloadRun;
-		public bool IsDownloadRun
-		{
-			get { return _isDownloadRun; }
-			set
-			{
-				_isDownloadRun = value;
-				RaisePropertyChanged(() => IsDownloadRun);
-			}
-		}
-
-		/// <summary>
-		/// Keeps trains from the last request.
-		/// </summary>
 		private static List<Train> _trains;
 
 		public List<Train> Trains
@@ -276,14 +243,8 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		/// <summary>
-		/// Object are stored custom routes.
-		/// </summary>
 		public ObservableCollection<Route> FavoriteRequests { get; set; }
 
-		/// <summary>
-		/// Last route
-		/// </summary>
 		private string _lastRoute;
 		public string LastRoute
 		{
@@ -299,29 +260,23 @@ namespace Trains.Core.ViewModels
 
 		#region actions
 
-		/// <summary>
-		/// Invoked when this page is about to be displayed in a Frame.
-		/// Set the default parameter of some properties.
-		/// </summary>
-		public async void Init()
+		public void Init()
 		{
-			IsDownloadRun = true;
-			await RestoreData();
 			RestoreUiBinding();
 			IsBarDownloaded = true;
+
 			if (_appSettings.UpdatedLastRequest != null)
+			{
 				LastRoute = $"{_appSettings.UpdatedLastRequest.Route.From} - {_appSettings.UpdatedLastRequest.Route.To}";
+			}
+
 			Trains = _appSettings.LastRequestTrain;
 			LastRoutes = _appSettings.LastRoutes;
 			FavoriteRequests = _appSettings.FavoriteRequests == null ? null : new ObservableCollection<Route>(_appSettings.FavoriteRequests?.Select(x => x.Route));
 			AboutItems = _appSettings.About;
 			SelectedVariant = VariantOfSearch[1];
-			IsDownloadRun = false;
 		}
 
-		/// <summary>
-		/// Searches for train schedules at a specified date in the specified mode.
-		/// </summary>
 		private async void SearchTrain(string from, string to)
 		{
 			if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
@@ -343,9 +298,6 @@ namespace Trains.Core.ViewModels
 			IsTaskRun = false;
 		}
 
-		/// <summary>
-		/// Update last route
-		/// </summary>
 		private async void UpdateLastRequest()
 		{
 			if (_appSettings.UpdatedLastRequest == null) return;
@@ -369,19 +321,12 @@ namespace Trains.Core.ViewModels
 			IsTaskRun = false;
 		}
 
-		/// <summary>
-		/// Invoked when the user selects his train of interest.
-		/// </summary>
-		/// <param name="train">Data that describes user-selected train(prices,seats,stop points,and other)</param>
 		private void ClickItem(Train train)
 		{
 			if (train == null) return;
 			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
-		/// <summary>
-		/// Go to saved by user routes page.
-		/// </summary>
 		private void GoToHelpPage()
 		{
 			ShowViewModel<HelpViewModel>();
@@ -393,11 +338,7 @@ namespace Trains.Core.ViewModels
 				AboutItemsActions[selectedAboutItem.Item]();
 		}
 
-		private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
 
-		/// <summary>
-		/// Swaped From and To properties.
-		/// </summary>
 		private void Swap()
 		{
 			var tmp = From;
@@ -421,9 +362,6 @@ namespace Trains.Core.ViewModels
 			To = route.To;
 		}
 
-		/// <summary>
-		/// Update prompts during user input stopping point
-		/// </summary>
 		public void UpdateAutoSuggestions(string str)
 		{
 			var station = str.Trim();
@@ -479,89 +417,6 @@ namespace Trains.Core.ViewModels
 
 		#region restoreResources
 
-
-		private async Task RestoreData()
-		{
-			await CheckStart();
-			if (_appSettings.AutoCompletion == null)
-			{
-				var appSettings = _serializable.Desserialize<AppSettings>(Defines.Restoring.AppSettings);
-				if (appSettings == null) return;
-
-				appSettings.CopyProperties(_appSettings);
-				_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.Restoring.FavoriteRequests);
-				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
-				_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
-				_appSettings.Tickets = appSettings.Tickets;
-
-				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
-				_appSettings.LastRoutes = routes ?? new List<Route>();
-			}
-		}
-
-		private async Task CheckStart()
-		{
-			var firstRun = _serializable.Desserialize<string>(Defines.Common.IsFirstRun);
-			if (firstRun == null)
-			{
-				_appSettings.Language = new Language { Id = "ru", Name = "Русский" };
-
-				_serializable.ClearAll();
-
-				_serializable.Serialize(Defines.Common.IsFirstRun, Defines.Common.IsFirstRun);
-				_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
-
-				await _userInteraction.AlertAsync(Defines.Common.HiMessage, Defines.Common.HiMessageTitle);
-			}
-
-			var appLanguage = _serializable.Desserialize<Language>(Defines.Restoring.AppLanguage);
-			var currLanguage = _serializable.Desserialize<Language>(Defines.Restoring.CurrentLanguage);
-
-			if (currLanguage == null || currLanguage.Id != appLanguage.Id)
-			{
-				try
-				{
-					await DowloadResources(currLanguage ?? appLanguage);
-					DeleteSaveSettings();
-				}
-
-				catch (Exception)
-				{
-					await _userInteraction.AlertAsync("Произошла проблема с загрузкой ресурсов,проверьте доступ к интернету и повторите");
-				}
-			}
-		}
-
-		private async Task DowloadResources(Language lang)
-		{
-			_appSettings.Language = lang;
-
-			_appSettings.AutoCompletion = await _local.GetLanguageData<List<CountryStopPointItem>>(Defines.DownloadJson.StopPoints);
-			_appSettings.HelpInformation = await _local.GetLanguageData<List<HelpInformationItem>>(Defines.DownloadJson.HelpInformation);
-			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Defines.DownloadJson.CarriageModel);
-			_appSettings.About = await _local.GetLanguageData<List<About>>(Defines.DownloadJson.About);
-			_appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Defines.DownloadJson.Social);
-			_appSettings.Tickets = await _local.GetOtherData<List<Ticket>>(Defines.DownloadJson.Tickets);
-			_appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Defines.DownloadJson.PlaceInformation);
-			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
-
-			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Defines.DownloadJson.Resource), Defines.Restoring.ResourceLoader);
-
-			if (_appSettings.Reminder.Seconds == 0)
-				_appSettings.Reminder = new TimeSpan(1, 0, 0);
-
-			_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
-			_serializable.Serialize(_appSettings.Language, Defines.Restoring.AppLanguage);
-			_serializable.Serialize(_appSettings.Language, Defines.Restoring.CurrentLanguage);
-		}
-
-		private void DeleteSaveSettings()
-		{
-			_serializable.Delete(Defines.Restoring.FavoriteRequests);
-			_serializable.Delete(Defines.Restoring.LastTrainList);
-			_serializable.Delete(Defines.Restoring.UpdateLastRequest);
-		}
-
 		private void RestoreUiBinding()
 		{
 			VariantOfSearch = new List<string>
@@ -575,18 +430,16 @@ namespace Trains.Core.ViewModels
 
 			AboutItemsActions = new Dictionary<AboutPicture, Action>
 			{
-				{AboutPicture.AboutApp, () => ShowViewModel<AboutViewModel>()},
+				{AboutPicture.ABOUTAPP, () => ShowViewModel<AboutViewModel>()},
 				{
-					AboutPicture.Mail,
+					AboutPicture.MAIL,
 					() =>
 						_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, _localizationService.GetString("Feedback"), Empty, false)
 				},
-				{AboutPicture.Market, () => _marketPlace.GoToMarket()},
-				{AboutPicture.Settings, () => ShowViewModel<SettingsViewModel>()},
-				{AboutPicture.Share, () => ShowViewModel<ShareViewModel>()}
+				{AboutPicture.MARKET, () => _marketPlace.GoToMarket()},
+				{AboutPicture.SETTINGS, () => ShowViewModel<SettingsViewModel>()},
+				{AboutPicture.SHARE, () => ShowViewModel<ShareViewModel>()}
 			};
-
-			RaiseAllPropertiesChanged();
 		}
 		#endregion
 

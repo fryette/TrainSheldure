@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:Trains.WP.Converters">
 
-    <local:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <local:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     <local:EnumToImagePathConverter x:Key="EnumToImageConverter" />
     <local:BooleanToBackgroundConverter x:Key="BooleanToBackgroundConverter" />
     <local:IsPlaceToVisibilityConverter x:Key="IsPlaceToVisibilityConverter" />

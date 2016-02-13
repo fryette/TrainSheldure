@@ -1,0 +1,42 @@
+﻿<views:MvxWindowsPage x:Class="Trains.WP.Views.CountrySelectionView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:local="using:Trains.WP.Views"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:extensions="using:Trains.WP.Extensions"
+                      xmlns:views="using:Cirrious.MvvmCross.WindowsCommon.Views"
+                      mc:Ignorable="d"
+                      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <Grid>
+        <StackPanel VerticalAlignment="Center"
+                    Margin="20,0">
+            <ComboBox extensions:XamlElementExtensions.Resource="SelectLanguage"
+                      ItemsSource="{Binding Languages}"
+                      SelectedItem="{Binding SelectedLanguage,Mode=TwoWay}"
+                      IsEnabled="{Binding IsStationsDownloading,Converter={StaticResource BooleanInverter}}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Button HorizontalAlignment="Stretch"
+                    extensions:XamlElementExtensions.Resource="Next"
+                    Command="{Binding NavigateToNextViewCommand}" />
+        </StackPanel>
+        <Grid Visibility="{Binding IsDownloadRunning,Converter={StaticResource BoolToVisibilityConverter}}"
+            Background="{StaticResource BackgroundColorBrush}">
+            <Image Source="/Assets/SplashScreen.png" />
+
+            <StackPanel HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,150">
+                <TextBlock Foreground="{StaticResource WhiteSmokeColorBrush}"
+                           extensions:XamlElementExtensions.Resource="Loading" />
+                <ProgressBar IsIndeterminate="True" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</views:MvxWindowsPage>

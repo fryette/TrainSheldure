@@ -31,12 +31,6 @@ namespace Trains.WP
             HardwareButtons.BackPressed += HardwareButtons_BackPressed;
         }
 
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used when the application is launched to open a specific file, to display
-        /// search results, and so forth.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
 #if DEBUG
@@ -79,26 +73,6 @@ namespace Trains.WP
             Window.Current.Activate();
         }
 
-        /// <summary>
-        /// Restores the content transitions after the app has launched.
-        /// </summary>
-        /// <param name="sender">The object where the handler is attached.</param>
-        /// <param name="e">Details about the navigation event.</param>
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
-        {
-            var rootFrame = sender as Frame;
-	        if (rootFrame == null) return;
-	        rootFrame.ContentTransitions = _transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-	        rootFrame.Navigated -= RootFrame_FirstNavigated;
-        }
-
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
