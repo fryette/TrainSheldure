@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Entities;
-using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
-using Trains.Model.Entities;
 using static System.String;
 
 namespace Trains.Core.ViewModels
@@ -17,9 +16,7 @@ namespace Trains.Core.ViewModels
 		#region readonlyProperty
 
 		private readonly IAppSettings _appSettings;
-		private readonly IAnalytics _analytics;
 		private readonly ISearchService _search;
-		private readonly ISerializableService _serializable;
 		private readonly INotificationService _notificationService;
 		private readonly IUserInteraction _userInteraction;
 		private readonly ILocalizationService _localizationService;
@@ -29,10 +26,9 @@ namespace Trains.Core.ViewModels
 
 		#region command
 
-		public IMvxCommand GoToHelpPageCommand { get; private set; }
+		public ICommand GoToHelpPageCommand { get; private set; }
 		public MvxCommand<Train> SelectTrainCommand { get; private set; }
-		public IMvxCommand SearchReverseRouteCommand { get; private set; }
-		public IMvxCommand AddToFavoriteCommand { get; private set; }
+		public ICommand SearchReverseRouteCommand { get; private set; }
 		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; set; }
 		public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
 
@@ -40,11 +36,14 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction, ILocalizationService localizationService, IJsonConverter jsonConverter)
+		public ScheduleViewModel(IAppSettings appSettings,
+			ISearchService search,
+			INotificationService notificationService,
+			IUserInteraction userInteraction,
+			ILocalizationService localizationService,
+			IJsonConverter jsonConverter)
 		{
-			_serializable = serializableService;
 			_appSettings = appSettings;
-			_analytics = analytics;
 			_search = search;
 			_notificationService = notificationService;
 			_userInteraction = userInteraction;
@@ -52,14 +51,14 @@ namespace Trains.Core.ViewModels
 			_jsonConverter = jsonConverter;
 
 			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
-			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
-			GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
+			GoToHelpPageCommand = new MvxCommand(() => ShowViewModel<HelpViewModel>());
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
 
-			BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
-
-
+			BookingSelectedTrainCommand = new MvxCommand<Train>(train => ShowViewModel<BookingViewModel>(new
+			{
+				param = _jsonConverter.Serialize(train)
+			}));
 		}
 
 		#endregion
@@ -68,23 +67,6 @@ namespace Trains.Core.ViewModels
 
 		private string From { get; set; }
 		private string To { get; set; }
-		/// <summary>
-		/// Used to display favorite icon.
-		/// </summary> 
-		private bool _isVisibleFavoriteIcon = true;
-		public bool IsVisibleFavoriteIcon
-		{
-			get
-			{
-				return _isVisibleFavoriteIcon;
-			}
-
-			set
-			{
-				_isVisibleFavoriteIcon = value;
-				RaisePropertyChanged(() => IsVisibleFavoriteIcon);
-			}
-		}
 
 		private bool _isSearchStart;
 		public bool IsSearchStart
@@ -100,10 +82,6 @@ namespace Trains.Core.ViewModels
 				RaisePropertyChanged(() => IsSearchStart);
 			}
 		}
-
-		/// <summary>
-		/// Ñontains information on all trains on the route selected by the user.
-		/// </summary> 
 		private List<Train> _trains;
 		public List<Train> Trains
 		{
@@ -119,7 +97,6 @@ namespace Trains.Core.ViewModels
 		}
 
 		private string _request;
-
 		public string Request
 		{
 			get
@@ -137,17 +114,12 @@ namespace Trains.Core.ViewModels
 
 		#region action
 
-		/// <summary>
-		/// Invoked when this page is about to be displayed in a Frame.
-		/// Set the default parameter of some properties.
-		/// </summary>
 		public void Init(string param)
 		{
 			Trains = _jsonConverter.Deserialize<List<Train>>(param);
 			From = _appSettings.UpdatedLastRequest.Route.From;
 			To = _appSettings.UpdatedLastRequest.Route.To;
 			Request = From + " - " + To;
-			ManageFavoriteButton();
 		}
 
 		private async void SearchReverseRoute()
@@ -158,7 +130,6 @@ namespace Trains.Core.ViewModels
 							_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 			SwapStopPoint();
 			Request = From + " - " + To;
-			ManageFavoriteButton();
 
 			IsSearchStart = false;
 		}
@@ -170,57 +141,20 @@ namespace Trains.Core.ViewModels
 			To = temp;
 		}
 
-		/// <summary>
-		/// Invoked when the user selects his train of interest.
-		/// Go to the information page which show additional information about this train.
-		/// </summary>
-		/// <param name="train">Data that describes user-selected train(prices,seats,stop points and other)</param>
 		private void ClickItem(Train train)
 		{
-			if (train == null) return;
-			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
-		}
-
-		/// <summary>
-		/// Go to saved by user routes page.
-		/// </summary>
-		private void GoToHelpPage()
-		{
-			ShowViewModel<HelpViewModel>();
-		}
-
-		private void ManageFavoriteButton()
-		{
-			if (_appSettings.FavoriteRequests != null)
-				IsVisibleFavoriteIcon = !_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To);
-		}
-
-		/// <summary>
-		/// Saves the entered route to favorite.
-		/// </summary>
-		private void AddToFavorite()
-		{
-			if (_appSettings.FavoriteRequests == null) _appSettings.FavoriteRequests = new List<LastRequest>();
-			if (_appSettings.FavoriteRequests.Any(x => x.Route.From == From && x.Route.To == To))
+			if (train == null)
+			{
 				return;
+			}
 
-			_appSettings.FavoriteRequests.Add(new LastRequest { Route = new Route { From = From, To = To } });
-			_serializable.Serialize(_appSettings.FavoriteRequests, Defines.Restoring.FavoriteRequests);
-
-			IsVisibleFavoriteIcon = false;
-
-			_analytics.SentEvent(Defines.Analytics.AddToFavorite);
+			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
 			var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
 			await _userInteraction.AlertAsync(Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
-		}
-
-		public void BookingSelectedTrain(Train train)
-		{
-			ShowViewModel<BookingViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
 		#endregion

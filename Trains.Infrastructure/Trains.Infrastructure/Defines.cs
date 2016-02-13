@@ -30,7 +30,6 @@
 			public const string Patterns = "Patterns";
 			public const string ResourceLoader = "ResourceLoader";
 			public const string UpdateLastRequest = "updateLastRequst";
-			public const string FavoriteRequests = "favoriteRequests";
 			public const string LastTrainList = "LastTrainList";
 			public const string CurrentLanguage = "CurrentLanguage";
 			public const string AppLanguage = "AppLanguage";

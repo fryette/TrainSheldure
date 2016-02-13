@@ -53,7 +53,6 @@ namespace Trains.Core.ViewModels
 
 			appSettings.CopyProperties(_appSettings);
 
-			_appSettings.FavoriteRequests = _serializable.Desserialize<List<LastRequest>>(Defines.Restoring.FavoriteRequests);
 			_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
 			_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
 			_appSettings.Tickets = appSettings.Tickets;

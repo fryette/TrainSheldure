@@ -6,9 +6,6 @@ using Trains.Core.ViewModels;
 
 namespace Trains.WP.Views
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class ScheduleView
     {
         public ScheduleView()
@@ -17,13 +14,13 @@ namespace Trains.WP.Views
             this.NavigationCacheMode = NavigationCacheMode.Enabled;
         }
 
-        private void TrainList_Tapped(object sender, TappedRoutedEventArgs e)
+        private void TrainListTapped(object sender, TappedRoutedEventArgs e)
         {
             if (((ScheduleViewModel)ViewModel).IsSearchStart) return;
             CommandClick.Command?.Execute(TrainList.SelectedItem);
         }
 
-		private void Grid_Holding(object sender, HoldingRoutedEventArgs e)
+		private void GridHolding(object sender, HoldingRoutedEventArgs e)
 		{
 			var senderElement = sender as FrameworkElement;
 			var flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);

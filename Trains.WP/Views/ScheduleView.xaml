@@ -30,11 +30,11 @@
                     <SemanticZoom.ZoomedInView>
                         <ListView x:Name="TrainList"
                                   ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                                  Tapped="TrainList_Tapped">
+                                  Tapped="TrainListTapped">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid Margin="0,0,24,10"
-                                          Holding="Grid_Holding"
+                                          Holding="GridHolding"
                                           Opacity="{Binding IsPlace, Converter={StaticResource IsPlaceToOpacityConverter}}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="15" />
@@ -171,10 +171,6 @@
             <AppBarButton extensions:XamlElementExtensions.Resource="ReverseAppBar"
                           Icon="Sort"
                           Command="{Binding SearchReverseRouteCommand}" />
-            <AppBarButton Visibility="{Binding IsVisibleFavoriteIcon,Converter={StaticResource BoolToVisibilityConverter}}"
-                          extensions:XamlElementExtensions.Resource="SaveAppBar"
-                          Icon="Favorite"
-                          Command="{Binding AddToFavoriteCommand}" />
             <AppBarButton extensions:XamlElementExtensions.Resource="HelpAppBar"
                           Icon="Help"
                           Command="{Binding GoToHelpPageCommand}" />

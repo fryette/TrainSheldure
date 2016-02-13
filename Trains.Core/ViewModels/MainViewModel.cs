@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.Plugins.Email;
@@ -52,7 +51,6 @@ namespace Trains.Core.ViewModels
 		public IMvxCommand SearchTrainCommand { get; private set; }
 		public IMvxCommand SwapCommand { get; private set; }
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
-		public MvxCommand<Route> DeleteFavoriteRouteCommand { get; private set; }
 		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; private set; }
 		public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
 
@@ -90,7 +88,6 @@ namespace Trains.Core.ViewModels
 			SwapCommand = new MvxCommand(Swap);
 			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
 
-			DeleteFavoriteRouteCommand = new MvxCommand<Route>(DeleteFavoriteRoute);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
 			BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
 		}
@@ -100,7 +97,6 @@ namespace Trains.Core.ViewModels
 		#region properties
 
 		private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
-
 		public IEnumerable<About> AboutItems { get; set; }
 
 		private List<Route> _lastRoutes;
@@ -214,17 +210,6 @@ namespace Trains.Core.ViewModels
 				RaisePropertyChanged(() => IsTaskRun);
 			}
 		}
-		private bool _isBarDownloaded;
-
-		public bool IsBarDownloaded
-		{
-			get { return _isBarDownloaded; }
-			set
-			{
-				_isBarDownloaded = value;
-				RaisePropertyChanged(() => IsBarDownloaded);
-			}
-		}
 
 		private static List<Train> _trains;
 
@@ -238,19 +223,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		public ObservableCollection<Route> FavoriteRequests { get; set; }
-
-		private string _lastRoute;
-		public string LastRoute
-		{
-			get { return _lastRoute; }
-			set
-			{
-				_lastRoute = value;
-				RaisePropertyChanged(() => LastRoute);
-			}
-		}
-
 		#endregion
 
 		#region actions
@@ -258,16 +230,9 @@ namespace Trains.Core.ViewModels
 		public void Init()
 		{
 			RestoreUiBinding();
-			IsBarDownloaded = true;
-
-			if (_appSettings.UpdatedLastRequest != null)
-			{
-				LastRoute = $"{_appSettings.UpdatedLastRequest.Route.From} - {_appSettings.UpdatedLastRequest.Route.To}";
-			}
 
 			Trains = _appSettings.LastRequestTrain;
 			LastRoutes = _appSettings.LastRoutes;
-			FavoriteRequests = _appSettings.FavoriteRequests == null ? null : new ObservableCollection<Route>(_appSettings.FavoriteRequests?.Select(x => x.Route));
 			AboutItems = _appSettings.About;
 			SelectedVariant = VariantOfSearch[1];
 		}
@@ -295,7 +260,11 @@ namespace Trains.Core.ViewModels
 
 		private async void UpdateLastRequest()
 		{
-			if (_appSettings.UpdatedLastRequest == null) return;
+			if (_appSettings.UpdatedLastRequest == null)
+			{
+				return;
+			}
+
 			IsTaskRun = true;
 
 			var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == _appSettings.UpdatedLastRequest.Route.From),
@@ -303,7 +272,9 @@ namespace Trains.Core.ViewModels
 				_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
 
 			if (trains == null)
+			{
 				await _userInteraction.AlertAsync(_localizationService.GetString("InternetConnectionError"));
+			}
 			else
 			{
 				_appSettings.UpdatedLastRequest.Date = DateTimeOffset.Now;
@@ -343,9 +314,16 @@ namespace Trains.Core.ViewModels
 		private void AddToLastRoutes(Route route)
 		{
 			var routes = new List<Route> { route };
-			if (LastRoutes == null) LastRoutes = new List<Route>();
+
+			if (LastRoutes == null)
+			{
+				LastRoutes = new List<Route>();
+			}
+
 			routes.AddRange(LastRoutes);
+
 			_appSettings.LastRoutes = LastRoutes = routes.Take(20).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
+
 			_serializable.Serialize(LastRoutes, Defines.Restoring.LastRoutes);
 		}
 
@@ -390,14 +368,6 @@ namespace Trains.Core.ViewModels
 			return true;
 		}
 
-		public void DeleteFavoriteRoute(Route route)
-		{
-			var objectToDelete = _appSettings.FavoriteRequests.FirstOrDefault(x => x.Route == route);
-			if (objectToDelete == null) return;
-			_appSettings.FavoriteRequests.Remove(objectToDelete);
-			_serializable.Serialize(_appSettings.FavoriteRequests, Defines.Restoring.FavoriteRequests);
-			FavoriteRequests.Remove(route);
-		}
 		public async void NotifyAboutSelectedTrain(Train train)
 		{
 			var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
