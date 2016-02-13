@@ -1,7 +1,7 @@
 ﻿using Cirrious.CrossCore;
 using Trains.Infrastructure.Interfaces;
 
-namespace Trains.Core
+namespace Trains.Infrastructure
 {
 	public static class Dependencies
 	{

@@ -4,12 +4,11 @@ using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Trains.Entities;
-using Trains.Infrastructure;
 using Trains.Infrastructure.Extensions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Model.Entities;
 
-namespace Trains.Core.Services.Infrastructure
+namespace Trains.Infrastructure
 {
 	public class TrainGrabber
 	{

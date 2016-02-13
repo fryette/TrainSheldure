@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Trains.Core.Extensions
+namespace Trains.Infrastructure.Extensions
 {
 	public class Windows1251 : Encoding
 	{

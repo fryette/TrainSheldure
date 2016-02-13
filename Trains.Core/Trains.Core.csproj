@@ -43,10 +43,7 @@
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
     <Compile Include="BaseHttpService.cs" />
-    <Compile Include="Dependencies.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Infrastructure\TrainGrabber.cs" />
-    <Compile Include="Services\Infrastructure\TrainStopGrabber.cs" />
     <Compile Include="Services\LocalData.cs" />
     <Compile Include="Services\Reflection.cs" />
     <Compile Include="Services\SearchService.cs" />
@@ -54,7 +51,6 @@
     <Compile Include="Services\TrainStopService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
-    <Compile Include="Extensions\FormUrlEncodedContent.cs" />
     <Compile Include="ViewModels\FeaturesViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />
     <Compile Include="ViewModels\InformationViewModel.cs" />
@@ -63,7 +59,6 @@
     <Compile Include="ViewModels\ScheduleViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShareViewModel.cs" />
-    <Compile Include="Extensions\WIndows1251.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Chance.MvvmCross.Plugins.UserInteraction">

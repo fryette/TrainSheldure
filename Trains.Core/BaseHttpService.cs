@@ -83,7 +83,7 @@ namespace Trains.Core
 
 		public async Task<string> Post(Uri url, List<KeyValuePair<string, string>> values, Encoding encoding)
 		{
-			var content = new Extensions.FormUrlEncodedContent(values);
+			var content = new Infrastructure.Extensions.FormUrlEncodedContent(values);
 			var httpClient = new HttpClient(new HttpClientHandler());
 			var response = await httpClient.PostAsync(url, content);
 			var temp = await response.Content.ReadAsByteArrayAsync();

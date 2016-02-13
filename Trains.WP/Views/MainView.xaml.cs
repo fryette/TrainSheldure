@@ -6,6 +6,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Trains.Core;
 using Trains.Core.ViewModels;
+using Trains.Infrastructure;
 
 namespace Trains.WP.Views
 {

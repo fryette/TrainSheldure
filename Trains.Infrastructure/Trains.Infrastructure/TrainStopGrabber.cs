@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Model.Entities;
 
-namespace Trains.Core.Services.Infrastructure
+namespace Trains.Infrastructure
 {
 	public class TrainStopGrabber
 	{

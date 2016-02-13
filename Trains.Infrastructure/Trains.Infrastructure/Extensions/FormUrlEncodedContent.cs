@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 
-namespace Trains.Core.Extensions
+namespace Trains.Infrastructure.Extensions
 {
 	public class FormUrlEncodedContent : ByteArrayContent
 	{
@@ -49,7 +49,7 @@ namespace Trains.Core.Extensions
 
 		public static string ConvertToUtf8(string str)
 		{
-			if (str == String.Empty) return str;
+			if (str == string.Empty) return str;
 			var originalByteString = Encoding.UTF8.GetBytes(str);
 			var convertedByteString = Encoding.Convert(Encoding.UTF8,
 				Windows1251, originalByteString);
