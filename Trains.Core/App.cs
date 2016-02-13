@@ -1,12 +1,13 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.IoC;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Core.Services;
 using Trains.Core.ViewModels;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
+using Trains.Infrastructure.Json;
+using Trains.Services;
 
 namespace Trains.Core
 {
@@ -14,21 +15,18 @@ namespace Trains.Core
 	{
 		public override void Initialize()
 		{
-			CreatableTypes()
-				.EndingWith("Service")
-				.AsInterfaces()
-				.RegisterAsLazySingleton();
+			Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
+			Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
+			Mvx.LazyConstructAndRegisterSingleton<IJsonConverter, NewtonsoftJsonConverter>();
+			Mvx.LazyConstructAndRegisterSingleton<ISerializableService, SerializableService>();
+			Mvx.LazyConstructAndRegisterSingleton<ISearchService, SearchService>();
+			Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
 
 			var isFirstRun = Mvx.GetSingleton<ISerializableService>().Desserialize<string>(Defines.Common.IsFirstRun);
 			if (isFirstRun == null || isFirstRun != Defines.Common.IsFirstRun)
 				RegisterAppStart<FeaturesViewModel>();
 			else
 				RegisterAppStart<MainViewModel>();
-
-
-			Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
-			Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
-
 		}
 	}
 }

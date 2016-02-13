@@ -1,16 +1,18 @@
-﻿using Cirrious.MvvmCross.Plugins.File;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Cirrious.MvvmCross.Plugins.File;
 using Trains.Infrastructure.Interfaces;
 
-namespace Trains.Core.Services
+namespace Trains.Services
 {
-	class SerializeService : ISerializableService
+	public class SerializableService : ISerializableService
 	{
-		readonly IMvxFileStore _fileStore;
-		public SerializeService(IMvxFileStore fileStore)
+		private readonly IMvxFileStore _fileStore;
+		private readonly IJsonConverter _jsonConverter;
+
+		public SerializableService(IMvxFileStore fileStore, IJsonConverter jsonConverter)
 		{
 			_fileStore = fileStore;
+			_jsonConverter = jsonConverter;
 		}
 
 		public bool Exists(string fileName)
@@ -20,7 +22,7 @@ namespace Trains.Core.Services
 
 		public void Serialize<T>(T obj, string fileName)
 		{
-			_fileStore.WriteFile(fileName, JsonConvert.SerializeObject(obj));
+			_fileStore.WriteFile(fileName, _jsonConverter.Serialize(obj));
 		}
 
 		public void Delete(string fileName)
@@ -34,7 +36,7 @@ namespace Trains.Core.Services
 		{
 			string textJson;
 			_fileStore.TryReadTextFile(filename, out textJson);
-			return textJson == null ? null : JsonConvert.DeserializeObject<T>(textJson);
+			return textJson == null ? null : _jsonConverter.Deserialize<T>(textJson);
 		}
 
 		public void ClearAll()

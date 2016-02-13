@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Cirrious.MvvmCross.Plugins.Network.Rest;
 using Trains.Infrastructure.Interfaces.Services;
 
-namespace Trains.Core
+namespace Trains.Services
 {
 	public class BaseHttpService : MvxRestClient, IHttpService
 	{

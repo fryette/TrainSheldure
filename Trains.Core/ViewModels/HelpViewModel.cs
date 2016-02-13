@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
-using Newtonsoft.Json;
+using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Model.Entities;
 
@@ -11,6 +11,7 @@ namespace Trains.Core.ViewModels
 		#region readonlyProperties
 
 		private readonly IAppSettings _appSettings;
+		private readonly IJsonConverter _jsonConverter;
 
 		#endregion
 
@@ -22,9 +23,10 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public HelpViewModel(IAppSettings appSettings)
+		public HelpViewModel(IAppSettings appSettings, IJsonConverter jsonConverter)
 		{
 			_appSettings = appSettings;
+			_jsonConverter = jsonConverter;
 			SelectCarriageCommand = new MvxCommand<CarriageModel>(SelectCarriage);
 		}
 
@@ -87,7 +89,7 @@ namespace Trains.Core.ViewModels
 		private void SelectCarriage(CarriageModel selectedCarriageModel)
 		{
 			if (selectedCarriageModel == null) return;
-			ShowViewModel<CarriageViewModel>(new { param = JsonConvert.SerializeObject(selectedCarriageModel) });
+			ShowViewModel<CarriageViewModel>(new { param = _jsonConverter.Serialize(selectedCarriageModel) });
 		}
 
 		#endregion

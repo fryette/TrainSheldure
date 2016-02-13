@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
-using Newtonsoft.Json;
 using Trains.Entities;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
@@ -24,6 +23,7 @@ namespace Trains.Core.ViewModels
 		private readonly INotificationService _notificationService;
 		private readonly IUserInteraction _userInteraction;
 		private readonly ILocalizationService _localizationService;
+		private readonly IJsonConverter _jsonConverter;
 
 		#endregion
 
@@ -34,13 +34,13 @@ namespace Trains.Core.ViewModels
 		public IMvxCommand SearchReverseRouteCommand { get; private set; }
 		public IMvxCommand AddToFavoriteCommand { get; private set; }
 		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; set; }
-        public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
+		public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
 
-        #endregion
+		#endregion
 
-        #region ctor
+		#region ctor
 
-        public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction, ILocalizationService localizationService)
+		public ScheduleViewModel(IAppSettings appSettings, ISerializableService serializableService, IAnalytics analytics, ISearchService search, INotificationService notificationService, IUserInteraction userInteraction, ILocalizationService localizationService, IJsonConverter jsonConverter)
 		{
 			_serializable = serializableService;
 			_appSettings = appSettings;
@@ -48,22 +48,23 @@ namespace Trains.Core.ViewModels
 			_search = search;
 			_notificationService = notificationService;
 			_userInteraction = userInteraction;
-	        _localizationService = localizationService;
+			_localizationService = localizationService;
+			_jsonConverter = jsonConverter;
 
-	        SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
+			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
 			AddToFavoriteCommand = new MvxCommand(AddToFavorite);
 			GoToHelpPageCommand = new MvxCommand(GoToHelpPage);
 			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
 
-            BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
+			BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
 
 
-        }
+		}
 
-        #endregion
+		#endregion
 
-        #region properties
+		#region properties
 
 		private string From { get; set; }
 		private string To { get; set; }
@@ -142,7 +143,7 @@ namespace Trains.Core.ViewModels
 		/// </summary>
 		public void Init(string param)
 		{
-			Trains = JsonConvert.DeserializeObject<List<Train>>(param);
+			Trains = _jsonConverter.Deserialize<List<Train>>(param);
 			From = _appSettings.UpdatedLastRequest.Route.From;
 			To = _appSettings.UpdatedLastRequest.Route.To;
 			Request = From + " - " + To;
@@ -177,7 +178,7 @@ namespace Trains.Core.ViewModels
 		private void ClickItem(Train train)
 		{
 			if (train == null) return;
-			ShowViewModel<InformationViewModel>(new { param = JsonConvert.SerializeObject(train) });
+			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
 		/// <summary>
@@ -217,11 +218,11 @@ namespace Trains.Core.ViewModels
 			await _userInteraction.AlertAsync(Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
 		}
 
-        public void BookingSelectedTrain(Train train)
-        {
-            ShowViewModel<BookingViewModel>(new { param = JsonConvert.SerializeObject(train) });
-        }
-		
+		public void BookingSelectedTrain(Train train)
+		{
+			ShowViewModel<BookingViewModel>(new { param = _jsonConverter.Serialize(train) });
+		}
+
 		#endregion
 	}
 }

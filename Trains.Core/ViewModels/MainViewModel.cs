@@ -5,13 +5,12 @@ using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.Plugins.Email;
 using Cirrious.MvvmCross.ViewModels;
-using Newtonsoft.Json;
 using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
-using Trains.Core.Services;
 using Trains.Infrastructure;
+using Trains.Infrastructure.Extensions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
@@ -41,6 +40,7 @@ namespace Trains.Core.ViewModels
 
 		private readonly IUserInteraction _userInteraction;
 		private readonly ILocalizationService _localizationService;
+		private readonly IJsonConverter _jsonConverter;
 
 		#endregion
 
@@ -71,7 +71,7 @@ namespace Trains.Core.ViewModels
 			IMvxComposeEmailTask email,
 			INotificationService notificationService,
 			IUserInteraction userInteraction,
-			ILocalizationService localizationService)
+			ILocalizationService localizationService, IJsonConverter jsonConverter)
 		{
 			_email = email;
 			_local = local;
@@ -83,6 +83,7 @@ namespace Trains.Core.ViewModels
 			_notificationService = notificationService;
 			_userInteraction = userInteraction;
 			_localizationService = localizationService;
+			_jsonConverter = jsonConverter;
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
@@ -334,7 +335,7 @@ namespace Trains.Core.ViewModels
 				_appSettings.UpdatedLastRequest = new LastRequest { Route = new Route { From = from, To = to }, SelectionMode = SelectedVariant, Date = Datum };
 				_serializable.Serialize(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
 				_serializable.Serialize(schedule, Defines.Restoring.LastTrainList);
-				ShowViewModel<ScheduleViewModel>(new { param = JsonConvert.SerializeObject(schedule) });
+				ShowViewModel<ScheduleViewModel>(new { param = _jsonConverter.Serialize(schedule) });
 
 				_analytics.SentEvent(Defines.Analytics.VariantOfSearch, SelectedVariant);
 			}
@@ -375,7 +376,7 @@ namespace Trains.Core.ViewModels
 		private void ClickItem(Train train)
 		{
 			if (train == null) return;
-			ShowViewModel<InformationViewModel>(new { param = JsonConvert.SerializeObject(train) });
+			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
 		/// <summary>
@@ -473,7 +474,7 @@ namespace Trains.Core.ViewModels
 
 		public void BookingSelectedTrain(Train train)
 		{
-			ShowViewModel<BookingViewModel>(new { param = JsonConvert.SerializeObject(train) });
+			ShowViewModel<BookingViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
 		#region restoreResources

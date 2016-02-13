@@ -2,7 +2,7 @@
 using System.Reflection;
 using Cirrious.CrossCore;
 
-namespace Trains.Core.Services
+namespace Trains.Infrastructure.Extensions
 {
 	public static class Reflection
 	{

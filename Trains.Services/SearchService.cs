@@ -1,10 +1,10 @@
-﻿using Chance.MvvmCross.Plugins.UserInteraction;
-using Cirrious.CrossCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Chance.MvvmCross.Plugins.UserInteraction;
+using Cirrious.CrossCore;
 using Trains.Entities;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Extensions;
@@ -12,7 +12,7 @@ using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 
-namespace Trains.Core.Services
+namespace Trains.Services
 {
 	public class SearchService : ISearchService
 	{

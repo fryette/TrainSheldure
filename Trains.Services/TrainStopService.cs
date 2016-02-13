@@ -8,7 +8,7 @@ using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model.Entities;
 
-namespace Trains.Core.Services
+namespace Trains.Services
 {
 	public class TrainStopService : ITrainStopService
 	{

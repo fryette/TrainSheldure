@@ -42,13 +42,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="AppSettings.cs" />
-    <Compile Include="BaseHttpService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\LocalData.cs" />
-    <Compile Include="Services\Reflection.cs" />
-    <Compile Include="Services\SearchService.cs" />
-    <Compile Include="Services\SerializeService.cs" />
-    <Compile Include="Services\TrainStopService.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
     <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\FeaturesViewModel.cs" />
@@ -73,9 +67,6 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Network">
       <HintPath>..\packages\MvvmCross.HotTuna.Plugin.Network.3.5.0\lib\portable-win+net45+wp8+win8+wpa81\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\portable-net45+wp80+win8+wpa81+aspnetcore50\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819">
       <HintPath>..\packages\MvvmCross.HotTuna.CrossCore.3.5.1\lib\portable-win+net45+wp8+win8+wpa81\Cirrious.CrossCore.dll</HintPath>
     </Reference>
@@ -97,6 +88,10 @@
     <ProjectReference Include="..\Trains.Model\Trains.Model.csproj">
       <Project>{73F82F72-521E-4F11-AA97-9A377E8CBE3E}</Project>
       <Name>Trains.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Trains.Services\Trains.Services.csproj">
+      <Project>{EE6F913D-7EF7-4887-A433-E1532167774B}</Project>
+      <Name>Trains.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
