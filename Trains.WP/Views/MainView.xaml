@@ -9,69 +9,68 @@
                       xmlns:extensions="using:Trains.WP.Extensions"
                       mc:Ignorable="d"
                       d:DataContext="{d:DesignData MainViewModel}">
-    <Grid>
+    <Grid Margin="20,0">
         <Pivot x:Name="MainPivot"
                IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}"
                extensions:XamlElementExtensions.Resource="ApplicationName"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem extensions:XamlElementExtensions.Resource="MainPivotItem"
                        x:Name="MainPivotItem">
-                <Grid Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=main}">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <StackPanel Grid.Row="0">
-                        <ComboBox x:Name="comboBox"
-                                  extensions:XamlElementExtensions.Resource="FastSearchTextBlock"
-                                  ItemsSource="{Binding VariantOfSearch}"
-                                  SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
-                                  SelectionChanged="ComboBoxSelectionChanged" />
-                        <DatePicker x:Name="DataPicker"
-                                    extensions:XamlElementExtensions.Resource="DateOfDeparture"
-                                    Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                    Style="{StaticResource DatePickerStyle}"
-                                    Margin="0,-5,0,0" />
-                        <AutoSuggestBox x:Name="From"
-                                        extensions:XamlElementExtensions.Resource="From"
-                                        Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        ItemsSource="{Binding AutoSuggestions}"
-                                        IsEnabled="{Binding IsFildEnabled}"
-                                        Style="{StaticResource AutoSuggestBoxStyle}"
-                                        GotFocus="AutoSuggestBox_ManipulationStarted"
-                                        LostFocus="AutoSuggestBox_ManipulationCompleted"
-                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-                        <AutoSuggestBox x:Name="To"
-                                        extensions:XamlElementExtensions.Resource="To"
-                                        IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
-                                        Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                        ItemsSource="{Binding AutoSuggestions}"
-                                        Style="{StaticResource AutoSuggestBoxStyle}"
-                                        GotFocus="AutoSuggestBox_ManipulationStarted"
-                                        LostFocus="AutoSuggestBox_ManipulationCompleted"
-                                        SuggestionChosen="AutoSuggestBox_SuggestionChosen" />
-                        <Grid>
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <Grid Background="{Binding Converter={StaticResource BackgroundLastRouteToImageConverter}, ConverterParameter=main}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0">
+                            <ComboBox x:Name="comboBox"
+                                      extensions:XamlElementExtensions.Resource="FastSearchTextBlock"
+                                      ItemsSource="{Binding VariantOfSearch}"
+                                      SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
+                                      SelectionChanged="ComboBoxSelectionChanged" />
+                            <DatePicker x:Name="DataPicker"
+                                        extensions:XamlElementExtensions.Resource="DateOfDeparture"
+                                        Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Style="{StaticResource DatePickerStyle}"
+                                        Margin="0,-5,0,0" />
+                            <AutoSuggestBox x:Name="From"
+                                            extensions:XamlElementExtensions.Resource="From"
+                                            Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            ItemsSource="{Binding AutoSuggestions}"
+                                            IsEnabled="{Binding IsFildEnabled}"
+                                            Style="{StaticResource AutoSuggestBoxStyle}"
+                                            GotFocus="AutoSuggestBoxManipulationStarted"
+                                            LostFocus="AutoSuggestBoxManipulationCompleted"
+                                            SuggestionChosen="AutoSuggestBoxSuggestionChosen" />
+                            <AutoSuggestBox x:Name="To"
+                                            extensions:XamlElementExtensions.Resource="To"
+                                            IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
+                                            Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            ItemsSource="{Binding AutoSuggestions}"
+                                            Style="{StaticResource AutoSuggestBoxStyle}"
+                                            GotFocus="AutoSuggestBoxManipulationStarted"
+                                            LostFocus="AutoSuggestBoxManipulationCompleted"
+                                            SuggestionChosen="AutoSuggestBoxSuggestionChosen" />
                             <Button x:Name="SearchButton"
                                     extensions:XamlElementExtensions.Resource="Search"
                                     HorizontalAlignment="Right"
                                     Command="{Binding SearchTrainCommand}" />
-                        </Grid>
-                    </StackPanel>
-                    <ListView x:Name="Routes"
-                              Grid.Row="1"
-                              extensions:XamlElementExtensions.Resource="LastRequests"
-                              ItemsSource="{Binding LastRoutes}"
-                              ItemTemplate="{StaticResource RoutesTemplate}"
-                              ItemContainerStyle="{StaticResource ListViewItemStyle}">
-                        <interactivity:Interaction.Behaviors>
-                            <core:EventTriggerBehavior EventName="Tapped">
-                                <core:InvokeCommandAction Command="{Binding TappedRouteCommand}"
-                                                          CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}"
-                                                          InputConverter="{StaticResource SelectionChangedConverter}" />
-                            </core:EventTriggerBehavior>
-                        </interactivity:Interaction.Behaviors>
-                    </ListView>
-                </Grid>
+                        </StackPanel>
+                        <ItemsControl x:Name="Routes"
+                                      Grid.Row="1"
+                                      extensions:XamlElementExtensions.Resource="LastRequests"
+                                      ItemsSource="{Binding LastRoutes}"
+                                      ItemTemplate="{StaticResource RoutesTemplate}">
+                            <interactivity:Interaction.Behaviors>
+                                <core:EventTriggerBehavior EventName="Tapped">
+                                    <core:InvokeCommandAction Command="{Binding TappedRouteCommand}"
+                                                              CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}"
+                                                              InputConverter="{StaticResource SelectionChangedConverter}" />
+                                </core:EventTriggerBehavior>
+                            </interactivity:Interaction.Behaviors>
+                        </ItemsControl>
+                    </Grid>
+                </ScrollViewer>
             </PivotItem>
             <PivotItem extensions:XamlElementExtensions.Resource="LastSchedulePivotItem"
                        x:Name="LastPivot"
@@ -97,7 +96,7 @@
                         <SemanticZoom.ZoomedInView>
                             <ListView x:Name="TrainList"
                                       ItemsSource="{Binding ElementName=Root,Path=DataContext.View}"
-                                      Tapped="TrainList_OnTapped">
+                                      Tapped="TrainListOnTapped">
                                 <ListView.GroupStyle>
                                     <GroupStyle HeaderTemplate="{StaticResource GenericGroupHeaderTemplate}"
                                                 HeaderContainerStyle="{StaticResource JumpListListHeaderContainerStyle}"
@@ -222,46 +221,6 @@
                             Command="{Binding SelectTrainCommand}" />
                 </Grid>
             </PivotItem>
-            <PivotItem x:Name="RoutesPivot"
-                       extensions:XamlElementExtensions.Resource="RoutesPivotItem"
-                       Background="{Binding FavoriteRequests, Converter={StaticResource BackgroundLastRouteToImageConverter},ConverterParameter=route}">
-                <ListView x:Name="FavoriteRequests"
-                          ItemsSource="{Binding FavoriteRequests}"
-                          ItemContainerStyle="{StaticResource ListViewItemStyle}">
-                    <interactivity:Interaction.Behaviors>
-                        <core:EventTriggerBehavior EventName="Tapped">
-                            <core:InvokeCommandAction Command="{Binding TappedFavoriteCommand}"
-                                                      CommandParameter="{Binding ElementName=FavoriteRequests, Path=SelectedItem}"
-                                                      InputConverter="{StaticResource SelectionChangedConverter}" />
-                        </core:EventTriggerBehavior>
-                    </interactivity:Interaction.Behaviors>
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Holding="Grid_Holding"
-                                  VerticalAlignment="Stretch">
-                                <FlyoutBase.AttachedFlyout>
-                                    <MenuFlyout>
-                                        <MenuFlyoutItem x:Name="DeleteButton"
-                                                        Text="{Binding ElementName=FavoriteRequests, Path=DataContext.DeleteRoute}"
-                                                        Command="{Binding ElementName=FavoriteRequests, Path=DataContext.DeleteFavoriteRouteCommand}"
-                                                        CommandParameter="{Binding}" />
-                                    </MenuFlyout>
-                                </FlyoutBase.AttachedFlyout>
-                                <StackPanel Orientation="Horizontal"
-                                            Margin="0,0,0,5">
-                                    <TextBlock Text="{Binding From}"
-                                               FontSize="{StaticResource MainFontSize}" />
-                                    <TextBlock Text="-"
-                                               Margin="5,0"
-                                               Style="{StaticResource BasedTextBlockStyle}" />
-                                    <TextBlock Text="{Binding To}"
-                                               FontSize="{StaticResource MainFontSize}" />
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-            </PivotItem>
             <PivotItem extensions:XamlElementExtensions.Resource="AboutPivotItem">
                 <ListView x:Name="AboutItemList"
                           ItemsSource="{Binding AboutItems}"
@@ -278,8 +237,7 @@
             </PivotItem>
         </Pivot>
         <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BoolToVisibilityConverter}}">
-            <TextBlock extensions:XamlElementExtensions.Resource="Update"
-                       Margin="20,0,0,0" />
+            <TextBlock extensions:XamlElementExtensions.Resource="Update" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
         </Grid>

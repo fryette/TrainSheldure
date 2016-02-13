@@ -48,7 +48,6 @@ namespace Trains.Core.ViewModels
 		public MvxCommand<About> TappedAboutItemCommand { get; private set; }
 		public IMvxCommand GoToHelpCommand { get; private set; }
 		public MvxCommand<Train> SelectTrainCommand { get; private set; }
-		public MvxCommand<Route> TappedFavoriteCommand { get; private set; }
 		public IMvxCommand UpdateLastRequestCommand { get; private set; }
 		public IMvxCommand SearchTrainCommand { get; private set; }
 		public IMvxCommand SwapCommand { get; private set; }
@@ -90,11 +89,7 @@ namespace Trains.Core.ViewModels
 
 			SwapCommand = new MvxCommand(Swap);
 			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
-			TappedFavoriteCommand = new MvxCommand<Route>(route =>
-			{
-				if (route == null) return;
-				SearchTrain(route.From, route.To);
-			});
+
 			DeleteFavoriteRouteCommand = new MvxCommand<Route>(DeleteFavoriteRoute);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
 			BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
@@ -338,7 +333,6 @@ namespace Trains.Core.ViewModels
 				AboutItemsActions[selectedAboutItem.Item]();
 		}
 
-
 		private void Swap()
 		{
 			var tmp = From;
@@ -348,10 +342,10 @@ namespace Trains.Core.ViewModels
 
 		private void AddToLastRoutes(Route route)
 		{
-			var routes = new List<Route>() { route };
+			var routes = new List<Route> { route };
 			if (LastRoutes == null) LastRoutes = new List<Route>();
 			routes.AddRange(LastRoutes);
-			_appSettings.LastRoutes = LastRoutes = routes.Take(3).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
+			_appSettings.LastRoutes = LastRoutes = routes.Take(20).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
 			_serializable.Serialize(LastRoutes, Defines.Restoring.LastRoutes);
 		}
 
