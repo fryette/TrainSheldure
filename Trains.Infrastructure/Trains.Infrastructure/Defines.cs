@@ -5,7 +5,7 @@
 		public class Common
 		{
 			public const string IsFirstRun = "IsFirstRun36";
-			public const string DateFormat = "yy-MM-dd";
+			public const string DateFormat = "yyyy-MM-dd";
 			public const string TimeFormat = "yy-MM-dd HH:mm";
 			public const string HiMessageTitle = "Обязательно к прочтению";
 			public const string HiMessage =

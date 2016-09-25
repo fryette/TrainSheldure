@@ -79,7 +79,7 @@ namespace Trains.WP.Views
 
 		private void SetVisibility(Visibility visibility)
 		{
-			comboBox.Visibility = visibility;
+			ComboBox.Visibility = visibility;
 			SearchButton.Visibility = visibility;
 			Routes.Visibility = visibility;
 			CommandBar.Visibility = visibility;
@@ -100,7 +100,7 @@ namespace Trains.WP.Views
 
 		private void ComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			DataPicker.Visibility = comboBox.SelectedItem?.ToString() == Dependencies.LocalizationService.GetString("OnDay")
+			DataPicker.Visibility = ComboBox.SelectedItem?.ToString() == Dependencies.LocalizationService.GetString("OnDay")
 				? Visibility.Visible
 				: Visibility.Collapsed;
 		}

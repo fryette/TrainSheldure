@@ -14,7 +14,7 @@ namespace Trains.Infrastructure
 	{
 		private static ILocalizationService _localizationService;
 
-		public TrainGrabber()
+		static TrainGrabber()
 		{
 			_localizationService = Dependencies.LocalizationService;
 		}
@@ -216,13 +216,13 @@ namespace Trains.Infrastructure
 				foreach (var name in additionalInformation[i].Select(x => x.Name))
 				{
 					if (_localizationService.GetString("Sedentary") == name)
-						placeClasses.Sedentary = true;
+						placeClasses.IsSedentaryAvailable = true;
 					else if (_localizationService.GetString("SecondClass") == name)
-						placeClasses.SecondClass = true;
+						placeClasses.IsSecondClassAvailable = true;
 					else if (_localizationService.GetString("Coupe") == name)
-						placeClasses.Coupe = true;
+						placeClasses.IsCoupeAvailable = true;
 					else if (_localizationService.GetString("Luxury") == name)
-						placeClasses.Luxury = true;
+						placeClasses.IsLuxuryAvailable = true;
 				}
 				trainsList[i].PlaceClasses = placeClasses;
 			}

@@ -31,3 +31,4 @@ packages/
 Trains.Core.userprefs
 .appxsym
 Trains.WP/AppPackages/
+/Trains.FrontendApp/node_modules

@@ -35,22 +35,22 @@ namespace Trains.Services
 				var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
 				if (data == null)
 					return null;
+				new CustomTrainParser(_localizationService).TestMethod(data);
+				//var additionalInformation = TrainGrabber.GetPlaces(data);
+				//var links = TrainGrabber.GetLink(data);
+				//var parameters = data.ParseAsHtml(_localizationService.GetString("TrainsPattern")).ToList();
+				//var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
-				var additionalInformation = TrainGrabber.GetPlaces(data);
-				var links = TrainGrabber.GetLink(data);
-				var parameters = data.ParseAsHtml(_localizationService.GetString("TrainsPattern")).ToList();
-				var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
-
-				List<Train> trains;
-				var country = _localizationService.GetString("Belarus");
-				if (!from.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)) && !to.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)))
-					trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
-				else
-					trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(data.ParseAsHtml(_localizationService.GetString("TrainsPattern")).ToList())
-						: TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
-				trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
-				if (!trains.Any()) throw new ArgumentException("Bad request");
-				return trains;
+				//List<Train> trains;
+				//var country = _localizationService.GetString("Belarus");
+				//if (!from.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)) && !to.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)))
+				//	trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
+				//else
+				//	trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(data.ParseAsHtml(_localizationService.GetString("TrainsPattern")).ToList())
+				//		: TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
+				//trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
+				//if (!trains.Any()) throw new ArgumentException("Bad request");
+				//return trains;
 			}
 			catch (Exception e)
 			{
@@ -65,7 +65,7 @@ namespace Trains.Services
 		{
 			return new Uri(
 				$"http://rasp.rw.by/m/{_localizationService.GetString("Language")}/route/?from={fromItem.Value}&from_exp={fromItem.Exp}&from_esr = {fromItem.Ecp}&to={toItem.Value}&to_exp={toItem.Exp}&to_esr = {toItem.Ecp}&date={date}&{new Random().Next(0, 20)}");
-        }
+		}
 
 		private string GetDate(DateTimeOffset datum, string selectedVariantOfSearch = null)
 		{

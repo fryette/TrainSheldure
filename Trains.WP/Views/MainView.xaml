@@ -23,7 +23,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <StackPanel Grid.Row="0">
-                            <ComboBox x:Name="comboBox"
+                            <ComboBox x:Name="ComboBox"
                                       extensions:XamlElementExtensions.Resource="FastSearchTextBlock"
                                       ItemsSource="{Binding VariantOfSearch}"
                                       SelectedItem="{Binding SelectedVariant,Mode=TwoWay}"
@@ -56,7 +56,7 @@
                                     HorizontalAlignment="Right"
                                     Command="{Binding SearchTrainCommand}" />
                         </StackPanel>
-                        <ItemsControl x:Name="Routes"
+                        <ListView x:Name="Routes"
                                       Grid.Row="1"
                                       extensions:XamlElementExtensions.Resource="LastRequests"
                                       ItemsSource="{Binding LastRoutes}"
@@ -68,7 +68,7 @@
                                                               InputConverter="{StaticResource SelectionChangedConverter}" />
                                 </core:EventTriggerBehavior>
                             </interactivity:Interaction.Behaviors>
-                        </ItemsControl>
+                        </ListView>
                     </Grid>
                 </ScrollViewer>
             </PivotItem>
