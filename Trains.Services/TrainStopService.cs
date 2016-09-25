@@ -24,7 +24,7 @@ namespace Trains.Services
 		public async Task<IEnumerable<TrainStop>> GetTrainStop(string link)
 		{
 			if (!NetworkInterface.GetIsNetworkAvailable()) return null;
-			var uri = new Uri("http://rasp.rw.by/" + _localizationService.GetString("Language") + "/train/" + link);
+			var uri = new Uri("http://rasp.rw.by/" + link);
 			try
 			{
 				var data = await _httpService.LoadResponseAsync(uri);

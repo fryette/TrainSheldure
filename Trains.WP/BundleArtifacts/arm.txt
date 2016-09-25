@@ -1,0 +1,3 @@
+MainPackage=C:\FILES\GIT\TrainSchedule\Trains.WP\bin\ARM\Release\Trains.WP_2015.737.1.3_ARM.appx
+SymbolPackage=C:\FILES\GIT\TrainSchedule\Trains.WP\AppPackages\Trains.WP_2015.737.1.3_Test\Trains.WP_2015.737.1.3_ARM.appxsym
+ResourcePack=C:\FILES\GIT\TrainSchedule\Trains.WP\bin\ARM\Release\Trains.WP_2015.737.1.3_language-ru.appx

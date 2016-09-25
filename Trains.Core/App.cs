@@ -1,6 +1,7 @@
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.ViewModels;
 using Trains.Core.ViewModels;
+using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Providers;
@@ -22,6 +23,7 @@ namespace Trains.Core
 			Mvx.LazyConstructAndRegisterSingleton<ISearchService, SearchService>();
 			Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
 			Mvx.LazyConstructAndRegisterSingleton<IConfigurationProvider, JsonFileBasedConfigurationProvider>();
+			Mvx.LazyConstructAndRegisterSingleton<ITrainStopService, TrainStopService>();
 
 			//var isFirstRun = Mvx.GetSingleton<ISerializableService>().Desserialize<string>(Defines.Common.IsFirstRun);
 			//if (isFirstRun == null || isFirstRun != Defines.Common.IsFirstRun)

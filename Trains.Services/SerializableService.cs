@@ -34,9 +34,16 @@ namespace Trains.Services
 
 		public T Desserialize<T>(string filename) where T : class
 		{
-			string textJson;
-			_fileStore.TryReadTextFile(filename, out textJson);
-			return textJson == null ? null : _jsonConverter.Deserialize<T>(textJson);
+			try
+			{
+				string textJson;
+				_fileStore.TryReadTextFile(filename, out textJson);
+				return textJson == null ? null : _jsonConverter.Deserialize<T>(textJson);
+			}
+			catch
+			{
+				return default(T);
+			}
 		}
 
 		public void ClearAll()

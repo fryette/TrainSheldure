@@ -56,7 +56,7 @@ namespace Trains.WP.Views
 
 		private void TrainListOnTapped(object sender, TappedRoutedEventArgs e)
 		{
-			CommandButton.Command?.Execute(TrainList.SelectedItem);
+			//CommandButton.Command?.Execute(TrainList.SelectedItem);
 		}
 
 		private void AutoSuggestBoxManipulationStarted(object sender, RoutedEventArgs e)

@@ -58,7 +58,8 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public MainViewModel(ISerializableService serializable,
+		public MainViewModel(
+			ISerializableService serializable,
 			ISearchService search,
 			IAppSettings appSettings,
 			IMarketPlaceService marketPlace,
@@ -66,7 +67,8 @@ namespace Trains.Core.ViewModels
 			IMvxComposeEmailTask email,
 			INotificationService notificationService,
 			IUserInteraction userInteraction,
-			ILocalizationService localizationService, IJsonConverter jsonConverter)
+			ILocalizationService localizationService,
+			IJsonConverter jsonConverter)
 		{
 			_email = email;
 			_analytics = analytics;
@@ -99,13 +101,11 @@ namespace Trains.Core.ViewModels
 		private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
 		public IEnumerable<About> AboutItems { get; set; }
 
-		private IEnumerable<Route> _lastRoutes;
-		public IEnumerable<Route> LastRoutes
+		private List<Route> _lastRoutes;
+
+		public List<Route> LastRoutes
 		{
-			get
-			{
-				return _lastRoutes;
-			}
+			get { return _lastRoutes; }
 			set
 			{
 				_lastRoutes = value;
@@ -114,6 +114,7 @@ namespace Trains.Core.ViewModels
 		}
 
 		private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
+
 		public DateTimeOffset Datum
 		{
 			get { return _datum; }
@@ -125,12 +126,10 @@ namespace Trains.Core.ViewModels
 		}
 
 		private List<string> _variantOfSearch;
+
 		public List<string> VariantOfSearch
 		{
-			get
-			{
-				return _variantOfSearch;
-			}
+			get { return _variantOfSearch; }
 			set
 			{
 				_variantOfSearch = value;
@@ -142,21 +141,23 @@ namespace Trains.Core.ViewModels
 		{
 			get
 			{
-				if (_appSettings.UpdatedLastRequest == null) return null;
+				if (_appSettings.UpdatedLastRequest == null)
+					return null;
 				var date = (DateTimeOffset.Now - _appSettings.UpdatedLastRequest.Date);
-				return _localizationService.GetString("Updated") + (date.TotalMinutes > 1 ? (date.Hours > 1 ? date.Hours + _localizationService.GetString("Hour") :
-					date.Minutes + _localizationService.GetString("Min")) + _localizationService.GetString("Ago")
-					: _localizationService.GetString("JustNow"));
+				return _localizationService.GetString("Updated") +
+				       (date.TotalMinutes > 1
+					       ? (date.Hours > 1
+						       ? date.Hours + _localizationService.GetString("Hour")
+						       : date.Minutes + _localizationService.GetString("Min")) + _localizationService.GetString("Ago")
+					       : _localizationService.GetString("JustNow"));
 			}
 		}
 
 		private string _selectedDate;
+
 		public string SelectedVariant
 		{
-			get
-			{
-				return _selectedDate;
-			}
+			get { return _selectedDate; }
 
 			set
 			{
@@ -166,6 +167,7 @@ namespace Trains.Core.ViewModels
 		}
 
 		private List<string> _autoSuggestions;
+
 		public List<string> AutoSuggestions
 		{
 			get { return _autoSuggestions; }
@@ -177,6 +179,7 @@ namespace Trains.Core.ViewModels
 		}
 
 		private string _from;
+
 		public string From
 		{
 			get { return _from; }
@@ -189,6 +192,7 @@ namespace Trains.Core.ViewModels
 		}
 
 		private string _to;
+
 		public string To
 		{
 			get { return _to; }
@@ -201,6 +205,7 @@ namespace Trains.Core.ViewModels
 		}
 
 		private bool _isTaskRun;
+
 		public bool IsTaskRun
 		{
 			get { return _isTaskRun; }
@@ -232,26 +237,35 @@ namespace Trains.Core.ViewModels
 			RestoreUiBinding();
 
 			Trains = _appSettings.LastRequestTrain;
-			LastRoutes = _appSettings.LastRoutes;
+			LastRoutes = new List<Route>(_appSettings.LastRoutes);
 			AboutItems = _appSettings.About;
 			SelectedVariant = VariantOfSearch[1];
 		}
 
 		private async void SearchTrain(string from, string to)
 		{
-			if (await CheckInput(Datum, from, to)) return;
+			if (await CheckInput(Datum, from, to))
+				return;
 			IsTaskRun = true;
-			AddToLastRoutes(new Route { From = from, To = to });
-			var schedule = (await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == @from),
-					_appSettings.AutoCompletion.First(x => x.Value == to), Datum, SelectedVariant)).ToList();
+			AddToLastRoutes(new Route {From = from, To = to});
+			var schedule = (await _search.GetTrainSchedule(
+				_appSettings.AutoCompletion.First(x => x.Value == @from),
+				_appSettings.AutoCompletion.First(x => x.Value == to),
+				Datum,
+				SelectedVariant)).ToList();
 
 			if (schedule.Any())
 			{
 				_appSettings.LastRequestTrain = schedule.ToList();
-				_appSettings.UpdatedLastRequest = new LastRequest { Route = new Route { From = from, To = to }, SelectionMode = SelectedVariant, Date = Datum };
+				_appSettings.UpdatedLastRequest = new LastRequest
+				{
+					Route = new Route {From = from, To = to},
+					SelectionMode = SelectedVariant,
+					Date = Datum
+				};
 				_serializable.Serialize(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
 				_serializable.Serialize(schedule, Defines.Restoring.LastTrainList);
-				ShowViewModel<ScheduleViewModel>(new { param = _jsonConverter.Serialize(schedule) });
+				ShowViewModel<ScheduleViewModel>(new {param = _jsonConverter.Serialize(schedule)});
 
 				_analytics.SentEvent(Defines.Analytics.VariantOfSearch, SelectedVariant);
 			}
@@ -268,9 +282,13 @@ namespace Trains.Core.ViewModels
 
 			IsTaskRun = true;
 
-			var trains = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == _appSettings.UpdatedLastRequest.Route.From),
-				_appSettings.AutoCompletion.First(x => x.Value == _appSettings.UpdatedLastRequest.Route.To),
-				_appSettings.UpdatedLastRequest.Date, _appSettings.UpdatedLastRequest.SelectionMode);
+			var trains =
+				await
+					_search.GetTrainSchedule(
+						_appSettings.AutoCompletion.First(x => x.Value == _appSettings.UpdatedLastRequest.Route.From),
+						_appSettings.AutoCompletion.First(x => x.Value == _appSettings.UpdatedLastRequest.Route.To),
+						_appSettings.UpdatedLastRequest.Date,
+						_appSettings.UpdatedLastRequest.SelectionMode);
 
 			if (trains == null)
 			{
@@ -290,8 +308,9 @@ namespace Trains.Core.ViewModels
 
 		private void ClickItem(TrainModel train)
 		{
-			if (train == null) return;
-			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
+			if (train == null)
+				return;
+			ShowViewModel<InformationViewModel>(new {param = _jsonConverter.Serialize(train)});
 		}
 
 		private void GoToHelpPage()
@@ -314,7 +333,7 @@ namespace Trains.Core.ViewModels
 
 		private void AddToLastRoutes(Route route)
 		{
-			var routes = new List<Route> { route };
+			var routes = new List<Route> {route};
 
 			if (LastRoutes == null)
 			{
@@ -323,14 +342,16 @@ namespace Trains.Core.ViewModels
 
 			routes.AddRange(LastRoutes);
 
-			_appSettings.LastRoutes = LastRoutes = routes.Take(20).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
+			_appSettings.LastRoutes =
+				LastRoutes = routes.Take(20).GroupBy(x => new {x.From, x.To}).Select(g => g.First()).ToList();
 
 			_serializable.Serialize(LastRoutes, Defines.Restoring.LastRoutes);
 		}
 
 		private void SetRoute(Route route)
 		{
-			if (route == null) return;
+			if (route == null)
+				return;
 			From = route.From;
 			To = route.To;
 		}
@@ -338,9 +359,14 @@ namespace Trains.Core.ViewModels
 		public void UpdateAutoSuggestions(string str)
 		{
 			var station = str.Trim();
-			if (IsNullOrEmpty(station)) AutoSuggestions = null;
-			AutoSuggestions = _appSettings.AutoCompletion.Where(x => x.Value.IndexOf(station, StringComparison.OrdinalIgnoreCase) >= 0).Select(x => x.Value).ToList();
-			if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == station) AutoSuggestions = null;
+			if (IsNullOrEmpty(station))
+				AutoSuggestions = null;
+			AutoSuggestions =
+				_appSettings.AutoCompletion.Where(x => x.Value.IndexOf(station, StringComparison.OrdinalIgnoreCase) >= 0)
+					.Select(x => x.Value)
+					.ToList();
+			if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == station)
+				AutoSuggestions = null;
 		}
 
 		public async Task<bool> CheckInput(DateTimeOffset datum, string from, string to)
@@ -357,14 +383,15 @@ namespace Trains.Core.ViewModels
 			}
 
 			if (IsNullOrEmpty(from) || IsNullOrEmpty(to) ||
-				!(_appSettings.AutoCompletion.Any(x => x.Value == from.Trim()) &&
-				  _appSettings.AutoCompletion.Any(x => x.Value == to.Trim())))
+			    !(_appSettings.AutoCompletion.Any(x => x.Value == from.Trim()) &&
+			      _appSettings.AutoCompletion.Any(x => x.Value == to.Trim())))
 			{
 				await _userInteraction.AlertAsync(_localizationService.GetString("IncorrectInput"));
 				return true;
 			}
 
-			if (NetworkInterface.GetIsNetworkAvailable()) return false;
+			if (NetworkInterface.GetIsNetworkAvailable())
+				return false;
 			await _userInteraction.AlertAsync(_localizationService.GetString("ConectionError"));
 			return true;
 		}
@@ -377,7 +404,7 @@ namespace Trains.Core.ViewModels
 
 		public void BookingSelectedTrain(TrainModel train)
 		{
-			ShowViewModel<BookingViewModel>(new { param = _jsonConverter.Serialize(train) });
+			ShowViewModel<BookingViewModel>(new {param = _jsonConverter.Serialize(train)});
 		}
 
 		#region restoreResources
@@ -385,13 +412,13 @@ namespace Trains.Core.ViewModels
 		private void RestoreUiBinding()
 		{
 			VariantOfSearch = new List<string>
-				{
-					_localizationService.GetString("Yesterday"),
-					_localizationService.GetString("Today"),
-					_localizationService.GetString("Tommorow"),
-					_localizationService.GetString("OnAllDays"),
-					_localizationService.GetString("OnDay")
-				};
+			{
+				//_localizationService.GetString("Yesterday"),
+				_localizationService.GetString("Today"),
+				_localizationService.GetString("Tommorow"),
+				//_localizationService.GetString("OnAllDays"),
+				_localizationService.GetString("OnDay")
+			};
 
 			AboutItemsActions = new Dictionary<AboutPicture, Action>
 			{
@@ -406,6 +433,7 @@ namespace Trains.Core.ViewModels
 				{AboutPicture.SHARE, () => ShowViewModel<ShareViewModel>()}
 			};
 		}
+
 		#endregion
 
 		#endregion

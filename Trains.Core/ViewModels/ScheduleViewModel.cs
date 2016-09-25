@@ -149,7 +149,7 @@ namespace Trains.Core.ViewModels
 				return;
 			}
 
-			//ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
+			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
 		public async void NotifyAboutSelectedTrain(TrainModel train)
