@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
-using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
+using Trains.Model;
 using Trains.Model.Entities;
 
 namespace Trains.Services
@@ -25,7 +21,7 @@ namespace Trains.Services
 			_localizationService = localizationService;
 		}
 
-		public void TestMethod(string data)
+		public IEnumerable<TrainModel> TestMethod(string data)
 		{
 			var htmlDoc = new HtmlDocument { OptionFixNestedTags = true };
 
@@ -43,9 +39,11 @@ namespace Trains.Services
 			{
 				if (htmlDoc.DocumentNode != null)
 				{
-					ParseTrainInformation(htmlDoc.DocumentNode);
+					return ParseTrainInformation(htmlDoc.DocumentNode);
 				}
 			}
+
+			return Enumerable.Empty<TrainModel>();
 		}
 
 		private IEnumerable<HtmlNode> LoadDescendantsAsContains(HtmlNode node, string attribute, string attributeName)
@@ -60,14 +58,14 @@ namespace Trains.Services
 				node.Descendants().Where(n => n.GetAttributeValue(attribute, string.Empty).Equals(attributeName));
 		}
 
-		private void ParseTrainInformation(HtmlNode documentNode)
+		private IEnumerable<TrainModel> ParseTrainInformation(HtmlNode documentNode)
 		{
 			var trainsInformationNode = LoadDescendantsAsContains(documentNode, CLASS_ATTRIBUTE, "list_items").FirstOrDefault();
 			var placesNode = LoadDescendantsAsContains(documentNode, CLASS_ATTRIBUTE, "b-places").ToList();
 
 			if (trainsInformationNode == null)
 			{
-				return;
+				return Enumerable.Empty<TrainModel>();
 			}
 
 			var trainsNodeList = LoadDescendantsAsContains(trainsInformationNode, CLASS_ATTRIBUTE, "list_item").ToList();
@@ -80,6 +78,8 @@ namespace Trains.Services
 				FillPlaceInformation(train, ref placesNode);
 				result.Add(train);
 			}
+
+			return result;
 		}
 
 		private TrainModel CreateTrainModel(HtmlNode htmlNode)
@@ -94,7 +94,7 @@ namespace Trains.Services
 
 		private TrainModel FillPlaceInformation(TrainModel model, ref List<HtmlNode> placeNodes)
 		{
-			model.PlacesUrl = ParseUrl(placeNodes.First());
+			model.StopPointsUrl = ParseUrl(placeNodes.First());
 			placeNodes.RemoveAt(0);
 
 			model.Clases = ParseClases(placeNodes.FirstOrDefault());
@@ -267,27 +267,6 @@ namespace Trains.Services
 					? TrainClass.REGIONALBUSINESS
 					: TrainClass.REGIONALECONOM;
 			return TrainClass.CITY;
-		}
-
-		public class TrainModel
-		{
-			public TrainTimeModel Time { get; set; }
-			public TrainInformationModel Information { get; set; }
-			public string PlacesUrl { get; set; }
-			public PlaceClasses Clases { get; set; }
-			public TrainClass Type { get; set; }
-		}
-
-		public class TrainTimeModel
-		{
-			public DateTime StartTime { get; set; }
-			public DateTime EndTime { get; set; }
-		}
-
-		public class TrainInformationModel
-		{
-			public string Name { get; set; }
-			public string Schedule { get; set; }
 		}
 	}
 }

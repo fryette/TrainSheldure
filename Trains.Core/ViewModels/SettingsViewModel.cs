@@ -151,9 +151,14 @@ namespace Trains.Core.ViewModels
 		#region actions
 		public void Init()
 		{
-			Countries = _appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints).Any() ?
-				new List<Country>(_appSettings.Countries.Except(_appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints).GroupBy(x => x.LabelTail).First().Select(x => new Country { Name = x.LabelTail }))) :
-				_appSettings.Countries;
+			Countries = _appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints).Any()
+				? new List<Country>(
+					_appSettings.Countries.Except(
+						_appSettings.AutoCompletion.Skip(Defines.Common.NumberOfBelarussianStopPoints)
+							.GroupBy(x => x.LabelTail)
+							.First()
+							.Select(x => new Country {Name = x.LabelTail})))
+				: _appSettings.Countries;
 			SelectedCountry = Countries.FirstOrDefault();
 			_timeOfNotify = _appSettings.Reminder;
 			CheckIsAllCountriesDownloaded();

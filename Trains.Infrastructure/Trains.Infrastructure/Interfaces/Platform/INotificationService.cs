@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Trains.Entities;
+using Trains.Model;
 
 namespace Trains.Infrastructure.Interfaces.Platform
 {
 	public interface INotificationService
 	{
-		Task<TimeSpan> AddTrainToNotification(Train train, TimeSpan reminder);
+		Task<TimeSpan> AddTrainToNotification(TrainModel train, TimeSpan reminder);
 	}
 }

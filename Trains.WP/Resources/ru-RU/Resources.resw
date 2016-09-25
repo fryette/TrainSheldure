@@ -444,4 +444,7 @@
   <data name="Next" xml:space="preserve">
     <value>Дальше</value>
   </data>
+  <data name="OntheWay" xml:space="preserve">
+    <value>В пути: </value>
+  </data>
 </root>

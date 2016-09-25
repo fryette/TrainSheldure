@@ -5,12 +5,12 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Entities;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Extensions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
+using Trains.Model;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
@@ -207,11 +207,11 @@ namespace Trains.Core.ViewModels
 
 		public void Init(string param)
 		{
-			var train = _jsonConverter.Deserialize<Train>(param);
+			var train = _jsonConverter.Deserialize<TrainModel>(param);
 			From = _appSettings.UpdatedLastRequest.Route.From;
 			To = _appSettings.UpdatedLastRequest.Route.To;
-			TrainNumber = train.City.Split(' ')[0].Substring(0, 3);
-			DepartureDate = train.StartTime;
+			TrainNumber = train.Information.Name.Split(' ')[0].Substring(0, 3);
+			DepartureDate = train.Time.StartTime;
 			SelectedTypeOfPlace = TypeOfPlace.FirstOrDefault();
 			SelectedNumberOfTickets = NumberOfTickets.FirstOrDefault();
 			Cityes = new List<string>(_appSettings.Tickets.Select(x => x.Name));

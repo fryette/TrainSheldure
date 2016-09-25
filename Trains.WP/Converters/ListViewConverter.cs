@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml.Data;
-using Trains.Entities;
+using Trains.Model;
 
 namespace Trains.WP.Converters
 {
@@ -13,7 +13,7 @@ namespace Trains.WP.Converters
 			if (value == null) return null;
 			var collection = new CollectionViewSource
 			{
-				Source = ((List<Train>)value).GroupBy(x => x.BeforeDepartureTime),
+				Source = ((List<TrainModel>)value).GroupBy(x => x.Time.StartTime),
 				IsSourceGrouped = true
 			};
 			return collection;

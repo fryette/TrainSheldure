@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Appointments;
-using Trains.Entities;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces.Platform;
+using Trains.Model;
+using Trains.Model.Entities;
 
 namespace Trains.WP.Services
 {
@@ -11,22 +12,22 @@ namespace Trains.WP.Services
 	{
 		private AppointmentCalendar _currentAppCalendar;
 
-		public async Task<TimeSpan> AddTrainToNotification(Train train, TimeSpan reminder)
+		public async Task<TimeSpan> AddTrainToNotification(TrainModel train, TimeSpan reminder)
 		{
 			if (_currentAppCalendar == null)
 				await CheckForAndCreateAppointmentCalendars();
 
-			var tempTime = train.StartTime - DateTime.Now;
+			var tempTime = train.Time.StartTime - DateTime.Now;
 			var timeToNotify = tempTime < reminder ? new TimeSpan(tempTime.Ticks / 2) : reminder;
 
 			var newAppointment = new Appointment
 			{
-				Subject = train.City,
-				StartTime = train.StartTime,
-				Duration = train.EndTime - train.StartTime,
+				Subject = train.Information.Name,
+				StartTime = train.Time.StartTime,
+				Duration = train.Time.EndTime - train.Time.StartTime,
 				Reminder = timeToNotify,
-				Location = train.City,
-				RoamingId = train.City
+				Location = train.Information.Name,
+				RoamingId = train.Information.Name
 			};
 
 			await _currentAppCalendar.SaveAppointmentAsync(newAppointment);

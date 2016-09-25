@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Entities;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Services;
+using Trains.Model;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
@@ -18,9 +18,10 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public InformationViewModel(ITrainStopService trainStop)
+		public InformationViewModel(ITrainStopService trainStop, IJsonConverter jsonConverter)
 		{
 			_trainStop = trainStop;
+			_jsonConverter = jsonConverter;
 		}
 
 		#endregion
@@ -41,7 +42,7 @@ namespace Trains.Core.ViewModels
 		/// <summary>
 		/// User-selected train.
 		/// </summary>
-		public Train Train { get; set; }
+		public TrainModel Train { get; set; }
 
 		/// <summary>
 		/// Used for process control.
@@ -65,13 +66,13 @@ namespace Trains.Core.ViewModels
 		public void Init(string param)
 		{
 			IsTaskRun = true;
-			Train = _jsonConverter.Deserialize<Train>(param);
+			Train = _jsonConverter.Deserialize<TrainModel>(param);
 			SearchStopPoint();
 		}
 
 		private async void SearchStopPoint()
 		{
-			StopPointList = await _trainStop.GetTrainStop(Train.Link);
+			StopPointList = await _trainStop.GetTrainStop(Train.StopPointsUrl);
 			IsTaskRun = false;
 		}
 		#endregion

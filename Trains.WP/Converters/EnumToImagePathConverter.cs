@@ -30,6 +30,7 @@ namespace Trains.WP.Converters
 
 
 		private static readonly Color[] Images = {
+			Colors.Black,
 			Colors.Yellow,
 			Colors.DarkGreen,
 			Colors.Green,
@@ -64,7 +65,7 @@ namespace Trains.WP.Converters
 					return new BitmapImage(HelpPicture[(TrainClass)value]);
 				case "SocialPicture":
 					return new BitmapImage(new Uri(SocialPicture[(ShareSocial)value] +
-					                               (((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png")));
+												   (((App.Current.Resources["PhoneForegroundBrush"] as SolidColorBrush).Color).R == 0 ? "Black.png" : "White.png")));
 				case "Carriage":
 					return new BitmapImage(_carriagePictures[(Carriage)value]);
 				case "TrainClass":

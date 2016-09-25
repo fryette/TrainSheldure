@@ -55,8 +55,8 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		private List<CarriageModel> _carriageInformation;
-		public List<CarriageModel> CarriageInformation
+		private IEnumerable<CarriageModel> _carriageInformation;
+		public IEnumerable<CarriageModel> CarriageInformation
 		{
 			get { return _carriageInformation; }
 			set
@@ -66,7 +66,7 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		public List<PlaceInformation> PlaceInformation { get; set; }
+		public IEnumerable<PlaceInformation> PlaceInformation { get; set; }
 		//public List<string> PlaceInformation
 		//{
 		//    get { return new List<string>{} }

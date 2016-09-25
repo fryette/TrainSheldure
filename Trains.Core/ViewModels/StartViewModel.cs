@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Entities;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Extensions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
+using Trains.Model;
 using Trains.Model.Entities;
 
 namespace Trains.Core.ViewModels
@@ -54,7 +54,7 @@ namespace Trains.Core.ViewModels
 			appSettings.CopyProperties(_appSettings);
 
 			_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
-			_appSettings.LastRequestTrain = _serializable.Desserialize<List<Train>>(Defines.Restoring.LastTrainList);
+			_appSettings.LastRequestTrain = _serializable.Desserialize<List<TrainModel>>(Defines.Restoring.LastTrainList);
 			_appSettings.Tickets = appSettings.Tickets;
 
 			var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);

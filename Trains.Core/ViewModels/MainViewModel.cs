@@ -4,7 +4,6 @@ using System.Linq;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.Plugins.Email;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Entities;
 using Trains.Model.Entities;
 using System.Threading.Tasks;
 using System.Net.NetworkInformation;
@@ -12,6 +11,7 @@ using Trains.Infrastructure;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
+using Trains.Model;
 using static System.String;
 
 namespace Trains.Core.ViewModels
@@ -46,13 +46,13 @@ namespace Trains.Core.ViewModels
 
 		public MvxCommand<About> TappedAboutItemCommand { get; private set; }
 		public IMvxCommand GoToHelpCommand { get; private set; }
-		public MvxCommand<Train> SelectTrainCommand { get; private set; }
+		public MvxCommand<TrainModel> SelectTrainCommand { get; private set; }
 		public IMvxCommand UpdateLastRequestCommand { get; private set; }
 		public IMvxCommand SearchTrainCommand { get; private set; }
 		public IMvxCommand SwapCommand { get; private set; }
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
-		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; private set; }
-		public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
+		public MvxCommand<TrainModel> NotifyAboutSelectedTrainCommand { get; private set; }
+		public MvxCommand<TrainModel> BookingSelectedTrainCommand { get; private set; }
 
 		#endregion
 
@@ -81,15 +81,15 @@ namespace Trains.Core.ViewModels
 
 			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
 			GoToHelpCommand = new MvxCommand(GoToHelpPage);
-			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
+			SelectTrainCommand = new MvxCommand<TrainModel>(ClickItem);
 			UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
 			SearchTrainCommand = new MvxCommand(() => SearchTrain(From?.Trim(), To?.Trim()));
 
 			SwapCommand = new MvxCommand(Swap);
 			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
 
-			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
-			BookingSelectedTrainCommand = new MvxCommand<Train>(BookingSelectedTrain);
+			NotifyAboutSelectedTrainCommand = new MvxCommand<TrainModel>(NotifyAboutSelectedTrain);
+			BookingSelectedTrainCommand = new MvxCommand<TrainModel>(BookingSelectedTrain);
 		}
 
 		#endregion
@@ -99,8 +99,8 @@ namespace Trains.Core.ViewModels
 		private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
 		public IEnumerable<About> AboutItems { get; set; }
 
-		private List<Route> _lastRoutes;
-		public List<Route> LastRoutes
+		private IEnumerable<Route> _lastRoutes;
+		public IEnumerable<Route> LastRoutes
 		{
 			get
 			{
@@ -211,9 +211,9 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		private static List<Train> _trains;
+		private static IEnumerable<TrainModel> _trains;
 
-		public List<Train> Trains
+		public IEnumerable<TrainModel> Trains
 		{
 			get { return _trains; }
 			set
@@ -239,14 +239,15 @@ namespace Trains.Core.ViewModels
 
 		private async void SearchTrain(string from, string to)
 		{
-			if (await CheckInput(Datum, from, to, _appSettings.AutoCompletion)) return;
+			if (await CheckInput(Datum, from, to)) return;
 			IsTaskRun = true;
 			AddToLastRoutes(new Route { From = from, To = to });
-			var schedule = await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == from),
-					_appSettings.AutoCompletion.First(x => x.Value == to), Datum, SelectedVariant);
-			if (schedule != null)
+			var schedule = (await _search.GetTrainSchedule(_appSettings.AutoCompletion.First(x => x.Value == @from),
+					_appSettings.AutoCompletion.First(x => x.Value == to), Datum, SelectedVariant)).ToList();
+
+			if (schedule.Any())
 			{
-				_appSettings.LastRequestTrain = schedule;
+				_appSettings.LastRequestTrain = schedule.ToList();
 				_appSettings.UpdatedLastRequest = new LastRequest { Route = new Route { From = from, To = to }, SelectionMode = SelectedVariant, Date = Datum };
 				_serializable.Serialize(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
 				_serializable.Serialize(schedule, Defines.Restoring.LastTrainList);
@@ -287,7 +288,7 @@ namespace Trains.Core.ViewModels
 			IsTaskRun = false;
 		}
 
-		private void ClickItem(Train train)
+		private void ClickItem(TrainModel train)
 		{
 			if (train == null) return;
 			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
@@ -342,7 +343,7 @@ namespace Trains.Core.ViewModels
 			if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == station) AutoSuggestions = null;
 		}
 
-		public async Task<bool> CheckInput(DateTimeOffset datum, string from, string to, List<CountryStopPointItem> autoCompletion)
+		public async Task<bool> CheckInput(DateTimeOffset datum, string from, string to)
 		{
 			if ((datum.Date - DateTime.Now).Days < 0)
 			{
@@ -356,8 +357,8 @@ namespace Trains.Core.ViewModels
 			}
 
 			if (IsNullOrEmpty(from) || IsNullOrEmpty(to) ||
-				!(autoCompletion.Any(x => x.Value == from.Trim()) &&
-				  autoCompletion.Any(x => x.Value == to.Trim())))
+				!(_appSettings.AutoCompletion.Any(x => x.Value == from.Trim()) &&
+				  _appSettings.AutoCompletion.Any(x => x.Value == to.Trim())))
 			{
 				await _userInteraction.AlertAsync(_localizationService.GetString("IncorrectInput"));
 				return true;
@@ -368,13 +369,13 @@ namespace Trains.Core.ViewModels
 			return true;
 		}
 
-		public async void NotifyAboutSelectedTrain(Train train)
+		public async void NotifyAboutSelectedTrain(TrainModel train)
 		{
 			var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
 			await _userInteraction.AlertAsync(Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
 		}
 
-		public void BookingSelectedTrain(Train train)
+		public void BookingSelectedTrain(TrainModel train)
 		{
 			ShowViewModel<BookingViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}

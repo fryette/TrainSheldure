@@ -5,11 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.CrossCore;
-using Trains.Entities;
 using Trains.Infrastructure;
 using Trains.Infrastructure.Extensions;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Services;
+using Trains.Model;
 using Trains.Model.Entities;
 
 namespace Trains.Services
@@ -27,7 +27,7 @@ namespace Trains.Services
 			_httpService = httpService;
 		}
 
-		public async Task<List<Train>> GetTrainSchedule(CountryStopPointItem from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
+		public async Task<IEnumerable<TrainModel>> GetTrainSchedule(CountryStopPointItem @from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
 		{
 			var date = GetDate(datum, selectedVariant);
 			try
@@ -35,22 +35,9 @@ namespace Trains.Services
 				var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
 				if (data == null)
 					return null;
-				new CustomTrainParser(_localizationService).TestMethod(data);
-				//var additionalInformation = TrainGrabber.GetPlaces(data);
-				//var links = TrainGrabber.GetLink(data);
-				//var parameters = data.ParseAsHtml(_localizationService.GetString("TrainsPattern")).ToList();
-				//var isInternetRegistration = TrainGrabber.GetInternetRegistrationsInformations(parameters);
 
-				//List<Train> trains;
-				//var country = _localizationService.GetString("Belarus");
-				//if (!from.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)) && !to.Label.Contains(country.Replace("(", string.Empty).Replace(")", string.Empty)))
-				//	trains = TrainGrabber.GetTrainsInformationOnForeignStantion(parameters, date);
-				//else
-				//	trains = date == "everyday" ? TrainGrabber.GetTrainsInformationOnAllDays(data.ParseAsHtml(_localizationService.GetString("TrainsPattern")).ToList())
-				//		: TrainGrabber.GetTrainsInformation(parameters, date, isInternetRegistration);
-				//trains = TrainGrabber.GetFinallyResult(additionalInformation, links, trains).ToList();
-				//if (!trains.Any()) throw new ArgumentException("Bad request");
-				//return trains;
+				return new CustomTrainParser(_localizationService).TestMethod(data);
+
 			}
 			catch (Exception e)
 			{

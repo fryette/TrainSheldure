@@ -3,10 +3,11 @@ using System.Linq;
 using System.Windows.Input;
 using Chance.MvvmCross.Plugins.UserInteraction;
 using Cirrious.MvvmCross.ViewModels;
-using Trains.Entities;
 using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
+using Trains.Model;
+using Trains.Model.Entities;
 using static System.String;
 
 namespace Trains.Core.ViewModels
@@ -27,10 +28,10 @@ namespace Trains.Core.ViewModels
 		#region command
 
 		public ICommand GoToHelpPageCommand { get; private set; }
-		public MvxCommand<Train> SelectTrainCommand { get; private set; }
+		public MvxCommand<TrainModel> SelectTrainCommand { get; private set; }
 		public ICommand SearchReverseRouteCommand { get; private set; }
-		public MvxCommand<Train> NotifyAboutSelectedTrainCommand { get; set; }
-		public MvxCommand<Train> BookingSelectedTrainCommand { get; private set; }
+		public MvxCommand<TrainModel> NotifyAboutSelectedTrainCommand { get; set; }
+		public MvxCommand<TrainModel> BookingSelectedTrainCommand { get; private set; }
 
 		#endregion
 
@@ -52,10 +53,10 @@ namespace Trains.Core.ViewModels
 
 			SearchReverseRouteCommand = new MvxCommand(SearchReverseRoute);
 			GoToHelpPageCommand = new MvxCommand(() => ShowViewModel<HelpViewModel>());
-			SelectTrainCommand = new MvxCommand<Train>(ClickItem);
-			NotifyAboutSelectedTrainCommand = new MvxCommand<Train>(NotifyAboutSelectedTrain);
+			SelectTrainCommand = new MvxCommand<TrainModel>(ClickItem);
+			NotifyAboutSelectedTrainCommand = new MvxCommand<TrainModel>(NotifyAboutSelectedTrain);
 
-			BookingSelectedTrainCommand = new MvxCommand<Train>(train => ShowViewModel<BookingViewModel>(new
+			BookingSelectedTrainCommand = new MvxCommand<TrainModel>(train => ShowViewModel<BookingViewModel>(new
 			{
 				param = _jsonConverter.Serialize(train)
 			}));
@@ -82,8 +83,8 @@ namespace Trains.Core.ViewModels
 				RaisePropertyChanged(() => IsSearchStart);
 			}
 		}
-		private List<Train> _trains;
-		public List<Train> Trains
+		private IEnumerable<TrainModel> _trains;
+		public IEnumerable<TrainModel> Trains
 		{
 			get
 			{
@@ -116,7 +117,7 @@ namespace Trains.Core.ViewModels
 
 		public void Init(string param)
 		{
-			Trains = _jsonConverter.Deserialize<List<Train>>(param);
+			Trains = _jsonConverter.Deserialize<List<TrainModel>>(param);
 			From = _appSettings.UpdatedLastRequest.Route.From;
 			To = _appSettings.UpdatedLastRequest.Route.To;
 			Request = From + " - " + To;
@@ -141,17 +142,17 @@ namespace Trains.Core.ViewModels
 			To = temp;
 		}
 
-		private void ClickItem(Train train)
+		private void ClickItem(TrainModel train)
 		{
 			if (train == null)
 			{
 				return;
 			}
 
-			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
+			//ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
-		public async void NotifyAboutSelectedTrain(Train train)
+		public async void NotifyAboutSelectedTrain(TrainModel train)
 		{
 			var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
 			await _userInteraction.AlertAsync(Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
