@@ -44,7 +44,6 @@
     <Compile Include="AppSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AboutViewModel.cs" />
-    <Compile Include="ViewModels\BookingViewModel.cs" />
     <Compile Include="ViewModels\CountrySelectionViewModel.cs" />
     <Compile Include="ViewModels\FeaturesViewModel.cs" />
     <Compile Include="ViewModels\HelpViewModel.cs" />

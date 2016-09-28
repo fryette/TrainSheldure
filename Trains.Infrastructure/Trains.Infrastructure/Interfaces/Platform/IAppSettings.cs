@@ -31,8 +31,6 @@ namespace Trains.Infrastructure.Interfaces.Platform
 
 		TimeSpan Reminder { get; set; }
 
-		IEnumerable<Ticket> Tickets { get; set; }
-
 		PersonalInformation PersonalInformation { get; set; }
 
 	}

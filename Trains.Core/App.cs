@@ -29,7 +29,7 @@ namespace Trains.Core
 			//if (isFirstRun == null || isFirstRun != Defines.Common.IsFirstRun)
 			//	RegisterAppStart<FeaturesViewModel>();
 			//else
-			RegisterAppStart<StartViewModel>();
+				RegisterAppStart<StartViewModel>();
 		}
 	}
 }

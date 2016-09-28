@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Chance.MvvmCross.Plugins.UserInteraction;
@@ -98,9 +96,9 @@ namespace Trains.Core.ViewModels
 			_appSettings.CarriageModel = await _local.GetLanguageData<List<CarriageModel>>(Defines.DownloadJson.CarriageModel);
 			_appSettings.About = await _local.GetLanguageData<List<About>>(Defines.DownloadJson.About);
 			_appSettings.SocialUri = await _local.GetOtherData<SocialUri>(Defines.DownloadJson.Social);
-			_appSettings.Tickets = await _local.GetOtherData<List<Ticket>>(Defines.DownloadJson.Tickets);
 			_appSettings.PlaceInformation = await _local.GetLanguageData<List<PlaceInformation>>(Defines.DownloadJson.PlaceInformation);
 			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
+			_appSettings.LastRoutes = new List<Route>();
 
 			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Defines.DownloadJson.Resource), Defines.Restoring.ResourceLoader);
 

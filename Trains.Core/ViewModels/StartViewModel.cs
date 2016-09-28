@@ -47,19 +47,25 @@ namespace Trains.Core.ViewModels
 				ShowViewModel<CountrySelectionViewModel>();
 				return;
 			}
+			try
+			{
+				var appSettings = _serializable.Desserialize<AppSettings>(Defines.Restoring.AppSettings);
+				if (appSettings == null)
+					return;
 
-			var appSettings = _serializable.Desserialize<AppSettings>(Defines.Restoring.AppSettings);
-			if (appSettings == null) return;
+				appSettings.CopyProperties(_appSettings);
 
-			appSettings.CopyProperties(_appSettings);
+				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
+				_appSettings.LastRequestTrain = _serializable.Desserialize<List<TrainModel>>(Defines.Restoring.LastTrainList);
 
-			_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
-			_appSettings.LastRequestTrain = _serializable.Desserialize<List<TrainModel>>(Defines.Restoring.LastTrainList);
-			_appSettings.Tickets = appSettings.Tickets;
+				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
+				_appSettings.LastRoutes = routes ?? new List<Route>();
 
-			var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
-
-			_appSettings.LastRoutes = routes ?? new List<Route>();
+			}
+			catch
+			{
+				_appSettings.LastRoutes = new List<Route>();
+			}
 
 			ShowViewModel<MainViewModel>();
 		}

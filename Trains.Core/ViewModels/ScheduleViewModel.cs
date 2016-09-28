@@ -31,7 +31,6 @@ namespace Trains.Core.ViewModels
 		public MvxCommand<TrainModel> SelectTrainCommand { get; private set; }
 		public ICommand SearchReverseRouteCommand { get; private set; }
 		public MvxCommand<TrainModel> NotifyAboutSelectedTrainCommand { get; set; }
-		public MvxCommand<TrainModel> BookingSelectedTrainCommand { get; private set; }
 
 		#endregion
 
@@ -55,11 +54,6 @@ namespace Trains.Core.ViewModels
 			GoToHelpPageCommand = new MvxCommand(() => ShowViewModel<HelpViewModel>());
 			SelectTrainCommand = new MvxCommand<TrainModel>(ClickItem);
 			NotifyAboutSelectedTrainCommand = new MvxCommand<TrainModel>(NotifyAboutSelectedTrain);
-
-			BookingSelectedTrainCommand = new MvxCommand<TrainModel>(train => ShowViewModel<BookingViewModel>(new
-			{
-				param = _jsonConverter.Serialize(train)
-			}));
 		}
 
 		#endregion
