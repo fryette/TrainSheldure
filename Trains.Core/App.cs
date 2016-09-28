@@ -19,13 +19,13 @@ namespace Trains.Core
 			Mvx.LazyConstructAndRegisterSingleton<IAppSettings, AppSettings>();
 			Mvx.LazyConstructAndRegisterSingleton<ILocalDataService, LocalData>();
 			Mvx.LazyConstructAndRegisterSingleton<IJsonConverter, NewtonsoftJsonConverter>();
-			Mvx.LazyConstructAndRegisterSingleton<ISerializableService, SerializableService>();
+			Mvx.LazyConstructAndRegisterSingleton<ISorageProvider, StorageProvider>();
 			Mvx.LazyConstructAndRegisterSingleton<ISearchService, SearchService>();
 			Mvx.LazyConstructAndRegisterSingleton<IHttpService, BaseHttpService>();
 			Mvx.LazyConstructAndRegisterSingleton<IConfigurationProvider, JsonFileBasedConfigurationProvider>();
 			Mvx.LazyConstructAndRegisterSingleton<ITrainStopService, TrainStopService>();
 
-			//var isFirstRun = Mvx.GetSingleton<ISerializableService>().Desserialize<string>(Defines.Common.IsFirstRun);
+			//var isFirstRun = Mvx.GetSingleton<ISorageProvider>().ReadAndMap<string>(Defines.Common.IsFirstRun);
 			//if (isFirstRun == null || isFirstRun != Defines.Common.IsFirstRun)
 			//	RegisterAppStart<FeaturesViewModel>();
 			//else

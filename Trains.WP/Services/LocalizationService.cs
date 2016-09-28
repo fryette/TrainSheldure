@@ -11,15 +11,15 @@ namespace Trains.WP.Services
 	public class LocalizationService : ILocalizationService
 	{
 		private readonly ResourceLoader _resourceLoader;
-		private readonly ISerializableService _serializable;
+		private readonly ISorageProvider _sorage;
 
-		public LocalizationService(ISerializableService serializable)
+		public LocalizationService(ISorageProvider sorage)
 		{
-			_serializable = serializable;
+			_sorage = sorage;
 			_resourceLoader = ResourceLoader.GetForCurrentView();
 		}
 
-		public string CurrentLanguageId => _serializable.Desserialize<Model.Entities.Language>(Defines.Restoring.AppLanguage)?.Id;
+		public string CurrentLanguageId => _sorage.ReadAndMap<Model.Entities.Language>(Defines.Restoring.AppLanguage)?.Id;
 
 		public string GetString(string key)
 		{

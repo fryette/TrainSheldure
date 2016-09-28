@@ -47,10 +47,11 @@
     <Compile Include="Extensions\Reflection.cs" />
     <Compile Include="Extensions\WIndows1251.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
+    <Compile Include="Interfaces\ICustomTrainParser.cs" />
     <Compile Include="Interfaces\Platform\IAppSettings.cs" />
     <Compile Include="Interfaces\ILocalizationService.cs" />
     <Compile Include="Interfaces\Platform\INotificationService.cs" />
-    <Compile Include="Interfaces\ISerializableService.cs" />
+    <Compile Include="Interfaces\ISorageService.cs" />
     <Compile Include="Interfaces\Services\IHttpService.cs" />
     <Compile Include="Interfaces\IJsonConverter.cs" />
     <Compile Include="Interfaces\Services\ILocalDataService.cs" />

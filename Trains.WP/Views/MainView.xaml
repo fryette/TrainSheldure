@@ -11,7 +11,7 @@
                       d:DataContext="{d:DesignData MainViewModel}">
     <Grid Margin="20,0">
         <Pivot x:Name="MainPivot"
-               IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}"
+               IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverter}}"
                extensions:XamlElementExtensions.Resource="ApplicationName"
                PivotItemLoaded="Pivot_OnPivotItemLoaded">
             <PivotItem extensions:XamlElementExtensions.Resource="MainPivotItem"
@@ -30,12 +30,12 @@
                                       SelectionChanged="ComboBoxSelectionChanged" />
                             <DatePicker x:Name="DataPicker"
                                         extensions:XamlElementExtensions.Resource="DateOfDeparture"
-                                        Date="{Binding Datum,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                        Date="{Binding SearchDate,Mode=TwoWay}"
                                         Style="{StaticResource DatePickerStyle}"
                                         Margin="0,-5,0,0" />
                             <AutoSuggestBox x:Name="From"
                                             extensions:XamlElementExtensions.Resource="From"
-                                            Text="{Binding From, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Text="{Binding From, Mode=TwoWay}"
                                             ItemsSource="{Binding AutoSuggestions}"
                                             IsEnabled="{Binding IsFildEnabled}"
                                             Style="{StaticResource AutoSuggestBoxStyle}"
@@ -45,7 +45,7 @@
                             <AutoSuggestBox x:Name="To"
                                             extensions:XamlElementExtensions.Resource="To"
                                             IsEnabled="{Binding IsFildEnabled,Mode=TwoWay}"
-                                            Text="{Binding To, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                            Text="{Binding To, Mode=TwoWay}"
                                             ItemsSource="{Binding AutoSuggestions,Mode=TwoWay}"
                                             Style="{StaticResource AutoSuggestBoxStyle}"
                                             AutoMaximizeSuggestionArea="True"
@@ -65,8 +65,7 @@
                             <interactivity:Interaction.Behaviors>
                                 <core:EventTriggerBehavior EventName="Tapped">
                                     <core:InvokeCommandAction Command="{Binding TappedRouteCommand}"
-                                                              CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}"
-                                                              InputConverter="{StaticResource SelectionChangedConverter}" />
+                                                              CommandParameter="{Binding ElementName=Routes, Path=SelectedItem}" />
                                 </core:EventTriggerBehavior>
                             </interactivity:Interaction.Behaviors>
                         </ListView>
@@ -111,10 +110,6 @@
                                     </Grid.ColumnDefinitions>
                                     <FlyoutBase.AttachedFlyout>
                                         <MenuFlyout>
-                                            <MenuFlyoutItem x:Name="BookingButton"
-                                                            Text="Забронировать билет"
-                                                            Command="{Binding ElementName=RootGrid, Path=DataContext.BookingSelectedTrainCommand}"
-                                                            CommandParameter="{Binding}" />
                                             <MenuFlyoutItem x:Name="DeleteButton"
                                                             extensions:XamlElementExtensions.Resource="AddToCalendar"
                                                             Command="{Binding ElementName=RootGrid, Path=DataContext.NotifyAboutSelectedTrainCommand}"
@@ -142,7 +137,6 @@
                                                            FontSize="{StaticResource BigFontSize}"
                                                            Foreground="{StaticResource DimGrayColorBrush}" />
                                             </StackPanel>
-
                                             <StackPanel Grid.Column="1"
                                                         Margin="5,0,0,0">
                                                 <TextBlock Text="{Binding Information.Name}"
@@ -162,10 +156,17 @@
                                                     <Border BorderBrush="DarkGray"
                                                             Margin="0,0,10,0"
                                                             Padding="5,0,5,0"
-                                                            Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                                            Background="{Binding IsElectronicRegistrationAvailable,Converter={StaticResource BooleanToBackgroundConverter}}">
                                                         <TextBlock Text="ЭР"
                                                                    FontSize="{StaticResource NormalFontSize}"
                                                                    VerticalAlignment="Bottom" />
+                                                    </Border>
+                                                    <Border BorderBrush="DarkGray"
+                                                            Padding="5,0,5,0"
+                                                            Margin="0,0,10,0"
+                                                            Background="{Binding Clases.IsGeneralAvailable,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                                        <TextBlock Text="О"
+                                                                   FontSize="{StaticResource NormalFontSize}" />
                                                     </Border>
                                                     <Border BorderBrush="DarkGray"
                                                             Padding="5,0,5,0"
@@ -205,7 +206,7 @@
                     </ListView>
                 </Grid>
             </PivotItem>
-            <!--<PivotItem extensions:XamlElementExtensions.Resource="AboutPivotItem">
+            <PivotItem extensions:XamlElementExtensions.Resource="AboutPivotItem">
                 <ListView x:Name="AboutItemList"
                           ItemsSource="{Binding AboutItems}"
                           ItemContainerStyle="{StaticResource ListViewItemStyle}"
@@ -218,9 +219,9 @@
                         </core:EventTriggerBehavior>
                     </interactivity:Interaction.Behaviors>
                 </ListView>
-            </PivotItem>-->
+            </PivotItem>
         </Pivot>
-        <Grid Visibility="{Binding IsTaskRun,Converter={StaticResource BoolToVisibilityConverter}}">
+        <Grid Visibility="{Binding IsLoading,Converter={StaticResource BoolToVisibilityConverter}}">
             <TextBlock extensions:XamlElementExtensions.Resource="Update" />
             <ProgressBar IsIndeterminate="True"
                          VerticalAlignment="Top" />
@@ -229,7 +230,7 @@
     <Page.BottomAppBar>
         <CommandBar x:Name="CommandBar"
                     Visibility="{Binding IsDownloadRun,Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=invert}"
-                    IsEnabled="{Binding IsTaskRun, Converter={StaticResource BooleanInverter}}">
+                    IsEnabled="{Binding IsLoading, Converter={StaticResource BooleanInverter}}">
             <AppBarButton x:Name="UpdateAppBar"
                           extensions:XamlElementExtensions.Resource="UpdateAppBar"
                           Icon="Sync"
@@ -239,12 +240,12 @@
                           Icon="Sort"
                           Command="{Binding SwapCommand}"
                           IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
-            <!--<CommandBar.SecondaryCommands>
+            <CommandBar.SecondaryCommands>
                 <AppBarButton extensions:XamlElementExtensions.Resource="HelpAppBar"
                               Icon="Help"
                               Command="{Binding GoToHelpCommand}"
                               IsEnabled="{Binding IsDownloadRun, Converter={StaticResource BooleanInverter}}" />
-            </CommandBar.SecondaryCommands>-->
+            </CommandBar.SecondaryCommands>
         </CommandBar>
     </Page.BottomAppBar>
 </views:MvxWindowsPage>

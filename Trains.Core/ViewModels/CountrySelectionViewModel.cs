@@ -21,7 +21,7 @@ namespace Trains.Core.ViewModels
 
 		public List<Language> Languages { get; private set; }
 		private Language _selectedLanguage;
-		private readonly ISerializableService _serializable;
+		private readonly ISorageProvider _sorage;
 		private readonly IAnalytics _analytics;
 		private readonly IConfigurationProvider _configurationProvider;
 		private readonly IUserInteraction _userInteraction;
@@ -30,14 +30,14 @@ namespace Trains.Core.ViewModels
 		private readonly ILocalizationService _localizationService;
 
 		public CountrySelectionViewModel(IAnalytics analytics,
-			ISerializableService serializable,
+			ISorageProvider sorage,
 			IConfigurationProvider configurationProvider,
 			IUserInteraction userInteraction,
 			IAppSettings appSettings,
 			ILocalDataService local, ILocalizationService localizationService)
 		{
 			_analytics = analytics;
-			_serializable = serializable;
+			_sorage = sorage;
 			_configurationProvider = configurationProvider;
 			_userInteraction = userInteraction;
 			_appSettings = appSettings;
@@ -79,7 +79,7 @@ namespace Trains.Core.ViewModels
 		private async void SaveChangesAsync()
 		{
 			_analytics.SentEvent(Defines.Analytics.LanguageChanged, SelectedLanguage.Name);
-			_serializable.Serialize(SelectedLanguage, Defines.Restoring.AppLanguage);
+			_sorage.Save(SelectedLanguage, Defines.Restoring.AppLanguage);
 			_localizationService.ChangeLocale(SelectedLanguage.Id);
 
 			await _userInteraction.AlertAsync(Defines.Common.HiMessage, Defines.Common.HiMessageTitle);
@@ -100,14 +100,14 @@ namespace Trains.Core.ViewModels
 			_appSettings.Countries = await _local.GetLanguageData<List<Country>>(Defines.DownloadJson.Countries);
 			_appSettings.LastRoutes = new List<Route>();
 
-			_serializable.Serialize(await _local.GetLanguageData<Dictionary<string, string>>(Defines.DownloadJson.Resource), Defines.Restoring.ResourceLoader);
+			_sorage.Save(await _local.GetLanguageData<Dictionary<string, string>>(Defines.DownloadJson.Resource), Defines.Restoring.ResourceLoader);
 
 			if (_appSettings.Reminder.Seconds == 0)
 			{
 				_appSettings.Reminder = new TimeSpan(1, 0, 0);
 			}
 
-			_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
+			_sorage.Save(_appSettings, Defines.Restoring.AppSettings);
 
 			IsDownloadRunning = true;
 		}

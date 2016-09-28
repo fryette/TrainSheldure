@@ -19,33 +19,40 @@ namespace Trains.Services
 		private readonly IHttpService _httpService;
 		private readonly IAnalytics _analytics;
 		private readonly ILocalizationService _localizationService;
+		private readonly IUserInteraction _userInteraction;
+		private ISorageProvider _sorage;
 
-		public SearchService(IHttpService httpService, IAnalytics analytics, ILocalizationService localizationService)
+		public SearchService(
+			IHttpService httpService,
+			IAnalytics analytics,
+			ILocalizationService localizationService,
+			IUserInteraction userInteraction)
 		{
 			_analytics = analytics;
 			_localizationService = localizationService;
+			_userInteraction = userInteraction;
 			_httpService = httpService;
 		}
 
 		public async Task<IEnumerable<TrainModel>> GetTrainSchedule(CountryStopPointItem @from, CountryStopPointItem to, DateTimeOffset datum, string selectedVariant)
 		{
 			var date = GetDate(datum, selectedVariant);
-			try
-			{
-				var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
-				if (data == null)
-					return null;
+			var data = await _httpService.LoadResponseAsync(GetUrl(from, to, date));
 
-				return new CustomTrainParser(_localizationService).TestMethod(data);
-
-			}
-			catch (Exception e)
+			if (data == null)
 			{
-				_analytics.SentException(e.Message);
-				_analytics.SentEvent("exceptions", "Search", $"{e.Message}---{@from.Value}{'-'}{to.Value}{':'}{selectedVariant}");
+				return Enumerable.Empty<TrainModel>();
 			}
-			await Mvx.Resolve<IUserInteraction>().AlertAsync(_localizationService.GetString("TrainsNotFound"));
-			return null;
+
+			var result = new CustomTrainParser(_localizationService).LoadDataOnTheDay(data).ToList();
+
+			if (result.Any())
+			{
+				_sorage.Save(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
+				_sorage.Save(result, Defines.Restoring.LastTrainList);
+			}
+
+			return result;
 		}
 
 		private Uri GetUrl(CountryStopPointItem fromItem, CountryStopPointItem toItem, string date)

@@ -16,7 +16,7 @@ namespace Trains.Core.ViewModels
 	{
 		#region readonlyProperties
 
-		private readonly ISerializableService _serializable;
+		private readonly ISorageProvider _sorage;
 		private readonly IAppSettings _appSettings;
 		private readonly IAnalytics _analytics;
 		private readonly ILocalDataService _local;
@@ -34,7 +34,7 @@ namespace Trains.Core.ViewModels
 
 		#region ctor
 
-		public SettingsViewModel(ISerializableService serializable,
+		public SettingsViewModel(ISorageProvider sorage,
 			IAppSettings appSettings,
 			IAnalytics analytics,
 			ILocalDataService local,
@@ -42,7 +42,7 @@ namespace Trains.Core.ViewModels
 			ILocalizationService localizationService)
 		{
 			_analytics = analytics;
-			_serializable = serializable;
+			_sorage = sorage;
 			_appSettings = appSettings;
 			_local = local;
 			_userInteraction = userInteraction;
@@ -166,7 +166,7 @@ namespace Trains.Core.ViewModels
 
 		private void ResetSetting()
 		{
-			_serializable.Delete(Defines.Restoring.AppLanguage);
+			_sorage.TryToRemove(Defines.Restoring.AppLanguage);
 			NeedReboot = _localizationService.GetString("NeedReboot");
 		}
 
@@ -181,7 +181,7 @@ namespace Trains.Core.ViewModels
 			{
 				foreach (var countryStopPoint in countryStopPoints)
 					_appSettings.AutoCompletion.Add(countryStopPoint);
-				_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
+				_sorage.Save(_appSettings, Defines.Restoring.AppSettings);
 				Countries.Remove(SelectedCountry);
 				await _userInteraction.AlertAsync(
 					$"{SelectedCountry.Name}{' '}{_localizationService.GetString("CountrySuccessfullyAdded")}");
@@ -208,7 +208,7 @@ namespace Trains.Core.ViewModels
 		private void TimeChanged()
 		{
 			_appSettings.Reminder = TimeOfNotify;
-			_serializable.Serialize(_appSettings, Defines.Restoring.AppSettings);
+			_sorage.Save(_appSettings, Defines.Restoring.AppSettings);
 		}
 		#endregion
 	}

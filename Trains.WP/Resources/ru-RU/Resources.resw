@@ -447,4 +447,7 @@
   <data name="OntheWay" xml:space="preserve">
     <value>В пути: </value>
   </data>
+  <data name="ElectronicRegistrasionAbr" xml:space="preserve">
+    <value>ЭР</value>
+  </data>
 </root>

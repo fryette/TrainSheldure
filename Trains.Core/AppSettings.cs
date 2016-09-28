@@ -10,7 +10,7 @@ namespace Trains.Core
 	{
 		public List<LastRequest> FavoriteRequests { get; set; }
 		public LastRequest UpdatedLastRequest { get; set; }
-		public IEnumerable<TrainModel> LastRequestTrain { get; set; }
+		public IEnumerable<TrainModel> LastRequestedTrains { get; set; }
 
 		public List<CountryStopPointItem> AutoCompletion { get; set; }
 		public IEnumerable<PlaceInformation> PlaceInformation { get; set; }

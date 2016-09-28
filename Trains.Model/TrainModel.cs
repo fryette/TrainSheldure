@@ -9,5 +9,6 @@ namespace Trains.Model
 		public string StopPointsUrl { get; set; }
 		public PlaceClasses Clases { get; set; }
 		public TrainClass Type { get; set; }
+		public bool IsElectronicRegistrationAvailable { get; set; }
 	}
 }

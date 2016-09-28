@@ -17,7 +17,7 @@ namespace Trains.Core.ViewModels
 	public class StartViewModel : MvxViewModel
 	{
 		private readonly IAppSettings _appSettings;
-		private readonly ISerializableService _serializable;
+		private readonly ISorageProvider _sorage;
 		private readonly IUserInteraction _userInteraction;
 		private readonly ILocalDataService _local;
 		private readonly ILocalizationService _localizationService;
@@ -26,12 +26,12 @@ namespace Trains.Core.ViewModels
 
 		public StartViewModel(IAppSettings appSettings,
 			IUserInteraction userInteraction,
-			ISerializableService serializable,
+			ISorageProvider sorage,
 			ILocalDataService local, ILocalizationService localizationService)
 		{
 			_appSettings = appSettings;
 			_userInteraction = userInteraction;
-			_serializable = serializable;
+			_sorage = sorage;
 			_local = local;
 			_localizationService = localizationService;
 
@@ -42,23 +42,26 @@ namespace Trains.Core.ViewModels
 		{
 			if (_localizationService.CurrentLanguageId == null)
 			{
-				_serializable.ClearAll();
+				_sorage.ClearAll();
 
 				ShowViewModel<CountrySelectionViewModel>();
 				return;
 			}
 			try
 			{
-				var appSettings = _serializable.Desserialize<AppSettings>(Defines.Restoring.AppSettings);
+				var appSettings = _sorage.ReadAndMap<AppSettings>(Defines.Restoring.AppSettings);
+
 				if (appSettings == null)
+				{
 					return;
+				}
 
 				appSettings.CopyProperties(_appSettings);
 
-				_appSettings.UpdatedLastRequest = _serializable.Desserialize<LastRequest>(Defines.Restoring.UpdateLastRequest);
-				_appSettings.LastRequestTrain = _serializable.Desserialize<List<TrainModel>>(Defines.Restoring.LastTrainList);
+				_appSettings.UpdatedLastRequest = _sorage.ReadAndMap<LastRequest>(Defines.Restoring.UpdateLastRequest);
+				_appSettings.LastRequestedTrains = _sorage.ReadAndMap<List<TrainModel>>(Defines.Restoring.LastTrainList);
 
-				var routes = _serializable.Desserialize<List<Route>>(Defines.Restoring.LastRoutes);
+				var routes = _sorage.ReadAndMap<List<Route>>(Defines.Restoring.LastRoutes);
 				_appSettings.LastRoutes = routes ?? new List<Route>();
 
 			}

@@ -38,10 +38,6 @@
                                 </Grid.ColumnDefinitions>
                                 <FlyoutBase.AttachedFlyout>
                                     <MenuFlyout>
-                                        <MenuFlyoutItem x:Name="BookingButton"
-                                                        Text="Забронировать билет"
-                                                        Command="{Binding ElementName=RootGrid, Path=DataContext.BookingSelectedTrainCommand}"
-                                                        CommandParameter="{Binding}" />
                                         <MenuFlyoutItem x:Name="DeleteButton"
                                                         extensions:XamlElementExtensions.Resource="AddToCalendar"
                                                         Command="{Binding ElementName=RootGrid, Path=DataContext.NotifyAboutSelectedTrainCommand}"
@@ -89,10 +85,17 @@
                                                 <Border BorderBrush="DarkGray"
                                                         Margin="0,0,10,0"
                                                         Padding="5,0,5,0"
-                                                        Background="{Binding InternetRegistration,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                                        Background="{Binding IsElectronicRegistrationAvailable,Converter={StaticResource BooleanToBackgroundConverter}}">
                                                     <TextBlock Text="ЭР"
                                                                FontSize="{StaticResource NormalFontSize}"
                                                                VerticalAlignment="Bottom" />
+                                                </Border>
+                                                <Border BorderBrush="DarkGray"
+                                                        Padding="5,0,5,0"
+                                                        Margin="0,0,10,0"
+                                                        Background="{Binding Clases.IsGeneralAvailable,Converter={StaticResource BooleanToBackgroundConverter}}">
+                                                    <TextBlock Text="О"
+                                                               FontSize="{StaticResource NormalFontSize}" />
                                                 </Border>
                                                 <Border BorderBrush="DarkGray"
                                                         Padding="5,0,5,0"

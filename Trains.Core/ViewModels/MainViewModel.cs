@@ -12,94 +12,42 @@ using Trains.Infrastructure.Interfaces;
 using Trains.Infrastructure.Interfaces.Platform;
 using Trains.Infrastructure.Interfaces.Services;
 using Trains.Model;
-using static System.String;
 
 namespace Trains.Core.ViewModels
 {
 	public class MainViewModel : MvxViewModel
 	{
-		#region readonlyProperties
-
 		private readonly IAppSettings _appSettings;
-
 		private readonly IMvxComposeEmailTask _email;
-
 		private readonly IMarketPlaceService _marketPlace;
-
 		private readonly IAnalytics _analytics;
-
-		private readonly ISerializableService _serializable;
-
+		private readonly ISorageProvider _sorage;
 		private readonly ISearchService _search;
-
 		private readonly INotificationService _notificationService;
-
 		private readonly IUserInteraction _userInteraction;
-
 		private readonly ILocalizationService _localizationService;
-
 		private readonly IJsonConverter _jsonConverter;
 
-		#endregion
-
-		#region commands
-
-		public MvxCommand<About> TappedAboutItemCommand { get; private set; }
 		public IMvxCommand GoToHelpCommand { get; private set; }
-		public MvxCommand<TrainModel> SelectTrainCommand { get; private set; }
 		public IMvxCommand UpdateLastRequestCommand { get; private set; }
 		public IMvxCommand SearchTrainCommand { get; private set; }
 		public IMvxCommand SwapCommand { get; private set; }
+		public MvxCommand<TrainModel> SelectTrainCommand { get; private set; }
+		public MvxCommand<About> TappedAboutItemCommand { get; private set; }
 		public MvxCommand<Route> TappedRouteCommand { get; private set; }
 		public MvxCommand<TrainModel> NotifyAboutSelectedTrainCommand { get; private set; }
 
-		#endregion
-
-		#region ctor
-
-		public MainViewModel(
-			ISerializableService serializable,
-			ISearchService search,
-			IAppSettings appSettings,
-			IMarketPlaceService marketPlace,
-			IAnalytics analytics,
-			IMvxComposeEmailTask email,
-			INotificationService notificationService,
-			IUserInteraction userInteraction,
-			ILocalizationService localizationService,
-			IJsonConverter jsonConverter)
-		{
-			_email = email;
-			_analytics = analytics;
-			_serializable = serializable;
-			_search = search;
-			_appSettings = appSettings;
-			_marketPlace = marketPlace;
-			_notificationService = notificationService;
-			_userInteraction = userInteraction;
-			_localizationService = localizationService;
-			_jsonConverter = jsonConverter;
-
-			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
-			GoToHelpCommand = new MvxCommand(GoToHelpPage);
-			SelectTrainCommand = new MvxCommand<TrainModel>(ClickItem);
-			UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
-			SearchTrainCommand = new MvxCommand(() => SearchTrain(From?.Trim(), To?.Trim()));
-
-			SwapCommand = new MvxCommand(Swap);
-			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
-
-			NotifyAboutSelectedTrainCommand = new MvxCommand<TrainModel>(NotifyAboutSelectedTrain);
-		}
-
-		#endregion
-
-		#region properties
-
-		private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
-		public IEnumerable<About> AboutItems { get; set; }
-
+		private List<string> _variantOfSearch;
+		private List<string> _autoSuggestions;
+		private IEnumerable<TrainModel> _trains;
 		private List<Route> _lastRoutes;
+		private DateTimeOffset _searchDate;
+		private string _selectedDate;
+		private string _to;
+		private string _from;
+		private Dictionary<AboutPicture, Action> AboutItemsActions { get; set; }
+		private bool _isLoading;
+		public IEnumerable<About> AboutItems { get; set; }
 
 		public List<Route> LastRoutes
 		{
@@ -111,19 +59,15 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		private DateTimeOffset _datum = new DateTimeOffset(DateTime.Now);
-
-		public DateTimeOffset Datum
+		public DateTimeOffset SearchDate
 		{
-			get { return _datum; }
+			get { return _searchDate; }
 			set
 			{
-				_datum = value;
-				RaisePropertyChanged(() => Datum);
+				_searchDate = value;
+				RaisePropertyChanged(() => SearchDate);
 			}
 		}
-
-		private List<string> _variantOfSearch;
 
 		public List<string> VariantOfSearch
 		{
@@ -135,23 +79,7 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		public string LastUpdateTime
-		{
-			get
-			{
-				if (_appSettings.UpdatedLastRequest == null)
-					return null;
-				var date = DateTimeOffset.Now - _appSettings.UpdatedLastRequest.Date;
-				return _localizationService.GetString("Updated") +
-					   (date.TotalMinutes > 1
-						   ? (date.Hours > 1
-							   ? date.Hours + _localizationService.GetString("Hour")
-							   : date.Minutes + _localizationService.GetString("Min")) + _localizationService.GetString("Ago")
-						   : _localizationService.GetString("JustNow"));
-			}
-		}
-
-		private string _selectedDate;
+		public TimeSpan LastUpdateTime => DateTimeOffset.Now - _appSettings.UpdatedLastRequest.Date;
 
 		public string SelectedVariant
 		{
@@ -164,8 +92,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		private List<string> _autoSuggestions;
-
 		public List<string> AutoSuggestions
 		{
 			get { return _autoSuggestions; }
@@ -175,8 +101,6 @@ namespace Trains.Core.ViewModels
 				RaisePropertyChanged(() => AutoSuggestions);
 			}
 		}
-
-		private string _from;
 
 		public string From
 		{
@@ -189,8 +113,6 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		private string _to;
-
 		public string To
 		{
 			get { return _to; }
@@ -202,19 +124,15 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		private bool _isTaskRun;
-
-		public bool IsTaskRun
+		public bool IsLoading
 		{
-			get { return _isTaskRun; }
+			get { return _isLoading; }
 			set
 			{
-				_isTaskRun = value;
-				RaisePropertyChanged(() => IsTaskRun);
+				_isLoading = value;
+				RaisePropertyChanged(() => IsLoading);
 			}
 		}
-
-		private static IEnumerable<TrainModel> _trains;
 
 		public IEnumerable<TrainModel> Trains
 		{
@@ -226,49 +144,94 @@ namespace Trains.Core.ViewModels
 			}
 		}
 
-		#endregion
+		public MainViewModel(
+			ISorageProvider sorage,
+			ISearchService search,
+			IAppSettings appSettings,
+			IMarketPlaceService marketPlace,
+			IAnalytics analytics,
+			IMvxComposeEmailTask email,
+			INotificationService notificationService,
+			IUserInteraction userInteraction,
+			ILocalizationService localizationService,
+			IJsonConverter jsonConverter)
+		{
+			_email = email;
+			_analytics = analytics;
+			_sorage = sorage;
+			_search = search;
+			_appSettings = appSettings;
+			_marketPlace = marketPlace;
+			_notificationService = notificationService;
+			_userInteraction = userInteraction;
+			_localizationService = localizationService;
+			_jsonConverter = jsonConverter;
+
+			TappedAboutItemCommand = new MvxCommand<About>(ClickAboutItem);
+			GoToHelpCommand = new MvxCommand(GoToHelpPage);
+			SelectTrainCommand = new MvxCommand<TrainModel>(ClickItem);
+			UpdateLastRequestCommand = new MvxCommand(UpdateLastRequest);
+			SearchTrainCommand = new MvxCommand(async () => await SearchTrainAsync(From?.Trim(), To?.Trim()));
+			NotifyAboutSelectedTrainCommand = new MvxCommand<TrainModel>(NotifyAboutSelectedTrain);
+			SwapCommand = new MvxCommand(Swap);
+			TappedRouteCommand = new MvxCommand<Route>(SetRoute);
+		}
 
 		#region actions
 
 		public void Init()
 		{
-			RestoreUiBinding();
+			InitializePropertiesToDefaultState();
 
-			Trains = _appSettings.LastRequestTrain;
+			Trains = _appSettings.LastRequestedTrains;
 			LastRoutes = new List<Route>(_appSettings?.LastRoutes);
 			AboutItems = _appSettings.About;
 			SelectedVariant = VariantOfSearch[0];
+			SearchDate = DateTimeOffset.Now;
+			LastRoutes = new List<Route>();
 		}
 
-		private async void SearchTrain(string from, string to)
+		private async Task SearchTrainAsync(string from, string to)
 		{
-			if (await CheckInput(Datum, from, to))
+			var exception = CheckInput(SearchDate, from, to);
+
+			if (!string.IsNullOrEmpty(exception))
+			{
+				await _userInteraction.AlertAsync(_localizationService.GetString(exception));
 				return;
-			IsTaskRun = true;
+			}
+
+			IsLoading = true;
+
 			AddToLastRoutes(new Route { From = from, To = to });
+
 			var schedule = (await _search.GetTrainSchedule(
-				_appSettings.AutoCompletion.First(x => x.Value == @from),
+				_appSettings.AutoCompletion.First(x => x.Value == from),
 				_appSettings.AutoCompletion.First(x => x.Value == to),
-				Datum,
+				SearchDate,
 				SelectedVariant)).ToList();
 
 			if (schedule.Any())
 			{
-				_appSettings.LastRequestTrain = schedule.ToList();
+				_appSettings.LastRequestedTrains = schedule.ToList();
 				_appSettings.UpdatedLastRequest = new LastRequest
 				{
 					Route = new Route { From = from, To = to },
 					SelectionMode = SelectedVariant,
-					Date = Datum
+					Date = SearchDate
 				};
-				_serializable.Serialize(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
-				_serializable.Serialize(schedule, Defines.Restoring.LastTrainList);
+				_sorage.Save(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
+
 				ShowViewModel<ScheduleViewModel>(new { param = _jsonConverter.Serialize(schedule) });
 
 				_analytics.SentEvent(Defines.Analytics.VariantOfSearch, SelectedVariant);
 			}
+			else
+			{
+				await _userInteraction.AlertAsync(_localizationService.GetString("TrainsNotFound"));
+			}
 
-			IsTaskRun = false;
+			IsLoading = false;
 		}
 
 		private async void UpdateLastRequest()
@@ -278,7 +241,7 @@ namespace Trains.Core.ViewModels
 				return;
 			}
 
-			IsTaskRun = true;
+			IsLoading = true;
 
 			var trains =
 				await
@@ -295,19 +258,22 @@ namespace Trains.Core.ViewModels
 			else
 			{
 				_appSettings.UpdatedLastRequest.Date = DateTimeOffset.Now;
-				_serializable.Serialize(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
+				_sorage.Save(_appSettings.UpdatedLastRequest, Defines.Restoring.UpdateLastRequest);
 				RaisePropertyChanged(() => LastUpdateTime);
 				Trains = trains;
-				_serializable.Serialize(Trains, Defines.Restoring.LastTrainList);
+				_sorage.Save(Trains, Defines.Restoring.LastTrainList);
 			}
 
-			IsTaskRun = false;
+			IsLoading = false;
 		}
 
 		private void ClickItem(TrainModel train)
 		{
 			if (train == null)
+			{
 				return;
+			}
+
 			ShowViewModel<InformationViewModel>(new { param = _jsonConverter.Serialize(train) });
 		}
 
@@ -331,85 +297,85 @@ namespace Trains.Core.ViewModels
 
 		private void AddToLastRoutes(Route route)
 		{
-			var routes = new List<Route> { route };
-
-			if (LastRoutes == null)
-			{
-				LastRoutes = new List<Route>();
-			}
-
-			routes.AddRange(LastRoutes);
-
-			_appSettings.LastRoutes =
-				LastRoutes = routes.Take(20).GroupBy(x => new { x.From, x.To }).Select(g => g.First()).ToList();
-
-			_serializable.Serialize(LastRoutes, Defines.Restoring.LastRoutes);
+			LastRoutes.Insert(0, route);
+			_sorage.Save(LastRoutes, Defines.Restoring.LastRoutes);
 		}
 
 		private void SetRoute(Route route)
 		{
-			if (route == null)
-				return;
-			From = route.From;
-			To = route.To;
+			if (route != null)
+			{
+				From = route.From;
+				To = route.To;
+			}
 		}
 
 		public void UpdateAutoSuggestions(string str)
 		{
+			if (string.IsNullOrWhiteSpace(str))
+			{
+				return;
+			}
+
 			var station = str.Trim();
-			if (IsNullOrEmpty(station))
-				AutoSuggestions = null;
-			AutoSuggestions =
+
+			var result =
 				_appSettings.AutoCompletion.Where(x => x.Value.IndexOf(station, StringComparison.OrdinalIgnoreCase) >= 0)
 					.Select(x => x.Value)
 					.ToList();
-			if (AutoSuggestions.Count == 1 && AutoSuggestions[0] == station)
-				AutoSuggestions = null;
+
+			if (result.Count == 1 && result[0] == station)
+			{
+				AutoSuggestions.Clear();
+			}
+			else
+			{
+				AutoSuggestions = result;
+			}
 		}
 
-		public async Task<bool> CheckInput(DateTimeOffset datum, string from, string to)
+		public string CheckInput(DateTimeOffset searchDate, string from, string to)
 		{
-			if ((datum.Date - DateTime.Now).Days < 0)
+			if ((searchDate.Date - DateTime.Now).Days < 0)
 			{
-				await _userInteraction.AlertAsync(_localizationService.GetString("DateUpTooLater"));
-				return true;
+				return _localizationService.GetString("DateUpTooLater");
 			}
-			if (datum.Date > DateTime.Now.AddDays(45))
+			if (searchDate.Date > DateTime.Now.AddDays(45))
 			{
-				await _userInteraction.AlertAsync(_localizationService.GetString("DateTooBig"));
-				return true;
+				return _localizationService.GetString("DateTooBig");
 			}
 
-			if (IsNullOrEmpty(from) || IsNullOrEmpty(to) ||
+			if (string.IsNullOrEmpty(from) || string.IsNullOrEmpty(to) ||
 				!(_appSettings.AutoCompletion.Any(x => x.Value == from.Trim()) &&
 				  _appSettings.AutoCompletion.Any(x => x.Value == to.Trim())))
 			{
-				await _userInteraction.AlertAsync(_localizationService.GetString("IncorrectInput"));
-				return true;
+				return _localizationService.GetString("IncorrectInput");
 			}
 
 			if (NetworkInterface.GetIsNetworkAvailable())
-				return false;
-			await _userInteraction.AlertAsync(_localizationService.GetString("ConectionError"));
-			return true;
+			{
+				return _localizationService.GetString("ConectionError");
+			}
+
+			return null;
 		}
 
 		public async void NotifyAboutSelectedTrain(TrainModel train)
 		{
 			var reminder = await _notificationService.AddTrainToNotification(train, _appSettings.Reminder);
-			await _userInteraction.AlertAsync(Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
+			await _userInteraction.AlertAsync(string.Format(_localizationService.GetString("NotifyTrainMessage"), reminder));
 		}
 
 		#region restoreResources
 
-		private void RestoreUiBinding()
+		private void InitializePropertiesToDefaultState()
 		{
 			VariantOfSearch = new List<string>
 			{
 				//_localizationService.GetString("Yesterday"),
 				_localizationService.GetString("Today"),
 				_localizationService.GetString("Tommorow"),
-				//_localizationService.GetString("OnAllDays"),
+				_localizationService.GetString("OnAllDays"),
 				_localizationService.GetString("OnDay")
 			};
 
@@ -419,7 +385,7 @@ namespace Trains.Core.ViewModels
 				{
 					AboutPicture.MAIL,
 					() =>
-						_email.ComposeEmail("sampir.fiesta@gmail.com", Empty, _localizationService.GetString("Feedback"), Empty, false)
+						_email.ComposeEmail("sampir.fiesta@gmail.com", string.Empty, _localizationService.GetString("Feedback"), string.Empty, false)
 				},
 				{AboutPicture.MARKET, () => _marketPlace.GoToMarket()},
 				{AboutPicture.SETTINGS, () => ShowViewModel<SettingsViewModel>()},

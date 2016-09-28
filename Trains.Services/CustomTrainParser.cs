@@ -9,7 +9,7 @@ using Trains.Model.Entities;
 
 namespace Trains.Services
 {
-	public class CustomTrainParser
+	public class CustomTrainParser : ICustomTrainParser
 	{
 		private const string CLASS_ATTRIBUTE = "class";
 		private const string TIME_FORMAT = "HH:mm";
@@ -21,47 +21,25 @@ namespace Trains.Services
 			_localizationService = localizationService;
 		}
 
-		public IEnumerable<TrainModel> TestMethod(string data)
+		public IEnumerable<TrainModel> LoadDataOnTheDay(string data)
 		{
 			var htmlDoc = new HtmlDocument { OptionFixNestedTags = true };
 
-			// There are various options, set as needed
-
-			// filePath is a path to a file containing the html
 			htmlDoc.LoadHtml(data);
 
-			// ParseErrors is an ArrayList containing any errors from the Load statement
 			if (htmlDoc.ParseErrors != null && htmlDoc.ParseErrors.Any())
 			{
-				// Handle any parse errors as required
-			}
-			else
-			{
-				if (htmlDoc.DocumentNode != null)
-				{
-					return ParseTrainInformation(htmlDoc.DocumentNode);
-				}
+				return Enumerable.Empty<TrainModel>();
 			}
 
-			return Enumerable.Empty<TrainModel>();
-		}
-
-		private IEnumerable<HtmlNode> LoadDescendantsAsContains(HtmlNode node, string attribute, string attributeName)
-		{
-			return
-				node.Descendants().Where(n => n.GetAttributeValue(attribute, string.Empty).Contains(attributeName));
-		}
-
-		private IEnumerable<HtmlNode> LoadDescendantsAsEquals(HtmlNode node, string attribute, string attributeName)
-		{
-			return
-				node.Descendants().Where(n => n.GetAttributeValue(attribute, string.Empty).Equals(attributeName));
+			return htmlDoc.DocumentNode != null ? ParseTrainInformation(htmlDoc.DocumentNode) : Enumerable.Empty<TrainModel>();
 		}
 
 		private IEnumerable<TrainModel> ParseTrainInformation(HtmlNode documentNode)
 		{
 			var trainsInformationNode = LoadDescendantsAsContains(documentNode, CLASS_ATTRIBUTE, "list_items").FirstOrDefault();
 			var placesNode = LoadDescendantsAsContains(documentNode, CLASS_ATTRIBUTE, "b-places").ToList();
+			var hiddenTrainNodes = LoadDescendantsAsContains(documentNode, CLASS_ATTRIBUTE, "hidden train_details").ToList();
 
 			if (trainsInformationNode == null)
 			{
@@ -74,12 +52,52 @@ namespace Trains.Services
 
 			for (var i = 0; i < trainsNodeList.Count; i++)
 			{
-				var train = CreateTrainModel(trainsNodeList[i]);
+				var node = trainsNodeList[i];
+				var train = CreateTrainModel(node);
 				FillPlaceInformation(train, ref placesNode);
+				FillHiddenInformation(hiddenTrainNodes[i], train);
 				result.Add(train);
 			}
 
 			return result;
+		}
+
+		private void FillHiddenInformation(HtmlNode hiddenTrainNode, TrainModel train)
+		{
+			FillAttributes(LoadDescendantsAsEquals(hiddenTrainNode, CLASS_ATTRIBUTE, "legend_abbr"), train);
+			FillTrainNumberInformation(hiddenTrainNode, train);
+		}
+
+		private TrainModel FillAttributes(IEnumerable<HtmlNode> nodes, TrainModel train)
+		{
+			foreach (var htmlAttribute in nodes)
+			{
+				FillHiddenTrainInformationData(train, htmlAttribute.InnerText);
+			}
+
+			return train;
+		}
+
+		private TrainModel FillHiddenTrainInformationData(TrainModel train, string value)
+		{
+			if (value == _localizationService.GetString("ElectronicRegistrasionAbr"))
+			{
+				train.IsElectronicRegistrationAvailable = true;
+			}
+
+			return train;
+		}
+
+		private TrainModel FillTrainNumberInformation(HtmlNode node, TrainModel train)
+		{
+			var trainNumberNode = LoadDescendantsAsEquals(node, CLASS_ATTRIBUTE, "train_id").FirstOrDefault();
+
+			if (trainNumberNode != null)
+			{
+				train.Information.Number = trainNumberNode.InnerText;
+			}
+
+			return train;
 		}
 
 		private TrainModel CreateTrainModel(HtmlNode htmlNode)
@@ -267,6 +285,18 @@ namespace Trains.Services
 					? TrainClass.REGIONALBUSINESS
 					: TrainClass.REGIONALECONOM;
 			return TrainClass.CITY;
+		}
+
+		private IEnumerable<HtmlNode> LoadDescendantsAsContains(HtmlNode node, string attribute, string attributeName)
+		{
+			return
+				node.Descendants().Where(n => n.GetAttributeValue(attribute, string.Empty).Contains(attributeName));
+		}
+
+		private IEnumerable<HtmlNode> LoadDescendantsAsEquals(HtmlNode node, string attribute, string attributeName)
+		{
+			return
+				node.Descendants().Where(n => n.GetAttributeValue(attribute, string.Empty).Equals(attributeName));
 		}
 	}
 }

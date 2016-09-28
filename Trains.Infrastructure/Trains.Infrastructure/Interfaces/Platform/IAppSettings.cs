@@ -13,7 +13,7 @@ namespace Trains.Infrastructure.Interfaces.Platform
 
 		IEnumerable<HelpInformationItem> HelpInformation { get; set; }
 
-		IEnumerable<TrainModel> LastRequestTrain { get; set; }
+		IEnumerable<TrainModel> LastRequestedTrains { get; set; }
 
 		IEnumerable<CarriageModel> CarriageModel { get; set; }
 
